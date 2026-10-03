@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logistics Tracking - Mingyue Shanguan 9710 Customs Digital System</title>
+    <link href="../static/css/design-tokens.css" rel="stylesheet">
+    <link href="../static/css/rtl.css" rel="stylesheet">
+    <link href="../static/css/buyer-workbench.css" rel="stylesheet">
+    <style>
+        .track-page { padding: 24px; max-width: 900px; margin: 0 auto; }
+        .track-title { font-size: 24px; margin-bottom: 24px; }
+        .track-timeline { position: relative; padding-left: 24px; }
+        .track-timeline::before { content: ''; position: absolute; left: 8px; top: 0; bottom: 0; width: 2px; background: #D4AF37; }
+        .track-step { position: relative; padding: 16px 0; padding-left: 24px; }
+        .track-step::before { content: ''; position: absolute; left: -20px; top: 24px; width: 12px; height: 12px; border-radius: 50%; background: #D4AF37; }
+        .track-step.done::before { background: #2e7d32; }
+        .track-step.current::before { box-shadow: 0 0 0 4px rgba(212,175,55,0.3); }
+        .track-step h4 { margin: 0 0 4px 0; font-size: 16px; }
+        .track-step p { margin: 0; font-size: 13px; color: #666; }
+        .track-map { height: 200px; background: linear-gradient(135deg, #e8f5e9, #c8e6c9); border-radius: 12px; margin-top: 24px; display: flex; align-items: center; justify-content: center; color: #2e7d32; font-weight: 600; }
+        .back-link { display: inline-block; margin-bottom: 20px; color: #D4AF37; text-decoration: none; }
+        .back-link:hover { text-decoration: underline; }
+    </style>
+    <script src="../static/js/init.js"></script>
+    <script src="../static/js/auth-storage.js"></script>
+</head>
+<body class="buyer-workbench">
+    <div class="track-page">
+        <a href="buyer_dashboard.html#orders" class="back-link">← Back to Orders</a>
+        <h1 class="track-title">Full Chain Logistics Tracking</h1>
+        <p style="margin-bottom:24px;color:#666;">Order: <strong id="order-id">-</strong></p>
+
+        <div class="track-timeline">
+            <div class="track-step done">
+                <h4>Domestic Dispatch 国内发货</h4>
+                <p>2024-03-15 10:30 · Guangzhou Warehouse</p>
+            </div>
+            <div class="track-step done">
+                <h4>Customs Declaration 报关出口</h4>
+                <p>2024-03-16 08:00 · 9710 Declared</p>
+            </div>
+            <div class="track-step current">
+                <h4>Sea/Air Freight 海运/空运</h4>
+                <p>In transit · ETA Dubai 2024-03-22</p>
+            </div>
+            <div class="track-step">
+                <h4>Overseas Warehouse 海外仓入库</h4>
+                <p>Pending</p>
+            </div>
+            <div class="track-step">
+                <h4>Local Delivery 本地配送</h4>
+                <p>Pending</p>
+            </div>
+        </div>
+
+        <div class="track-map">
+            📍 Real-time Location: Arabian Sea · En route to Dubai
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            var params = new URLSearchParams(location.search);
+            var orderId = params.get('order') || 'ORD-20240315-001';
+            document.getElementById('order-id').textContent = orderId;
+        })();
+    </script>
+</body>
+</html>

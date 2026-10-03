@@ -1,0 +1,99 @@
+.buyer-account-page .ba-content { max-width: 960px; margin: 0 auto; }
+.ba-page-head { margin: 4px 0 20px; }
+.ba-eyebrow { color: #9b7b1c; font-size: 11px; font-weight: 800; letter-spacing: 0.13em; }
+.ba-page-head h1 { margin: 6px 0; color: #153e19; font-size: 28px; }
+.ba-page-head p { margin: 0; color: #6b7280; font-size: 14px; }
+.ba-tabs { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+.ba-tab {
+    border: 1px solid #d9e4d8;
+    background: #fff;
+    color: #4b624c;
+    padding: 10px 18px;
+    border-radius: 999px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+}
+.ba-tab.active { background: #1a5d1a; border-color: #1a5d1a; color: #fff; }
+.ba-panel {
+    display: none;
+    background: #fff;
+    border: 1px solid #e6ebe4;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,.06);
+    padding: 22px 24px 28px;
+}
+.ba-panel.active { display: block; }
+.ba-form-row { margin-bottom: 16px; }
+.ba-form-row label { display: block; margin-bottom: 6px; color: #4b624c; font-size: 13px; font-weight: 600; }
+.ba-form-row input,
+.ba-form-row textarea,
+.ba-form-row select {
+    width: 100%;
+    max-width: 480px;
+    box-sizing: border-box;
+    padding: 10px 12px;
+    border: 1px solid #d9e4d8;
+    border-radius: 8px;
+    font: inherit;
+}
+.ba-form-row input:read-only { background: #f3f7ef; color: #6b7280; }
+.ba-form-row textarea { min-height: 72px; resize: vertical; max-width: 100%; }
+.ba-hint { font-size: 12px; color: #9ca3af; margin-top: 4px; }
+.ba-msg { font-size: 13px; margin-top: 6px; min-height: 18px; }
+.ba-msg.ok { color: #1a5d1a; }
+.ba-msg.err { color: #b91c1c; }
+.ba-actions { margin-top: 20px; }
+.ba-btn-primary {
+    background: #d4af37;
+    color: #1a1a1a;
+    border: none;
+    border-radius: 8px;
+    padding: 11px 22px;
+    font-weight: 700;
+    cursor: pointer;
+}
+.ba-btn-primary:hover { background: #c9a430; }
+.ba-btn-link { margin-left: 12px; color: #1a5d1a; text-decoration: none; font-size: 14px; }
+.ba-address-form { border-bottom: 1px solid #edf0eb; padding-bottom: 20px; margin-bottom: 20px; }
+.ba-address-form .ba-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+.ba-tag-picks { display: inline-flex; gap: 8px; margin-left: 8px; }
+.ba-tag-picks button {
+    border: 1px solid #d9e4d8;
+    background: #f8faf7;
+    border-radius: 6px;
+    padding: 2px 10px;
+    cursor: pointer;
+    font-size: 12px;
+}
+.ba-address-list { overflow-x: auto; }
+.ba-address-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.ba-address-table th {
+    text-align: left;
+    padding: 10px 8px;
+    background: #f3f7ef;
+    color: #4b624c;
+    font-weight: 700;
+}
+.ba-address-table td { padding: 12px 8px; border-bottom: 1px solid #edf0eb; vertical-align: top; }
+.ba-address-table tr.is-default { background: #fbfcf8; }
+.ba-badge-default {
+    display: inline-block;
+    background: #1a5d1a;
+    color: #fff;
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 999px;
+    margin-right: 6px;
+}
+.ba-link-btn {
+    background: none;
+    border: none;
+    color: #1a5d1a;
+    cursor: pointer;
+    padding: 0 6px 0 0;
+    font: inherit;
+}
+.ba-link-btn.danger { color: #b91c1c; }
+.ba-footer { margin: 28px 0 16px; padding-top: 16px; border-top: 1px solid #e6ebe4; color: #7a8278; font-size: 12px; text-align: center; }
+.ba-password-page .ba-form-row input { max-width: 360px; }

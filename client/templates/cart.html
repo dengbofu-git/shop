@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>采购车 · 茗越山关跨境电商 9710 报关数字系统</title>
+    <link rel="icon" href="/static/images/index/py.ico">
+    <link rel="stylesheet" href="/static/css/design-tokens.css">
+    <link rel="stylesheet" href="/static/css/rtl.css">
+    <link rel="stylesheet" href="/static/css/buyer-workbench.css?v=20261003-shared-shell">
+    <link rel="stylesheet" href="/static/css/cart.css?v=20261003-buyer-style">
+    <script src="/static/js/init.js"></script>
+    <script src="/static/js/auth-storage.js"></script>
+</head>
+<body class="buyer-workbench cart-page" id="buyer-body">
+    <div class="buyer-layout">
+        {% include 'buyer_sidebar.html' with active='cart' fixed_currency=True %}
+
+        <main class="buyer-main">
+            {% include 'buyer_header.html' %}
+
+            <div class="buyer-content cart-content">
+                <div class="cart-page-title" id="title">
+                    <div>
+                        <span class="cart-eyebrow">BUYER WORKBENCH</span>
+                        <h1>采购车</h1>
+                        <p>核对商品和数量后，统一提交采购订单。</p>
+                    </div>
+                    <div class="cart-title-summary">已选 <strong class="total color">0</strong> 件商品 <span class="summary-divider"></span>合计 <strong class="totalPrices color susum">$0.00</strong></div>
+                </div>
+
+                <section id="section" class="cart-card" aria-label="采购车商品">
+                    <div id="box">
+                        <div id="content_box">
+                            <div class="imfor_top">
+                                <div class="check_top"><label class="all"><input type="checkbox" name="allcheck" id="allcheck"> <span>全选</span></label></div>
+                                <div class="pudc_top">商品</div>
+                                <div class="pices_top">单价 (USD)</div>
+                                <div class="num_top">数量</div>
+                                <div class="totle_top">金额 (USD)</div>
+                                <div class="del_top">操作</div>
+                            </div>
+                            <div id="cart_imfor" aria-live="polite"></div>
+                        </div>
+                        <div class="foot">
+                            <div class="foot_selected">已选 <strong class="totalOne color">0</strong> 件商品</div>
+                            <div class="foot_tol">合计（不含运费）<strong class="foot_pices susumOne">$0.00</strong></div>
+                            <button type="button" class="foot_cash" id="go-buy">去结算</button>
+                        </div>
+                    </div>
+                </section>
+                <p class="cart-note">实际运费和最终金额以订单结算页为准。</p>
+            </div>
+
+            <footer class="cart-footer">© 2026 茗越山关跨境电商 9710 报关数字系统 · 中国地标茶出海中东</footer>
+        </main>
+    </div>
+
+    <div class="modal" style="display:none" role="dialog" aria-modal="true" aria-labelledby="delete-title">
+        <div class="modal_dialog">
+            <div class="modal_header" id="delete-title">删除商品</div>
+            <div class="modal_information">确定从采购车移除此商品吗？</div>
+            <div class="modal_actions">
+                <button type="button" class="no">取消</button>
+                <button type="button" class="yes">删除</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/js/jquery-3.1.1.min.js"></script>
+    <script src="/static/js/buyer-workbench.js?v=20261003-shared-shell"></script>
+    <script src="/static/js/cart.js?v=20261003-buyer-style"></script>
+</body>
+</html>

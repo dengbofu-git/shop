@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>订单管理 - 茗越山关跨境电商 9710 报关数字系统</title>
+    <link href="../static/css/index.css" rel="stylesheet" />
+    <link href="../static/css/theme.css" rel="stylesheet" />
+    <link href="../static/css/merchant_workbench.css" rel="stylesheet" />
+    <style>
+        /* 确保品牌标题样式生效 */
+        .merchant-header-brand {
+            max-width: 1200px !important;
+            margin: 20px auto !important;
+            padding: 20px !important;
+            text-align: center !important;
+        }
+        .brand-container {
+            display: inline-flex !important;
+            align-items: center !important;
+            gap: 12px !important;
+            padding: 16px 32px !important;
+            background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(241,248,233,0.95)) !important;
+            border-radius: 12px !important;
+            box-shadow: 0 4px 20px rgba(27,94,32,0.15), 0 0 0 1px rgba(46,125,50,0.1), inset 0 1px 0 rgba(255,255,255,0.8) !important;
+            backdrop-filter: blur(10px) !important;
+            -webkit-backdrop-filter: blur(10px) !important;
+            transition: all 0.3s ease !important;
+            animation: brandEntrance 0.6s ease-out !important;
+        }
+        .brand-title {
+            font-size: 28px !important;
+            font-weight: 700 !important;
+            color: #2e7d32 !important;
+            letter-spacing: 2px !important;
+        }
+        .brand-separator {
+            font-size: 24px !important;
+            color: #81c784 !important;
+            opacity: 0.6 !important;
+        }
+        .brand-subtitle {
+            font-size: 22px !important;
+            font-weight: 600 !important;
+            color: #558b2f !important;
+            letter-spacing: 1px !important;
+        }
+        @keyframes brandEntrance {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+    <script src="../static/js/init.js"></script>
+    <script src="../static/js/auth-storage.js"></script>
+    <script src="../static/js/jquery-3.1.1.min.js"></script>
+    <script>
+        if (window.location.search.indexOf('embed=1') >= 0 || window.self !== window.top) {
+            document.documentElement.classList.add('embed-mode');
+        }
+    </script>
+    <style>
+        html.embed-mode .merchant-header-brand,
+        html.embed-mode .merchant-nav,
+        html.embed-mode .merchant-footer { display: none !important; }
+        html.embed-mode .merchant-wrap { margin-top: 0; }
+        html.embed-mode body.merchant-body { background: #f1f8e9 !important; }
+    </style>
+</head>
+<body class="merchant-body">
+    <header class="merchant-header-brand">
+        <div class="brand-container">
+            <img src="../static/images/logo/1.jpg" alt="茗越山关跨境电商 9710 报关数字系统" class="brand-logo-img" />
+            <span class="brand-separator">·</span>
+            <span class="brand-subtitle">供应商工作台</span>
+        </div>
+    </header>
+
+    <div class="merchant-wrap">
+        <nav class="merchant-nav">
+            <ul>
+                <li><a href="merchant_dashboard.html">工作台首页</a></li>
+                <li><a href="merchant_products.html">添加商品</a></li>
+                <li><a href="merchant_orders.html" class="active">订单管理</a></li>
+                <li><a href="merchant_inventory.html">库存查看</a></li>
+                <li><a href="#" id="btn-logout">退出登录</a></li>
+            </ul>
+        </nav>
+        <div class="merchant-content">
+            <h3>我的订单</h3>
+            <div id="order-list"><div class="empty-tip">加载中...</div></div>
+        </div>
+    </div>
+
+    <footer class="merchant-footer">茗越山关跨境电商 9710 报关数字系统 · 中国地标茶出海中东 © 2026</footer>
+
+    <script>
+        var token = AuthStorage.getToken();
+        if (!token) {
+            alert('请先登录');
+            location.href = 'login.html';
+        } else {
+        $('#btn-logout').click(function(e) {
+            e.preventDefault();
+            AuthStorage.clear();
+            location.href = 'login.html';
+        });
+
+        $.ajax({
+            url: baseUrl + '/v1/supplier/orders',
+            headers: { 'Authorization': token },
+            success: function(r) {
+                if (r.code === 200) {
+                    var list = r.data || [];
+                    if (list.length === 0) $('#order-list').html('<div class="empty-tip">暂无订单</div>');
+                    else {
+                        var html = '<table><tr><th>订单号</th><th>状态</th><th>金额</th><th>数量</th><th>收货人</th><th>电话</th><th>地址</th><th>下单时间</th><th>操作</th></tr>';
+                        list.forEach(function(o) {
+                            var orderId = (o.order_id || '-');
+                            var statusText = (o.status_text || o.status);
+                            var statusVal = o.status;
+                            var opCell = '';
+                            if (statusVal === 2 || statusText === '待发货') {
+                                opCell = '<button type="button" class="btn-ship" data-order-id="' + orderId + '">发货</button>';
+                            }
+                            // 添加删除按钮（仅待付款或已完成订单可删除）
+                            if (statusVal === 1 || statusVal === 4) {
+                                if (opCell) opCell += ' ';
+                                opCell += '<button type="button" class="btn-delete-order" data-order-id="' + orderId + '" style="background:#f44336;color:#fff;border:none;padding:4px 10px;border-radius:4px;cursor:pointer;margin-left:5px;">删除</button>';
+                            }
+                            if (!opCell) opCell = '-';
+                            html += '<tr><td>' + orderId + '</td><td>' + statusText + '</td><td>￥' + (o.total_amount || 0) + '</td><td>' + (o.total_count || 0) + '</td><td>' + (o.receiver || '-') + '</td><td>' + (o.receiver_mobile || '-') + '</td><td>' + (o.address || '-') + '</td><td>' + (o.created_time || '-') + '</td><td>' + opCell + '</td></tr>';
+                        });
+                        html += '</table>';
+                        $('#order-list').html(html);
+                        $(document).off('click', '.btn-ship').on('click', '.btn-ship', function() {
+                            var oid = $(this).data('order-id');
+                            if (!oid) return;
+                            var $btn = $(this);
+                            $btn.prop('disabled', true).text('处理中...');
+                            $.ajax({
+                                url: baseUrl + '/v1/supplier/orders/' + oid + '/ship',
+                                type: 'POST',
+                                headers: { 'Authorization': token },
+                                success: function(r) {
+                                    if (r.code === 200) {
+                                        alert('发货成功');
+                                        $btn.closest('tr').find('td:eq(1)').text('待收货');
+                                        $btn.replaceWith('-');
+                                    } else {
+                                        alert(r.error || '发货失败');
+                                        $btn.prop('disabled', false).text('发货');
+                                    }
+                                },
+                                error: function(xhr) {
+                                    var msg = (xhr.responseJSON && xhr.responseJSON.error) || '发货失败';
+                                    alert(msg);
+                                    $btn.prop('disabled', false).text('发货');
+                                }
+                            });
+                        });
+                        
+                        // 删除订单（使用供应商专用API）
+                        $(document).off('click', '.btn-delete-order').on('click', '.btn-delete-order', function() {
+                            var orderId = $(this).data('order-id');
+                            if (!orderId) return;
+                            if (!confirm('确定要删除订单 ' + orderId + ' 吗？')) return;
+                            
+                            var $btn = $(this);
+                            var $row = $btn.closest('tr');
+                            $btn.prop('disabled', true).text('删除中...');
+                            
+                            $.ajax({
+                                url: baseUrl + '/v1/supplier/orders/delete',
+                                type: 'POST',
+                                headers: { 'Authorization': token, 'Content-Type': 'application/json' },
+                                data: JSON.stringify({ order_id: orderId }),
+                                success: function(r) {
+                                    if (r.code === 200) {
+                                        alert('删除成功');
+                                        $row.fadeOut(300, function() { $(this).remove(); });
+                                    } else {
+                                        alert(r.error || '删除失败');
+                                        $btn.prop('disabled', false).text('删除');
+                                    }
+                                },
+                                error: function(xhr) {
+                                    var msg = '删除失败';
+                                    if (xhr.status === 404) {
+                                        msg = '删除接口不存在，请检查服务器配置（404错误）';
+                                    } else if (xhr.status === 403) {
+                                        msg = '无权限删除此订单';
+                                    } else if (xhr.status === 401) {
+                                        msg = '登录已过期，请重新登录';
+                                    } else if (xhr.responseJSON && xhr.responseJSON.error) {
+                                        msg = xhr.responseJSON.error;
+                                    } else {
+                                        msg = '删除失败，状态码：' + xhr.status;
+                                    }
+                                    console.error('删除订单失败:', xhr.status, xhr.responseText);
+                                    alert(msg);
+                                    $btn.prop('disabled', false).text('删除');
+                                }
+                            });
+                        });
+                    }
+                } else $('#order-list').html('<div class="empty-tip">' + (r.error || '加载失败') + '</div>');
+            },
+            error: function() { $('#order-list').html('<div class="empty-tip">加载失败，请重新登录</div>'); }
+        });
+        }
+    </script>
+</body>
+</html>

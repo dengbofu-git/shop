@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>结算跟踪 - 茗越山关跨境电商 9710 报关数字系统</title>
+    <link href="../static/css/index.css" rel="stylesheet" />
+    <link href="../static/css/theme.css" rel="stylesheet" />
+    <link href="../static/css/merchant_workbench.css" rel="stylesheet" />
+    <script src="../static/js/init.js"></script>
+    <script src="../static/js/auth-storage.js"></script>
+    <script src="../static/js/jquery-3.1.1.min.js"></script>
+    <script>
+        if (window.location.search.indexOf('embed=1') >= 0 || window.self !== window.top) {
+            document.documentElement.classList.add('embed-mode');
+        }
+    </script>
+    <style>
+        html.embed-mode .merchant-header-brand,
+        html.embed-mode .merchant-nav,
+        html.embed-mode .merchant-footer { display: none !important; }
+        html.embed-mode .merchant-wrap { margin-top: 0; }
+        html.embed-mode body.merchant-body { background: #f1f8e9 !important; }
+    </style>
+</head>
+<body class="merchant-body">
+    <header class="merchant-header-brand">
+        <div class="brand-container">
+            <img src="../static/images/logo/1.jpg" alt="茗越山关跨境电商 9710 报关数字系统" class="brand-logo-img" />
+            <span class="brand-separator">·</span>
+            <span class="brand-subtitle">供应商工作台</span>
+        </div>
+    </header>
+
+    <div class="merchant-wrap">
+        <nav class="merchant-nav">
+            <ul>
+                <li><a href="merchant_dashboard.html">工作台首页</a></li>
+                <li><a href="merchant_products.html">添加商品</a></li>
+                <li><a href="merchant_orders.html">订单管理</a></li>
+                <li><a href="merchant_inventory.html">库存查看</a></li>
+                <li><a href="merchant_settlement.html" class="active">结算跟踪</a></li>
+                <li><a href="#" id="btn-logout">退出登录</a></li>
+            </ul>
+        </nav>
+        <div class="merchant-content">
+            <h3>结算记录</h3>
+            <div id="settlement-list"><div class="empty-tip">加载中...</div></div>
+        </div>
+    </div>
+
+    <footer class="merchant-footer">茗越山关跨境电商 9710 报关数字系统 · 中国地标茶出海中东 © 2026</footer>
+
+    <script>
+        var token = AuthStorage.getToken();
+        if (!token) {
+            alert('请先登录');
+            location.href = 'login.html';
+        } else {
+        $('#btn-logout').click(function(e) {
+            e.preventDefault();
+            AuthStorage.clear();
+            location.href = 'login.html';
+        });
+
+        $.ajax({
+            url: baseUrl + '/v1/supplier/settlement',
+            dataType: 'json',
+            headers: { 'Authorization': token },
+            success: function(r) {
+                if (r.code === 200) {
+                    var list = r.data || [];
+                    if (list.length === 0) $('#settlement-list').html('<div class="empty-tip">暂无结算记录</div>');
+                    else {
+                        var html = '<table><tr><th>订单号</th><th>金额</th><th>状态</th><th>结算时间</th><th>创建时间</th></tr>';
+                        list.forEach(function(s) {
+                            html += '<tr><td>' + (s.order_id || '-') + '</td><td>￥' + (s.amount || 0) + '</td><td>' + (s.status_text || s.status) + '</td><td>' + (s.settlement_time || '-') + '</td><td>' + (s.created_time || '-') + '</td></tr>';
+                        });
+                        html += '</table>';
+                        $('#settlement-list').html(html);
+                    }
+                } else $('#settlement-list').html('<div class="empty-tip">' + (r.error || '加载失败') + '</div>');
+            },
+            error: function(xhr) {
+                var msg = '加载失败，请检查网络或重新登录';
+                if (xhr.status === 401) {
+                    msg = (xhr.responseJSON && xhr.responseJSON.error) || '登录已过期，请重新登录';
+                } else if (xhr.status === 403) {
+                    msg = (xhr.responseJSON && xhr.responseJSON.error) || '需要商家账号登录';
+                } else if (xhr.responseJSON && xhr.responseJSON.error) {
+                    msg = xhr.responseJSON.error;
+                } else if (xhr.status === 0) {
+                    msg = '无法连接服务器，请确认服务已启动';
+                }
+                $('#settlement-list').html('<div class="empty-tip">' + msg + '</div>');
+            }
+        });
+        }
+    </script>
+</body>
+</html>

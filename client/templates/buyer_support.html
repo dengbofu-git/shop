@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智能客服 · 买家工作台</title>
+    <link rel="icon" href="/static/images/index/py.ico">
+    <link rel="stylesheet" href="/static/css/design-tokens.css">
+    <link rel="stylesheet" href="/static/css/rtl.css">
+    <link rel="stylesheet" href="/static/css/buyer-workbench.css?v=20261003-shared-shell">
+    <link rel="stylesheet" href="/static/css/buyer-support.css?v=20261003-support">
+    <script src="/static/js/init.js"></script>
+    <script src="/static/js/auth-storage.js"></script>
+    <script src="/static/js/jquery-3.1.1.min.js"></script>
+</head>
+<body class="buyer-workbench buyer-support-page" id="buyer-body">
+    <div class="buyer-layout">
+        {% include 'buyer_sidebar.html' with active='support' fixed_currency=True %}
+        <main class="buyer-main">
+            {% include 'buyer_header.html' %}
+            <div class="buyer-content bs-content">
+                <div class="bs-page-head">
+                    <span class="bs-eyebrow">BUYER WORKBENCH</span>
+                    <h1>智能客服</h1>
+                    <p>茶品推荐、购物咨询和订单售后，都可以从这里开始。</p>
+                </div>
+                <section class="bs-panel" aria-label="智能客服对话">
+                    <div class="bs-panel-head">
+                        <div class="bs-agent-avatar" aria-hidden="true">💬</div>
+                        <div><strong>茶品智能助手</strong><span>推荐商品 · 咨询问答 · 售后服务</span></div>
+                        <span class="bs-status">在线</span>
+                    </div>
+                    <div class="bs-messages" id="bs-messages" role="log" aria-live="polite" aria-relevant="additions text">
+                        <div class="bs-message bs-assistant"><div class="bs-bubble">您好！想挑选茶品、了解平台，或查询自己的订单？请告诉我您的问题。请勿发送姓名、电话、详细地址等个人信息。</div></div>
+                    </div>
+                    <div class="bs-suggestions" aria-label="快捷提问">
+                        <button type="button" data-question="推荐一款适合日常饮用的红茶">推荐红茶</button>
+                        <button type="button" data-question="如何查看我购买的订单？">如何查看订单</button>
+                        <button type="button" data-question="我的订单现在是什么状态？">查询订单状态</button>
+                    </div>
+                    <form id="bs-form" class="bs-compose">
+                        <label for="bs-input" class="bs-visually-hidden">输入问题</label>
+                        <textarea id="bs-input" rows="2" maxlength="1000" placeholder="请输入您的问题（最多 1000 字）" required></textarea>
+                        <button id="bs-send" type="submit">发送</button>
+                    </form>
+                    <p class="bs-notice">提交的问题会先进行个人信息脱敏，再交由配置的模型服务处理。智能回复仅供参考；退款、发货等事项请以订单和人工客服确认为准。</p>
+                </section>
+            </div>
+            <footer class="bs-footer">© 2026 茗越山关跨境电商 9710 报关数字系统 · 中国地标茶出海中东</footer>
+        </main>
+    </div>
+    <script src="/static/js/buyer-workbench.js?v=20261003-shared-shell"></script>
+    <script src="/static/js/buyer-support.js?v=20261003-support"></script>
+</body>
+</html>

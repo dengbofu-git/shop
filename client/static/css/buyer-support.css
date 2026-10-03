@@ -1,0 +1,32 @@
+.buyer-support-page { color: #1f2937; }
+.bs-content { box-sizing: border-box; width: 100%; max-width: 1120px; margin: 0 auto; }
+.bs-page-head { margin: 4px 0 20px; }
+.bs-eyebrow { color: #9b7b1c; font-size: 11px; font-weight: 800; letter-spacing: .13em; }
+.bs-page-head h1 { margin: 6px 0; color: #153e19; font-size: 28px; }
+.bs-page-head p { margin: 0; color: #6b7280; font-size: 14px; }
+.bs-panel { display: flex; flex-direction: column; min-height: 620px; background: #fff; border: 1px solid #e6ebe4; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,.06); overflow: hidden; }
+.bs-panel-head { display: flex; align-items: center; gap: 12px; padding: 16px 20px; border-bottom: 1px solid #e6ebe4; }
+.bs-agent-avatar { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 12px; background: #e9f2e7; font-size: 21px; }
+.bs-panel-head strong { display: block; color: #153e19; font-size: 14px; }
+.bs-panel-head span:not(.bs-status) { display: block; margin-top: 3px; color: #758078; font-size: 12px; }
+.bs-status { margin-left: auto; color: #1a5d1a; font-size: 12px; font-weight: 700; }
+.bs-status:before { content: ''; display: inline-block; width: 7px; height: 7px; margin-right: 5px; border-radius: 50%; background: #39a357; }
+.bs-messages { box-sizing: border-box; display: flex; flex: 1; flex-direction: column; gap: 14px; min-height: 360px; max-height: 58vh; overflow-y: auto; padding: 22px; background: #fcfdfb; }
+.bs-message { display: flex; max-width: 80%; }
+.bs-message.bs-user { align-self: flex-end; }
+.bs-message.bs-assistant { align-self: flex-start; }
+.bs-bubble { padding: 12px 15px; border-radius: 12px; background: #eef5eb; color: #224329; font-size: 14px; line-height: 1.65; white-space: pre-wrap; overflow-wrap: anywhere; }
+.bs-user .bs-bubble { background: #1a5d1a; color: #fff; }
+.bs-message small { display: block; margin: 5px 2px 0; color: #7c897d; font-size: 11px; }
+.bs-suggestions { display: flex; flex-wrap: wrap; gap: 8px; padding: 12px 20px 4px; }
+.bs-suggestions button { border: 1px solid #dce5d9; border-radius: 999px; padding: 7px 12px; background: #fff; color: #1a5d1a; font-size: 12px; cursor: pointer; }
+.bs-suggestions button:hover { background: #f1f8ef; }
+.bs-compose { display: flex; align-items: end; gap: 12px; padding: 14px 20px 8px; }
+.bs-compose textarea { box-sizing: border-box; flex: 1; min-height: 58px; max-height: 140px; resize: vertical; padding: 11px 13px; border: 1px solid #dce5d9; border-radius: 9px; font: inherit; font-size: 14px; outline: none; }
+.bs-compose textarea:focus { border-color: #d4af37; box-shadow: 0 0 0 2px rgba(212,175,55,.16); }
+.bs-compose button { min-width: 88px; min-height: 44px; border: 0; border-radius: 8px; background: #d4af37; color: #173218; font-weight: 800; cursor: pointer; }
+.bs-compose button:disabled { opacity: .6; cursor: wait; }
+.bs-notice { margin: 0; padding: 0 20px 17px; color: #7b857c; font-size: 12px; }
+.bs-footer { padding: 22px 24px; color: #7b857c; font-size: 12px; text-align: center; }
+.bs-visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; }
+@media (max-width: 760px) { .bs-panel { min-height: 520px; } .bs-messages { max-height: 54vh; padding: 14px; } .bs-message { max-width: 94%; } .bs-compose { padding: 12px; } .bs-notice { padding: 0 12px 14px; } }

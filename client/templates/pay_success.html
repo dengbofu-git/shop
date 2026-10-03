@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>支付结果 · 茗越山关跨境电商 9710 报关数字系统</title>
+    <link rel="icon" href="/static/images/index/py.ico">
+    <link rel="stylesheet" href="/static/css/design-tokens.css">
+    <link rel="stylesheet" href="/static/css/rtl.css">
+    <link rel="stylesheet" href="/static/css/buyer-workbench.css?v=20261003-storefront">
+    <link rel="stylesheet" href="/static/css/payment.css">
+    <link rel="stylesheet" href="/static/css/buyer-storefront.css?v=20261003-storefront">
+    <script src="/static/js/init.js"></script>
+    <script src="/static/js/auth-storage.js"></script>
+</head>
+
+<body class="buyer-workbench checkout-page storefront-page" id="buyer-body">
+    <div class="buyer-layout">
+        {% include 'buyer_sidebar.html' with active='orders' fixed_currency=True %}
+
+        <main class="buyer-main">
+            {% include 'buyer_header.html' %}
+
+            <div class="buyer-content storefront-content">
+                <div class="storefront-page-head">
+                    <span class="cart-eyebrow">BUYER WORKBENCH</span>
+                    <h1 class="storefront-page-title">支付结果</h1>
+                </div>
+                <div class="checkout-card">
+                    <div id="navlist">
+                        <ul>
+                            <li class="navlist_gray_left"></li>
+                            <li class="navlist_gray">确认订单信息</li>
+                            <li class="navlist_gray_arro"><canvas id="canvas_gray" width="20" height="38"></canvas></li>
+                            <li class="navlist_gray">支付订单<b></b></li>
+                            <li class="navlist_gray_arro"><canvas id="canvas_gray2" width="20" height="38"></canvas></li>
+                            <li id="pay_res" class="navlist_blue">支付完成<b></b></li>
+                            <li class="navlist_gray_right"></li>
+                        </ul>
+                    </div>
+                    <div id="container">
+                        <div>
+                            <h1 id="payment_result">
+                                <i>支付结果</i>
+                                <span class="rt"><b id='orderID'></b>&nbsp;<b id='money'></b></span>
+                            </h1>
+                        </div>
+                        <div class="rightsidebar_box rt">
+                            <div class="pay_result">
+                                <img src="/static/images/pay/pay_succ.png" alt="" />
+                                <p>支付成功</p>
+                                <span><a href="buyer_orders.html" id="linkMyOrder">查看订单&gt;&gt;</a></span>
+                                <br />
+                                茗越山关跨境电商 9710 报关数字系统不会以系统异常、订单升级为由，要求你点击任何链接进行退款操作！
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="storefront-footer">© 2026 茗越山关跨境电商 9710 报关数字系统 · 中国地标茶出海中东</footer>
+        </main>
+    </div>
+
+    <script src="/static/js/jquery-3.1.1.min.js"></script>
+    <script src="/static/js/buyer-workbench.js?v=20261003-storefront"></script>
+    <script>
+        function drawStepArrow(canvasId, colorTop, colorBottom) {
+            var canvas = document.getElementById(canvasId);
+            if (!canvas) return;
+            var cxt = canvas.getContext('2d');
+            var g = cxt.createLinearGradient(10, 0, 10, 38);
+            g.addColorStop(0, colorTop);
+            g.addColorStop(1, colorBottom);
+            cxt.beginPath();
+            cxt.fillStyle = g;
+            cxt.moveTo(20, 19);
+            cxt.lineTo(0, 38);
+            cxt.lineTo(0, 0);
+            cxt.fill();
+            cxt.closePath();
+        }
+        drawStepArrow('canvas_gray', '#f5f4f5', '#e6e6e5');
+        drawStepArrow('canvas_gray2', '#f5f4f5', '#e6e6e5');
+
+        function orders() {
+            var token = AuthStorage.getToken();
+            $.ajax({
+                type: 'get',
+                beforeSend: function (request) {
+                    request.setRequestHeader('authorization', token);
+                },
+                url: baseUrl + '/v1/orders/result/' + location.search,
+                datatype: 'json',
+                async: false,
+                success: function (response) {
+                    var results = response;
+                    var data = results.data;
+                    if (results.code == 403) {
+                        alert('用户认证已过期，请重新登录');
+                        AuthStorage.clear();
+                        location.href = 'login.html';
+                    }
+                    var orderLink = 'buyer_orders.html';
+                    if (results.code == '200') {
+                        $('#orderID').html('订单编号:' + data.order_id);
+                        $('#money').html('支付金额:' + data.total_amount + '元');
+                        $('.pay_result').html(
+                            "<img src='/static/images/pay/pay_succ.png' alt='' /><p>支付成功</p>" +
+                            "<span><a href='" + orderLink + "'>查看订单&gt;&gt;</a></span><br />" +
+                            '茗越山关跨境电商 9710 报关数字系统不会以系统异常、订单升级为由，要求你点击任何链接进行退款操作！'
+                        );
+                    } else if (results.code == '50105') {
+                        $('.pay_result').html(
+                            "<img src='/static/images/pay/payfail.png' alt='' /><p>支付失败</p>" +
+                            "<span><a href='" + orderLink + "'>查看订单&gt;&gt;</a></span><br />" +
+                            '茗越山关跨境电商 9710 报关数字系统不会以系统异常、订单升级为由，要求你点击任何链接进行退款操作！'
+                        );
+                    }
+                }
+            });
+        }
+
+        $(function () {
+            $('#linkMyOrder').attr('href', 'buyer_orders.html');
+        });
+        window.onload = function () {
+            orders();
+        };
+    </script>
+</body>
+</html>

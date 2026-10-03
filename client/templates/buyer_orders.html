@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的订单 · 茗越山关跨境电商 9710 报关数字系统</title>
+    <link rel="icon" href="/static/images/index/py.ico">
+    <link rel="stylesheet" href="/static/css/design-tokens.css">
+    <link rel="stylesheet" href="/static/css/rtl.css">
+    <link rel="stylesheet" href="/static/css/buyer-workbench.css?v=20261003-shared-shell">
+    <link rel="stylesheet" href="/static/css/buyer-orders.css?v=20261003-orders">
+    <script src="/static/js/init.js"></script>
+    <script src="/static/js/auth-storage.js"></script>
+    <script src="/static/js/jquery-3.1.1.min.js"></script>
+</head>
+<body class="buyer-workbench buyer-orders-page" id="buyer-body">
+    <div class="buyer-layout">
+        {% include 'buyer_sidebar.html' with active='orders' fixed_currency=True %}
+        <main class="buyer-main">
+            {% include 'buyer_header.html' %}
+            <div class="buyer-content bo-content">
+                <div class="bo-page-head">
+                    <div>
+                        <span class="bo-eyebrow">BUYER WORKBENCH</span>
+                        <h1>我的订单</h1>
+                        <p>查看采购进度、订单商品和收货信息。</p>
+                    </div>
+                    <a class="bo-primary-link" href="buyer_products.html">继续采购</a>
+                </div>
+                <section class="bo-panel" aria-label="订单管理">
+                    <div class="bo-toolbar">
+                        <div class="bo-tabs" role="group" aria-label="订单状态筛选">
+                            <button type="button" class="bo-tab active" data-status="all">全部订单</button>
+                            <button type="button" class="bo-tab" data-status="1">待付款</button>
+                            <button type="button" class="bo-tab" data-status="2">待发货</button>
+                            <button type="button" class="bo-tab" data-status="3">待收货</button>
+                            <button type="button" class="bo-tab" data-status="4">已完成</button>
+                        </div>
+                        <input id="bo-search" type="search" placeholder="搜索订单号或商品名称" aria-label="搜索订单">
+                    </div>
+                    <div class="bo-results-head"><span id="bo-count">正在加载订单…</span><button type="button" id="bo-refresh">刷新</button></div>
+                    <div id="bo-list" class="bo-list" aria-live="polite"></div>
+                </section>
+            </div>
+            <footer class="bo-footer">© 2026 茗越山关跨境电商 9710 报关数字系统 · 中国地标茶出海中东</footer>
+        </main>
+    </div>
+    <script src="/static/js/buyer-workbench.js?v=20261003-shared-shell"></script>
+    <script src="/static/js/buyer-orders.js?v=20261003-orders"></script>
+</body>
+</html>

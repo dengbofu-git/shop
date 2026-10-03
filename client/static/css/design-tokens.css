@@ -1,0 +1,102 @@
+/**
+ * 茗越山关跨境电商 9710 报关数字系统 设计令牌 Design Tokens
+ * 大湾区 × 茶产业 × 中东市场 视觉规范
+ * 适配：B端中台、赛事演示、多语言（含阿拉伯语RTL）
+ */
+
+:root {
+    /* ========== 核心配色 ========== */
+    /* 主色1：大湾区科技蓝 - 核心功能、标题、按钮 */
+    --color-primary: #165DFF;
+    --color-primary-hover: #4080FF;
+    --color-primary-light: rgba(22, 93, 255, 0.1);
+
+    /* 主色2：茶田绿 - 品控、溯源、茶园模块 */
+    --color-tea: #2E7D32;
+    --color-tea-hover: #1B5E20;
+    --color-tea-light: #E8F5E9;
+    --color-tea-muted: #81C784;
+
+    /* 主色3：中东金 - 品牌强调、高端产品、本土元素 */
+    --color-gold: #D4AF37;
+    --color-gold-hover: #B8962E;
+    --color-gold-light: rgba(212, 175, 55, 0.15);
+
+    /* 辅助色 */
+    --color-bg: #F5F7FA;
+    --color-text: #1D2129;
+    --color-text-secondary: #4E5969;
+    --color-text-muted: #86909C;
+    --color-white: #FFFFFF;
+    --color-border: rgba(0, 0, 0, 0.06);
+    --color-border-strong: rgba(0, 0, 0, 0.12);
+
+    /* ========== 字体 ========== */
+    /* 中文：思源黑体 */
+    --font-zh: "Source Han Sans SC", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+    /* 英文/阿拉伯语：Noto Sans */
+    --font-en: "Noto Sans", "Noto Sans Arabic", "Roboto", Arial, sans-serif;
+    /* 复合字体栈 */
+    --font-family: var(--font-zh), var(--font-en);
+
+    /* 字重 */
+    --font-weight-light: 300;
+    --font-weight-regular: 400;
+    --font-weight-medium: 500;
+    --font-weight-bold: 700;
+
+    /* 字号 */
+    --font-size-caption: 12px;
+    --font-size-body: 14px;
+    --font-size-subtitle: 16px;
+    --font-size-title: 18px;
+    --font-size-h3: 20px;
+    --font-size-h2: 24px;
+    --font-size-h1: 28px;
+
+    /* 行高 */
+    --line-height-tight: 1.25;
+    --line-height-normal: 1.5;
+    --line-height-relaxed: 1.75;
+
+    /* ========== 布局 ========== */
+    --grid-columns: 12;
+    --container-max: 1920px;
+    --content-width: 1200px;
+    --sidebar-width: 240px;
+    --header-height: 56px;
+
+    /* 间距 */
+    --spacing-xs: 4px;
+    --spacing-sm: 8px;
+    --spacing-md: 16px;
+    --spacing-lg: 24px;
+    --spacing-xl: 32px;
+    --spacing-xxl: 48px;
+
+    /* 圆角 */
+    --radius-sm: 2px;
+    --radius-md: 4px;
+    --radius-lg: 8px;
+    --radius-xl: 12px;
+
+    /* 阴影 */
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+    /* ========== 图标 ========== */
+    --icon-stroke: 2px;
+    --icon-radius: 2px;
+
+    /* ========== 兼容旧变量（渐进迁移） ========== */
+    --theme-green-light: var(--color-tea-light);
+    --theme-green: var(--color-tea-muted);
+    --theme-green-dark: var(--color-tea);
+    --theme-green-forest: var(--color-tea-hover);
+    --theme-gold: var(--color-gold);
+    --theme-gold-dark: var(--color-gold-hover);
+    --theme-white: var(--color-white);
+    --theme-text: var(--color-text);
+    --theme-text-muted: var(--color-text-muted);
+}

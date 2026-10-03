@@ -1,0 +1,165 @@
+/**
+ * 茗越山关跨境电商 9710 报关数字系统 主题样式
+ * 中国地标茶出海中东的一站式供应链开拓者
+ * 设计规范：大湾区科技蓝 + 茶田绿 + 中东金
+ */
+@import url("design-tokens.css");
+@import url("rtl.css");
+
+/* 统一背景：浅灰辅助色，低饱和茶绿点缀 */
+body {
+    background: var(--color-bg) !important;
+    background-image: linear-gradient(180deg, var(--color-tea-light) 0%, var(--color-bg) 50%, var(--color-bg) 100%) !important;
+    background-attachment: fixed !important;
+    color: var(--color-text) !important;
+    font-family: var(--font-family) !important;
+    font-weight: var(--font-weight-regular);
+}
+
+#top, .merchant-nav, .merchant-content {
+    background: rgba(255,255,255,0.95) !important;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--color-border);
+}
+
+#nav {
+    background: var(--color-tea) !important;
+    border-radius: var(--radius-md);
+    border-top: 2px solid rgba(212,175,55,0.3);
+}
+
+#nav a, #nav ul li a {
+    color: var(--theme-white) !important;
+}
+
+#nav a:hover, #nav a.active {
+    color: var(--color-gold) !important;
+}
+
+#top .rt ul li a,
+#top .nav-link {
+    color: var(--color-text) !important;
+}
+
+#top .rt ul li a:hover,
+#top .nav-link:hover {
+    color: var(--color-primary) !important;
+}
+
+.btn-primary, .gradient_blue, input[type="button"].btn-primary {
+    background: linear-gradient(135deg, var(--color-primary) 0%, #0E42D4 100%) !important;
+    color: var(--color-white) !important;
+    border: none !important;
+}
+
+.btn-primary:hover {
+    background: var(--color-primary-hover) !important;
+}
+
+.img-text, .text-placeholder {
+    background: linear-gradient(135deg, var(--color-tea-light) 0%, #DCEDC8 100%) !important;
+    color: var(--color-text-secondary) !important;
+    border: 1px solid var(--color-border);
+}
+
+.ck-slide {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+}
+
+.ck-slide .img-text {
+    background: linear-gradient(135deg, var(--color-tea-light) 0%, #C8E6C9 100%) !important;
+    font-weight: var(--font-weight-medium);
+}
+
+.foot_bj, .foot_bj #foot {
+    background: linear-gradient(180deg, var(--color-tea) 0%, var(--color-tea-hover) 100%) !important;
+    color: var(--color-gold) !important;
+}
+
+#foot_box .icon1, #foot_box .icon2, #foot_box .icon3, #foot_box .icon4 {
+    background: rgba(212,175,55,0.2) !important;
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(212,175,55,0.3);
+}
+
+#foot_box .icon1 div, #foot_box .icon2 div, #foot_box .icon3 div, #foot_box .icon4 div {
+    color: var(--color-gold) !important;
+}
+
+.record {
+    color: rgba(255,255,255,0.9) !important;
+}
+
+.product_price_main, .product_price_vice1, .product_price_vice2,
+.price, .product_preferential_main b {
+    color: var(--color-tea) !important;
+}
+
+a:hover {
+    color: var(--color-primary) !important;
+}
+
+.merchant-dashboard .merchant-nav a.active {
+    background: var(--color-tea) !important;
+    color: var(--color-white) !important;
+}
+
+.merchant-dashboard .merchant-nav a:hover {
+    background: var(--color-tea-light) !important;
+}
+
+/* 登录页 */
+#container, #cover {
+    background: rgba(232, 245, 233, 0.4) !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-md);
+}
+
+.foot_bj .record {
+    color: rgba(255,255,255,0.9) !important;
+}
+
+/* 首页轮播：大湾区港航集装箱简化线条风格边框 */
+.index-page .ck-slide {
+    border: 2px solid rgba(22,93,255,0.15);
+}
+
+.ck-slide .ctrl-slide {
+    color: var(--color-gold) !important;
+}
+
+/* 限时特惠等文案 */
+.product_preferential_main, .product_preferential_vice1, .product_preferential_vice2 {
+    color: var(--color-text-muted) !important;
+}
+
+/* 超级终端 - 中东金强调，高端品牌感 */
+.super-terminal-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm) 14px;
+    background: linear-gradient(135deg, var(--color-tea), var(--color-tea-hover));
+    color: var(--color-gold) !important;
+    border-radius: 20px;
+    font-size: var(--font-size-body);
+    font-weight: var(--font-weight-medium);
+    text-decoration: none !important;
+    transition: all 0.2s;
+    box-shadow: var(--shadow-md);
+}
+.super-terminal-link:hover {
+    background: var(--color-tea-hover);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-lg);
+}
+.super-terminal-link .st-icon {
+    font-size: 16px;
+    opacity: 0.95;
+}

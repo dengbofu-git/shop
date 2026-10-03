@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人信息 · 茗越山关跨境电商 9710 报关数字系统</title>
+    <link rel="icon" href="/static/images/index/py.ico">
+    <link rel="stylesheet" href="/static/css/design-tokens.css">
+    <link rel="stylesheet" href="/static/css/rtl.css">
+    <link rel="stylesheet" href="/static/css/buyer-workbench.css?v=20261003-account">
+    <link rel="stylesheet" href="/static/css/buyer-account.css?v=20261003-account">
+    <script src="/static/js/init.js"></script>
+    <script src="/static/js/auth-storage.js"></script>
+    <script src="/static/js/jquery-3.1.1.min.js"></script>
+</head>
+<body class="buyer-workbench buyer-account-page" id="buyer-body">
+    <div class="buyer-layout">
+        {% include 'buyer_sidebar.html' with active='profile' %}
+
+        <main class="buyer-main">
+            {% include 'buyer_header.html' %}
+
+            <div class="buyer-content ba-content">
+                <div class="ba-page-head">
+                    <span class="ba-eyebrow">BUYER WORKBENCH</span>
+                    <h1 data-i18n="menu_personal">个人信息</h1>
+                    <p>维护账户联系方式与收货地址，便于下单与跨境配送。</p>
+                </div>
+
+                <div class="ba-tabs" role="tablist">
+                    <button type="button" class="ba-tab active" data-tab="profile" role="tab" aria-selected="true">基本信息</button>
+                    <button type="button" class="ba-tab" data-tab="addresses" role="tab" aria-selected="false">收货地址</button>
+                </div>
+
+                <section class="ba-panel active" id="panel-profile" role="tabpanel">
+                    <form id="profile-form" novalidate>
+                        <div class="ba-form-row">
+                            <label for="pf-username">登录账号</label>
+                            <input type="text" id="pf-username" readonly>
+                        </div>
+                        <div class="ba-form-row">
+                            <label for="pf-email">邮箱</label>
+                            <input type="email" id="pf-email" required autocomplete="email">
+                        </div>
+                        <div class="ba-form-row">
+                            <label for="pf-phone">手机号</label>
+                            <input type="tel" id="pf-phone" required maxlength="11" autocomplete="tel">
+                        </div>
+                        <p class="ba-hint">修改密码请前往右上角「账户设置」。</p>
+                        <div class="ba-actions">
+                            <button type="submit" class="ba-btn-primary">保存基本信息</button>
+                            <a class="ba-btn-link" href="buyer_password.html">修改密码</a>
+                        </div>
+                        <p class="ba-msg" id="profile-msg" aria-live="polite"></p>
+                    </form>
+                </section>
+
+                <section class="ba-panel" id="panel-addresses" role="tabpanel">
+                    <div class="ba-address-form">
+                        <h2 style="margin:0 0 14px;font-size:18px;color:#153e19;">新增收货地址</h2>
+                        <form id="address-form">
+                            <div class="ba-grid">
+                                <div class="ba-form-row">
+                                    <label for="receiverName">收货人 <span style="color:#b91c1c">*</span></label>
+                                    <input type="text" id="receiverName" required>
+                                </div>
+                                <div class="ba-form-row">
+                                    <label for="receiverMobile">手机号码 <span style="color:#b91c1c">*</span></label>
+                                    <input type="tel" id="receiverMobile" required maxlength="11">
+                                </div>
+                            </div>
+                            <div class="ba-form-row" data-toggle="distpicker">
+                                <label>省 / 市 / 区 <span style="color:#b91c1c">*</span></label>
+                                <div class="ba-grid">
+                                    <select data-province="---- 选择省 ----" id="receiverState"></select>
+                                    <select data-city="---- 选择市 ----" id="receiverCity"></select>
+                                    <select data-district="---- 选择区 ----" id="receiverDistrict"></select>
+                                </div>
+                            </div>
+                            <div class="ba-form-row">
+                                <label for="receiverAddress">详细地址 <span style="color:#b91c1c">*</span></label>
+                                <textarea id="receiverAddress" placeholder="街道、门牌号等" required></textarea>
+                            </div>
+                            <div class="ba-grid">
+                                <div class="ba-form-row">
+                                    <label for="receiverZip">邮政编码 <span style="color:#b91c1c">*</span></label>
+                                    <input type="text" id="receiverZip" maxlength="6" required>
+                                </div>
+                                <div class="ba-form-row">
+                                    <label for="addressName">地址标签 <span style="color:#b91c1c">*</span>
+                                        <span class="ba-tag-picks">
+                                            <button type="button" class="ba-tag-pick" data-tag="家">家</button>
+                                            <button type="button" class="ba-tag-pick" data-tag="公司">公司</button>
+                                            <button type="button" class="ba-tag-pick" data-tag="仓库">仓库</button>
+                                        </span>
+                                    </label>
+                                    <input type="text" id="addressName" required>
+                                </div>
+                            </div>
+                            <div class="ba-actions">
+                                <button type="submit" class="ba-btn-primary">保存地址</button>
+                            </div>
+                            <p class="ba-msg" id="address-msg" aria-live="polite"></p>
+                        </form>
+                    </div>
+                    <div class="ba-address-list">
+                        <table class="ba-address-table" aria-label="已保存地址">
+                            <thead>
+                                <tr>
+                                    <th>标签</th>
+                                    <th>收件人</th>
+                                    <th>地址</th>
+                                    <th>电话</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody id="address-list-body">
+                                <tr><td colspan="5">加载中…</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+
+            <footer class="ba-footer">© 2026 茗越山关跨境电商 9710 报关数字系统 · 中国地标茶出海中东</footer>
+        </main>
+    </div>
+
+    <script src="/static/js/distpicker.data.js"></script>
+    <script src="/static/js/distpicker.js"></script>
+    <script src="/static/js/buyer-workbench.js?v=20261003-account"></script>
+    <script src="/static/js/buyer-profile.js?v=20261003-account"></script>
+</body>
+</html>

@@ -1,0 +1,177 @@
+/**
+ * 商家商品管理（复用单页：列表 / 编辑）
+ * 风格延续茗越山关跨境电商 9710 报关数字系统：茶田绿 + 白卡 + 8px/12px 圆角
+ */
+
+body.merchant-body { background: #f1f8e9; }
+
+html.embed-mode .merchant-header-brand,
+html.embed-mode .merchant-nav,
+html.embed-mode .merchant-footer { display: none !important; }
+html.embed-mode .merchant-wrap { margin-top: 0; }
+
+.mp-wrap {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 0 20px 40px;
+}
+
+.mp-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 0 0 12px 0;
+}
+
+.mp-title {
+  font-size: 16px;
+  font-weight: 800;
+  color: #1b5e20;
+  margin: 0;
+}
+
+.mp-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  border: 1px solid rgba(46,125,50,0.20);
+  background: #fff;
+  color: #1b5e20;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn:hover { background: rgba(46,125,50,0.08); }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn-primary {
+  background: linear-gradient(135deg, #2e7d32, #1b5e20);
+  color: #fff;
+  border-color: rgba(27,94,32,0.35);
+}
+.btn-primary:hover { filter: brightness(0.98); }
+.btn-ghost { background: transparent; }
+
+.card {
+  background: rgba(255,255,255,0.95);
+  border: 1px solid rgba(46,125,50,0.10);
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(27,94,32,0.08);
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+.card-pad { padding: 14px; }
+
+.filter-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: end;
+}
+
+.field label {
+  display: block;
+  font-size: 12px;
+  color: #558b2f;
+  margin-bottom: 4px;
+}
+.field input, .field select {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(46,125,50,0.20);
+  background: #fff;
+  color: #1b5e20;
+  font-size: 13px;
+}
+
+.bulk {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.bulk-left { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+
+.muted { color: #6b7280; font-size: 12px; }
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+.table th, .table td {
+  border-bottom: 1px solid rgba(46,125,50,0.10);
+  padding: 10px 10px;
+  text-align: left;
+  vertical-align: middle;
+}
+.table th { background: rgba(46,125,50,0.08); color: #1b5e20; font-weight: 800; white-space: nowrap; }
+.table tr:hover td { background: rgba(46,125,50,0.04); }
+.thumb {
+  width: 60px; height: 60px; border-radius: 10px; object-fit: cover;
+  border: 1px solid rgba(46,125,50,0.10);
+  background: #f1f8e9;
+}
+/* 新建页预览：避免 flex 内 img 基线留白导致误以为未加载 */
+#c-img-preview {
+  display: block;
+  flex-shrink: 0;
+}
+.tag {
+  display: inline-flex; align-items: center;
+  padding: 2px 8px; border-radius: 999px;
+  font-size: 12px; font-weight: 800;
+}
+.tag-ok { background: rgba(46,125,50,0.12); color: #1b5e20; }
+.tag-gray { background: rgba(0,0,0,0.08); color: #4b5563; }
+.tag-blue { background: rgba(33,150,243,0.12); color: #0d47a1; }
+.tag-red { background: rgba(198,40,40,0.10); color: #b71c1c; }
+.tag-draft { background: rgba(0,0,0,0.05); color: #374151; }
+.stock-ok { color: #1b5e20; font-weight: 800; }
+.stock-bad { color: #b71c1c; font-weight: 800; }
+.row-actions a {
+  color: #165DFF; text-decoration: none; font-weight: 700; margin-right: 8px; font-size: 12px;
+}
+.row-actions a.danger { color: #b71c1c; }
+.row-actions a:hover { text-decoration: underline; }
+
+.pagination { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
+.page-btns { display: flex; gap: 6px; }
+
+/* 编辑页 */
+.edit-layout { display: block; }
+.panel { display: none; }
+.panel.active { display: block; }
+
+.form-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.form-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+.hint { font-size: 12px; color: #6b7280; margin-top: 4px; }
+textarea { width: 100%; box-sizing: border-box; border-radius: 8px; border: 1px solid rgba(46,125,50,0.20); padding: 10px; font-size: 13px; color: #1b5e20; resize: vertical; }
+
+.sticky-bottom {
+  position: sticky; bottom: 0;
+  display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap;
+  padding: 10px; margin-top: 10px;
+  background: rgba(255,255,255,0.9);
+  border-top: 1px solid rgba(46,125,50,0.10);
+  border-radius: 12px;
+}
+.statusbar { font-size: 12px; color: #6b7280; }
+
+.badge-err { color: #b71c1c; font-size: 12px; }
+
+@media (max-width: 1000px) {
+  .filter-grid { grid-template-columns: 1fr; }
+  .edit-layout { grid-template-columns: 1fr; }
+  .form-grid-2, .form-grid-3 { grid-template-columns: 1fr; }
+}

@@ -1,0 +1,111 @@
+/**
+ * 阿拉伯语 RTL 布局样式
+ * 当 html 或 body 设置 dir="rtl" 时自动生效
+ * 表单、按钮、导航同步从右向左翻转
+ */
+
+/* ========== 基础 RTL 翻转 ========== */
+[dir="rtl"] {
+    direction: rtl;
+    text-align: right;
+}
+
+[dir="rtl"] body {
+    font-family: "Noto Sans Arabic", "Noto Sans", var(--font-zh), sans-serif;
+}
+
+/* 浮动方向 */
+[dir="rtl"] .lf { float: right; }
+[dir="rtl"] .rt { float: left; }
+
+/* 导航栏 */
+[dir="rtl"] #nav { text-align: right; }
+[dir="rtl"] #nav ul { padding-right: 0; padding-left: inherit; }
+[dir="rtl"] #nav ul li { margin-right: 0; margin-left: var(--spacing-lg, 24px); }
+[dir="rtl"] #nav ul li:first-child { margin-left: 0; }
+
+/* 顶部栏 */
+[dir="rtl"] #top .lf { float: right; }
+[dir="rtl"] #top .rt { float: left; }
+[dir="rtl"] #top .rt ul { padding-right: 0; padding-left: 0; }
+[dir="rtl"] #top .rt ul li { margin-right: 0; margin-left: var(--spacing-md, 16px); }
+
+/* 表单元素 */
+[dir="rtl"] input,
+[dir="rtl"] textarea,
+[dir="rtl"] select {
+    text-align: right;
+}
+
+[dir="rtl"] .form-group label,
+[dir="rtl"] .form-label {
+    text-align: right;
+    margin-right: 0;
+    margin-left: var(--spacing-sm, 8px);
+}
+
+/* 按钮组 */
+[dir="rtl"] .btn-group .btn:not(:last-child) {
+    margin-right: 0;
+    margin-left: var(--spacing-sm, 8px);
+}
+
+/* 卡片与内容区 */
+[dir="rtl"] .merchant-nav {
+    border-right: none;
+    border-left: 1px solid var(--color-border, #eee);
+}
+
+[dir="rtl"] .merchant-content {
+    padding-right: var(--spacing-lg, 24px);
+    padding-left: var(--spacing-lg, 24px);
+}
+
+/* 图标与文字间距 */
+[dir="rtl"] .super-terminal-link,
+[dir="rtl"] [class*="icon-"] + span {
+    flex-direction: row-reverse;
+}
+
+/* 产品列表、网格 */
+[dir="rtl"] .product-list,
+[dir="rtl"] .grid-container {
+    direction: rtl;
+}
+
+[dir="rtl"] .product-item,
+[dir="rtl"] .grid-item {
+    text-align: right;
+}
+
+/* 页脚 */
+[dir="rtl"] #foot_box {
+    flex-direction: row-reverse;
+}
+
+[dir="rtl"] .foot_bj .record {
+    text-align: right;
+}
+
+/* 订单、表格 */
+[dir="rtl"] table {
+    direction: rtl;
+}
+
+[dir="rtl"] th,
+[dir="rtl"] td {
+    text-align: right;
+}
+
+/* 模态框、弹窗 */
+[dir="rtl"] .modal-header .close,
+[dir="rtl"] .modal-footer .btn {
+    margin-right: 0;
+    margin-left: var(--spacing-sm, 8px);
+}
+
+/* 面包屑 */
+[dir="rtl"] .breadcrumb li + li::before {
+    content: " / ";
+    padding: 0 var(--spacing-sm, 8px);
+}

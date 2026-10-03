@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n-title="procure_title">Product Procurement - Mingyue Shanguan 9710 Customs Digital System</title>
+    <link href="../static/css/design-tokens.css" rel="stylesheet">
+    <link href="../static/css/rtl.css" rel="stylesheet">
+    <link href="../static/css/buyer-workbench.css?v=20261003-shared-shell" rel="stylesheet">
+    <link rel="icon" href="../static/images/index/py.ico">
+    <script src="../static/js/init.js"></script>
+    <script src="../static/js/auth-storage.js"></script>
+    <script src="../static/js/jquery-3.1.1.min.js"></script>
+</head>
+<body class="buyer-workbench" id="buyer-body">
+    <div class="buyer-layout">
+        {% include 'buyer_sidebar.html' with active='products' %}
+
+        <main class="buyer-main">
+            {% include 'buyer_header.html' %}
+
+            <div class="buyer-content">
+                <!-- 采购横幅 -->
+                <section class="banner-section buyer-products-banner">
+                    <div class="banner-item active" style="background: linear-gradient(135deg, #1b4332 0%, #2d6a4f 100%);">
+                        <div class="banner-pattern"></div>
+                        <div class="banner-content">
+                            <h2 data-i18n="banner3_title">Bulk Purchase Discount</h2>
+                            <p data-i18n="banner3_desc">100+ units: 15% off · 500+ units: 25% off</p>
+                            <span class="banner-price">Contact for quote</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 分类标签 + 商品列表 -->
+                <section class="products-section">
+                    <div class="category-tabs" id="category-tabs">
+                        <span class="cat-loading" data-i18n="loading">Loading...</span>
+                    </div>
+                    <div class="product-grid" id="product-grid">
+                        <div class="product-loading" data-i18n="loading">Loading...</div>
+                    </div>
+                    <div class="pager-wrap buyer-pager" id="pager-wrap" style="display:none;">
+                        <a href="javascript:;" class="pager-prev" id="pager-prev" data-i18n="prev_page">Previous</a>
+                        <div class="pager-nums" id="pager-nums"></div>
+                        <a href="javascript:;" class="pager-next" id="pager-next" data-i18n="next_page">Next</a>
+                    </div>
+                </section>
+
+                <!-- 推荐商品 -->
+                <section class="recommend-section" id="recommend-section">
+                    <h2 class="section-title" data-i18n="recommend_title">Recommended</h2>
+                    <div class="recommend-grid" id="recommend-grid">
+                        <span class="recommend-loading" data-i18n="loading">Loading...</span>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script src="../static/js/buyer-workbench.js?v=20261003-shared-shell"></script>
+    <script src="../static/js/buyer-products.js?v=20261003-catalog-tab"></script>
+</body>
+</html>

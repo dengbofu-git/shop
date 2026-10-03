@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据中心 - 茗越山关跨境电商 9710 报关数字系统</title>
+    <link href="../static/css/design-tokens.css" rel="stylesheet">
+    <link href="../static/css/workbench-loading.css" rel="stylesheet">
+    <link href="../static/css/operations-dashboard.css" rel="stylesheet">
+    <link rel="icon" href="../static/images/index/py.ico">
+    <link rel="preconnect" href="https://cdn.bootcdn.net" crossorigin>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <script src="../static/js/init.js"></script>
+    <script src="../static/js/auth-storage.js"></script>
+    <script defer src="https://cdn.bootcdn.net/ajax/libs/echarts/5.4.3/echarts.min.js" onerror="this.onerror=null;this.src='https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js';"></script>
+    <script>
+        if (window.location.search.indexOf('embed=1') >= 0 || window.self !== window.top) {
+            document.documentElement.classList.add('embed-mode');
+        }
+    </script>
+    <style>
+        html.embed-mode .dashboard-header { display: none !important; }
+    </style>
+</head>
+<body class="dashboard-page dashboard-is-loading">
+    <div class="dashboard-root">
+    <div id="dashboard-loading" class="wb-loading-overlay" role="status" aria-live="polite" aria-busy="true">
+        <div class="wb-loading-dialog">
+            <div class="wb-loading-badge" aria-hidden="true">🍵</div>
+            <h2 class="wb-loading-title">数据中心</h2>
+            <p class="wb-loading-desc" id="dashboard-loading-desc">正在加载图表与统计数据，请稍候…</p>
+            <div class="wb-loading-spinner" aria-hidden="true"></div>
+        </div>
+    </div>
+    <div class="dashboard-header">
+        <h1 class="dashboard-title">数据中心</h1>
+        <div class="dashboard-actions">
+            <select id="time-filter" class="filter-select">
+                <option value="month">月度</option>
+                <option value="quarter">季度</option>
+                <option value="year" selected>年度</option>
+            </select>
+            <button type="button" class="btn-refresh" id="btn-logout">注销登录</button>
+        </div>
+    </div>
+
+    <!-- 顶部核心指标栏 -->
+    <section class="core-metrics">
+        <div class="metric-card metric-blue">
+            <div class="metric-value" id="m-total-sales">—</div>
+            <div class="metric-label">统计周期出口额</div>
+            <div class="metric-tag" id="m-order-count">订单 — 笔</div>
+        </div>
+        <div class="metric-card metric-blue">
+            <div class="metric-value" id="m-pass-rate">—</div>
+            <div class="metric-label">履约完成率</div>
+            <div class="metric-tag" id="m-completed">已完成 — 笔</div>
+        </div>
+        <div class="metric-card metric-green">
+            <div class="metric-value" id="m-pending-ship">—</div>
+            <div class="metric-label">待发货订单</div>
+            <div class="metric-tag" id="m-unpaid">待付款 — 笔</div>
+        </div>
+        <div class="metric-card metric-green">
+            <div class="metric-value" id="m-in-transit">—</div>
+            <div class="metric-label">在途/待收货</div>
+            <div class="metric-tag">来自订单状态</div>
+        </div>
+        <div class="metric-card metric-gold">
+            <div class="metric-value" id="m-avg-order">—</div>
+            <div class="metric-label">客单价 (元)</div>
+            <div class="metric-tag">SKU 行汇总</div>
+        </div>
+        <div class="metric-card metric-gold">
+            <div class="metric-value" id="m-turnover">—</div>
+            <div class="metric-label">库存周转天数</div>
+            <div class="metric-tag">基于待发货估算</div>
+        </div>
+    </section>
+
+    <!-- 中部核心数据区 -->
+    <section class="main-charts">
+        <div class="chart-column">
+            <div class="chart-card">
+                <h3 class="chart-title">报关物流效率分析</h3>
+                <div id="chart-logistics" class="chart-container"></div>
+            </div>
+            <div class="chart-card">
+                <h3 class="chart-title">合规校验通过率</h3>
+                <div id="chart-compliance" class="chart-container"></div>
+            </div>
+        </div>
+        <div class="chart-column">
+            <div class="chart-card">
+                <h3 class="chart-title">中东市场销售地图</h3>
+                <div id="chart-map" class="chart-container"></div>
+            </div>
+            <div class="chart-card">
+                <h3 class="chart-title">产品品类销售占比</h3>
+                <div id="chart-category" class="chart-container"></div>
+            </div>
+        </div>
+        <div class="chart-column">
+            <div class="chart-card">
+                <h3 class="chart-title">渠道转化漏斗</h3>
+                <div id="chart-funnel" class="chart-container"></div>
+            </div>
+            <div class="chart-card">
+                <h3 class="chart-title">库存周转天数</h3>
+                <div class="metric-display">
+                    <span class="metric-display-value" id="m-turnover-display">—</span>
+                    <span class="metric-display-unit">天</span>
+                    <p class="metric-display-desc">供应链效率领先行业</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 底部辅助数据区 -->
+    <section class="aux-metrics">
+        <div class="aux-card">
+            <div class="aux-value" id="aux-partners">—</div>
+            <div class="aux-label">周期内活跃下单批次</div>
+        </div>
+        <div class="aux-card">
+            <div class="aux-value" id="aux-roi">—</div>
+            <div class="aux-label">订单转化 ROI 指数</div>
+        </div>
+        <div class="aux-card">
+            <div class="aux-value" id="aux-warehouse">—</div>
+            <div class="aux-label">海外仓库存健康度</div>
+        </div>
+        <div class="aux-card">
+            <div class="aux-value" id="aux-score">—</div>
+            <div class="aux-label">模拟满意度评分</div>
+        </div>
+    </section>
+    </div>
+
+    <script defer src="../static/js/operations-dashboard.js?v=20261003-loading-v2"></script>
+</body>
+</html>

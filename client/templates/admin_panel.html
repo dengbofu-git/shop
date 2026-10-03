@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>平台运营 · 账号管理</title>
+    <link href="../static/css/design-tokens.css" rel="stylesheet">
+    <link href="../static/css/register.css" rel="stylesheet">
+    <link rel="icon" href="../static/images/index/py.ico">
+    <script src="../static/js/init.js"></script>
+    <script src="../static/js/auth-storage.js"></script>
+    <script src="../static/js/jquery-3.1.1.min.js"></script>
+    <style>
+        body.platform-admin-page { background: linear-gradient(180deg, #f1f8e9 0%, #e8f5e9 40%, #f5f7fa 100%); min-height: 100vh; }
+        .pa-wrap { max-width: 1100px; margin: 0 auto; padding: 24px 20px 48px; }
+        .pa-topbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 20px; }
+        .pa-topbar h1 { margin: 0; font-size: 22px; color: #1b5e20; }
+        .pa-topbar-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+        .pa-btn { padding: 8px 16px; border-radius: 8px; border: none; cursor: pointer; font-size: 14px; font-weight: 600; text-decoration: none; display: inline-block; }
+        .pa-btn-ghost { background: #fff; color: #2e7d32; border: 1px solid rgba(46,125,50,0.25); }
+        .pa-btn-gold { background: linear-gradient(135deg, #d4af37, #c9a430); color: #1a1a1a; }
+        .pa-btn-danger { background: #c62828; color: #fff; }
+        .pa-btn-green { background: #1a5d1a; color: #fff; }
+        .pa-card { background: rgba(255,255,255,0.96); border: 1px solid rgba(46,125,50,0.14); border-radius: 14px; padding: 22px 24px; margin-bottom: 20px; box-shadow: 0 6px 24px rgba(27,94,32,0.06); }
+        .pa-card h2 { margin: 0 0 8px; font-size: 18px; color: #1b5e20; }
+        .pa-tip { margin: 0 0 16px; font-size: 13px; color: #558b2f; }
+        .pa-filter-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 16px; }
+        .pa-filter-row input[type="search"] { flex: 1; min-width: 200px; padding: 10px 12px; border: 1px solid rgba(46,125,50,0.22); border-radius: 8px; }
+        .pa-table-wrap { overflow-x: auto; }
+        .pa-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+        .pa-table th { text-align: left; padding: 10px 8px; background: #f3f7ef; color: #4b624c; }
+        .pa-table td { padding: 10px 8px; border-bottom: 1px solid #edf0eb; vertical-align: middle; }
+        .pa-badge { display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; }
+        .pa-badge-merchant { background: #e8f5e9; color: #1b5e20; }
+        .pa-badge-customer { background: #e3f2fd; color: #1565c0; }
+        .pa-badge-off { background: #ffebee; color: #c62828; }
+        .pa-form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
+        .pa-form-grid label { display: block; font-size: 13px; color: #558b2f; margin-bottom: 4px; }
+        .pa-form-grid input, .pa-form-grid select { width: 100%; box-sizing: border-box; padding: 10px 12px; border: 1px solid rgba(46,125,50,0.22); border-radius: 8px; }
+        .pa-msg { margin-top: 10px; font-size: 13px; min-height: 18px; }
+        .pa-msg.ok { color: #1a5d1a; }
+        .pa-msg.err { color: #c62828; }
+        .pa-edit-row input, .pa-edit-row select { width: 100%; max-width: 140px; padding: 4px 6px; font-size: 12px; }
+    </style>
+</head>
+<body class="platform-admin-page">
+    <div class="pa-wrap">
+        <div class="pa-topbar">
+            <h1>平台运营 · 买家与茶企账号管理</h1>
+            <div class="pa-topbar-actions">
+                <button type="button" class="pa-btn pa-btn-ghost" id="btn-admin-logout">退出登录</button>
+            </div>
+        </div>
+
+        <div class="pa-card">
+            <h2>新建账号</h2>
+            <p class="pa-tip">创建中东买家或茶企商家登录账号；商家须填写店铺名称。</p>
+            <div class="pa-form-grid">
+                <div>
+                    <label for="user-username">登录账号（6–11 位）</label>
+                    <input type="text" id="user-username" maxlength="11" autocomplete="off">
+                </div>
+                <div>
+                    <label for="user-password">登录密码（6–12 位）</label>
+                    <input type="password" id="user-password" maxlength="12" autocomplete="new-password">
+                </div>
+                <div>
+                    <label for="user-type">账号类型</label>
+                    <select id="user-type">
+                        <option value="customer">买家用户</option>
+                        <option value="merchant">茶企商家</option>
+                    </select>
+                </div>
+                <div id="create-shop-wrap" style="display:none;">
+                    <label for="user-shop-name">店铺名称</label>
+                    <input type="text" id="user-shop-name" maxlength="50" placeholder="茶企 / 店铺名">
+                </div>
+                <div>
+                    <label for="user-email">邮箱</label>
+                    <input type="email" id="user-email" placeholder="选填">
+                </div>
+                <div>
+                    <label for="user-phone">手机号</label>
+                    <input type="tel" id="user-phone" maxlength="11" placeholder="选填">
+                </div>
+            </div>
+            <p style="margin-top:16px;">
+                <button type="button" class="pa-btn pa-btn-gold" id="btn-add-user">创建账号</button>
+            </p>
+            <p class="pa-msg" id="user-create-msg"></p>
+        </div>
+
+        <div class="pa-card">
+            <h2>账号列表</h2>
+            <div class="register-role-tabs pa-list-tabs" style="max-width:420px;margin-bottom:14px;">
+                <button type="button" class="register-role-tab active" data-filter-type="">全部</button>
+                <button type="button" class="register-role-tab" data-filter-type="customer">买家</button>
+                <button type="button" class="register-role-tab" data-filter-type="merchant">茶企</button>
+            </div>
+            <div class="pa-filter-row">
+                <input type="search" id="user-keyword" placeholder="搜索账号、邮箱、手机、店铺名…">
+                <button type="button" class="pa-btn pa-btn-green" id="btn-search-users">搜索</button>
+                <button type="button" class="pa-btn pa-btn-ghost" id="btn-reload-users">刷新</button>
+            </div>
+            <div class="pa-table-wrap" id="user-list">加载中…</div>
+        </div>
+    </div>
+
+    <script src="../static/js/admin-panel.js?v=20261003-users-only"></script>
+</body>
+</html>

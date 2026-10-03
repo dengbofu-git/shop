@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>供应商工作台 - 茗越山关跨境电商 9710 报关数字系统</title>
+    <link href="../static/css/design-tokens.css" rel="stylesheet">
+    <link href="../static/css/rtl.css" rel="stylesheet">
+    <link href="../static/css/merchant_workbench.css" rel="stylesheet">
+    <link href="../static/css/supplier-workbench.css" rel="stylesheet">
+    <link rel="icon" href="../static/images/index/py.ico">
+    <script src="../static/js/init.js"></script>
+    <script src="../static/js/auth-storage.js"></script>
+    <script src="../static/js/jquery-3.1.1.min.js"></script>
+</head>
+<body class="merchant-body supplier-workbench">
+    <div class="supplier-layout">
+        <!-- 左侧固定导航栏 -->
+        <aside class="supplier-sidebar" id="sidebar">
+            <div class="sidebar-brand">
+                <span class="sidebar-logo">🍃</span>
+                <span class="sidebar-title" data-i18n="supplier_title">茶企工作台</span>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active" data-panel="dashboard">
+                    <span class="nav-icon">📊</span>
+                    <span class="nav-text" data-i18n="nav_dashboard">工作台首页</span>
+                </a>
+                <div class="nav-group">
+                    <a href="#" class="nav-item" data-panel="merchant_products.html">
+                        <span class="nav-icon">📦</span>
+                        <span class="nav-text" data-i18n="nav_products">商品管理</span>
+                    </a>
+                </div>
+
+                <div class="nav-group">
+                    <a href="#" class="nav-item" data-panel="merchant_orders.html">
+                        <span class="nav-icon">📋</span>
+                        <span class="nav-text" data-i18n="nav_orders">全部订单</span>
+                    </a>
+                </div>
+
+                <div class="nav-group">
+                    <a href="#" class="nav-item" data-panel="customs_9710.html">
+                        <span class="nav-icon">🛃</span>
+                        <span class="nav-text">报关单管理</span>
+                    </a>
+                </div>
+
+                <div class="nav-group">
+                    <a href="#" class="nav-item" data-panel="operations_dashboard.html">
+                        <span class="nav-icon">📈</span>
+                        <span class="nav-text" data-i18n="nav_data">数据中心</span>
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- 主内容区 -->
+        <main class="supplier-main">
+            <!-- 顶部状态栏 -->
+            <header class="supplier-topbar">
+                <div class="topbar-left">
+                    <button type="button" class="topbar-btn topbar-icon-btn" id="btn-sidebar-toggle" title="折叠侧边栏">☰</button>
+                    <div class="topbar-welcome">
+                        <span data-i18n="welcome">欢迎</span> <strong id="supplier-shop-name">英德碧利茶园</strong> <span data-i18n="joined">入驻</span>
+                    </div>
+                </div>
+                <div class="topbar-search">
+                    <span class="search-icon">🔎</span>
+                    <input id="global-search" type="search" placeholder="搜索订单号 / 商品名 / 批次号 / 溯源码" autocomplete="off">
+                </div>
+                <div class="topbar-actions">
+                    <button type="button" class="topbar-btn" title="通知">🔔</button>
+                    <button type="button" class="topbar-btn" title="消息">✉️</button>
+                    <div class="lang-switch">
+                        <button type="button" class="lang-btn active" data-lang="zh">中文</button>
+                        <button type="button" class="lang-btn" data-lang="en">EN</button>
+                        <button type="button" class="lang-btn" data-lang="ar">العربية</button>
+                    </div>
+                    <a href="#" class="topbar-btn" id="btn-settings" title="账号设置">⚙️</a>
+                    <div class="user-menu">
+                        <button type="button" class="topbar-btn user-trigger" id="btn-user-menu" title="账户">
+                            <span class="user-avatar">👤</span>
+                            <span class="user-name" id="supplier-user-name">账号</span>
+                            <span class="user-caret">▾</span>
+                        </button>
+                        <div class="user-dropdown" id="user-dropdown" style="display:none;">
+                            <a href="#" class="user-item" id="menu-profile">个人信息</a>
+                            <a href="#" class="user-item" id="menu-security">账号安全</a>
+                            <a href="#" class="user-item danger" id="btn-logout">退出登录</a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- 主内容区：首页内容 或 iframe 子页面 -->
+            <div class="supplier-content" id="panel-dashboard">
+                <!-- 欢迎与快捷操作 -->
+                <section class="wb-section">
+                    <div class="wb-section-head">
+                        <h2 class="wb-section-title">工作台概览</h2>
+                    </div>
+                    <div class="wb-section-body">
+                    <div class="welcome-card welcome-card-only">
+                        <div class="welcome-title">您好，<span id="shop-name-2">英德碧利茶园</span>，欢迎入驻茗越山关跨境电商 9710 报关数字系统</div>
+                        <div class="welcome-sub">今天也要把好茶卖到中东去。</div>
+                    </div>
+                    </div>
+                </section>
+
+                <!-- 顶部4个指标卡 -->
+                <section class="wb-section">
+                    <div class="wb-section-head">
+                        <h2 class="wb-section-title">核心数据看板</h2>
+                    </div>
+                    <div class="wb-section-body">
+                    <section class="metric-cards">
+                    <div class="metric-card metric-link nav-panel-link" data-panel="operations_dashboard.html">
+                        <div class="metric-icon">¥</div>
+                        <div class="metric-body">
+                            <div class="metric-value" id="stat-sales">—</div>
+                            <div class="metric-label" data-i18n="stat_sales">累计出口销售额</div>
+                        </div>
+                        <div class="metric-meta"><span class="meta-link" id="stat-sales-sub">加载中…</span></div>
+                    </div>
+                    <div class="metric-card metric-link nav-panel-link" data-panel="merchant_orders.html?filter=unshipped">
+                        <div class="metric-icon">📤</div>
+                        <div class="metric-body">
+                            <div class="metric-value" id="stat-pending-ship">—</div>
+                            <div class="metric-label" data-i18n="stat_pending_ship">待发货订单数</div>
+                        </div>
+                        <div class="metric-meta"><span class="meta-link" id="stat-pending-sub">来自订单库</span></div>
+                    </div>
+                    <div class="metric-card metric-link nav-panel-link" data-panel="customs_9710.html">
+                        <div class="metric-icon">🛃</div>
+                        <div class="metric-body">
+                            <div class="metric-value" id="stat-customs">—</div>
+                            <div class="metric-label" data-i18n="stat_customs">在途报关单数</div>
+                        </div>
+                        <div class="metric-meta"><span class="meta-link" id="stat-customs-sub">待收货/在途</span></div>
+                    </div>
+                    <div class="metric-card metric-link nav-panel-link" data-panel="operations_dashboard.html">
+                        <div class="metric-icon">📈</div>
+                        <div class="metric-body">
+                            <div class="metric-value" id="stat-orders-total">—</div>
+                            <div class="metric-label">统计周期内订单</div>
+                        </div>
+                        <div class="metric-meta"><span class="meta-link">进入数据中心</span></div>
+                    </div>
+                    </section>
+                    </div>
+                </section>
+
+                <!-- 待办事项 + 最新消息 -->
+                <section class="wb-section">
+                    <div class="wb-section-head">
+                        <h2 class="wb-section-title">待办与消息</h2>
+                    </div>
+                    <div class="wb-section-body middle-section middle-60-40">
+                    <div class="todo-card wb-subcard">
+                        <h3 class="section-title"><span data-i18n="todo_title">待办事项</span> <span class="title-count" id="todo-total-count">（加载中…）</span></h3>
+                        <ul class="todo-list">
+                            <li class="todo-item">
+                                <a href="#" class="nav-panel-link" data-panel="merchant_orders.html?filter=unshipped">
+                                    <span class="todo-badge" id="todo-unshipped">0</span>
+                                    <span class="todo-text" data-i18n="todo_unshipped">待发货订单</span>
+                                    <span class="todo-arrow">→</span>
+                                </a>
+                            </li>
+                            <li class="todo-item">
+                                <a href="#" class="nav-panel-link" data-panel="merchant_settlement.html">
+                                    <span class="todo-badge" id="todo-settlement">0</span>
+                                    <span class="todo-text" data-i18n="todo_settlement">待结算账单</span>
+                                    <span class="todo-arrow">→</span>
+                                </a>
+                            </li>
+                            <li class="todo-item">
+                                <a href="#" class="nav-panel-link" data-panel="merchant_products.html">
+                                    <span class="todo-badge info">1</span>
+                                    <span class="todo-text">待审核商品</span>
+                                    <span class="todo-arrow">→</span>
+                                </a>
+                            </li>
+                            <li class="todo-item">
+                                <a href="#" class="nav-panel-link" data-panel="merchant_orders.html">
+                                    <span class="todo-badge muted">0</span>
+                                    <span class="todo-text">待处理售后</span>
+                                    <span class="todo-arrow">→</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="message-card wb-subcard">
+                        <h3 class="section-title">最新消息</h3>
+                        <ul class="message-list">
+                            <li class="message-item">
+                                <span class="msg-tag">系统</span>
+                                <span class="msg-text">您的商品“英德红茶・金毫礼盒 500g”已通过审核</span>
+                            </li>
+                            <li class="message-item">
+                                <span class="msg-tag warn">订单</span>
+                                <span class="msg-text">您有 1 个新订单待发货</span>
+                            </li>
+                            <li class="message-item">
+                                <span class="msg-tag info">物流</span>
+                                <span class="msg-text">订单号 OD20240315001 已完成清关</span>
+                            </li>
+                        </ul>
+                    </div>
+                    </div>
+                </section>
+
+                <!-- 市场洞察与数据分析 -->
+                <section class="wb-section">
+                    <div class="wb-section-head">
+                        <h2 class="wb-section-title">市场洞察与数据分析</h2>
+                        <div class="tabs">
+                            <button type="button" class="tab active" data-tab="tab-insight">中东市场洞察</button>
+                            <button type="button" class="tab" data-tab="tab-sales">我的销售数据</button>
+                            <button type="button" class="tab" data-tab="tab-trend">行业趋势</button>
+                        </div>
+                    </div>
+                    <div class="wb-section-body">
+                        <div class="tab-panels">
+                            <div class="tab-panel active" id="tab-insight">
+                                <div class="insight-grid">
+                                    <div class="mini-card">
+                                        <div class="mini-title">热销茶品 TOP5</div>
+                                        <div class="bar-list" id="insight-top-products">
+                                            <div class="bar-row"><span>加载中…</span><span class="bar"><i style="width:40%"></i></span><em>—</em></div>
+                                        </div>
+                                    </div>
+                                    <div class="mini-card">
+                                        <div class="mini-title">口感偏好</div>
+                                        <div class="pill-group">
+                                            <span class="pill ok">浓郁醇厚</span>
+                                            <span class="pill info">花果香</span>
+                                            <span class="pill warn">适合奶茶</span>
+                                        </div>
+                                    </div>
+                                    <div class="mini-card">
+                                        <div class="mini-title">价格区间分布</div>
+                                        <div class="bar-list">
+                                            <div class="bar-row"><span>¥80-120</span><span class="bar"><i style="width:45%"></i></span><em>45%</em></div>
+                                            <div class="bar-row"><span>¥120-280</span><span class="bar"><i style="width:68%"></i></span><em>68%</em></div>
+                                            <div class="bar-row"><span>礼盒装</span><span class="bar"><i style="width:33%"></i></span><em>33%</em></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-panel" id="tab-sales">
+                                <div class="insight-grid">
+                                    <div class="mini-card">
+                                        <div class="mini-title">近 6 个月订单量</div>
+                                        <ul class="bullet-list" id="sales-monthly-list"></ul>
+                                    </div>
+                                    <div class="mini-card">
+                                        <div class="mini-title">商品销量 TOP5</div>
+                                        <ul class="bullet-list" id="sales-top-list"></ul>
+                                    </div>
+                                    <div class="mini-card">
+                                        <div class="mini-title">中东区域销售额（模拟分仓）</div>
+                                        <ul class="bullet-list" id="sales-region-list"></ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-panel" id="tab-trend">
+                                <div class="insight-grid">
+                                    <div class="mini-card">
+                                        <div class="mini-title">出口整体趋势</div>
+                                        <div class="skeleton-chart" aria-hidden="true"></div>
+                                    </div>
+                                    <div class="mini-card">
+                                        <div class="mini-title">竞品分析</div>
+                                        <div class="skeleton-list" aria-hidden="true"></div>
+                                    </div>
+                                    <div class="mini-card">
+                                        <div class="mini-title">政策法规更新</div>
+                                        <ul class="bullet-list">
+                                            <li>4 月报关流程调整通知</li>
+                                            <li>中东国家标签合规提示</li>
+                                            <li>出口退税材料清单更新</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 系统公告与帮助中心 -->
+                <section class="wb-section">
+                    <div class="wb-section-head">
+                        <h2 class="wb-section-title">公告与帮助</h2>
+                    </div>
+                    <div class="wb-section-body middle-section two-cols-50">
+                        <div class="table-card wb-subcard">
+                            <div class="card-head">
+                                <h3 class="section-title" style="border-bottom:none;padding-bottom:0;margin-bottom:0;">系统公告</h3>
+                                <a href="#" class="card-link nav-item-disabled" aria-disabled="true">查看全部</a>
+                            </div>
+                            <ul class="bullet-list">
+                                <li>关于 2024 年 4 月报关流程调整的通知</li>
+                                <li>平台新增沙特阿拉伯物流专线</li>
+                                <li>五一假期平台服务时间安排</li>
+                            </ul>
+                        </div>
+                        <div class="table-card wb-subcard">
+                            <div class="card-head">
+                                <h3 class="section-title" style="border-bottom:none;padding-bottom:0;margin-bottom:0;">常用帮助</h3>
+                            </div>
+                            <div class="help-links">
+                                <a href="#" class="help-link nav-item-disabled" aria-disabled="true">如何上传商品</a>
+                                <a href="#" class="help-link nav-item-disabled" aria-disabled="true">报关流程指南</a>
+                                <a href="#" class="help-link nav-item-disabled" aria-disabled="true">溯源码使用说明</a>
+                                <a href="#" class="help-link nav-item-disabled" aria-disabled="true">结算提现规则</a>
+                                <a href="#" class="help-link nav-item-disabled" aria-disabled="true">联系在线客服</a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <iframe id="panel-iframe" class="supplier-iframe" style="display:none;" title="子页面"></iframe>
+        </main>
+    </div>
+
+    <script src="../static/js/supplier-workbench.js?v=20261003-supplier-menu"></script>
+</body>
+</html>

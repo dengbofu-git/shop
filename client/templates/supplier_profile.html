@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人信息 · 茶企工作台</title>
+    <link href="../static/css/design-tokens.css" rel="stylesheet">
+    <link href="../static/css/supplier-workbench.css" rel="stylesheet">
+    <link href="../static/css/buyer-account.css?v=20261003-supplier" rel="stylesheet">
+    <link rel="icon" href="../static/images/index/py.ico">
+    <script src="../static/js/init.js"></script>
+    <script src="../static/js/auth-storage.js"></script>
+    <script src="../static/js/jquery-3.1.1.min.js"></script>
+    <script>
+        if (window.location.search.indexOf('embed=1') >= 0 || window.self !== window.top) {
+            document.documentElement.classList.add('embed-mode');
+        }
+    </script>
+    <style>
+        html.embed-mode body { margin: 0; background: #f1f8e9 !important; }
+        .supplier-account-wrap { padding: 20px 24px 32px; max-width: 960px; margin: 0 auto; }
+        .supplier-account-back { margin-bottom: 12px; }
+        .supplier-account-back a { color: #2e7d32; font-size: 14px; text-decoration: none; font-weight: 600; }
+        html.embed-mode .supplier-account-back { display: none; }
+    </style>
+</head>
+<body class="merchant-body supplier-account-page">
+    <div class="supplier-account-wrap">
+        <p class="supplier-account-back"><a href="merchant_dashboard.html">← 返回工作台首页</a></p>
+        <div class="ba-page-head">
+            <span class="ba-eyebrow">SUPPLIER WORKBENCH</span>
+            <h1>个人信息</h1>
+            <p>维护茶企账户联系方式；店铺名称以入驻信息为准。</p>
+        </div>
+        <section class="ba-panel active">
+            <form id="profile-form" novalidate>
+                <div class="ba-form-row">
+                    <label for="pf-username">登录账号</label>
+                    <input type="text" id="pf-username" readonly>
+                </div>
+                <div class="ba-form-row">
+                    <label for="pf-shop">店铺 / 企业名称</label>
+                    <input type="text" id="pf-shop" readonly>
+                </div>
+                <div class="ba-form-row">
+                    <label for="pf-email">邮箱</label>
+                    <input type="email" id="pf-email" required autocomplete="email">
+                </div>
+                <div class="ba-form-row">
+                    <label for="pf-phone">手机号</label>
+                    <input type="tel" id="pf-phone" required maxlength="11" autocomplete="tel">
+                </div>
+                <p class="ba-hint">修改登录密码请前往右上角「账号安全」。</p>
+                <div class="ba-actions">
+                    <button type="submit" class="ba-btn-primary">保存基本信息</button>
+                    <a class="ba-btn-link" href="supplier_password.html" id="link-password">修改密码</a>
+                </div>
+                <p class="ba-msg" id="profile-msg" aria-live="polite"></p>
+            </form>
+        </section>
+    </div>
+    <script src="../static/js/supplier-profile.js?v=20261003-supplier"></script>
+</body>
+</html>

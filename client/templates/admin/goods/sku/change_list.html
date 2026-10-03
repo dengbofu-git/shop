@@ -1,0 +1,83 @@
+{% extends "admin/change_list.html" %}
+{% load i18n admin_urls static admin_list %}
+
+{% block extrahead %}
+{{ block.super }}
+<style>
+    /* 隐藏左侧多选勾选框列 */
+    .changelist-results thead th:first-child,
+    .changelist-results tbody td:first-child {
+        display: none !important;
+    }
+    
+    /* 隐藏动作下拉框和执行按钮 */
+    .actions {
+        display: none !important;
+    }
+    
+    /* 隐藏顶部的消息 */
+    .messagelist {
+        display: none !important;
+    }
+    
+    /* 在页面底部创建消息容器 */
+    #bottom-messages {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 1000;
+        max-width: 600px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+    
+    #bottom-messages li {
+        margin-bottom: 10px;
+        padding: 12px 20px;
+        border-radius: 4px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        background-color: #4caf50;
+        color: white;
+        font-weight: 500;
+    }
+</style>
+<script>
+    // 页面加载后移动消息到下方
+    document.addEventListener('DOMContentLoaded', function() {
+        var topMessages = document.querySelector('.messagelist');
+        if (topMessages && topMessages.children.length > 0) {
+            // 创建底部消息容器
+            var bottomContainer = document.createElement('ul');
+            bottomContainer.id = 'bottom-messages';
+            document.body.appendChild(bottomContainer);
+            
+            // 移动所有消息到底部
+            var messages = topMessages.querySelectorAll('li');
+            messages.forEach(function(msg) {
+                if (msg.textContent.trim()) {
+                    var newMsg = msg.cloneNode(true);
+                    bottomContainer.appendChild(newMsg);
+                }
+            });
+            
+            // 隐藏顶部消息
+            topMessages.style.display = 'none';
+            
+            // 3秒后自动隐藏底部消息
+            setTimeout(function() {
+                bottomContainer.style.transition = 'opacity 0.5s';
+                bottomContainer.style.opacity = '0';
+                setTimeout(function() {
+                    bottomContainer.remove();
+                }, 500);
+            }, 3000);
+        }
+    });
+</script>
+{% endblock %}
+
+{% block result_list %}
+{{ block.super }}
+{% endblock %}

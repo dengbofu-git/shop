@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>商品详情 · 茗越山关跨境电商 9710 报关数字系统</title>
+    <link rel="icon" href="/static/images/index/py.ico">
+    <link rel="stylesheet" href="/static/css/design-tokens.css">
+    <link rel="stylesheet" href="/static/css/rtl.css">
+    <link rel="stylesheet" href="/static/css/buyer-workbench.css?v=20261003-storefront">
+    <link rel="stylesheet" href="/static/css/pro_details.css">
+    <link rel="stylesheet" href="/static/css/buyer-storefront.css?v=20261003-storefront">
+    <script src="/static/js/init.js"></script>
+    <script src="/static/js/auth-storage.js"></script>
+</head>
+
+<body class="buyer-workbench product-detail-page storefront-page" id="buyer-body">
+    <div class="buyer-layout">
+        {% include 'buyer_sidebar.html' with active='products' %}
+
+        <main class="buyer-main">
+            {% include 'buyer_header.html' %}
+
+            <div class="buyer-content storefront-content">
+                <div class="storefront-page-head">
+                    <span class="cart-eyebrow">BUYER WORKBENCH</span>
+                    <h1 class="storefront-page-title">商品详情</h1>
+                </div>
+                <div class="storefront-product-wrap clearfix">
+    <!--细节导航-->
+    <div id="nav_detail">
+	    <h5></h5>
+    </div>
+    <!--产品预览-->
+    <div id="shop_detail" data-id="">
+        <!-- 左侧 - 图片替换为文本 -->
+        <div id="preview" class="lf">
+            <div id="mediumDiv">
+                 <img id="mImg" src="" alt="商品图片" style="max-width:100%;width:auto;height:auto;" />
+                 <div id="mImgText" style="padding:80px;background:#f0f0f0;text-align:center;min-height:200px;display:none;"></div>
+            </div>
+        </div>
+        <!-- 右侧-->
+        <div class="right_detail lf">
+            <!-- 商品名称-->
+            <h1></h1>
+            <!--<h1></h1>-->
+            <!-- 商品全称-->
+            <h3></h3>
+            <!-- <h3></h3>-->
+            <!-- 价格部分-->
+            <div class="price">
+                <div id="pro_price"><b>地标茶价：</b><span>¥299</span></div>
+                <div class="promise">
+                    <b>服务承诺：</b>
+                    <span>*退货补运费</span>
+                    <span>*30天无忧退货</span>
+                    <span>*48小时快速退款</span>
+                    <span>*72小时发货</span>
+                </div>
+            </div>
+            <!-- 参数部分 客服-->
+            <p class="parameter">
+                <b>客服：</b>
+                <span class="connect">联系客服</span>
+            </p>
+            <!-- 规格-->
+            <div id="sku">
+
+            </div>
+
+            <!-- 未选择规格，颜色时状态-->
+            <div class="message"></div>
+            <!-- 数量-->
+            <p class="accountChose">
+                <s>数量：</s>
+                <button type="button" class="numberMinus">-</button>
+                <input type="text" value="1" class="number" id="buy-num" readonly>
+                <button type="button" class="numberAdd">+</button>
+                <span id="stock-info" class="stock-info" style="margin-left:12px;color:#666;"></span>
+            </p>
+            <!-- 购买部分-->
+            <div class="shops">
+                <a href="#" class="buy lf" id="buy_now">立即购买</a>
+                <a href="#" class="shop lf" id="add_cart">加入购物车</a>
+            </div>
+	    <div>
+		    <!-- <input type="button" value="分享链接到微博" id="btn00"> -->
+            </div>
+        </div>
+    </div>
+                </div>
+    <!--商品详情-->
+    <div id="iteminfo">
+        <div id="tab">
+            <div class="tab lf">
+                <div class="cat">
+                    <span class="active"><a href="">商品详情</a></span>
+                    <span><a href="lookforward.html">商品评价</a></span>
+                </div>
+            </div>
+             <div class="cart rt">返回顶部</div>
+        </div>
+        <div class="left lf">
+            <div class="all">
+                <!--<p><img src="images_x/pin_logo.png" alt=""/></p>-->
+                <div id="parm">
+                <div id="specification_parameter">
+                    <p>规格参数</p>
+                    <!-- <img src="images_x/canshu.png" alt="" class="ys5"/> -->
+                </div>
+                <ul id="spec-list"><!-- 由接口数据动态填充 --></ul>
+            </div>
+                <div id="product_introduction">
+                    <p>
+                    商品介绍
+                    <img src="../static/images/product_detail/product_detail_icon_4.png" alt="" class="ys5"/>
+                </p>
+                    <div id="product_intro_content"><!-- 由接口数据动态填充 --></div>
+                </div>
+                <div id="sale_protection">
+                    <p>
+                        售后保障
+                        <img src="../static/images/product_detail/product_detail_icon_3.png" alt="" class="ys5" />
+                    </p>
+
+                    <div class="sale_content">
+                        <p class="paper" id="sale_protect">
+                            <img src="../static/images/product_detail/product_detail_img16.png" alt="" />
+                            正品保障
+                        </p>
+
+                        <p class="content">
+                            茗越山关跨境电商 9710 报关数字系统向您保证所售地标茶均为正品，可开具正规发票。
+                        </p>
+
+                        <p class="paper">
+                            <img src="../static/images/product_detail/product_detail_img16.png" alt="" />
+                            全国联保
+                        </p>
+
+                        <p class="content">
+                            凭质保证书及茗越山关跨境电商 9710 报关数字系统发票，可享受品质保障。中国地标茶出海中东，品质之选，请您放心采购！
+                            注：因厂家会在没有任何提前通知的情况下更改产品包装、产地或者一些附件，本司不能确保客户收到的货物与商城图片、产地、附件说明完全一致。只能确保为原厂正货！并且保证与当时市场上同样主流新品一致。若本商城没有及时更新，请大家谅解！
+                        </p>
+                    </div>
+                </div>
+                <div id="packing_list">
+                    <p>
+                        包装清单
+                        <img src="../static/images/product_detail/product_detail_icon_2.png" alt="" class="ys5" />
+                    </p>
+
+                    <p class="content" id="packing_content">地标茶品，品质保障。如需核实茶品产地与品质，可联系茗越山关跨境电商 9710 报关数字系统客服。</p>
+                </div>
+            </div>
+        </div>
+        <div class="right rt">
+            <div class="aside_nav">
+                <!-- <p><i><img src="../images/product_detail/product_detail_icon_g_1.png" alt=""/></i><a href="#specification_parameter">规格参数</a></p> -->
+                <p><i><img src="../static/images/product_detail/product_detail_icon_t_1.png" alt="" /></i><a href="#product_introduction">商品介绍</a></p>
+                <p><i><img src="../static/images/product_detail/product_detail_icon_d_1.png" alt="" /></i><a href="#sale_protection">售后保障</a></p>
+                <p><i><img src="../static/images/product_detail/product_detail_icon_bao_1.png" alt="" /></i><a href="#sale_protect">包装清单</a></p>
+                <p><i><img src="../static/images/product_detail/product_detail_icon_up_1.png" alt="" /></i><a href="#">回到顶部</a></p>
+            </div>
+        </div>
+    </div>
+            </div>
+
+            <footer class="storefront-footer">© 2026 茗越山关跨境电商 9710 报关数字系统 · 中国地标茶出海中东</footer>
+        </main>
+    </div>
+    <div class="modal" style="display:none">
+        <div class="modal_dialog">
+            <div class="modal_header">
+                操作提醒
+            </div>
+            <div class="modal_information">
+                <img src="../static/images/model/model_img2.png" alt="" />
+                <span>是否将您的宝贝加入收藏夹</span>
+
+            </div>
+            <div class="yes"><span>确定</span></div>
+            <div class="no"><span>取消</span></div>
+        </div>
+    </div>
+    <script src="/static/js/jquery-3.1.1.min.js"></script>
+    <script src="/static/js/buyer-workbench.js?v=20261003-storefront"></script>
+    <script src="/static/js/lozad.js"></script>
+    <script>
+//	$(function(){
+//        $("#btn00").click(function () {
+//            var url=window.location.href;
+//            $.ajax({
+//                url:baseUrl+"/v1/users/weibo/share",
+//                type:"post",
+//                dataType:"json",
+//                contentType:'application/json',
+//		beforeSend:function (request) {
+//                           request.setRequestHeader("authorization",AuthStorage.getToken())
+//                       },
+//                data:JSON.stringify({
+//                    // 'text':'',
+//                    'url':url
+ //               }),
+//                //响应成功的回调函数
+ //               success:function (data) {
+                    //发送成功以后重定向回http://127.0.0.1:7000/dadashop/templates/product_details.html
+//                    if(data.code===200){
+ //                       alert("分享成功！");
+                        // window.location.href=url;
+//                    }else {
+ //                       alert(data.error)
+//                    }
+//                }
+ //           })
+//      })
+// })
+//****************************************************
+        $(function() {
+          (function ($) {
+          $.getUrlParam = function (name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) return r;
+            return null;
+          }
+          var skuParam = $.getUrlParam('skuid');
+          var skuid = (skuParam && skuParam[2]) ? skuParam[2] : '';
+          if (!skuid) {
+            console.error('缺少 skuid 参数');
+            return;
+          }
+
+        $.ajax({
+                type: 'get',
+                url: baseUrl+'/v1/goods/detail/'+skuid,
+                success: function (result) {
+                    var IMG_URL = result.base_url
+                    var breadcrumbName = result.data.product_name || result.data.spu_name || result.data.name;
+                    $('#nav_detail').html(
+                        '<h5><a href="buyer_dashboard.html">首页</a>  <a href="buyer_products.html?catalog_id=' +
+                        result.data.catalog_id + '">' + result.data.catalog_name + '</a>' +
+                        '  >  ' + breadcrumbName);
+                    // 优先使用数据库返回的 base64 图片，其次 media/API；无效时用占位图
+                    var imgSrc = result.data.image_base64 || result.data.media_image_url || result.data.image_url;
+                    if (!imgSrc && result.data.image) {
+                        var base = (IMG_URL || '').replace(/\/$/, '');
+                        var path = String(result.data.image).replace(/^\//, '');
+                        imgSrc = base ? (base + '/' + path) : path;
+                    }
+                    var placeholderImg = (typeof baseUrl !== 'undefined' ? baseUrl : window.location.origin || '') + '/static/images/goods/7.jpg';
+                    if (!imgSrc) imgSrc = placeholderImg;
+                    $('#mImgText').hide();
+                    var $mImg = $('#mImg');
+                    $mImg.off('load error').css('display', 'block');
+                    $mImg.on('error', function() {
+                        var $img = $(this);
+                        $img.attr('src', placeholderImg).off('error').on('error', function() {
+                            $img.css('display', 'none');
+                            $('#mImgText').text(result.data.image_text || result.data.name || '商品图').show();
+                        });
+                    });
+                    $mImg.attr('src', imgSrc || placeholderImg);
+                    // 商品名称用 SPU 名称，规格/副标题用 SKU 名称和 caption
+                    var productName = result.data.product_name || result.data.spu_name || result.data.name;
+                    var specDesc = result.data.name + (result.data.caption ? ' ' + result.data.caption : '');
+                    $('.right_detail').children('h1').html(productName);
+                    $('.right_detail').children('h3').html(specDesc);
+                    $('#pro_price').children('span').html(result.data.price);
+                    var stock = result.data.stock != null ? result.data.stock : 0;
+                    window._detailStock = stock;
+                    $('#stock-info').html('库存：' + stock + ' 件').show();
+
+
+
+                    $('#shop_detail').attr('data-id',result.data.spu);
+
+                    var html = '';
+                    var attr_names = result.data.sku_sale_attr_names;
+                    var attr_id = result.data.sku_sale_attr_id;
+                    var sale_attr_id = result.data.sku_sale_attr_val_id;
+                    var all_sale_attr_id = result.data.sku_all_sale_attr_vals_id;
+                    var all_attr_names = result.data.sku_all_sale_attr_vals_name;
+                    for(var i=0;i<attr_names.length;i++){
+                    html += '<p class="style"><s class="spu_name" data-id='+attr_id[i]+'>'+attr_names[i]+'：</s>'
+                        for (var j=0;j<all_attr_names[attr_id[i]].length;j++){
+                            if (sale_attr_id[i] == all_sale_attr_id[attr_id[i]][j]){
+                               html += '<input type="button" data-id='+all_sale_attr_id[attr_id[i]][j]+' class="spu_check spu_value l'+i+'" value='+all_attr_names[attr_id[i]][j]+' title='+all_attr_names[attr_id[i]][j]+' />'
+                            }else {
+                                html += '<input type="button" data-id='+all_sale_attr_id[attr_id[i]][j]+' class="spu_value l'+i+'" value='+all_attr_names[attr_id[i]][j]+' title='+all_attr_names[attr_id[i]][j]+' />'
+                            }
+                        }
+                        html += '</p>'
+                    }
+                    $('#sku').html(html);
+
+                    // 规格参数：使用真实数据
+                    var specList = result.data.spec_list || [];
+                    var specHtml = '';
+                    for (var i = 0; i < specList.length; i++) {
+                        specHtml += '<li><a href="#">' + specList[i].name + '：' + specList[i].value + '</a></li>';
+                    }
+                    $('#spec-list').html(specHtml || '<li><a href="#">商品名称：' + (result.data.name || '-') + '</a></li>');
+
+                    // 商品介绍：使用真实数据（caption）
+                    var intro = result.data.product_intro || result.data.caption || result.data.name || '暂无详细介绍';
+                    $('#product_intro_content').html('<div class="content" style="padding:15px 0;line-height:1.8;color:#333;">' + intro + '</div>');
+
+                },
+                error: function (err) {
+                    console.log( err)
+               }
+            }).then(() => {
+               $('.l0,.l1').click(function(){
+
+                   $(this).addClass("spu_check");
+                   $(this).siblings().removeClass("spu_check");
+                   var attrs = $('.spu_name');
+                   var attr_checks = $('.spu_check');
+                   var data = {
+                        spuid: parseInt($('#shop_detail').attr('data-id')),
+                   };
+                   for(var i=0;i<attrs.length;i++){
+                       data[attrs[i].getAttribute('data-id')] = parseInt(attr_checks[i].getAttribute('data-id'))
+                   }
+                   $.ajax({
+                       type: "post",
+                       url:baseUrl+'/v1/goods/sku',
+                       contentType:'application/json',
+                       dataType:'json',
+                       beforeSend:function (request) {
+                           request.setRequestHeader("authorization",AuthStorage.getToken())
+                       },
+                       data: JSON.stringify(data),
+                       success: function (data) {
+                           var result = data;
+                           if(result.code == 403){
+							alert('用户认证已过期，请重新登录');
+							AuthStorage.clear();
+							location.href = 'login.html'
+						}
+                           if (result.code==200) {
+                               alert('product_details.html?skuid=' + result.data);
+                               location.href = 'product_details.html?skuid=' + result.data
+                           }
+                           else {
+                               alert(result.error);
+                               history.go(0)
+                           }
+                       },
+                       error: function (data) {
+                           alert("系统异常！");
+                       }
+                   });
+
+               });
+ 
+                /**选择商品进行添加 悬停效果**/
+                $(".avenge").mouseover(function () {
+                    $(this).css({
+                        "border": "1px solid #997679",
+                        "color": "#997679"
+                    });
+               }).mouseout(function () {
+                    $(this).css({
+                        "border": "1px solid #666",
+                       "color": "#666"
+                    })
+                })
+            });
+        $(document).on('click', '.numberMinus', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var $input = $(".accountChose input.number, #buy-num").first();
+            var n = parseInt($input.val(), 10);
+            if (isNaN(n) || n < 1) n = 1;
+            var minQty = 1;
+            if (typeof window._detailStock !== 'undefined' && window._detailStock === 0) minQty = 0;
+            if (n > minQty) $input.val(n - 1);
+        });
+        $(document).on('click', '.numberAdd', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var $input = $(".accountChose input.number, #buy-num").first();
+            var n = parseInt($input.val(), 10);
+            if (isNaN(n) || n < 0) n = 0;
+            var maxStock = 999;
+            if (typeof window._detailStock !== 'undefined' && window._detailStock != null) maxStock = window._detailStock;
+            if (maxStock === 0) maxStock = 1;
+            if (n < maxStock) $input.val(n + 1);
+        });
+
+
+        $(document).on('click', '#add_cart', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var buyNum = parseInt($(".accountChose input.number, #buy-num").first().val(), 10) || 0;
+            if (buyNum < 1) {
+                alert('请至少选择 1 件商品');
+                return;
+            }
+            if (typeof window._detailStock !== 'undefined' && window._detailStock === 0) {
+                alert('当前商品库存不足');
+                return;
+            }
+            $(".modal").show();
+            $(".modal_information span").html("是否将您的宝贝加入购物车");
+            // 先解绑再绑定，避免重复点击导致多次添加
+            $('.no').off('click.addcart').on('click.addcart', function () {
+                $('.modal').hide();
+            });
+            $('.yes').off('click.addcart').on('click.addcart', function () {
+                var username = AuthStorage.getUser();
+                if (username){
+                    $.ajax({
+                    type: "post",
+                    url:baseUrl+'/v1/carts/'+username,
+                    beforeSend:function (request) {
+                        request.setRequestHeader("authorization",AuthStorage.getToken())
+                    },
+                    contentType:'application/json',
+                    dataType:'json',
+                    data: JSON.stringify({
+                        sku_id: skuid,
+                        count: $(".accountChose input.number, #buy-num").first().val()
+                    }),
+                    success: function (data) {
+                        var result = data;
+                        if(result.code == 403){
+							alert('用户认证已过期，请重新登录');
+							AuthStorage.clear();
+							location.href = 'login.html'
+						}
+                        if (result.code==200) {
+                            var cnt = result.data.carts_count || 0;
+                            AuthStorage.setCount(cnt);
+                            $('.my_cart_count').html(cnt);
+                            alert("添加购物车成功！");
+                            location.reload()
+                        } else {
+                            alert(result.error);
+                            location.reload()
+
+                        }
+
+                    },
+                    error: function (data) {
+                        alert("系统异常！");
+                    }
+                });
+                }else {
+                    var data = []
+                    function getData() {
+                         var nameArr = [];
+                        $(".spu_name").each(function() {
+                            nameArr.push($(this).html());
+                        });
+                        var valueArr = [];
+                        $(".spu_value").each(function() {
+                             if ($(this).hasClass('spu_check')){
+                                valueArr.push($(this).val());
+                            }
+                        });
+                        var sku_data = {
+                            id: skuid,
+                            count: $(".accountChose input.number, #buy-num").first().val(),
+                            name: $('.right_detail').children('h3').html(),
+                            default_image_url:$('#mImg').attr('src').replace(imgUrl,''),
+			                price:parseInt($('#pro_price').children('span').html()) ,
+                            selected: true,
+                            sku_sale_attr_name:nameArr,
+                            sku_sale_attr_val:valueArr
+                            };
+                        console.log(data)
+                        data.push(sku_data)
+                        console.log(data)
+
+                    }
+                   
+                    function addData (sku_data) {
+                        var oldData = JSON.parse(window.localStorage.getItem('cart'));
+                        console.log(oldData)
+                        var result = '';
+                        if(oldData){
+                            for(var i=0;i<oldData.length;i++){
+                               if (oldData[i].id == sku_data[0].id){
+                                   oldData[i].count = parseInt(oldData[i].count)+parseInt(sku_data[0].count);
+                                   console.log(oldData[i].count)
+                                   result = oldData
+                               }else {
+                                   result =  oldData.concat(sku_data)
+                               }
+                            }
+                        }else{
+                            result = sku_data
+                        }
+                        window.localStorage.setItem('cart',JSON.stringify(result))
+
+                    }
+                    function start() {
+                        getData();
+                        addData(data);
+                        var cart = JSON.parse(window.localStorage.getItem('cart'));
+                        var total = 0;
+                        if (cart && cart.length) {
+                            for (var i = 0; i < cart.length; i++) total += parseInt(cart[i].count || 1);
+                        }
+                        window.localStorage.setItem('dashop_count', total);
+                        $('.my_cart_count').html(total);
+                        alert("离线添加购物车成功！");
+                        location.reload();
+                        $('.model').hide();
+                    }
+                   // setTimeout(start,1000);
+                    start();
+                }
+            });
+        });
+        $(document).on('click', '#buy_now', function(e){
+            e.preventDefault();
+            e.stopPropagation();
+            var buyNum = parseInt($(".accountChose input.number, #buy-num").first().val(), 10) || 0;
+            if (buyNum < 1) {
+                alert('请至少选择 1 件商品');
+                return;
+            }
+            if (typeof window._detailStock !== 'undefined' && window._detailStock === 0) {
+                alert('当前商品库存不足');
+                return;
+            }
+            var p = $.getUrlParam("skuid");
+            var sku_id = (p && p[2]) ? p[2] : skuid;
+            var buy_num = $(".accountChose input.number, #buy-num").first().val();
+            if (sku_id) window.location.href = "orderConfirm.html?sku_id="+sku_id+"&buy_num="+buy_num;
+        });
+     })(jQuery);
+        });
+
+    </script>
+
+
+</body>
+</html>

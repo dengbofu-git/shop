@@ -1,0 +1,538 @@
+/**
+ * 中台登录页 - 品牌首页
+ * 左60%品牌区 + 右40%登录区
+ * 大湾区科技蓝 + 茶田绿 + 中东金
+ */
+
+.login-portal-page {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    font-family: var(--font-family);
+    background: var(--color-bg);
+    overflow-x: hidden;
+}
+
+.portal-layout {
+    display: flex;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* ========== 左侧品牌区 60% ========== */
+.brand-panel {
+    width: 60%;
+    min-width: 0;
+    min-height: 100vh;
+    background: linear-gradient(135deg, var(--color-tea-light) 0%, rgba(232,245,233,0.6) 50%, var(--color-bg) 100%);
+    padding: 40px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.brand-panel::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: 
+        repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(22,93,255,0.03) 40px, rgba(22,93,255,0.03) 41px),
+        repeating-linear-gradient(0deg, transparent, transparent 40px, rgba(46,125,50,0.03) 40px, rgba(46,125,50,0.03) 41px);
+    pointer-events: none;
+}
+
+.brand-content {
+    position: relative;
+    z-index: 1;
+    max-width: min(480px, 100%);
+    width: 100%;
+    min-width: 0;
+    margin: 0 auto;
+    text-align: center;
+    direction: ltr;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.brand-slogan {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--color-tea);
+    line-height: 1.4;
+    margin: 0 0 12px 0;
+    letter-spacing: 1px;
+}
+
+.brand-slogan-sub {
+    font-size: 14px;
+    color: var(--color-text-secondary);
+    margin: 0 0 8px 0;
+    line-height: 1.5;
+}
+
+.brand-slogan-ar {
+    font-family: "Noto Sans Arabic", var(--font-family);
+    font-size: 15px;
+    color: var(--color-text-muted);
+    margin: 0 0 32px 0;
+    line-height: 1.6;
+}
+
+.brand-slogan-wrap {
+    min-height: 80px;
+}
+
+/* 大湾区港口框：固定尺寸 478×749 */
+.brand-hero {
+    margin: 24px auto 24px;
+    width: min(478px, 100%);
+    height: 749px;
+    max-width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-bg-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 0px;
+    display: block;
+    z-index: 0;
+}
+
+
+.highlight-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    min-width: 0;
+    overflow: hidden;
+}
+
+.highlight-card {
+    background: rgba(255,255,255,0.9);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 10px 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.3s ease;
+    flex: 1 1 120px;
+    min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
+    min-height: 70px;
+}
+
+.highlight-card:hover {
+    border-color: rgba(46, 125, 50, 0.35);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+}
+
+.highlight-card .card-icon {
+    font-size: 24px;
+    flex-shrink: 0;
+}
+
+.highlight-card .card-text {
+    font-size: 12px;
+    color: var(--color-text);
+    line-height: 1.35;
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    word-break: break-word;
+    overflow-wrap: break-word;
+}
+
+/* ========== 右侧登录区 40%（与茶企/买家工作台茶绿主题一致） ========== */
+.login-panel {
+    width: 40%;
+    min-height: 100vh;
+    background: linear-gradient(165deg, #f1f8e9 0%, #e8f5e9 45%, #f5f7fa 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 32px;
+    box-shadow: -4px 0 28px rgba(27, 94, 32, 0.06);
+    direction: ltr;
+}
+
+.login-content {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 28px 26px 24px;
+    background: rgba(255, 255, 255, 0.96);
+    border: 1px solid rgba(46, 125, 50, 0.16);
+    border-radius: 14px;
+    box-shadow: 0 10px 36px rgba(27, 94, 32, 0.08);
+}
+
+.login-header {
+    text-align: center;
+    margin-bottom: 18px;
+}
+
+.portal-logo {
+    height: 52px;
+    width: auto;
+    margin-bottom: 10px;
+    object-fit: contain;
+    border-radius: 8px;
+}
+
+.portal-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: #1b5e20;
+    margin: 0 0 16px 0;
+    line-height: 1.45;
+    letter-spacing: 0.3px;
+}
+
+.lang-switcher {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: nowrap;
+}
+
+.lang-btn {
+    padding: 6px 14px;
+    border: 1px solid rgba(46, 125, 50, 0.22);
+    background: #fff;
+    border-radius: 999px;
+    font-size: 13px;
+    color: #558b2f;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.lang-btn:hover {
+    border-color: var(--color-tea);
+    color: var(--color-tea-hover);
+    background: rgba(232, 245, 233, 0.6);
+}
+
+.lang-btn.active {
+    background: linear-gradient(135deg, #2e7d32 0%, #1b5e20 100%);
+    border-color: #1b5e20;
+    color: #fff;
+}
+
+/* 角色标签栏 - 三角色，与 buyer-workbench 分类 Tab 一致 */
+.role-tabs {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    margin-bottom: 18px;
+    padding: 6px;
+    background: rgba(241, 248, 233, 0.85);
+    border: 1px solid rgba(46, 125, 50, 0.12);
+    border-radius: 12px;
+}
+
+.role-tab {
+    padding: 10px 8px;
+    border: 1px solid transparent;
+    background: transparent;
+    border-radius: 999px;
+    font-size: 13px;
+    color: #4b624c;
+    cursor: pointer;
+    transition: all 0.22s ease;
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.role-tab:hover {
+    color: #1b5e20;
+    background: rgba(255, 255, 255, 0.7);
+}
+
+.role-tab.active {
+    background: #1a5d1a;
+    border-color: #1a5d1a;
+    color: #fff;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(26, 93, 26, 0.25);
+}
+
+/* 表单 */
+.role-form {
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.login-form .input-field {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.login-form .input-field input {
+    width: 100%;
+    height: 48px;
+    padding: 0 16px;
+    padding-top: 18px;
+    border: 1px solid rgba(46, 125, 50, 0.2);
+    border-radius: 10px;
+    background: #fafdf8;
+    color: var(--color-text);
+    font-size: 15px;
+    transition: all 0.2s;
+    box-sizing: border-box;
+}
+
+.login-form .input-field input:focus {
+    border-color: var(--color-tea);
+    outline: none;
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.12);
+}
+
+.login-form .input-field input::placeholder {
+    color: transparent;
+}
+
+.login-form .input-field label {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--color-text-muted);
+    font-size: 14px;
+    pointer-events: none;
+    transition: all 0.2s;
+}
+
+.login-form .input-field input:focus ~ label,
+.login-form .input-field input:not(:placeholder-shown) ~ label,
+.login-form .input-field input:valid ~ label {
+    top: 10px;
+    transform: none;
+    font-size: 11px;
+    color: #2e7d32;
+}
+
+.remember-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    color: var(--color-text-secondary);
+    cursor: pointer;
+}
+
+.remember-row input {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--color-tea);
+}
+
+.error-msg {
+    min-height: 20px;
+    color: #c62828;
+    font-size: 13px;
+    margin-bottom: 16px;
+    text-align: center;
+    padding: 8px;
+    background: rgba(198,40,40,0.08);
+    border-radius: 6px;
+}
+
+.error-msg:empty {
+    display: none;
+}
+
+.btn-login {
+    width: 100%;
+    height: 48px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #d4af37 0%, #c9a430 100%);
+    color: #1a1a1a;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 3px 12px rgba(212, 175, 55, 0.35);
+}
+
+.btn-login:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 16px rgba(212, 175, 55, 0.45);
+    filter: brightness(1.02);
+}
+
+.btn-login:disabled {
+    opacity: 0.75;
+    cursor: wait;
+    transform: none;
+}
+
+/* 平台运营 */
+.role-form-admin {
+    text-align: left;
+    padding: 0;
+}
+
+.terminal-hint {
+    font-size: 14px;
+    color: var(--color-text-secondary);
+    margin: 0 0 20px 0;
+}
+
+.btn-terminal {
+    display: inline-block;
+    padding: 12px 28px;
+    background: linear-gradient(135deg, var(--color-tea), var(--color-tea-hover));
+    color: var(--color-gold) !important;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none !important;
+    transition: all 0.2s;
+    box-shadow: var(--shadow-md);
+}
+
+.btn-terminal:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-lg);
+}
+
+/* 底部 */
+.login-footer {
+    margin-top: 32px;
+    text-align: center;
+}
+
+.challenge-cup {
+    font-size: 12px;
+    color: var(--color-gold);
+    font-weight: 600;
+    margin: 0 0 4px 0;
+}
+
+.platform-desc {
+    font-size: 12px;
+    color: var(--color-text-muted);
+    margin: 0 0 16px 0;
+}
+
+.extra-links {
+    font-size: 13px;
+}
+
+.extra-links a {
+    color: #2e7d32;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.extra-links a:hover {
+    color: #1b5e20;
+    text-decoration: underline;
+}
+
+.extra-links .sep {
+    margin: 0 10px;
+    color: var(--color-text-muted);
+}
+
+/* ========== RTL 布局 - 仅左右翻转主栏，内部元素位置统一 ========== */
+[dir="rtl"] .portal-layout {
+    flex-direction: row-reverse;
+}
+
+[dir="rtl"] .login-panel {
+    box-shadow: 4px 0 24px rgba(0,0,0,0.06);
+}
+
+[dir="rtl"] .brand-slogan-ar {
+    display: block !important;
+}
+
+[dir="rtl"] .brand-slogan-sub {
+    display: none;
+}
+
+/* 三语下保持统一：品牌区与登录区内部始终 LTR，元素位置不变 */
+[dir="rtl"] .brand-content,
+[dir="rtl"] .login-panel {
+    direction: ltr;
+}
+
+[dir="rtl"] .brand-content {
+    text-align: center;
+}
+
+[dir="rtl"] .login-form .input-field label {
+    left: 16px;
+    right: auto;
+}
+
+/* ========== 响应式 ========== */
+@media (max-width: 1280px) {
+    .brand-panel {
+        padding: 32px 24px;
+    }
+    .brand-content {
+        max-width: min(420px, 100%);
+    }
+    .brand-hero {
+        width: min(478px, 100%);
+        height: min(749px, 70vh);
+    }
+    .highlight-card {
+        flex: 1 1 100%;
+    }
+    .highlight-card .card-text {
+        font-size: 11px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .portal-layout {
+        flex-direction: column;
+    }
+
+    .brand-panel {
+        width: 100%;
+        min-height: auto;
+        padding: 32px 24px;
+    }
+
+    .brand-slogan {
+        font-size: 22px;
+    }
+
+    .highlight-card {
+        flex: 1 1 100%;
+    }
+
+    .login-panel {
+        width: 100%;
+        padding: 32px 24px;
+    }
+
+    .role-tabs {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

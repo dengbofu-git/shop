@@ -1,0 +1,31 @@
+<aside class="buyer-sidebar">
+    <div class="sidebar-brand">
+        <span class="sidebar-logo" aria-hidden="true">🌙</span>
+        <span class="sidebar-title" data-i18n="buyer_title">买家工作台</span>
+    </div>
+    <nav class="sidebar-nav" aria-label="买家导航">
+        <a href="buyer_dashboard.html" class="nav-item{% if active == 'home' %} active{% endif %}"{% if active == 'home' %} aria-current="page"{% endif %}>
+            <span class="nav-icon">🏠</span><span class="nav-text" data-i18n="nav_home">首页</span>
+        </a>
+        <a href="buyer_products.html" class="nav-item{% if active == 'products' %} active{% endif %}"{% if active == 'products' %} aria-current="page"{% endif %}>
+            <span class="nav-icon">🛒</span><span class="nav-text" data-i18n="nav_procure">商品采购</span>
+        </a>
+        <a href="buyer_orders.html" class="nav-item{% if active == 'orders' %} active{% endif %}"{% if active == 'orders' %} aria-current="page"{% endif %}>
+            <span class="nav-icon">📋</span><span class="nav-text" data-i18n="nav_orders">我的订单</span>
+        </a>
+        <a href="buyer_support.html" class="nav-item{% if active == 'support' %} active{% endif %}"{% if active == 'support' %} aria-current="page"{% endif %}>
+            <span class="nav-icon">💬</span><span class="nav-text" data-i18n="nav_ai_service">智能客服</span>
+        </a>
+    </nav>
+    <div class="sidebar-currency">
+        <label for="currency-select" data-i18n="currency">币种</label>
+        <select id="currency-select" aria-label="币种"{% if fixed_currency %} disabled title="订单以 USD 结算"{% endif %}>
+            <option value="USD" selected>USD</option>
+            {% if not fixed_currency %}
+            <option value="AED">AED</option>
+            <option value="SAR">SAR</option>
+            {% if active == 'home' %}<option value="CNY">CNY 人民币</option><option value="EUR">EUR</option>{% endif %}
+            {% endif %}
+        </select>
+    </div>
+</aside>

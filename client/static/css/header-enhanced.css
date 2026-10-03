@@ -1,0 +1,391 @@
+/**
+ * 客户页面导航栏增强样式 - 设计规范版
+ * 大湾区科技蓝 + 茶田绿 + 中东金
+ */
+
+/* ========== 全局文字方向设置 ========== */
+* {
+    writing-mode: horizontal-tb !important;
+    text-orientation: mixed !important;
+    direction: ltr !important;
+}
+
+/* ========== 顶部容器布局 ========== */
+#top {
+    width: 1000px !important;
+    max-width: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    margin: 50px auto 0 !important;
+    padding: 15px 25px !important;
+    box-sizing: border-box !important;
+    background: rgba(255,255,255,0.95) !important;
+    border-radius: 8px !important;
+    margin-bottom: 10px !important;
+    backdrop-filter: blur(8px) !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08) !important;
+    gap: 20px !important;
+    border: 1px solid rgba(0,0,0,0.06) !important;
+}
+
+/* 移除搜索框相关样式 */
+#top_input {
+    display: none !important;
+}
+
+/* ========== Logo区域 ========== */
+#top #logo {
+    flex: 0 0 auto !important;
+    min-width: 130px !important;
+    max-width: 160px !important;
+    display: flex !important;
+    align-items: center !important;
+}
+
+#top #logo .logo-link {
+    display: inline-block;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+#top #logo .logo-link:hover {
+    transform: translateY(-2px);
+}
+
+.brand-logo-img {
+    height: 50px !important;
+    width: auto !important;
+    max-width: 200px !important;
+    object-fit: contain !important;
+    transition: all 0.3s ease !important;
+    cursor: pointer !important;
+    display: block !important;
+}
+
+.brand-logo-img:hover {
+    transform: translateY(-2px) scale(1.05) !important;
+    filter: brightness(1.1) !important;
+}
+
+.brand-logo-img:active {
+    transform: translateY(0) scale(1.02) !important;
+}
+
+/* ========== 搜索按钮 - 科技蓝主色 ========== */
+.search-nav-btn {
+    background: linear-gradient(135deg, #165DFF, #0E42D4) !important;
+    color: #fff !important;
+    border-radius: 6px !important;
+    padding: 8px 12px !important;
+    box-shadow: 0 2px 8px rgba(22,93,255,0.3) !important;
+    border: none !important;
+}
+
+.search-nav-btn:hover {
+    background: #4080FF !important;
+    color: #fff !important;
+    box-shadow: 0 4px 12px rgba(22,93,255,0.4) !important;
+    transform: translateY(-2px) !important;
+}
+
+.search-nav-btn:active {
+    transform: translateY(0) !important;
+}
+
+.search-nav-btn .nav-icon,
+.search-nav-btn .nav-text {
+    color: #fff !important;
+}
+
+.search-nav-btn:hover .nav-icon,
+.search-nav-btn:hover .nav-text {
+    color: #fff !important;
+}
+
+.search-nav-btn::before {
+    display: none !important;
+}
+
+.search-nav-btn:hover::before {
+    display: none !important;
+}
+
+/* ========== 导航链接区域 ========== */
+#top .rt {
+    flex: 1 1 auto !important;
+    min-width: auto !important;
+    max-width: none !important;
+    display: flex !important;
+    align-items: center !important;
+    height: auto !important;
+    justify-content: flex-end !important;
+}
+
+.nav-links {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0 !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    list-style: none !important;
+    writing-mode: horizontal-tb !important;
+    text-orientation: mixed !important;
+}
+
+.nav-links li {
+    position: relative;
+    padding: 0 6px !important;
+    display: flex !important;
+    align-items: center !important;
+    height: auto !important;
+    vertical-align: middle !important;
+    float: none !important;
+    line-height: normal !important;
+    margin: 0 !important;
+}
+
+.nav-links li#my_login {
+    display: flex !important;
+    align-items: center !important;
+    height: auto !important;
+    vertical-align: middle !important;
+    float: none !important;
+    line-height: normal !important;
+    padding: 0 6px !important;
+}
+
+.nav-link {
+    display: flex !important;
+    align-items: center !important;
+    gap: 5px !important;
+    padding: 8px 12px !important;
+    border-radius: 6px !important;
+    color: #1D2129 !important;
+    text-decoration: none !important;
+    transition: all 0.3s ease !important;
+    position: relative !important;
+    overflow: hidden !important;
+    cursor: pointer !important;
+    background: transparent !important;
+    border: none !important;
+    vertical-align: middle !important;
+    line-height: normal !important;
+    height: auto !important;
+    margin: 0 !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    writing-mode: horizontal-tb !important;
+    text-orientation: mixed !important;
+    white-space: nowrap !important;
+}
+
+.nav-link::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #165DFF, #4080FF);
+    transform: translateX(-50%);
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover::before {
+    width: 80%;
+}
+
+.nav-link:hover {
+    color: #165DFF !important;
+    background: rgba(22,93,255,0.08) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 2px 8px rgba(22,93,255,0.12) !important;
+}
+
+.nav-link:active {
+    transform: translateY(0) !important;
+}
+
+.nav-icon {
+    font-size: 16px !important;
+    transition: transform 0.3s ease;
+    display: inline-block !important;
+    vertical-align: middle !important;
+    writing-mode: horizontal-tb !important;
+    text-orientation: mixed !important;
+    line-height: 1 !important;
+}
+
+.nav-link:hover .nav-icon {
+    transform: scale(1.15) rotate(3deg);
+}
+
+.nav-text {
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    writing-mode: horizontal-tb !important;
+    text-orientation: mixed !important;
+    white-space: nowrap !important;
+    display: inline-block !important;
+    vertical-align: middle !important;
+    line-height: 1.2 !important;
+}
+
+/* ========== 购物车特殊样式 ========== */
+.cart-link {
+    position: relative;
+    display: flex !important;
+    align-items: center !important;
+    vertical-align: middle !important;
+    height: auto !important;
+}
+
+.cart-badge {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle !important;
+    line-height: normal !important;
+    margin-right: 2px !important;
+}
+
+.cart-badge .my_cart_count {
+    position: absolute;
+    top: -10px;
+    right: -14px;
+    background: #d32f2f !important;
+    color: #ffffff !important;
+    border: 2px solid #ffffff !important;
+    border-radius: 12px !important;
+    padding: 2px 7px !important;
+    font-size: 11px !important;
+    font-weight: 800 !important;
+    min-width: 20px !important;
+    height: 20px !important;
+    text-align: center !important;
+    line-height: 16px !important;
+    box-shadow: 0 2px 8px rgba(211,47,47,0.7), 0 0 0 1px rgba(255,255,255,0.5) !important;
+    animation: cartBounce 0.5s ease;
+    transition: all 0.3s ease !important;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.4) !important;
+    letter-spacing: 0 !important;
+    writing-mode: horizontal-tb !important;
+    text-orientation: mixed !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+@keyframes cartBounce {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+}
+
+.cart-link:hover .my_cart_count {
+    transform: scale(1.1);
+    box-shadow: 0 3px 10px rgba(211,47,47,0.8), 0 0 0 2px rgba(255,255,255,0.6) !important;
+}
+
+.cart-link:hover .nav-icon {
+    animation: cartShake 0.5s ease;
+    filter: drop-shadow(0 0 0 rgba(0,0,0,0)) !important;
+}
+
+@keyframes cartShake {
+    0%, 100% {
+        transform: translateX(0) rotate(0deg);
+    }
+    25% {
+        transform: translateX(-3px) rotate(-5deg);
+    }
+    75% {
+        transform: translateX(3px) rotate(5deg);
+    }
+}
+
+/* 移除购物车图标重影 */
+.nav-icon {
+    filter: none !important;
+    opacity: 1 !important;
+    text-shadow: none !important;
+}
+
+/* ========== 登录链接样式 ========== */
+.login-link {
+    background: transparent !important;
+    border: none !important;
+    font-weight: 500 !important;
+}
+
+.login-link:hover {
+    background: rgba(22,93,255,0.08) !important;
+    border: none !important;
+    color: #165DFF !important;
+}
+
+/* ========== 分隔符样式 ========== */
+.nav-separator {
+    color: #86909C !important;
+    margin: 0 10px !important;
+    font-weight: 300 !important;
+    font-size: 14px !important;
+    transition: opacity 0.3s ease !important;
+    padding: 0 !important;
+    display: inline-block !important;
+    vertical-align: middle !important;
+    opacity: 0.5 !important;
+    writing-mode: horizontal-tb !important;
+    text-orientation: mixed !important;
+}
+
+.nav-links li:hover .nav-separator {
+    opacity: 0.3;
+}
+
+/* ========== 响应式优化 ========== */
+@media (max-width: 1200px) {
+    #top {
+        width: 95% !important;
+        padding: 12px 15px !important;
+        gap: 15px !important;
+    }
+    
+    .search-input {
+        max-width: 100% !important;
+    }
+    
+    #top .rt {
+        min-width: 280px !important;
+    }
+}
+
+/* ========== 加载动画 ========== */
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#top {
+    animation: fadeInDown 0.6s ease-out;
+}
+
+#top > * {
+    animation: fadeInDown 0.6s ease-out;
+    animation-delay: 0.1s;
+    animation-fill-mode: both;
+}
+
+#top .rt {
+    animation-delay: 0.2s;
+}

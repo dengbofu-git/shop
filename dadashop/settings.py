@@ -10,21 +10,28 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
+import os
 from pathlib import Path
+
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+load_dotenv(BASE_DIR / '.env', override=False)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-pe97h&!c3m($br9kj1j%@7i)q3gcn!!w-x)670a4iiq2k8_ga2'
+SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DJANGO_DEBUG', 'false').lower() == 'true'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [host.strip() for host in os.getenv('DJANGO_ALLOWED_HOSTS', '').split(',') if host.strip()]
+
+# 允许同源 iframe 嵌入（供应商工作台内嵌子页面）
+X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 # Application definition
 
@@ -36,10 +43,18 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'corsheaders',
+    'goods',
     'users',
-
+    'carts',
+    'orders',
+    'pays',
+    'news',
+    'inventory',
+    'logistics',
+    'supplier',
+    'admin_panel',
+    'support_ai',
 ]
-
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -56,7 +71,7 @@ ROOT_URLCONF = 'dadashop.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
+        'DIRS': [BASE_DIR / 'templates', BASE_DIR / 'client' / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -77,11 +92,11 @@ WSGI_APPLICATION = 'dadashop.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'USER': 'root',
-        'PASSWORD': '123456',
-        'HOST': '172.20.240.1',
-        'PORT': 3306,
-        'NAME': 'dadashop',
+        'USER': os.environ['DB_USER'],
+        'PASSWORD': os.environ['DB_PASSWORD'],
+        'HOST': os.environ['DB_HOST'],
+        'PORT': int(os.environ['DB_PORT']),
+        'NAME': os.environ['DB_NAME'],
     }
 }
 
@@ -120,6 +135,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    BASE_DIR / 'client' / 'static',
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -130,6 +148,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ALLOW_ALL_ORIGINS = False
 
 CORS_ALLOWED_ORIGINS = [
+    'http://127.0.0.1:8000',
+    'http://localhost:8000',
     'http://127.0.0.1:8081',
     'http://localhost:8081',
 ]
@@ -153,14 +173,20 @@ CORS_ALLOW_HEADERS = (
 )
 ###################CORS配置结束#######################
 ####################JWT配置开始#######################
-JWT_SECRET_KEY = 'Keq#$X10xP'
+JWT_SECRET_KEY = os.environ['JWT_SECRET_KEY']
+SUPPORT_API_KEY = os.environ['SUPPORT_API_KEY']
+SUPPORT_MODEL = os.environ['SUPPORT_MODEL']
+SUPPORT_BASE_URL = os.environ['SUPPORT_BASE_URL']
+SUPPORT_THINKING = os.environ.get('SUPPORT_THINKING', '')
+ADMIN_INITIAL_PASSWORD = os.environ['ADMIN_INITIAL_PASSWORD']
+CUSTOMS_INITIAL_PASSWORD = os.environ['CUSTOMS_INITIAL_PASSWORD']
 ####################JWT配置结束#######################
 #####################第三方邮件服务器配置开始############
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.qq.com'
-EMAIL_PORT = 25
-EMAIL_HOST_USER = '1906317758@qq.com'
-EMAIL_HOST_PASSWORD = 'tqitzwymabzpebfj'
+EMAIL_HOST = os.environ['EMAIL_HOST']
+EMAIL_PORT = int(os.environ['EMAIL_PORT'])
+EMAIL_HOST_USER = os.environ['EMAIL_HOST_USER']
+EMAIL_HOST_PASSWORD = os.environ['EMAIL_HOST_PASSWORD']
 ####################第三方邮件服务器配置结束##############
 ####################Redis服务器########################
 CACHES = {
@@ -174,17 +200,60 @@ CACHES = {
                 "decode_responses": True
             }
         }
-    }
+    },
+    "carts": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/1",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            "CONNECTION_POOL_KWARGS": {
+                "max_connections": 100,
+                "decode_responses": True
+            }
+        }
+    },
 }
-####################Redis服务器########################
+####################Redis服务器#######################
+
+
 ##################容联云手机短信服务器###################
-RONGLIAN_SMS_ACCOUNT_ID = '2c94811c9035ff9f0190776a7a860efe'
-RONGLIAN_SMS_ACCOUNT_TOKEN = '2f39c2ce16c64a5ebf3a5c7f45638650'
-RONGLIAN_SMS_APP_ID = '2c94811c9035ff9f0190776a7c280f05'
-RONGLIAN_SMS_MODEL_ID = '1'
-###################容联云手机短信服务器###################
+
+# 开发环境模拟短信发送（设置为 True 时跳过真实短信发送，验证码会打印在控制台）
+SMS_MOCK_MODE = os.environ['SMS_MOCK_MODE'].lower() == 'true'
+
+RONGLIAN_SMS_ACCOUNT_ID = os.environ['RONGLIAN_SMS_ACCOUNT_ID']
+RONGLIAN_SMS_ACCOUNT_TOKEN = os.environ['RONGLIAN_SMS_ACCOUNT_TOKEN']
+RONGLIAN_SMS_APP_ID = os.environ['RONGLIAN_SMS_APP_ID']
+RONGLIAN_SMS_MODEL_ID = os.environ['RONGLIAN_SMS_MODEL_ID']
+
+
+###################容联云手机短信服务器##################
+
+
 ###################微博登入服务器#######################
-WEIBO_APP_KEY = '255139999'
-WEIBO_APP_SECRET = 'ca042aa0abeba8f517ecee2b541d0832'
-WEIBO_REDIRECT_URI = 'http://127.0.0.1:8081/dadashop/templates/callback.html'
+
+
+WEIBO_APP_KEY = os.environ['WEIBO_APP_KEY']
+WEIBO_APP_SECRET = os.environ['WEIBO_APP_SECRET']
+WEIBO_REDIRECT_URI = os.environ['WEIBO_REDIRECT_URI']
 ###################微博登入服务器#######################
+#####################媒体文件配置#######################
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / "media"
+DADASHOP_MEDIA = "http://127.0.0.1:8000/media/"
+#####################媒体文件配置######################
+
+
+####################支付宝配置开始#####################
+
+
+ALIPAY_SALLER_NAME = '茗越山关跨境电商 9710 报关数字系统'
+ALIPAY_PAY_URL = os.environ['ALIPAY_PAY_URL']
+ALIPAY_APP_ID = os.environ['ALIPAY_APP_ID']
+ALIPAY_APP_PRIVATE_KEY = os.environ['ALIPAY_APP_PRIVATE_KEY']
+ALIPAY_APP_NOTIFY_URL = os.environ['ALIPAY_APP_NOTIFY_URL']
+# 支付完成后跳转的前端页面地址（pays/notify 已改为动态获取，此配置作为备用）
+FRONTEND_BASE_URL = os.environ['FRONTEND_BASE_URL']
+
+
+####################支付宝配置结束#####################

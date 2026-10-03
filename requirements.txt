@@ -1,0 +1,27 @@
+# Dadashop — Python 3.9（推荐 3.9.x，与 Django 3.2 兼容）
+# 安装：pip install -r requirements.txt
+
+# Web
+Django==3.2.12
+django-cors-headers==3.13.0
+
+# 数据库与缓存
+PyMySQL==1.0.2
+django-redis==5.2.0
+redis>=4.5,<6
+
+# 认证与安全
+PyJWT==2.6.0
+python-dotenv==1.0.1
+
+# 业务集成
+python-alipay-sdk==3.4.0
+ronglian-sms-sdk==1.0.0
+requests==2.28.1
+Pillow==9.5.0
+
+# AI 客服（support_ai）
+langchain==0.3.27
+langgraph==0.2.76
+langchain-openai==0.2.14
+greenlet==3.1.1
