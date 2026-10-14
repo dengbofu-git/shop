@@ -29,4 +29,19 @@
 .bs-notice { margin: 0; padding: 0 20px 17px; color: #7b857c; font-size: 12px; }
 .bs-footer { padding: 22px 24px; color: #7b857c; font-size: 12px; text-align: center; }
 .bs-visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; }
+.bs-preferences { margin-bottom: 16px; padding: 14px 18px; border: 1px solid #dce5d9; border-radius: 9px; background: #fff; }
+.bs-preferences summary { cursor: pointer; color: #153e19; font-weight: 700; }
+.bs-preferences p { font-size: 12px; color: #58685b; line-height: 1.6; }
+.bs-preferences label { display: block; margin: 10px 0 5px; font-size: 13px; }
+.bs-preferences input { box-sizing: border-box; width: 100%; max-width: 520px; padding: 9px 12px; border: 1px solid #dce5d9; border-radius: 6px; font: inherit; font-size: 13px; }
+.bs-preference-actions { display: flex; gap: 10px; margin-top: 12px; }
+.bs-preference-actions button, .bs-new-conversation { padding: 8px 12px; background: #fff; border: 1px solid #b8cbb2; color: #224329; border-radius: 6px; cursor: pointer; }
+.bs-new-conversation { margin-left: auto; white-space: nowrap; }
+.bs-products { display: grid; gap: 10px; margin-top: 10px; }
+.bs-product { display: flex; align-items: start; gap: 12px; padding: 12px; border: 1px solid #dce5d9; border-radius: 8px; background: #fff; color: #224329; text-decoration: none; }
+.bs-product img { width: 64px; height: 64px; object-fit: cover; border-radius: 5px; }
+.bs-product strong { display: block; font-size: 14px; }
+.bs-product p { margin: 5px 0 0; font-size: 12px; line-height: 1.5; }
+.bs-product:focus-visible, .bs-preferences button:focus-visible, .bs-new-conversation:focus-visible { outline: 2px solid #1a5d1a; outline-offset: 3px; }
+.bs-preferences button:disabled, .bs-new-conversation:disabled { opacity: .6; cursor: wait; }
 @media (max-width: 760px) { .bs-panel { min-height: 520px; } .bs-messages { max-height: 54vh; padding: 14px; } .bs-message { max-width: 94%; } .bs-compose { padding: 12px; } .bs-notice { padding: 0 12px 14px; } }

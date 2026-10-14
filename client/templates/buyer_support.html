@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="/static/css/design-tokens.css">
     <link rel="stylesheet" href="/static/css/rtl.css">
     <link rel="stylesheet" href="/static/css/buyer-workbench.css?v=20261003-shared-shell">
-    <link rel="stylesheet" href="/static/css/buyer-support.css?v=20261003-support">
+    <link rel="stylesheet" href="/static/css/buyer-support.css?v=20261012-recommendation">
     <script src="/static/js/init.js"></script>
     <script src="/static/js/auth-storage.js"></script>
     <script src="/static/js/jquery-3.1.1.min.js"></script>
@@ -24,11 +24,28 @@
                     <h1>智能客服</h1>
                     <p>茶品推荐、购物咨询和订单售后，都可以从这里开始。</p>
                 </div>
+                <details class="bs-preferences" open>
+                    <summary>长期购买偏好设置（可收起）</summary>
+                    <p>只保存您主动填写的偏好，用于推荐排序。本轮明确要求优先于偏好；预算不会自动保存。留空表示没有偏好。</p>
+                    <form id="bs-preferences-form">
+                        <label for="bs-pref-categories">分类偏好（如红茶，最多 5 项）</label>
+                        <input id="bs-pref-categories" maxlength="205" placeholder="多个分类用逗号分隔">
+                        <label for="bs-pref-brands">品牌偏好</label>
+                        <input id="bs-pref-brands" maxlength="205" placeholder="多个品牌用逗号分隔">
+                        <label for="bs-pref-keywords">商品名称偏好</label>
+                        <input id="bs-pref-keywords" maxlength="205" placeholder="商品名称中的关键词，用逗号分隔">
+                        <div class="bs-preference-actions">
+                            <button type="submit">保存偏好</button>
+                            <button type="button" id="bs-clear-preferences">清除偏好</button>
+                        </div>
+                        <p id="bs-preference-status" role="status"></p>
+                    </form>
+                </details>
                 <section class="bs-panel" aria-label="智能客服对话">
                     <div class="bs-panel-head">
                         <div class="bs-agent-avatar" aria-hidden="true">💬</div>
                         <div><strong>茶品智能助手</strong><span>推荐商品 · 咨询问答 · 售后服务</span></div>
-                        <span class="bs-status">在线</span>
+                        <button type="button" id="bs-new-conversation" class="bs-new-conversation">新对话</button>
                     </div>
                     <div class="bs-messages" id="bs-messages" role="log" aria-live="polite" aria-relevant="additions text">
                         <div class="bs-message bs-assistant"><div class="bs-bubble">您好！想挑选茶品、了解平台，或查询自己的订单？请告诉我您的问题。请勿发送姓名、电话、详细地址等个人信息。</div></div>
@@ -43,13 +60,13 @@
                         <textarea id="bs-input" rows="2" maxlength="1000" placeholder="请输入您的问题（最多 1000 字）" required></textarea>
                         <button id="bs-send" type="submit">发送</button>
                     </form>
-                    <p class="bs-notice">提交的问题会先进行个人信息脱敏，再交由配置的模型服务处理。智能回复仅供参考；退款、发货等事项请以订单和人工客服确认为准。</p>
+                    <p class="bs-notice">问题会先脱敏，再连同本会话最近上下文和您保存的偏好交给模型理解。服务端保存脱敏对话以便恢复，模型使用最近 24 小时最多 6 轮；“新对话”停止使用旧上下文。推荐价格与库存以下单时为准，退款、发货事项请以订单和人工客服确认为准。</p>
                 </section>
             </div>
             <footer class="bs-footer">© 2026 茗越山关跨境电商 9710 报关数字系统 · 中国地标茶出海中东</footer>
         </main>
     </div>
     <script src="/static/js/buyer-workbench.js?v=20261003-shared-shell"></script>
-    <script src="/static/js/buyer-support.js?v=20261003-support"></script>
+    <script src="/static/js/buyer-support.js?v=20261012-recommendation"></script>
 </body>
 </html>

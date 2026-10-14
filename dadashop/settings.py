@@ -18,6 +18,7 @@ from dotenv import load_dotenv
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv(BASE_DIR / '.env', override=False)
+load_dotenv(BASE_DIR / '.env.postgres', override=False)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -54,6 +55,7 @@ INSTALLED_APPS = [
     'supplier',
     'admin_panel',
     'support_ai',
+    'ai_storage',
 ]
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -99,6 +101,17 @@ DATABASES = {
         'NAME': os.environ['DB_NAME'],
     }
 }
+DATABASES['ai_storage'] = {
+    'ENGINE': 'django.db.backends.postgresql',
+    'NAME': os.getenv('AI_POSTGRES_NAME', 'dadashop_ai'),
+    'USER': os.getenv('AI_POSTGRES_USER', 'dadashop_ai'),
+    'PASSWORD': os.getenv('AI_POSTGRES_PASSWORD', ''),
+    'HOST': os.getenv('AI_POSTGRES_HOST', '127.0.0.1'),
+    'PORT': int(os.getenv('AI_POSTGRES_PORT', '5433')),
+    'CONN_MAX_AGE': 60,
+    'OPTIONS': {'connect_timeout': 5},
+}
+DATABASE_ROUTERS = ['ai_storage.router.AiStorageRouter']
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators

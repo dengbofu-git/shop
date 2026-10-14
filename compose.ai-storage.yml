@@ -1,0 +1,25 @@
+name: dadashop-ai-storage
+
+services:
+  postgres:
+    image: pgvector/pgvector:0.8.7-pg16-bookworm
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${AI_POSTGRES_NAME:-dadashop_ai}
+      POSTGRES_USER: ${AI_POSTGRES_USER:-dadashop_ai}
+      POSTGRES_PASSWORD: ${AI_POSTGRES_PASSWORD:?Set AI_POSTGRES_PASSWORD in .env.postgres}
+    ports:
+      - "127.0.0.1:${AI_POSTGRES_PORT:-5433}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./deploy/postgres/001-vector.sql:/docker-entrypoint-initdb.d/001-vector.sql:ro
+    shm_size: 256mb
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+      start_period: 10s
+
+volumes:
+  postgres_data:

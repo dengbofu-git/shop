@@ -1,6 +1,7 @@
 .env
 .env.*
 !.env.example
+!.env.postgres.example
 app_key/*private*.pem
 __pycache__/
 *.py[cod]
