@@ -1,0 +1,34 @@
+E:\miniconda\envs\dadashop\lib\site-packages\langgraph\checkpoint\base\__init__.py:18: LangChainPendingDeprecationWarning: The default value of `allowed_objects` will change in a future version. Pass an explicit value (e.g., allowed_objects='messages' or allowed_objects='core') to suppress this warning.
+  from langgraph.checkpoint.serde.jsonplus import JsonPlusSerializer
+Creating test database for alias 'default'...
+
+Creating test database for alias 'ai_storage'...
+
+System check identified no issues (0 silenced).
+..Customer support workflow failed: TimeoutError trace_id=76b422d7c73c73e2c22c6d452aea9caf
+.......Customer support storage failed: OperationalError
+.Customer support storage failed: OperationalError
+......................F.................Agent telemetry persistence failed: RuntimeError
+..............................................
+======================================================================
+FAIL: test_budget_still_applies_to_knowledge_bound_groups (support_ai.test_mixed_tea.MixedTeaIntegrationTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "E:\django\dadashop\support_ai\test_mixed_tea.py", line 183, in test_budget_still_applies_to_knowledge_bound_groups
+    self.assertEqual([p['category'] for p in data['recommendations']], ['绿茶'])
+AssertionError: Lists differ: [] != ['绿茶']
+
+Second list contains 1 additional elements.
+First extra element 0:
+'绿茶'
+
+- []
++ ['绿茶']
+
+----------------------------------------------------------------------
+Ran 96 tests in 3.924s
+
+FAILED (failures=1)
+Destroying test database for alias 'default'...
+
+Destroying test database for alias 'ai_storage'...

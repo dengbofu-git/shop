@@ -10,12 +10,14 @@
     <link rel="stylesheet" href="/static/css/rtl.css">
     <link rel="stylesheet" href="/static/css/buyer-workbench.css?v=20261003-storefront">
     <link rel="stylesheet" href="/static/css/pro_details.css">
+    <link rel="stylesheet" href="/static/css/buyer-activity.css">
     <link rel="stylesheet" href="/static/css/buyer-storefront.css?v=20261003-storefront">
     <script src="/static/js/init.js"></script>
     <script src="/static/js/auth-storage.js"></script>
+{% include "shared/system_theme.html" %}
 </head>
 
-<body class="buyer-workbench product-detail-page storefront-page" id="buyer-body">
+<body class="ds-page-product_details ds-theme buyer-workbench product-detail-page storefront-page" id="buyer-body">
     <div class="buyer-layout">
         {% include 'buyer_sidebar.html' with active='products' %}
 
@@ -84,6 +86,10 @@
             <div class="shops">
                 <a href="#" class="buy lf" id="buy_now">立即购买</a>
                 <a href="#" class="shop lf" id="add_cart">加入购物车</a>
+            </div>
+            <div class="detail-favorite">
+                <button type="button" id="favorite-toggle" aria-pressed="false" disabled>收藏商品</button>
+                <span id="favorite-message" role="status" aria-live="polite"></span>
             </div>
 	    <div>
 		    <!-- <input type="button" value="分享链接到微博" id="btn00"> -->
@@ -188,6 +194,7 @@
     <script src="/static/js/jquery-3.1.1.min.js"></script>
     <script src="/static/js/buyer-workbench.js?v=20261003-storefront"></script>
     <script src="/static/js/lozad.js"></script>
+    <script src="/static/js/buyer-activity.js"></script>
     <script>
 //	$(function(){
 //        $("#btn00").click(function () {
@@ -237,6 +244,12 @@
                 type: 'get',
                 url: baseUrl+'/v1/goods/detail/'+skuid,
                 success: function (result) {
+                    if (result.code !== 200 || !result.data) {
+                        $('#favorite-message').text(result.error || '商品加载失败');
+                        return;
+                    }
+                    if (result.data.is_launched) window.BuyerActivity.initDetail(skuid);
+                    else $('#favorite-message').text('商品已下架');
                     var IMG_URL = result.base_url
                     var breadcrumbName = result.data.product_name || result.data.spu_name || result.data.name;
                     $('#nav_detail').html(

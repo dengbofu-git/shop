@@ -1,6 +1,5 @@
 import json
 import logging
-import re
 import hashlib
 import uuid
 from functools import wraps
@@ -12,15 +11,13 @@ from django.views.decorators.http import require_POST
 from django.views.decorators.http import require_http_methods
 
 from dadashop.utils import jwt_decode
-from orders.models import OrderInfo
 from users.models import UserProfile
 from ai_storage.models import BuyerMemory
 
-from .pii import redact
-from .contracts import Preferences, validate_recommendation_intent
-from .context import ConversationConflict, commit_turn, recent_context, replay, saved_preferences
+from .contracts import Preferences
+from .context import (ConversationConflict, commit_turn, current_order_context,
+                      recent_context, replay, saved_preferences, HISTORY_TURNS)
 from .models import SupportConversation
-from .recommendations import match_products
 from pydantic import ValidationError
 
 
@@ -105,53 +102,50 @@ def chat(request):
     if not settings.SUPPORT_API_KEY:
         return _response({'error': '智能客服尚未配置模型服务，请联系管理员。'}, 503)
 
-    # The graph and optional tracing receive only locally redacted text. An order
-    # identifier is retained in memory only to query orders owned by this user.
-    own_orders = OrderInfo.objects.filter(user_profile=user).order_by('-created_time')
-    owned_ids = list(own_orders.values_list('order_id', flat=True))
-    matched_order_id = next((oid for oid in owned_ids if oid in message), '')
-    safe_message = redact(message.strip(), owned_ids)
-    if matched_order_id:
-        relevant_orders = own_orders.filter(order_id=matched_order_id)
-    elif re.search(r'(?<!\d)\d{10,}(?!\d)', message):
-        relevant_orders = []
-    else:
-        relevant_orders = own_orders[:3]
-    order_context = json.dumps([
-            {
-                'order': '所提订单' if matched_order_id else '近期订单',
-                'status': redact(order.get_status_display_text()),
-                'created_date': order.created_time.date().isoformat(),
-            }
-            for order in relevant_orders
-        ], ensure_ascii=False)
+    safe_message, order_context, selected_order_id = current_order_context(user, conversation, message)
+    observation = None
     try:
         from .workflow import build_graph
         from .model_client import configured_model
-        result = build_graph(configured_model()).invoke({
-            'message': safe_message, 'recent_turns': history, 'memory': memory, 'order_context': order_context,
-        })
-        response = {
-            'intent': result['intent'],
-            'confidence': round(max(result['scores'].values()), 2),
-            'pii_redacted': safe_message != message.strip() or result.get('pii_redacted', False),
-            'recommendations': [],
-        }
-        if result['intent'] == 'recommendation':
-            product_intent = validate_recommendation_intent(result['product_intent'], safe_message, history, memory)
-            response.update(match_products(product_intent))
-            response['product_intent'] = product_intent.model_dump()
-            response['memory_used'] = any(e.source == 'MEMORY' for e in product_intent.evidence
-                                          if e.value in getattr(product_intent.preferred, e.field.split('.')[-1], []))
-        else:
-            response['answer'] = result['answer']
-            response['memory_used'] = False
-        response = commit_turn(user, conversation, revision, request_id, request_hash, safe_message, response)
+        from .configuration import effective_configuration
+        from .telemetry import observe_agent
+        from .retrieval import KnowledgeRetriever
+        from .tool_services import create_tool_handlers
+        agent_config = effective_configuration()
+        with observe_agent(agent_config) as observation:
+            model = configured_model(agent_config)
+            retriever = KnowledgeRetriever(user.pk, agent_config)
+            graph = build_graph(model, tool_factory=lambda state: create_tool_handlers(
+                model, retriever.search,
+                state['safe_message'], state['resolved_question'], state.get('recent_turns', []),
+                memory, order_context,
+                knowledge_context_chars=agent_config.retrieval_context_chars,
+                scoped_knowledge_search=retriever.scoped_search,
+                knowledge_notes=retriever.notes,
+            ))
+            result = graph.invoke({
+                'message': safe_message, 'recent_turns': history, 'memory': memory, 'order_context': order_context,
+                'owner_id': user.pk,
+            }, config={'callbacks': [observation.callback] if observation.callback else []})
+            observation.finish(result)
+            if result['tool_results'] and all(r['status'] in ('error', 'skipped') for r in result['tool_results']):
+                raise RuntimeError('All Agent tools failed')
+            response = dict(result['response'], pii_redacted=safe_message != message.strip() or result.get('pii_redacted', False))
+            if observation.trace_id:
+                response['trace_id'] = observation.trace_id
+            response = commit_turn(
+                user, conversation, revision, request_id, request_hash, safe_message, response,
+                order_id=selected_order_id if 'after_sales' in result['intents'] else None,
+            )
     except ConversationConflict as exc:
         return _response({'error': str(exc)}, 409)
     except Exception as exc:
-        logger.error('Customer support workflow failed: %s', type(exc).__name__)
-        return _response({'error': '智能客服暂时无法响应，请稍后再试或联系人工客服。'}, 503)
+        trace_id = observation.trace_id if observation else ''
+        logger.error('Customer support workflow failed: %s trace_id=%s', type(exc).__name__, trace_id or 'unavailable')
+        error_response = {'error': '智能客服暂时无法响应，请稍后再试或联系人工客服。'}
+        if trace_id:
+            error_response['trace_id'] = trace_id
+        return _response(error_response, 503)
     return _response(response, 200)
 
 
@@ -186,6 +180,6 @@ def conversation_detail(request, conversation_id):
     conversation = SupportConversation.objects.filter(pk=conversation_id, user=user).first()
     if conversation is None:
         return _response({'error': '会话不存在或无权访问。'}, 404)
-    turns = list(conversation.turns.order_by('-sequence')[:6])
+    turns = list(conversation.turns.order_by('-sequence')[:HISTORY_TURNS])
     return _response({'conversation_id': str(conversation.pk), 'revision': conversation.revision,
                       'turns': [{'message': turn.user_text, 'response': turn.response} for turn in reversed(turns)]}, 200)

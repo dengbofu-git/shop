@@ -1,0 +1,10 @@
+Performing system checks...
+
+System check identified no issues (0 silenced).
+
+You have 2 unapplied migration(s). Your project may not work properly until you apply the migrations for app(s): ai_storage.
+Run 'python manage.py migrate' to apply them.
+October 16, 2026 - 15:24:03
+Django version 3.2.12, using settings 'dadashop_preview_settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CTRL-BREAK.

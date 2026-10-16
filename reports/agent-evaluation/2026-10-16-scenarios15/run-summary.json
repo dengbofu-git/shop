@@ -1,0 +1,52 @@
+{
+  "completed_at": "2026-10-16T05:40:36.711502+00:00",
+  "cases": 15,
+  "returned_turns": 15,
+  "exact_intent_matches": 10,
+  "all_automatic_checks_pass": 7,
+  "business_counts_before": {
+    "turns": 16,
+    "conversations": 6,
+    "spans": 118
+  },
+  "business_counts_after": {
+    "turns": 16,
+    "conversations": 6,
+    "spans": 118
+  },
+  "agent_code_unchanged": true,
+  "runtime": {
+    "agent_version": "0.8.1",
+    "model": "deepseek-flash",
+    "thinking": "disabled",
+    "revision": 3,
+    "rerank_enabled": true,
+    "rerank_model": "BAAI/bge-reranker-v2-m3",
+    "retrieval_candidates": 30,
+    "retrieval_top_k": 5,
+    "scope": "public",
+    "telemetry": false,
+    "history_turns": 6,
+    "log_file": "E:\\django\\dadashop\\reports\\agent-evaluation\\2026-10-16-scenarios15\\sessions\\20261016-133806-0fe3a51a41004fe4878533d51dbbb4d7.jsonl"
+  },
+  "elapsed_seconds": [
+    20.001,
+    16.846,
+    2.357,
+    2.176,
+    6.44,
+    18.898,
+    2.599,
+    21.698,
+    6.797,
+    15.759,
+    2.459,
+    2.669,
+    2.712,
+    16.355,
+    4.605
+  ],
+  "model_calls": 32,
+  "input_tokens": 59070,
+  "output_tokens": 9215
+}

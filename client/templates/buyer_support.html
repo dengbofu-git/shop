@@ -12,8 +12,9 @@
     <script src="/static/js/init.js"></script>
     <script src="/static/js/auth-storage.js"></script>
     <script src="/static/js/jquery-3.1.1.min.js"></script>
+{% include "shared/system_theme.html" %}
 </head>
-<body class="buyer-workbench buyer-support-page" id="buyer-body">
+<body class="ds-page-buyer_support ds-theme buyer-workbench buyer-support-page" id="buyer-body">
     <div class="buyer-layout">
         {% include 'buyer_sidebar.html' with active='support' fixed_currency=True %}
         <main class="buyer-main">
@@ -67,6 +68,6 @@
         </main>
     </div>
     <script src="/static/js/buyer-workbench.js?v=20261003-shared-shell"></script>
-    <script src="/static/js/buyer-support.js?v=20261012-recommendation"></script>
+    <script src="/static/js/buyer-support.js?v=20261016-followups"></script>
 </body>
 </html>

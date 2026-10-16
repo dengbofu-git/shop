@@ -1,0 +1,104 @@
+schemaVersion: "0.1"
+id: CAP-AI-003
+moduleId: MOD-AI
+name: 买家通过 AI 客服查询本人订单
+specVersion: "0.2.0"
+status: SPEC_REVIEW
+documentStatus: in-review
+designVersion: "0.1.0"
+owner: dengbofu
+technicalReviewer: null
+sourceFeatureIds: [FEAT-018]
+journeyIds: [JOURNEY-AI-001]
+files:
+  requirements: requirements.md
+  acceptance: acceptance.yaml
+  testPlan: test-plan.yaml
+  review: review.md
+  design: design.md
+  apiContract: api-contract.yaml
+  observedApiContract: api-observed.yaml
+  redaction: redaction.md
+  screenSpec: screen-spec.md
+clientParticipation:
+  buyer:
+    status: involved
+    pages: [buyer_support.html]
+    responsibility: 提交本人订单问题、阅读状态、追问与处理错误。
+  merchant:
+    status: not-involved
+    reason: 此能力不提供商家订单查询或履约操作，商家职责归 CAP-MER-001。
+  operations:
+    status: not-involved
+    reason: 此入口不允许运营代查买家订单；配置与监控归 CAP-AI-004。
+dependencies:
+  - target: CAP-IAM-001
+    type: platform-runtime
+    purpose: 当前请求的真实认证买家；核实其最小身份契约。
+  - target: CAP-TRD-002
+    type: data-owner
+    purpose: 本人订单归属、类型和实时状态；不重新定义交易状态机。
+  - target: CAP-PLAT-002
+    type: platform-runtime
+    purpose: 复用现有客服页面并评审其状态反馈。
+  - target: CAP-AI-004
+    type: optional-runtime
+    purpose: 建议监控关联失败不改变订单查询事实；实际退化行为待故障设计确认。
+traceability:
+  requirements: [REQ-AI-003-01, REQ-AI-003-02, REQ-AI-003-03, REQ-AI-003-04, REQ-AI-003-05, REQ-AI-003-06, REQ-AI-003-07, REQ-AI-003-08]
+  rules: [RULE-AI-003-01, RULE-AI-003-02, RULE-AI-003-03, RULE-AI-003-04, RULE-AI-003-05, RULE-AI-003-06, RULE-AI-003-07]
+  acceptance: [AC-AI-003-01, AC-AI-003-02, AC-AI-003-03, AC-AI-003-04, AC-AI-003-05, AC-AI-003-06, AC-AI-003-07, AC-AI-003-08, AC-AI-003-09, AC-AI-003-10, AC-AI-003-11]
+openQuestions: [Q-011, Q-013]
+resolvedQuestionsForThisCapability: [Q-001, Q-002, Q-003, Q-012]
+gateAssessment:
+  target: PROTOTYPE_READY
+  result: blocked
+  blockingQuestions: []
+  reason: 核心业务选项已确认，接口/脱敏/页面状态草案已补齐；完整规格与当前版本页面设计尚未评审通过。
+  missingArtifacts: [current-version-spec-review, screen-state-review]
+  futureBlockingQuestions: [Q-011, Q-013]
+designAssessment:
+  status: proposed
+  implemented: false
+  runtimeVerified: false
+  pendingReviews: [full-requirements-and-acceptance, api-and-redaction-design, screen-states, technical-review]
+designTraceability:
+  apiContract:
+    requirements: [REQ-AI-003-01, REQ-AI-003-02, REQ-AI-003-03, REQ-AI-003-06, REQ-AI-003-07]
+    acceptance: [AC-AI-003-01, AC-AI-003-02, AC-AI-003-03, AC-AI-003-05, AC-AI-003-08, AC-AI-003-09]
+  redaction:
+    requirements: [REQ-AI-003-01, REQ-AI-003-02, REQ-AI-003-05, REQ-AI-003-08]
+    acceptance: [AC-AI-003-03, AC-AI-003-07, AC-AI-003-11]
+  screenSpec:
+    requirements: [REQ-AI-003-02, REQ-AI-003-03, REQ-AI-003-04, REQ-AI-003-06, REQ-AI-003-07, REQ-AI-003-08]
+    acceptance: [AC-AI-003-01, AC-AI-003-04, AC-AI-003-05, AC-AI-003-06, AC-AI-003-08, AC-AI-003-09, AC-AI-003-10]
+approvals: []
+evidenceManifests: []
+discoveryEvidence:
+  - docs/sdd/evidence/2026-10-16-ai-003-discovery/baseline-manifest.json
+  - docs/sdd/evidence/2026-10-16-ai-003-discovery/baseline-recheck-manifest.json
+  - docs/sdd/evidence/2026-10-16-ai-003-discovery/probes-manifest.json
+businessDecisions:
+  confirmedBy: dengbofu
+  confirmedOn: "2026-10-16"
+  record: review.md
+  scope: 负责人、三类订单/三笔/24小时、偏好库失败策略、模型数据范围、无可见订单404；不是 BUILD_READY 或全量 AC 批准。
+existingAssets:
+  - support_ai/context.py
+  - support_ai/views.py
+  - support_ai/tool_services.py
+  - support_ai/workflow.py
+  - support_ai/test_task_tools.py
+  - client/templates/buyer_support.html
+  - client/static/js/buyer-support.js
+implementationObservation: isolated-baseline-with-known-gaps
+implementationReconciliation:
+  date: "2026-10-16"
+  registeredVersion: "0.8.1"
+  report: docs/sdd/reconciliation.md
+  evidence: docs/sdd/evidence/2026-10-16-sdd-reconciliation/manifest.json
+  target404: not-implemented
+  targetErrorCodes: not-implemented
+  targetHistoryProjection: not-implemented
+  targetTemporaryContextIds: not-implemented
+  targetFullScreenStates: partially-implemented

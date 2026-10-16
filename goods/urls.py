@@ -1,8 +1,13 @@
 from django.urls import path
 from . import views
 from . import merchant_views
+from . import activity_views
 
 urlpatterns = [
+    path('favorites', activity_views.favorites),
+    path('favorites/<int:sku_id>', activity_views.favorite),
+    path('recent', activity_views.recent),
+    path('recent/<int:sku_id>', activity_views.recent_item),
     # 客户商品查看
     path('carousel', views.carousel),
     path('recommended-products', views.recommended_products),

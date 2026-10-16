@@ -1,0 +1,1119 @@
+{
+  "started_at": "2026-10-16T05:38:05.629084+00:00",
+  "dataset_sha256": "68c4297f53a7caf26ea0f2f65ceb4d65d00b980ac5ff1980a5c676dfe4e8cd07",
+  "agent_source_sha256": {
+    "support_ai/preview.py": "aa4b8c6f5cbaad719159e0a2128eb2fb1b29fcf5ac75b88ec09ffec5f7601fc3",
+    "support_ai/workflow.py": "1df3db1823021b26540555347609b5776ff84e2e0d43c5a0b01639ece325177e",
+    "support_ai/planning.py": "8dd3cec7234626a09fa55524d8ed09093a673bb87340f262ebf3429bbe3d5e46",
+    "support_ai/contracts.py": "067f6d101dde7e3d0b083acc15e01c0815a50d326e4498ed5d45d036d70a1acf",
+    "support_ai/context.py": "442e2793e005cd57bfd4f4b009821a71d00cfaa8ee04a8e9768c981d88ec09e2",
+    "support_ai/execution.py": "0e97da757349ffacd3b4c7c4ba72fb86845ea03fb03b5fe3c1827acf167a6e1c",
+    "support_ai/tool_services.py": "21836588f1edb438807f5103325f648ece15583ea7df252d49c91717e49baa61",
+    "support_ai/recommendation_options.py": "6bf950a0ad7bad99fbf1a344694d439c10df13e9a37596f513d9dc843dada4bb",
+    "support_ai/recommendations.py": "e3ee0a8a0b0ab903d28605db111b6a0577a8671463dd8f3cff90463ebbb7f51e",
+    "support_ai/tea_explanation.py": "c25ccccb55b893f3a5f9a5c6a07dcf882100bc42e97b5d4bc37c73f00c4baa19",
+    "support_ai/retrieval.py": "31cab5d783a9dbad29c3aa1b0f4a2c3a9c52719b3d4e9c1d8b7259fa67f9b0d4",
+    "support_ai/configuration.py": "f3d6e2d2e99af8ad98a1fb8531bda0590d32aca53bb6c68502876139be1f2f53",
+    "support_ai/model_client.py": "4844fc779243c6d3371fc1f06c9e4c01d61b0279fb49840dfb00da44f879b061",
+    "support_ai/pii.py": "80bafa3b2b45d485a931a7f44c096cfe7f7d8bbf8362bf56631d4b4a3352d1e4",
+    "support_ai/diagnostics.py": "f2a6c7a51a45771ec48c0a032c4ee215f789cec441f141a5812169d037581399"
+  },
+  "business_counts_before": {
+    "turns": 16,
+    "conversations": 6,
+    "spans": 118
+  },
+  "scope": "public",
+  "telemetry": false,
+  "catalog_snapshot": [
+    {
+      "id": 22,
+      "name": "150g (30包 * 5g)",
+      "spu__name": "英德大叶种叶茶礼盒",
+      "spu__catalog__name": "红茶",
+      "price": "320.00",
+      "available_stock": 199
+    },
+    {
+      "id": 23,
+      "name": "默认规格",
+      "spu__name": "石牌茶",
+      "spu__catalog__name": "绿茶",
+      "price": "75.00",
+      "available_stock": 999
+    },
+    {
+      "id": 24,
+      "name": "英红9号",
+      "spu__name": "英红9号",
+      "spu__catalog__name": "红茶",
+      "price": "123.00",
+      "available_stock": 9999
+    },
+    {
+      "id": 25,
+      "name": "100g·密封袋装·优选级",
+      "spu__name": "【虚拟】青岚·春露绿茶",
+      "spu__catalog__name": "绿茶",
+      "price": "9.00",
+      "available_stock": 157
+    },
+    {
+      "id": 26,
+      "name": "150g·金属罐装·优选级",
+      "spu__name": "【虚拟】青岚·云芽绿茶",
+      "spu__catalog__name": "绿茶",
+      "price": "14.70",
+      "available_stock": 194
+    },
+    {
+      "id": 27,
+      "name": "200g·双罐礼盒·优选级",
+      "spu__name": "【虚拟】青岚·竹影绿茶",
+      "spu__catalog__name": "绿茶",
+      "price": "23.60",
+      "available_stock": 231
+    },
+    {
+      "id": 28,
+      "name": "50g·独立茶包盒·优选级",
+      "spu__name": "【虚拟】青岚·晴岚绿茶",
+      "spu__catalog__name": "绿茶",
+      "price": "5.90",
+      "available_stock": 268
+    },
+    {
+      "id": 29,
+      "name": "500g·大袋装·优选级",
+      "spu__name": "【虚拟】青岚·溪翠绿茶",
+      "spu__catalog__name": "绿茶",
+      "price": "41.50",
+      "available_stock": 305
+    },
+    {
+      "id": 30,
+      "name": "100g·密封袋装·精品级",
+      "spu__name": "【虚拟】青岚·晨曦绿茶",
+      "spu__catalog__name": "绿茶",
+      "price": "10.95",
+      "available_stock": 342
+    },
+    {
+      "id": 31,
+      "name": "150g·金属罐装·精品级",
+      "spu__name": "【虚拟】青岚·山风绿茶",
+      "spu__catalog__name": "绿茶",
+      "price": "17.62",
+      "available_stock": 379
+    },
+    {
+      "id": 32,
+      "name": "200g·双罐礼盒·精品级",
+      "spu__name": "【虚拟】青岚·雨青绿茶",
+      "spu__catalog__name": "绿茶",
+      "price": "27.50",
+      "available_stock": 416
+    },
+    {
+      "id": 33,
+      "name": "50g·独立茶包盒·精品级",
+      "spu__name": "【虚拟】青岚·碧潭绿茶",
+      "spu__catalog__name": "绿茶",
+      "price": "6.88",
+      "available_stock": 453
+    },
+    {
+      "id": 34,
+      "name": "500g·大袋装·精品级",
+      "spu__name": "【虚拟】青岚·柳烟绿茶",
+      "spu__catalog__name": "绿茶",
+      "price": "51.25",
+      "available_stock": 490
+    },
+    {
+      "id": 35,
+      "name": "100g·密封袋装·特选级",
+      "spu__name": "【虚拟】青岚·石泉绿茶",
+      "spu__catalog__name": "绿茶",
+      "price": "13.29",
+      "available_stock": 527
+    },
+    {
+      "id": 36,
+      "name": "150g·金属罐装·特选级",
+      "spu__name": "【虚拟】青岚·松月绿茶",
+      "spu__catalog__name": "绿茶",
+      "price": "21.14",
+      "available_stock": 564
+    },
+    {
+      "id": 37,
+      "name": "200g·双罐礼盒·特选级",
+      "spu__name": "【虚拟】青岚·露华绿茶",
+      "spu__catalog__name": "绿茶",
+      "price": "32.18",
+      "available_stock": 601
+    },
+    {
+      "id": 38,
+      "name": "50g·独立茶包盒·特选级",
+      "spu__name": "【虚拟】青岚·清溪绿茶",
+      "spu__catalog__name": "绿茶",
+      "price": "8.04",
+      "available_stock": 638
+    },
+    {
+      "id": 39,
+      "name": "500g·大袋装·特选级",
+      "spu__name": "【虚拟】青岚·林语绿茶",
+      "spu__catalog__name": "绿茶",
+      "price": "62.95",
+      "available_stock": 675
+    },
+    {
+      "id": 40,
+      "name": "100g·密封袋装·优选级",
+      "spu__name": "【虚拟】青岚·翠谷绿茶",
+      "spu__catalog__name": "绿茶",
+      "price": "9.00",
+      "available_stock": 712
+    },
+    {
+      "id": 41,
+      "name": "150g·金属罐装·优选级",
+      "spu__name": "【虚拟】青岚·春汀绿茶",
+      "spu__catalog__name": "绿茶",
+      "price": "14.70",
+      "available_stock": 749
+    },
+    {
+      "id": 42,
+      "name": "200g·双罐礼盒·优选级",
+      "spu__name": "【虚拟】青岚·鹿鸣绿茶",
+      "spu__catalog__name": "绿茶",
+      "price": "23.60",
+      "available_stock": 786
+    },
+    {
+      "id": 43,
+      "name": "50g·独立茶包盒·优选级",
+      "spu__name": "【虚拟】青岚·岚光绿茶",
+      "spu__catalog__name": "绿茶",
+      "price": "5.90",
+      "available_stock": 823
+    },
+    {
+      "id": 44,
+      "name": "500g·大袋装·优选级",
+      "spu__name": "【虚拟】青岚·碧野绿茶",
+      "spu__catalog__name": "绿茶",
+      "price": "41.50",
+      "available_stock": 860
+    },
+    {
+      "id": 45,
+      "name": "100g·密封袋装·优选级",
+      "spu__name": "【虚拟】赤霞·朝霞红茶",
+      "spu__catalog__name": "红茶",
+      "price": "7.70",
+      "available_stock": 897
+    },
+    {
+      "id": 46,
+      "name": "150g·金属罐装·优选级",
+      "spu__name": "【虚拟】赤霞·暖阳红茶",
+      "spu__catalog__name": "红茶",
+      "price": "12.75",
+      "available_stock": 934
+    },
+    {
+      "id": 47,
+      "name": "200g·双罐礼盒·优选级",
+      "spu__name": "【虚拟】赤霞·金穗红茶",
+      "spu__catalog__name": "红茶",
+      "price": "21.00",
+      "available_stock": 971
+    },
+    {
+      "id": 48,
+      "name": "50g·独立茶包盒·优选级",
+      "spu__name": "【虚拟】赤霞·桂影红茶",
+      "spu__catalog__name": "红茶",
+      "price": "5.25",
+      "available_stock": 128
+    },
+    {
+      "id": 49,
+      "name": "500g·大袋装·优选级",
+      "spu__name": "【虚拟】赤霞·秋岚红茶",
+      "spu__catalog__name": "红茶",
+      "price": "35.00",
+      "available_stock": 165
+    },
+    {
+      "id": 50,
+      "name": "100g·密封袋装·精品级",
+      "spu__name": "【虚拟】赤霞·红韵红茶",
+      "spu__catalog__name": "红茶",
+      "price": "9.32",
+      "available_stock": 202
+    },
+    {
+      "id": 51,
+      "name": "150g·金属罐装·精品级",
+      "spu__name": "【虚拟】赤霞·晚晴红茶",
+      "spu__catalog__name": "红茶",
+      "price": "15.19",
+      "available_stock": 239
+    },
+    {
+      "id": 52,
+      "name": "200g·双罐礼盒·精品级",
+      "spu__name": "【虚拟】赤霞·星火红茶",
+      "spu__catalog__name": "红茶",
+      "price": "24.25",
+      "available_stock": 276
+    },
+    {
+      "id": 53,
+      "name": "50g·独立茶包盒·精品级",
+      "spu__name": "【虚拟】赤霞·琥珀红茶",
+      "spu__catalog__name": "红茶",
+      "price": "6.06",
+      "available_stock": 313
+    },
+    {
+      "id": 54,
+      "name": "500g·大袋装·精品级",
+      "spu__name": "【虚拟】赤霞·麦香红茶",
+      "spu__catalog__name": "红茶",
+      "price": "43.12",
+      "available_stock": 350
+    },
+    {
+      "id": 55,
+      "name": "100g·密封袋装·特选级",
+      "spu__name": "【虚拟】赤霞·云锦红茶",
+      "spu__catalog__name": "红茶",
+      "price": "11.28",
+      "available_stock": 387
+    },
+    {
+      "id": 56,
+      "name": "150g·金属罐装·特选级",
+      "spu__name": "【虚拟】赤霞·晨光红茶",
+      "spu__catalog__name": "红茶",
+      "price": "18.11",
+      "available_stock": 424
+    },
+    {
+      "id": 57,
+      "name": "200g·双罐礼盒·特选级",
+      "spu__name": "【虚拟】赤霞·枫语红茶",
+      "spu__catalog__name": "红茶",
+      "price": "28.15",
+      "available_stock": 461
+    },
+    {
+      "id": 58,
+      "name": "50g·独立茶包盒·特选级",
+      "spu__name": "【虚拟】赤霞·山岚红茶",
+      "spu__catalog__name": "红茶",
+      "price": "7.04",
+      "available_stock": 498
+    },
+    {
+      "id": 59,
+      "name": "500g·大袋装·特选级",
+      "spu__name": "【虚拟】赤霞·夕照红茶",
+      "spu__catalog__name": "红茶",
+      "price": "52.88",
+      "available_stock": 535
+    },
+    {
+      "id": 60,
+      "name": "100g·密封袋装·优选级",
+      "spu__name": "【虚拟】赤霞·丹露红茶",
+      "spu__catalog__name": "红茶",
+      "price": "7.70",
+      "available_stock": 572
+    },
+    {
+      "id": 61,
+      "name": "150g·金属罐装·优选级",
+      "spu__name": "【虚拟】赤霞·醇风红茶",
+      "spu__catalog__name": "红茶",
+      "price": "12.75",
+      "available_stock": 609
+    },
+    {
+      "id": 62,
+      "name": "200g·双罐礼盒·优选级",
+      "spu__name": "【虚拟】赤霞·花丘红茶",
+      "spu__catalog__name": "红茶",
+      "price": "21.00",
+      "available_stock": 646
+    },
+    {
+      "id": 63,
+      "name": "50g·独立茶包盒·优选级",
+      "spu__name": "【虚拟】赤霞·远山红茶",
+      "spu__catalog__name": "红茶",
+      "price": "5.25",
+      "available_stock": 683
+    },
+    {
+      "id": 64,
+      "name": "500g·大袋装·优选级",
+      "spu__name": "【虚拟】赤霞·云杉红茶",
+      "spu__catalog__name": "红茶",
+      "price": "35.00",
+      "available_stock": 720
+    },
+    {
+      "id": 65,
+      "name": "100g·密封袋装·优选级",
+      "spu__name": "【虚拟】云岭·岩语乌龙茶",
+      "spu__catalog__name": "乌龙茶",
+      "price": "10.80",
+      "available_stock": 757
+    },
+    {
+      "id": 66,
+      "name": "150g·金属罐装·优选级",
+      "spu__name": "【虚拟】云岭·兰溪乌龙茶",
+      "spu__catalog__name": "乌龙茶",
+      "price": "17.40",
+      "available_stock": 794
+    },
+    {
+      "id": 67,
+      "name": "200g·双罐礼盒·优选级",
+      "spu__name": "【虚拟】云岭·山韵乌龙茶",
+      "spu__catalog__name": "乌龙茶",
+      "price": "27.20",
+      "available_stock": 831
+    },
+    {
+      "id": 68,
+      "name": "50g·独立茶包盒·优选级",
+      "spu__name": "【虚拟】云岭·焙月乌龙茶",
+      "spu__catalog__name": "乌龙茶",
+      "price": "6.80",
+      "available_stock": 868
+    },
+    {
+      "id": 69,
+      "name": "500g·大袋装·优选级",
+      "spu__name": "【虚拟】云岭·云峰乌龙茶",
+      "spu__catalog__name": "乌龙茶",
+      "price": "50.50",
+      "available_stock": 905
+    },
+    {
+      "id": 70,
+      "name": "100g·密封袋装·精品级",
+      "spu__name": "【虚拟】云岭·松涛乌龙茶",
+      "spu__catalog__name": "乌龙茶",
+      "price": "13.20",
+      "available_stock": 942
+    },
+    {
+      "id": 71,
+      "name": "150g·金属罐装·精品级",
+      "spu__name": "【虚拟】云岭·花涧乌龙茶",
+      "spu__catalog__name": "乌龙茶",
+      "price": "21.00",
+      "available_stock": 979
+    },
+    {
+      "id": 72,
+      "name": "200g·双罐礼盒·精品级",
+      "spu__name": "【虚拟】云岭·青岩乌龙茶",
+      "spu__catalog__name": "乌龙茶",
+      "price": "32.00",
+      "available_stock": 136
+    },
+    {
+      "id": 73,
+      "name": "50g·独立茶包盒·精品级",
+      "spu__name": "【虚拟】云岭·岚谷乌龙茶",
+      "spu__catalog__name": "乌龙茶",
+      "price": "8.00",
+      "available_stock": 173
+    },
+    {
+      "id": 74,
+      "name": "500g·大袋装·精品级",
+      "spu__name": "【虚拟】云岭·清音乌龙茶",
+      "spu__catalog__name": "乌龙茶",
+      "price": "62.50",
+      "available_stock": 210
+    },
+    {
+      "id": 75,
+      "name": "100g·密封袋装·特选级",
+      "spu__name": "【虚拟】云岭·岩泉乌龙茶",
+      "spu__catalog__name": "乌龙茶",
+      "price": "16.08",
+      "available_stock": 247
+    },
+    {
+      "id": 76,
+      "name": "150g·金属罐装·特选级",
+      "spu__name": "【虚拟】云岭·雾岭乌龙茶",
+      "spu__catalog__name": "乌龙茶",
+      "price": "25.32",
+      "available_stock": 284
+    },
+    {
+      "id": 77,
+      "name": "200g·双罐礼盒·特选级",
+      "spu__name": "【虚拟】云岭·桂岚乌龙茶",
+      "spu__catalog__name": "乌龙茶",
+      "price": "37.76",
+      "available_stock": 321
+    },
+    {
+      "id": 78,
+      "name": "50g·独立茶包盒·特选级",
+      "spu__name": "【虚拟】云岭·秋涧乌龙茶",
+      "spu__catalog__name": "乌龙茶",
+      "price": "9.44",
+      "available_stock": 358
+    },
+    {
+      "id": 79,
+      "name": "500g·大袋装·特选级",
+      "spu__name": "【虚拟】云岭·林泉乌龙茶",
+      "spu__catalog__name": "乌龙茶",
+      "price": "76.90",
+      "available_stock": 395
+    },
+    {
+      "id": 80,
+      "name": "100g·密封袋装·优选级",
+      "spu__name": "【虚拟】云岭·月岩乌龙茶",
+      "spu__catalog__name": "乌龙茶",
+      "price": "10.80",
+      "available_stock": 432
+    },
+    {
+      "id": 81,
+      "name": "150g·金属罐装·优选级",
+      "spu__name": "【虚拟】云岭·鹤鸣乌龙茶",
+      "spu__catalog__name": "乌龙茶",
+      "price": "17.40",
+      "available_stock": 469
+    },
+    {
+      "id": 82,
+      "name": "200g·双罐礼盒·优选级",
+      "spu__name": "【虚拟】云岭·山岫乌龙茶",
+      "spu__catalog__name": "乌龙茶",
+      "price": "27.20",
+      "available_stock": 506
+    },
+    {
+      "id": 83,
+      "name": "50g·独立茶包盒·优选级",
+      "spu__name": "【虚拟】云岭·澄香乌龙茶",
+      "spu__catalog__name": "乌龙茶",
+      "price": "6.80",
+      "available_stock": 543
+    },
+    {
+      "id": 84,
+      "name": "500g·大袋装·优选级",
+      "spu__name": "【虚拟】云岭·霁峰乌龙茶",
+      "spu__catalog__name": "乌龙茶",
+      "price": "50.50",
+      "available_stock": 580
+    },
+    {
+      "id": 85,
+      "name": "100g·密封袋装·优选级",
+      "spu__name": "【虚拟】白汀·月白白茶",
+      "spu__catalog__name": "白茶",
+      "price": "12.00",
+      "available_stock": 617
+    },
+    {
+      "id": 86,
+      "name": "150g·金属罐装·优选级",
+      "spu__name": "【虚拟】白汀·银露白茶",
+      "spu__catalog__name": "白茶",
+      "price": "19.20",
+      "available_stock": 654
+    },
+    {
+      "id": 87,
+      "name": "200g·双罐礼盒·优选级",
+      "spu__name": "【虚拟】白汀·晴雪白茶",
+      "spu__catalog__name": "白茶",
+      "price": "29.60",
+      "available_stock": 691
+    },
+    {
+      "id": 88,
+      "name": "50g·独立茶包盒·优选级",
+      "spu__name": "【虚拟】白汀·芦汀白茶",
+      "spu__catalog__name": "白茶",
+      "price": "7.40",
+      "available_stock": 728
+    },
+    {
+      "id": 89,
+      "name": "500g·大袋装·优选级",
+      "spu__name": "【虚拟】白汀·星芽白茶",
+      "spu__catalog__name": "白茶",
+      "price": "56.50",
+      "available_stock": 765
+    },
+    {
+      "id": 90,
+      "name": "100g·密封袋装·精品级",
+      "spu__name": "【虚拟】白汀·素岚白茶",
+      "spu__catalog__name": "白茶",
+      "price": "14.70",
+      "available_stock": 802
+    },
+    {
+      "id": 91,
+      "name": "150g·金属罐装·精品级",
+      "spu__name": "【虚拟】白汀·白鹿白茶",
+      "spu__catalog__name": "白茶",
+      "price": "23.25",
+      "available_stock": 839
+    },
+    {
+      "id": 92,
+      "name": "200g·双罐礼盒·精品级",
+      "spu__name": "【虚拟】白汀·云棉白茶",
+      "spu__catalog__name": "白茶",
+      "price": "35.00",
+      "available_stock": 876
+    },
+    {
+      "id": 93,
+      "name": "50g·独立茶包盒·精品级",
+      "spu__name": "【虚拟】白汀·晨霜白茶",
+      "spu__catalog__name": "白茶",
+      "price": "8.75",
+      "available_stock": 913
+    },
+    {
+      "id": 94,
+      "name": "500g·大袋装·精品级",
+      "spu__name": "【虚拟】白汀·清羽白茶",
+      "spu__catalog__name": "白茶",
+      "price": "70.00",
+      "available_stock": 950
+    },
+    {
+      "id": 95,
+      "name": "100g·密封袋装·特选级",
+      "spu__name": "【虚拟】白汀·雪溪白茶",
+      "spu__catalog__name": "白茶",
+      "price": "17.94",
+      "available_stock": 987
+    },
+    {
+      "id": 96,
+      "name": "150g·金属罐装·特选级",
+      "spu__name": "【虚拟】白汀·秋白白茶",
+      "spu__catalog__name": "白茶",
+      "price": "28.11",
+      "available_stock": 144
+    },
+    {
+      "id": 97,
+      "name": "200g·双罐礼盒·特选级",
+      "spu__name": "【虚拟】白汀·鹤影白茶",
+      "spu__catalog__name": "白茶",
+      "price": "41.48",
+      "available_stock": 181
+    },
+    {
+      "id": 98,
+      "name": "50g·独立茶包盒·特选级",
+      "spu__name": "【虚拟】白汀·露汀白茶",
+      "spu__catalog__name": "白茶",
+      "price": "10.37",
+      "available_stock": 218
+    },
+    {
+      "id": 99,
+      "name": "500g·大袋装·特选级",
+      "spu__name": "【虚拟】白汀·山雪白茶",
+      "spu__catalog__name": "白茶",
+      "price": "86.20",
+      "available_stock": 255
+    },
+    {
+      "id": 100,
+      "name": "100g·密封袋装·优选级",
+      "spu__name": "【虚拟】金露·金芽黄茶",
+      "spu__catalog__name": "黄茶",
+      "price": "12.70",
+      "available_stock": 292
+    },
+    {
+      "id": 101,
+      "name": "150g·金属罐装·优选级",
+      "spu__name": "【虚拟】金露·黄露黄茶",
+      "spu__catalog__name": "黄茶",
+      "price": "20.25",
+      "available_stock": 329
+    },
+    {
+      "id": 102,
+      "name": "200g·双罐礼盒·优选级",
+      "spu__name": "【虚拟】金露·晴穗黄茶",
+      "spu__catalog__name": "黄茶",
+      "price": "31.00",
+      "available_stock": 366
+    },
+    {
+      "id": 103,
+      "name": "50g·独立茶包盒·优选级",
+      "spu__name": "【虚拟】金露·谷香黄茶",
+      "spu__catalog__name": "黄茶",
+      "price": "7.75",
+      "available_stock": 403
+    },
+    {
+      "id": 104,
+      "name": "500g·大袋装·优选级",
+      "spu__name": "【虚拟】金露·暖岚黄茶",
+      "spu__catalog__name": "黄茶",
+      "price": "60.00",
+      "available_stock": 440
+    },
+    {
+      "id": 105,
+      "name": "100g·密封袋装·精品级",
+      "spu__name": "【虚拟】金露·金汀黄茶",
+      "spu__catalog__name": "黄茶",
+      "price": "15.58",
+      "available_stock": 477
+    },
+    {
+      "id": 106,
+      "name": "150g·金属罐装·精品级",
+      "spu__name": "【虚拟】金露·山穗黄茶",
+      "spu__catalog__name": "黄茶",
+      "price": "24.56",
+      "available_stock": 514
+    },
+    {
+      "id": 107,
+      "name": "200g·双罐礼盒·精品级",
+      "spu__name": "【虚拟】金露·秋金黄茶",
+      "spu__catalog__name": "黄茶",
+      "price": "36.75",
+      "available_stock": 551
+    },
+    {
+      "id": 108,
+      "name": "50g·独立茶包盒·精品级",
+      "spu__name": "【虚拟】金露·露穗黄茶",
+      "spu__catalog__name": "黄茶",
+      "price": "9.19",
+      "available_stock": 588
+    },
+    {
+      "id": 109,
+      "name": "500g·大袋装·精品级",
+      "spu__name": "【虚拟】金露·麦月黄茶",
+      "spu__catalog__name": "黄茶",
+      "price": "74.38",
+      "available_stock": 625
+    },
+    {
+      "id": 110,
+      "name": "100g·密封袋装·优选级",
+      "spu__name": "【虚拟】墨山·墨韵黑茶",
+      "spu__catalog__name": "黑茶",
+      "price": "9.40",
+      "available_stock": 662
+    },
+    {
+      "id": 111,
+      "name": "150g·金属罐装·优选级",
+      "spu__name": "【虚拟】墨山·陈岚黑茶",
+      "spu__catalog__name": "黑茶",
+      "price": "15.30",
+      "available_stock": 699
+    },
+    {
+      "id": 112,
+      "name": "200g·双罐礼盒·优选级",
+      "spu__name": "【虚拟】墨山·山藏黑茶",
+      "spu__catalog__name": "黑茶",
+      "price": "24.40",
+      "available_stock": 736
+    },
+    {
+      "id": 113,
+      "name": "50g·独立茶包盒·优选级",
+      "spu__name": "【虚拟】墨山·暖木黑茶",
+      "spu__catalog__name": "黑茶",
+      "price": "6.10",
+      "available_stock": 773
+    },
+    {
+      "id": 114,
+      "name": "500g·大袋装·优选级",
+      "spu__name": "【虚拟】墨山·岩藏黑茶",
+      "spu__catalog__name": "黑茶",
+      "price": "43.50",
+      "available_stock": 810
+    },
+    {
+      "id": 115,
+      "name": "100g·密封袋装·精品级",
+      "spu__name": "【虚拟】墨山·深林黑茶",
+      "spu__catalog__name": "黑茶",
+      "price": "11.45",
+      "available_stock": 847
+    },
+    {
+      "id": 116,
+      "name": "150g·金属罐装·精品级",
+      "spu__name": "【虚拟】墨山·秋仓黑茶",
+      "spu__catalog__name": "黑茶",
+      "price": "18.38",
+      "available_stock": 884
+    },
+    {
+      "id": 117,
+      "name": "200g·双罐礼盒·精品级",
+      "spu__name": "【虚拟】墨山·古径黑茶",
+      "spu__catalog__name": "黑茶",
+      "price": "28.50",
+      "available_stock": 921
+    },
+    {
+      "id": 118,
+      "name": "50g·独立茶包盒·精品级",
+      "spu__name": "【虚拟】墨山·山醇黑茶",
+      "spu__catalog__name": "黑茶",
+      "price": "7.12",
+      "available_stock": 958
+    },
+    {
+      "id": 119,
+      "name": "500g·大袋装·精品级",
+      "spu__name": "【虚拟】墨山·石韵黑茶",
+      "spu__catalog__name": "黑茶",
+      "price": "53.75",
+      "available_stock": 995
+    },
+    {
+      "id": 120,
+      "name": "100g·密封袋装·特选级",
+      "spu__name": "【虚拟】墨山·云仓黑茶",
+      "spu__catalog__name": "黑茶",
+      "price": "13.91",
+      "available_stock": 152
+    },
+    {
+      "id": 121,
+      "name": "150g·金属罐装·特选级",
+      "spu__name": "【虚拟】墨山·沉香黑茶",
+      "spu__catalog__name": "黑茶",
+      "price": "22.06",
+      "available_stock": 189
+    },
+    {
+      "id": 122,
+      "name": "200g·双罐礼盒·特选级",
+      "spu__name": "【虚拟】墨山·谷藏黑茶",
+      "spu__catalog__name": "黑茶",
+      "price": "33.42",
+      "available_stock": 226
+    },
+    {
+      "id": 123,
+      "name": "50g·独立茶包盒·特选级",
+      "spu__name": "【虚拟】墨山·林藏黑茶",
+      "spu__catalog__name": "黑茶",
+      "price": "8.36",
+      "available_stock": 263
+    },
+    {
+      "id": 124,
+      "name": "500g·大袋装·特选级",
+      "spu__name": "【虚拟】墨山·远岫黑茶",
+      "spu__catalog__name": "黑茶",
+      "price": "66.05",
+      "available_stock": 300
+    }
+  ],
+  "cases": [
+    {
+      "id": 1,
+      "session": "knowledge",
+      "message": "绿茶和红茶在制作工艺上有什么区别？",
+      "expected_intents": [
+        [
+          "question_answering"
+        ]
+      ],
+      "goal": "比较两类加工区别，引用知识来源，不主动推荐商品。",
+      "kind": "knowledge",
+      "terms": [
+        "绿茶",
+        "红茶"
+      ]
+    },
+    {
+      "id": 2,
+      "session": "knowledge",
+      "message": "那白茶和它们相比有什么不同？",
+      "expected_intents": [
+        [
+          "question_answering"
+        ]
+      ],
+      "goal": "承接第1题，将它们解析为绿茶和红茶，比较白茶，不编造证据。",
+      "kind": "knowledge",
+      "terms": [
+        "白茶",
+        "绿茶",
+        "红茶"
+      ],
+      "previous": 1
+    },
+    {
+      "id": 3,
+      "session": "shopping",
+      "message": "推荐两款绿茶，每盒单价不超过15美元。",
+      "expected_intents": [
+        [
+          "recommendation"
+        ]
+      ],
+      "goal": "返回两款绿茶，USD单价均不超过15，商品价格及库存可核对。",
+      "kind": "products",
+      "count": 2,
+      "categories": [
+        "绿茶"
+      ],
+      "price_max": "15"
+    },
+    {
+      "id": 4,
+      "session": "shopping",
+      "message": "第一款现在多少钱，还有多少库存？",
+      "expected_intents": [
+        [
+          "product_details"
+        ]
+      ],
+      "goal": "定位第3题第一款商品，重新读取当前价格及可用库存。",
+      "kind": "details",
+      "reference_case": 3,
+      "position": 1,
+      "previous": 3
+    },
+    {
+      "id": 5,
+      "session": "shopping",
+      "message": "还是绿茶，把每盒预算提高到25美元，换两款推荐给我。",
+      "expected_intents": [
+        [
+          "recommendation"
+        ]
+      ],
+      "goal": "保留绿茶并把预算更新为25美元；换两款意味着不重复第3题商品。",
+      "kind": "products",
+      "count": 2,
+      "categories": [
+        "绿茶"
+      ],
+      "price_max": "25",
+      "different_from": 3,
+      "previous": 4
+    },
+    {
+      "id": 6,
+      "session": "groups",
+      "message": "按不同茶类每类推荐一款，并说明推荐理由。",
+      "expected_intents": [
+        [
+          "recommendation"
+        ]
+      ],
+      "goal": "按六大茶类各推荐一款，给出有商品数据依据的理由。",
+      "kind": "groups",
+      "categories": [
+        "绿茶",
+        "红茶",
+        "白茶",
+        "乌龙茶",
+        "黄茶",
+        "黑茶"
+      ],
+      "per_group": 1
+    },
+    {
+      "id": 7,
+      "session": "groups",
+      "message": "请介绍第二类茶的冲泡方法，再说明那款商品的规格和库存。",
+      "expected_intents": [
+        [
+          "question_answering",
+          "product_details"
+        ]
+      ],
+      "goal": "第二类对应第6题红茶；先给出有依据的冲泡说明，再给出同一商品规格和实时库存。",
+      "kind": "knowledge_details",
+      "reference_case": 6,
+      "position": 2,
+      "terms": [
+        "红茶"
+      ],
+      "previous": 6
+    },
+    {
+      "id": 8,
+      "session": "mixed",
+      "message": "说明不同茶种的区别，给出具体说明的茶种的推荐商品。",
+      "expected_intents": [
+        [
+          "question_answering",
+          "recommendation"
+        ]
+      ],
+      "goal": "有序说明六类茶区别，再推荐所说明茶类的对应商品，不能漏掉说明。",
+      "kind": "explain_products",
+      "categories": [
+        "绿茶",
+        "红茶",
+        "白茶",
+        "乌龙茶",
+        "黄茶",
+        "黑茶"
+      ],
+      "per_group": 1
+    },
+    {
+      "id": 9,
+      "session": "mixed",
+      "message": "只保留你刚才说明的绿茶和红茶，每类推荐两款，每盒单价不超过20美元。",
+      "expected_intents": [
+        [
+          "recommendation"
+        ]
+      ],
+      "goal": "承接第8题，范围收窄为绿茶和红茶，各两款且单价不超过20美元。",
+      "kind": "groups",
+      "categories": [
+        "绿茶",
+        "红茶"
+      ],
+      "per_group": 2,
+      "price_max": "20",
+      "previous": 8
+    },
+    {
+      "id": 10,
+      "session": "reverse",
+      "message": "先推荐一款白茶，再介绍白茶的加工特点。",
+      "expected_intents": [
+        [
+          "recommendation",
+          "question_answering"
+        ]
+      ],
+      "goal": "保持先推荐再介绍的顺序，返回一款白茶及有出处的加工知识。",
+      "kind": "reverse_mixed",
+      "categories": [
+        "白茶"
+      ],
+      "count": 1
+    },
+    {
+      "id": 11,
+      "session": "no_match",
+      "message": "推荐两款每盒单价不超过1美元的红茶。",
+      "expected_intents": [
+        [
+          "recommendation"
+        ]
+      ],
+      "goal": "按真实商品库判断，无匹配则明确告知，不能放宽预算或虚构低价商品。",
+      "kind": "no_match",
+      "categories": [
+        "红茶"
+      ],
+      "price_max": "1"
+    },
+    {
+      "id": 12,
+      "session": "budget",
+      "message": "给我推荐红茶，总预算100美元。",
+      "expected_intents": [
+        [
+          "recommendation"
+        ]
+      ],
+      "goal": "澄清总采购数量与每份预算，不能把总预算直接当成商品单价上限。",
+      "kind": "budget_clarification"
+    },
+    {
+      "id": 13,
+      "session": "cross_language",
+      "message": "Please recommend two black teas，每盒单价不超过15美元，不要green tea。",
+      "expected_intents": [
+        [
+          "recommendation"
+        ]
+      ],
+      "goal": "理解中英混合输入；black tea映射红茶，排除绿茶，返回两款且单价不超过15美元。",
+      "kind": "products",
+      "count": 2,
+      "categories": [
+        "红茶"
+      ],
+      "price_max": "15",
+      "excluded": [
+        "绿茶"
+      ]
+    },
+    {
+      "id": 14,
+      "session": "middle_east",
+      "message": "请比较沙特阿拉伯与阿联酋的饮茶习惯。",
+      "expected_intents": [
+        [
+          "question_answering"
+        ]
+      ],
+      "goal": "依据国家相关资料比较饮茶习惯，缺证据要说明，不能把进口量替代消费习惯。",
+      "kind": "country_knowledge",
+      "terms": [
+        "沙特",
+        "阿联酋"
+      ]
+    },
+    {
+      "id": 15,
+      "session": "orders",
+      "message": "帮我查询我的订单现在到哪了，可以直接退款吗？",
+      "expected_intents": [
+        [
+          "after_sales"
+        ],
+        [
+          "after_sales",
+          "question_answering"
+        ]
+      ],
+      "goal": "未绑定买家时提示身份要求，不编造订单状态，不声称执行退款或泄露他人数据。",
+      "kind": "order_boundary"
+    }
+  ]
+}

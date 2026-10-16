@@ -1,0 +1,28 @@
+name: dadashop-reranker
+services:
+  reranker:
+    build:
+      context: ./deploy/reranker
+      args:
+        PYTHON_IMAGE: ${RERANK_PYTHON_IMAGE:-python:3.11-slim-bookworm}
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:${AI_RERANK_PORT:-18081}:8080"
+    environment:
+      RERANK_MODEL: BAAI/bge-reranker-v2-m3
+      RERANK_REVISION: ${AI_RERANK_REVISION:-953dc6f6f85a1b2dbfca4c34a2796e7dde08d41e}
+      RERANK_THREADS: ${AI_RERANK_THREADS:-4}
+      RERANK_BATCH_SIZE: ${AI_RERANK_BATCH_SIZE:-4}
+      HF_HUB_DOWNLOAD_TIMEOUT: 120
+      HF_HUB_ETAG_TIMEOUT: 30
+    volumes:
+      - reranker_models:/models
+    mem_limit: 6g
+    healthcheck:
+      test: ["CMD", "python", "-c", "import json,urllib.request; assert json.load(urllib.request.urlopen('http://127.0.0.1:8080/health',timeout=3))['status']=='ready'"]
+      interval: 20s
+      timeout: 5s
+      retries: 5
+      start_period: 15m
+volumes:
+  reranker_models:

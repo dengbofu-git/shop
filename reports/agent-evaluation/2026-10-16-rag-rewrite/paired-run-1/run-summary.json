@@ -1,0 +1,56 @@
+{
+  "completed_at": "2026-10-16T06:28:02.298040+00:00",
+  "completed_runs": 30,
+  "source_unchanged": true,
+  "corpus_unchanged": true,
+  "business_counts_before": {
+    "turns": 23,
+    "conversations": 7,
+    "spans": 221
+  },
+  "business_counts_after": {
+    "turns": 23,
+    "conversations": 7,
+    "spans": 221
+  },
+  "arms": {
+    "single_query": {
+      "runs": 15,
+      "returned_turns": 15,
+      "compliance_blocks": 0,
+      "support_groups_hit": 22,
+      "support_groups_total": 22,
+      "support_group_coverage": 1.0,
+      "all_available_support_cases": 14,
+      "support_eligible_cases": 14,
+      "macro_labelled_relevant_precision": 0.35714285714285715,
+      "mean_seconds": 22.539066666666667,
+      "median_seconds": 20.847,
+      "model_calls": 32,
+      "input_tokens": 76168,
+      "output_tokens": 12861,
+      "vector_searches": 15,
+      "retry_cases": 0,
+      "retry_adopted_cases": 0
+    },
+    "rewrite": {
+      "runs": 15,
+      "returned_turns": 15,
+      "compliance_blocks": 0,
+      "support_groups_hit": 21,
+      "support_groups_total": 22,
+      "support_group_coverage": 0.9545454545454546,
+      "all_available_support_cases": 13,
+      "support_eligible_cases": 14,
+      "macro_labelled_relevant_precision": 0.35714285714285715,
+      "mean_seconds": 22.3494,
+      "median_seconds": 20.778,
+      "model_calls": 51,
+      "input_tokens": 95494,
+      "output_tokens": 15530,
+      "vector_searches": 68,
+      "retry_cases": 4,
+      "retry_adopted_cases": 4
+    }
+  }
+}

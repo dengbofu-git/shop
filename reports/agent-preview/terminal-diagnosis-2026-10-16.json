@@ -1,0 +1,13 @@
+{
+  "stage": "recommend_products",
+  "error_type": "ValidationError",
+  "reason": "Structured validation failed",
+  "validation_errors": [
+    {
+      "field": "required.categories",
+      "type": "too_long",
+      "reason": "List should have at most 5 items after validation, not 6"
+    }
+  ],
+  "request": "推荐"
+}

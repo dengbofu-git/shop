@@ -1,0 +1,255 @@
+{
+  "intent_exact": {
+    "passed": 37,
+    "total": 40
+  },
+  "product_scope": {
+    "passed": 17,
+    "total": 17
+  },
+  "quantity": {
+    "passed": 14,
+    "total": 14
+  },
+  "topic_evidence": {
+    "passed": 4,
+    "total": 4
+  },
+  "bound_identity": {
+    "passed": 11,
+    "total": 12
+  },
+  "budget_retention": {
+    "passed": 4,
+    "total": 4
+  },
+  "unit_currency": {
+    "passed": 4,
+    "total": 4
+  },
+  "reason_only": {
+    "turns": 13,
+    "zero_model_calls": 12,
+    "mean_seconds": 1.573846153846154
+  },
+  "reason_success": {
+    "turns": 11
+  },
+  "extraction": {
+    "turns": 4,
+    "repair_attempts_observed": 0,
+    "error_diagnostics": 0
+  },
+  "compliance_blocks": 0,
+  "max_seconds": 23.639,
+  "catalog_count": 103,
+  "unit_price_text_checks": {
+    "passed": 29,
+    "total": 29,
+    "items": [
+      {
+        "case": 1,
+        "turn": 4,
+        "sku_id": 88,
+        "expected": "$14.80/100",
+        "present": true
+      },
+      {
+        "case": 1,
+        "turn": 4,
+        "sku_id": 96,
+        "expected": "$18.74/100",
+        "present": true
+      },
+      {
+        "case": 1,
+        "turn": 4,
+        "sku_id": 85,
+        "expected": "$12.00/100",
+        "present": true
+      },
+      {
+        "case": 1,
+        "turn": 4,
+        "sku_id": 86,
+        "expected": "$12.80/100",
+        "present": true
+      },
+      {
+        "case": 2,
+        "turn": 3,
+        "sku_id": 32,
+        "expected": "$13.75/100",
+        "present": true
+      },
+      {
+        "case": 2,
+        "turn": 3,
+        "sku_id": 40,
+        "expected": "$9.00/100",
+        "present": true
+      },
+      {
+        "case": 3,
+        "turn": 3,
+        "sku_id": 48,
+        "expected": "$10.50/100",
+        "present": true
+      },
+      {
+        "case": 5,
+        "turn": 3,
+        "sku_id": 48,
+        "expected": "$10.50/100",
+        "present": true
+      },
+      {
+        "case": 5,
+        "turn": 3,
+        "sku_id": 56,
+        "expected": "$12.07/100",
+        "present": true
+      },
+      {
+        "case": 7,
+        "turn": 3,
+        "sku_id": 32,
+        "expected": "$13.75/100",
+        "present": true
+      },
+      {
+        "case": 7,
+        "turn": 3,
+        "sku_id": 40,
+        "expected": "$9.00/100",
+        "present": true
+      },
+      {
+        "case": 7,
+        "turn": 3,
+        "sku_id": 48,
+        "expected": "$10.50/100",
+        "present": true
+      },
+      {
+        "case": 7,
+        "turn": 3,
+        "sku_id": 56,
+        "expected": "$12.07/100",
+        "present": true
+      },
+      {
+        "case": 8,
+        "turn": 2,
+        "sku_id": 88,
+        "expected": "$14.80/100",
+        "present": true
+      },
+      {
+        "case": 8,
+        "turn": 2,
+        "sku_id": 93,
+        "expected": "$17.50/100",
+        "present": true
+      },
+      {
+        "case": 9,
+        "turn": 2,
+        "sku_id": 96,
+        "expected": "$18.74/100",
+        "present": true
+      },
+      {
+        "case": 10,
+        "turn": 2,
+        "sku_id": 48,
+        "expected": "$10.50/100",
+        "present": true
+      },
+      {
+        "case": 11,
+        "turn": 1,
+        "sku_id": 88,
+        "expected": "$14.80/100",
+        "present": true
+      },
+      {
+        "case": 11,
+        "turn": 1,
+        "sku_id": 96,
+        "expected": "$18.74/100",
+        "present": true
+      },
+      {
+        "case": 12,
+        "turn": 2,
+        "sku_id": 88,
+        "expected": "$14.80/100",
+        "present": true
+      },
+      {
+        "case": 12,
+        "turn": 2,
+        "sku_id": 96,
+        "expected": "$18.74/100",
+        "present": true
+      },
+      {
+        "case": 14,
+        "turn": 1,
+        "sku_id": 40,
+        "expected": "$9.00/100",
+        "present": true
+      },
+      {
+        "case": 14,
+        "turn": 1,
+        "sku_id": 88,
+        "expected": "$14.80/100",
+        "present": true
+      },
+      {
+        "case": 14,
+        "turn": 1,
+        "sku_id": 80,
+        "expected": "$10.80/100",
+        "present": true
+      },
+      {
+        "case": 14,
+        "turn": 1,
+        "sku_id": 100,
+        "expected": "$12.70/100",
+        "present": true
+      },
+      {
+        "case": 14,
+        "turn": 1,
+        "sku_id": 120,
+        "expected": "$13.91/100",
+        "present": true
+      },
+      {
+        "case": 14,
+        "turn": 2,
+        "sku_id": 88,
+        "expected": "$14.80/100",
+        "present": true
+      },
+      {
+        "case": 15,
+        "turn": 3,
+        "sku_id": 88,
+        "expected": "$14.80/100",
+        "present": true
+      },
+      {
+        "case": 15,
+        "turn": 3,
+        "sku_id": 85,
+        "expected": "$12.00/100",
+        "present": true
+      }
+    ]
+  }
+}

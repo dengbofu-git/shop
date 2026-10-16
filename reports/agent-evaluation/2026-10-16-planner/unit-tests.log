@@ -1,0 +1,22 @@
+E:\miniconda\envs\dadashop\lib\site-packages\langgraph\checkpoint\base\__init__.py:18: LangChainPendingDeprecationWarning: The default value of `allowed_objects` will change in a future version. Pass an explicit value (e.g., allowed_objects='messages' or allowed_objects='core') to suppress this warning.
+  from langgraph.checkpoint.serde.jsonplus import JsonPlusSerializer
+Creating test database for alias 'default'...
+
+Creating test database for alias 'ai_storage'...
+
+System check identified no issues (0 silenced).
+..Customer support workflow failed: RuntimeError trace_id=087cd8a2f3702f398af1447ed4f21595
+Customer support workflow failed: TimeoutError trace_id=7060e3376210959e877cfe1f64ee71aa
+.......Customer support storage failed: OperationalError
+.Customer support storage failed: OperationalError
+...Customer support workflow failed: RuntimeError trace_id=9db0c23bf846eed69cc5e2ce1308283c
+....Customer support workflow failed: RuntimeError trace_id=f3d13492cf6628638111b83c8cebabc9
+..............Agent telemetry persistence failed: RuntimeError
+.................................
+----------------------------------------------------------------------
+Ran 64 tests in 2.295s
+
+OK
+Destroying test database for alias 'default'...
+
+Destroying test database for alias 'ai_storage'...

@@ -1,0 +1,48 @@
+{
+  "type": "verification",
+  "capabilityId": "CAP-CAT-004",
+  "specVersion": "0.1.1",
+  "time": "2026-10-16T15:39:07.547492+08:00",
+  "head": "4db3fd12e985c5b5fc3b04de20b780d926a4e319",
+  "workingTreeDirty": true,
+  "inputHashes": {
+    "client/templates/buyer_header.html": "ccaf2cfaa636c21f0e03e15cfee2e82c4f53c804062caaf203d3f7973a50879f",
+    "client/templates/buyer_activity.html": "f45dd836e57506d9070520f5f9dc18abb6e0f5921a5a2392976cac2db9ff3b2c",
+    "client/static/js/buyer-activity.js": "e27caf4fa30fa90b9eee67fa951a3bddd7ce9164e6876c20fb115f91ae4dbbad",
+    "client/static/css/buyer-activity.css": "034a59db7fcd0b36800fff3de17e118d1e1464bd676d37cb4b569b780f137006",
+    "client/static/js/buyer-favorites.js": "be750ffd890583b89a186d8d175cb59c2311dd8c8f0018d371bf8b410767a14c",
+    "client/static/css/buyer-favorites.css": "cd222bd1127095e92bcdd94d47b977efe972189ee10b216ca2a887738fb1fb48",
+    "goods/test_activity.py": "058c7d676d503465e03073b92eed2fc24be381476bee81448eaa07344cd1f70c",
+    "versions/modules.json": "2eefc1d454c9cce11c19662404f83ffd66217418211dfd0c83a4e62d798828f3"
+  },
+  "version": "web 0.6.2",
+  "sqlite": {
+    "passed": 10,
+    "skipped": 2,
+    "failed": 0
+  },
+  "nodeSyntax": "passed",
+  "browser": {
+    "environment": "temporary SQLite and synthetic data, localhost:8001",
+    "result": "passed",
+    "checks": [
+      "no-duplicate-inner-tabs",
+      "12-procurement-card-buttons",
+      "6-recommendation-buttons",
+      "same-sku-state-sync",
+      "persistence-after-reload",
+      "14-home-card-buttons",
+      "favorite-click-does-not-add-cart",
+      "english-button-text",
+      "topbar-recent-route"
+    ],
+    "screenshots": [
+      "collection.png",
+      "cards.png"
+    ]
+  },
+  "reviewer": null,
+  "limitations": [
+    "No production release or full-site regression."
+  ]
+}

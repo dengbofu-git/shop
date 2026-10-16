@@ -1,0 +1,12 @@
+{
+  "historical-records.json": "7ec7c4372a6c7b9e26133815e3c4d290fb4ce93333b5dc12d727665270805b01",
+  "baseline-source\\configuration.py": "f3d6e2d2e99af8ad98a1fb8531bda0590d32aca53bb6c68502876139be1f2f53",
+  "baseline-source\\context.py": "363c2182a8b9c495675c6ef630a7e55c98ecc29c412d2b4135c5077ab8fba4b1",
+  "baseline-source\\contracts.py": "b0b6cc3a92d80cefae749417694f739643dfdd6fffbccbc288190b36b0da3c15",
+  "baseline-source\\model_client.py": "4844fc779243c6d3371fc1f06c9e4c01d61b0279fb49840dfb00da44f879b061",
+  "baseline-source\\modules.json": "cc6679868e76e7a9799679ec4d67bfbd167fce71ff7a68ad96bf208c187fd253",
+  "baseline-source\\recommendations.py": "433269bb08b7ae8678169b8bcfe4dc02806845c4024eb88eca71e37bd36d8a24",
+  "baseline-source\\telemetry.py": "d9fb52965e8e4b1716e28cf321890bea8702a64b4a233453de26a699539a736c",
+  "baseline-source\\views.py": "2ce58e5a7201baff08db78ddca823e1c6ab674cf646d6fb1413c6debad4181da",
+  "baseline-source\\workflow.py": "bc0aa0e901758ad8167aa2c00b9b5fb1f8a5ee09d8d5c4b891b03d3abdd2626a"
+}

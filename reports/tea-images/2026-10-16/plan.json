@@ -1,0 +1,60 @@
+{
+  "generator": "built-in image_gen",
+  "date": "2026-10-16",
+  "entries": [
+    {
+      "slug": "black",
+      "name": "红茶",
+      "prompt": "Use case: product-mockup\nAsset type: square ecommerce category fallback product photograph for 红茶 (black tea).\nPrimary request: Create one premium, photorealistic virtual category product image, not a packaged branded product. Subject: Chinese black tea (hong cha), slender twisted dark reddish-brown dry leaves with a few golden tips, clear ruby amber tea in a white porcelain cup.\nScene/backdrop: warm ivory seamless studio background, simple light stone tabletop. A shallow round matte white ceramic dish holds the dry tea in the center-left, one small white porcelain cup of the brewed tea sits immediately behind to the right. A few natural tea leaves beside the dish.\nComposition: 1:1 square, centered balanced still life, full objects visible with generous margins, medium close view from slightly above. Consistent series aesthetic, realistic tea leaf texture, soft diffused daylight, restrained neutral colors, gentle shadows, sharp product detail.\nConstraints: exactly one cohesive image for this tea category; no grid, no collage, no labels, no writing, no typography, no watermark, no logos, no certification marks, no packaging claims, no people, no decorative flowers, no bright colored props. This is an illustrative synthetic category image, not a claim about any actual SKU.",
+      "sourcePath": "C:\\Users\\dbf\\.codex\\generated_images\\01a14355-7e60-7bc2-b475-b4fbc9184731\\exec-2192c1e8-2a1e-4355-b478-c4096169b67b.png",
+      "file": "tea_categories/20261016/black-v1.png",
+      "sha256": "3ab85d4064730984b1a04b39667fbb868cec5421fd69a8a9d58de12b27890c8f",
+      "bytes": 2267159
+    },
+    {
+      "slug": "green",
+      "name": "绿茶",
+      "prompt": "Use case: product-mockup\nAsset type: square ecommerce category fallback product photograph for 绿茶 (green tea).\nPrimary request: Create one premium, photorealistic virtual category product image, not a packaged branded product. Subject: Chinese green tea, fresh jade green slender spring tea leaves with pointed buds, pale yellow-green tea in a white porcelain cup.\nScene/backdrop: warm ivory seamless studio background, simple light stone tabletop. A shallow round matte white ceramic dish holds the dry tea in the center-left, one small white porcelain cup of the brewed tea sits immediately behind to the right. A few natural tea leaves beside the dish.\nComposition: 1:1 square, centered balanced still life, full objects visible with generous margins, medium close view from slightly above. Consistent series aesthetic, realistic tea leaf texture, soft diffused daylight, restrained neutral colors, gentle shadows, sharp product detail.\nConstraints: exactly one cohesive image for this tea category; no grid, no collage, no labels, no writing, no typography, no watermark, no logos, no certification marks, no packaging claims, no people, no decorative flowers, no bright colored props. This is an illustrative synthetic category image, not a claim about any actual SKU.",
+      "sourcePath": "C:\\Users\\dbf\\.codex\\generated_images\\01a14355-7e60-7bc2-b475-b4fbc9184731\\exec-aeea8881-a342-4bed-bbd8-bf257285c06b.png",
+      "file": "tea_categories/20261016/green-v1.png",
+      "sha256": "cf4149501b70eb8806082737362754d86c32c43d01e373cd84b6ca485c96f342",
+      "bytes": 2250089
+    },
+    {
+      "slug": "oolong",
+      "name": "乌龙茶",
+      "prompt": "Use case: product-mockup\nAsset type: square ecommerce category fallback product photograph for 乌龙茶 (oolong tea).\nPrimary request: Create one premium, photorealistic virtual category product image, not a packaged branded product. Subject: Chinese oolong tea, tightly rolled olive-brown oolong leaves and a few gently opened leaves, rich golden amber tea in a white porcelain cup.\nScene/backdrop: warm ivory seamless studio background, simple light stone tabletop. A shallow round matte white ceramic dish holds the dry tea in the center-left, one small white porcelain cup of the brewed tea sits immediately behind to the right. A few natural tea leaves beside the dish.\nComposition: 1:1 square, centered balanced still life, full objects visible with generous margins, medium close view from slightly above. Consistent series aesthetic, realistic tea leaf texture, soft diffused daylight, restrained neutral colors, gentle shadows, sharp product detail.\nConstraints: exactly one cohesive image for this tea category; no grid, no collage, no labels, no writing, no typography, no watermark, no logos, no certification marks, no packaging claims, no people, no decorative flowers, no bright colored props. This is an illustrative synthetic category image, not a claim about any actual SKU.",
+      "sourcePath": "C:\\Users\\dbf\\.codex\\generated_images\\01a14355-7e60-7bc2-b475-b4fbc9184731\\exec-58f44e3f-4225-4e94-a0d8-92715ebc0543.png",
+      "file": "tea_categories/20261016/oolong-v1.png",
+      "sha256": "42aa2ad4669e9cc65339f6f1ce1f9b60e353d9dba2c2fc1bce5771c92b33c64f",
+      "bytes": 2271044
+    },
+    {
+      "slug": "white",
+      "name": "白茶",
+      "prompt": "Use case: product-mockup\nAsset type: square ecommerce category fallback product photograph for 白茶 (white tea).\nPrimary request: Create one premium, photorealistic virtual category product image, not a packaged branded product. Subject: Chinese white tea, silver needle buds with delicate white down and pale sage dried leaves, very pale champagne tea in a white porcelain cup.\nScene/backdrop: warm ivory seamless studio background, simple light stone tabletop. A shallow round matte white ceramic dish holds the dry tea in the center-left, one small white porcelain cup of the brewed tea sits immediately behind to the right. A few natural tea leaves beside the dish.\nComposition: 1:1 square, centered balanced still life, full objects visible with generous margins, medium close view from slightly above. Consistent series aesthetic, realistic tea leaf texture, soft diffused daylight, restrained neutral colors, gentle shadows, sharp product detail.\nConstraints: exactly one cohesive image for this tea category; no grid, no collage, no labels, no writing, no typography, no watermark, no logos, no certification marks, no packaging claims, no people, no decorative flowers, no bright colored props. This is an illustrative synthetic category image, not a claim about any actual SKU.",
+      "sourcePath": "C:\\Users\\dbf\\.codex\\generated_images\\01a14355-7e60-7bc2-b475-b4fbc9184731\\exec-8c8caf6d-fad4-46d1-9e05-026f24dca888.png",
+      "file": "tea_categories/20261016/white-v1.png",
+      "sha256": "4111bf8bafa9a667c78355cac2b0a657f147518909a199d939a440560d119dad",
+      "bytes": 2304162
+    },
+    {
+      "slug": "yellow",
+      "name": "黄茶",
+      "prompt": "Use case: product-mockup\nAsset type: square ecommerce category fallback product photograph for 黄茶 (yellow tea).\nPrimary request: Create one premium, photorealistic virtual category product image, not a packaged branded product. Subject: Chinese yellow tea, slender tender yellow-gold tea buds, clear honey-yellow tea in a white porcelain cup.\nScene/backdrop: warm ivory seamless studio background, simple light stone tabletop. A shallow round matte white ceramic dish holds the dry tea in the center-left, one small white porcelain cup of the brewed tea sits immediately behind to the right. A few natural tea leaves beside the dish.\nComposition: 1:1 square, centered balanced still life, full objects visible with generous margins, medium close view from slightly above. Consistent series aesthetic, realistic tea leaf texture, soft diffused daylight, restrained neutral colors, gentle shadows, sharp product detail.\nConstraints: exactly one cohesive image for this tea category; no grid, no collage, no labels, no writing, no typography, no watermark, no logos, no certification marks, no packaging claims, no people, no decorative flowers, no bright colored props. This is an illustrative synthetic category image, not a claim about any actual SKU.",
+      "sourcePath": "C:\\Users\\dbf\\.codex\\generated_images\\01a14355-7e60-7bc2-b475-b4fbc9184731\\exec-66943c4d-e064-4f9b-aba5-a514c93545f9.png",
+      "file": "tea_categories/20261016/yellow-v1.png",
+      "sha256": "76ef0d99fb7274a4b81e45ef5ff863b505a98f16637137b6082ff898e3fb6820",
+      "bytes": 2186593
+    },
+    {
+      "slug": "dark",
+      "name": "黑茶",
+      "prompt": "Use case: product-mockup\nAsset type: square ecommerce category fallback product photograph for 黑茶 (dark tea).\nPrimary request: Create one premium, photorealistic virtual category product image, not a packaged branded product. Subject: Chinese dark fermented tea (hei cha), a small dark tea brick and loose dark brown mature leaves, deep reddish-brown tea in a white porcelain cup.\nScene/backdrop: warm ivory seamless studio background, simple light stone tabletop. A shallow round matte white ceramic dish holds the dry tea in the center-left, one small white porcelain cup of the brewed tea sits immediately behind to the right. A few natural tea leaves beside the dish.\nComposition: 1:1 square, centered balanced still life, full objects visible with generous margins, medium close view from slightly above. Consistent series aesthetic, realistic tea leaf texture, soft diffused daylight, restrained neutral colors, gentle shadows, sharp product detail.\nConstraints: exactly one cohesive image for this tea category; no grid, no collage, no labels, no writing, no typography, no watermark, no logos, no certification marks, no packaging claims, no people, no decorative flowers, no bright colored props. This is an illustrative synthetic category image, not a claim about any actual SKU.",
+      "sourcePath": "C:\\Users\\dbf\\.codex\\generated_images\\01a14355-7e60-7bc2-b475-b4fbc9184731\\exec-6009ff33-84ac-4cc5-bced-e68bf21c0432.png",
+      "file": "tea_categories/20261016/dark-v1.png",
+      "sha256": "602ec826b13ae8c0ee01fb2a4b826d628c1b06eebbe7fc787561a453eb1a290c",
+      "bytes": 2155200
+    }
+  ]
+}

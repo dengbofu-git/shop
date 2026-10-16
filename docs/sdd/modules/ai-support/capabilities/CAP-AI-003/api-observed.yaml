@@ -1,0 +1,118 @@
+openapi: 3.0.3
+info:
+  title: Dadashop 客服HTTP当前实现观察
+  version: "0.8.1-observed.20261016"
+  description: 当前工作区源码及隔离探针观察，不是生产验收；业务目标仍以api-contract.yaml和规格0.2.0为准。
+x-status: observed-source-and-isolated-probes
+x-evidence: docs/sdd/evidence/2026-10-16-sdd-reconciliation/manifest.json
+x-target-contract: api-contract.yaml
+x-observed-differences:
+  - 当前JSON错误只有error和可能的trace_id，没有error_code。
+  - 明确他人或不存在订单得到空DTO后仍进入模型；探针均HTTP200并各提交一个成功轮次。
+  - 英文原始编号可能留在safe_message和mock模型输入中。
+  - 历史GET和成功重放直接返回保存内容，未做新的读取脱敏投影。
+  - 模型上下文使用turn-数据库主键，没有临时ctx映射。
+  - 未见纯订单empty/clarification的应用级模型前模板短路。
+x-request-notes:
+  - Bearer身份必须是customer类型；此HTTP认证函数未额外检查is_active，不能借CLI活跃买家限制推断HTTP也有。
+  - request_id省略时生成；expected_revision省略或null时跳过客户端revision比较，最终提交仍校验读到的revision。
+  - conversation_id通过truthiness判断，旧入口除省略/null外也将空字符串等假值视作无会话；目标客户端只发送规范UUID或省略。
+  - 同用户/同request_id的已有成功重放优先于会话加载、偏好读取和订单查询；不重新读取状态。
+  - 订单上下文在规划意图之前组装；当前既不根据本切片目标返回订单404，也不因混合任务含不可见编号就整次短路。
+security:
+  - BuyerBearer: []
+paths:
+  /v1/support/chat/:
+    post:
+      operationId: observedBuyerSupportChat
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              required: [message]
+              properties:
+                message: {type: string, minLength: 1, maxLength: 1000}
+                request_id: {type: string, description: UUID可接受形式；显式null不合法。}
+                conversation_id: {nullable: true, description: 正常客户端为UUID字符串；旧入口还接受假值表示新会话。}
+                expected_revision: {type: integer, minimum: 0, nullable: true}
+      responses:
+        '200':
+          description: 已有成功重放或新成功轮次；当前不可见明确订单也可能走此分支。
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ObservedSuccess'}
+        '400': {$ref: '#/components/responses/ObservedError'}
+        '401': {$ref: '#/components/responses/ObservedError'}
+        '403': {$ref: '#/components/responses/ObservedError'}
+        '404':
+          description: 当前仅本人会话查询失败的应用分支，尚无ORDER_NOT_QUERYABLE分支。
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ObservedError'}
+              example: {error: 会话不存在或无权访问。}
+        '405':
+          description: Django方法装饰器响应，可能不是JSON。
+        '409': {$ref: '#/components/responses/ObservedError'}
+        '413': {$ref: '#/components/responses/ObservedError'}
+        '503': {$ref: '#/components/responses/ObservedError'}
+  /v1/support/conversations/{conversation_id}/:
+    get:
+      operationId: observedBuyerSupportHistory
+      parameters:
+        - {name: conversation_id, in: path, required: true, schema: {type: string, format: uuid}}
+      responses:
+        '200':
+          description: 本人最近最多6轮，sequence升序；没有24小时过滤，返回保存的message和response，不查询当前状态。
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [conversation_id, revision, turns]
+                properties:
+                  conversation_id: {type: string, format: uuid}
+                  revision: {type: integer, minimum: 0}
+                  turns: {type: array, maxItems: 6, items: {type: object, required: [message, response]}}
+        '401': {$ref: '#/components/responses/ObservedError'}
+        '403': {$ref: '#/components/responses/ObservedError'}
+        '404': {$ref: '#/components/responses/ObservedError'}
+        '405': {description: Django方法检查；非法UUID路径还可能由路由返回HTML404。}
+        '503': {$ref: '#/components/responses/ObservedError'}
+components:
+  securitySchemes:
+    BuyerBearer: {type: http, scheme: bearer, bearerFormat: JWT}
+  responses:
+    ObservedError:
+      description: 应用错误为直接JSON，Cache-Control=no-store；不返回新增错误代码。
+      content:
+        application/json:
+          schema: {$ref: '#/components/schemas/ObservedError'}
+  schemas:
+    ObservedError:
+      type: object
+      required: [error]
+      additionalProperties: false
+      properties:
+        error: {type: string}
+        trace_id: {type: string}
+    ObservedSuccess:
+      type: object
+      additionalProperties: true
+      description: 新成功响应有下列字段，旧成功重放可能仍保留旧shape；不将新增字段强制套入旧存储。
+      properties:
+        answer: {type: string}
+        intent: {type: string}
+        conversation_id: {type: string}
+        request_id: {type: string}
+        revision: {type: integer}
+        pii_redacted: {type: boolean}
+        intents: {type: array, items: {type: string}}
+        task_plan: {type: object, additionalProperties: true}
+        tasks: {type: array, items: {type: object}}
+        recommendation_groups: {type: array, items: {type: object}}
+        recommendation_options: {type: object, nullable: true}
+        explained_categories: {type: array, items: {type: string}}
+        diagnostics: {type: array, items: {type: object}}
+        compliance_blocked: {type: boolean}

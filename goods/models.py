@@ -1,6 +1,28 @@
 from django.db import models
 
 
+class Favorite(models.Model):
+    user = models.ForeignKey('users.UserProfile', on_delete=models.CASCADE)
+    sku = models.ForeignKey('SKU', on_delete=models.CASCADE)
+    created_time = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = 'goods_favorite'
+        unique_together = ('user', 'sku')
+        ordering = ['-created_time', '-id']
+
+
+class BrowsingHistory(models.Model):
+    user = models.ForeignKey('users.UserProfile', on_delete=models.CASCADE)
+    sku = models.ForeignKey('SKU', on_delete=models.CASCADE)
+    viewed_time = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = 'goods_browsing_history'
+        unique_together = ('user', 'sku')
+        ordering = ['-viewed_time', '-id']
+
+
 def sku_image_upload_to(instance, filename):
     """SKU 默认图片保存路径：sku/{sku_id}/{filename}"""
     if hasattr(instance, 'pk') and instance.pk:
@@ -44,6 +66,9 @@ class Catalog(models.Model):
     商品类别
     """
     name = models.CharField(max_length=10, verbose_name='类别名称')
+    fallback_image = models.ImageField(
+        upload_to='tea_categories/', blank=True, default='', verbose_name='茶类虚拟默认图'
+    )
     created_time = models.DateTimeField(auto_now_add=True)
     updated_time = models.DateTimeField(auto_now=True)
 

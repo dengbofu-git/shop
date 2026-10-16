@@ -1,0 +1,5 @@
+{% extends "admin/base.html" %}
+{% block title %}{{ title }} | 茗越山关运营管理{% endblock %}
+{% block extrastyle %}{{ block.super }}{% include "shared/system_theme.html" %}{% endblock %}
+{% block bodyclass %}{{ block.super }} ds-theme ds-admin{% endblock %}
+{% block branding %}<h1 id="site-name"><a href="{% url 'admin:index' %}">茗越山关 · 运营管理</a></h1>{% endblock %}

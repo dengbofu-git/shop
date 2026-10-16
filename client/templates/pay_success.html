@@ -12,9 +12,10 @@
     <link rel="stylesheet" href="/static/css/buyer-storefront.css?v=20261003-storefront">
     <script src="/static/js/init.js"></script>
     <script src="/static/js/auth-storage.js"></script>
+{% include "shared/system_theme.html" %}
 </head>
 
-<body class="buyer-workbench checkout-page storefront-page" id="buyer-body">
+<body class="ds-page-pay_success ds-theme buyer-workbench checkout-page storefront-page" id="buyer-body">
     <div class="buyer-layout">
         {% include 'buyer_sidebar.html' with active='orders' fixed_currency=True %}
 

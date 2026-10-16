@@ -1,0 +1,36 @@
+schemaVersion: "0.1"
+id: CAP-CAT-004
+moduleId: MOD-CAT
+name: 买家收藏与浏览足迹
+specVersion: "0.1.1"
+status: IMPLEMENTING
+documentStatus: implemented-pending-review
+owner: null
+technicalReviewer: null
+sourceFeatureIds: [FEAT-029]
+implementationAuthorization:
+  source: 当前用户请求
+  scope: dadashop 收藏和足迹补全并更新 SDD
+  date: "2026-10-16"
+files:
+  requirements: requirements.md
+  acceptance: acceptance.yaml
+  design: design.md
+  apiContract: api-contract.yaml
+clientParticipation:
+  buyer:
+    pages: [myCollect.html, recent.html, product_details.html]
+    responsibility: 查看、收藏、取消收藏、删除与清空本人足迹。
+  merchant: {status: not-involved}
+  operations: {status: not-involved}
+dependencies:
+  - {target: CAP-IAM-001, type: platform-runtime, purpose: JWT解码及当前用户身份}
+  - {target: CAP-CAT-001, type: data-owner, purpose: SKU商品事实与详情加载成功信号}
+  - {target: CAP-PLAT-002, type: platform-runtime, purpose: 共用导航、三语与RTL}
+implementationVersions: {goods: "0.3.0", web: "0.5.0", core: "0.1.4"}
+versionNote: 此处为本切片引入版本；共享工作区的后续联合版本见证据manifest及versions/modules.json。
+evidenceManifests:
+  - docs/sdd/evidence/2026-10-16-buyer-activity/manifest.json
+  - docs/sdd/evidence/2026-10-16-buyer-card-favorites/manifest.json
+approvals: []
+stageNote: 已按本次请求实施并执行定向验证；没有代填人工评审、发布批准或生产上线记录。

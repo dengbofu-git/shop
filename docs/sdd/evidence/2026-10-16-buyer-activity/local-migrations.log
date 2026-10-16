@@ -1,0 +1,16 @@
+[X]  users.0001_initial
+[X]  users.0002_address
+[X]  users.0003_weiboprofile
+[X]  users.0004_auto_20260218_0108
+[X]  users.0005_permission_role_rolepermission_userrole
+[X]  users.0006_create_admin_user
+[X]  users.0007_create_customs_user
+[X]  goods.0001_initial
+[X]  goods.0002_spu_merchant
+[X]  goods.0003_auto_20260218_0147
+[X]  goods.0004_add_carousel_slide
+[X]  goods.0005_brand_logo_optional
+[X]  goods.0006_sku_is_recommended
+[X]  goods.0007_spu_brand_optional
+[X]  goods.0008_auto_20261002_2159
+[X]  goods.0009_browsinghistory_favorite

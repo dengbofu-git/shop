@@ -1,0 +1,3059 @@
+{
+  "protocol": "Paired teacher-forced replay: identical original questions, recorded prior turns, reconstructed memory and fixed config for both versions. Historical response evidence approximates memory revisions; earlier snapshots unavailable. No generated replies written to customer history.",
+  "configuration": {
+    "model": "deepseek-flash",
+    "thinking": "disabled",
+    "telemetry_enabled": true,
+    "export_enabled": true,
+    "otlp_endpoint": "http://127.0.0.1:4318",
+    "revision": 3,
+    "rerank_enabled": true,
+    "rerank_model": "BAAI/bge-reranker-v2-m3",
+    "retrieval_candidates": 30,
+    "retrieval_top_k": 5,
+    "retrieval_per_document": 2,
+    "retrieval_context_chars": 12000,
+    "rerank_timeout_ms": 30000,
+    "rerank_min_score": null,
+    "rerank_fallback": true
+  },
+  "candidate_source_sha256": {
+    "support_ai/workflow.py": "82153afe838c169fdf3c6d46da5ff76a9ef2498e6932f223e39e0529a6eefb46",
+    "support_ai/planning.py": "493f7aed0b9a4157f7c50c1032109bfae5a261a747d1194fbe89119d1e85e447",
+    "support_ai/execution.py": "f134b80ce16f9a436fad0dea90a5658a417ca3bf10bbe334f747bdcb15bd4d0b",
+    "support_ai/tool_services.py": "58cc571ca254df39cc1f03dc7c21d3ef291334e7449bc090eef97ac0f49540a9",
+    "support_ai/recommendations.py": "379408b3aebe34efd8400d916b196b637fc844887fca68f8b31ce669adc37b0a"
+  },
+  "cases_sha256": "ab2230a0c183b0681c29f3637d5ae9dbe0b3b7c300ac006456e0f74a5b531094",
+  "initial_counts": {
+    "turns": 16,
+    "conversations": 6
+  },
+  "runs": [
+    {
+      "case_id": "night-8",
+      "group": "historical",
+      "version": "baseline_0.5.0",
+      "message": "推荐茶叶",
+      "expected_intents": [
+        "recommendation"
+      ],
+      "duration_ms": 2031.74,
+      "llm_calls": 2,
+      "input_tokens": 1803,
+      "output_tokens": 258,
+      "model_errors": 0,
+      "error": null,
+      "response": {
+        "intent": "recommendation",
+        "confidence": 0.95,
+        "recommendations": [],
+        "recommendation_status": "NO_MATCH",
+        "answer": "当前没有满足这些条件的可售商品。您可以调整品类、品牌、关键词或预算；我会保留您明确提出的条件。",
+        "product_intent": {
+          "action": "SEARCH",
+          "required": {
+            "categories": [
+              "茶叶"
+            ],
+            "brands": [],
+            "keywords": [],
+            "price_min": null,
+            "price_max": null,
+            "currency": null,
+            "price_basis": null
+          },
+          "preferred": {
+            "categories": [],
+            "brands": [],
+            "keywords": []
+          },
+          "excluded": {
+            "categories": [],
+            "brands": [],
+            "keywords": []
+          },
+          "evidence": [
+            {
+              "field": "required.categories",
+              "value": "茶叶",
+              "source": "CURRENT",
+              "source_id": null,
+              "quote": "推荐茶叶"
+            },
+            {
+              "field": "preferred.categories",
+              "value": "绿茶",
+              "source": "MEMORY",
+              "source_id": "preference:1:2026-10-13T15:28:47.848049+00:00",
+              "quote": "绿茶"
+            }
+          ],
+          "missing_fields": []
+        }
+      },
+      "internal": {
+        "plan": null,
+        "tool_results": null,
+        "scores": {
+          "recommendation": 0.95,
+          "question_answering": 0.2,
+          "after_sales": 0.05
+        },
+        "resolved_question": "推荐茶叶"
+      },
+      "retrieval": [],
+      "metrics": {
+        "intent_exact": true,
+        "intent_set_exact": true,
+        "true_positive": 1,
+        "false_positive": 0,
+        "false_negative": 0,
+        "recommendation_constraints_ok": false
+      }
+    },
+    {
+      "case_id": "night-8",
+      "group": "historical",
+      "version": "candidate_0.6.0",
+      "message": "推荐茶叶",
+      "expected_intents": [
+        "recommendation"
+      ],
+      "duration_ms": 1281.8,
+      "llm_calls": 1,
+      "input_tokens": 1241,
+      "output_tokens": 222,
+      "model_errors": 0,
+      "error": null,
+      "response": {
+        "answer": "该项服务暂时不可用，请稍后重试。",
+        "intent": "recommendation",
+        "intents": [
+          "recommendation"
+        ],
+        "confidence": null,
+        "intent_source": "rules",
+        "recommendations": [],
+        "knowledge_sources": [],
+        "memory_used": false,
+        "clarification_required": false,
+        "tasks": [
+          {
+            "id": "s1",
+            "tool": "recommend_products",
+            "status": "error"
+          }
+        ],
+        "task_plan": {
+          "steps": [
+            {
+              "id": "s1",
+              "intent": "recommendation",
+              "tool": "recommend_products",
+              "request": "推荐茶叶",
+              "depends_on": [],
+              "product_from": null,
+              "limit": 4
+            }
+          ],
+          "output_order": [
+            "s1"
+          ],
+          "source": "rules"
+        },
+        "unmet_requirements": []
+      },
+      "internal": {
+        "plan": {
+          "steps": [
+            {
+              "id": "s1",
+              "intent": "recommendation",
+              "tool": "recommend_products",
+              "request": "推荐茶叶",
+              "depends_on": [],
+              "product_from": null,
+              "limit": 4
+            }
+          ],
+          "output_order": [
+            "s1"
+          ],
+          "source": "rules"
+        },
+        "tool_results": [
+          {
+            "step_id": "s1",
+            "tool": "recommend_products",
+            "status": "error",
+            "data": {
+              "answer": "该项服务暂时不可用，请稍后重试。",
+              "error_type": "ValueError"
+            },
+            "sources": [],
+            "unmet_requirements": []
+          }
+        ],
+        "scores": null,
+        "resolved_question": "推荐茶叶"
+      },
+      "retrieval": [],
+      "metrics": {
+        "intent_exact": true,
+        "intent_set_exact": true,
+        "true_positive": 1,
+        "false_positive": 0,
+        "false_negative": 0,
+        "recommendation_constraints_ok": false
+      }
+    },
+    {
+      "case_id": "night-9",
+      "group": "historical",
+      "version": "candidate_0.6.0",
+      "message": "推荐茶叶",
+      "expected_intents": [
+        "recommendation"
+      ],
+      "duration_ms": 1528.11,
+      "llm_calls": 1,
+      "input_tokens": 1450,
+      "output_tokens": 222,
+      "model_errors": 0,
+      "error": null,
+      "response": {
+        "answer": "该项服务暂时不可用，请稍后重试。",
+        "intent": "recommendation",
+        "intents": [
+          "recommendation"
+        ],
+        "confidence": null,
+        "intent_source": "rules",
+        "recommendations": [],
+        "knowledge_sources": [],
+        "memory_used": false,
+        "clarification_required": false,
+        "tasks": [
+          {
+            "id": "s1",
+            "tool": "recommend_products",
+            "status": "error"
+          }
+        ],
+        "task_plan": {
+          "steps": [
+            {
+              "id": "s1",
+              "intent": "recommendation",
+              "tool": "recommend_products",
+              "request": "推荐茶叶",
+              "depends_on": [],
+              "product_from": null,
+              "limit": 4
+            }
+          ],
+          "output_order": [
+            "s1"
+          ],
+          "source": "rules"
+        },
+        "unmet_requirements": []
+      },
+      "internal": {
+        "plan": {
+          "steps": [
+            {
+              "id": "s1",
+              "intent": "recommendation",
+              "tool": "recommend_products",
+              "request": "推荐茶叶",
+              "depends_on": [],
+              "product_from": null,
+              "limit": 4
+            }
+          ],
+          "output_order": [
+            "s1"
+          ],
+          "source": "rules"
+        },
+        "tool_results": [
+          {
+            "step_id": "s1",
+            "tool": "recommend_products",
+            "status": "error",
+            "data": {
+              "answer": "该项服务暂时不可用，请稍后重试。",
+              "error_type": "ValueError"
+            },
+            "sources": [],
+            "unmet_requirements": []
+          }
+        ],
+        "scores": null,
+        "resolved_question": "推荐茶叶"
+      },
+      "retrieval": [],
+      "metrics": {
+        "intent_exact": true,
+        "intent_set_exact": true,
+        "true_positive": 1,
+        "false_positive": 0,
+        "false_negative": 0,
+        "recommendation_constraints_ok": false
+      }
+    },
+    {
+      "case_id": "night-9",
+      "group": "historical",
+      "version": "baseline_0.5.0",
+      "message": "推荐茶叶",
+      "expected_intents": [
+        "recommendation"
+      ],
+      "duration_ms": 3285.05,
+      "llm_calls": 3,
+      "input_tokens": 3035,
+      "output_tokens": 334,
+      "model_errors": 0,
+      "error": null,
+      "response": {
+        "intent": "recommendation",
+        "confidence": 0.97,
+        "recommendations": [],
+        "recommendation_status": "NO_MATCH",
+        "answer": "当前没有满足这些条件的可售商品。您可以调整品类、品牌、关键词或预算；我会保留您明确提出的条件。",
+        "product_intent": {
+          "action": "SEARCH",
+          "required": {
+            "categories": [
+              "茶叶"
+            ],
+            "brands": [],
+            "keywords": [],
+            "price_min": null,
+            "price_max": null,
+            "currency": null,
+            "price_basis": null
+          },
+          "preferred": {
+            "categories": [],
+            "brands": [],
+            "keywords": []
+          },
+          "excluded": {
+            "categories": [],
+            "brands": [],
+            "keywords": []
+          },
+          "evidence": [
+            {
+              "field": "required.categories",
+              "value": "茶叶",
+              "source": "CURRENT",
+              "source_id": null,
+              "quote": "推荐茶叶"
+            },
+            {
+              "field": "preferred.categories",
+              "value": "红茶",
+              "source": "MEMORY",
+              "source_id": "preference:1:2026-10-15T15:03:40.482405+00:00",
+              "quote": "红茶"
+            }
+          ],
+          "missing_fields": []
+        }
+      },
+      "internal": {
+        "plan": null,
+        "tool_results": null,
+        "scores": {
+          "recommendation": 0.97,
+          "question_answering": 0.1,
+          "after_sales": 0.05
+        },
+        "resolved_question": "推荐茶叶"
+      },
+      "retrieval": [],
+      "metrics": {
+        "intent_exact": true,
+        "intent_set_exact": true,
+        "true_positive": 1,
+        "false_positive": 0,
+        "false_negative": 0,
+        "recommendation_constraints_ok": false
+      }
+    },
+    {
+      "case_id": "night-10",
+      "group": "historical",
+      "version": "baseline_0.5.0",
+      "message": "推荐茶叶，介绍绿茶",
+      "expected_intents": [
+        "recommendation",
+        "question_answering"
+      ],
+      "duration_ms": 3480.5,
+      "llm_calls": 3,
+      "input_tokens": 3229,
+      "output_tokens": 369,
+      "model_errors": 0,
+      "error": null,
+      "response": {
+        "intent": "recommendation",
+        "confidence": 0.92,
+        "recommendations": [
+          {
+            "sku_id": 23,
+            "name": "默认规格",
+            "product_name": "石牌茶",
+            "category": "绿茶",
+            "brand": "华农石牌茶",
+            "price": "75.00",
+            "currency": "USD",
+            "image_url": "/v1/goods/sku/23/image",
+            "detail_url": "/product_details.html?skuid=23",
+            "reasons": [
+              "符合所选分类"
+            ]
+          }
+        ],
+        "recommendation_status": "MATCHED",
+        "answer": "按您的条件找到以下可售商品（USD 单价，价格及库存以下单时为准）：\n1. 默认规格 · $75.00 · 符合所选分类",
+        "product_intent": {
+          "action": "SEARCH",
+          "required": {
+            "categories": [
+              "茶叶",
+              "绿茶"
+            ],
+            "brands": [],
+            "keywords": [],
+            "price_min": null,
+            "price_max": null,
+            "currency": null,
+            "price_basis": null
+          },
+          "preferred": {
+            "categories": [],
+            "brands": [],
+            "keywords": []
+          },
+          "excluded": {
+            "categories": [],
+            "brands": [],
+            "keywords": []
+          },
+          "evidence": [
+            {
+              "field": "required.categories",
+              "value": "茶叶",
+              "source": "CURRENT",
+              "source_id": null,
+              "quote": "推荐茶叶"
+            },
+            {
+              "field": "required.categories",
+              "value": "绿茶",
+              "source": "CURRENT",
+              "source_id": null,
+              "quote": "介绍绿茶"
+            },
+            {
+              "field": "preferred.categories",
+              "value": "红茶",
+              "source": "MEMORY",
+              "source_id": "preference:1:2026-10-15T15:03:40.482405+00:00",
+              "quote": "红茶"
+            }
+          ],
+          "missing_fields": []
+        }
+      },
+      "internal": {
+        "plan": null,
+        "tool_results": null,
+        "scores": {
+          "recommendation": 0.92,
+          "question_answering": 0.4,
+          "after_sales": 0.05
+        },
+        "resolved_question": "推荐茶叶，介绍绿茶"
+      },
+      "retrieval": [],
+      "metrics": {
+        "intent_exact": false,
+        "intent_set_exact": false,
+        "true_positive": 1,
+        "false_positive": 0,
+        "false_negative": 1,
+        "recommendation_constraints_ok": true
+      }
+    },
+    {
+      "case_id": "night-10",
+      "group": "historical",
+      "version": "candidate_0.6.0",
+      "message": "推荐茶叶，介绍绿茶",
+      "expected_intents": [
+        "recommendation",
+        "question_answering"
+      ],
+      "duration_ms": 19999.03,
+      "llm_calls": 3,
+      "input_tokens": 6584,
+      "output_tokens": 754,
+      "model_errors": 0,
+      "error": null,
+      "response": {
+        "answer": "**推荐茶叶**：抱歉，本次推荐服务暂时不可用（工具返回错误），无法给出可售商品或价格库存。您可以稍后重试，或调整品类、品牌、关键词、预算等条件，我会保留您明确提出的条件。\n\n**介绍绿茶**（依据 ISO 20715:2023《Tea — Classification of tea types》）：\n- 绿茶是**快速加热鲜叶以钝化酶**，随后可能经过揉捻、做形或粉碎、干燥等步骤制成的茶。\n- 与红茶的关键工艺区别在于：绿茶**不经过红茶工艺中刻意通气的氧化过程**。\n- 具体加热方式和成品形状因产区与产品而异。\n- 补充说明：绿茶的“发酵”通常指**很少或不刻意氧化**，与红茶制造中行业所称的“发酵”（酶促氧化）不同，也与微生物发酵不同（来源：Fermentation: The Key Step in Processing of Black Tea）。\n- 另外，茶树品种与茶类是两个概念：同一品种用不同工艺可制成不同茶类，成品风味也受工艺影响（来源：Impact of Six Typical Processing Methods on the Chemical Composition of Tea Leaves）。\n\n未配置的风味、用途等属性无法验证，暂不提供。",
+        "intent": "multi_intent",
+        "intents": [
+          "recommendation",
+          "question_answering"
+        ],
+        "confidence": null,
+        "intent_source": "rules",
+        "recommendations": [],
+        "knowledge_sources": [
+          {
+            "title": "ISO 20715:2023 Tea — Classification of tea types",
+            "url": "https://www.iso.org/obp/ui?_escaped_fragment_=iso%3Astd%3Aiso%3A20715%3Aed-1%3Av1%3Aen",
+            "year": null
+          },
+          {
+            "title": "Typology of Processed Tea",
+            "url": "https://agris.fao.org/search/zh/records/68cbbca2f61e5b80b5e93a95",
+            "year": null
+          },
+          {
+            "title": "Fermentation: The Key Step in Processing of Black Tea",
+            "url": "https://agris.fao.org/search/fr/records/6473b0a3542a3f9f03b31231",
+            "year": null
+          },
+          {
+            "title": "Impact of Six Typical Processing Methods on the Chemical Composition of Tea Leaves",
+            "url": "https://agris.fao.org/search/en/records/65dff5d763b8185d9cb04493",
+            "year": null
+          }
+        ],
+        "memory_used": false,
+        "clarification_required": false,
+        "tasks": [
+          {
+            "id": "s1",
+            "tool": "recommend_products",
+            "status": "error"
+          },
+          {
+            "id": "s2",
+            "tool": "introduce_tea",
+            "status": "success"
+          }
+        ],
+        "task_plan": {
+          "steps": [
+            {
+              "id": "s1",
+              "intent": "recommendation",
+              "tool": "recommend_products",
+              "request": "推荐茶叶",
+              "depends_on": [],
+              "product_from": null,
+              "limit": 4
+            },
+            {
+              "id": "s2",
+              "intent": "question_answering",
+              "tool": "introduce_tea",
+              "request": "介绍绿茶",
+              "depends_on": [],
+              "product_from": null,
+              "limit": 4
+            }
+          ],
+          "output_order": [
+            "s1",
+            "s2"
+          ],
+          "source": "rules"
+        },
+        "unmet_requirements": []
+      },
+      "internal": {
+        "plan": {
+          "steps": [
+            {
+              "id": "s1",
+              "intent": "recommendation",
+              "tool": "recommend_products",
+              "request": "推荐茶叶",
+              "depends_on": [],
+              "product_from": null,
+              "limit": 4
+            },
+            {
+              "id": "s2",
+              "intent": "question_answering",
+              "tool": "introduce_tea",
+              "request": "介绍绿茶",
+              "depends_on": [],
+              "product_from": null,
+              "limit": 4
+            }
+          ],
+          "output_order": [
+            "s1",
+            "s2"
+          ],
+          "source": "rules"
+        },
+        "tool_results": [
+          {
+            "step_id": "s1",
+            "tool": "recommend_products",
+            "status": "error",
+            "data": {
+              "answer": "该项服务暂时不可用，请稍后重试。",
+              "error_type": "ValueError"
+            },
+            "sources": [],
+            "unmet_requirements": []
+          },
+          {
+            "step_id": "s2",
+            "tool": "introduce_tea",
+            "status": "success",
+            "data": {
+              "question": "介绍绿茶",
+              "evidence": [
+                {
+                  "chunk_id": 66,
+                  "document_id": "3c6bce99-3268-4dfa-ae54-5edcdd5059a7",
+                  "text": "White tea is described by ISO 20715 as harvested tea shoots that undergo one withering and drying stage. The term white tea therefore refers to a Camellia sinensis tea type and a processing approach, not to an infusion made from white-colored flowers or herbs.",
+                  "distance": 0.4976099743780735,
+                  "metadata": {
+                    "year": null,
+                    "topic": "tea_processing",
+                    "country": null,
+                    "source_url": "https://www.iso.org/obp/ui?_escaped_fragment_=iso%3Astd%3Aiso%3A20715%3Aed-1%3Av1%3Aen"
+                  },
+                  "source_title": "ISO 20715:2023 Tea — Classification of tea types",
+                  "source_reference": "https://www.iso.org/obp/ui?_escaped_fragment_=iso%3Astd%3Aiso%3A20715%3Aed-1%3Av1%3Aen",
+                  "vector_rank": 2,
+                  "rerank_score": 0.908412516117096,
+                  "rerank_rank": 1,
+                  "context_truncated": false
+                },
+                {
+                  "chunk_id": 65,
+                  "document_id": "3c6bce99-3268-4dfa-ae54-5edcdd5059a7",
+                  "text": "Green tea is made by quickly applying heat to fresh leaves to inactivate enzymes, followed by steps that may include rolling, shaping, or comminution, and drying. Compared with black tea, the defining processing contrast is that green tea is not intentionally aerated/oxidized through the black-tea process. Specific heating methods and shapes vary by region and product.",
+                  "distance": 0.4737752392586595,
+                  "metadata": {
+                    "year": null,
+                    "topic": "tea_processing",
+                    "country": null,
+                    "source_url": "https://www.iso.org/obp/ui?_escaped_fragment_=iso%3Astd%3Aiso%3A20715%3Aed-1%3Av1%3Aen"
+                  },
+                  "source_title": "ISO 20715:2023 Tea — Classification of tea types",
+                  "source_reference": "https://www.iso.org/obp/ui?_escaped_fragment_=iso%3Astd%3Aiso%3A20715%3Aed-1%3Av1%3Aen",
+                  "vector_rank": 1,
+                  "rerank_score": 0.7759298086166382,
+                  "rerank_rank": 2,
+                  "context_truncated": false
+                },
+                {
+                  "chunk_id": 77,
+                  "document_id": "80de85ff-4ab6-47b5-b042-6a05b304e36b",
+                  "text": "A practical tea product description can combine several attributes: basic processing type, cultivar, origin, manufacturing style, grade, added ingredients, and product form. For example, a product can be described as black tea from a named origin, made by orthodox processing, scented with jasmine, and sold loose leaf. These attributes answer different questions and should not be collapsed into a single tea-family label.",
+                  "distance": 0.5487882087804342,
+                  "metadata": {
+                    "year": null,
+                    "topic": "tea_categories",
+                    "country": null,
+                    "source_url": "https://agris.fao.org/search/zh/records/68cbbca2f61e5b80b5e93a95"
+                  },
+                  "source_title": "Typology of Processed Tea",
+                  "source_reference": "https://agris.fao.org/search/zh/records/68cbbca2f61e5b80b5e93a95",
+                  "vector_rank": 15,
+                  "rerank_score": 0.08790744096040726,
+                  "rerank_rank": 6,
+                  "context_truncated": false
+                },
+                {
+                  "chunk_id": 81,
+                  "document_id": "49fec67b-d2ee-4efe-8d02-7c7f04ace769",
+                  "text": "In black tea manufacture, the industry word fermentation commonly refers to enzymatic oxidation after leaf disruption and exposure to air. It is distinct from microbial fermentation. Green tea is made with little or no intentional oxidation, while oolong is partially oxidized. Dark tea may involve a separate piling or post-fermentation stage. When users ask whether tea is fermented, clarify which process they mean.",
+                  "distance": 0.5477599756048228,
+                  "metadata": {
+                    "year": null,
+                    "topic": "tea_terminology",
+                    "country": null,
+                    "source_url": "https://agris.fao.org/search/fr/records/6473b0a3542a3f9f03b31231"
+                  },
+                  "source_title": "Fermentation: The Key Step in Processing of Black Tea",
+                  "source_reference": "https://agris.fao.org/search/fr/records/6473b0a3542a3f9f03b31231",
+                  "vector_rank": 13,
+                  "rerank_score": 0.0697503313422203,
+                  "rerank_rank": 8,
+                  "context_truncated": false
+                },
+                {
+                  "chunk_id": 78,
+                  "document_id": "3e4ce43c-cfbf-440d-bd73-b5222fb18f33",
+                  "text": "Tea cultivar and tea type are different concepts. Cultivar describes the cultivated plant selection; black, green, oolong, white, yellow, and dark tea describe processed product types. A research study indexed by FAO AGRIS reports that processing one cultivar by six typical methods produced differentiated chemical profiles. Therefore, cultivar alone does not determine the finished tea type or its aroma; processing also matters.",
+                  "distance": 0.5435638608322303,
+                  "metadata": {
+                    "year": null,
+                    "topic": "tea_cultivar_processing",
+                    "country": null,
+                    "source_url": "https://agris.fao.org/search/en/records/65dff5d763b8185d9cb04493"
+                  },
+                  "source_title": "Impact of Six Typical Processing Methods on the Chemical Composition of Tea Leaves",
+                  "source_reference": "https://agris.fao.org/search/en/records/65dff5d763b8185d9cb04493",
+                  "vector_rank": 12,
+                  "rerank_score": 0.0534319244325161,
+                  "rerank_rank": 10,
+                  "context_truncated": false
+                }
+              ]
+            },
+            "sources": [
+              {
+                "title": "ISO 20715:2023 Tea — Classification of tea types",
+                "url": "https://www.iso.org/obp/ui?_escaped_fragment_=iso%3Astd%3Aiso%3A20715%3Aed-1%3Av1%3Aen",
+                "year": null
+              },
+              {
+                "title": "ISO 20715:2023 Tea — Classification of tea types",
+                "url": "https://www.iso.org/obp/ui?_escaped_fragment_=iso%3Astd%3Aiso%3A20715%3Aed-1%3Av1%3Aen",
+                "year": null
+              },
+              {
+                "title": "Typology of Processed Tea",
+                "url": "https://agris.fao.org/search/zh/records/68cbbca2f61e5b80b5e93a95",
+                "year": null
+              },
+              {
+                "title": "Fermentation: The Key Step in Processing of Black Tea",
+                "url": "https://agris.fao.org/search/fr/records/6473b0a3542a3f9f03b31231",
+                "year": null
+              },
+              {
+                "title": "Impact of Six Typical Processing Methods on the Chemical Composition of Tea Leaves",
+                "url": "https://agris.fao.org/search/en/records/65dff5d763b8185d9cb04493",
+                "year": null
+              }
+            ],
+            "unmet_requirements": []
+          }
+        ],
+        "scores": null,
+        "resolved_question": "推荐茶叶，介绍绿茶"
+      },
+      "retrieval": [
+        {
+          "query": "介绍绿茶",
+          "ms": 14268.253400000003,
+          "ids": [
+            66,
+            65,
+            77,
+            81,
+            78
+          ]
+        }
+      ],
+      "metrics": {
+        "intent_exact": true,
+        "intent_set_exact": true,
+        "true_positive": 2,
+        "false_positive": 0,
+        "false_negative": 0,
+        "recommendation_constraints_ok": false
+      }
+    },
+    {
+      "case_id": "night-11",
+      "group": "historical",
+      "version": "candidate_0.6.0",
+      "message": "介绍绿茶",
+      "expected_intents": [
+        "question_answering"
+      ],
+      "duration_ms": 14423.88,
+      "llm_calls": 2,
+      "input_tokens": 5213,
+      "output_tokens": 707,
+      "model_errors": 0,
+      "error": null,
+      "response": {
+        "answer": "**绿茶简介**\n\n绿茶是一种按加工方式划分的茶类。根据 ISO 20715:2023《茶 — 茶类分类》，绿茶通过快速加热鲜叶使酶失活，随后可能经过揉捻、做形或粉碎、干燥等步骤制成。与红茶相比，其关键加工区别在于绿茶不经过红茶工艺中刻意通气的氧化过程；具体加热方式和外形因产地和产品而异。（来源：ISO 20715:2023 Tea — Classification of tea types）\n\n补充说明：在茶叶加工中，“发酵”一词常指揉捻后接触空气发生的酶促氧化，与微生物发酵不同。绿茶属于很少或没有刻意氧化的茶类，乌龙茶为部分氧化，黑茶可能另有渥堆或后发酵阶段。（来源：Fermentation: The Key Step in Processing of Black Tea）\n\n另外，茶树品种与茶类是两个不同概念：品种描述栽培选育的植株，绿茶、红茶、乌龙茶等描述加工后的产品类型；同一品种用不同加工方法可产生不同化学成分特征，因此品种本身不决定成品茶类或香气。（来源：Impact of Six Typical Processing Methods on the Chemical Composition of Tea Leaves）\n\n**关于风味、用途等**：本次工具未提供绿茶风味、保健用途等属性的可验证证据，无法验证，故不作介绍。\n\n**商品推荐**：本轮工具仅返回绿茶知识介绍，未返回可售绿茶商品数据，因此无法提供具体绿茶商品的价格与库存。如需选购，请告知品类、品牌、关键词或预算，我再为您查询实时可售商品。",
+        "intent": "question_answering",
+        "intents": [
+          "question_answering"
+        ],
+        "confidence": null,
+        "intent_source": "rules",
+        "recommendations": [],
+        "knowledge_sources": [
+          {
+            "title": "ISO 20715:2023 Tea — Classification of tea types",
+            "url": "https://www.iso.org/obp/ui?_escaped_fragment_=iso%3Astd%3Aiso%3A20715%3Aed-1%3Av1%3Aen",
+            "year": null
+          },
+          {
+            "title": "Typology of Processed Tea",
+            "url": "https://agris.fao.org/search/zh/records/68cbbca2f61e5b80b5e93a95",
+            "year": null
+          },
+          {
+            "title": "Fermentation: The Key Step in Processing of Black Tea",
+            "url": "https://agris.fao.org/search/fr/records/6473b0a3542a3f9f03b31231",
+            "year": null
+          },
+          {
+            "title": "Impact of Six Typical Processing Methods on the Chemical Composition of Tea Leaves",
+            "url": "https://agris.fao.org/search/en/records/65dff5d763b8185d9cb04493",
+            "year": null
+          }
+        ],
+        "memory_used": false,
+        "clarification_required": false,
+        "tasks": [
+          {
+            "id": "s1",
+            "tool": "introduce_tea",
+            "status": "success"
+          }
+        ],
+        "task_plan": {
+          "steps": [
+            {
+              "id": "s1",
+              "intent": "question_answering",
+              "tool": "introduce_tea",
+              "request": "介绍绿茶",
+              "depends_on": [],
+              "product_from": null,
+              "limit": 4
+            }
+          ],
+          "output_order": [
+            "s1"
+          ],
+          "source": "rules"
+        },
+        "unmet_requirements": []
+      },
+      "internal": {
+        "plan": {
+          "steps": [
+            {
+              "id": "s1",
+              "intent": "question_answering",
+              "tool": "introduce_tea",
+              "request": "介绍绿茶",
+              "depends_on": [],
+              "product_from": null,
+              "limit": 4
+            }
+          ],
+          "output_order": [
+            "s1"
+          ],
+          "source": "rules"
+        },
+        "tool_results": [
+          {
+            "step_id": "s1",
+            "tool": "introduce_tea",
+            "status": "success",
+            "data": {
+              "question": "介绍绿茶",
+              "evidence": [
+                {
+                  "chunk_id": 66,
+                  "document_id": "3c6bce99-3268-4dfa-ae54-5edcdd5059a7",
+                  "text": "White tea is described by ISO 20715 as harvested tea shoots that undergo one withering and drying stage. The term white tea therefore refers to a Camellia sinensis tea type and a processing approach, not to an infusion made from white-colored flowers or herbs.",
+                  "distance": 0.4976099743780735,
+                  "metadata": {
+                    "year": null,
+                    "topic": "tea_processing",
+                    "country": null,
+                    "source_url": "https://www.iso.org/obp/ui?_escaped_fragment_=iso%3Astd%3Aiso%3A20715%3Aed-1%3Av1%3Aen"
+                  },
+                  "source_title": "ISO 20715:2023 Tea — Classification of tea types",
+                  "source_reference": "https://www.iso.org/obp/ui?_escaped_fragment_=iso%3Astd%3Aiso%3A20715%3Aed-1%3Av1%3Aen",
+                  "vector_rank": 2,
+                  "rerank_score": 0.908412516117096,
+                  "rerank_rank": 1,
+                  "context_truncated": false
+                },
+                {
+                  "chunk_id": 65,
+                  "document_id": "3c6bce99-3268-4dfa-ae54-5edcdd5059a7",
+                  "text": "Green tea is made by quickly applying heat to fresh leaves to inactivate enzymes, followed by steps that may include rolling, shaping, or comminution, and drying. Compared with black tea, the defining processing contrast is that green tea is not intentionally aerated/oxidized through the black-tea process. Specific heating methods and shapes vary by region and product.",
+                  "distance": 0.4737752392586595,
+                  "metadata": {
+                    "year": null,
+                    "topic": "tea_processing",
+                    "country": null,
+                    "source_url": "https://www.iso.org/obp/ui?_escaped_fragment_=iso%3Astd%3Aiso%3A20715%3Aed-1%3Av1%3Aen"
+                  },
+                  "source_title": "ISO 20715:2023 Tea — Classification of tea types",
+                  "source_reference": "https://www.iso.org/obp/ui?_escaped_fragment_=iso%3Astd%3Aiso%3A20715%3Aed-1%3Av1%3Aen",
+                  "vector_rank": 1,
+                  "rerank_score": 0.7759298086166382,
+                  "rerank_rank": 2,
+                  "context_truncated": false
+                },
+                {
+                  "chunk_id": 77,
+                  "document_id": "80de85ff-4ab6-47b5-b042-6a05b304e36b",
+                  "text": "A practical tea product description can combine several attributes: basic processing type, cultivar, origin, manufacturing style, grade, added ingredients, and product form. For example, a product can be described as black tea from a named origin, made by orthodox processing, scented with jasmine, and sold loose leaf. These attributes answer different questions and should not be collapsed into a single tea-family label.",
+                  "distance": 0.5487882087804342,
+                  "metadata": {
+                    "year": null,
+                    "topic": "tea_categories",
+                    "country": null,
+                    "source_url": "https://agris.fao.org/search/zh/records/68cbbca2f61e5b80b5e93a95"
+                  },
+                  "source_title": "Typology of Processed Tea",
+                  "source_reference": "https://agris.fao.org/search/zh/records/68cbbca2f61e5b80b5e93a95",
+                  "vector_rank": 15,
+                  "rerank_score": 0.08790744096040726,
+                  "rerank_rank": 6,
+                  "context_truncated": false
+                },
+                {
+                  "chunk_id": 81,
+                  "document_id": "49fec67b-d2ee-4efe-8d02-7c7f04ace769",
+                  "text": "In black tea manufacture, the industry word fermentation commonly refers to enzymatic oxidation after leaf disruption and exposure to air. It is distinct from microbial fermentation. Green tea is made with little or no intentional oxidation, while oolong is partially oxidized. Dark tea may involve a separate piling or post-fermentation stage. When users ask whether tea is fermented, clarify which process they mean.",
+                  "distance": 0.5477599756048228,
+                  "metadata": {
+                    "year": null,
+                    "topic": "tea_terminology",
+                    "country": null,
+                    "source_url": "https://agris.fao.org/search/fr/records/6473b0a3542a3f9f03b31231"
+                  },
+                  "source_title": "Fermentation: The Key Step in Processing of Black Tea",
+                  "source_reference": "https://agris.fao.org/search/fr/records/6473b0a3542a3f9f03b31231",
+                  "vector_rank": 13,
+                  "rerank_score": 0.0697503313422203,
+                  "rerank_rank": 8,
+                  "context_truncated": false
+                },
+                {
+                  "chunk_id": 78,
+                  "document_id": "3e4ce43c-cfbf-440d-bd73-b5222fb18f33",
+                  "text": "Tea cultivar and tea type are different concepts. Cultivar describes the cultivated plant selection; black, green, oolong, white, yellow, and dark tea describe processed product types. A research study indexed by FAO AGRIS reports that processing one cultivar by six typical methods produced differentiated chemical profiles. Therefore, cultivar alone does not determine the finished tea type or its aroma; processing also matters.",
+                  "distance": 0.5435638608322303,
+                  "metadata": {
+                    "year": null,
+                    "topic": "tea_cultivar_processing",
+                    "country": null,
+                    "source_url": "https://agris.fao.org/search/en/records/65dff5d763b8185d9cb04493"
+                  },
+                  "source_title": "Impact of Six Typical Processing Methods on the Chemical Composition of Tea Leaves",
+                  "source_reference": "https://agris.fao.org/search/en/records/65dff5d763b8185d9cb04493",
+                  "vector_rank": 12,
+                  "rerank_score": 0.0534319244325161,
+                  "rerank_rank": 10,
+                  "context_truncated": false
+                }
+              ]
+            },
+            "sources": [
+              {
+                "title": "ISO 20715:2023 Tea — Classification of tea types",
+                "url": "https://www.iso.org/obp/ui?_escaped_fragment_=iso%3Astd%3Aiso%3A20715%3Aed-1%3Av1%3Aen",
+                "year": null
+              },
+              {
+                "title": "ISO 20715:2023 Tea — Classification of tea types",
+                "url": "https://www.iso.org/obp/ui?_escaped_fragment_=iso%3Astd%3Aiso%3A20715%3Aed-1%3Av1%3Aen",
+                "year": null
+              },
+              {
+                "title": "Typology of Processed Tea",
+                "url": "https://agris.fao.org/search/zh/records/68cbbca2f61e5b80b5e93a95",
+                "year": null
+              },
+              {
+                "title": "Fermentation: The Key Step in Processing of Black Tea",
+                "url": "https://agris.fao.org/search/fr/records/6473b0a3542a3f9f03b31231",
+                "year": null
+              },
+              {
+                "title": "Impact of Six Typical Processing Methods on the Chemical Composition of Tea Leaves",
+                "url": "https://agris.fao.org/search/en/records/65dff5d763b8185d9cb04493",
+                "year": null
+              }
+            ],
+            "unmet_requirements": []
+          }
+        ],
+        "scores": null,
+        "resolved_question": "介绍绿茶"
+      },
+      "retrieval": [
+        {
+          "query": "介绍绿茶",
+          "ms": 9121.544400000004,
+          "ids": [
+            66,
+            65,
+            77,
+            81,
+            78
+          ]
+        }
+      ],
+      "metrics": {
+        "intent_exact": true,
+        "intent_set_exact": true,
+        "true_positive": 1,
+        "false_positive": 0,
+        "false_negative": 0,
+        "recommendation_constraints_ok": null
+      }
+    },
+    {
+      "case_id": "night-11",
+      "group": "historical",
+      "version": "baseline_0.5.0",
+      "message": "介绍绿茶",
+      "expected_intents": [
+        "question_answering"
+      ],
+      "duration_ms": 3196.43,
+      "llm_calls": 3,
+      "input_tokens": 3524,
+      "output_tokens": 334,
+      "model_errors": 0,
+      "error": null,
+      "response": {
+        "intent": "recommendation",
+        "confidence": 0.62,
+        "recommendations": [
+          {
+            "sku_id": 23,
+            "name": "默认规格",
+            "product_name": "石牌茶",
+            "category": "绿茶",
+            "brand": "华农石牌茶",
+            "price": "75.00",
+            "currency": "USD",
+            "image_url": "/v1/goods/sku/23/image",
+            "detail_url": "/product_details.html?skuid=23",
+            "reasons": [
+              "符合所选分类"
+            ]
+          }
+        ],
+        "recommendation_status": "MATCHED",
+        "answer": "按您的条件找到以下可售商品（USD 单价，价格及库存以下单时为准）：\n1. 默认规格 · $75.00 · 符合所选分类",
+        "product_intent": {
+          "action": "SEARCH",
+          "required": {
+            "categories": [
+              "绿茶"
+            ],
+            "brands": [],
+            "keywords": [],
+            "price_min": null,
+            "price_max": null,
+            "currency": null,
+            "price_basis": null
+          },
+          "preferred": {
+            "categories": [],
+            "brands": [],
+            "keywords": []
+          },
+          "excluded": {
+            "categories": [],
+            "brands": [],
+            "keywords": []
+          },
+          "evidence": [
+            {
+              "field": "required.categories",
+              "value": "绿茶",
+              "source": "CURRENT",
+              "source_id": null,
+              "quote": "介绍绿茶"
+            },
+            {
+              "field": "preferred.categories",
+              "value": "红茶",
+              "source": "MEMORY",
+              "source_id": "preference:1:2026-10-15T15:03:40.482405+00:00",
+              "quote": "红茶"
+            }
+          ],
+          "missing_fields": []
+        }
+      },
+      "internal": {
+        "plan": null,
+        "tool_results": null,
+        "scores": {
+          "recommendation": 0.62,
+          "question_answering": 0.5,
+          "after_sales": 0.02
+        },
+        "resolved_question": "介绍绿茶"
+      },
+      "retrieval": [],
+      "metrics": {
+        "intent_exact": false,
+        "intent_set_exact": false,
+        "true_positive": 0,
+        "false_positive": 1,
+        "false_negative": 1,
+        "recommendation_constraints_ok": null
+      }
+    },
+    {
+      "case_id": "night-12",
+      "group": "historical",
+      "version": "baseline_0.5.0",
+      "message": "推荐一款适合日常饮用的红茶",
+      "expected_intents": [
+        "recommendation"
+      ],
+      "duration_ms": 3379.25,
+      "llm_calls": 3,
+      "input_tokens": 3852,
+      "output_tokens": 344,
+      "model_errors": 0,
+      "error": null,
+      "response": {
+        "intent": "recommendation",
+        "confidence": 0.95,
+        "recommendations": [
+          {
+            "sku_id": 22,
+            "name": "150g (30包 * 5g)",
+            "product_name": "英德大叶种叶茶礼盒",
+            "category": "红茶",
+            "brand": "英德大叶种",
+            "price": "320.00",
+            "currency": "USD",
+            "image_url": "/v1/goods/sku/22/image",
+            "detail_url": "/product_details.html?skuid=22",
+            "reasons": [
+              "符合所选分类"
+            ]
+          },
+          {
+            "sku_id": 24,
+            "name": "英红9号",
+            "product_name": "英红9号",
+            "category": "红茶",
+            "brand": "英红",
+            "price": "123.00",
+            "currency": "USD",
+            "image_url": "/v1/goods/sku/24/image",
+            "detail_url": "/product_details.html?skuid=24",
+            "reasons": [
+              "符合所选分类"
+            ]
+          }
+        ],
+        "recommendation_status": "MATCHED",
+        "answer": "按您的条件找到以下可售商品（USD 单价，价格及库存以下单时为准）：\n1. 150g (30包 * 5g) · $320.00 · 符合所选分类\n2. 英红9号 · $123.00 · 符合所选分类",
+        "product_intent": {
+          "action": "SEARCH",
+          "required": {
+            "categories": [
+              "红茶"
+            ],
+            "brands": [],
+            "keywords": [],
+            "price_min": null,
+            "price_max": null,
+            "currency": null,
+            "price_basis": null
+          },
+          "preferred": {
+            "categories": [],
+            "brands": [],
+            "keywords": []
+          },
+          "excluded": {
+            "categories": [],
+            "brands": [],
+            "keywords": []
+          },
+          "evidence": [
+            {
+              "field": "required.categories",
+              "value": "红茶",
+              "source": "CURRENT",
+              "source_id": null,
+              "quote": "推荐一款适合日常饮用的红茶"
+            },
+            {
+              "field": "preferred.categories",
+              "value": "红茶",
+              "source": "MEMORY",
+              "source_id": "preference:1:2026-10-15T15:03:40.482405+00:00",
+              "quote": "红茶"
+            }
+          ],
+          "missing_fields": []
+        }
+      },
+      "internal": {
+        "plan": null,
+        "tool_results": null,
+        "scores": {
+          "recommendation": 0.95,
+          "question_answering": 0.1,
+          "after_sales": 0.05
+        },
+        "resolved_question": "推荐一款适合日常饮用的红茶"
+      },
+      "retrieval": [],
+      "metrics": {
+        "intent_exact": true,
+        "intent_set_exact": true,
+        "true_positive": 1,
+        "false_positive": 0,
+        "false_negative": 0,
+        "recommendation_constraints_ok": false
+      }
+    },
+    {
+      "case_id": "night-12",
+      "group": "historical",
+      "version": "candidate_0.6.0",
+      "message": "推荐一款适合日常饮用的红茶",
+      "expected_intents": [
+        "recommendation"
+      ],
+      "duration_ms": 1327.78,
+      "llm_calls": 1,
+      "input_tokens": 1724,
+      "output_tokens": 243,
+      "model_errors": 0,
+      "error": null,
+      "response": {
+        "answer": "该项服务暂时不可用，请稍后重试。",
+        "intent": "recommendation",
+        "intents": [
+          "recommendation"
+        ],
+        "confidence": null,
+        "intent_source": "rules",
+        "recommendations": [],
+        "knowledge_sources": [],
+        "memory_used": false,
+        "clarification_required": false,
+        "tasks": [
+          {
+            "id": "s1",
+            "tool": "recommend_products",
+            "status": "error"
+          }
+        ],
+        "task_plan": {
+          "steps": [
+            {
+              "id": "s1",
+              "intent": "recommendation",
+              "tool": "recommend_products",
+              "request": "推荐一款适合日常饮用的红茶",
+              "depends_on": [],
+              "product_from": null,
+              "limit": 1
+            }
+          ],
+          "output_order": [
+            "s1"
+          ],
+          "source": "rules"
+        },
+        "unmet_requirements": []
+      },
+      "internal": {
+        "plan": {
+          "steps": [
+            {
+              "id": "s1",
+              "intent": "recommendation",
+              "tool": "recommend_products",
+              "request": "推荐一款适合日常饮用的红茶",
+              "depends_on": [],
+              "product_from": null,
+              "limit": 1
+            }
+          ],
+          "output_order": [
+            "s1"
+          ],
+          "source": "rules"
+        },
+        "tool_results": [
+          {
+            "step_id": "s1",
+            "tool": "recommend_products",
+            "status": "error",
+            "data": {
+              "answer": "该项服务暂时不可用，请稍后重试。",
+              "error_type": "ValueError"
+            },
+            "sources": [],
+            "unmet_requirements": []
+          }
+        ],
+        "scores": null,
+        "resolved_question": "推荐一款适合日常饮用的红茶"
+      },
+      "retrieval": [],
+      "metrics": {
+        "intent_exact": true,
+        "intent_set_exact": true,
+        "true_positive": 1,
+        "false_positive": 0,
+        "false_negative": 0,
+        "recommendation_constraints_ok": false
+      }
+    },
+    {
+      "case_id": "night-13",
+      "group": "historical",
+      "version": "candidate_0.6.0",
+      "message": "介绍一下中东的茶叶详情",
+      "expected_intents": [
+        "question_answering"
+      ],
+      "duration_ms": 15991.67,
+      "llm_calls": 2,
+      "input_tokens": 7825,
+      "output_tokens": 1177,
+      "model_errors": 0,
+      "error": null,
+      "response": {
+        "answer": "以下按现有证据介绍中东茶叶情况，来源标题与年份随附。\n\n**1. 文化角色（约旦）**\n据约旦佩特拉通讯社报道，约旦文化部遗产主管将茶描述为日常社会与文化生活的组成部分，见于家庭拜访和聚会。报道提到茶常与芳香植物同煮，当地研究者举出的例子包括薄荷、茴香和鼠尾草；并指出城市、乡村和贝都因社区做法存在差异，因此这些风味应视为常见例子，而非统一的“国饮配方”。（来源：Tea's place in Jordanian popular memory and culture, Petra News Agency；年份未标注）\n\n**2. 进口贸易数据（阿联酋、伊拉克，2023年）**\n- 阿联酋：世界银行 WITS 引用 UN Comtrade，HS 0902（茶，含调味茶）进口额 2.21010 亿美元、重量 73,427.2 吨。这是毛进口量；阿联酋作为贸易与转口枢纽，进口量不应解读为本地消费量。（来源：Tea imports by country, 2023 (HS 0902)，2023年）\n- 伊拉克：同一来源显示进口额 1.05296 亿美元、重量 33,549.5 吨。进口数据反映跨境货物贸易，不是伊拉克茶叶消费量的直接衡量。（来源同上，2023年）\n\n**3. 生产与加工（伊朗）**\n一项伊朗食品科学研究考察吉兰（Gilan，里海沿岸北部产茶省）红茶，将其加工步骤描述为萎凋、揉捻、发酵（氧化）和干燥；该研究比较冲泡方法并在实验室条件下测定化学性质，并未确立对消费者的健康功效。（来源：Processing and brewing of Gilan black tea, Journal of Food Science and Technology；年份未标注）\n\n**4. 历史预测（沙特阿拉伯，仅作历史背景）**\nFAO 2014年中期展望估计沙特阿拉伯2013年红茶消费量为30,350吨，并预测2023年为44,999吨。这是历史预测，不是2023年实测消费量。（来源：Medium-term outlook for tea, 2014 FAO projection，2014年）\n\n**说明与限制**\n- 以上仅为检索到的证据，未覆盖中东全部国家；未检索到的国家或品类，我不作补充。\n- 进口量不等于消费量，尤其阿联酋涉及转口。\n- 关于具体茶叶的风味、用途、健康功效等属性，本次证据未配置或未验证，无法确认。\n- 如需选购本站可售茶叶，请告知品类、预算或关键词，我再按实时价格与库存为您推荐。",
+        "intent": "question_answering",
+        "intents": [
+          "question_answering"
+        ],
+        "confidence": null,
+        "intent_source": "rules",
+        "recommendations": [],
+        "knowledge_sources": [
+          {
+            "title": "Tea's place in Jordanian popular memory and culture, Petra News Agency",
+            "url": "https://petra.gov.jo/index.php/ar/news/%D8%A7%D9%84%D9%8A%D9%88%D9%85-%D8%A7%D9%84%D8%B9%D8%A7%D9%84%D9%85%D9%8A-%D9%84%D9%84%D8%B4%D8%A7%D9%8A-%D9%85%D8%B4%D8%B1%D9%88%D8%A8-%D9%8A%D8%AE%D8%AA%D8%B2%D9%84-%D8%A7%D9%84%D8%B0%D8%A7%D9%83%D8%B1%D8%A9-%D8%A7%D9%84%D8%B4%D8%B9%D8%A8%D9%8A%D8%A9-%D9%88%D9%8A%D8%AD%D8%A7%D9%81%D8%B8-%D8%B9%D9%84%D9%89-%D8%AD%D8%B6%D9%88%D8%B1%D9%87-%D9%81%D9%8A-%D8%A7%D9%84%D8%AB%D9%82%D8%A7%D9%81%D8%A9-%D8%A7%D9%84%D8%A3%D8%B1%D8%AF%D9%86%D9%8A%D8%A9",
+            "year": null
+          },
+          {
+            "title": "Tea imports by country, 2023 (HS 0902)",
+            "url": "https://wits.worldbank.org/trade/comtrade/en/country/All/year/2023/tradeflow/Imports/partner/WLD/product/0902",
+            "year": 2023
+          },
+          {
+            "title": "Processing and brewing of Gilan black tea, Journal of Food Science and Technology",
+            "url": "https://fsct.modares.ac.ir/files/fsct/user_files_749497/re1farahmand-A-10-20521-12-52bc60a.pdf",
+            "year": null
+          },
+          {
+            "title": "Medium-term outlook for tea, 2014 FAO projection",
+            "url": "https://www.fao.org/fileadmin/templates/est/meetings/IGGtea21/14-Inf3-CurrentSituation.pdf",
+            "year": 2023
+          }
+        ],
+        "memory_used": false,
+        "clarification_required": false,
+        "tasks": [
+          {
+            "id": "s1",
+            "tool": "introduce_tea",
+            "status": "success"
+          }
+        ],
+        "task_plan": {
+          "steps": [
+            {
+              "id": "s1",
+              "intent": "question_answering",
+              "tool": "introduce_tea",
+              "request": "介绍一下中东的茶叶详情",
+              "depends_on": [],
+              "product_from": null,
+              "limit": 4
+            }
+          ],
+          "output_order": [
+            "s1"
+          ],
+          "source": "rules"
+        },
+        "unmet_requirements": []
+      },
+      "internal": {
+        "plan": {
+          "steps": [
+            {
+              "id": "s1",
+              "intent": "question_answering",
+              "tool": "introduce_tea",
+              "request": "介绍一下中东的茶叶详情",
+              "depends_on": [],
+              "product_from": null,
+              "limit": 4
+            }
+          ],
+          "output_order": [
+            "s1"
+          ],
+          "source": "rules"
+        },
+        "tool_results": [
+          {
+            "step_id": "s1",
+            "tool": "introduce_tea",
+            "status": "success",
+            "data": {
+              "question": "介绍一下中东的茶叶详情",
+              "evidence": [
+                {
+                  "chunk_id": 60,
+                  "document_id": "bce4ac7d-9849-4359-b55d-0b074b18f877",
+                  "text": "Jordan News Agency Petra reported the Jordanian Ministry of Culture heritage director describing tea as part of daily social and cultural life, including family visits and gatherings. The article notes that tea is often prepared with aromatic plants; examples mentioned by local researchers include mint, anise, and sage. It describes variation among urban, rural, and Bedouin communities, so these flavors should be treated as common examples rather than a single national recipe.",
+                  "distance": 0.4596215277346205,
+                  "metadata": {
+                    "year": null,
+                    "topic": "tea_culture",
+                    "country": "Jordan",
+                    "source_url": "https://petra.gov.jo/index.php/ar/news/%D8%A7%D9%84%D9%8A%D9%88%D9%85-%D8%A7%D9%84%D8%B9%D8%A7%D9%84%D9%85%D9%8A-%D9%84%D9%84%D8%B4%D8%A7%D9%8A-%D9%85%D8%B4%D8%B1%D9%88%D8%A8-%D9%8A%D8%AE%D8%AA%D8%B2%D9%84-%D8%A7%D9%84%D8%B0%D8%A7%D9%83%D8%B1%D8%A9-%D8%A7%D9%84%D8%B4%D8%B9%D8%A8%D9%8A%D8%A9-%D9%88%D9%8A%D8%AD%D8%A7%D9%81%D8%B8-%D8%B9%D9%84%D9%89-%D8%AD%D8%B6%D9%88%D8%B1%D9%87-%D9%81%D9%8A-%D8%A7%D9%84%D8%AB%D9%82%D8%A7%D9%81%D8%A9-%D8%A7%D9%84%D8%A3%D8%B1%D8%AF%D9%86%D9%8A%D8%A9"
+                  },
+                  "source_title": "Tea's place in Jordanian popular memory and culture, Petra News Agency",
+                  "source_reference": "https://petra.gov.jo/index.php/ar/news/%D8%A7%D9%84%D9%8A%D9%88%D9%85-%D8%A7%D9%84%D8%B9%D8%A7%D9%84%D9%85%D9%8A-%D9%84%D9%84%D8%B4%D8%A7%D9%8A-%D9%85%D8%B4%D8%B1%D9%88%D8%A8-%D9%8A%D8%AE%D8%AA%D8%B2%D9%84-%D8%A7%D9%84%D8%B0%D8%A7%D9%83%D8%B1%D8%A9-%D8%A7%D9%84%D8%B4%D8%B9%D8%A8%D9%8A%D8%A9-%D9%88%D9%8A%D8%AD%D8%A7%D9%81%D8%B8-%D8%B9%D9%84%D9%89-%D8%AD%D8%B6%D9%88%D8%B1%D9%87-%D9%81%D9%8A-%D8%A7%D9%84%D8%AB%D9%82%D8%A7%D9%81%D8%A9-%D8%A7%D9%84%D8%A3%D8%B1%D8%AF%D9%86%D9%8A%D8%A9",
+                  "vector_rank": 4,
+                  "rerank_score": 0.051746148616075516,
+                  "rerank_rank": 1,
+                  "context_truncated": false
+                },
+                {
+                  "chunk_id": 35,
+                  "document_id": "5228c9a3-c09c-42d5-8129-5b58590d4e66",
+                  "text": "United Arab Emirates tea market, 2023 trade reference: World Bank WITS, using UN Comtrade, reports imports under HS 0902 (tea, including flavoured tea) worth US$221.010 million and weighing 73,427.2 tonnes. These are gross imports; the UAE's role as a trading and re-export hub means imports should not be interpreted as local consumption.",
+                  "distance": 0.4760605068278879,
+                  "metadata": {
+                    "year": 2023,
+                    "topic": "tea_imports",
+                    "country": "United Arab Emirates",
+                    "source_url": "https://wits.worldbank.org/trade/comtrade/en/country/All/year/2023/tradeflow/Imports/partner/WLD/product/0902"
+                  },
+                  "source_title": "Tea imports by country, 2023 (HS 0902)",
+                  "source_reference": "https://wits.worldbank.org/trade/comtrade/en/country/All/year/2023/tradeflow/Imports/partner/WLD/product/0902",
+                  "vector_rank": 13,
+                  "rerank_score": 0.019778940826654434,
+                  "rerank_rank": 2,
+                  "context_truncated": false
+                },
+                {
+                  "chunk_id": 36,
+                  "document_id": "5228c9a3-c09c-42d5-8129-5b58590d4e66",
+                  "text": "Iraq tea market, 2023 trade reference: World Bank WITS, using UN Comtrade, reports imports under HS 0902 (tea, including flavoured tea) worth US$105.296 million and weighing 33,549.5 tonnes. Import data indicate cross-border merchandise trade and are not a direct measure of tea consumed in Iraq.",
+                  "distance": 0.4960725912874576,
+                  "metadata": {
+                    "year": 2023,
+                    "topic": "tea_imports",
+                    "country": "Iraq",
+                    "source_url": "https://wits.worldbank.org/trade/comtrade/en/country/All/year/2023/tradeflow/Imports/partner/WLD/product/0902"
+                  },
+                  "source_title": "Tea imports by country, 2023 (HS 0902)",
+                  "source_reference": "https://wits.worldbank.org/trade/comtrade/en/country/All/year/2023/tradeflow/Imports/partner/WLD/product/0902",
+                  "vector_rank": 28,
+                  "rerank_score": 0.012027902528643608,
+                  "rerank_rank": 3,
+                  "context_truncated": false
+                },
+                {
+                  "chunk_id": 62,
+                  "document_id": "56989039-6ef0-4c83-bd12-2953bc3c0a60",
+                  "text": "An Iranian food-science study examines Gilan (Guilan) black tea and describes its processing steps as withering, rolling, fermentation (oxidation), and drying. The study compares brewing methods and measures chemical properties in laboratory conditions; it does not establish health benefits for consumers. Gilan is a tea-producing province in northern Iran on the Caspian Sea.",
+                  "distance": 0.4871293979111011,
+                  "metadata": {
+                    "year": null,
+                    "topic": "tea_production",
+                    "country": "Iran",
+                    "source_url": "https://fsct.modares.ac.ir/files/fsct/user_files_749497/re1farahmand-A-10-20521-12-52bc60a.pdf"
+                  },
+                  "source_title": "Processing and brewing of Gilan black tea, Journal of Food Science and Technology",
+                  "source_reference": "https://fsct.modares.ac.ir/files/fsct/user_files_749497/re1farahmand-A-10-20521-12-52bc60a.pdf",
+                  "vector_rank": 20,
+                  "rerank_score": 0.009678586386144161,
+                  "rerank_rank": 6,
+                  "context_truncated": false
+                },
+                {
+                  "chunk_id": 51,
+                  "document_id": "ef6a19e8-3fd2-4746-94f3-ecb3a1e46658",
+                  "text": "Historical context only: FAO's 2014 medium-term outlook estimated Saudi Arabia's black-tea consumption at 30,350 tonnes in 2013 and projected 44,999 tonnes for 2023. This is a historical forecast, not measured 2023 consumption.",
+                  "distance": 0.46715027877084203,
+                  "metadata": {
+                    "year": 2023,
+                    "topic": "black_tea_consumption_outlook",
+                    "country": "Saudi Arabia",
+                    "source_url": "https://www.fao.org/fileadmin/templates/est/meetings/IGGtea21/14-Inf3-CurrentSituation.pdf"
+                  },
+                  "source_title": "Medium-term outlook for tea, 2014 FAO projection",
+                  "source_reference": "https://www.fao.org/fileadmin/templates/est/meetings/IGGtea21/14-Inf3-CurrentSituation.pdf",
+                  "vector_rank": 7,
+                  "rerank_score": 0.005933959968388081,
+                  "rerank_rank": 10,
+                  "context_truncated": false
+                }
+              ]
+            },
+            "sources": [
+              {
+                "title": "Tea's place in Jordanian popular memory and culture, Petra News Agency",
+                "url": "https://petra.gov.jo/index.php/ar/news/%D8%A7%D9%84%D9%8A%D9%88%D9%85-%D8%A7%D9%84%D8%B9%D8%A7%D9%84%D9%85%D9%8A-%D9%84%D9%84%D8%B4%D8%A7%D9%8A-%D9%85%D8%B4%D8%B1%D9%88%D8%A8-%D9%8A%D8%AE%D8%AA%D8%B2%D9%84-%D8%A7%D9%84%D8%B0%D8%A7%D9%83%D8%B1%D8%A9-%D8%A7%D9%84%D8%B4%D8%B9%D8%A8%D9%8A%D8%A9-%D9%88%D9%8A%D8%AD%D8%A7%D9%81%D8%B8-%D8%B9%D9%84%D9%89-%D8%AD%D8%B6%D9%88%D8%B1%D9%87-%D9%81%D9%8A-%D8%A7%D9%84%D8%AB%D9%82%D8%A7%D9%81%D8%A9-%D8%A7%D9%84%D8%A3%D8%B1%D8%AF%D9%86%D9%8A%D8%A9",
+                "year": null
+              },
+              {
+                "title": "Tea imports by country, 2023 (HS 0902)",
+                "url": "https://wits.worldbank.org/trade/comtrade/en/country/All/year/2023/tradeflow/Imports/partner/WLD/product/0902",
+                "year": 2023
+              },
+              {
+                "title": "Tea imports by country, 2023 (HS 0902)",
+                "url": "https://wits.worldbank.org/trade/comtrade/en/country/All/year/2023/tradeflow/Imports/partner/WLD/product/0902",
+                "year": 2023
+              },
+              {
+                "title": "Processing and brewing of Gilan black tea, Journal of Food Science and Technology",
+                "url": "https://fsct.modares.ac.ir/files/fsct/user_files_749497/re1farahmand-A-10-20521-12-52bc60a.pdf",
+                "year": null
+              },
+              {
+                "title": "Medium-term outlook for tea, 2014 FAO projection",
+                "url": "https://www.fao.org/fileadmin/templates/est/meetings/IGGtea21/14-Inf3-CurrentSituation.pdf",
+                "year": 2023
+              }
+            ],
+            "unmet_requirements": []
+          }
+        ],
+        "scores": null,
+        "resolved_question": "介绍一下中东的茶叶详情"
+      },
+      "retrieval": [
+        {
+          "query": "介绍一下中东的茶叶详情",
+          "ms": 8860.772699999998,
+          "ids": [
+            60,
+            35,
+            36,
+            62,
+            51
+          ]
+        }
+      ],
+      "metrics": {
+        "intent_exact": true,
+        "intent_set_exact": true,
+        "true_positive": 1,
+        "false_positive": 0,
+        "false_negative": 0,
+        "recommendation_constraints_ok": null
+      }
+    },
+    {
+      "case_id": "night-13",
+      "group": "historical",
+      "version": "baseline_0.5.0",
+      "message": "介绍一下中东的茶叶详情",
+      "expected_intents": [
+        "question_answering"
+      ],
+      "duration_ms": 3762.58,
+      "llm_calls": 3,
+      "input_tokens": 4352,
+      "output_tokens": 360,
+      "model_errors": 0,
+      "error": null,
+      "response": {
+        "intent": "recommendation",
+        "confidence": 0.72,
+        "recommendations": [],
+        "recommendation_status": "CLARIFY",
+        "answer": "请说明您想买的品类、品牌或每份商品预算。",
+        "product_intent": {
+          "action": "CLARIFY",
+          "required": {
+            "categories": [
+              "茶叶"
+            ],
+            "brands": [],
+            "keywords": [],
+            "price_min": null,
+            "price_max": null,
+            "currency": null,
+            "price_basis": null
+          },
+          "preferred": {
+            "categories": [],
+            "brands": [],
+            "keywords": []
+          },
+          "excluded": {
+            "categories": [],
+            "brands": [],
+            "keywords": []
+          },
+          "evidence": [
+            {
+              "field": "required.categories",
+              "value": "茶叶",
+              "source": "CURRENT",
+              "source_id": null,
+              "quote": "介绍一下中东的茶叶详情"
+            },
+            {
+              "field": "preferred.categories",
+              "value": "红茶",
+              "source": "MEMORY",
+              "source_id": "preference:1:2026-10-15T15:03:40.482405+00:00",
+              "quote": "红茶"
+            }
+          ],
+          "missing_fields": [
+            "details"
+          ]
+        }
+      },
+      "internal": {
+        "plan": null,
+        "tool_results": null,
+        "scores": {
+          "recommendation": 0.72,
+          "question_answering": 0.4,
+          "after_sales": 0.05
+        },
+        "resolved_question": "介绍一下中东的茶叶详情"
+      },
+      "retrieval": [],
+      "metrics": {
+        "intent_exact": false,
+        "intent_set_exact": false,
+        "true_positive": 0,
+        "false_positive": 1,
+        "false_negative": 1,
+        "recommendation_constraints_ok": null
+      }
+    },
+    {
+      "case_id": "night-14",
+      "group": "historical",
+      "version": "baseline_0.5.0",
+      "message": "介绍一下各种茶叶",
+      "expected_intents": [
+        "question_answering"
+      ],
+      "duration_ms": 4693.48,
+      "llm_calls": 5,
+      "input_tokens": 5253,
+      "output_tokens": 269,
+      "model_errors": 0,
+      "error": null,
+      "response": {
+        "intent": "unavailable",
+        "confidence": 0.5,
+        "recommendations": [],
+        "answer": "您想了解哪类茶叶呢？比如绿茶、红茶、乌龙茶，或者某个具体商品？",
+        "knowledge_sources": []
+      },
+      "internal": {
+        "plan": null,
+        "tool_results": null,
+        "scores": {
+          "recommendation": 0.5,
+          "question_answering": 0.5,
+          "after_sales": 0.05
+        },
+        "resolved_question": "介绍一下各种茶叶"
+      },
+      "retrieval": [],
+      "metrics": {
+        "intent_exact": false,
+        "intent_set_exact": false,
+        "true_positive": 0,
+        "false_positive": 1,
+        "false_negative": 1,
+        "recommendation_constraints_ok": null
+      }
+    },
+    {
+      "case_id": "night-14",
+      "group": "historical",
+      "version": "candidate_0.6.0",
+      "message": "介绍一下各种茶叶",
+      "expected_intents": [
+        "question_answering"
+      ],
+      "duration_ms": 15170.43,
+      "llm_calls": 2,
+      "input_tokens": 7808,
+      "output_tokens": 855,
+      "model_errors": 0,
+      "error": null,
+      "response": {
+        "answer": "按 ISO 20715:2023 的分类，以 Camellia sinensis（茶树）鲜叶为原料、依加工工艺划分，基本茶类有六类：**绿茶、红茶、白茶、乌龙茶、黄茶、黑茶**。花草或水果浸泡饮不属于这六类基本茶。（来源：ISO 20715:2023 Tea — Classification of tea types）\n\n几点容易混淆的地方：\n\n- **茶树品种 ≠ 茶类**。品种指栽培选育的植株；绿茶、红茶、乌龙茶、白茶、黄茶、黑茶指加工后的产品类型。有研究显示，同一品种用六种典型工艺加工，化学成分会不同，因此品种本身不决定成品茶类或香气，加工同样关键。（来源：Impact of Six Typical Processing Methods on the Chemical Composition of Tea Leaves）\n- **茶名可能来自风味、外形、产地或饮用方式**，这些是另一个维度的描述，不等于独立的加工类型。（来源：ISO 20715:2023）\n- **调味茶、窨制茶不是独立基本茶类**，而是产品描述：调味是在茶坯上加香，窨制是加工中转移香气。要判断底子，需看茶坯是六类中的哪一类，以及是否列出配料或香气来源。（来源：ISO 20715:2023）\n- 一个完整的产品描述可以同时包含：基本加工类型、品种、产地、制作风格、等级、添加配料、产品形态，例如“某产地的红茶、传统工艺、茉莉窨制、散茶”。这些属性回答不同问题，不宜合并成一个茶类标签。（来源：Typology of Processed Tea）\n\n关于各茶类的具体风味、适饮场景、产地差异等，本次检索到的资料未提供可验证内容，我无法补充。若您想按品类选购，我可以按绿茶、红茶等分类为您查当前可售商品；价格与库存请以下单时页面为准。",
+        "intent": "question_answering",
+        "intents": [
+          "question_answering"
+        ],
+        "confidence": null,
+        "intent_source": "rules",
+        "recommendations": [],
+        "knowledge_sources": [
+          {
+            "title": "ISO 20715:2023 Tea — Classification of tea types",
+            "url": "https://www.iso.org/obp/ui?_escaped_fragment_=iso%3Astd%3Aiso%3A20715%3Aed-1%3Av1%3Aen",
+            "year": null
+          },
+          {
+            "title": "Impact of Six Typical Processing Methods on the Chemical Composition of Tea Leaves",
+            "url": "https://agris.fao.org/search/en/records/65dff5d763b8185d9cb04493",
+            "year": null
+          },
+          {
+            "title": "Typology of Processed Tea",
+            "url": "https://agris.fao.org/search/zh/records/68cbbca2f61e5b80b5e93a95",
+            "year": null
+          },
+          {
+            "title": "Tea's place in Jordanian popular memory and culture, Petra News Agency",
+            "url": "https://petra.gov.jo/index.php/ar/news/%D8%A7%D9%84%D9%8A%D9%88%D9%85-%D8%A7%D9%84%D8%B9%D8%A7%D9%84%D9%85%D9%8A-%D9%84%D9%84%D8%B4%D8%A7%D9%8A-%D9%85%D8%B4%D8%B1%D9%88%D8%A8-%D9%8A%D8%AE%D8%AA%D8%B2%D9%84-%D8%A7%D9%84%D8%B0%D8%A7%D9%83%D8%B1%D8%A9-%D8%A7%D9%84%D8%B4%D8%B9%D8%A8%D9%8A%D8%A9-%D9%88%D9%8A%D8%AD%D8%A7%D9%81%D8%B8-%D8%B9%D9%84%D9%89-%D8%AD%D8%B6%D9%88%D8%B1%D9%87-%D9%81%D9%8A-%D8%A7%D9%84%D8%AB%D9%82%D8%A7%D9%81%D8%A9-%D8%A7%D9%84%D8%A3%D8%B1%D8%AF%D9%86%D9%8A%D8%A9",
+            "year": null
+          }
+        ],
+        "memory_used": false,
+        "clarification_required": false,
+        "tasks": [
+          {
+            "id": "s1",
+            "tool": "introduce_tea",
+            "status": "success"
+          }
+        ],
+        "task_plan": {
+          "steps": [
+            {
+              "id": "s1",
+              "intent": "question_answering",
+              "tool": "introduce_tea",
+              "request": "介绍一下各种茶叶",
+              "depends_on": [],
+              "product_from": null,
+              "limit": 4
+            }
+          ],
+          "output_order": [
+            "s1"
+          ],
+          "source": "rules"
+        },
+        "unmet_requirements": []
+      },
+      "internal": {
+        "plan": {
+          "steps": [
+            {
+              "id": "s1",
+              "intent": "question_answering",
+              "tool": "introduce_tea",
+              "request": "介绍一下各种茶叶",
+              "depends_on": [],
+              "product_from": null,
+              "limit": 4
+            }
+          ],
+          "output_order": [
+            "s1"
+          ],
+          "source": "rules"
+        },
+        "tool_results": [
+          {
+            "step_id": "s1",
+            "tool": "introduce_tea",
+            "status": "success",
+            "data": {
+              "question": "介绍一下各种茶叶",
+              "evidence": [
+                {
+                  "chunk_id": 63,
+                  "document_id": "3c6bce99-3268-4dfa-ae54-5edcdd5059a7",
+                  "text": "ISO 20715:2023 classifies six basic tea types made from Camellia sinensis by their manufacturing processes: black, green, white, oolong, yellow, and dark tea. Herbal or fruit infusions that do not use Camellia sinensis are not one of these six tea types. A tea name based on flavor, shape, origin, or serving style may describe another dimension rather than a separate basic processing type.",
+                  "distance": 0.3362573192656334,
+                  "metadata": {
+                    "year": null,
+                    "topic": "tea_types",
+                    "country": null,
+                    "source_url": "https://www.iso.org/obp/ui?_escaped_fragment_=iso%3Astd%3Aiso%3A20715%3Aed-1%3Av1%3Aen"
+                  },
+                  "source_title": "ISO 20715:2023 Tea — Classification of tea types",
+                  "source_reference": "https://www.iso.org/obp/ui?_escaped_fragment_=iso%3Astd%3Aiso%3A20715%3Aed-1%3Av1%3Aen",
+                  "vector_rank": 1,
+                  "rerank_score": 0.6281696557998657,
+                  "rerank_rank": 1,
+                  "context_truncated": false
+                },
+                {
+                  "chunk_id": 78,
+                  "document_id": "3e4ce43c-cfbf-440d-bd73-b5222fb18f33",
+                  "text": "Tea cultivar and tea type are different concepts. Cultivar describes the cultivated plant selection; black, green, oolong, white, yellow, and dark tea describe processed product types. A research study indexed by FAO AGRIS reports that processing one cultivar by six typical methods produced differentiated chemical profiles. Therefore, cultivar alone does not determine the finished tea type or its aroma; processing also matters.",
+                  "distance": 0.38898825147852356,
+                  "metadata": {
+                    "year": null,
+                    "topic": "tea_cultivar_processing",
+                    "country": null,
+                    "source_url": "https://agris.fao.org/search/en/records/65dff5d763b8185d9cb04493"
+                  },
+                  "source_title": "Impact of Six Typical Processing Methods on the Chemical Composition of Tea Leaves",
+                  "source_reference": "https://agris.fao.org/search/en/records/65dff5d763b8185d9cb04493",
+                  "vector_rank": 3,
+                  "rerank_score": 0.5882656574249268,
+                  "rerank_rank": 2,
+                  "context_truncated": false
+                },
+                {
+                  "chunk_id": 77,
+                  "document_id": "80de85ff-4ab6-47b5-b042-6a05b304e36b",
+                  "text": "A practical tea product description can combine several attributes: basic processing type, cultivar, origin, manufacturing style, grade, added ingredients, and product form. For example, a product can be described as black tea from a named origin, made by orthodox processing, scented with jasmine, and sold loose leaf. These attributes answer different questions and should not be collapsed into a single tea-family label.",
+                  "distance": 0.43978451012922826,
+                  "metadata": {
+                    "year": null,
+                    "topic": "tea_categories",
+                    "country": null,
+                    "source_url": "https://agris.fao.org/search/zh/records/68cbbca2f61e5b80b5e93a95"
+                  },
+                  "source_title": "Typology of Processed Tea",
+                  "source_reference": "https://agris.fao.org/search/zh/records/68cbbca2f61e5b80b5e93a95",
+                  "vector_rank": 8,
+                  "rerank_score": 0.3950931429862976,
+                  "rerank_rank": 3,
+                  "context_truncated": false
+                },
+                {
+                  "chunk_id": 60,
+                  "document_id": "bce4ac7d-9849-4359-b55d-0b074b18f877",
+                  "text": "Jordan News Agency Petra reported the Jordanian Ministry of Culture heritage director describing tea as part of daily social and cultural life, including family visits and gatherings. The article notes that tea is often prepared with aromatic plants; examples mentioned by local researchers include mint, anise, and sage. It describes variation among urban, rural, and Bedouin communities, so these flavors should be treated as common examples rather than a single national recipe.",
+                  "distance": 0.46335651815351786,
+                  "metadata": {
+                    "year": null,
+                    "topic": "tea_culture",
+                    "country": "Jordan",
+                    "source_url": "https://petra.gov.jo/index.php/ar/news/%D8%A7%D9%84%D9%8A%D9%88%D9%85-%D8%A7%D9%84%D8%B9%D8%A7%D9%84%D9%85%D9%8A-%D9%84%D9%84%D8%B4%D8%A7%D9%8A-%D9%85%D8%B4%D8%B1%D9%88%D8%A8-%D9%8A%D8%AE%D8%AA%D8%B2%D9%84-%D8%A7%D9%84%D8%B0%D8%A7%D9%83%D8%B1%D8%A9-%D8%A7%D9%84%D8%B4%D8%B9%D8%A8%D9%8A%D8%A9-%D9%88%D9%8A%D8%AD%D8%A7%D9%81%D8%B8-%D8%B9%D9%84%D9%89-%D8%AD%D8%B6%D9%88%D8%B1%D9%87-%D9%81%D9%8A-%D8%A7%D9%84%D8%AB%D9%82%D8%A7%D9%81%D8%A9-%D8%A7%D9%84%D8%A3%D8%B1%D8%AF%D9%86%D9%8A%D8%A9"
+                  },
+                  "source_title": "Tea's place in Jordanian popular memory and culture, Petra News Agency",
+                  "source_reference": "https://petra.gov.jo/index.php/ar/news/%D8%A7%D9%84%D9%8A%D9%88%D9%85-%D8%A7%D9%84%D8%B9%D8%A7%D9%84%D9%85%D9%8A-%D9%84%D9%84%D8%B4%D8%A7%D9%8A-%D9%85%D8%B4%D8%B1%D9%88%D8%A8-%D9%8A%D8%AE%D8%AA%D8%B2%D9%84-%D8%A7%D9%84%D8%B0%D8%A7%D9%83%D8%B1%D8%A9-%D8%A7%D9%84%D8%B4%D8%B9%D8%A8%D9%8A%D8%A9-%D9%88%D9%8A%D8%AD%D8%A7%D9%81%D8%B8-%D8%B9%D9%84%D9%89-%D8%AD%D8%B6%D9%88%D8%B1%D9%87-%D9%81%D9%8A-%D8%A7%D9%84%D8%AB%D9%82%D8%A7%D9%81%D8%A9-%D8%A7%D9%84%D8%A3%D8%B1%D8%AF%D9%86%D9%8A%D8%A9",
+                  "vector_rank": 13,
+                  "rerank_score": 0.28044718503952026,
+                  "rerank_rank": 4,
+                  "context_truncated": false
+                },
+                {
+                  "chunk_id": 73,
+                  "document_id": "3c6bce99-3268-4dfa-ae54-5edcdd5059a7",
+                  "text": "A flavored tea and a scented tea are product descriptions rather than separate basic tea types. Flavoring can be added to a tea base, while scenting may transfer aroma from aromatic materials during processing. To identify the underlying tea, check whether the base is black, green, oolong, white, yellow, or dark tea and whether ingredients or aroma sources are listed.",
+                  "distance": 0.39772827008917333,
+                  "metadata": {
+                    "year": null,
+                    "topic": "tea_products",
+                    "country": null,
+                    "source_url": "https://www.iso.org/obp/ui?_escaped_fragment_=iso%3Astd%3Aiso%3A20715%3Aed-1%3Av1%3Aen"
+                  },
+                  "source_title": "ISO 20715:2023 Tea — Classification of tea types",
+                  "source_reference": "https://www.iso.org/obp/ui?_escaped_fragment_=iso%3Astd%3Aiso%3A20715%3Aed-1%3Av1%3Aen",
+                  "vector_rank": 4,
+                  "rerank_score": 0.23602867126464844,
+                  "rerank_rank": 5,
+                  "context_truncated": false
+                }
+              ]
+            },
+            "sources": [
+              {
+                "title": "ISO 20715:2023 Tea — Classification of tea types",
+                "url": "https://www.iso.org/obp/ui?_escaped_fragment_=iso%3Astd%3Aiso%3A20715%3Aed-1%3Av1%3Aen",
+                "year": null
+              },
+              {
+                "title": "Impact of Six Typical Processing Methods on the Chemical Composition of Tea Leaves",
+                "url": "https://agris.fao.org/search/en/records/65dff5d763b8185d9cb04493",
+                "year": null
+              },
+              {
+                "title": "Typology of Processed Tea",
+                "url": "https://agris.fao.org/search/zh/records/68cbbca2f61e5b80b5e93a95",
+                "year": null
+              },
+              {
+                "title": "Tea's place in Jordanian popular memory and culture, Petra News Agency",
+                "url": "https://petra.gov.jo/index.php/ar/news/%D8%A7%D9%84%D9%8A%D9%88%D9%85-%D8%A7%D9%84%D8%B9%D8%A7%D9%84%D9%85%D9%8A-%D9%84%D9%84%D8%B4%D8%A7%D9%8A-%D9%85%D8%B4%D8%B1%D9%88%D8%A8-%D9%8A%D8%AE%D8%AA%D8%B2%D9%84-%D8%A7%D9%84%D8%B0%D8%A7%D9%83%D8%B1%D8%A9-%D8%A7%D9%84%D8%B4%D8%B9%D8%A8%D9%8A%D8%A9-%D9%88%D9%8A%D8%AD%D8%A7%D9%81%D8%B8-%D8%B9%D9%84%D9%89-%D8%AD%D8%B6%D9%88%D8%B1%D9%87-%D9%81%D9%8A-%D8%A7%D9%84%D8%AB%D9%82%D8%A7%D9%81%D8%A9-%D8%A7%D9%84%D8%A3%D8%B1%D8%AF%D9%86%D9%8A%D8%A9",
+                "year": null
+              },
+              {
+                "title": "ISO 20715:2023 Tea — Classification of tea types",
+                "url": "https://www.iso.org/obp/ui?_escaped_fragment_=iso%3Astd%3Aiso%3A20715%3Aed-1%3Av1%3Aen",
+                "year": null
+              }
+            ],
+            "unmet_requirements": []
+          }
+        ],
+        "scores": null,
+        "resolved_question": "介绍一下各种茶叶"
+      },
+      "retrieval": [
+        {
+          "query": "介绍一下各种茶叶",
+          "ms": 8556.258999999996,
+          "ids": [
+            63,
+            78,
+            77,
+            60,
+            73
+          ]
+        }
+      ],
+      "metrics": {
+        "intent_exact": true,
+        "intent_set_exact": true,
+        "true_positive": 1,
+        "false_positive": 0,
+        "false_negative": 0,
+        "recommendation_constraints_ok": null
+      }
+    },
+    {
+      "case_id": "night-15",
+      "group": "historical",
+      "version": "candidate_0.6.0",
+      "message": "介绍茶叶",
+      "expected_intents": [
+        "question_answering"
+      ],
+      "duration_ms": 16212.87,
+      "llm_calls": 2,
+      "input_tokens": 6433,
+      "output_tokens": 1111,
+      "model_errors": 0,
+      "error": null,
+      "response": {
+        "answer": "关于“茶叶”的介绍，可以从分类、加工和文化几个角度来理解：\n\n**1. 茶叶的分类与加工**\n- 茶叶产品描述通常可以组合多个属性：基础加工类型、品种、产地、制作工艺、等级、添加配料和产品形态。例如一款茶可以描述为“某产地的红茶、传统工艺制作、茉莉花熏制、散叶销售”。这些属性回答的是不同问题，不应被压缩成单一的“茶类”标签。（来源：Typology of Processed Tea，年份未标注）\n- 乌龙茶是部分氧化的茶类。ISO 20715 描述的步骤包括萎凋、摇青、部分通气/氧化、酶失活、揉捻或造型、干燥。乌龙茶并不是单一的氧化百分比或风味，不同产地和风格的制作选择各不相同。（来源：ISO 20715:2023 Tea — Classification of tea types）\n- 白茶在 ISO 20715 中被描述为采摘的茶芽经过一次萎凋和干燥阶段。因此“白茶”指的是山茶属茶种的一种茶类和一种加工方式，而不是用白色花朵或草本植物冲泡的饮品。（来源：ISO 20715:2023 Tea — Classification of tea types）\n- 茶树品种与茶类是不同概念。品种描述的是栽培植物的选育；红茶、绿茶、乌龙茶、白茶、黄茶、黑茶描述的是加工后的产品类型。一项被 FAO AGRIS 收录的研究报告称，用六种典型方法加工同一品种，会产生不同的化学成分特征。因此，仅凭品种并不能决定成品茶的类型或香气，加工方式同样重要。（来源：Impact of Six Typical Processing Methods on the Chemical Composition of Tea Leaves，年份未标注）\n\n**2. 茶的文化角色**\n- 约旦佩特拉通讯社报道，约旦文化部遗产主管将茶描述为日常社会文化生活的一部分，包括家庭拜访和聚会。文章指出，茶常与芳香植物一起冲泡；当地研究人员提到的例子包括薄荷、茴香和鼠尾草。文章描述了城市、乡村和贝都因社区之间的差异，因此这些风味应被视为常见例子，而非单一的国家配方。（来源：Tea's place in Jordanian popular memory and culture, Petra News Agency，年份未标注）\n\n**说明**：以上内容仅依据本次检索到的资料，未检索到的茶知识（如具体风味、用途、保健功效等）无法验证，不作编造。如需了解具体某款商品的价格、库存或订单状态，请提供商品信息或订单相关信息，我再为您查询。",
+        "intent": "question_answering",
+        "intents": [
+          "question_answering"
+        ],
+        "confidence": null,
+        "intent_source": "rules",
+        "recommendations": [],
+        "knowledge_sources": [
+          {
+            "title": "Typology of Processed Tea",
+            "url": "https://agris.fao.org/search/zh/records/68cbbca2f61e5b80b5e93a95",
+            "year": null
+          },
+          {
+            "title": "Tea's place in Jordanian popular memory and culture, Petra News Agency",
+            "url": "https://petra.gov.jo/index.php/ar/news/%D8%A7%D9%84%D9%8A%D9%88%D9%85-%D8%A7%D9%84%D8%B9%D8%A7%D9%84%D9%85%D9%8A-%D9%84%D9%84%D8%B4%D8%A7%D9%8A-%D9%85%D8%B4%D8%B1%D9%88%D8%A8-%D9%8A%D8%AE%D8%AA%D8%B2%D9%84-%D8%A7%D9%84%D8%B0%D8%A7%D9%83%D8%B1%D8%A9-%D8%A7%D9%84%D8%B4%D8%B9%D8%A8%D9%8A%D8%A9-%D9%88%D9%8A%D8%AD%D8%A7%D9%81%D8%B8-%D8%B9%D9%84%D9%89-%D8%AD%D8%B6%D9%88%D8%B1%D9%87-%D9%81%D9%8A-%D8%A7%D9%84%D8%AB%D9%82%D8%A7%D9%81%D8%A9-%D8%A7%D9%84%D8%A3%D8%B1%D8%AF%D9%86%D9%8A%D8%A9",
+            "year": null
+          },
+          {
+            "title": "ISO 20715:2023 Tea — Classification of tea types",
+            "url": "https://www.iso.org/obp/ui?_escaped_fragment_=iso%3Astd%3Aiso%3A20715%3Aed-1%3Av1%3Aen",
+            "year": null
+          },
+          {
+            "title": "Impact of Six Typical Processing Methods on the Chemical Composition of Tea Leaves",
+            "url": "https://agris.fao.org/search/en/records/65dff5d763b8185d9cb04493",
+            "year": null
+          }
+        ],
+        "memory_used": false,
+        "clarification_required": false,
+        "tasks": [
+          {
+            "id": "s1",
+            "tool": "introduce_tea",
+            "status": "success"
+          }
+        ],
+        "task_plan": {
+          "steps": [
+            {
+              "id": "s1",
+              "intent": "question_answering",
+              "tool": "introduce_tea",
+              "request": "介绍茶叶",
+              "depends_on": [],
+              "product_from": null,
+              "limit": 4
+            }
+          ],
+          "output_order": [
+            "s1"
+          ],
+          "source": "rules"
+        },
+        "unmet_requirements": []
+      },
+      "internal": {
+        "plan": {
+          "steps": [
+            {
+              "id": "s1",
+              "intent": "question_answering",
+              "tool": "introduce_tea",
+              "request": "介绍茶叶",
+              "depends_on": [],
+              "product_from": null,
+              "limit": 4
+            }
+          ],
+          "output_order": [
+            "s1"
+          ],
+          "source": "rules"
+        },
+        "tool_results": [
+          {
+            "step_id": "s1",
+            "tool": "introduce_tea",
+            "status": "success",
+            "data": {
+              "question": "介绍茶叶",
+              "evidence": [
+                {
+                  "chunk_id": 77,
+                  "document_id": "80de85ff-4ab6-47b5-b042-6a05b304e36b",
+                  "text": "A practical tea product description can combine several attributes: basic processing type, cultivar, origin, manufacturing style, grade, added ingredients, and product form. For example, a product can be described as black tea from a named origin, made by orthodox processing, scented with jasmine, and sold loose leaf. These attributes answer different questions and should not be collapsed into a single tea-family label.",
+                  "distance": 0.41013898607753363,
+                  "metadata": {
+                    "year": null,
+                    "topic": "tea_categories",
+                    "country": null,
+                    "source_url": "https://agris.fao.org/search/zh/records/68cbbca2f61e5b80b5e93a95"
+                  },
+                  "source_title": "Typology of Processed Tea",
+                  "source_reference": "https://agris.fao.org/search/zh/records/68cbbca2f61e5b80b5e93a95",
+                  "vector_rank": 6,
+                  "rerank_score": 0.6737375855445862,
+                  "rerank_rank": 1,
+                  "context_truncated": false
+                },
+                {
+                  "chunk_id": 60,
+                  "document_id": "bce4ac7d-9849-4359-b55d-0b074b18f877",
+                  "text": "Jordan News Agency Petra reported the Jordanian Ministry of Culture heritage director describing tea as part of daily social and cultural life, including family visits and gatherings. The article notes that tea is often prepared with aromatic plants; examples mentioned by local researchers include mint, anise, and sage. It describes variation among urban, rural, and Bedouin communities, so these flavors should be treated as common examples rather than a single national recipe.",
+                  "distance": 0.4470414417646611,
+                  "metadata": {
+                    "year": null,
+                    "topic": "tea_culture",
+                    "country": "Jordan",
+                    "source_url": "https://petra.gov.jo/index.php/ar/news/%D8%A7%D9%84%D9%8A%D9%88%D9%85-%D8%A7%D9%84%D8%B9%D8%A7%D9%84%D9%85%D9%8A-%D9%84%D9%84%D8%B4%D8%A7%D9%8A-%D9%85%D8%B4%D8%B1%D9%88%D8%A8-%D9%8A%D8%AE%D8%AA%D8%B2%D9%84-%D8%A7%D9%84%D8%B0%D8%A7%D9%83%D8%B1%D8%A9-%D8%A7%D9%84%D8%B4%D8%B9%D8%A8%D9%8A%D8%A9-%D9%88%D9%8A%D8%AD%D8%A7%D9%81%D8%B8-%D8%B9%D9%84%D9%89-%D8%AD%D8%B6%D9%88%D8%B1%D9%87-%D9%81%D9%8A-%D8%A7%D9%84%D8%AB%D9%82%D8%A7%D9%81%D8%A9-%D8%A7%D9%84%D8%A3%D8%B1%D8%AF%D9%86%D9%8A%D8%A9"
+                  },
+                  "source_title": "Tea's place in Jordanian popular memory and culture, Petra News Agency",
+                  "source_reference": "https://petra.gov.jo/index.php/ar/news/%D8%A7%D9%84%D9%8A%D9%88%D9%85-%D8%A7%D9%84%D8%B9%D8%A7%D9%84%D9%85%D9%8A-%D9%84%D9%84%D8%B4%D8%A7%D9%8A-%D9%85%D8%B4%D8%B1%D9%88%D8%A8-%D9%8A%D8%AE%D8%AA%D8%B2%D9%84-%D8%A7%D9%84%D8%B0%D8%A7%D9%83%D8%B1%D8%A9-%D8%A7%D9%84%D8%B4%D8%B9%D8%A8%D9%8A%D8%A9-%D9%88%D9%8A%D8%AD%D8%A7%D9%81%D8%B8-%D8%B9%D9%84%D9%89-%D8%AD%D8%B6%D9%88%D8%B1%D9%87-%D9%81%D9%8A-%D8%A7%D9%84%D8%AB%D9%82%D8%A7%D9%81%D8%A9-%D8%A7%D9%84%D8%A3%D8%B1%D8%AF%D9%86%D9%8A%D8%A9",
+                  "vector_rank": 9,
+                  "rerank_score": 0.16531233489513397,
+                  "rerank_rank": 2,
+                  "context_truncated": false
+                },
+                {
+                  "chunk_id": 67,
+                  "document_id": "3c6bce99-3268-4dfa-ae54-5edcdd5059a7",
+                  "text": "Oolong tea is a partially oxidized tea type. ISO 20715 describes steps including withering, tumbling, partial aeration/oxidation, enzyme inactivation, rolling or shaping, and drying. Oolong is not a single oxidation percentage or flavor: production choices differ among origins and styles.",
+                  "distance": 0.4182024045338124,
+                  "metadata": {
+                    "year": null,
+                    "topic": "tea_processing",
+                    "country": null,
+                    "source_url": "https://www.iso.org/obp/ui?_escaped_fragment_=iso%3Astd%3Aiso%3A20715%3Aed-1%3Av1%3Aen"
+                  },
+                  "source_title": "ISO 20715:2023 Tea — Classification of tea types",
+                  "source_reference": "https://www.iso.org/obp/ui?_escaped_fragment_=iso%3Astd%3Aiso%3A20715%3Aed-1%3Av1%3Aen",
+                  "vector_rank": 7,
+                  "rerank_score": 0.058682769536972046,
+                  "rerank_rank": 3,
+                  "context_truncated": false
+                },
+                {
+                  "chunk_id": 66,
+                  "document_id": "3c6bce99-3268-4dfa-ae54-5edcdd5059a7",
+                  "text": "White tea is described by ISO 20715 as harvested tea shoots that undergo one withering and drying stage. The term white tea therefore refers to a Camellia sinensis tea type and a processing approach, not to an infusion made from white-colored flowers or herbs.",
+                  "distance": 0.4043954610823908,
+                  "metadata": {
+                    "year": null,
+                    "topic": "tea_processing",
+                    "country": null,
+                    "source_url": "https://www.iso.org/obp/ui?_escaped_fragment_=iso%3Astd%3Aiso%3A20715%3Aed-1%3Av1%3Aen"
+                  },
+                  "source_title": "ISO 20715:2023 Tea — Classification of tea types",
+                  "source_reference": "https://www.iso.org/obp/ui?_escaped_fragment_=iso%3Astd%3Aiso%3A20715%3Aed-1%3Av1%3Aen",
+                  "vector_rank": 4,
+                  "rerank_score": 0.050474561750888824,
+                  "rerank_rank": 4,
+                  "context_truncated": false
+                },
+                {
+                  "chunk_id": 78,
+                  "document_id": "3e4ce43c-cfbf-440d-bd73-b5222fb18f33",
+                  "text": "Tea cultivar and tea type are different concepts. Cultivar describes the cultivated plant selection; black, green, oolong, white, yellow, and dark tea describe processed product types. A research study indexed by FAO AGRIS reports that processing one cultivar by six typical methods produced differentiated chemical profiles. Therefore, cultivar alone does not determine the finished tea type or its aroma; processing also matters.",
+                  "distance": 0.40311405547354195,
+                  "metadata": {
+                    "year": null,
+                    "topic": "tea_cultivar_processing",
+                    "country": null,
+                    "source_url": "https://agris.fao.org/search/en/records/65dff5d763b8185d9cb04493"
+                  },
+                  "source_title": "Impact of Six Typical Processing Methods on the Chemical Composition of Tea Leaves",
+                  "source_reference": "https://agris.fao.org/search/en/records/65dff5d763b8185d9cb04493",
+                  "vector_rank": 3,
+                  "rerank_score": 0.033500492572784424,
+                  "rerank_rank": 7,
+                  "context_truncated": false
+                }
+              ]
+            },
+            "sources": [
+              {
+                "title": "Typology of Processed Tea",
+                "url": "https://agris.fao.org/search/zh/records/68cbbca2f61e5b80b5e93a95",
+                "year": null
+              },
+              {
+                "title": "Tea's place in Jordanian popular memory and culture, Petra News Agency",
+                "url": "https://petra.gov.jo/index.php/ar/news/%D8%A7%D9%84%D9%8A%D9%88%D9%85-%D8%A7%D9%84%D8%B9%D8%A7%D9%84%D9%85%D9%8A-%D9%84%D9%84%D8%B4%D8%A7%D9%8A-%D9%85%D8%B4%D8%B1%D9%88%D8%A8-%D9%8A%D8%AE%D8%AA%D8%B2%D9%84-%D8%A7%D9%84%D8%B0%D8%A7%D9%83%D8%B1%D8%A9-%D8%A7%D9%84%D8%B4%D8%B9%D8%A8%D9%8A%D8%A9-%D9%88%D9%8A%D8%AD%D8%A7%D9%81%D8%B8-%D8%B9%D9%84%D9%89-%D8%AD%D8%B6%D9%88%D8%B1%D9%87-%D9%81%D9%8A-%D8%A7%D9%84%D8%AB%D9%82%D8%A7%D9%81%D8%A9-%D8%A7%D9%84%D8%A3%D8%B1%D8%AF%D9%86%D9%8A%D8%A9",
+                "year": null
+              },
+              {
+                "title": "ISO 20715:2023 Tea — Classification of tea types",
+                "url": "https://www.iso.org/obp/ui?_escaped_fragment_=iso%3Astd%3Aiso%3A20715%3Aed-1%3Av1%3Aen",
+                "year": null
+              },
+              {
+                "title": "ISO 20715:2023 Tea — Classification of tea types",
+                "url": "https://www.iso.org/obp/ui?_escaped_fragment_=iso%3Astd%3Aiso%3A20715%3Aed-1%3Av1%3Aen",
+                "year": null
+              },
+              {
+                "title": "Impact of Six Typical Processing Methods on the Chemical Composition of Tea Leaves",
+                "url": "https://agris.fao.org/search/en/records/65dff5d763b8185d9cb04493",
+                "year": null
+              }
+            ],
+            "unmet_requirements": []
+          }
+        ],
+        "scores": null,
+        "resolved_question": "介绍茶叶"
+      },
+      "retrieval": [
+        {
+          "query": "介绍茶叶",
+          "ms": 8586.034799999994,
+          "ids": [
+            77,
+            60,
+            67,
+            66,
+            78
+          ]
+        }
+      ],
+      "metrics": {
+        "intent_exact": true,
+        "intent_set_exact": true,
+        "true_positive": 1,
+        "false_positive": 0,
+        "false_negative": 0,
+        "recommendation_constraints_ok": null
+      }
+    },
+    {
+      "case_id": "night-15",
+      "group": "historical",
+      "version": "baseline_0.5.0",
+      "message": "介绍茶叶",
+      "expected_intents": [
+        "question_answering"
+      ],
+      "duration_ms": 4626.97,
+      "llm_calls": 4,
+      "input_tokens": 1129,
+      "output_tokens": 188,
+      "model_errors": 0,
+      "error": null,
+      "response": {
+        "intent": "unavailable",
+        "confidence": 0.5,
+        "recommendations": [],
+        "answer": "您好，您是想了解茶叶的基础知识、具体茶类，还是某款茶叶商品呢？",
+        "knowledge_sources": []
+      },
+      "internal": {
+        "plan": null,
+        "tool_results": null,
+        "scores": {
+          "recommendation": 0.5,
+          "question_answering": 0.5,
+          "after_sales": 0.05
+        },
+        "resolved_question": "介绍茶叶"
+      },
+      "retrieval": [],
+      "metrics": {
+        "intent_exact": false,
+        "intent_set_exact": false,
+        "true_positive": 0,
+        "false_positive": 1,
+        "false_negative": 1,
+        "recommendation_constraints_ok": null
+      }
+    },
+    {
+      "case_id": "night-16",
+      "group": "historical",
+      "version": "baseline_0.5.0",
+      "message": "介绍绿茶",
+      "expected_intents": [
+        "question_answering"
+      ],
+      "duration_ms": 4810.85,
+      "llm_calls": 5,
+      "input_tokens": 1973,
+      "output_tokens": 251,
+      "model_errors": 0,
+      "error": null,
+      "response": {
+        "intent": "unavailable",
+        "confidence": 0.5,
+        "recommendations": [],
+        "answer": "您是想了解绿茶的基本知识、具体品种，还是选购建议呢？",
+        "knowledge_sources": []
+      },
+      "internal": {
+        "plan": null,
+        "tool_results": null,
+        "scores": {
+          "recommendation": 0.35,
+          "question_answering": 0.5,
+          "after_sales": 0.05
+        },
+        "resolved_question": "介绍绿茶"
+      },
+      "retrieval": [],
+      "metrics": {
+        "intent_exact": false,
+        "intent_set_exact": false,
+        "true_positive": 0,
+        "false_positive": 1,
+        "false_negative": 1,
+        "recommendation_constraints_ok": null
+      }
+    },
+    {
+      "case_id": "night-16",
+      "group": "historical",
+      "version": "candidate_0.6.0",
+      "message": "介绍绿茶",
+      "expected_intents": [
+        "question_answering"
+      ],
+      "duration_ms": 14044.09,
+      "llm_calls": 2,
+      "input_tokens": 4574,
+      "output_tokens": 722,
+      "model_errors": 0,
+      "error": null,
+      "response": {
+        "answer": "**绿茶简介**\n\n绿茶是一种按加工方式划分的茶类。根据 ISO 20715:2023《茶 — 茶类分类》，绿茶通过快速加热鲜叶使酶失活，随后可能经过揉捻、做形或粉碎、干燥等步骤制成。与红茶相比，其关键加工区别在于绿茶不经过红茶工艺中刻意通气的氧化过程；具体加热方式和外形因产地和产品而异。（来源：ISO 20715:2023 Tea — Classification of tea types）\n\n**几点补充说明**\n\n- 绿茶属于“加工产品类型”的概念，与“茶树品种”不同。同一品种用不同加工方法可制成不同茶类，成品风味也受加工影响。（来源：Impact of Six Typical Processing Methods on the Chemical Composition of Tea Leaves）\n- 关于“发酵”：红茶加工中的“发酵”通常指酶促氧化，绿茶则几乎不进行刻意氧化；若有人问茶是否“发酵”，需先明确指哪种工艺。（来源：Fermentation: The Key Step in Processing of Black Tea）\n- 一个完整的茶产品描述可包含加工类型、品种、产地、工艺风格、等级、添加物、产品形态等属性，不宜只用一个茶类标签概括。（来源：Typology of Processed Tea）\n\n**关于风味、用途、价格、库存**\n\n本次工具未提供绿茶具体风味、用途、价格或库存数据，这些属性无法验证，暂不能介绍或推荐具体商品。\n\n如需进一步了解，可以告诉我：您想了解绿茶的**加工细节**、**与其他茶类的区别**，还是想查询**具体在售商品**？",
+        "intent": "question_answering",
+        "intents": [
+          "question_answering"
+        ],
+        "confidence": null,
+        "intent_source": "rules",
+        "recommendations": [],
+        "knowledge_sources": [
+          {
+            "title": "ISO 20715:2023 Tea — Classification of tea types",
+            "url": "https://www.iso.org/obp/ui?_escaped_fragment_=iso%3Astd%3Aiso%3A20715%3Aed-1%3Av1%3Aen",
+            "year": null
+          },
+          {
+            "title": "Typology of Processed Tea",
+            "url": "https://agris.fao.org/search/zh/records/68cbbca2f61e5b80b5e93a95",
+            "year": null
+          },
+          {
+            "title": "Fermentation: The Key Step in Processing of Black Tea",
+            "url": "https://agris.fao.org/search/fr/records/6473b0a3542a3f9f03b31231",
+            "year": null
+          },
+          {
+            "title": "Impact of Six Typical Processing Methods on the Chemical Composition of Tea Leaves",
+            "url": "https://agris.fao.org/search/en/records/65dff5d763b8185d9cb04493",
+            "year": null
+          }
+        ],
+        "memory_used": false,
+        "clarification_required": false,
+        "tasks": [
+          {
+            "id": "s1",
+            "tool": "introduce_tea",
+            "status": "success"
+          }
+        ],
+        "task_plan": {
+          "steps": [
+            {
+              "id": "s1",
+              "intent": "question_answering",
+              "tool": "introduce_tea",
+              "request": "介绍绿茶",
+              "depends_on": [],
+              "product_from": null,
+              "limit": 4
+            }
+          ],
+          "output_order": [
+            "s1"
+          ],
+          "source": "rules"
+        },
+        "unmet_requirements": []
+      },
+      "internal": {
+        "plan": {
+          "steps": [
+            {
+              "id": "s1",
+              "intent": "question_answering",
+              "tool": "introduce_tea",
+              "request": "介绍绿茶",
+              "depends_on": [],
+              "product_from": null,
+              "limit": 4
+            }
+          ],
+          "output_order": [
+            "s1"
+          ],
+          "source": "rules"
+        },
+        "tool_results": [
+          {
+            "step_id": "s1",
+            "tool": "introduce_tea",
+            "status": "success",
+            "data": {
+              "question": "介绍绿茶",
+              "evidence": [
+                {
+                  "chunk_id": 66,
+                  "document_id": "3c6bce99-3268-4dfa-ae54-5edcdd5059a7",
+                  "text": "White tea is described by ISO 20715 as harvested tea shoots that undergo one withering and drying stage. The term white tea therefore refers to a Camellia sinensis tea type and a processing approach, not to an infusion made from white-colored flowers or herbs.",
+                  "distance": 0.4976099743780735,
+                  "metadata": {
+                    "year": null,
+                    "topic": "tea_processing",
+                    "country": null,
+                    "source_url": "https://www.iso.org/obp/ui?_escaped_fragment_=iso%3Astd%3Aiso%3A20715%3Aed-1%3Av1%3Aen"
+                  },
+                  "source_title": "ISO 20715:2023 Tea — Classification of tea types",
+                  "source_reference": "https://www.iso.org/obp/ui?_escaped_fragment_=iso%3Astd%3Aiso%3A20715%3Aed-1%3Av1%3Aen",
+                  "vector_rank": 2,
+                  "rerank_score": 0.908412516117096,
+                  "rerank_rank": 1,
+                  "context_truncated": false
+                },
+                {
+                  "chunk_id": 65,
+                  "document_id": "3c6bce99-3268-4dfa-ae54-5edcdd5059a7",
+                  "text": "Green tea is made by quickly applying heat to fresh leaves to inactivate enzymes, followed by steps that may include rolling, shaping, or comminution, and drying. Compared with black tea, the defining processing contrast is that green tea is not intentionally aerated/oxidized through the black-tea process. Specific heating methods and shapes vary by region and product.",
+                  "distance": 0.4737752392586595,
+                  "metadata": {
+                    "year": null,
+                    "topic": "tea_processing",
+                    "country": null,
+                    "source_url": "https://www.iso.org/obp/ui?_escaped_fragment_=iso%3Astd%3Aiso%3A20715%3Aed-1%3Av1%3Aen"
+                  },
+                  "source_title": "ISO 20715:2023 Tea — Classification of tea types",
+                  "source_reference": "https://www.iso.org/obp/ui?_escaped_fragment_=iso%3Astd%3Aiso%3A20715%3Aed-1%3Av1%3Aen",
+                  "vector_rank": 1,
+                  "rerank_score": 0.7759298086166382,
+                  "rerank_rank": 2,
+                  "context_truncated": false
+                },
+                {
+                  "chunk_id": 77,
+                  "document_id": "80de85ff-4ab6-47b5-b042-6a05b304e36b",
+                  "text": "A practical tea product description can combine several attributes: basic processing type, cultivar, origin, manufacturing style, grade, added ingredients, and product form. For example, a product can be described as black tea from a named origin, made by orthodox processing, scented with jasmine, and sold loose leaf. These attributes answer different questions and should not be collapsed into a single tea-family label.",
+                  "distance": 0.5487882087804342,
+                  "metadata": {
+                    "year": null,
+                    "topic": "tea_categories",
+                    "country": null,
+                    "source_url": "https://agris.fao.org/search/zh/records/68cbbca2f61e5b80b5e93a95"
+                  },
+                  "source_title": "Typology of Processed Tea",
+                  "source_reference": "https://agris.fao.org/search/zh/records/68cbbca2f61e5b80b5e93a95",
+                  "vector_rank": 15,
+                  "rerank_score": 0.08790744096040726,
+                  "rerank_rank": 6,
+                  "context_truncated": false
+                },
+                {
+                  "chunk_id": 81,
+                  "document_id": "49fec67b-d2ee-4efe-8d02-7c7f04ace769",
+                  "text": "In black tea manufacture, the industry word fermentation commonly refers to enzymatic oxidation after leaf disruption and exposure to air. It is distinct from microbial fermentation. Green tea is made with little or no intentional oxidation, while oolong is partially oxidized. Dark tea may involve a separate piling or post-fermentation stage. When users ask whether tea is fermented, clarify which process they mean.",
+                  "distance": 0.5477599756048228,
+                  "metadata": {
+                    "year": null,
+                    "topic": "tea_terminology",
+                    "country": null,
+                    "source_url": "https://agris.fao.org/search/fr/records/6473b0a3542a3f9f03b31231"
+                  },
+                  "source_title": "Fermentation: The Key Step in Processing of Black Tea",
+                  "source_reference": "https://agris.fao.org/search/fr/records/6473b0a3542a3f9f03b31231",
+                  "vector_rank": 13,
+                  "rerank_score": 0.0697503313422203,
+                  "rerank_rank": 8,
+                  "context_truncated": false
+                },
+                {
+                  "chunk_id": 78,
+                  "document_id": "3e4ce43c-cfbf-440d-bd73-b5222fb18f33",
+                  "text": "Tea cultivar and tea type are different concepts. Cultivar describes the cultivated plant selection; black, green, oolong, white, yellow, and dark tea describe processed product types. A research study indexed by FAO AGRIS reports that processing one cultivar by six typical methods produced differentiated chemical profiles. Therefore, cultivar alone does not determine the finished tea type or its aroma; processing also matters.",
+                  "distance": 0.5435638608322303,
+                  "metadata": {
+                    "year": null,
+                    "topic": "tea_cultivar_processing",
+                    "country": null,
+                    "source_url": "https://agris.fao.org/search/en/records/65dff5d763b8185d9cb04493"
+                  },
+                  "source_title": "Impact of Six Typical Processing Methods on the Chemical Composition of Tea Leaves",
+                  "source_reference": "https://agris.fao.org/search/en/records/65dff5d763b8185d9cb04493",
+                  "vector_rank": 12,
+                  "rerank_score": 0.0534319244325161,
+                  "rerank_rank": 10,
+                  "context_truncated": false
+                }
+              ]
+            },
+            "sources": [
+              {
+                "title": "ISO 20715:2023 Tea — Classification of tea types",
+                "url": "https://www.iso.org/obp/ui?_escaped_fragment_=iso%3Astd%3Aiso%3A20715%3Aed-1%3Av1%3Aen",
+                "year": null
+              },
+              {
+                "title": "ISO 20715:2023 Tea — Classification of tea types",
+                "url": "https://www.iso.org/obp/ui?_escaped_fragment_=iso%3Astd%3Aiso%3A20715%3Aed-1%3Av1%3Aen",
+                "year": null
+              },
+              {
+                "title": "Typology of Processed Tea",
+                "url": "https://agris.fao.org/search/zh/records/68cbbca2f61e5b80b5e93a95",
+                "year": null
+              },
+              {
+                "title": "Fermentation: The Key Step in Processing of Black Tea",
+                "url": "https://agris.fao.org/search/fr/records/6473b0a3542a3f9f03b31231",
+                "year": null
+              },
+              {
+                "title": "Impact of Six Typical Processing Methods on the Chemical Composition of Tea Leaves",
+                "url": "https://agris.fao.org/search/en/records/65dff5d763b8185d9cb04493",
+                "year": null
+              }
+            ],
+            "unmet_requirements": []
+          }
+        ],
+        "scores": null,
+        "resolved_question": "介绍绿茶"
+      },
+      "retrieval": [
+        {
+          "query": "介绍绿茶",
+          "ms": 8671.528000000024,
+          "ids": [
+            66,
+            65,
+            77,
+            81,
+            78
+          ]
+        }
+      ],
+      "metrics": {
+        "intent_exact": true,
+        "intent_set_exact": true,
+        "true_positive": 1,
+        "false_positive": 0,
+        "false_negative": 0,
+        "recommendation_constraints_ok": null
+      }
+    },
+    {
+      "case_id": "night-17",
+      "group": "historical",
+      "version": "candidate_0.6.0",
+      "message": "推荐商品",
+      "expected_intents": [
+        "recommendation"
+      ],
+      "duration_ms": 1260.72,
+      "llm_calls": 1,
+      "input_tokens": 1672,
+      "output_tokens": 131,
+      "model_errors": 0,
+      "error": null,
+      "response": {
+        "answer": "按您的条件找到以下可售商品（USD 单价，价格及库存以下单时为准）：\n1. 英德大叶种叶茶礼盒 · 150g (30包 * 5g) · $320.00 · 匹配部分偏好\n2. 英红9号 · 英红9号 · $123.00 · 匹配部分偏好\n3. 石牌茶 · 默认规格 · $75.00 · 当前上架且有可用库存",
+        "intent": "recommendation",
+        "intents": [
+          "recommendation"
+        ],
+        "confidence": null,
+        "intent_source": "rules",
+        "recommendations": [
+          {
+            "sku_id": 22,
+            "name": "150g (30包 * 5g)",
+            "product_name": "英德大叶种叶茶礼盒",
+            "category": "红茶",
+            "brand": "英德大叶种",
+            "price": "320.00",
+            "currency": "USD",
+            "image_url": "/v1/goods/sku/22/image",
+            "detail_url": "/product_details.html?skuid=22",
+            "reasons": [
+              "匹配部分偏好"
+            ]
+          },
+          {
+            "sku_id": 24,
+            "name": "英红9号",
+            "product_name": "英红9号",
+            "category": "红茶",
+            "brand": "英红",
+            "price": "123.00",
+            "currency": "USD",
+            "image_url": "/v1/goods/sku/24/image",
+            "detail_url": "/product_details.html?skuid=24",
+            "reasons": [
+              "匹配部分偏好"
+            ]
+          },
+          {
+            "sku_id": 23,
+            "name": "默认规格",
+            "product_name": "石牌茶",
+            "category": "绿茶",
+            "brand": "华农石牌茶",
+            "price": "75.00",
+            "currency": "USD",
+            "image_url": "/v1/goods/sku/23/image",
+            "detail_url": "/product_details.html?skuid=23",
+            "reasons": [
+              "当前上架且有可用库存"
+            ]
+          }
+        ],
+        "knowledge_sources": [],
+        "memory_used": true,
+        "clarification_required": false,
+        "tasks": [
+          {
+            "id": "s1",
+            "tool": "recommend_products",
+            "status": "success"
+          }
+        ],
+        "task_plan": {
+          "steps": [
+            {
+              "id": "s1",
+              "intent": "recommendation",
+              "tool": "recommend_products",
+              "request": "推荐商品",
+              "depends_on": [],
+              "product_from": null,
+              "limit": 4
+            }
+          ],
+          "output_order": [
+            "s1"
+          ],
+          "source": "rules"
+        },
+        "unmet_requirements": [],
+        "recommendation_status": "MATCHED",
+        "product_intent": {
+          "action": "SEARCH",
+          "required": {
+            "categories": [],
+            "brands": [],
+            "keywords": [],
+            "price_min": null,
+            "price_max": null,
+            "currency": null,
+            "price_basis": null
+          },
+          "preferred": {
+            "categories": [
+              "红茶"
+            ],
+            "brands": [],
+            "keywords": []
+          },
+          "excluded": {
+            "categories": [],
+            "brands": [],
+            "keywords": []
+          },
+          "evidence": [
+            {
+              "field": "preferred.categories",
+              "value": "红茶",
+              "source": "MEMORY",
+              "source_id": "preference:1:2026-10-15T15:03:40.482405+00:00",
+              "quote": "红茶"
+            }
+          ],
+          "missing_fields": []
+        }
+      },
+      "internal": {
+        "plan": {
+          "steps": [
+            {
+              "id": "s1",
+              "intent": "recommendation",
+              "tool": "recommend_products",
+              "request": "推荐商品",
+              "depends_on": [],
+              "product_from": null,
+              "limit": 4
+            }
+          ],
+          "output_order": [
+            "s1"
+          ],
+          "source": "rules"
+        },
+        "tool_results": [
+          {
+            "step_id": "s1",
+            "tool": "recommend_products",
+            "status": "success",
+            "data": {
+              "recommendation_status": "MATCHED",
+              "recommendations": [
+                {
+                  "sku_id": 22,
+                  "name": "150g (30包 * 5g)",
+                  "product_name": "英德大叶种叶茶礼盒",
+                  "category": "红茶",
+                  "brand": "英德大叶种",
+                  "price": "320.00",
+                  "currency": "USD",
+                  "image_url": "/v1/goods/sku/22/image",
+                  "detail_url": "/product_details.html?skuid=22",
+                  "reasons": [
+                    "匹配部分偏好"
+                  ]
+                },
+                {
+                  "sku_id": 24,
+                  "name": "英红9号",
+                  "product_name": "英红9号",
+                  "category": "红茶",
+                  "brand": "英红",
+                  "price": "123.00",
+                  "currency": "USD",
+                  "image_url": "/v1/goods/sku/24/image",
+                  "detail_url": "/product_details.html?skuid=24",
+                  "reasons": [
+                    "匹配部分偏好"
+                  ]
+                },
+                {
+                  "sku_id": 23,
+                  "name": "默认规格",
+                  "product_name": "石牌茶",
+                  "category": "绿茶",
+                  "brand": "华农石牌茶",
+                  "price": "75.00",
+                  "currency": "USD",
+                  "image_url": "/v1/goods/sku/23/image",
+                  "detail_url": "/product_details.html?skuid=23",
+                  "reasons": [
+                    "当前上架且有可用库存"
+                  ]
+                }
+              ],
+              "answer": "按您的条件找到以下可售商品（USD 单价，价格及库存以下单时为准）：\n1. 英德大叶种叶茶礼盒 · 150g (30包 * 5g) · $320.00 · 匹配部分偏好\n2. 英红9号 · 英红9号 · $123.00 · 匹配部分偏好\n3. 石牌茶 · 默认规格 · $75.00 · 当前上架且有可用库存",
+              "product_intent": {
+                "action": "SEARCH",
+                "required": {
+                  "categories": [],
+                  "brands": [],
+                  "keywords": [],
+                  "price_min": null,
+                  "price_max": null,
+                  "currency": null,
+                  "price_basis": null
+                },
+                "preferred": {
+                  "categories": [
+                    "红茶"
+                  ],
+                  "brands": [],
+                  "keywords": []
+                },
+                "excluded": {
+                  "categories": [],
+                  "brands": [],
+                  "keywords": []
+                },
+                "evidence": [
+                  {
+                    "field": "preferred.categories",
+                    "value": "红茶",
+                    "source": "MEMORY",
+                    "source_id": "preference:1:2026-10-15T15:03:40.482405+00:00",
+                    "quote": "红茶"
+                  }
+                ],
+                "missing_fields": []
+              },
+              "memory_used": true,
+              "selected_product": null
+            },
+            "sources": [],
+            "unmet_requirements": []
+          }
+        ],
+        "scores": null,
+        "resolved_question": "推荐商品"
+      },
+      "retrieval": [],
+      "metrics": {
+        "intent_exact": true,
+        "intent_set_exact": true,
+        "true_positive": 1,
+        "false_positive": 0,
+        "false_negative": 0,
+        "recommendation_constraints_ok": true
+      }
+    },
+    {
+      "case_id": "night-17",
+      "group": "historical",
+      "version": "baseline_0.5.0",
+      "message": "推荐商品",
+      "expected_intents": [
+        "recommendation"
+      ],
+      "duration_ms": 4106.35,
+      "llm_calls": 4,
+      "input_tokens": 3372,
+      "output_tokens": 313,
+      "model_errors": 0,
+      "error": null,
+      "response": {
+        "intent": "recommendation",
+        "confidence": 0.95,
+        "recommendations": [],
+        "answer": "您想让我推荐哪类商品呢？比如茶叶（绿茶、红茶等）或其他品类，都可以告诉我。另外，具体商品的价格、库存和发货信息请以商城页面实时信息为准，或联系人工客服确认。"
+      },
+      "internal": {
+        "plan": null,
+        "tool_results": null,
+        "scores": {
+          "recommendation": 0.95,
+          "question_answering": 0.1,
+          "after_sales": 0.05
+        },
+        "resolved_question": "推荐商品"
+      },
+      "retrieval": [],
+      "metrics": {
+        "intent_exact": true,
+        "intent_set_exact": true,
+        "true_positive": 1,
+        "false_positive": 0,
+        "false_negative": 0,
+        "recommendation_constraints_ok": false
+      }
+    },
+    {
+      "case_id": "night-18",
+      "group": "historical",
+      "version": "baseline_0.5.0",
+      "message": "绿茶",
+      "expected_intents": [
+        "recommendation"
+      ],
+      "duration_ms": 17383.7,
+      "llm_calls": 5,
+      "input_tokens": 6395,
+      "output_tokens": 1248,
+      "model_errors": 0,
+      "error": null,
+      "response": {
+        "intent": "question_answering",
+        "confidence": 0.75,
+        "recommendations": [],
+        "answer": "关于绿茶，可以从加工方式和分类两个角度来理解：\n\n**加工方式**\n绿茶是通过对鲜叶快速加热以钝化酶，随后可能经过揉捻、做形或粉碎、干燥等步骤制成的。与红茶相比，绿茶定义性的加工差异在于：绿茶不经过红茶工艺中那种有意的通气/氧化过程。具体的加热方法和外形因地区和产品而异。\n\n**分类与术语**\n- 绿茶属于山茶（Camellia sinensis）茶类的一种加工产品类型，与红茶、乌龙茶、白茶、黄茶、黑茶并列；品种描述的是栽培植物选育，与茶类是不同的概念。用同一品种经六种典型加工方法处理，会产生不同的化学成分特征，因此品种本身并不决定成品茶的类型或香气，加工方式同样重要。\n- 关于“发酵”：在红茶制造中，行业用词“发酵”通常指叶片破损并接触空气后的酶促氧化，与微生物发酵不同。绿茶是在很少或没有有意氧化的情况下制成的，乌龙茶为部分氧化，黑茶可能涉及单独的渥堆或后发酵阶段。因此当有人问茶是否“发酵”时，需要先明确指的是哪种工艺。\n\n**补充说明**\n一份实用的茶产品描述可以组合多个属性：基本加工类型、品种、产地、制作风格、等级、添加配料和产品形态。这些属性回答的是不同问题，不应被合并成单一的茶类标签。\n\n以上是关于绿茶的内容。如果你需要了解具体某款绿茶商品的价格、库存或发货等信息，建议以商城页面实时信息为准，或联系人工客服确认。",
+        "knowledge_sources": [
+          {
+            "chunk_id": 66,
+            "document_id": "3c6bce99-3268-4dfa-ae54-5edcdd5059a7",
+            "text": "White tea is described by ISO 20715 as harvested tea shoots that undergo one withering and drying stage. The term white tea therefore refers to a Camellia sinensis tea type and a processing approach, not to an infusion made from white-colored flowers or herbs.",
+            "distance": 0.4976099743780735,
+            "metadata": {
+              "year": null,
+              "topic": "tea_processing",
+              "country": null,
+              "source_url": "https://www.iso.org/obp/ui?_escaped_fragment_=iso%3Astd%3Aiso%3A20715%3Aed-1%3Av1%3Aen"
+            },
+            "source_title": "ISO 20715:2023 Tea — Classification of tea types",
+            "source_reference": "https://www.iso.org/obp/ui?_escaped_fragment_=iso%3Astd%3Aiso%3A20715%3Aed-1%3Av1%3Aen",
+            "vector_rank": 2,
+            "rerank_score": 0.908412516117096,
+            "rerank_rank": 1,
+            "context_truncated": false
+          },
+          {
+            "chunk_id": 65,
+            "document_id": "3c6bce99-3268-4dfa-ae54-5edcdd5059a7",
+            "text": "Green tea is made by quickly applying heat to fresh leaves to inactivate enzymes, followed by steps that may include rolling, shaping, or comminution, and drying. Compared with black tea, the defining processing contrast is that green tea is not intentionally aerated/oxidized through the black-tea process. Specific heating methods and shapes vary by region and product.",
+            "distance": 0.4737752392586595,
+            "metadata": {
+              "year": null,
+              "topic": "tea_processing",
+              "country": null,
+              "source_url": "https://www.iso.org/obp/ui?_escaped_fragment_=iso%3Astd%3Aiso%3A20715%3Aed-1%3Av1%3Aen"
+            },
+            "source_title": "ISO 20715:2023 Tea — Classification of tea types",
+            "source_reference": "https://www.iso.org/obp/ui?_escaped_fragment_=iso%3Astd%3Aiso%3A20715%3Aed-1%3Av1%3Aen",
+            "vector_rank": 1,
+            "rerank_score": 0.7759298086166382,
+            "rerank_rank": 2,
+            "context_truncated": false
+          },
+          {
+            "chunk_id": 77,
+            "document_id": "80de85ff-4ab6-47b5-b042-6a05b304e36b",
+            "text": "A practical tea product description can combine several attributes: basic processing type, cultivar, origin, manufacturing style, grade, added ingredients, and product form. For example, a product can be described as black tea from a named origin, made by orthodox processing, scented with jasmine, and sold loose leaf. These attributes answer different questions and should not be collapsed into a single tea-family label.",
+            "distance": 0.5487882087804342,
+            "metadata": {
+              "year": null,
+              "topic": "tea_categories",
+              "country": null,
+              "source_url": "https://agris.fao.org/search/zh/records/68cbbca2f61e5b80b5e93a95"
+            },
+            "source_title": "Typology of Processed Tea",
+            "source_reference": "https://agris.fao.org/search/zh/records/68cbbca2f61e5b80b5e93a95",
+            "vector_rank": 15,
+            "rerank_score": 0.08790744096040726,
+            "rerank_rank": 6,
+            "context_truncated": false
+          },
+          {
+            "chunk_id": 81,
+            "document_id": "49fec67b-d2ee-4efe-8d02-7c7f04ace769",
+            "text": "In black tea manufacture, the industry word fermentation commonly refers to enzymatic oxidation after leaf disruption and exposure to air. It is distinct from microbial fermentation. Green tea is made with little or no intentional oxidation, while oolong is partially oxidized. Dark tea may involve a separate piling or post-fermentation stage. When users ask whether tea is fermented, clarify which process they mean.",
+            "distance": 0.5477599756048228,
+            "metadata": {
+              "year": null,
+              "topic": "tea_terminology",
+              "country": null,
+              "source_url": "https://agris.fao.org/search/fr/records/6473b0a3542a3f9f03b31231"
+            },
+            "source_title": "Fermentation: The Key Step in Processing of Black Tea",
+            "source_reference": "https://agris.fao.org/search/fr/records/6473b0a3542a3f9f03b31231",
+            "vector_rank": 13,
+            "rerank_score": 0.0697503313422203,
+            "rerank_rank": 8,
+            "context_truncated": false
+          },
+          {
+            "chunk_id": 78,
+            "document_id": "3e4ce43c-cfbf-440d-bd73-b5222fb18f33",
+            "text": "Tea cultivar and tea type are different concepts. Cultivar describes the cultivated plant selection; black, green, oolong, white, yellow, and dark tea describe processed product types. A research study indexed by FAO AGRIS reports that processing one cultivar by six typical methods produced differentiated chemical profiles. Therefore, cultivar alone does not determine the finished tea type or its aroma; processing also matters.",
+            "distance": 0.5435638608322303,
+            "metadata": {
+              "year": null,
+              "topic": "tea_cultivar_processing",
+              "country": null,
+              "source_url": "https://agris.fao.org/search/en/records/65dff5d763b8185d9cb04493"
+            },
+            "source_title": "Impact of Six Typical Processing Methods on the Chemical Composition of Tea Leaves",
+            "source_reference": "https://agris.fao.org/search/en/records/65dff5d763b8185d9cb04493",
+            "vector_rank": 12,
+            "rerank_score": 0.0534319244325161,
+            "rerank_rank": 10,
+            "context_truncated": false
+          }
+        ]
+      },
+      "internal": {
+        "plan": null,
+        "tool_results": null,
+        "scores": {
+          "recommendation": 0.3,
+          "question_answering": 0.75,
+          "after_sales": 0.05
+        },
+        "resolved_question": "介绍绿茶"
+      },
+      "retrieval": [
+        {
+          "query": "介绍绿茶",
+          "ms": 8659.4269,
+          "ids": [
+            66,
+            65,
+            77,
+            81,
+            78
+          ]
+        }
+      ],
+      "metrics": {
+        "intent_exact": false,
+        "intent_set_exact": false,
+        "true_positive": 0,
+        "false_positive": 1,
+        "false_negative": 1,
+        "recommendation_constraints_ok": false
+      }
+    },
+    {
+      "case_id": "night-18",
+      "group": "historical",
+      "version": "candidate_0.6.0",
+      "message": "绿茶",
+      "expected_intents": [
+        "recommendation"
+      ],
+      "duration_ms": 2492.14,
+      "llm_calls": 2,
+      "input_tokens": 2653,
+      "output_tokens": 291,
+      "model_errors": 0,
+      "error": null,
+      "response": {
+        "answer": "该项服务暂时不可用，请稍后重试。",
+        "intent": "recommendation",
+        "intents": [
+          "recommendation"
+        ],
+        "confidence": null,
+        "intent_source": "context_rule",
+        "recommendations": [],
+        "knowledge_sources": [],
+        "memory_used": false,
+        "clarification_required": false,
+        "tasks": [
+          {
+            "id": "s1",
+            "tool": "recommend_products",
+            "status": "error"
+          }
+        ],
+        "task_plan": {
+          "steps": [
+            {
+              "id": "s1",
+              "intent": "recommendation",
+              "tool": "recommend_products",
+              "request": "绿茶",
+              "depends_on": [],
+              "product_from": null,
+              "limit": 4
+            }
+          ],
+          "output_order": [
+            "s1"
+          ],
+          "source": "context_rule"
+        },
+        "unmet_requirements": []
+      },
+      "internal": {
+        "plan": {
+          "steps": [
+            {
+              "id": "s1",
+              "intent": "recommendation",
+              "tool": "recommend_products",
+              "request": "绿茶",
+              "depends_on": [],
+              "product_from": null,
+              "limit": 4
+            }
+          ],
+          "output_order": [
+            "s1"
+          ],
+          "source": "context_rule"
+        },
+        "tool_results": [
+          {
+            "step_id": "s1",
+            "tool": "recommend_products",
+            "status": "error",
+            "data": {
+              "answer": "该项服务暂时不可用，请稍后重试。",
+              "error_type": "ValueError"
+            },
+            "sources": [],
+            "unmet_requirements": []
+          }
+        ],
+        "scores": null,
+        "resolved_question": "推荐绿茶商品"
+      },
+      "retrieval": [],
+      "metrics": {
+        "intent_exact": true,
+        "intent_set_exact": true,
+        "true_positive": 1,
+        "false_positive": 0,
+        "false_negative": 0,
+        "recommendation_constraints_ok": false
+      }
+    }
+  ],
+  "final_counts": {
+    "turns": 16,
+    "conversations": 6
+  }
+}

@@ -1,18 +1,22 @@
 # PostgreSQL 长期记忆与 pgvector 知识库
 
-当前分工：MySQL 保存用户、商品、订单，以及客服会话与短期上下文；PostgreSQL 的普通 JSONB 表保存长期偏好，知识文档与片段保存在同库，向量字段使用 pgvector。Agent 图仍只消费 DTO，不直接查询任何数据库。
+当前分工：MySQL 保存用户、商品、订单，以及客服会话与短期上下文；PostgreSQL 保存长期偏好、知识文档与 pgvector 向量。Ollama 在本机运行 BGE-M3，为资料入库和客服问答查询生成同空间的多语言向量；Agent 图通过应用层注入的检索回调消费带来源的证据 DTO，不直接访问 ORM。
 
 ## 本地 Docker
 
-Compose：`compose.ai-storage.yml`。镜像固定为 `pgvector/pgvector:0.8.7-pg16-bookworm`，发布本机 `127.0.0.1:5433`，持久化到项目专属 `dadashop-ai-storage_postgres_data` 卷，启用健康检查和 `unless-stopped` 重启策略。已有 MySQL、Redis 等容器不属于该 Compose。
+Compose：`compose.ai-storage.yml`。pgvector 镜像固定为 `pgvector/pgvector:0.8.7-pg16-bookworm`，发布本机 `127.0.0.1:5433`。Ollama API 仅发布到本机 `127.0.0.1:11434`，模型文件持久化在 `ollama_models` 卷。已有 MySQL、Redis 等容器不属于该 Compose。
 
 凭据在被 Git 忽略的 `.env.postgres`；示例是 `.env.postgres.example`。Django 先加载 `.env` 再加载 `.env.postgres`，进程环境变量优先。首次配置生成随机密码，不把密码写入 Compose、SQL 或文档。该镜像中的 POSTGRES_USER 具备本地初始化/迁移权限；这是开发栈凭据，不作为生产最小权限方案。
 
 ```powershell
 docker compose --env-file .env.postgres -f compose.ai-storage.yml up -d --wait
+docker compose --env-file .env.postgres -f compose.ai-storage.yml exec ollama ollama pull bge-m3
 python manage.py migrate ai_storage --database ai_storage
+python manage.py import_middle_east_tea_knowledge
 docker compose --env-file .env.postgres -f compose.ai-storage.yml ps
 ```
+
+将 `.env.postgres.example` 中的 `AI_OLLAMA_*` 与 `AI_EMBEDDING_SPACE_KEY` 配置复制到本地 `.env.postgres`。首次拉取 BGE-M3 约需 1.2 GB；该模型为 1024 维、多语言模型。首次启动后需先拉取模型，再执行幂等的资料导入命令。命令把来源文档和公开知识片段写入 PostgreSQL，并用同一个 Ollama 模型生成向量；重跑会刷新这些 `source_key` 对应的片段，不会重复插入。
 
 首次初始化 SQL 和 Django 迁移都会确保 vector 扩展存在。已有卷更换环境变量不会自动更换库内密码。停止服务可用 `docker compose --env-file .env.postgres -f compose.ai-storage.yml stop`；重启沿用已有卷。不要用 `down -v` 作为普通停止命令。
 
@@ -42,7 +46,7 @@ MySQL 连接由 `.env` 的 DB_* 配置决定；登录失败时先修正该配置
 
 `ai_storage.knowledge.search_knowledge()` 是应用层检索基础函数：只查询已发布、当前用户可见的公开或本人私有知识，在同模型空间按距离排序，验证输入向量并限制返回数量。它不开放给模型作为数据库工具。
 
-本次建立存储与检索基础能力，未实现文件解析、切分、真实 Embedding 调用、知识上传管理或客服问答 RAG 接入；测试的合成向量仅证明数据库功能，不代表语义检索质量。
+当前首批语料位于 `ai_storage/data/middle_east_tea.json`。包含 WITS/UN Comtrade 2023 HS 0902 进口值/数量（可用时）和有明确标注的 FAO 2014 黑茶消费历史估计/2023 预测，以及 UNESCO、沙特百科、约旦佩特拉通讯社、Go Türkiye 和学术论文的茶文化/生产摘要。贸易进口不代表消费；FAO 的 2023 数值是旧报告预测而非实测。数据是有来源的可扩充起始语料，后续可以继续补国家统计、法规、茶类偏好、供应来源和更新年份。客服问答仅使用已发布且当前用户可见的检索结果，并返回命中的来源标题和 URL；未知商品事实和商城政策仍需走人工客服。
 
 ## 检查
 

@@ -1,6 +1,19 @@
 name: dadashop-ai-storage
 
 services:
+  ollama:
+    image: ollama/ollama:0.40.4-rocm
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:${AI_OLLAMA_PORT:-11434}:11434"
+    volumes:
+      - ollama_models:/root/.ollama
+    healthcheck:
+      test: ["CMD-SHELL", "ollama list >/dev/null"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+
   postgres:
     image: pgvector/pgvector:0.8.7-pg16-bookworm
     restart: unless-stopped
@@ -23,3 +36,4 @@ services:
 
 volumes:
   postgres_data:
+  ollama_models:

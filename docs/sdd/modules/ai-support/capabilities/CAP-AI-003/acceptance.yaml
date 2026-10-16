@@ -1,0 +1,119 @@
+schemaVersion: "0.1"
+capabilityId: CAP-AI-003
+specVersion: "0.2.0"
+status: in-review
+executable: false
+note: 核心选项已确认，其余条款待评审；发现阶段隔离测试和探针不等于全部 AC 已执行通过，逐项覆盖见 review.md。
+designRefs: [design.md, api-contract.yaml, redaction.md, screen-spec.md]
+implementationObservation:
+  report: docs/sdd/reconciliation.md
+  evidence: docs/sdd/evidence/2026-10-16-sdd-reconciliation/manifest.json
+  acceptanceComplete: false
+  knownGaps: [AC-AI-003-03, AC-AI-003-07, AC-AI-003-10]
+  note: 订单404/英文编号/旧历史投影及完整页面状态仍有差异；98项回归通过不是这些AC已全部通过。
+scenarios:
+  - id: AC-AI-003-01
+    title: 本人明确订单的成功查询
+    requirementIds: [REQ-AI-003-01, REQ-AI-003-02]
+    ruleIds: [RULE-AI-003-01, RULE-AI-003-02, RULE-AI-003-04]
+    given: 买家 A 已认证，合成订单 O-A 属于 A，交易域返回一个可解释状态。
+    when: A 在客服中明确查询 O-A。
+    then:
+      - 只依据 O-A 的当前状态回答，不混入其他订单。
+      - 允许保存成功会话；订单状态、金额、商品数量与库存均不变化。
+  - id: AC-AI-003-02
+    title: 身份和会话访问拒绝
+    requirementIds: [REQ-AI-003-01]
+    ruleIds: [RULE-AI-003-01]
+    given: 准备无 Token、无效 Token、非买家 Token、外人会话 ID 和含伪造 owner/history 字段的请求。
+    when: 分别调用 chat 或读取会话。
+    then:
+      - 无或无效身份为 401，非买家为 403，外人会话为 404，伪造额外输入为 400。
+      - 不返回其他用户会话或订单内容，不为被拒绝请求提交成功轮次。
+  - id: AC-AI-003-03
+    title: 外人订单与不存在订单不泄露存在性
+    requirementIds: [REQ-AI-003-02, REQ-AI-003-05]
+    ruleIds: [RULE-AI-003-01, RULE-AI-003-04, RULE-AI-003-05]
+    given: 买家 A 持有其他本人订单，O-B 属于 B，O-X 不存在。
+    when: A 分别明确查询 O-B 和 O-X。
+    then:
+      - 两者统一返回 HTTP 404 与“未找到可查询的订单”，不显示是否实际存在的差别，也不提交成功轮次。
+      - 不返回 B 的数据，也不回退并展示 A 的无关订单。
+      - 模型输入及遥测不出现 O-B 或 O-X 原始编号。
+  - id: AC-AI-003-04
+    title: 近期订单与歧义有界
+    requirementIds: [REQ-AI-003-02, REQ-AI-003-08]
+    ruleIds: [RULE-AI-003-03, RULE-AI-003-04]
+    given: A 有超过三笔本人订单，当前没有明确有效选择。
+    when: A 问最近订单或使用无法唯一解析的指代。
+    then:
+      - 近期结果最多三笔，按创建时间倒序展示匿名标签。
+      - 不擅自断言含糊指代唯一对应某一订单，需要时提示补充对象。
+  - id: AC-AI-003-05
+    title: 新追问实时重查且引用不跨用户
+    requirementIds: [REQ-AI-003-03]
+    ruleIds: [RULE-AI-003-01, RULE-AI-003-03]
+    given: A 的会话曾查询本人订单，此后订单状态变化；另有引用过期或归属失效样例。
+    when: 用新 request_id 在有效 revision 下追问当前状态。
+    then:
+      - 有效引用返回新状态；不重复历史旧状态作为当前事实。
+      - 过期、已删除或不再属于 A 的引用不复用，进入重新选择或无可见订单的已确认分支。
+  - id: AC-AI-003-06
+    title: 订单类型与无法解释状态
+    requirementIds: [REQ-AI-003-04]
+    ruleIds: [RULE-AI-003-02, RULE-AI-003-07]
+    given: 准备标准、试单、预售及缺少子记录或未知状态的合成订单。
+    when: 查询当前确认范围内的各类订单。
+    then:
+      - 按订单类型读取交易域提供的显示状态，不将相同数字当作相同含义。
+      - 无法解释时明确未知或不可用，不编造支付、发货、退货等事实。
+  - id: AC-AI-003-07
+    title: 模型输入日志及监控中的最少数据
+    requirementIds: [REQ-AI-003-05]
+    ruleIds: [RULE-AI-003-05]
+    given: 合成输入包含订单号、手机号、邮箱、地址和可识别字段，模型边界已确认。
+    when: 执行查询并检查模型请求、应用日志、span 属性、错误和保存的会话内容。
+    then:
+      - 模型与通用遥测只包含获准的摘要及运行字段，不含原始身份、订单编号或凭据。
+      - 会话和应用私有订单引用按各自已确认边界保存；不把通用遥测权限等同于会话读取权限。
+    blockedBy: [Q-013]
+  - id: AC-AI-003-08
+    title: 请求重放冲突和并发一致性
+    requirementIds: [REQ-AI-003-06]
+    ruleIds: [RULE-AI-003-01, RULE-AI-003-06]
+    given: 同一买家已有成功请求，相同 ID 的相同／不同内容、旧 revision 和并发提交已准备。
+    when: 分别重放、冲突提交及并发提交；另一个买家使用相同 request_id。
+    then:
+      - 相同成功请求回放原结果且不新增轮次，不承诺刷新订单状态；存量敏感文本仅做确定性读取脱敏投影。
+      - 不同内容或失效 revision 按契约返回 409；并发成功提交不重复轮次。
+      - 另一个买家不能读取前一买家的幂等响应。
+      - 没有交易状态或库存写入。
+  - id: AC-AI-003-09
+    title: 空结果与依赖故障分开
+    requirementIds: [REQ-AI-003-07]
+    ruleIds: [RULE-AI-003-06, RULE-AI-003-07]
+    given: 分别准备无本人订单、MySQL 失败、偏好 PostgreSQL 失败、模型超时和监控失败场景。
+    when: 提交订单查询。
+    then:
+      - 无订单给出正常空结果；不可用服务不伪装成没有订单，不伪造当前状态。
+      - 偏好 PostgreSQL 或关键业务／模型服务失败时返回 503，不提交成功轮次；偏好库不做降级。监控失败不能伪造订单事实，完整处理在技术设计中核实。
+      - 页面可解释失败并提供已确认的重试方式。
+    blockedBy: [Q-011]
+  - id: AC-AI-003-10
+    title: 页面状态和历史提示
+    requirementIds: [REQ-AI-003-03, REQ-AI-003-08]
+    ruleIds: [RULE-AI-003-03, RULE-AI-003-06]
+    given: 使用现有客服页面，覆盖提交中、成功、空结果、拒绝、冲突及失败响应。
+    when: 买家提交、重试、重新登录或重读历史。
+    then:
+      - 每种状态有可理解反馈，重试遵守 request_id 与 revision 契约。
+      - 历史结果不表示当前实时状态；需获得新状态时发起新查询。
+  - id: AC-AI-003-11
+    title: 提示注入与交易写操作边界
+    requirementIds: [REQ-AI-003-01, REQ-AI-003-08]
+    ruleIds: [RULE-AI-003-01, RULE-AI-003-02, RULE-AI-003-07]
+    given: 用户、历史文本或模型结果中包含切换用户、读取他人订单、退款、改状态或调用未知工具的指令。
+    when: 通过订单查询链路执行。
+    then:
+      - 不扩大当前买家的可见范围，不执行白名单外工具或交易写操作。
+      - 不以模型生成内容替代服务端的订单归属与状态事实。

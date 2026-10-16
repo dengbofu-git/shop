@@ -1,0 +1,39 @@
+{
+  "batch": "VTEA-20261016",
+  "existing_rows_unchanged": true,
+  "new_spu": 100,
+  "new_sku": 100,
+  "new_attribute_values": 2500,
+  "new_inventory_rows": 100,
+  "new_inventory_logs": 100,
+  "created_counts": {
+    "inventory.Warehouse": 1,
+    "goods.Brand": 6,
+    "goods.ProductTemplate": 6,
+    "goods.ProductAttribute": 150,
+    "goods.Catalog": 4,
+    "goods.SPU": 100,
+    "goods.SKU": 100,
+    "goods.SPUSaleAttr": 300,
+    "goods.SaleAttrValue": 300,
+    "goods.SPUSpec": 300,
+    "goods.SKUSpecValue": 300,
+    "goods.ProductAttributeValue": 2500,
+    "inventory.Inventory": 100,
+    "inventory.InventoryLog": 100
+  },
+  "categories": {
+    "绿茶": 20,
+    "红茶": 20,
+    "乌龙茶": 20,
+    "白茶": 15,
+    "黄茶": 10,
+    "黑茶": 15
+  },
+  "total_sku": 104,
+  "total_spu": 119,
+  "minimum_usd": "5.25",
+  "maximum_usd": "86.20",
+  "first_sku": 25,
+  "last_sku": 124
+}

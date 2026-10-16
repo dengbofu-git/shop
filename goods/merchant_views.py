@@ -196,7 +196,7 @@ def my_products(request):
                     'stock': sku.stock,
                     'sales': sku.sales,
                     'is_launched': sku.is_launched,
-                    'image': settings.DADASHOP_MEDIA + str(sku.default_image_url) if sku.default_image_url else None
+                    'image': request.build_absolute_uri(f'/v1/goods/sku/{sku.id}/image')
                 })
             
             products.append({

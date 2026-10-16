@@ -1,0 +1,628 @@
+{
+  "protocol": "Paired teacher-forced replay: identical original questions, recorded prior turns, reconstructed memory and fixed config for both versions. Historical response evidence approximates memory revisions; earlier snapshots unavailable. No generated replies written to customer history.",
+  "label_policy": "Knowledge introductions are QA; mixed request requires both tasks in stated order; broad recommendation must search; daily suitability is not verified without product attributes.",
+  "cases": [
+    {
+      "id": "night-8",
+      "group": "historical",
+      "turn_id": 8,
+      "conversation": "C5",
+      "owner_id": 3,
+      "message": "推荐茶叶",
+      "recent_turns": [],
+      "memory": {
+        "id": "preference:1:2026-10-13T15:28:47.848049+00:00",
+        "preferences": {
+          "categories": [
+            "绿茶"
+          ],
+          "brands": [],
+          "keywords": []
+        }
+      },
+      "order_context": "[]",
+      "expected_intents": [
+        "recommendation"
+      ],
+      "expected_max_products": 4,
+      "expected_category": null
+    },
+    {
+      "id": "night-9",
+      "group": "historical",
+      "turn_id": 9,
+      "conversation": "C5",
+      "owner_id": 3,
+      "message": "推荐茶叶",
+      "recent_turns": [
+        {
+          "turn_id": "turn-8",
+          "user_text": "推荐茶叶",
+          "assistant_text": "按您的条件找到以下可售商品（USD 单价，价格及库存以下单时为准）：\n1. 默认规格 · $75.00 · 匹配部分偏好\n2. 150g (30包 * 5g) · $320.00 · 当前上架且有可用库存\n3. 英红9号 · $123.00 · 当前上架且有可用库存",
+          "intent": "recommendation",
+          "product_references": [
+            {
+              "position": 1,
+              "name": "默认规格",
+              "product_name": "石牌茶"
+            },
+            {
+              "position": 2,
+              "name": "150g (30包 * 5g)",
+              "product_name": "英德大叶种叶茶礼盒"
+            },
+            {
+              "position": 3,
+              "name": "英红9号",
+              "product_name": "英红9号"
+            }
+          ]
+        }
+      ],
+      "memory": {
+        "id": "preference:1:2026-10-15T15:03:40.482405+00:00",
+        "preferences": {
+          "categories": [
+            "红茶"
+          ],
+          "brands": [],
+          "keywords": []
+        }
+      },
+      "order_context": "[]",
+      "expected_intents": [
+        "recommendation"
+      ],
+      "expected_max_products": 4,
+      "expected_category": null
+    },
+    {
+      "id": "night-10",
+      "group": "historical",
+      "turn_id": 10,
+      "conversation": "C5",
+      "owner_id": 3,
+      "message": "推荐茶叶，介绍绿茶",
+      "recent_turns": [
+        {
+          "turn_id": "turn-8",
+          "user_text": "推荐茶叶",
+          "assistant_text": "按您的条件找到以下可售商品（USD 单价，价格及库存以下单时为准）：\n1. 默认规格 · $75.00 · 匹配部分偏好\n2. 150g (30包 * 5g) · $320.00 · 当前上架且有可用库存\n3. 英红9号 · $123.00 · 当前上架且有可用库存",
+          "intent": "recommendation",
+          "product_references": [
+            {
+              "position": 1,
+              "name": "默认规格",
+              "product_name": "石牌茶"
+            },
+            {
+              "position": 2,
+              "name": "150g (30包 * 5g)",
+              "product_name": "英德大叶种叶茶礼盒"
+            },
+            {
+              "position": 3,
+              "name": "英红9号",
+              "product_name": "英红9号"
+            }
+          ]
+        },
+        {
+          "turn_id": "turn-9",
+          "user_text": "推荐茶叶",
+          "assistant_text": "当前没有满足这些条件的可售商品。您可以调整品类、品牌、关键词或预算；我会保留您明确提出的条件。",
+          "intent": "recommendation"
+        }
+      ],
+      "memory": {
+        "id": "preference:1:2026-10-15T15:03:40.482405+00:00",
+        "preferences": {
+          "categories": [
+            "红茶"
+          ],
+          "brands": [],
+          "keywords": []
+        }
+      },
+      "order_context": "[]",
+      "expected_intents": [
+        "recommendation",
+        "question_answering"
+      ],
+      "expected_max_products": 4,
+      "expected_category": "绿茶"
+    },
+    {
+      "id": "night-11",
+      "group": "historical",
+      "turn_id": 11,
+      "conversation": "C5",
+      "owner_id": 3,
+      "message": "介绍绿茶",
+      "recent_turns": [
+        {
+          "turn_id": "turn-8",
+          "user_text": "推荐茶叶",
+          "assistant_text": "按您的条件找到以下可售商品（USD 单价，价格及库存以下单时为准）：\n1. 默认规格 · $75.00 · 匹配部分偏好\n2. 150g (30包 * 5g) · $320.00 · 当前上架且有可用库存\n3. 英红9号 · $123.00 · 当前上架且有可用库存",
+          "intent": "recommendation",
+          "product_references": [
+            {
+              "position": 1,
+              "name": "默认规格",
+              "product_name": "石牌茶"
+            },
+            {
+              "position": 2,
+              "name": "150g (30包 * 5g)",
+              "product_name": "英德大叶种叶茶礼盒"
+            },
+            {
+              "position": 3,
+              "name": "英红9号",
+              "product_name": "英红9号"
+            }
+          ]
+        },
+        {
+          "turn_id": "turn-9",
+          "user_text": "推荐茶叶",
+          "assistant_text": "当前没有满足这些条件的可售商品。您可以调整品类、品牌、关键词或预算；我会保留您明确提出的条件。",
+          "intent": "recommendation"
+        },
+        {
+          "turn_id": "turn-10",
+          "user_text": "推荐茶叶，介绍绿茶",
+          "assistant_text": "按您的条件找到以下可售商品（USD 单价，价格及库存以下单时为准）：\n1. 默认规格 · $75.00 · 符合所选分类",
+          "intent": "recommendation",
+          "product_references": [
+            {
+              "position": 1,
+              "name": "默认规格",
+              "product_name": "石牌茶"
+            }
+          ]
+        }
+      ],
+      "memory": {
+        "id": "preference:1:2026-10-15T15:03:40.482405+00:00",
+        "preferences": {
+          "categories": [
+            "红茶"
+          ],
+          "brands": [],
+          "keywords": []
+        }
+      },
+      "order_context": "[]",
+      "expected_intents": [
+        "question_answering"
+      ],
+      "expected_max_products": 4,
+      "expected_category": null
+    },
+    {
+      "id": "night-12",
+      "group": "historical",
+      "turn_id": 12,
+      "conversation": "C5",
+      "owner_id": 3,
+      "message": "推荐一款适合日常饮用的红茶",
+      "recent_turns": [
+        {
+          "turn_id": "turn-8",
+          "user_text": "推荐茶叶",
+          "assistant_text": "按您的条件找到以下可售商品（USD 单价，价格及库存以下单时为准）：\n1. 默认规格 · $75.00 · 匹配部分偏好\n2. 150g (30包 * 5g) · $320.00 · 当前上架且有可用库存\n3. 英红9号 · $123.00 · 当前上架且有可用库存",
+          "intent": "recommendation",
+          "product_references": [
+            {
+              "position": 1,
+              "name": "默认规格",
+              "product_name": "石牌茶"
+            },
+            {
+              "position": 2,
+              "name": "150g (30包 * 5g)",
+              "product_name": "英德大叶种叶茶礼盒"
+            },
+            {
+              "position": 3,
+              "name": "英红9号",
+              "product_name": "英红9号"
+            }
+          ]
+        },
+        {
+          "turn_id": "turn-9",
+          "user_text": "推荐茶叶",
+          "assistant_text": "当前没有满足这些条件的可售商品。您可以调整品类、品牌、关键词或预算；我会保留您明确提出的条件。",
+          "intent": "recommendation"
+        },
+        {
+          "turn_id": "turn-10",
+          "user_text": "推荐茶叶，介绍绿茶",
+          "assistant_text": "按您的条件找到以下可售商品（USD 单价，价格及库存以下单时为准）：\n1. 默认规格 · $75.00 · 符合所选分类",
+          "intent": "recommendation",
+          "product_references": [
+            {
+              "position": 1,
+              "name": "默认规格",
+              "product_name": "石牌茶"
+            }
+          ]
+        },
+        {
+          "turn_id": "turn-11",
+          "user_text": "介绍绿茶",
+          "assistant_text": "按您的条件找到以下可售商品（USD 单价，价格及库存以下单时为准）：\n1. 默认规格 · $75.00 · 符合所选分类",
+          "intent": "recommendation",
+          "product_references": [
+            {
+              "position": 1,
+              "name": "默认规格",
+              "product_name": "石牌茶"
+            }
+          ]
+        }
+      ],
+      "memory": {
+        "id": "preference:1:2026-10-15T15:03:40.482405+00:00",
+        "preferences": {
+          "categories": [
+            "红茶"
+          ],
+          "brands": [],
+          "keywords": []
+        }
+      },
+      "order_context": "[]",
+      "expected_intents": [
+        "recommendation"
+      ],
+      "expected_max_products": 1,
+      "expected_category": "红茶"
+    },
+    {
+      "id": "night-13",
+      "group": "historical",
+      "turn_id": 13,
+      "conversation": "C5",
+      "owner_id": 3,
+      "message": "介绍一下中东的茶叶详情",
+      "recent_turns": [
+        {
+          "turn_id": "turn-8",
+          "user_text": "推荐茶叶",
+          "assistant_text": "按您的条件找到以下可售商品（USD 单价，价格及库存以下单时为准）：\n1. 默认规格 · $75.00 · 匹配部分偏好\n2. 150g (30包 * 5g) · $320.00 · 当前上架且有可用库存\n3. 英红9号 · $123.00 · 当前上架且有可用库存",
+          "intent": "recommendation",
+          "product_references": [
+            {
+              "position": 1,
+              "name": "默认规格",
+              "product_name": "石牌茶"
+            },
+            {
+              "position": 2,
+              "name": "150g (30包 * 5g)",
+              "product_name": "英德大叶种叶茶礼盒"
+            },
+            {
+              "position": 3,
+              "name": "英红9号",
+              "product_name": "英红9号"
+            }
+          ]
+        },
+        {
+          "turn_id": "turn-9",
+          "user_text": "推荐茶叶",
+          "assistant_text": "当前没有满足这些条件的可售商品。您可以调整品类、品牌、关键词或预算；我会保留您明确提出的条件。",
+          "intent": "recommendation"
+        },
+        {
+          "turn_id": "turn-10",
+          "user_text": "推荐茶叶，介绍绿茶",
+          "assistant_text": "按您的条件找到以下可售商品（USD 单价，价格及库存以下单时为准）：\n1. 默认规格 · $75.00 · 符合所选分类",
+          "intent": "recommendation",
+          "product_references": [
+            {
+              "position": 1,
+              "name": "默认规格",
+              "product_name": "石牌茶"
+            }
+          ]
+        },
+        {
+          "turn_id": "turn-11",
+          "user_text": "介绍绿茶",
+          "assistant_text": "按您的条件找到以下可售商品（USD 单价，价格及库存以下单时为准）：\n1. 默认规格 · $75.00 · 符合所选分类",
+          "intent": "recommendation",
+          "product_references": [
+            {
+              "position": 1,
+              "name": "默认规格",
+              "product_name": "石牌茶"
+            }
+          ]
+        },
+        {
+          "turn_id": "turn-12",
+          "user_text": "推荐一款适合日常饮用的红茶",
+          "assistant_text": "按您的条件找到以下可售商品（USD 单价，价格及库存以下单时为准）：\n1. 150g (30包 * 5g) · $320.00 · 符合所选分类\n2. 英红9号 · $123.00 · 符合所选分类",
+          "intent": "recommendation",
+          "product_references": [
+            {
+              "position": 1,
+              "name": "150g (30包 * 5g)",
+              "product_name": "英德大叶种叶茶礼盒"
+            },
+            {
+              "position": 2,
+              "name": "英红9号",
+              "product_name": "英红9号"
+            }
+          ]
+        }
+      ],
+      "memory": {
+        "id": "preference:1:2026-10-15T15:03:40.482405+00:00",
+        "preferences": {
+          "categories": [
+            "红茶"
+          ],
+          "brands": [],
+          "keywords": []
+        }
+      },
+      "order_context": "[]",
+      "expected_intents": [
+        "question_answering"
+      ],
+      "expected_max_products": 4,
+      "expected_category": null
+    },
+    {
+      "id": "night-14",
+      "group": "historical",
+      "turn_id": 14,
+      "conversation": "C5",
+      "owner_id": 3,
+      "message": "介绍一下各种茶叶",
+      "recent_turns": [
+        {
+          "turn_id": "turn-8",
+          "user_text": "推荐茶叶",
+          "assistant_text": "按您的条件找到以下可售商品（USD 单价，价格及库存以下单时为准）：\n1. 默认规格 · $75.00 · 匹配部分偏好\n2. 150g (30包 * 5g) · $320.00 · 当前上架且有可用库存\n3. 英红9号 · $123.00 · 当前上架且有可用库存",
+          "intent": "recommendation",
+          "product_references": [
+            {
+              "position": 1,
+              "name": "默认规格",
+              "product_name": "石牌茶"
+            },
+            {
+              "position": 2,
+              "name": "150g (30包 * 5g)",
+              "product_name": "英德大叶种叶茶礼盒"
+            },
+            {
+              "position": 3,
+              "name": "英红9号",
+              "product_name": "英红9号"
+            }
+          ]
+        },
+        {
+          "turn_id": "turn-9",
+          "user_text": "推荐茶叶",
+          "assistant_text": "当前没有满足这些条件的可售商品。您可以调整品类、品牌、关键词或预算；我会保留您明确提出的条件。",
+          "intent": "recommendation"
+        },
+        {
+          "turn_id": "turn-10",
+          "user_text": "推荐茶叶，介绍绿茶",
+          "assistant_text": "按您的条件找到以下可售商品（USD 单价，价格及库存以下单时为准）：\n1. 默认规格 · $75.00 · 符合所选分类",
+          "intent": "recommendation",
+          "product_references": [
+            {
+              "position": 1,
+              "name": "默认规格",
+              "product_name": "石牌茶"
+            }
+          ]
+        },
+        {
+          "turn_id": "turn-11",
+          "user_text": "介绍绿茶",
+          "assistant_text": "按您的条件找到以下可售商品（USD 单价，价格及库存以下单时为准）：\n1. 默认规格 · $75.00 · 符合所选分类",
+          "intent": "recommendation",
+          "product_references": [
+            {
+              "position": 1,
+              "name": "默认规格",
+              "product_name": "石牌茶"
+            }
+          ]
+        },
+        {
+          "turn_id": "turn-12",
+          "user_text": "推荐一款适合日常饮用的红茶",
+          "assistant_text": "按您的条件找到以下可售商品（USD 单价，价格及库存以下单时为准）：\n1. 150g (30包 * 5g) · $320.00 · 符合所选分类\n2. 英红9号 · $123.00 · 符合所选分类",
+          "intent": "recommendation",
+          "product_references": [
+            {
+              "position": 1,
+              "name": "150g (30包 * 5g)",
+              "product_name": "英德大叶种叶茶礼盒"
+            },
+            {
+              "position": 2,
+              "name": "英红9号",
+              "product_name": "英红9号"
+            }
+          ]
+        },
+        {
+          "turn_id": "turn-13",
+          "user_text": "介绍一下中东的茶叶详情",
+          "assistant_text": "您想选择哪类茶？ 请说明您想买的品类、品牌或每份商品预算。",
+          "intent": "recommendation"
+        }
+      ],
+      "memory": {
+        "id": "preference:1:2026-10-15T15:03:40.482405+00:00",
+        "preferences": {
+          "categories": [
+            "红茶"
+          ],
+          "brands": [],
+          "keywords": []
+        }
+      },
+      "order_context": "[]",
+      "expected_intents": [
+        "question_answering"
+      ],
+      "expected_max_products": 4,
+      "expected_category": null
+    },
+    {
+      "id": "night-15",
+      "group": "historical",
+      "turn_id": 15,
+      "conversation": "C6",
+      "owner_id": 3,
+      "message": "介绍茶叶",
+      "recent_turns": [],
+      "memory": {
+        "id": "preference:1:2026-10-15T15:03:40.482405+00:00",
+        "preferences": {
+          "categories": [
+            "红茶"
+          ],
+          "brands": [],
+          "keywords": []
+        }
+      },
+      "order_context": "[]",
+      "expected_intents": [
+        "question_answering"
+      ],
+      "expected_max_products": 4,
+      "expected_category": null
+    },
+    {
+      "id": "night-16",
+      "group": "historical",
+      "turn_id": 16,
+      "conversation": "C6",
+      "owner_id": 3,
+      "message": "介绍绿茶",
+      "recent_turns": [
+        {
+          "turn_id": "turn-15",
+          "user_text": "介绍茶叶",
+          "assistant_text": "相关功能待开发，请换一种表述重新尝试，或联系人工客服。",
+          "intent": "unavailable"
+        }
+      ],
+      "memory": {
+        "id": "preference:1:2026-10-15T15:03:40.482405+00:00",
+        "preferences": {
+          "categories": [
+            "红茶"
+          ],
+          "brands": [],
+          "keywords": []
+        }
+      },
+      "order_context": "[]",
+      "expected_intents": [
+        "question_answering"
+      ],
+      "expected_max_products": 4,
+      "expected_category": null
+    },
+    {
+      "id": "night-17",
+      "group": "historical",
+      "turn_id": 17,
+      "conversation": "C6",
+      "owner_id": 3,
+      "message": "推荐商品",
+      "recent_turns": [
+        {
+          "turn_id": "turn-15",
+          "user_text": "介绍茶叶",
+          "assistant_text": "相关功能待开发，请换一种表述重新尝试，或联系人工客服。",
+          "intent": "unavailable"
+        },
+        {
+          "turn_id": "turn-16",
+          "user_text": "介绍绿茶",
+          "assistant_text": "关于绿茶，可以从加工方式和分类两个角度来理解：\n\n**加工方式**\n绿茶是通过对鲜叶快速加热以钝化酶，随后可能经过揉捻、做形或粉碎、干燥等步骤制成的。与红茶相比，绿茶定义性的加工差异在于：绿茶不经过红茶工艺中那种有意的通气/氧化过程。具体的加热方法和外形因地区和产品而异。\n\n**分类与术语**\n- 绿茶属于山茶（Camellia sinensis）茶类的一种加工产品类型，与红茶、乌龙茶、白茶、黄茶、黑茶并列；品种描述的是栽培植物选育，与茶类是不同的概念。用同一品种经六种典型加工方法处理，会产生不同的化学成分特征，因此品种本身并不决定成品茶的类型或香气，加工方式同样重要。\n- 关于“发酵”：在红茶制造中，行业用词“发酵”通常指叶片破损并接触空气后的酶促氧化，与微生物发酵不同。绿茶是在很少或没有有意氧化的情况下制成的，乌龙茶为部分氧化，黑茶可能涉及单独的渥堆或后发酵阶段。因此当有人问茶是否“发酵”时，需要先明确指的是哪种工艺。\n\n**补充说明**\n一份实用的茶产品描述可以组合多个属性：基本加工类型、品种、产地、制作风格、等级、添加配料和产品形态。这些属性回答的是不同问题，不应被合并成单一的茶类标签。\n\n以上是关于绿茶的内容。如果你需要了解具体某款绿茶商品的价格、库存或发货等信息，建议以商城页面实时信息为准，或联系人工客服确认。",
+          "intent": "question_answering"
+        }
+      ],
+      "memory": {
+        "id": "preference:1:2026-10-15T15:03:40.482405+00:00",
+        "preferences": {
+          "categories": [
+            "红茶"
+          ],
+          "brands": [],
+          "keywords": []
+        }
+      },
+      "order_context": "[]",
+      "expected_intents": [
+        "recommendation"
+      ],
+      "expected_max_products": 4,
+      "expected_category": null
+    },
+    {
+      "id": "night-18",
+      "group": "historical",
+      "turn_id": 18,
+      "conversation": "C6",
+      "owner_id": 3,
+      "message": "绿茶",
+      "recent_turns": [
+        {
+          "turn_id": "turn-15",
+          "user_text": "介绍茶叶",
+          "assistant_text": "相关功能待开发，请换一种表述重新尝试，或联系人工客服。",
+          "intent": "unavailable"
+        },
+        {
+          "turn_id": "turn-16",
+          "user_text": "介绍绿茶",
+          "assistant_text": "关于绿茶，可以从加工方式和分类两个角度来理解：\n\n**加工方式**\n绿茶是通过对鲜叶快速加热以钝化酶，随后可能经过揉捻、做形或粉碎、干燥等步骤制成的。与红茶相比，绿茶定义性的加工差异在于：绿茶不经过红茶工艺中那种有意的通气/氧化过程。具体的加热方法和外形因地区和产品而异。\n\n**分类与术语**\n- 绿茶属于山茶（Camellia sinensis）茶类的一种加工产品类型，与红茶、乌龙茶、白茶、黄茶、黑茶并列；品种描述的是栽培植物选育，与茶类是不同的概念。用同一品种经六种典型加工方法处理，会产生不同的化学成分特征，因此品种本身并不决定成品茶的类型或香气，加工方式同样重要。\n- 关于“发酵”：在红茶制造中，行业用词“发酵”通常指叶片破损并接触空气后的酶促氧化，与微生物发酵不同。绿茶是在很少或没有有意氧化的情况下制成的，乌龙茶为部分氧化，黑茶可能涉及单独的渥堆或后发酵阶段。因此当有人问茶是否“发酵”时，需要先明确指的是哪种工艺。\n\n**补充说明**\n一份实用的茶产品描述可以组合多个属性：基本加工类型、品种、产地、制作风格、等级、添加配料和产品形态。这些属性回答的是不同问题，不应被合并成单一的茶类标签。\n\n以上是关于绿茶的内容。如果你需要了解具体某款绿茶商品的价格、库存或发货等信息，建议以商城页面实时信息为准，或联系人工客服确认。",
+          "intent": "question_answering"
+        },
+        {
+          "turn_id": "turn-17",
+          "user_text": "推荐商品",
+          "assistant_text": "您想选择哪类茶？ 请说明您想买的品类、品牌或每份商品预算。",
+          "intent": "recommendation"
+        }
+      ],
+      "memory": {
+        "id": "preference:1:2026-10-15T15:03:40.482405+00:00",
+        "preferences": {
+          "categories": [
+            "红茶"
+          ],
+          "brands": [],
+          "keywords": []
+        }
+      },
+      "order_context": "[]",
+      "expected_intents": [
+        "recommendation"
+      ],
+      "expected_max_products": 4,
+      "expected_category": "绿茶"
+    }
+  ]
+}

@@ -1,5 +1,7 @@
 """Application-owned persistence and ownership checks, outside the Agent graph."""
 
+import json
+import re
 from datetime import timedelta
 
 from django.db import transaction
@@ -7,10 +9,30 @@ from django.utils import timezone
 
 from users.models import UserProfile
 from ai_storage.models import BuyerMemory
+from orders.models import OrderInfo
 
-from .contracts import Preferences
+from .contracts import Preferences, RequiredConditions, QueryConditions
 from .models import SupportConversation, SupportTurn
 from .pii import redact
+
+
+HISTORY_HOURS = 24
+HISTORY_TURNS = 6
+HISTORY_CHARS = 6000
+
+
+def recommendation_basis(response):
+    """Bounded server-saved selection filters, only for explaining past choices."""
+    raw = response.get('recommendation_basis') or response.get('product_intent') or {}
+    if not isinstance(raw, dict):
+        return {}
+    try:
+        basis = {'required':RequiredConditions.model_validate(raw.get('required', {})).model_dump(),
+                 'preferred':QueryConditions.model_validate(raw.get('preferred', {})).model_dump(),
+                 'excluded':QueryConditions.model_validate(raw.get('excluded', {})).model_dump()}
+    except ValueError:
+        return {}
+    return basis if any(value for part in basis.values() for value in part.values()) else {}
 
 
 class ConversationConflict(Exception):
@@ -28,19 +50,92 @@ def saved_preferences(user):
 def recent_context(conversation):
     if conversation is None:
         return []
-    turns = conversation.turns.filter(created_at__gte=timezone.now() - timedelta(hours=24)).order_by('-sequence')[:6]
+    turns = conversation.turns.filter(created_at__gte=timezone.now() - timedelta(hours=HISTORY_HOURS)).order_by('-sequence')[:HISTORY_TURNS]
+    return context_from_turns(turns)
+
+
+def context_from_turns(turns):
+    """Build bounded model context from committed turns, newest first."""
     result = []
-    remaining = 6000
-    for turn in turns:
+    remaining = HISTORY_CHARS - 2  # JSON array brackets.
+    for index, turn in enumerate(turns):
+        if index >= HISTORY_TURNS:
+            break
         # Only committed turns and redacted text enter the model; no raw business objects.
         text = redact(turn.user_text)
         answer = redact(turn.answer)[:1500]
-        if len(text) + len(answer) > remaining:
+        item = {'turn_id': 'turn-{}'.format(turn.pk), 'user_text': text,
+                'assistant_text': answer, 'intent': turn.intent}
+        # Preserve display order and names to resolve "the second product". Historical
+        # prices/stock are deliberately excluded; names identify products, not facts.
+        products = (turn.response.get('recommendations') or turn.response.get('recommendation_references')
+                    or turn.response.get('explained_products') or [])[:12]
+        if products:
+            item['product_references'] = [
+                {'position': i + 1, 'name': redact(str(p.get('name', '')))[:100],
+                 'product_name': redact(str(p.get('product_name', '')))[:100]}
+                for i, p in enumerate(products)
+            ]
+            for reference, product in zip(item['product_references'], products):
+                # IDs originate only from application-owned tool results, never
+                # from the resolver or user text. Historical price/stock stay out.
+                if type(product.get('sku_id')) is int and product['sku_id'] > 0:
+                    reference['sku_id'] = product['sku_id']
+                if product.get('category'):
+                    reference['category'] = redact(str(product['category']))[:40]
+                if product.get('group_position'):
+                    reference['group_position'] = product['group_position']
+                    reference['group_category'] = redact(product.get('group_category', ''))[:40]
+                if product.get('position_in_group'):
+                    reference['position_in_group'] = product['position_in_group']
+            basis = recommendation_basis(turn.response)
+            if basis:
+                item['recommendation_basis'] = basis
+        if turn.response.get('recommendation_groups'):
+            item['recommendation_groups'] = [
+                {'position': group['position'], 'category': redact(group['category'])[:40]}
+                for group in turn.response['recommendation_groups'][:6]
+            ]
+        if turn.response.get('explained_categories'):
+            item['explained_categories'] = list(turn.response['explained_categories'][:6])
+        size = len(json.dumps(item, ensure_ascii=False)) + (2 if result else 0)
+        # A long grouped reply must not evict the entire newest turn. Prefer
+        # product identity references over verbose historical assistant prose.
+        if not result:
+            while size > remaining and len(item['assistant_text']) > 240:
+                item['assistant_text'] = item['assistant_text'][:-200]
+                size = len(json.dumps(item, ensure_ascii=False))
+            while size > remaining and item.get('product_references'):
+                item['product_references'].pop()
+                size = len(json.dumps(item, ensure_ascii=False))
+        if size > remaining:
             break
-        remaining -= len(text) + len(answer)
-        result.append({'turn_id': 'turn-{}'.format(turn.pk), 'user_text': text,
-                       'assistant_text': answer, 'intent': turn.intent})
+        remaining -= size
+        result.append(item)
     return list(reversed(result))
+
+
+def current_order_context(user, conversation, message):
+    """Resolve a private order reference, rechecking ownership and live status."""
+    own_orders = OrderInfo.objects.filter(user_profile=user).order_by('-created_time')
+    owned_ids = list(own_orders.values_list('order_id', flat=True))
+    selected = next((oid for oid in sorted(owned_ids, key=len, reverse=True)
+                     if re.search(r'(?<![A-Za-z0-9_-])' + re.escape(oid) + r'(?![A-Za-z0-9_-])', message)), '')
+    explicit_unknown = bool(re.search(
+        r'(?<!\d)\d{10,}(?!\d)|(?:订单号|订单编号|单号|order\s*(?:id|number|#))\s*[:：#]?\s*[A-Za-z0-9-]{6,64}',
+        message, re.I)) and not selected
+    reset = bool(re.search(r'最近|近期|全部|所有|其他|另[一个]|别的|\b(?:recent|latest|other)\b|all\s+orders', message, re.I))
+    if (not selected and not explicit_unknown and not reset and conversation is not None
+            and conversation.active_order_at is not None
+            and conversation.active_order_at >= timezone.now() - timedelta(hours=HISTORY_HOURS)
+            and conversation.active_order_id in owned_ids):
+        selected = conversation.active_order_id
+    orders = own_orders.filter(order_id=selected) if selected else ([] if explicit_unknown else own_orders[:3])
+    data = [{'order': '当前会话所选订单' if selected else '近期订单{}'.format(i + 1),
+             'status': redact(order.get_status_display_text()),
+             'created_date': order.created_time.date().isoformat()}
+            for i, order in enumerate(orders)]
+    return redact(message.strip(), owned_ids), json.dumps(data, ensure_ascii=False), selected
 
 
 def replay(user, request_id, request_hash):
@@ -53,7 +148,7 @@ def replay(user, request_id, request_hash):
 
 
 @transaction.atomic
-def commit_turn(user, conversation, revision, request_id, request_hash, message, response):
+def commit_turn(user, conversation, revision, request_id, request_hash, message, response, order_id=None):
     # Serialize only the short commit, including retries of a first/new conversation.
     UserProfile.objects.select_for_update().get(pk=user.pk)
     existing = replay(user, request_id, request_hash)
@@ -66,7 +161,12 @@ def commit_turn(user, conversation, revision, request_id, request_hash, message,
         if current.revision != revision:
             raise ConversationConflict('会话已更新，请重新读取后再提交')
     current.revision += 1
-    current.save(update_fields=['revision', 'updated_at'])
+    fields = ['revision', 'updated_at']
+    if order_id is not None:
+        current.active_order_id = order_id if OrderInfo.objects.filter(pk=order_id, user_profile=user).exists() else ''
+        current.active_order_at = timezone.now() if current.active_order_id else None
+        fields += ['active_order_id', 'active_order_at']
+    current.save(update_fields=fields)
     result = dict(response, conversation_id=str(current.pk), revision=current.revision, request_id=str(request_id))
     SupportTurn.objects.create(conversation=current, user=user, request_id=request_id, request_hash=request_hash,
                                sequence=current.revision, user_text=message, answer=result['answer'],

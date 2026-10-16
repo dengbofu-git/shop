@@ -1,0 +1,129 @@
+{
+  "completed_at": "2026-10-16T07:31:56.685255+00:00",
+  "dialogues": 15,
+  "turns": 41,
+  "returned_turns": 41,
+  "turn_assertions_passed": 37,
+  "dialogues_all_assertions_passed": 11,
+  "model_calls": 40,
+  "input_tokens": 75650,
+  "output_tokens": 10520,
+  "mean_seconds": 4.741975609756097,
+  "median_seconds": 1.372,
+  "sum_turn_seconds": 194.421,
+  "source_unchanged": true,
+  "catalog_unchanged": true,
+  "business_counts_before": {
+    "turns": 23,
+    "conversations": 7,
+    "spans": 221
+  },
+  "business_counts_after": {
+    "turns": 23,
+    "conversations": 7,
+    "spans": 221
+  },
+  "business_counts_unchanged": true,
+  "contract_probes_passed": 8,
+  "contract_probes_total": 8,
+  "cases": [
+    {
+      "id": 1,
+      "scene": "白茶知识到选购再推荐，复现原问题",
+      "passed": true,
+      "failed_turns": []
+    },
+    {
+      "id": 2,
+      "scene": "绿茶知识承接定量推荐及整表理由",
+      "passed": true,
+      "failed_turns": []
+    },
+    {
+      "id": 3,
+      "scene": "英文 black tea 知识切换中文推荐，不能混成黑茶",
+      "passed": true,
+      "failed_turns": []
+    },
+    {
+      "id": 4,
+      "scene": "最近白茶知识主题优先于更旧的红茶购买",
+      "passed": true,
+      "failed_turns": []
+    },
+    {
+      "id": 5,
+      "scene": "本轮明确红茶优先于历史白茶主题",
+      "passed": true,
+      "failed_turns": []
+    },
+    {
+      "id": 6,
+      "scene": "多茶类比较后澄清，再按指定两类推荐",
+      "passed": true,
+      "failed_turns": []
+    },
+    {
+      "id": 7,
+      "scene": "显式不限茶类清除旧分类，再解释当前列表",
+      "passed": false,
+      "failed_turns": [
+        2
+      ]
+    },
+    {
+      "id": 8,
+      "scene": "单份美元预算推荐后解释，继续推荐保留预算",
+      "passed": true,
+      "failed_turns": []
+    },
+    {
+      "id": 9,
+      "scene": "连续解释原列表第二款、第三款，检验序号对象稳定性",
+      "passed": false,
+      "failed_turns": [
+        3
+      ]
+    },
+    {
+      "id": 10,
+      "scene": "说明两类区别并推荐，再解释第二类商品",
+      "passed": false,
+      "failed_turns": [
+        2
+      ]
+    },
+    {
+      "id": 11,
+      "scene": "同轮推荐和理由应由同一批商品完成",
+      "passed": true,
+      "failed_turns": []
+    },
+    {
+      "id": 12,
+      "scene": "先解释旧列表，再推荐新茶类，保持任务顺序与对象",
+      "passed": true,
+      "failed_turns": []
+    },
+    {
+      "id": 13,
+      "scene": "无历史理由及多商品单数指代须澄清",
+      "passed": true,
+      "failed_turns": []
+    },
+    {
+      "id": 14,
+      "scene": "分类数量、排除项、美元预算与理由的字段契约",
+      "passed": true,
+      "failed_turns": []
+    },
+    {
+      "id": 15,
+      "scene": "预算单位不明先澄清，补全后继续白茶推荐",
+      "passed": false,
+      "failed_turns": [
+        2
+      ]
+    }
+  ]
+}

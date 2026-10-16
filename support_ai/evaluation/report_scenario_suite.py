@@ -1,0 +1,160 @@
+"""Summarize an immutable scenario run with explicit human review judgments."""
+import argparse
+import json
+import math
+import statistics
+from collections import Counter
+from pathlib import Path
+
+
+REVIEWS = {
+    1: ('通过', '解释绿茶杀青与红茶酶促氧化的区别，未推销商品，主要结论与召回证据一致。'),
+    2: ('通过', '正确承接绿茶、红茶，比较白茶的萎凋和干燥工艺。'),
+    3: ('失败', '没有推荐商品；条件明确，却因未知的意向证据字段退回通用澄清。快照有10款绿茶满足15美元上限。'),
+    4: ('前序阻塞', '第3题未产生商品，澄清第一款指什么是合理的；本轮无法验证商品定位与实时库存。'),
+    5: ('失败', '没有商品；多出澄清任务，推荐仍被证据字段校验拦截。预算更新任务未完成；换款去重因第3题失败未能验证。'),
+    6: ('失败', '将说明推荐理由误拆成知识问答；推荐条件校验失败，六类商品均未返回，回复暴露内部状态和错误术语。'),
+    7: ('前序阻塞', '第6题没有分类结果和商品，无法定位第二类或那款商品；合理澄清，冲泡和详情能力未能验证。'),
+    8: ('通过', '先说明六类加工区别，再按说明范围推荐六款对应商品；SKU、分类、价格与快照一致。理由仍偏通用。'),
+    9: ('失败', '范围收窄误加澄清任务；推荐校验失败。快照中绿茶11款、红茶12款符合20美元上限，足够各选两款。'),
+    10: ('基本完成', '一款白茶与加工说明均完成，先推荐后介绍顺序正确；补充分类把black tea译成黑茶，遗漏红茶并重复黑茶。'),
+    11: ('失败', '快照没有1美元以内红茶，应明确无匹配；实际停在校验失败并要求澄清，未返回NO_MATCH。'),
+    12: ('部分完成', '没有误将总预算作为单价，也未乱推荐；但实际因证据字段错误进入泛化澄清，没有针对性询问采购数量和单份预算。'),
+    13: ('失败', '中英混合问题未产生商品，同样因未知的意向证据字段失败；此记录不足以证明语言映射或reranker导致失败。'),
+    14: ('部分完成', '沙特习惯有召回依据，明确承认本轮缺少阿联酋习惯证据，未把历史预测当实际消费；两国习惯比较未完成。'),
+    15: ('基本完成', '未绑定买家时阻止订单查询，未虚构物流或执行退款；但让用户在对话中提供账号/用户ID不等于完成登录绑定，应引导认证或由测试人员重启绑定预览。'),
+}
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('run_dir')
+    args = parser.parse_args()
+    root = Path(args.run_dir).resolve()
+    manifest = json.loads((root/'manifest.json').read_text(encoding='utf-8'))
+    summary = json.loads((root/'run-summary.json').read_text(encoding='utf-8'))
+    records = [json.loads(line) for line in (root/'results.jsonl').read_text(encoding='utf-8').splitlines()]
+    assert len(records) == 15 and set(REVIEWS) == {r['case_id'] for r in records}
+    cases = {c['id']: c for c in manifest['cases']}
+    rows = []
+    for r in records:
+        status, reason = REVIEWS[r['case_id']]
+        rows.append({'case_id':r['case_id'], 'status':status, 'reason':reason,
+                     'seconds':r['elapsed_seconds'], 'model_calls':r['model_calls'],
+                     'actual_intents':r['response']['intents'],
+                     'nominal_intent_match':r['checks']['intent_sequence'],
+                     'automatic_checks_pass':all(r['checks'].values())})
+    times = [r['elapsed_seconds'] for r in records]
+    tools = [t for r in records for t in r['audit']['tool_results'] if t['tool']=='recommend_products']
+    cards = [p for r in records for p in r['response'].get('recommendations',[])]
+    metrics = {
+        'review_status_counts':dict(Counter(r['status'] for r in rows)),
+        'core_goals_completed':sum(r['status'] in ('通过','基本完成') for r in rows),
+        'no_observed_review_issue':sum(r['status']=='通过' for r in rows),
+        'nominal_intent_match':summary['exact_intent_matches'],
+        'intent_match_excluding_blocked':{'matched':sum(r['nominal_intent_match'] for r in rows if r['status']!='前序阻塞'), 'eligible':13},
+        'recommendation_tool_status':dict(Counter(t['status'] for t in tools)),
+        'returned_product_cards':len(cards),
+        'returned_cards_catalog_price_check':all(r['checks']['catalog_identity_and_price'] for r in records),
+        'elapsed_mean_seconds':round(statistics.mean(times),3),
+        'elapsed_median_seconds':round(statistics.median(times),3),
+        'elapsed_p95_nearest_rank_seconds':sorted(times)[math.ceil(len(times)*.95)-1],
+        'elapsed_total_seconds':round(sum(times),3),
+        'model_calls':summary['model_calls'], 'input_tokens':summary['input_tokens'],
+        'output_tokens':summary['output_tokens'], 'total_tokens':summary['input_tokens']+summary['output_tokens'],
+    }
+    review = {'rubric':{
+        '通过':'核心目标完成，人工核对未发现影响本题的错误；不代表全域事实验证或用户满意度。',
+        '基本完成':'核心目标完成，但有明确的术语或操作引导问题。',
+        '部分完成':'完成一部分或安全止步，未满足完整目标。',
+        '失败':'本轮输入可执行而未完成，或无匹配状态处理错误。',
+        '前序阻塞':'前一轮失败导致缺少必要对象；本轮合理澄清，不独立判为指代能力错误。'},
+        'limitations':['15题每题仅跑一次，使用实际前文，不代表统计意义的总体准确率。',
+                       '商品匹配核对只覆盖实际返回的7张商品卡；失败请求不能被空列表判为推荐准确。',
+                       '知识复核依据本轮召回片段，未独立访问来源站点验证原始文献。',
+                       '匿名预览订单题仅检查身份边界，不覆盖已登录订单权限、真实物流查询或退款执行。',
+                       '仅观测图返回状态，未保存推荐抽取模型原始结构，因此未知证据字段具体名称仍待诊断。'],
+        'metrics':metrics,'cases':rows}
+    (root/'review.json').write_text(json.dumps(review,ensure_ascii=False,indent=2),encoding='utf-8')
+
+    dialogue = ['# Agent 15题真实测试完整对话','',
+                '运行版本：support_ai 0.8.1；DeepSeek deepseek-flash；配置修订3；公开预览，未绑定买家。',
+                '问题在运行前固定；同一会话承接实际回答。以下原文来自 results.jsonl，未用修正版答案替换。','']
+    for r, row in zip(records, rows):
+        c = cases[r['case_id']]
+        dialogue += [f"## {c['id']:02d} · {row['status']} · 会话 {c['session']}",'',
+                     f"**用户：** {c['message']}",'', '**Agent 原文：**','',r['response']['answer'],'',
+                     f"**人工复核：** {row['reason']}",'',
+                     f"耗时 {r['elapsed_seconds']:.3f}s；模型调用 {r['model_calls']} 次；Token 输入 {r['input_tokens']} / 输出 {r['output_tokens']}；历史 {r['context_turns']} 轮。",'',
+                     '预期意图：`'+json.dumps(c['expected_intents'],ensure_ascii=False)+'`；实际：`'+json.dumps(r['response']['intents'],ensure_ascii=False)+'`。','',
+                     '任务与诊断：','', '```json',json.dumps({
+                         'tasks':r['response'].get('tasks'),
+                         'recommendation_status':r['response'].get('recommendation_status'),
+                         'diagnostics':[t['data']['diagnostics'] for t in r['audit']['tool_results'] if t['data'].get('diagnostics')],
+                         'failed_automatic_checks':[k for k,v in r['checks'].items() if not v]},ensure_ascii=False,indent=2),'```','']
+        sources = r['response'].get('knowledge_sources',[])
+        if sources:
+            dialogue += ['召回来源（存在来源不等于本题回答完整）：','']
+            dialogue += [f"- [{s['title']}]({s['url']})" for s in sources]
+            dialogue += ['']
+    (root/'dialogues.md').write_text('\n'.join(dialogue),encoding='utf-8')
+
+    report = ['# Dadashop Agent 0.8.1：15题应用场景评测','',
+              '## 测试范围与方式','',
+              '- 2026-10-16 13:38—13:40（Asia/Shanghai）；当前真实商品库、向量知识库、本地重排序及 DeepSeek。',
+              '- 15题、10个会话，其中5题承接前文；每题运行一次，不修复生产代码、不替换失败结果。',
+              '- 模型 deepseek-flash，thinking disabled，配置修订3；重排序 BAAI/bge-reranker-v2-m3，候选30 / 取5。',
+              '- 使用公开预览，关闭遥测，独立本地日志。知识源仅公开范围；未使用真实客户历史。',
+              '- 商品快照103个可售SKU。业务表前后均为16条问答、6个会话、118条span；所记录的15个生产文件哈希一致。',
+              '- 该路径调用实际Agent图和工具；与网页HTTP链路、已登录账户权限的全面测试有区别。','',
+              '## 汇总','',
+              '- 核心目标完成5/15（33.3%）：通过3题，基本完成但有表述问题2题；部分完成2题，失败6题，前序阻塞2题。',
+              '- 预先定义的意图序列完全匹配10/15（66.7%）；剔除2个前序阻塞题后10/13（76.9%）。这是本样例任务匹配率，不能当总体意图准确率。',
+              '- 自动检查全通过7/15，但第12、14题实际仅部分完成；第10、15题也有人工发现的问题。自动检查不能代替业务复核。',
+              '- 推荐工具执行9次：2次success、7次needs_clarification；7次均记录“未知的意向证据字段”。这包含总预算本应澄清的第12题，但本次澄清触发原因错误。',
+              '- 实际返回7张商品卡，SKU、分类、价格与快照全部一致；不代表未返回商品的问题推荐正确。',
+              f"- 平均 {metrics['elapsed_mean_seconds']}s；中位数 {metrics['elapsed_median_seconds']}s；P95（nearest rank）{metrics['elapsed_p95_nearest_rank_seconds']}s；各轮耗时合计 {metrics['elapsed_total_seconds']}s。失败快速返回拉低均值。",
+              '- 模型调用32次，输入59,070 Token，输出9,215 Token，合计68,285 Token。未估算费用。','',
+              '## 逐题结果','',
+              '| # | 测试问句 | 结论 | 秒 | 实际结果与分析 |','|---|---|---|---:|---|']
+    for r,row in zip(records,rows):
+        report.append(f"| {r['case_id']} | {cases[r['case_id']]['message']} | {row['status']} | {row['seconds']:.3f} | {row['reason']} |")
+    report += ['','## 根因与证据','',
+               '### 1. 推荐抽取结构与证据字段契约不一致，是本次首要阻塞','',
+               '第3、5、6、9、11、12、13题都在 recommendation.conditions 阶段报告 ValueError：未知的意向证据字段。contracts.py 的校验只接受 required/preferred/excluded 下的真实字段；tool_services.py 将该异常统一转成需要用户补条件。失败发生在商品匹配查询前，不能据此归因于商品排序、缺货或reranker语言偏好。',
+               '第3题快照有10款绿茶符合15美元上限；第13题有10款红茶符合15美元上限；第9题有绿茶11款、红茶12款符合20美元上限。第11题确实没有1美元以内红茶，却没有到达正常NO_MATCH分支。',
+               '本次返回状态未保存抽取模型的原始结构，尚不能断言具体非法字段名称。第8、10题成功推荐都使用规则条件抽取，提示应优先检查模型抽取分支与契约的一致性。','',
+               '### 2. 动词触发与修饰分句处理造成多余任务','',
+               '第6题把“并说明推荐理由”识别成独立知识问答，召回冲泡、抹茶等非用户所需内容。planning.py 的知识动词包含“说明”，目前只特别排除了“说明的”等定语情形，没有排除推荐理由。',
+               '第5、9题多出澄清任务。planning.py 的未覆盖分句规则没有覆盖“还是…”和“只保留…”等修订表达，模型增补任务不符合分句引用要求时会插入澄清。第9题实际计划将“只保留你刚才说明的绿茶和红茶”直接变成ask_clarification。','',
+               '### 3. 多轮追问出现连带阻塞，能力尚未充分验证','',
+               '第4题依赖第3题的第一款商品，第7题依赖第6题的第二组和对应商品。前序没产生结果，两题的澄清是合理行为；应记录为端到端阻塞，不能直接认定指代解析失败。第5题换款去重也未能验证。第2题知识追问则确实承接成功。','',
+               '### 4. 知识覆盖与生成术语仍有问题','',
+               '第14题召回5段：沙特习惯1段、两国历史消费预测各1段、土耳其/阿塞拜疆文化2段；缺少阿联酋饮茶习惯直接证据。模型承认缺口且正确区分历史预测，但用户要求的双国习惯比较仍未完成。只能证明本轮未召回，不代表全库一定没有相关内容。',
+               '第10题补充分类出现“黑、绿、乌龙、白、黄、黑茶”，将英文black tea与dark tea混成黑茶；召回片段区分二者，错误发生在答案表达。',
+               '第8题推荐理由主要是类别匹配和有库存，商品属性虽列出，但没有形成细致、个性化的选择理由。本轮输入也未提供个人口味，不能评价真实用户偏好命中率。','',
+               '### 5. 系统错误被表达为用户信息不足','',
+               '第6、9题暴露needs_clarification、s1/s2及证据字段等内部术语，还要求重新确认已经明确的预算和茶类。第12题泛化澄清没有点明总预算需要采购数量。第15题正确拒绝未绑定订单查询，但要求用户口述ID不能建立可信身份，也不能替代预览启动时绑定。','',
+               '## 建议修复顺序','',
+               '1. P0：收紧抽取schema的evidence.field为明确枚举；提示中列出合法字段及例子。先记录安全的非法字段名与抽取来源，区分系统校验失败和用户确实缺少条件；保持原文证据校验。',
+               '2. P0：完善常见茶类、数量、单价、币种、排除、总预算的确定性槽位解析；模型处理剩余复杂表达。验证失败可做一次受控结构纠正，仍失败时明确告知处理异常。',
+               '3. P1：把说明理由归入推荐参数；把还是、只保留、预算提高、换一款归入已有任务修订，显式合并槽位，不新增澄清任务。',
+               '4. P1：修复后原样重放15题，重点核对第4/7题商品引用、第5题换款、第9题范围收窄，并增加完整对话链回归；另做多次运行评估稳定性。',
+               '5. P2：补充或定向召回阿联酋习惯来源，按国家与主题覆盖检索；固定black tea=红茶、dark tea=黑茶术语；订单入口引导登录/绑定。',
+               '6. P2：将系统诊断保留在开发日志；面向用户的回复只解释实际处理结果与必要的下一步。','',
+               '## 产物与复现','',
+               '- [15题完整实际对话](dialogues.md)',
+               '- [原始结果与图状态](results.jsonl)',
+               '- [测试清单、源码哈希及商品快照](manifest.json)',
+               '- [机器汇总](run-summary.json)',
+               '- [人工复核规则与逐题结论](review.json)',
+               '- 题集：support_ai/evaluation/scenario_suite_15.json；执行器：support_ai/evaluation/run_scenario_suite.py。',
+               '- 用同一执行命令指定一个新的output-dir可复跑；旧目录会拒绝覆盖。模型服务非确定性，复跑可能产生不同结果。','',
+               '## 评测限制','']
+    report += ['- '+item for item in review['limitations']]
+    (root/'report.md').write_text('\n'.join(report)+'\n',encoding='utf-8')
+    print(json.dumps(metrics,ensure_ascii=False))
+
+
+if __name__ == '__main__':
+    main()

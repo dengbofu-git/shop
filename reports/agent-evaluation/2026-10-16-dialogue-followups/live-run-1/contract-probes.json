@@ -1,0 +1,50 @@
+[
+  {
+    "name": "合法原话分类",
+    "expected_reject": false,
+    "rejected": false,
+    "passed": true
+  },
+  {
+    "name": "拒绝非法字段 required.categories[0]",
+    "expected_reject": true,
+    "rejected": true,
+    "passed": true
+  },
+  {
+    "name": "拒绝非法字段 required.categories.0",
+    "expected_reject": true,
+    "rejected": true,
+    "passed": true
+  },
+  {
+    "name": "拒绝非法字段 quantity",
+    "expected_reject": true,
+    "rejected": true,
+    "passed": true
+  },
+  {
+    "name": "拒绝非法字段 reasons",
+    "expected_reject": true,
+    "rejected": true,
+    "passed": true
+  },
+  {
+    "name": "拒绝非法字段 limit",
+    "expected_reject": true,
+    "rejected": true,
+    "passed": true
+  },
+  {
+    "name": "拒绝不匹配原话证据",
+    "expected_reject": true,
+    "rejected": true,
+    "passed": true
+  },
+  {
+    "name": "拒绝不存在历史轮次",
+    "expected_reject": true,
+    "rejected": true,
+    "passed": true
+  }
+]

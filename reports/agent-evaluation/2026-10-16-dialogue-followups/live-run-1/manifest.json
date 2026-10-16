@@ -1,0 +1,60 @@
+{
+  "started_at": "2026-10-16T07:28:20.079900+00:00",
+  "runtime": "0.10.0",
+  "configuration": {
+    "model": "deepseek-flash",
+    "thinking": "disabled",
+    "telemetry_enabled": false,
+    "export_enabled": false,
+    "otlp_endpoint": "http://127.0.0.1:4318",
+    "revision": 3,
+    "rerank_enabled": true,
+    "rerank_model": "BAAI/bge-reranker-v2-m3",
+    "retrieval_candidates": 30,
+    "retrieval_top_k": 5,
+    "retrieval_per_document": 2,
+    "retrieval_context_chars": 12000,
+    "rerank_timeout_ms": 30000,
+    "rerank_min_score": null,
+    "rerank_fallback": true
+  },
+  "query_policy": {
+    "enabled": true,
+    "max_queries": 4,
+    "max_model_calls": 2,
+    "model_timeout": 5.0,
+    "retry_enabled": true,
+    "budget_seconds": 25.0,
+    "weak_score": 0.1,
+    "languages": [
+      "zh",
+      "en"
+    ]
+  },
+  "dialogues": 15,
+  "turns": 41,
+  "scope": "synthetic public conversations; real model/catalog/RAG; fresh independent sessions",
+  "method": "sequential, one sample per input, frozen model configuration, no business/telemetry writes",
+  "source_sha256": {
+    "support_ai/conversation_tasks.py": "4995441ce65df6c1eb51ca2b7641cad7a0e1decab4dbbdec6b748c970c1c7821",
+    "support_ai/recommendation_explanations.py": "8b20420fc1702116649ba00920783ab9bfd98af1b2b972a0aaebc63fba7cef6f",
+    "support_ai/tool_services.py": "70b8b4ad95b6db95404e99961067385f0467b1d18c3d49036daaeb9fa392baa3",
+    "support_ai/contracts.py": "7a3fa68bda92e2e6d58028cf83ff936a4d4ce1c9f0cc0e00a1223266cda0b049",
+    "support_ai/context.py": "7803d9e10005baed93576e4c2b2976a1e2d3dc9873dea3512d3c674992abafd7",
+    "support_ai/planning.py": "b9526980b1794ae43ee21abab0f3b0e820453aba02a520c070b1f4372acdf78b",
+    "support_ai/workflow.py": "2896cb4d6dd4332ce1e10d76cd6cb4fa96cda648813f13d8b366073e12d1c89b",
+    "support_ai/recommendations.py": "0c39405767571d9e9fce674a42559c925b37d625b3f3414813e1dfe6b2fee05e",
+    "support_ai/preview.py": "e03947a83f031edad0f0f24c94e650858e620d0f92f13044b78be3d60030f023",
+    "support_ai/retrieval.py": "c7d106520a70f1707d663186d1e00e2ce5cf10f7df48be133976388cafe2ad3a",
+    "support_ai/query_rewrite.py": "fd0443c9421977d3277971ee332de6f30452b32c3b537174a5b4dd8dfd04702e",
+    "support_ai/configuration.py": "f3d6e2d2e99af8ad98a1fb8531bda0590d32aca53bb6c68502876139be1f2f53",
+    "support_ai/model_client.py": "08f4601f749240cfb5812d19d37b9d82e9186938fac6873242c1d07a51e9d7bc"
+  },
+  "case_sha256": "5320df9702ea5e80f32ddba9a268bc37638f590c0805efd3c6a7dae0985ba183",
+  "business_counts_before": {
+    "turns": 23,
+    "conversations": 7,
+    "spans": 221
+  },
+  "limits": "Structural assertions and manual answer review; not a population accuracy estimate. No baseline arm."
+}

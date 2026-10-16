@@ -31,7 +31,28 @@ class Preferences(Contract):
         return result
 
 
-class RequiredConditions(Preferences):
+class QueryConditions(Contract):
+    """Request filters have their own bounds, independent of saved preferences."""
+    categories: List[str] = Field(default_factory=list, max_length=12)
+    brands: List[str] = Field(default_factory=list, max_length=10)
+    keywords: List[str] = Field(default_factory=list, max_length=10)
+
+    @field_validator('categories', 'brands', 'keywords')
+    @classmethod
+    def safe_terms(cls, values):
+        return Preferences.safe_terms(values)
+
+
+class RecommendationOptions(Contract):
+    mode: Literal['flat', 'by_category'] = 'flat'
+    category_scope: Literal['requested', 'basic_tea_types'] = 'requested'
+    per_category_limit: int = Field(default=1, ge=1, le=4)
+    total_limit: int = Field(default=12, ge=1, le=12)
+    include_reasons: bool = True
+    clarification: str = ''
+
+
+class RequiredConditions(QueryConditions):
     price_min: Optional[str] = None
     price_max: Optional[str] = None
     currency: Optional[Literal['USD', 'AED', 'SAR', 'CNY']] = None
@@ -54,8 +75,17 @@ class RequiredConditions(Preferences):
         return self
 
 
+EvidenceField = Literal[
+    'required.categories', 'required.brands', 'required.keywords',
+    'required.price_min', 'required.price_max', 'required.currency', 'required.price_basis',
+    'preferred.categories', 'preferred.brands', 'preferred.keywords',
+    'excluded.categories', 'excluded.brands', 'excluded.keywords',
+]
+
+
 class IntentEvidence(Contract):
-    field: str = Field(min_length=1, max_length=50)
+    field: EvidenceField = Field(description='Exact section.field path; arrays use the field itself, without [index]. '
+        'Only purchase filters need evidence. Never use quantity, limit, action, reasons or missing_fields here.')
     value: str = Field(min_length=1, max_length=40)
     source: Literal['CURRENT', 'CONTEXT', 'MEMORY']
     source_id: Optional[str] = Field(default=None, max_length=80)
@@ -65,8 +95,8 @@ class IntentEvidence(Contract):
 class RecommendationIntent(Contract):
     action: Literal['SEARCH', 'CLARIFY']
     required: RequiredConditions = Field(default_factory=RequiredConditions)
-    preferred: Preferences = Field(default_factory=Preferences)
-    excluded: Preferences = Field(default_factory=Preferences)
+    preferred: QueryConditions = Field(default_factory=QueryConditions)
+    excluded: QueryConditions = Field(default_factory=QueryConditions)
     evidence: List[IntentEvidence] = Field(default_factory=list, max_length=40)
     missing_fields: List[Literal[
         'category', 'currency', 'budget_scope', 'product_reference', 'unsupported_attribute', 'details'

@@ -1,0 +1,14 @@
+.buyer-workbench .btn-card-favorite {
+    display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+    border: 1px solid var(--color-border-strong, #b8cfc0); border-radius: 8px;
+    background: #fff; color: var(--color-primary, #185c3b); padding: 9px 14px;
+    font: inherit; font-size: 13px; line-height: 1.4; cursor: pointer;
+    position: relative; z-index: 2; margin-top: 12px;
+}
+.buyer-workbench .btn-card-favorite[aria-pressed="true"] { background: var(--color-primary-light, #e7f2e9); border-color: var(--color-primary, #185c3b); }
+.buyer-workbench .btn-card-favorite:focus-visible { outline: 3px solid #9a7a40; outline-offset: 3px; }
+.buyer-workbench .btn-card-favorite:disabled { opacity: .55; cursor: wait; }
+.favorite-card-wrapper { display: flex; flex-direction: column; min-width: 0; }
+.favorite-card-wrapper > .recommend-item { flex: 1; }
+.favorite-card-wrapper > .btn-card-favorite { align-self: stretch; }
+.card-favorite-message { display: block; color: #99632d; font-size: 12px; line-height: 1.5; margin-top: 6px; }

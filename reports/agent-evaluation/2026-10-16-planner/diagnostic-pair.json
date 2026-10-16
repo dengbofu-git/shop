@@ -1,0 +1,453 @@
+{
+  "protocol": "Paired teacher-forced replay: identical original questions, recorded prior turns, reconstructed memory and fixed config for both versions. Historical response evidence approximates memory revisions; earlier snapshots unavailable. No generated replies written to customer history.",
+  "configuration": {
+    "model": "deepseek-flash",
+    "thinking": "disabled",
+    "telemetry_enabled": true,
+    "export_enabled": true,
+    "otlp_endpoint": "http://127.0.0.1:4318",
+    "revision": 3,
+    "rerank_enabled": true,
+    "rerank_model": "BAAI/bge-reranker-v2-m3",
+    "retrieval_candidates": 30,
+    "retrieval_top_k": 5,
+    "retrieval_per_document": 2,
+    "retrieval_context_chars": 12000,
+    "rerank_timeout_ms": 30000,
+    "rerank_min_score": null,
+    "rerank_fallback": true
+  },
+  "candidate_source_sha256": {
+    "support_ai/workflow.py": "82153afe838c169fdf3c6d46da5ff76a9ef2498e6932f223e39e0529a6eefb46",
+    "support_ai/planning.py": "493f7aed0b9a4157f7c50c1032109bfae5a261a747d1194fbe89119d1e85e447",
+    "support_ai/execution.py": "f134b80ce16f9a436fad0dea90a5658a417ca3bf10bbe334f747bdcb15bd4d0b",
+    "support_ai/tool_services.py": "c183ce8f404c6174e81dbdbe377b1e130f7b2561c097c0815743ef161b0073a0",
+    "support_ai/recommendations.py": "379408b3aebe34efd8400d916b196b637fc844887fca68f8b31ce669adc37b0a"
+  },
+  "cases_sha256": "ab2230a0c183b0681c29f3637d5ae9dbe0b3b7c300ac006456e0f74a5b531094",
+  "initial_counts": {
+    "turns": 16,
+    "conversations": 6
+  },
+  "runs": [
+    {
+      "case_id": "night-8",
+      "group": "historical",
+      "version": "baseline_0.5.0",
+      "message": "推荐茶叶",
+      "expected_intents": [
+        "recommendation"
+      ],
+      "duration_ms": 2201.67,
+      "llm_calls": 2,
+      "input_tokens": 1803,
+      "output_tokens": 258,
+      "model_errors": 0,
+      "error": null,
+      "response": {
+        "intent": "recommendation",
+        "confidence": 0.95,
+        "recommendations": [],
+        "recommendation_status": "NO_MATCH",
+        "answer": "当前没有满足这些条件的可售商品。您可以调整品类、品牌、关键词或预算；我会保留您明确提出的条件。",
+        "product_intent": {
+          "action": "SEARCH",
+          "required": {
+            "categories": [
+              "茶叶"
+            ],
+            "brands": [],
+            "keywords": [],
+            "price_min": null,
+            "price_max": null,
+            "currency": null,
+            "price_basis": null
+          },
+          "preferred": {
+            "categories": [],
+            "brands": [],
+            "keywords": []
+          },
+          "excluded": {
+            "categories": [],
+            "brands": [],
+            "keywords": []
+          },
+          "evidence": [
+            {
+              "field": "required.categories",
+              "value": "茶叶",
+              "source": "CURRENT",
+              "source_id": null,
+              "quote": "推荐茶叶"
+            },
+            {
+              "field": "preferred.categories",
+              "value": "绿茶",
+              "source": "MEMORY",
+              "source_id": "preference:1:2026-10-13T15:28:47.848049+00:00",
+              "quote": "绿茶"
+            }
+          ],
+          "missing_fields": []
+        }
+      },
+      "tool_errors": [],
+      "structured_outputs": [
+        {
+          "name": "IntentScores",
+          "args": {
+            "recommendation": 0.95,
+            "question_answering": 0.2,
+            "after_sales": 0.05
+          }
+        },
+        {
+          "name": "RecommendationIntent",
+          "args": {
+            "action": "SEARCH",
+            "required": {
+              "categories": [
+                "茶叶"
+              ]
+            },
+            "preferred": {
+              "categories": [
+                "绿茶"
+              ]
+            },
+            "evidence": [
+              {
+                "field": "required.categories",
+                "value": "茶叶",
+                "source": "CURRENT",
+                "quote": "推荐茶叶"
+              },
+              {
+                "field": "preferred.categories",
+                "value": "绿茶",
+                "source": "MEMORY",
+                "source_id": "preference:1:2026-10-13T15:28:47.848049+00:00",
+                "quote": "绿茶"
+              }
+            ]
+          }
+        }
+      ],
+      "internal": {
+        "plan": null,
+        "tool_results": null,
+        "scores": {
+          "recommendation": 0.95,
+          "question_answering": 0.2,
+          "after_sales": 0.05
+        },
+        "resolved_question": "推荐茶叶"
+      },
+      "retrieval": [],
+      "metrics": {
+        "intent_exact": true,
+        "intent_set_exact": true,
+        "true_positive": 1,
+        "false_positive": 0,
+        "false_negative": 0,
+        "recommendation_constraints_ok": false
+      }
+    },
+    {
+      "case_id": "night-8",
+      "group": "historical",
+      "version": "candidate_0.6.0",
+      "message": "推荐茶叶",
+      "expected_intents": [
+        "recommendation"
+      ],
+      "duration_ms": 1514.28,
+      "llm_calls": 1,
+      "input_tokens": 1241,
+      "output_tokens": 222,
+      "model_errors": 0,
+      "error": null,
+      "response": {
+        "answer": "按您的条件找到以下可售商品（USD 单价，价格及库存以下单时为准）：\n1. 石牌茶 · 默认规格 · $75.00 · 匹配部分偏好\n2. 英德大叶种叶茶礼盒 · 150g (30包 * 5g) · $320.00 · 当前上架且有可用库存\n3. 英红9号 · 英红9号 · $123.00 · 当前上架且有可用库存",
+        "intent": "recommendation",
+        "intents": [
+          "recommendation"
+        ],
+        "confidence": null,
+        "intent_source": "rules",
+        "recommendations": [
+          {
+            "sku_id": 23,
+            "name": "默认规格",
+            "product_name": "石牌茶",
+            "category": "绿茶",
+            "brand": "华农石牌茶",
+            "price": "75.00",
+            "currency": "USD",
+            "image_url": "/v1/goods/sku/23/image",
+            "detail_url": "/product_details.html?skuid=23",
+            "reasons": [
+              "匹配部分偏好"
+            ]
+          },
+          {
+            "sku_id": 22,
+            "name": "150g (30包 * 5g)",
+            "product_name": "英德大叶种叶茶礼盒",
+            "category": "红茶",
+            "brand": "英德大叶种",
+            "price": "320.00",
+            "currency": "USD",
+            "image_url": "/v1/goods/sku/22/image",
+            "detail_url": "/product_details.html?skuid=22",
+            "reasons": [
+              "当前上架且有可用库存"
+            ]
+          },
+          {
+            "sku_id": 24,
+            "name": "英红9号",
+            "product_name": "英红9号",
+            "category": "红茶",
+            "brand": "英红",
+            "price": "123.00",
+            "currency": "USD",
+            "image_url": "/v1/goods/sku/24/image",
+            "detail_url": "/product_details.html?skuid=24",
+            "reasons": [
+              "当前上架且有可用库存"
+            ]
+          }
+        ],
+        "knowledge_sources": [],
+        "memory_used": true,
+        "clarification_required": false,
+        "tasks": [
+          {
+            "id": "s1",
+            "tool": "recommend_products",
+            "status": "success"
+          }
+        ],
+        "task_plan": {
+          "steps": [
+            {
+              "id": "s1",
+              "intent": "recommendation",
+              "tool": "recommend_products",
+              "request": "推荐茶叶",
+              "depends_on": [],
+              "product_from": null,
+              "limit": 4
+            }
+          ],
+          "output_order": [
+            "s1"
+          ],
+          "source": "rules"
+        },
+        "unmet_requirements": [],
+        "recommendation_status": "MATCHED",
+        "product_intent": {
+          "action": "SEARCH",
+          "required": {
+            "categories": [],
+            "brands": [],
+            "keywords": [],
+            "price_min": null,
+            "price_max": null,
+            "currency": null,
+            "price_basis": null
+          },
+          "preferred": {
+            "categories": [
+              "绿茶"
+            ],
+            "brands": [],
+            "keywords": []
+          },
+          "excluded": {
+            "categories": [],
+            "brands": [],
+            "keywords": []
+          },
+          "evidence": [
+            {
+              "field": "preferred.categories",
+              "value": "绿茶",
+              "source": "MEMORY",
+              "source_id": "preference:1:2026-10-13T15:28:47.848049+00:00",
+              "quote": "绿茶"
+            }
+          ],
+          "missing_fields": []
+        }
+      },
+      "tool_errors": [],
+      "structured_outputs": [
+        {
+          "name": "RecommendationIntent",
+          "args": {
+            "action": "SEARCH",
+            "required": {
+              "categories": [
+                "茶叶"
+              ]
+            },
+            "preferred": {
+              "categories": [
+                "绿茶"
+              ]
+            },
+            "excluded": {},
+            "evidence": [
+              {
+                "field": "required.categories",
+                "value": "茶叶",
+                "source": "CURRENT",
+                "quote": "推荐茶叶",
+                "source_id": null
+              },
+              {
+                "field": "preferred.categories",
+                "value": "绿茶",
+                "source": "MEMORY",
+                "quote": "categories: 绿茶",
+                "source_id": "preference:1:2026-10-13T15:28:47.848049+00:00"
+              }
+            ],
+            "missing_fields": []
+          }
+        }
+      ],
+      "internal": {
+        "plan": {
+          "steps": [
+            {
+              "id": "s1",
+              "intent": "recommendation",
+              "tool": "recommend_products",
+              "request": "推荐茶叶",
+              "depends_on": [],
+              "product_from": null,
+              "limit": 4
+            }
+          ],
+          "output_order": [
+            "s1"
+          ],
+          "source": "rules"
+        },
+        "tool_results": [
+          {
+            "step_id": "s1",
+            "tool": "recommend_products",
+            "status": "success",
+            "data": {
+              "recommendation_status": "MATCHED",
+              "recommendations": [
+                {
+                  "sku_id": 23,
+                  "name": "默认规格",
+                  "product_name": "石牌茶",
+                  "category": "绿茶",
+                  "brand": "华农石牌茶",
+                  "price": "75.00",
+                  "currency": "USD",
+                  "image_url": "/v1/goods/sku/23/image",
+                  "detail_url": "/product_details.html?skuid=23",
+                  "reasons": [
+                    "匹配部分偏好"
+                  ]
+                },
+                {
+                  "sku_id": 22,
+                  "name": "150g (30包 * 5g)",
+                  "product_name": "英德大叶种叶茶礼盒",
+                  "category": "红茶",
+                  "brand": "英德大叶种",
+                  "price": "320.00",
+                  "currency": "USD",
+                  "image_url": "/v1/goods/sku/22/image",
+                  "detail_url": "/product_details.html?skuid=22",
+                  "reasons": [
+                    "当前上架且有可用库存"
+                  ]
+                },
+                {
+                  "sku_id": 24,
+                  "name": "英红9号",
+                  "product_name": "英红9号",
+                  "category": "红茶",
+                  "brand": "英红",
+                  "price": "123.00",
+                  "currency": "USD",
+                  "image_url": "/v1/goods/sku/24/image",
+                  "detail_url": "/product_details.html?skuid=24",
+                  "reasons": [
+                    "当前上架且有可用库存"
+                  ]
+                }
+              ],
+              "answer": "按您的条件找到以下可售商品（USD 单价，价格及库存以下单时为准）：\n1. 石牌茶 · 默认规格 · $75.00 · 匹配部分偏好\n2. 英德大叶种叶茶礼盒 · 150g (30包 * 5g) · $320.00 · 当前上架且有可用库存\n3. 英红9号 · 英红9号 · $123.00 · 当前上架且有可用库存",
+              "product_intent": {
+                "action": "SEARCH",
+                "required": {
+                  "categories": [],
+                  "brands": [],
+                  "keywords": [],
+                  "price_min": null,
+                  "price_max": null,
+                  "currency": null,
+                  "price_basis": null
+                },
+                "preferred": {
+                  "categories": [
+                    "绿茶"
+                  ],
+                  "brands": [],
+                  "keywords": []
+                },
+                "excluded": {
+                  "categories": [],
+                  "brands": [],
+                  "keywords": []
+                },
+                "evidence": [
+                  {
+                    "field": "preferred.categories",
+                    "value": "绿茶",
+                    "source": "MEMORY",
+                    "source_id": "preference:1:2026-10-13T15:28:47.848049+00:00",
+                    "quote": "绿茶"
+                  }
+                ],
+                "missing_fields": []
+              },
+              "memory_used": true,
+              "selected_product": null
+            },
+            "sources": [],
+            "unmet_requirements": []
+          }
+        ],
+        "scores": null,
+        "resolved_question": "推荐茶叶"
+      },
+      "retrieval": [],
+      "metrics": {
+        "intent_exact": true,
+        "intent_set_exact": true,
+        "true_positive": 1,
+        "false_positive": 0,
+        "false_negative": 0,
+        "recommendation_constraints_ok": true
+      }
+    }
+  ],
+  "final_counts": {
+    "turns": 16,
+    "conversations": 6
+  }
+}

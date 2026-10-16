@@ -1,0 +1,4 @@
+# Keep executable hooks and shell scripts portable; do not renormalize existing sources.
+.githooks/* text eol=lf
+*.sh text eol=lf
+.github/**/*.yml text eol=lf

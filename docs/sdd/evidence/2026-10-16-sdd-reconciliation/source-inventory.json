@@ -1,0 +1,3264 @@
+{
+  "routes": [
+    {
+      "path": "/^\\.?well-known/appspecific/com\\.chrome\\.devtools\\.json$",
+      "view": "chrome_devtools_json",
+      "source": "dadashop/urls.py",
+      "line": 44,
+      "kind": "re_path"
+    },
+    {
+      "path": "/",
+      "view": "index",
+      "source": "dadashop/urls.py",
+      "line": 45,
+      "kind": "path"
+    },
+    {
+      "path": "/index.html",
+      "view": "index_page",
+      "source": "dadashop/urls.py",
+      "line": 46,
+      "kind": "path"
+    },
+    {
+      "path": "/login.html",
+      "view": "login_page",
+      "source": "dadashop/urls.py",
+      "line": 47,
+      "kind": "path"
+    },
+    {
+      "path": "/terminal_login.html",
+      "view": "template_view('terminal_login.html')",
+      "source": "dadashop/urls.py",
+      "line": 48,
+      "kind": "path"
+    },
+    {
+      "path": "/header.html",
+      "view": "template_view('header.html')",
+      "source": "dadashop/urls.py",
+      "line": 49,
+      "kind": "path"
+    },
+    {
+      "path": "/footer.html",
+      "view": "template_view('footer.html')",
+      "source": "dadashop/urls.py",
+      "line": 50,
+      "kind": "path"
+    },
+    {
+      "path": "/product_list.html",
+      "view": "lambda r: redirect('/buyer_products.html' + ('?' + r.META.get('QUERY_STRING', '') if r.META.get('QUERY_STRING') else ''))",
+      "source": "dadashop/urls.py",
+      "line": 51,
+      "kind": "path"
+    },
+    {
+      "path": "/product_details.html",
+      "view": "template_view('product_details.html')",
+      "source": "dadashop/urls.py",
+      "line": 52,
+      "kind": "path"
+    },
+    {
+      "path": "/search_list.html",
+      "view": "template_view('search_list.html')",
+      "source": "dadashop/urls.py",
+      "line": 53,
+      "kind": "path"
+    },
+    {
+      "path": "/search.html",
+      "view": "lambda r: redirect('/search_list.html')",
+      "source": "dadashop/urls.py",
+      "line": 54,
+      "kind": "path"
+    },
+    {
+      "path": "/cart.html",
+      "view": "template_view('cart.html')",
+      "source": "dadashop/urls.py",
+      "line": 55,
+      "kind": "path"
+    },
+    {
+      "path": "/addressAdmin.html",
+      "view": "lambda r: redirect('/buyer_profile.html#addresses')",
+      "source": "dadashop/urls.py",
+      "line": 56,
+      "kind": "path"
+    },
+    {
+      "path": "/buyer_profile.html",
+      "view": "template_view('buyer_profile.html')",
+      "source": "dadashop/urls.py",
+      "line": 57,
+      "kind": "path"
+    },
+    {
+      "path": "/buyer_password.html",
+      "view": "template_view('buyer_password.html')",
+      "source": "dadashop/urls.py",
+      "line": 58,
+      "kind": "path"
+    },
+    {
+      "path": "/myOrder.html",
+      "view": "lambda r: redirect('/buyer_orders.html')",
+      "source": "dadashop/urls.py",
+      "line": 59,
+      "kind": "path"
+    },
+    {
+      "path": "/register.html",
+      "view": "lambda r: redirect('/register_sms.html')",
+      "source": "dadashop/urls.py",
+      "line": 60,
+      "kind": "path"
+    },
+    {
+      "path": "/register_sms.html",
+      "view": "template_view('register_sms.html')",
+      "source": "dadashop/urls.py",
+      "line": 61,
+      "kind": "path"
+    },
+    {
+      "path": "/findPass.html",
+      "view": "template_view('findPass.html')",
+      "source": "dadashop/urls.py",
+      "line": 62,
+      "kind": "path"
+    },
+    {
+      "path": "/orderConfirm.html",
+      "view": "template_view('orderConfirm.html')",
+      "source": "dadashop/urls.py",
+      "line": 63,
+      "kind": "path"
+    },
+    {
+      "path": "/payment.html",
+      "view": "template_view('payment.html')",
+      "source": "dadashop/urls.py",
+      "line": 64,
+      "kind": "path"
+    },
+    {
+      "path": "/pay_success.html",
+      "view": "template_view('pay_success.html')",
+      "source": "dadashop/urls.py",
+      "line": 65,
+      "kind": "path"
+    },
+    {
+      "path": "/gopay.html",
+      "view": "template_view('gopay.html')",
+      "source": "dadashop/urls.py",
+      "line": 66,
+      "kind": "path"
+    },
+    {
+      "path": "/personal_password.html",
+      "view": "lambda r: redirect('/buyer_password.html')",
+      "source": "dadashop/urls.py",
+      "line": 67,
+      "kind": "path"
+    },
+    {
+      "path": "/callback.html",
+      "view": "template_view('callback.html')",
+      "source": "dadashop/urls.py",
+      "line": 68,
+      "kind": "path"
+    },
+    {
+      "path": "/active.html",
+      "view": "template_view('active.html')",
+      "source": "dadashop/urls.py",
+      "line": 69,
+      "kind": "path"
+    },
+    {
+      "path": "/lookforward.html",
+      "view": "lambda r: redirect('/buyer_dashboard.html')",
+      "source": "dadashop/urls.py",
+      "line": 70,
+      "kind": "path"
+    },
+    {
+      "path": "/myCollect.html",
+      "view": "lambda r: redirect('/buyer_dashboard.html')",
+      "source": "dadashop/urls.py",
+      "line": 71,
+      "kind": "path"
+    },
+    {
+      "path": "/supplier_profile.html",
+      "view": "template_view('supplier_profile.html')",
+      "source": "dadashop/urls.py",
+      "line": 72,
+      "kind": "path"
+    },
+    {
+      "path": "/supplier_password.html",
+      "view": "template_view('supplier_password.html')",
+      "source": "dadashop/urls.py",
+      "line": 73,
+      "kind": "path"
+    },
+    {
+      "path": "/merchant_dashboard.html",
+      "view": "template_view('merchant_dashboard.html')",
+      "source": "dadashop/urls.py",
+      "line": 74,
+      "kind": "path"
+    },
+    {
+      "path": "/merchant_products.html",
+      "view": "template_view('merchant_products.html')",
+      "source": "dadashop/urls.py",
+      "line": 75,
+      "kind": "path"
+    },
+    {
+      "path": "/merchant_orders.html",
+      "view": "template_view('merchant_orders.html')",
+      "source": "dadashop/urls.py",
+      "line": 76,
+      "kind": "path"
+    },
+    {
+      "path": "/merchant_inventory.html",
+      "view": "template_view('merchant_inventory.html')",
+      "source": "dadashop/urls.py",
+      "line": 77,
+      "kind": "path"
+    },
+    {
+      "path": "/merchant_settlement.html",
+      "view": "template_view('merchant_settlement.html')",
+      "source": "dadashop/urls.py",
+      "line": 78,
+      "kind": "path"
+    },
+    {
+      "path": "/super_terminal.html",
+      "view": "lambda r: redirect('/admin_panel.html')",
+      "source": "dadashop/urls.py",
+      "line": 79,
+      "kind": "path"
+    },
+    {
+      "path": "/operations_dashboard.html",
+      "view": "template_view('operations_dashboard.html')",
+      "source": "dadashop/urls.py",
+      "line": 80,
+      "kind": "path"
+    },
+    {
+      "path": "/admin_panel.html",
+      "view": "template_view('admin_panel.html')",
+      "source": "dadashop/urls.py",
+      "line": 81,
+      "kind": "path"
+    },
+    {
+      "path": "/admin_agents.html",
+      "view": "template_view('admin_agents.html')",
+      "source": "dadashop/urls.py",
+      "line": 82,
+      "kind": "path"
+    },
+    {
+      "path": "/customs_9710.html",
+      "view": "template_view('customs_9710.html')",
+      "source": "dadashop/urls.py",
+      "line": 83,
+      "kind": "path"
+    },
+    {
+      "path": "/buyer_dashboard.html",
+      "view": "template_view('buyer_dashboard.html')",
+      "source": "dadashop/urls.py",
+      "line": 84,
+      "kind": "path"
+    },
+    {
+      "path": "/buyer_products.html",
+      "view": "template_view('buyer_products.html')",
+      "source": "dadashop/urls.py",
+      "line": 85,
+      "kind": "path"
+    },
+    {
+      "path": "/buyer_orders.html",
+      "view": "template_view('buyer_orders.html')",
+      "source": "dadashop/urls.py",
+      "line": 86,
+      "kind": "path"
+    },
+    {
+      "path": "/buyer_support.html",
+      "view": "template_view('buyer_support.html')",
+      "source": "dadashop/urls.py",
+      "line": 87,
+      "kind": "path"
+    },
+    {
+      "path": "/logistics_track.html",
+      "view": "template_view('logistics_track.html')",
+      "source": "dadashop/urls.py",
+      "line": 88,
+      "kind": "path"
+    },
+    {
+      "path": "/trace.html",
+      "view": "template_view('trace.html')",
+      "source": "dadashop/urls.py",
+      "line": 89,
+      "kind": "path"
+    },
+    {
+      "path": "/admin/",
+      "view": "admin.site.urls",
+      "source": "dadashop/urls.py",
+      "line": 90,
+      "kind": "path"
+    },
+    {
+      "path": "/v1/users/",
+      "view": "include('users.urls')",
+      "source": "dadashop/urls.py",
+      "line": 91,
+      "kind": "path"
+    },
+    {
+      "path": "/v1/goods/",
+      "view": "include('goods.urls')",
+      "source": "dadashop/urls.py",
+      "line": 92,
+      "kind": "path"
+    },
+    {
+      "path": "/v1/carts/",
+      "view": "include('carts.urls')",
+      "source": "dadashop/urls.py",
+      "line": 93,
+      "kind": "path"
+    },
+    {
+      "path": "/v1/orders/",
+      "view": "include('orders.urls')",
+      "source": "dadashop/urls.py",
+      "line": 94,
+      "kind": "path"
+    },
+    {
+      "path": "/v1/pays/",
+      "view": "include('pays.urls')",
+      "source": "dadashop/urls.py",
+      "line": 95,
+      "kind": "path"
+    },
+    {
+      "path": "/v1/news/",
+      "view": "include('news.urls')",
+      "source": "dadashop/urls.py",
+      "line": 96,
+      "kind": "path"
+    },
+    {
+      "path": "/v1/inventory/",
+      "view": "include('inventory.urls')",
+      "source": "dadashop/urls.py",
+      "line": 97,
+      "kind": "path"
+    },
+    {
+      "path": "/v1/logistics/",
+      "view": "include('logistics.urls')",
+      "source": "dadashop/urls.py",
+      "line": 98,
+      "kind": "path"
+    },
+    {
+      "path": "/v1/supplier/",
+      "view": "include('supplier.urls')",
+      "source": "dadashop/urls.py",
+      "line": 99,
+      "kind": "path"
+    },
+    {
+      "path": "/v1/admin-panel/",
+      "view": "include('admin_panel.urls')",
+      "source": "dadashop/urls.py",
+      "line": 100,
+      "kind": "path"
+    },
+    {
+      "path": "/v1/support/",
+      "view": "include('support_ai.urls')",
+      "source": "dadashop/urls.py",
+      "line": 101,
+      "kind": "path"
+    },
+    {
+      "path": "/v1/users/register",
+      "view": "views.register",
+      "source": "users/urls.py",
+      "line": 6,
+      "kind": "path"
+    },
+    {
+      "path": "/v1/users/login",
+      "view": "views.login",
+      "source": "users/urls.py",
+      "line": 7,
+      "kind": "path"
+    },
+    {
+      "path": "/v1/users/<str:username>/profile",
+      "view": "UserProfileView.as_view()",
+      "source": "users/urls.py",
+      "line": 8,
+      "kind": "path"
+    },
+    {
+      "path": "/v1/users/<str:username>/address",
+      "view": "AddressView.as_view()",
+      "source": "users/urls.py",
+      "line": 9,
+      "kind": "path"
+    },
+    {
+      "path": "/v1/users/<str:username>/address/<int:id>",
+      "view": "AddressView.as_view()",
+      "source": "users/urls.py",
+      "line": 10,
+      "kind": "path"
+    },
+    {
+      "path": "/v1/users/<str:username>/address/default",
+      "view": "views.default",
+      "source": "users/urls.py",
+      "line": 11,
+      "kind": "path"
+    },
+    {
+      "path": "/v1/users/<str:username>/password",
+      "view": "views.password_change",
+      "source": "users/urls.py",
+      "line": 12,
+      "kind": "path"
+    },
+    {
+      "path": "/v1/users/activation",
+      "view": "views.activate",
+      "source": "users/urls.py",
+      "line": 13,
+      "kind": "path"
+    },
+    {
+      "path": "/v1/users/password/sms",
+      "view": "views.find_password",
+      "source": "users/urls.py",
+      "line": 14,
+      "kind": "path"
+    },
+    {
+      "path": "/v1/users/password/verification",
+      "view": "views.verification",
+      "source": "users/urls.py",
+      "line": 15,
+      "kind": "path"
+    },
+    {
+      "path": "/v1/users/password/new",
+      "view": "views.new_password",
+      "source": "users/urls.py",
+      "line": 16,
+      "kind": "path"
+    },
+    {
+      "path": "/v1/users/sms/code",
+      "view": "views.code",
+      "source": "users/urls.py",
+      "line": 17,
+      "kind": "path"
+    },
+    {
+      "path": "/v1/users/weibo/authorization",
+      "view": "views.weibo_authorization",
+      "source": "users/urls.py",
+      "line": 18,
+      "kind": "path"
+    },
+    {
+      "path": "/v1/users/weibo/users",
+      "view": "WeiboUsers.as_view()",
+      "source": "users/urls.py",
+      "line": 19,
+      "kind": "path"
+    },
+    {
+      "path": "/v1/users/weibo/users/binduser",
+      "view": "views.bind_user",
+      "source": "users/urls.py",
+      "line": 20,
+      "kind": "path"
+    },
+    {
+      "path": "/v1/goods/carousel",
+      "view": "views.carousel",
+      "source": "goods/urls.py",
+      "line": 7,
+      "kind": "path"
+    },
+    {
+      "path": "/v1/goods/recommended-products",
+      "view": "views.recommended_products",
+      "source": "goods/urls.py",
+      "line": 8,
+      "kind": "path"
+    },
+    {
+      "path": "/v1/goods/index",
+      "view": "views.index",
+      "source": "goods/urls.py",
+      "line": 9,
+      "kind": "path"
+    },
+    {
+      "path": "/v1/goods/catalogs/<int:id>",
+      "view": "views.catalogs",
+      "source": "goods/urls.py",
+      "line": 10,
+      "kind": "path"
+    },
+    {
+      "path": "/v1/goods/detail/<int:id>",
+      "view": "views.detail",
+      "source": "goods/urls.py",
+      "line": 11,
+      "kind": "path"
+    },
+    {
+      "path": "/v1/goods/sku/<int:sku_id>/image",
+      "view": "views.sku_image",
+      "source": "goods/urls.py",
+      "line": 12,
+      "kind": "path"
+    },
+    {
+      "path": "/v1/goods/sku",
+      "view": "views.sku",
+      "source": "goods/urls.py",
+      "line": 13,
+      "kind": "path"
+    },
+    {
+      "path": "/v1/goods/merchant/brands-catalogs",
+      "view": "merchant_views.brands_and_catalogs",
+      "source": "goods/urls.py",
+      "line": 16,
+      "kind": "path"
+    },
+    {
+      "path": "/v1/goods/merchant/spu/create",
+      "view": "merchant_views.create_spu",
+      "source": "goods/urls.py",
+      "line": 17,
+      "kind": "path"
+    },
+    {
+      "path": "/v1/goods/merchant/spu/<int:spu_id>",
+      "view": "merchant_views.spu_detail",
+      "source": "goods/urls.py",
+      "line": 18,
+      "kind": "path"
+    },
+    {
+      "path": "/v1/goods/merchant/sku/create",
+      "view": "merchant_views.create_sku",
+      "source": "goods/urls.py",
+      "line": 19,
+      "kind": "path"
+    },
+    {
+      "path": "/v1/goods/merchant/sku/<int:sku_id>/status",
+      "view": "merchant_views.update_sku_status",
+      "source": "goods/urls.py",
+      "line": 20,
+      "kind": "path"
+    },
+    {
+      "path": "/v1/goods/merchant/sku/<int:sku_id>/image",
+      "view": "merchant_views.upload_sku_image",
+      "source": "goods/urls.py",
+      "line": 21,
+      "kind": "path"
+    },
+    {
+      "path": "/v1/goods/merchant/sku/<int:sku_id>",
+      "view": "merchant_views.sku_detail",
+      "source": "goods/urls.py",
+      "line": 22,
+      "kind": "path"
+    },
+    {
+      "path": "/v1/goods/merchant/products",
+      "view": "merchant_views.my_products",
+      "source": "goods/urls.py",
+      "line": 23,
+      "kind": "path"
+    },
+    {
+      "path": "/v1/carts/<str:username>",
+      "view": "CartsView.as_view()",
+      "source": "carts/urls.py",
+      "line": 5,
+      "kind": "path"
+    },
+    {
+      "path": "/v1/orders/<str:username>/advance",
+      "view": "views.advance",
+      "source": "orders/urls.py",
+      "line": 4,
+      "kind": "path"
+    },
+    {
+      "path": "/v1/orders/<str:username>/confirm-receipt",
+      "view": "views.confirm_receipt",
+      "source": "orders/urls.py",
+      "line": 5,
+      "kind": "path"
+    },
+    {
+      "path": "/v1/orders/<str:username>/delete",
+      "view": "views.delete_order",
+      "source": "orders/urls.py",
+      "line": 6,
+      "kind": "path"
+    },
+    {
+      "path": "/v1/orders/<str:username>/",
+      "view": "views.OrdersView.as_view()",
+      "source": "orders/urls.py",
+      "line": 7,
+      "kind": "path"
+    },
+    {
+      "path": "/v1/orders/<str:username>",
+      "view": "views.OrdersView.as_view()",
+      "source": "orders/urls.py",
+      "line": 8,
+      "kind": "path"
+    },
+    {
+      "path": "/v1/pays/notify",
+      "view": "views.notify",
+      "source": "pays/urls.py",
+      "line": 4,
+      "kind": "path"
+    },
+    {
+      "path": "/v1/news/create",
+      "view": "views.create_news",
+      "source": "news/urls.py",
+      "line": 6,
+      "kind": "path"
+    },
+    {
+      "path": "/v1/news/my",
+      "view": "views.my_news",
+      "source": "news/urls.py",
+      "line": 7,
+      "kind": "path"
+    },
+    {
+      "path": "/v1/news/<int:news_id>/update",
+      "view": "views.update_news",
+      "source": "news/urls.py",
+      "line": 8,
+      "kind": "path"
+    },
+    {
+      "path": "/v1/news/<int:news_id>/delete",
+      "view": "views.delete_news",
+      "source": "news/urls.py",
+      "line": 9,
+      "kind": "path"
+    },
+    {
+      "path": "/v1/news/list",
+      "view": "views.news_list",
+      "source": "news/urls.py",
+      "line": 12,
+      "kind": "path"
+    },
+    {
+      "path": "/v1/news/<int:news_id>/detail",
+      "view": "views.news_detail",
+      "source": "news/urls.py",
+      "line": 13,
+      "kind": "path"
+    },
+    {
+      "path": "/v1/inventory/list",
+      "view": "views.InventoryListView.as_view()",
+      "source": "inventory/urls.py",
+      "line": 5,
+      "kind": "path"
+    },
+    {
+      "path": "/v1/inventory/warehouses",
+      "view": "views.WarehouseListView.as_view()",
+      "source": "inventory/urls.py",
+      "line": 6,
+      "kind": "path"
+    },
+    {
+      "path": "/v1/logistics/track/<str:order_id>",
+      "view": "views.ShippingTrackView.as_view()",
+      "source": "logistics/urls.py",
+      "line": 5,
+      "kind": "path"
+    },
+    {
+      "path": "/v1/supplier/analytics",
+      "view": "views.SupplierAnalyticsView.as_view()",
+      "source": "supplier/urls.py",
+      "line": 5,
+      "kind": "path"
+    },
+    {
+      "path": "/v1/supplier/orders/delete",
+      "view": "views.SupplierOrderDeleteView.as_view()",
+      "source": "supplier/urls.py",
+      "line": 6,
+      "kind": "path"
+    },
+    {
+      "path": "/v1/supplier/orders/<str:order_id>/ship",
+      "view": "views.SupplierOrderShipView.as_view()",
+      "source": "supplier/urls.py",
+      "line": 7,
+      "kind": "path"
+    },
+    {
+      "path": "/v1/supplier/orders",
+      "view": "views.SupplierOrderListView.as_view()",
+      "source": "supplier/urls.py",
+      "line": 8,
+      "kind": "path"
+    },
+    {
+      "path": "/v1/supplier/inventory/delete",
+      "view": "views.SupplierInventoryDeleteView.as_view()",
+      "source": "supplier/urls.py",
+      "line": 9,
+      "kind": "path"
+    },
+    {
+      "path": "/v1/supplier/inventory/update",
+      "view": "views.SupplierInventoryUpdateView.as_view()",
+      "source": "supplier/urls.py",
+      "line": 10,
+      "kind": "path"
+    },
+    {
+      "path": "/v1/supplier/inventory",
+      "view": "views.SupplierInventoryView.as_view()",
+      "source": "supplier/urls.py",
+      "line": 11,
+      "kind": "path"
+    },
+    {
+      "path": "/v1/supplier/settlement",
+      "view": "views.SupplierSettlementView.as_view()",
+      "source": "supplier/urls.py",
+      "line": 12,
+      "kind": "path"
+    },
+    {
+      "path": "/v1/admin-panel/users",
+      "view": "views.UserManagementView.as_view()",
+      "source": "admin_panel/urls.py",
+      "line": 6,
+      "kind": "path"
+    },
+    {
+      "path": "/v1/admin-panel/agent/settings",
+      "view": "agent_views.agent_settings",
+      "source": "admin_panel/urls.py",
+      "line": 7,
+      "kind": "path"
+    },
+    {
+      "path": "/v1/admin-panel/agent/models",
+      "view": "agent_views.agent_models",
+      "source": "admin_panel/urls.py",
+      "line": 8,
+      "kind": "path"
+    },
+    {
+      "path": "/v1/admin-panel/agent/retrieval-status",
+      "view": "agent_views.agent_retrieval_status",
+      "source": "admin_panel/urls.py",
+      "line": 9,
+      "kind": "path"
+    },
+    {
+      "path": "/v1/admin-panel/agent/monitoring",
+      "view": "agent_views.agent_monitoring",
+      "source": "admin_panel/urls.py",
+      "line": 10,
+      "kind": "path"
+    },
+    {
+      "path": "/v1/admin-panel/agent/traces/<str:trace_id>",
+      "view": "agent_views.agent_trace",
+      "source": "admin_panel/urls.py",
+      "line": 11,
+      "kind": "path"
+    },
+    {
+      "path": "/v1/support/chat/",
+      "view": "chat",
+      "source": "support_ai/urls.py",
+      "line": 7,
+      "kind": "path"
+    },
+    {
+      "path": "/v1/support/preferences/",
+      "view": "preferences",
+      "source": "support_ai/urls.py",
+      "line": 8,
+      "kind": "path"
+    },
+    {
+      "path": "/v1/support/conversations/<uuid:conversation_id>/",
+      "view": "conversation_detail",
+      "source": "support_ai/urls.py",
+      "line": 9,
+      "kind": "path"
+    }
+  ],
+  "definitions": [
+    {
+      "source": "dadashop/urls.py",
+      "line": 23,
+      "name": "index",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "dadashop/urls.py",
+      "line": 27,
+      "name": "login_page",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "dadashop/urls.py",
+      "line": 31,
+      "name": "index_page",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "dadashop/urls.py",
+      "line": 35,
+      "name": "template_view",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "dadashop/urls.py",
+      "line": 39,
+      "name": "chrome_devtools_json",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "dadashop/utils.py",
+      "line": 6,
+      "name": "md5",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "dadashop/utils.py",
+      "line": 12,
+      "name": "jwt_encode",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "dadashop/utils.py",
+      "line": 18,
+      "name": "jwt_decode",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "users/apps.py",
+      "line": 4,
+      "name": "UsersConfig",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "users/decorators.py",
+      "line": 10,
+      "name": "get_user_from_request",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "users/decorators.py",
+      "line": 32,
+      "name": "merchant_required",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "users/decorators.py",
+      "line": 75,
+      "name": "customer_required",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "users/decorators.py",
+      "line": 118,
+      "name": "login_required",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "users/decorators.py",
+      "line": 154,
+      "name": "permission_required",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "users/decorators.py",
+      "line": 179,
+      "name": "role_required",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "users/decorators.py",
+      "line": 207,
+      "name": "permissions_required",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "users/models.py",
+      "line": 4,
+      "name": "Role",
+      "decorators": [],
+      "methods": [
+        "__str__"
+      ]
+    },
+    {
+      "source": "users/models.py",
+      "line": 32,
+      "name": "Permission",
+      "decorators": [],
+      "methods": [
+        "__str__"
+      ]
+    },
+    {
+      "source": "users/models.py",
+      "line": 63,
+      "name": "RolePermission",
+      "decorators": [],
+      "methods": [
+        "__str__"
+      ]
+    },
+    {
+      "source": "users/models.py",
+      "line": 80,
+      "name": "UserRole",
+      "decorators": [],
+      "methods": [
+        "__str__"
+      ]
+    },
+    {
+      "source": "users/models.py",
+      "line": 98,
+      "name": "UserProfile",
+      "decorators": [],
+      "methods": [
+        "is_merchant",
+        "is_customer",
+        "get_roles",
+        "has_role",
+        "has_permission",
+        "get_permissions"
+      ]
+    },
+    {
+      "source": "users/models.py",
+      "line": 165,
+      "name": "Address",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "users/models.py",
+      "line": 190,
+      "name": "WeiboProfile",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "users/views.py",
+      "line": 19,
+      "name": "check",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "users/views.py",
+      "line": 37,
+      "name": "activate",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "users/views.py",
+      "line": 72,
+      "name": "register",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "users/views.py",
+      "line": 179,
+      "name": "code",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "users/views.py",
+      "line": 239,
+      "name": "login",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "users/views.py",
+      "line": 321,
+      "name": "weibo_authorization",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "users/views.py",
+      "line": 329,
+      "name": "bind_user",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "users/views.py",
+      "line": 357,
+      "name": "find_password",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "users/views.py",
+      "line": 384,
+      "name": "verification",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "users/views.py",
+      "line": 406,
+      "name": "new_password",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "users/views.py",
+      "line": 431,
+      "name": "default",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "users/views.py",
+      "line": 474,
+      "name": "password_change",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "users/views.py",
+      "line": 524,
+      "name": "UserProfileView",
+      "decorators": [],
+      "methods": [
+        "get",
+        "put"
+      ]
+    },
+    {
+      "source": "users/views.py",
+      "line": 576,
+      "name": "AddressView",
+      "decorators": [],
+      "methods": [
+        "get",
+        "post",
+        "put",
+        "delete",
+        "patch"
+      ]
+    },
+    {
+      "source": "users/views.py",
+      "line": 756,
+      "name": "WeiboUsers",
+      "decorators": [],
+      "methods": [
+        "get",
+        "post"
+      ]
+    },
+    {
+      "source": "goods/admin.py",
+      "line": 17,
+      "name": "CarouselSlideAdminForm",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "goods/admin.py",
+      "line": 26,
+      "name": "CarouselSlideAdmin",
+      "decorators": [
+        "admin.register(CarouselSlide)"
+      ],
+      "methods": [
+        "has_add_permission",
+        "link_type_display"
+      ]
+    },
+    {
+      "source": "goods/admin.py",
+      "line": 63,
+      "name": "RecommendedProductAdmin",
+      "decorators": [
+        "admin.register(SKU)"
+      ],
+      "methods": [
+        "has_add_permission",
+        "get_actions",
+        "get_queryset",
+        "changelist_view",
+        "save_model",
+        "catalog_display",
+        "spu_display"
+      ]
+    },
+    {
+      "source": "goods/apps.py",
+      "line": 4,
+      "name": "GoodsConfig",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "goods/merchant_views.py",
+      "line": 19,
+      "name": "brands_and_catalogs",
+      "decorators": [
+        "merchant_required",
+        "require_http_methods(['GET'])"
+      ],
+      "methods": []
+    },
+    {
+      "source": "goods/merchant_views.py",
+      "line": 41,
+      "name": "create_spu",
+      "decorators": [
+        "merchant_required",
+        "require_http_methods(['POST'])"
+      ],
+      "methods": []
+    },
+    {
+      "source": "goods/merchant_views.py",
+      "line": 97,
+      "name": "create_sku",
+      "decorators": [
+        "merchant_required",
+        "require_http_methods(['POST'])"
+      ],
+      "methods": []
+    },
+    {
+      "source": "goods/merchant_views.py",
+      "line": 175,
+      "name": "my_products",
+      "decorators": [
+        "merchant_required",
+        "require_http_methods(['GET'])"
+      ],
+      "methods": []
+    },
+    {
+      "source": "goods/merchant_views.py",
+      "line": 225,
+      "name": "spu_detail",
+      "decorators": [
+        "merchant_required"
+      ],
+      "methods": []
+    },
+    {
+      "source": "goods/merchant_views.py",
+      "line": 234,
+      "name": "_update_spu",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "goods/merchant_views.py",
+      "line": 260,
+      "name": "_delete_spu",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "goods/merchant_views.py",
+      "line": 273,
+      "name": "sku_detail",
+      "decorators": [
+        "merchant_required"
+      ],
+      "methods": []
+    },
+    {
+      "source": "goods/merchant_views.py",
+      "line": 282,
+      "name": "_update_sku",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "goods/merchant_views.py",
+      "line": 307,
+      "name": "_delete_sku",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "goods/merchant_views.py",
+      "line": 323,
+      "name": "upload_sku_image",
+      "decorators": [
+        "merchant_required",
+        "require_http_methods(['POST'])"
+      ],
+      "methods": []
+    },
+    {
+      "source": "goods/merchant_views.py",
+      "line": 349,
+      "name": "update_sku_status",
+      "decorators": [
+        "merchant_required",
+        "require_http_methods(['PUT'])"
+      ],
+      "methods": []
+    },
+    {
+      "source": "goods/models.py",
+      "line": 4,
+      "name": "sku_image_upload_to",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "goods/models.py",
+      "line": 13,
+      "name": "sku_extra_image_upload_to",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "goods/models.py",
+      "line": 19,
+      "name": "CarouselSlide",
+      "decorators": [],
+      "methods": [
+        "__str__"
+      ]
+    },
+    {
+      "source": "goods/models.py",
+      "line": 42,
+      "name": "Catalog",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "goods/models.py",
+      "line": 56,
+      "name": "Brand",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "goods/models.py",
+      "line": 73,
+      "name": "SPU",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "goods/models.py",
+      "line": 91,
+      "name": "SPUSaleAttr",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "goods/models.py",
+      "line": 106,
+      "name": "SaleAttrValue",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "goods/models.py",
+      "line": 121,
+      "name": "SKU",
+      "decorators": [],
+      "methods": [
+        "__str__"
+      ]
+    },
+    {
+      "source": "goods/models.py",
+      "line": 151,
+      "name": "SKUImage",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "goods/models.py",
+      "line": 166,
+      "name": "SPUSpec",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "goods/models.py",
+      "line": 181,
+      "name": "SKUSpecValue",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "goods/models.py",
+      "line": 197,
+      "name": "ProductTemplate",
+      "decorators": [],
+      "methods": [
+        "__str__"
+      ]
+    },
+    {
+      "source": "goods/models.py",
+      "line": 219,
+      "name": "ProductAttribute",
+      "decorators": [],
+      "methods": [
+        "__str__"
+      ]
+    },
+    {
+      "source": "goods/models.py",
+      "line": 255,
+      "name": "ProductAttributeValue",
+      "decorators": [],
+      "methods": [
+        "get_value",
+        "__str__"
+      ]
+    },
+    {
+      "source": "goods/views.py",
+      "line": 14,
+      "name": "_sku_public_dict",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "goods/views.py",
+      "line": 32,
+      "name": "carousel",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "goods/views.py",
+      "line": 75,
+      "name": "recommended_products",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "goods/views.py",
+      "line": 102,
+      "name": "index",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "goods/views.py",
+      "line": 125,
+      "name": "catalogs",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "goods/views.py",
+      "line": 146,
+      "name": "_get_media_image_url",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "goods/views.py",
+      "line": 160,
+      "name": "_get_sku_image_base64",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "goods/views.py",
+      "line": 179,
+      "name": "_get_sku_image_field",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "goods/views.py",
+      "line": 189,
+      "name": "_get_sku_image_path_for_api",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "goods/views.py",
+      "line": 201,
+      "name": "_find_sku_image_file",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "goods/views.py",
+      "line": 264,
+      "name": "_placeholder_image_response",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "goods/views.py",
+      "line": 290,
+      "name": "sku_image",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "goods/views.py",
+      "line": 309,
+      "name": "_get_available_stock",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "goods/views.py",
+      "line": 325,
+      "name": "detail",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "goods/views.py",
+      "line": 409,
+      "name": "sku",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "carts/apps.py",
+      "line": 4,
+      "name": "CartsConfig",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "carts/views.py",
+      "line": 10,
+      "name": "get_available_stock",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "carts/views.py",
+      "line": 26,
+      "name": "CartsView",
+      "decorators": [],
+      "methods": [
+        "__init__",
+        "post",
+        "get",
+        "delete",
+        "put"
+      ]
+    },
+    {
+      "source": "orders/apps.py",
+      "line": 4,
+      "name": "OrdersConfig",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "orders/models.py",
+      "line": 41,
+      "name": "OrderInfo",
+      "decorators": [],
+      "methods": [
+        "get_status_display_text"
+      ]
+    },
+    {
+      "source": "orders/models.py",
+      "line": 84,
+      "name": "StandardOrder",
+      "decorators": [],
+      "methods": [
+        "__str__"
+      ]
+    },
+    {
+      "source": "orders/models.py",
+      "line": 95,
+      "name": "TrialOrder",
+      "decorators": [],
+      "methods": [
+        "__str__"
+      ]
+    },
+    {
+      "source": "orders/models.py",
+      "line": 112,
+      "name": "PreSaleOrder",
+      "decorators": [],
+      "methods": [
+        "__str__"
+      ]
+    },
+    {
+      "source": "orders/models.py",
+      "line": 131,
+      "name": "OrderGoods",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "orders/views.py",
+      "line": 23,
+      "name": "build_single_data",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "orders/views.py",
+      "line": 42,
+      "name": "build_data",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "orders/views.py",
+      "line": 60,
+      "name": "advance",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "orders/views.py",
+      "line": 100,
+      "name": "OrdersView",
+      "decorators": [],
+      "methods": [
+        "__init__",
+        "post",
+        "get",
+        "put"
+      ]
+    },
+    {
+      "source": "orders/views.py",
+      "line": 371,
+      "name": "confirm_receipt",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "orders/views.py",
+      "line": 405,
+      "name": "delete_order",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "pays/apps.py",
+      "line": 4,
+      "name": "PaysConfig",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "pays/views.py",
+      "line": 6,
+      "name": "notify",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "news/apps.py",
+      "line": 4,
+      "name": "NewsConfig",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "news/models.py",
+      "line": 5,
+      "name": "News",
+      "decorators": [],
+      "methods": [
+        "__str__"
+      ]
+    },
+    {
+      "source": "news/views.py",
+      "line": 17,
+      "name": "create_news",
+      "decorators": [
+        "merchant_required",
+        "require_http_methods(['POST'])"
+      ],
+      "methods": []
+    },
+    {
+      "source": "news/views.py",
+      "line": 66,
+      "name": "my_news",
+      "decorators": [
+        "merchant_required",
+        "require_http_methods(['GET'])"
+      ],
+      "methods": []
+    },
+    {
+      "source": "news/views.py",
+      "line": 115,
+      "name": "update_news",
+      "decorators": [
+        "merchant_required",
+        "require_http_methods(['PUT'])"
+      ],
+      "methods": []
+    },
+    {
+      "source": "news/views.py",
+      "line": 167,
+      "name": "delete_news",
+      "decorators": [
+        "merchant_required",
+        "require_http_methods(['DELETE'])"
+      ],
+      "methods": []
+    },
+    {
+      "source": "news/views.py",
+      "line": 201,
+      "name": "news_list",
+      "decorators": [
+        "login_required",
+        "require_http_methods(['GET'])"
+      ],
+      "methods": []
+    },
+    {
+      "source": "news/views.py",
+      "line": 249,
+      "name": "news_detail",
+      "decorators": [
+        "login_required",
+        "require_http_methods(['GET'])"
+      ],
+      "methods": []
+    },
+    {
+      "source": "inventory/apps.py",
+      "line": 4,
+      "name": "InventoryConfig",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "inventory/models.py",
+      "line": 5,
+      "name": "Warehouse",
+      "decorators": [],
+      "methods": [
+        "__str__"
+      ]
+    },
+    {
+      "source": "inventory/models.py",
+      "line": 28,
+      "name": "Inventory",
+      "decorators": [],
+      "methods": [
+        "__str__",
+        "save"
+      ]
+    },
+    {
+      "source": "inventory/models.py",
+      "line": 55,
+      "name": "InventoryLog",
+      "decorators": [],
+      "methods": [
+        "__str__"
+      ]
+    },
+    {
+      "source": "inventory/services.py",
+      "line": 10,
+      "name": "InventoryService",
+      "decorators": [],
+      "methods": [
+        "get_available_quantity",
+        "reserve_inventory",
+        "release_inventory",
+        "deduct_inventory",
+        "select_warehouse",
+        "check_low_stock",
+        "ship_deduct_sku"
+      ]
+    },
+    {
+      "source": "inventory/views.py",
+      "line": 12,
+      "name": "InventoryListView",
+      "decorators": [
+        "method_decorator(login_required, name='dispatch')",
+        "method_decorator(permission_required('inventory_manage'), name='dispatch')"
+      ],
+      "methods": [
+        "get"
+      ]
+    },
+    {
+      "source": "inventory/views.py",
+      "line": 48,
+      "name": "WarehouseListView",
+      "decorators": [
+        "method_decorator(login_required, name='dispatch')",
+        "method_decorator(permission_required('inventory_manage'), name='dispatch')"
+      ],
+      "methods": [
+        "get"
+      ]
+    },
+    {
+      "source": "logistics/apps.py",
+      "line": 4,
+      "name": "LogisticsConfig",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "logistics/models.py",
+      "line": 5,
+      "name": "LogisticsProvider",
+      "decorators": [],
+      "methods": [
+        "__str__"
+      ]
+    },
+    {
+      "source": "logistics/models.py",
+      "line": 26,
+      "name": "ShippingOrder",
+      "decorators": [],
+      "methods": [
+        "__str__"
+      ]
+    },
+    {
+      "source": "logistics/models.py",
+      "line": 60,
+      "name": "ShippingTrack",
+      "decorators": [],
+      "methods": [
+        "__str__"
+      ]
+    },
+    {
+      "source": "logistics/services.py",
+      "line": 8,
+      "name": "LogisticsService",
+      "decorators": [],
+      "methods": [
+        "select_provider",
+        "create_shipping_order",
+        "update_tracking"
+      ]
+    },
+    {
+      "source": "logistics/views.py",
+      "line": 10,
+      "name": "ShippingTrackView",
+      "decorators": [
+        "method_decorator(login_required, name='dispatch')"
+      ],
+      "methods": [
+        "get"
+      ]
+    },
+    {
+      "source": "supplier/analytics.py",
+      "line": 17,
+      "name": "_region_for_order",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "supplier/analytics.py",
+      "line": 21,
+      "name": "_supplier_order_goods",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "supplier/analytics.py",
+      "line": 28,
+      "name": "_supplier_orders",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "supplier/analytics.py",
+      "line": 33,
+      "name": "build_supplier_analytics",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "supplier/analytics.py",
+      "line": 193,
+      "name": "_format_wan",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "supplier/apps.py",
+      "line": 4,
+      "name": "SupplierConfig",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "supplier/models.py",
+      "line": 6,
+      "name": "SupplierSettlement",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "supplier/views.py",
+      "line": 17,
+      "name": "SupplierAnalyticsView",
+      "decorators": [
+        "method_decorator(login_required, name='dispatch')",
+        "method_decorator(role_required('supplier'), name='dispatch')"
+      ],
+      "methods": [
+        "get"
+      ]
+    },
+    {
+      "source": "supplier/views.py",
+      "line": 29,
+      "name": "SupplierOrderListView",
+      "decorators": [
+        "method_decorator(login_required, name='dispatch')",
+        "method_decorator(role_required('supplier'), name='dispatch')"
+      ],
+      "methods": [
+        "get"
+      ]
+    },
+    {
+      "source": "supplier/views.py",
+      "line": 84,
+      "name": "SupplierOrderShipView",
+      "decorators": [
+        "method_decorator(login_required, name='dispatch')",
+        "method_decorator(role_required('supplier'), name='dispatch')"
+      ],
+      "methods": [
+        "post"
+      ]
+    },
+    {
+      "source": "supplier/views.py",
+      "line": 123,
+      "name": "SupplierOrderDeleteView",
+      "decorators": [
+        "method_decorator(login_required, name='dispatch')",
+        "method_decorator(role_required('supplier'), name='dispatch')"
+      ],
+      "methods": [
+        "post"
+      ]
+    },
+    {
+      "source": "supplier/views.py",
+      "line": 170,
+      "name": "SupplierInventoryView",
+      "decorators": [
+        "method_decorator(login_required, name='dispatch')",
+        "method_decorator(role_required('supplier'), name='dispatch')"
+      ],
+      "methods": [
+        "get"
+      ]
+    },
+    {
+      "source": "supplier/views.py",
+      "line": 225,
+      "name": "SupplierInventoryUpdateView",
+      "decorators": [
+        "method_decorator(login_required, name='dispatch')",
+        "method_decorator(role_required('supplier'), name='dispatch')"
+      ],
+      "methods": [
+        "post"
+      ]
+    },
+    {
+      "source": "supplier/views.py",
+      "line": 305,
+      "name": "SupplierInventoryDeleteView",
+      "decorators": [
+        "method_decorator(login_required, name='dispatch')",
+        "method_decorator(role_required('supplier'), name='dispatch')"
+      ],
+      "methods": [
+        "post"
+      ]
+    },
+    {
+      "source": "supplier/views.py",
+      "line": 360,
+      "name": "SupplierSettlementView",
+      "decorators": [
+        "method_decorator(login_required, name='dispatch')",
+        "method_decorator(role_required('supplier'), name='dispatch')"
+      ],
+      "methods": [
+        "get"
+      ]
+    },
+    {
+      "source": "admin_panel/agent_views.py",
+      "line": 23,
+      "name": "reply",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "admin_panel/agent_views.py",
+      "line": 31,
+      "name": "agent_settings",
+      "decorators": [
+        "require_http_methods(['GET', 'PUT'])",
+        "permission_required('system_config')"
+      ],
+      "methods": []
+    },
+    {
+      "source": "admin_panel/agent_views.py",
+      "line": 73,
+      "name": "agent_models",
+      "decorators": [
+        "require_http_methods(['GET'])",
+        "permission_required('system_config')"
+      ],
+      "methods": []
+    },
+    {
+      "source": "admin_panel/agent_views.py",
+      "line": 85,
+      "name": "agent_retrieval_status",
+      "decorators": [
+        "require_http_methods(['GET'])",
+        "permission_required('system_config')"
+      ],
+      "methods": []
+    },
+    {
+      "source": "admin_panel/agent_views.py",
+      "line": 92,
+      "name": "span_data",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "admin_panel/agent_views.py",
+      "line": 100,
+      "name": "agent_monitoring",
+      "decorators": [
+        "require_http_methods(['GET'])",
+        "permission_required('system_config')"
+      ],
+      "methods": []
+    },
+    {
+      "source": "admin_panel/agent_views.py",
+      "line": 150,
+      "name": "agent_trace",
+      "decorators": [
+        "require_http_methods(['GET'])",
+        "permission_required('system_config')"
+      ],
+      "methods": []
+    },
+    {
+      "source": "admin_panel/apps.py",
+      "line": 4,
+      "name": "AdminPanelConfig",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "admin_panel/views.py",
+      "line": 11,
+      "name": "_serialize_admin_user",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "admin_panel/views.py",
+      "line": 27,
+      "name": "UserManagementView",
+      "decorators": [
+        "method_decorator(login_required, name='dispatch')",
+        "method_decorator(permission_required('goods_manage'), name='dispatch')"
+      ],
+      "methods": [
+        "get",
+        "post",
+        "put",
+        "delete"
+      ]
+    },
+    {
+      "source": "support_ai/configuration.py",
+      "line": 14,
+      "name": "AgentConfig",
+      "decorators": [
+        "dataclass(frozen=True)"
+      ],
+      "methods": []
+    },
+    {
+      "source": "support_ai/configuration.py",
+      "line": 37,
+      "name": "configuration_row",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "support_ai/configuration.py",
+      "line": 41,
+      "name": "effective_configuration",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "support_ai/configuration.py",
+      "line": 54,
+      "name": "configuration_data",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "support_ai/configuration.py",
+      "line": 65,
+      "name": "provider_models",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "support_ai/configuration.py",
+      "line": 82,
+      "name": "validate_changes",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "support_ai/context.py",
+      "line": 24,
+      "name": "ConversationConflict",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "support_ai/context.py",
+      "line": 28,
+      "name": "saved_preferences",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "support_ai/context.py",
+      "line": 36,
+      "name": "recent_context",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "support_ai/context.py",
+      "line": 43,
+      "name": "context_from_turns",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "support_ai/context.py",
+      "line": 92,
+      "name": "current_order_context",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "support_ai/context.py",
+      "line": 115,
+      "name": "replay",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "support_ai/context.py",
+      "line": 125,
+      "name": "commit_turn",
+      "decorators": [
+        "transaction.atomic"
+      ],
+      "methods": []
+    },
+    {
+      "source": "support_ai/contracts.py",
+      "line": 12,
+      "name": "Contract",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "support_ai/contracts.py",
+      "line": 16,
+      "name": "Preferences",
+      "decorators": [],
+      "methods": [
+        "safe_terms"
+      ]
+    },
+    {
+      "source": "support_ai/contracts.py",
+      "line": 34,
+      "name": "QueryConditions",
+      "decorators": [],
+      "methods": [
+        "safe_terms"
+      ]
+    },
+    {
+      "source": "support_ai/contracts.py",
+      "line": 46,
+      "name": "RecommendationOptions",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "support_ai/contracts.py",
+      "line": 55,
+      "name": "RequiredConditions",
+      "decorators": [],
+      "methods": [
+        "money",
+        "valid_range"
+      ]
+    },
+    {
+      "source": "support_ai/contracts.py",
+      "line": 78,
+      "name": "IntentEvidence",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "support_ai/contracts.py",
+      "line": 86,
+      "name": "RecommendationIntent",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "support_ai/contracts.py",
+      "line": 97,
+      "name": "_value_supported",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "support_ai/contracts.py",
+      "line": 112,
+      "name": "validate_recommendation_intent",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "support_ai/diagnostics.py",
+      "line": 6,
+      "name": "error_diagnostic",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "support_ai/execution.py",
+      "line": 12,
+      "name": "ToolResult",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "support_ai/execution.py",
+      "line": 21,
+      "name": "execute_plan",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "support_ai/models.py",
+      "line": 6,
+      "name": "SupportPreference",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "support_ai/models.py",
+      "line": 14,
+      "name": "SupportConversation",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "support_ai/models.py",
+      "line": 25,
+      "name": "SupportTurn",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "support_ai/models.py",
+      "line": 44,
+      "name": "AgentConfiguration",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "support_ai/models.py",
+      "line": 69,
+      "name": "AgentConfigurationChange",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "support_ai/models.py",
+      "line": 76,
+      "name": "AgentSpan",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "support_ai/model_client.py",
+      "line": 11,
+      "name": "AgentModel",
+      "decorators": [],
+      "methods": [
+        "__init__",
+        "invoke",
+        "with_structured_output"
+      ]
+    },
+    {
+      "source": "support_ai/model_client.py",
+      "line": 34,
+      "name": "configured_model",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "support_ai/pii.py",
+      "line": 21,
+      "name": "redact",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "support_ai/pii.py",
+      "line": 31,
+      "name": "contains_pii",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "support_ai/planning.py",
+      "line": 20,
+      "name": "IntentRequest",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "support_ai/planning.py",
+      "line": 27,
+      "name": "FiniteIntents",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "support_ai/planning.py",
+      "line": 32,
+      "name": "TaskStep",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "support_ai/planning.py",
+      "line": 46,
+      "name": "TaskPlan",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "support_ai/planning.py",
+      "line": 52,
+      "name": "_negated",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "support_ai/planning.py",
+      "line": 58,
+      "name": "_clause",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "support_ai/planning.py",
+      "line": 65,
+      "name": "requested_limit",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "support_ai/planning.py",
+      "line": 72,
+      "name": "explicit_requests",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "support_ai/planning.py",
+      "line": 129,
+      "name": "extract_requests",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "support_ai/planning.py",
+      "line": 181,
+      "name": "build_plan",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "support_ai/planning.py",
+      "line": 216,
+      "name": "validate_plan",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "support_ai/preview.py",
+      "line": 28,
+      "name": "safe_record",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "support_ai/preview.py",
+      "line": 39,
+      "name": "Usage",
+      "decorators": [],
+      "methods": [
+        "__init__",
+        "on_chat_model_start",
+        "on_llm_end"
+      ]
+    },
+    {
+      "source": "support_ai/preview.py",
+      "line": 59,
+      "name": "PreviewSession",
+      "decorators": [],
+      "methods": [
+        "__init__",
+        "configuration",
+        "status",
+        "_append",
+        "new",
+        "history",
+        "ask"
+      ]
+    },
+    {
+      "source": "support_ai/recommendations.py",
+      "line": 31,
+      "name": "_match",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "support_ai/recommendations.py",
+      "line": 40,
+      "name": "_keyword",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "support_ai/recommendations.py",
+      "line": 44,
+      "name": "available_products",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "support_ai/recommendations.py",
+      "line": 53,
+      "name": "match_products",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "support_ai/recommendations.py",
+      "line": 136,
+      "name": "match_product_groups",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "support_ai/recommendation_options.py",
+      "line": 15,
+      "name": "tea_scope",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "support_ai/recommendation_options.py",
+      "line": 28,
+      "name": "number",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "support_ai/recommendation_options.py",
+      "line": 40,
+      "name": "recommendation_options",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "support_ai/retrieval.py",
+      "line": 17,
+      "name": "retrieve_scoped_knowledge",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "support_ai/retrieval.py",
+      "line": 34,
+      "name": "deduplicate",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "support_ai/retrieval.py",
+      "line": 44,
+      "name": "select_evidence",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "support_ai/retrieval.py",
+      "line": 74,
+      "name": "retrieve_knowledge",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "support_ai/tea_explanation.py",
+      "line": 13,
+      "name": "EvidenceQuote",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "support_ai/tea_explanation.py",
+      "line": 18,
+      "name": "TeaSection",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "support_ai/tea_explanation.py",
+      "line": 24,
+      "name": "TeaExplanation",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "support_ai/tea_explanation.py",
+      "line": 28,
+      "name": "matches_topic",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "support_ai/tea_explanation.py",
+      "line": 33,
+      "name": "explain_tea_scope",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "support_ai/telemetry.py",
+      "line": 41,
+      "name": "DatabaseSpanExporter",
+      "decorators": [],
+      "methods": [
+        "export"
+      ]
+    },
+    {
+      "source": "support_ai/telemetry.py",
+      "line": 62,
+      "name": "ReportingSpanExporter",
+      "decorators": [],
+      "methods": [
+        "__init__",
+        "export"
+      ]
+    },
+    {
+      "source": "support_ai/telemetry.py",
+      "line": 79,
+      "name": "ReportingMetricExporter",
+      "decorators": [],
+      "methods": [
+        "__init__",
+        "export"
+      ]
+    },
+    {
+      "source": "support_ai/telemetry.py",
+      "line": 96,
+      "name": "Runtime",
+      "decorators": [],
+      "methods": [
+        "__init__",
+        "shutdown"
+      ]
+    },
+    {
+      "source": "support_ai/telemetry.py",
+      "line": 145,
+      "name": "acquire_runtime",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "support_ai/telemetry.py",
+      "line": 162,
+      "name": "release_runtime",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "support_ai/telemetry.py",
+      "line": 170,
+      "name": "refresh_runtime",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "support_ai/telemetry.py",
+      "line": 175,
+      "name": "telemetry_status",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "support_ai/telemetry.py",
+      "line": 182,
+      "name": "shutdown_telemetry",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "support_ai/telemetry.py",
+      "line": 195,
+      "name": "Session",
+      "decorators": [],
+      "methods": [
+        "__init__",
+        "trace_id",
+        "finish"
+      ]
+    },
+    {
+      "source": "support_ai/telemetry.py",
+      "line": 225,
+      "name": "observe_agent",
+      "decorators": [
+        "contextmanager"
+      ],
+      "methods": []
+    },
+    {
+      "source": "support_ai/telemetry.py",
+      "line": 259,
+      "name": "agent_span",
+      "decorators": [
+        "contextmanager"
+      ],
+      "methods": []
+    },
+    {
+      "source": "support_ai/telemetry.py",
+      "line": 277,
+      "name": "retrieval_hits",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "support_ai/telemetry.py",
+      "line": 284,
+      "name": "rerank_observation",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "support_ai/telemetry.py",
+      "line": 298,
+      "name": "ModelTelemetry",
+      "decorators": [],
+      "methods": [
+        "__init__",
+        "on_chat_model_start",
+        "on_llm_end",
+        "on_llm_error",
+        "_finish"
+      ]
+    },
+    {
+      "source": "support_ai/tests.py",
+      "line": 18,
+      "name": "FakeModel",
+      "decorators": [],
+      "methods": [
+        "__init__",
+        "with_structured_output",
+        "invoke"
+      ]
+    },
+    {
+      "source": "support_ai/tests.py",
+      "line": 51,
+      "name": "PiiTests",
+      "decorators": [],
+      "methods": [
+        "test_redacts_order_phone_email_name_and_address",
+        "test_contact_support_phrase_is_not_a_person_name"
+      ]
+    },
+    {
+      "source": "support_ai/tests.py",
+      "line": 68,
+      "name": "GraphTests",
+      "decorators": [],
+      "methods": [
+        "graph",
+        "test_normal_answer_can_refer_to_human_support",
+        "test_unclear_intent_uses_bounded_clarification",
+        "test_pii_node_runs_before_classifier",
+        "test_order_context_is_loaded_only_for_after_sales",
+        "test_each_specialist_reaches_summary_and_compliance"
+      ]
+    },
+    {
+      "source": "support_ai/tests.py",
+      "line": 122,
+      "name": "BuyerShellTests",
+      "decorators": [
+        "override_settings(ALLOWED_HOSTS=['127.0.0.1', 'testserver'])"
+      ],
+      "methods": [
+        "test_buyer_pages_share_header_and_support_navigation",
+        "test_support_requires_login",
+        "test_support_page_contains_preference_controls_and_new_conversation"
+      ]
+    },
+    {
+      "source": "support_ai/tests.py",
+      "line": 146,
+      "name": "ModelConfigurationTests",
+      "decorators": [],
+      "methods": [
+        "test_model_uses_configured_deepseek_options"
+      ]
+    },
+    {
+      "source": "support_ai/tests.py",
+      "line": 158,
+      "name": "RecommendationGraphTests",
+      "decorators": [],
+      "methods": [
+        "test_recommendation_requires_registered_application_tools"
+      ]
+    },
+    {
+      "source": "support_ai/tests.py",
+      "line": 168,
+      "name": "evidence",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "support_ai/tests.py",
+      "line": 172,
+      "name": "RecommendationContractTests",
+      "decorators": [],
+      "methods": [
+        "test_requires_original_user_evidence_and_rejects_injected_query_fields",
+        "test_memory_cannot_supply_hard_conditions",
+        "test_current_category_overrides_long_term_preference",
+        "test_unknown_currency_or_total_budget_clarifies_instead_of_becoming_unit_price",
+        "test_only_known_recent_user_turns_can_supply_continuation"
+      ]
+    },
+    {
+      "source": "support_ai/tests.py",
+      "line": 218,
+      "name": "RecommendationIntegrationTests",
+      "decorators": [],
+      "methods": [
+        "setUp",
+        "post_chat",
+        "model",
+        "test_matching_enforces_budget_launch_and_inventory_without_popular_fallback",
+        "test_http_recommendation_uses_saved_memory_and_commits_exact_replay",
+        "test_other_users_conversations_and_preferences_are_isolated",
+        "test_invalid_conditions_clarify_but_provider_failure_does_not_commit",
+        "test_retry_payload_conflict_and_conversation_revision_conflict",
+        "test_preferences_are_explicit_validated_and_deletable",
+        "test_short_context_contains_only_committed_redacted_same_conversation_turns",
+        "test_short_context_excludes_old_turns_and_unrelated_conversations",
+        "test_commit_rechecks_revision_after_slow_model_work",
+        "test_unavailable_memory_database_returns_safe_503_without_model_or_commit",
+        "test_unavailable_preference_store_does_not_fall_back_to_mysql"
+      ]
+    },
+    {
+      "source": "support_ai/test_grouped_recommendations.py",
+      "line": 22,
+      "name": "GroupedContractTests",
+      "decorators": [],
+      "methods": [
+        "test_query_and_saved_preference_have_independent_bounds",
+        "test_complete_request_and_group_options_are_preserved",
+        "test_counts_are_distinct_from_flat_limits",
+        "test_diagnostics_do_not_expose_input_or_exception_contents",
+        "test_long_newest_group_history_keeps_references_within_budget"
+      ]
+    },
+    {
+      "source": "support_ai/test_grouped_recommendations.py",
+      "line": 64,
+      "name": "GroupedRecommendationTests",
+      "decorators": [],
+      "methods": [
+        "setUp",
+        "run_tool",
+        "test_full_question_covers_all_six_types_without_condition_model",
+        "test_per_group_two_and_total_limit",
+        "test_explicit_subset_and_budget_and_exclusion_are_retained",
+        "test_plain_group_budget_and_exclusion_do_not_require_a_model",
+        "test_unknown_qualifiers_keep_model_extraction",
+        "test_missing_group_does_not_borrow_products",
+        "test_partial_group_error_keeps_other_results",
+        "test_bad_model_conditions_clarify_without_unfiltered_query",
+        "test_model_schema_failure_clarifies_and_reports_field",
+        "test_sixth_product_and_second_group_followups_reload_live_rows",
+        "test_unsupported_taste_is_not_silently_ignored",
+        "test_group_with_two_products_clarifies_or_uses_explicit_position"
+      ]
+    },
+    {
+      "source": "support_ai/test_mixed_tea.py",
+      "line": 24,
+      "name": "ExplanationModel",
+      "decorators": [],
+      "methods": [
+        "__init__",
+        "with_structured_output",
+        "invoke"
+      ]
+    },
+    {
+      "source": "support_ai/test_mixed_tea.py",
+      "line": 65,
+      "name": "evidence_search",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "support_ai/test_mixed_tea.py",
+      "line": 72,
+      "name": "MixedPlanningTests",
+      "decorators": [],
+      "methods": [
+        "test_user_sentence_contains_two_ordered_tasks",
+        "test_attributive_reference_is_not_a_second_knowledge_task",
+        "test_synonyms_and_coordinated_clauses_preserve_scopes",
+        "test_forged_source_is_rejected",
+        "test_failed_introduction_skips_dependent_recommendation",
+        "test_uncovered_clause_uses_model_instead_of_short_circuiting",
+        "test_constraints_and_negative_clauses_do_not_add_model_tasks",
+        "test_scoped_retrieval_shares_candidate_budget"
+      ]
+    },
+    {
+      "source": "support_ai/test_mixed_tea.py",
+      "line": 143,
+      "name": "MixedTeaIntegrationTests",
+      "decorators": [],
+      "methods": [
+        "setUp",
+        "run_graph",
+        "test_explanation_and_six_matching_product_groups_are_both_present",
+        "test_only_described_subset_is_recommended",
+        "test_empty_or_fabricated_evidence_never_unlocks_products",
+        "test_explicit_pair_does_not_expand_to_all_six",
+        "test_unknown_historical_reference_clarifies_without_recommending",
+        "test_budget_still_applies_to_knowledge_bound_groups",
+        "test_verified_explanation_scope_survives_into_history"
+      ]
+    },
+    {
+      "source": "support_ai/test_planning.py",
+      "line": 8,
+      "name": "PlanningTests",
+      "decorators": [],
+      "methods": [
+        "test_complete_graph_compiles",
+        "plan",
+        "test_explicit_introductions_do_not_inherit_shopping_history",
+        "test_mixed_tasks_and_requested_count",
+        "test_negative_requests_are_not_executed",
+        "test_quoted_recommendation_is_not_a_new_request",
+        "test_product_dependency_is_program_owned",
+        "test_forged_tool_and_cycles_are_rejected",
+        "test_duplicate_output_ids_are_rejected",
+        "test_context_only_continues_a_pending_clarification"
+      ]
+    },
+    {
+      "source": "support_ai/test_planning.py",
+      "line": 72,
+      "name": "ExecutorTests",
+      "decorators": [],
+      "methods": [
+        "test_no_match_skips_only_dependent_steps",
+        "test_dependency_overrides_storage_order_but_preserves_output_order",
+        "test_error_does_not_silently_complete_a_task",
+        "test_budget_stops_dispatch"
+      ]
+    },
+    {
+      "source": "support_ai/test_task_tools.py",
+      "line": 14,
+      "name": "ToolModel",
+      "decorators": [],
+      "methods": [
+        "__init__",
+        "with_structured_output",
+        "invoke"
+      ]
+    },
+    {
+      "source": "support_ai/test_task_tools.py",
+      "line": 35,
+      "name": "TaskToolIntegrationTests",
+      "decorators": [],
+      "methods": [
+        "setUp",
+        "chat",
+        "test_generic_category_is_range_not_false_no_match",
+        "test_one_product_and_dependent_live_details",
+        "test_knowledge_and_recommendation_both_execute_in_user_order",
+        "test_invalid_hard_conditions_commit_only_safe_clarification",
+        "test_saved_preference_quote_is_canonicalized_only_after_owner_verification",
+        "test_unknown_category_requests_clarification_instead_of_no_match",
+        "test_foreign_conversation_is_rejected",
+        "test_order_followup_reloads_status_and_keeps_identity_private",
+        "test_simple_slots_do_not_discard_budget_before_recommendation_verb"
+      ]
+    },
+    {
+      "source": "support_ai/test_telemetry.py",
+      "line": 19,
+      "name": "default_config",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "support_ai/test_telemetry.py",
+      "line": 23,
+      "name": "AgentTelemetryTests",
+      "decorators": [],
+      "methods": [
+        "tearDown",
+        "test_span_parentage_token_usage_and_privacy",
+        "test_errors_record_class_without_exception_message",
+        "test_disabled_monitoring_creates_no_records",
+        "test_model_error_closes_child_span_and_counts_call_without_logging_payload",
+        "test_configuration_refresh_keeps_inflight_trace_alive",
+        "test_persistence_failure_does_not_break_agent",
+        "test_thinking_mode_structured_output_contains_schema_without_forced_tool_choice"
+      ]
+    },
+    {
+      "source": "support_ai/test_telemetry.py",
+      "line": 119,
+      "name": "AgentOperationsTests",
+      "decorators": [],
+      "methods": [
+        "setUp",
+        "tearDown",
+        "put",
+        "test_buyer_and_anonymous_cannot_read_or_modify_configuration",
+        "test_inactive_operator_is_forbidden",
+        "test_switch_changes_next_model_and_has_versioned_audit",
+        "test_invalid_model_and_collector_address_are_rejected",
+        "test_catalog_is_loaded_from_authenticated_provider",
+        "test_monitoring_summary_and_trace_detail_come_from_otel_spans",
+        "test_platform_page_contains_settings_and_monitoring"
+      ]
+    },
+    {
+      "source": "support_ai/tool_services.py",
+      "line": 21,
+      "name": "simple_grouped_intent",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "support_ai/tool_services.py",
+      "line": 72,
+      "name": "simple_purchase_intent",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "support_ai/tool_services.py",
+      "line": 117,
+      "name": "normalize_recommendation",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "support_ai/tool_services.py",
+      "line": 154,
+      "name": "create_tool_handlers",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "support_ai/views.py",
+      "line": 27,
+      "name": "_response",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "support_ai/views.py",
+      "line": 33,
+      "name": "_storage_errors",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "support_ai/views.py",
+      "line": 44,
+      "name": "_buyer",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "support_ai/views.py",
+      "line": 62,
+      "name": "chat",
+      "decorators": [
+        "require_POST",
+        "_storage_errors"
+      ],
+      "methods": []
+    },
+    {
+      "source": "support_ai/views.py",
+      "line": 153,
+      "name": "preferences",
+      "decorators": [
+        "require_http_methods(['GET', 'PUT', 'DELETE'])",
+        "_storage_errors"
+      ],
+      "methods": []
+    },
+    {
+      "source": "support_ai/views.py",
+      "line": 175,
+      "name": "conversation_detail",
+      "decorators": [
+        "require_http_methods(['GET'])",
+        "_storage_errors"
+      ],
+      "methods": []
+    },
+    {
+      "source": "support_ai/workflow.py",
+      "line": 22,
+      "name": "IntentScores",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "support_ai/workflow.py",
+      "line": 29,
+      "name": "ComplianceVerdict",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "support_ai/workflow.py",
+      "line": 34,
+      "name": "DialogueResolution",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "support_ai/workflow.py",
+      "line": 41,
+      "name": "SupportState",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "support_ai/workflow.py",
+      "line": 62,
+      "name": "_text",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "support_ai/workflow.py",
+      "line": 66,
+      "name": "build_graph",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "ai_storage/apps.py",
+      "line": 4,
+      "name": "AiStorageConfig",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "ai_storage/embeddings.py",
+      "line": 7,
+      "name": "embed_texts",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "ai_storage/embeddings.py",
+      "line": 26,
+      "name": "embed_text",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "ai_storage/knowledge.py",
+      "line": 13,
+      "name": "search_knowledge",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "ai_storage/knowledge.py",
+      "line": 39,
+      "name": "search_knowledge_text",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "ai_storage/models.py",
+      "line": 7,
+      "name": "BuyerMemory",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "ai_storage/models.py",
+      "line": 15,
+      "name": "EmbeddingSpace",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "ai_storage/models.py",
+      "line": 28,
+      "name": "KnowledgeDocument",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "ai_storage/models.py",
+      "line": 52,
+      "name": "KnowledgeChunk",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "ai_storage/reranking.py",
+      "line": 8,
+      "name": "RerankUnavailable",
+      "decorators": [],
+      "methods": [
+        "__init__"
+      ]
+    },
+    {
+      "source": "ai_storage/reranking.py",
+      "line": 14,
+      "name": "reranker_status",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "ai_storage/reranking.py",
+      "line": 28,
+      "name": "rerank_candidates",
+      "decorators": [],
+      "methods": []
+    },
+    {
+      "source": "ai_storage/router.py",
+      "line": 1,
+      "name": "AiStorageRouter",
+      "decorators": [],
+      "methods": [
+        "db_for_read",
+        "db_for_write",
+        "allow_relation",
+        "allow_migrate"
+      ]
+    },
+    {
+      "source": "ai_storage/tests.py",
+      "line": 12,
+      "name": "RoutingTests",
+      "decorators": [],
+      "methods": [
+        "test_memory_and_knowledge_are_routed_to_ai_storage_only"
+      ]
+    },
+    {
+      "source": "ai_storage/tests.py",
+      "line": 24,
+      "name": "MemoryTransferTests",
+      "decorators": [],
+      "methods": [
+        "test_transfer_is_idempotent_and_preserves_newer_memory_and_mysql_source"
+      ]
+    },
+    {
+      "source": "ai_storage/tests.py",
+      "line": 41,
+      "name": "VectorStorageTests",
+      "decorators": [
+        "skipUnless(connections['ai_storage'].vendor == 'postgresql', 'requires real pgvector PostgreSQL')"
+      ],
+      "methods": [
+        "setUp",
+        "chunk",
+        "test_vector_search_filters_owner_publication_and_embedding_model",
+        "test_database_rejects_wrong_dimensions_zero_vectors_and_mutating_used_space",
+        "test_search_rejects_invalid_query_vectors_before_matching"
+      ]
+    }
+  ]
+}

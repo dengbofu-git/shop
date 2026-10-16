@@ -8,7 +8,9 @@ from langchain_core.messages import AIMessage
 from langchain_core.runnables import Runnable, RunnableLambda
 
 from .pii import contains_pii, redact
-from .workflow import ComplianceVerdict, FALLBACK, IntentScores, build_graph
+from .workflow import ComplianceVerdict, DialogueResolution, FALLBACK, IntentScores, build_graph
+from .planning import FiniteIntents
+from .execution import ToolResult
 from .model_client import configured_model
 from .contracts import RecommendationIntent, validate_recommendation_intent
 
@@ -25,6 +27,14 @@ class FakeModel(Runnable):
             self.calls.append(('structured', content))
             if schema is IntentScores:
                 return IntentScores(**self.scores)
+            if schema is DialogueResolution:
+                return DialogueResolution(standalone_question=content.split('本轮：')[1].split('\n')[0],
+                                          source_turn_ids=[], needs_clarification=False)
+            if schema is FiniteIntents:
+                kind = max(self.scores, key=self.scores.get)
+                if self.scores[kind] < .55:
+                    kind = 'clarification'
+                return FiniteIntents(requests=[{'kind': kind, 'quote': content.split('本轮原话：')[1].split('\n')[0]}])
             if schema is RecommendationIntent:
                 return RecommendationIntent.model_validate(self.product_intent)
             return ComplianceVerdict(safe=True, revised_answer=content.split('待检查回复：')[-1])
@@ -45,14 +55,38 @@ class PiiTests(TestCase):
             self.assertNotIn(secret, result)
         self.assertTrue(contains_pii('test@example.com'))
 
+    def test_contact_support_phrase_is_not_a_person_name(self):
+        reply = '如需进一步帮助，请联系人工客服。'
+        self.assertEqual(redact(reply), reply)
+        self.assertFalse(contains_pii(reply))
+        for label in ('联系人张三', '联系人：张三', '联系人是张三'):
+            with self.subTest(label=label):
+                self.assertNotIn('张三', redact(label))
+                self.assertTrue(contains_pii(label))
+
 
 class GraphTests(TestCase):
-    def test_low_confidence_uses_fallback_then_compliance(self):
+    def graph(self, model):
+        def factory(state):
+            def handler(step, completed):
+                data = {'orders': __import__('json').loads(state.get('order_context', '[]'))} if step.intent == 'after_sales' else {'answer': FALLBACK}
+                return ToolResult(step_id=step.id, tool=step.tool, status='success', data=data)
+            return {name: handler for name in ('introduce_tea', 'get_order_status', 'ask_clarification')}
+        return build_graph(model, tool_factory=factory)
+
+    def test_normal_answer_can_refer_to_human_support(self):
+        model = FakeModel({'recommendation': .1, 'question_answering': .9, 'after_sales': .1})
+        reply = '绿茶加工包括杀青和干燥。如需进一步帮助，请联系人工客服。'
+        with patch.object(model, 'invoke', return_value=AIMessage(content=reply)):
+            result = build_graph(model).invoke({'message': '介绍一下绿茶'})
+        self.assertEqual(result['answer'], reply)
+
+    def test_unclear_intent_uses_bounded_clarification(self):
         model = FakeModel({'recommendation': .2, 'question_answering': .3, 'after_sales': .1})
         result = build_graph(model).invoke({'message': '无关问题'})
-        self.assertEqual(result['intent'], 'unavailable')
+        self.assertEqual(result['intent'], 'clarification')
         self.assertEqual(result['answer'], FALLBACK)
-        self.assertEqual(len([call for call in model.calls if call[0] == 'structured']), 2)
+        self.assertEqual(len([call for call in model.calls if call[0] == 'structured']), 1)
 
     def test_pii_node_runs_before_classifier(self):
         model = FakeModel({'recommendation': .1, 'question_answering': .8, 'after_sales': .1})
@@ -64,11 +98,11 @@ class GraphTests(TestCase):
     def test_order_context_is_loaded_only_for_after_sales(self):
         context = '[{"status":"待付款"}]'
         qa = FakeModel({'recommendation': .1, 'question_answering': .9, 'after_sales': .1})
-        build_graph(qa).invoke({'message': '如何查看订单？', 'order_context': context})
+        self.graph(qa).invoke({'message': '如何查看订单？', 'order_context': context})
         self.assertFalse(any(context in text for _, text in qa.calls))
         after_sales = FakeModel({'recommendation': .1, 'question_answering': .1, 'after_sales': .9})
-        build_graph(after_sales).invoke({'message': '订单售后问题', 'order_context': context})
-        self.assertTrue(any(context in text for _, text in after_sales.calls))
+        self.graph(after_sales).invoke({'message': '订单售后问题', 'order_context': context})
+        self.assertTrue(any(context.replace(' ', '') in text.replace(' ', '') for _, text in after_sales.calls))
 
     def test_each_specialist_reaches_summary_and_compliance(self):
         for intent in ('question_answering', 'after_sales'):
@@ -76,11 +110,12 @@ class GraphTests(TestCase):
                 scores = dict.fromkeys(('recommendation', 'question_answering', 'after_sales'), .1)
                 scores[intent] = .9
                 model = FakeModel(scores)
-                result = build_graph(model).invoke({'message': '请帮忙'})
+                message = '介绍绿茶' if intent == 'question_answering' else '我的订单状态'
+                result = self.graph(model).invoke({'message': message})
                 self.assertEqual(result['intent'], intent)
                 self.assertIn('已根据授权资料回答', result['answer'])
-                self.assertEqual(len([call for call in model.calls if call[0] == 'text']), 2)
-                self.assertEqual(len([call for call in model.calls if call[0] == 'structured']), 2)
+                self.assertEqual(len([call for call in model.calls if call[0] == 'text']), 1)
+                self.assertEqual(len([call for call in model.calls if call[0] == 'structured']), 1)
 
 
 @override_settings(ALLOWED_HOSTS=['127.0.0.1', 'testserver'])
@@ -121,16 +156,13 @@ class ModelConfigurationTests(SimpleTestCase):
 
 
 class RecommendationGraphTests(SimpleTestCase):
-    def test_recommendation_graph_only_extracts_intent_without_database_or_text_models(self):
+    def test_recommendation_requires_registered_application_tools(self):
         memory = {'id': 'preference-1', 'preferences': {'categories': ['红茶'], 'brands': [], 'keywords': []}}
         history = [{'turn_id': 'turn-1', 'user_text': '想买红茶', 'assistant_text': '已找到商品'}]
         model = FakeModel({'recommendation': .9, 'question_answering': .1, 'after_sales': .1})
-        result = build_graph(model).invoke({'message': '还是红茶', 'memory': memory, 'recent_turns': history})
-        self.assertEqual(result['product_intent']['action'], 'SEARCH')
-        self.assertNotIn('answer', result)
-        self.assertEqual([kind for kind, _ in model.calls], ['structured', 'structured'])
-        self.assertIn('preference-1', model.calls[-1][1])
-        self.assertIn('turn-1', model.calls[-1][1])
+        with self.assertRaisesRegex(ValueError, 'not registered'):
+            build_graph(model).invoke({'message': '推荐红茶', 'memory': memory, 'recent_turns': history})
+        self.assertEqual(model.calls, [])
 
 
 def evidence(field, value, quote, source='CURRENT', source_id=None):
@@ -248,7 +280,7 @@ class RecommendationIntegrationTests(DatabaseTestCase):
         self.assertEqual(data['recommendations'][0]['sku_id'], self.skus[0].pk)
         self.assertTrue(data['memory_used'])
         self.assertEqual(data['revision'], 1)
-        self.assertEqual(len(model.calls), 2)
+        self.assertEqual(len(model.calls), 0)
         with patch('support_ai.model_client.configured_model', side_effect=AssertionError('must replay')):
             import json
             second = self.client.post('/v1/support/chat/', data=json.dumps({'message': '推荐茶', 'request_id': self.request_id}),
@@ -266,18 +298,24 @@ class RecommendationIntegrationTests(DatabaseTestCase):
         self.assertEqual(self.client.get('/v1/support/conversations/{}/'.format(foreign.pk), **self.auth).status_code, 404)
         self.assertEqual(self.client.get('/v1/support/preferences/', **self.auth).json()['preferences']['categories'], [])
 
-    def test_invalid_model_output_and_model_failure_do_not_commit_a_turn(self):
+    def test_invalid_conditions_clarify_but_provider_failure_does_not_commit(self):
         from .models import SupportConversation, SupportTurn
         bad = self.model({'action': 'SEARCH', 'required': {'categories': ['绿茶']}})
-        self.assertEqual(self.post_chat(bad).status_code, 503)
-        self.assertFalse(SupportTurn.objects.filter(user=self.user).exists())
-        self.assertFalse(SupportConversation.objects.filter(user=self.user).exists())
+        data = self.post_chat(bad, message='推荐测试品牌绿茶')
+        self.assertEqual(data.status_code, 200)
+        self.assertEqual(data.json()['recommendation_status'], 'CLARIFY')
+        self.assertFalse(data.json()['recommendations'])
+        from .models import AgentSpan
+        completed = AgentSpan.objects.get(name='support.chat')
+        self.assertEqual(completed.status, 'OK')
+        self.assertEqual(SupportTurn.objects.filter(user=self.user).count(), 1)
+        self.assertEqual(SupportConversation.objects.filter(user=self.user).count(), 1)
         with patch('support_ai.model_client.configured_model', side_effect=TimeoutError):
             import json
             response = self.client.post('/v1/support/chat/', data=json.dumps({'message': '推荐茶'}),
                                         content_type='application/json', **self.auth)
         self.assertEqual(response.status_code, 503)
-        self.assertFalse(SupportTurn.objects.filter(user=self.user).exists())
+        self.assertEqual(SupportTurn.objects.filter(user=self.user).count(), 1)
 
     def test_retry_payload_conflict_and_conversation_revision_conflict(self):
         import json
@@ -309,7 +347,7 @@ class RecommendationIntegrationTests(DatabaseTestCase):
         from .context import recent_context
         from .models import SupportConversation
         model = self.model()
-        first = self.post_chat(model, message='推荐茶，邮箱buyer@example.com').json()
+        first = self.post_chat(model, message='推荐测试品牌绿茶，邮箱buyer@example.com').json()
         context = recent_context(SupportConversation.objects.get(pk=first['conversation_id']))
         self.assertNotIn('buyer@example.com', context[0]['user_text'])
         self.request_id = str(uuid.uuid4())

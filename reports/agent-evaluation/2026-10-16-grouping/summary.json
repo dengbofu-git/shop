@@ -1,0 +1,17 @@
+{
+  "baseline_failures_captured": 3,
+  "baseline_error_seconds": [
+    2.594,
+    2.519,
+    2.326
+  ],
+  "candidate_passed": 6,
+  "candidate_cases": 6,
+  "unit_tests_passed": 81,
+  "history_unchanged": true,
+  "business_counts": {
+    "turns": 16,
+    "conversations": 6,
+    "spans": 118
+  }
+}

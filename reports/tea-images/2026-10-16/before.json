@@ -1,0 +1,81 @@
+{
+  "catalogs": [
+    {
+      "id": 1,
+      "name": "123",
+      "fallback_image": ""
+    },
+    {
+      "id": 2,
+      "name": "b",
+      "fallback_image": ""
+    },
+    {
+      "id": 3,
+      "name": "1",
+      "fallback_image": ""
+    },
+    {
+      "id": 4,
+      "name": "西湖",
+      "fallback_image": ""
+    },
+    {
+      "id": 5,
+      "name": "000",
+      "fallback_image": ""
+    },
+    {
+      "id": 6,
+      "name": "3333",
+      "fallback_image": ""
+    },
+    {
+      "id": 7,
+      "name": "4545",
+      "fallback_image": ""
+    },
+    {
+      "id": 8,
+      "name": "红茶",
+      "fallback_image": ""
+    },
+    {
+      "id": 9,
+      "name": "绿茶",
+      "fallback_image": ""
+    },
+    {
+      "id": 10,
+      "name": "乌龙茶",
+      "fallback_image": ""
+    },
+    {
+      "id": 11,
+      "name": "白茶",
+      "fallback_image": ""
+    },
+    {
+      "id": 12,
+      "name": "黄茶",
+      "fallback_image": ""
+    },
+    {
+      "id": 13,
+      "name": "黑茶",
+      "fallback_image": ""
+    }
+  ],
+  "skuUploads": [
+    {
+      "id": 23,
+      "default_image_url": "sku/23/f3d3572c11dfa9ec8a1380704f99e003918fa0ec6b08.webp",
+      "sha256": "a37fce4dfb546b9bcbeb10b41c82ec2ad6fbca49a61a953ecda097637501bc0e"
+    },
+    {
+      "id": 24,
+      "default_image_url": "sku/24/4d086e061d950a7b020843e0da8975d9f2d3572c63c4.webp",
+      "sha256": "ab157c9e845047743d77dc4e98164f75645cf422e361900944526ecf3e8e974c"
+    }
+  ]
+}

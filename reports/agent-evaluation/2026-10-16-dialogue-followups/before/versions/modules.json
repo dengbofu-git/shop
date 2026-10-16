@@ -1,0 +1,238 @@
+{
+  "schema_version": 1,
+  "modules": {
+    "core": {
+      "title": "项目核心",
+      "version": "0.1.5",
+      "paths": [
+        "dadashop/",
+        "manage.py",
+        "requirements.txt",
+        ".gitignore",
+        ".env.example",
+        "tools/",
+        "versions/",
+        "docs/",
+        "versions/changelogs/core.md"
+      ],
+      "dependencies": []
+    },
+    "users": {
+      "title": "用户与权限",
+      "version": "0.1.0",
+      "paths": [
+        "users/",
+        "versions/changelogs/users.md"
+      ],
+      "dependencies": [
+        "core"
+      ]
+    },
+    "goods": {
+      "title": "商品管理",
+      "version": "0.4.0",
+      "paths": [
+        "goods/",
+        "goods_data.json",
+        "media/",
+        "docs/虚拟商品数据.md",
+        "reports/virtual-products/",
+        "reports/tea-images/",
+        "versions/changelogs/goods.md"
+      ],
+      "dependencies": [
+        "core",
+        "users",
+        "inventory"
+      ]
+    },
+    "carts": {
+      "title": "购物车",
+      "version": "0.1.1",
+      "paths": [
+        "carts/",
+        "versions/changelogs/carts.md"
+      ],
+      "dependencies": [
+        "core",
+        "users",
+        "goods"
+      ]
+    },
+    "orders": {
+      "title": "订单与报关",
+      "version": "0.1.1",
+      "paths": [
+        "orders/",
+        "versions/changelogs/orders.md"
+      ],
+      "dependencies": [
+        "core",
+        "users",
+        "goods"
+      ]
+    },
+    "pays": {
+      "title": "支付",
+      "version": "0.1.0",
+      "paths": [
+        "pays/",
+        "app_key/",
+        "versions/changelogs/pays.md"
+      ],
+      "dependencies": [
+        "core",
+        "orders"
+      ]
+    },
+    "news": {
+      "title": "内容资讯",
+      "version": "0.1.0",
+      "paths": [
+        "news/",
+        "versions/changelogs/news.md"
+      ],
+      "dependencies": [
+        "core",
+        "users"
+      ]
+    },
+    "inventory": {
+      "title": "库存管理",
+      "version": "0.1.0",
+      "paths": [
+        "inventory/",
+        "versions/changelogs/inventory.md"
+      ],
+      "dependencies": [
+        "core",
+        "users",
+        "goods"
+      ]
+    },
+    "logistics": {
+      "title": "物流",
+      "version": "0.1.0",
+      "paths": [
+        "logistics/",
+        "versions/changelogs/logistics.md"
+      ],
+      "dependencies": [
+        "core",
+        "users",
+        "orders"
+      ]
+    },
+    "supplier": {
+      "title": "商家与结算",
+      "version": "0.1.0",
+      "paths": [
+        "supplier/",
+        "versions/changelogs/supplier.md"
+      ],
+      "dependencies": [
+        "core",
+        "users",
+        "goods",
+        "orders",
+        "inventory"
+      ]
+    },
+    "admin_panel": {
+      "title": "平台运营",
+      "version": "0.3.0",
+      "paths": [
+        "admin_panel/",
+        "versions/changelogs/admin_panel.md"
+      ],
+      "dependencies": [
+        "core",
+        "users",
+        "support_ai"
+      ]
+    },
+    "support_ai": {
+      "title": "智能客服",
+      "version": "0.9.0",
+      "paths": [
+        "support_ai/",
+        "docs/客服商品推荐设计.md",
+        "docs/Agent监控与模型设置.md",
+        "docs/Agent多轮对话.md",
+        "docs/Agent任务模板与对照评测.md",
+        "docs/Agent终端预览.md",
+        "docs/Agent分类推荐.md",
+        "docs/Agent查询改写.md",
+        "reports/agent-preview/",
+        "reports/agent-evaluation/",
+        "deploy/observability/",
+        "compose.agent-observability.yml",
+        "versions/changelogs/support_ai.md"
+      ],
+      "dependencies": [
+        "core",
+        "users",
+        "goods",
+        "orders",
+        "ai_storage"
+      ]
+    },
+    "merchant_ai": {
+      "title": "商家智能助手",
+      "version": "0.1.0",
+      "paths": [
+        "merchant_ai/",
+        "docs/商家智能助手.md",
+        "versions/changelogs/merchant_ai.md"
+      ],
+      "dependencies": [
+        "core",
+        "users"
+      ]
+    },
+    "ai_storage": {
+      "title": "AI 记忆与知识存储",
+      "version": "0.3.2",
+      "paths": [
+        "ai_storage/",
+        "deploy/postgres/",
+        "compose.ai-storage.yml",
+        ".env.postgres.example",
+        "docs/PostgreSQL与pgvector配置.md",
+        "versions/changelogs/ai_storage.md",
+        "compose.reranker.yml",
+        "deploy/reranker/",
+        "docs/本地重排序.md"
+      ],
+      "dependencies": [
+        "core",
+        "support_ai"
+      ]
+    },
+    "web": {
+      "title": "页面与前端资源",
+      "version": "0.6.0",
+      "paths": [
+        "client/",
+        "templates/",
+        "versions/changelogs/web.md",
+        "docs/全站主题规范.md"
+      ],
+      "dependencies": [
+        "core",
+        "users",
+        "goods",
+        "carts",
+        "orders",
+        "pays",
+        "news",
+        "inventory",
+        "logistics",
+        "supplier",
+        "admin_panel",
+        "support_ai",
+        "merchant_ai"
+      ]
+    }
+  }
+}

@@ -1,0 +1,17 @@
+[
+  {"id":1,"scene":"中文加工比较","message":"绿茶和红茶在制作工艺上有什么区别？","support_groups":[[65],[64,81]],"relevant_ids":[64,65,81],"answer_goal":"解释绿茶加热钝化酶、红茶酶促氧化的区别。","full_answer_available":true},
+  {"id":2,"scene":"英文加工比较","message":"Explain how green tea and black tea differ in their manufacturing processes.","support_groups":[[65],[64,81]],"relevant_ids":[64,65,81],"answer_goal":"解释绿茶加热钝化酶、红茶酶促氧化的区别。","full_answer_available":true},
+  {"id":3,"scene":"中英混合加工比较","message":"请比较green tea和红茶的processing，说明关键区别。","support_groups":[[65],[64,81]],"relevant_ids":[64,65,81],"answer_goal":"理解混合语言，比较绿茶与红茶加工。","full_answer_available":true},
+  {"id":4,"scene":"阿拉伯文加工比较","message":"اشرح الفرق بين تصنيع الشاي الأخضر والشاي الأسود.","support_groups":[[65],[64,81]],"relevant_ids":[64,65,81],"answer_goal":"识别阿拉伯文绿茶、红茶，比较制造工艺；回答可使用中文。","full_answer_available":true},
+  {"id":5,"scene":"中文双国习俗与资料缺口","message":"请比较沙特阿拉伯与阿联酋的饮茶习惯。","support_groups":[[59]],"relevant_ids":[59],"answer_goal":"有依据介绍沙特；明确缺少阿联酋习惯资料，不以贸易/预测数据替代习惯。","full_answer_available":false,"required_abstention":"阿联酋饮茶习惯"},
+  {"id":6,"scene":"英文双国习俗与资料缺口","message":"Compare tea drinking customs in Saudi Arabia and the United Arab Emirates.","support_groups":[[59]],"relevant_ids":[59],"answer_goal":"有依据介绍沙特；明确缺少阿联酋习惯资料，不以贸易/预测数据替代习惯。","full_answer_available":false,"required_abstention":"阿联酋饮茶习惯"},
+  {"id":7,"scene":"中英缩写国家习俗","message":"请比较Saudi Arabia和UAE的饮茶习惯与待客礼仪。","support_groups":[[59]],"relevant_ids":[59],"answer_goal":"理解国名与缩写；有依据介绍沙特，承认阿联酋习惯资料缺口。","full_answer_available":false,"required_abstention":"阿联酋饮茶习惯"},
+  {"id":8,"scene":"双国均有资料的习俗比较","message":"请比较约旦和沙特的待客饮茶习俗。","support_groups":[[60],[59]],"relevant_ids":[59,60],"answer_goal":"分别以约旦日常聚会/芳香植物和沙特待客/炭火茶资料进行比较，不能拿消费预测替代。","full_answer_available":true},
+  {"id":9,"scene":"发酵术语区别","message":"解释红茶的发酵与黑茶的后发酵有什么区别。","support_groups":[[64,81],[69,81]],"relevant_ids":[64,69,81],"answer_goal":"区分红茶酶促氧化与黑茶渥堆/后发酵，不能将黑茶和红茶混为一类。","full_answer_available":true},
+  {"id":10,"scene":"拼音和英语别名","message":"Explain hongcha versus heicha: is black tea the same as dark tea?","support_groups":[[76]],"relevant_ids":[64,69,76,81],"answer_goal":"明确hongcha=红茶=black tea，heicha=黑茶=dark tea，二者不同。","full_answer_available":true},
+  {"id":11,"scene":"制造术语缩写与同义表达","message":"请介绍茶叶的CTC工艺，说明它与传统Orthodox工艺的区别。","support_groups":[[79]],"relevant_ids":[79],"answer_goal":"解释CTC是crush tear curl，Orthodox和CTC是制造方式，不是基本茶类；不编造未配置的完整生产步骤。","full_answer_available":true},
+  {"id":12,"scene":"国家缩写与习俗同义表达","message":"请介绍KSA的待客饮茶习俗。","support_groups":[[59]],"relevant_ids":[59],"answer_goal":"理解KSA为沙特，有依据介绍待客饮茶而不是仅报告进口量。","full_answer_available":true},
+  {"id":13,"scene":"库中不存在的具体配方","message":"请介绍阿联酋皇室专用“月光蓝钻茶”的官方配方。","support_groups":[],"relevant_ids":[],"answer_goal":"明确无此具体产品或官方配方证据，不能从一般茶知识编造配料、比例或皇室背书。","full_answer_available":false,"required_abstention":"月光蓝钻茶官方配方"},
+  {"id":14,"scene":"带数字的冲泡误解","message":"绿茶冲泡水温是否必须固定为80摄氏度？","support_groups":[[74]],"relevant_ids":[74],"answer_goal":"说明茶类不规定统一冲泡温度，依产品、叶片、水质、用量和口味调整；不能断言所有绿茶必须80度。","full_answer_available":true},
+  {"id":15,"scene":"三茶类证据覆盖","message":"说明绿茶、红茶和白茶的加工区别。","support_groups":[[65],[64,81],[66]],"relevant_ids":[64,65,66,81],"answer_goal":"同时介绍绿茶加热、红茶氧化、白茶萎凋/干燥，不能漏掉一类或用泛泛分类清单代替工艺。","full_answer_available":true}
+]

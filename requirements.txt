@@ -26,4 +26,9 @@ Pillow==9.5.0
 langchain==0.3.27
 langgraph==0.2.76
 langchain-openai==0.2.14
+
+# OpenTelemetry (Python 3.9 compatible; exporter uses OTLP HTTP/protobuf)
+opentelemetry-api==1.41.1
+opentelemetry-sdk==1.41.1
+opentelemetry-exporter-otlp-proto-http==1.41.1
 greenlet==3.1.1

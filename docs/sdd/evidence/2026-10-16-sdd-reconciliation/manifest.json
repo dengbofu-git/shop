@@ -1,0 +1,994 @@
+{
+  "schemaVersion": "0.1",
+  "evidenceType": "sdd-reconciliation",
+  "startedAt": "2026-10-16T13:37:41.590089+08:00",
+  "finishedAt": "2026-10-16T13:37:49.474558+08:00",
+  "head": "4db3fd12e985c5b5fc3b04de20b780d926a4e319",
+  "workingTree": "dirty",
+  "scope": "24 capability source reconciliation; runtime tests limited to listed suites/probes",
+  "command": "E:/miniconda/envs/dadashop/python.exe docs/sdd/evidence/2026-10-16-sdd-reconciliation/run_reconciliation.py",
+  "labels": [
+    "support_ai.tests",
+    "support_ai.test_planning",
+    "support_ai.test_task_tools",
+    "support_ai.test_telemetry",
+    "support_ai.test_grouped_recommendations",
+    "support_ai.test_mixed_tea",
+    "ai_storage.tests"
+  ],
+  "testResults": [
+    {
+      "id": "support_ai.tests.RecommendationIntegrationTests.test_commit_rechecks_revision_after_slow_model_work",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.tests.RecommendationIntegrationTests.test_http_recommendation_uses_saved_memory_and_commits_exact_replay",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.tests.RecommendationIntegrationTests.test_invalid_conditions_clarify_but_provider_failure_does_not_commit",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.tests.RecommendationIntegrationTests.test_matching_enforces_budget_launch_and_inventory_without_popular_fallback",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.tests.RecommendationIntegrationTests.test_other_users_conversations_and_preferences_are_isolated",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.tests.RecommendationIntegrationTests.test_preferences_are_explicit_validated_and_deletable",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.tests.RecommendationIntegrationTests.test_retry_payload_conflict_and_conversation_revision_conflict",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.tests.RecommendationIntegrationTests.test_short_context_contains_only_committed_redacted_same_conversation_turns",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.tests.RecommendationIntegrationTests.test_short_context_excludes_old_turns_and_unrelated_conversations",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.tests.RecommendationIntegrationTests.test_unavailable_memory_database_returns_safe_503_without_model_or_commit",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.tests.RecommendationIntegrationTests.test_unavailable_preference_store_does_not_fall_back_to_mysql",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.test_task_tools.TaskToolIntegrationTests.test_foreign_conversation_is_rejected",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.test_task_tools.TaskToolIntegrationTests.test_generic_category_is_range_not_false_no_match",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.test_task_tools.TaskToolIntegrationTests.test_invalid_hard_conditions_commit_only_safe_clarification",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.test_task_tools.TaskToolIntegrationTests.test_knowledge_and_recommendation_both_execute_in_user_order",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.test_task_tools.TaskToolIntegrationTests.test_one_product_and_dependent_live_details",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.test_task_tools.TaskToolIntegrationTests.test_order_followup_reloads_status_and_keeps_identity_private",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.test_task_tools.TaskToolIntegrationTests.test_saved_preference_quote_is_canonicalized_only_after_owner_verification",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.test_task_tools.TaskToolIntegrationTests.test_simple_slots_do_not_discard_budget_before_recommendation_verb",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.test_task_tools.TaskToolIntegrationTests.test_unknown_category_requests_clarification_instead_of_no_match",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.test_telemetry.AgentOperationsTests.test_buyer_and_anonymous_cannot_read_or_modify_configuration",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.test_telemetry.AgentOperationsTests.test_catalog_is_loaded_from_authenticated_provider",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.test_telemetry.AgentOperationsTests.test_inactive_operator_is_forbidden",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.test_telemetry.AgentOperationsTests.test_invalid_model_and_collector_address_are_rejected",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.test_telemetry.AgentOperationsTests.test_monitoring_summary_and_trace_detail_come_from_otel_spans",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.test_telemetry.AgentOperationsTests.test_platform_page_contains_settings_and_monitoring",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.test_telemetry.AgentOperationsTests.test_switch_changes_next_model_and_has_versioned_audit",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.test_telemetry.AgentTelemetryTests.test_configuration_refresh_keeps_inflight_trace_alive",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.test_telemetry.AgentTelemetryTests.test_disabled_monitoring_creates_no_records",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.test_telemetry.AgentTelemetryTests.test_errors_record_class_without_exception_message",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.test_telemetry.AgentTelemetryTests.test_model_error_closes_child_span_and_counts_call_without_logging_payload",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.test_telemetry.AgentTelemetryTests.test_persistence_failure_does_not_break_agent",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.test_telemetry.AgentTelemetryTests.test_span_parentage_token_usage_and_privacy",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.test_telemetry.AgentTelemetryTests.test_thinking_mode_structured_output_contains_schema_without_forced_tool_choice",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.test_grouped_recommendations.GroupedRecommendationTests.test_bad_model_conditions_clarify_without_unfiltered_query",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.test_grouped_recommendations.GroupedRecommendationTests.test_explicit_subset_and_budget_and_exclusion_are_retained",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.test_grouped_recommendations.GroupedRecommendationTests.test_full_question_covers_all_six_types_without_condition_model",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.test_grouped_recommendations.GroupedRecommendationTests.test_group_with_two_products_clarifies_or_uses_explicit_position",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.test_grouped_recommendations.GroupedRecommendationTests.test_missing_group_does_not_borrow_products",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.test_grouped_recommendations.GroupedRecommendationTests.test_model_schema_failure_clarifies_and_reports_field",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.test_grouped_recommendations.GroupedRecommendationTests.test_partial_group_error_keeps_other_results",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.test_grouped_recommendations.GroupedRecommendationTests.test_per_group_two_and_total_limit",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.test_grouped_recommendations.GroupedRecommendationTests.test_plain_group_budget_and_exclusion_do_not_require_a_model",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.test_grouped_recommendations.GroupedRecommendationTests.test_sixth_product_and_second_group_followups_reload_live_rows",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.test_grouped_recommendations.GroupedRecommendationTests.test_unknown_qualifiers_keep_model_extraction",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.test_grouped_recommendations.GroupedRecommendationTests.test_unsupported_taste_is_not_silently_ignored",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.test_mixed_tea.MixedTeaIntegrationTests.test_budget_still_applies_to_knowledge_bound_groups",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.test_mixed_tea.MixedTeaIntegrationTests.test_empty_or_fabricated_evidence_never_unlocks_products",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.test_mixed_tea.MixedTeaIntegrationTests.test_explanation_and_six_matching_product_groups_are_both_present",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.test_mixed_tea.MixedTeaIntegrationTests.test_explicit_pair_does_not_expand_to_all_six",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.test_mixed_tea.MixedTeaIntegrationTests.test_only_described_subset_is_recommended",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.test_mixed_tea.MixedTeaIntegrationTests.test_unknown_historical_reference_clarifies_without_recommending",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.test_mixed_tea.MixedTeaIntegrationTests.test_verified_explanation_scope_survives_into_history",
+      "result": "passed"
+    },
+    {
+      "id": "ai_storage.tests.MemoryTransferTests.test_transfer_is_idempotent_and_preserves_newer_memory_and_mysql_source",
+      "result": "passed"
+    },
+    {
+      "id": "ai_storage.tests.VectorStorageTests.test_database_rejects_wrong_dimensions_zero_vectors_and_mutating_used_space",
+      "result": "skipped",
+      "reason": "requires real pgvector PostgreSQL"
+    },
+    {
+      "id": "ai_storage.tests.VectorStorageTests.test_search_rejects_invalid_query_vectors_before_matching",
+      "result": "skipped",
+      "reason": "requires real pgvector PostgreSQL"
+    },
+    {
+      "id": "ai_storage.tests.VectorStorageTests.test_vector_search_filters_owner_publication_and_embedding_model",
+      "result": "skipped",
+      "reason": "requires real pgvector PostgreSQL"
+    },
+    {
+      "id": "support_ai.tests.BuyerShellTests.test_buyer_pages_share_header_and_support_navigation",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.tests.BuyerShellTests.test_support_page_contains_preference_controls_and_new_conversation",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.tests.BuyerShellTests.test_support_requires_login",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.tests.ModelConfigurationTests.test_model_uses_configured_deepseek_options",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.tests.RecommendationContractTests.test_current_category_overrides_long_term_preference",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.tests.RecommendationContractTests.test_memory_cannot_supply_hard_conditions",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.tests.RecommendationContractTests.test_only_known_recent_user_turns_can_supply_continuation",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.tests.RecommendationContractTests.test_requires_original_user_evidence_and_rejects_injected_query_fields",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.tests.RecommendationContractTests.test_unknown_currency_or_total_budget_clarifies_instead_of_becoming_unit_price",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.tests.RecommendationGraphTests.test_recommendation_requires_registered_application_tools",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.test_grouped_recommendations.GroupedContractTests.test_complete_request_and_group_options_are_preserved",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.test_grouped_recommendations.GroupedContractTests.test_counts_are_distinct_from_flat_limits",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.test_grouped_recommendations.GroupedContractTests.test_diagnostics_do_not_expose_input_or_exception_contents",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.test_grouped_recommendations.GroupedContractTests.test_long_newest_group_history_keeps_references_within_budget",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.test_grouped_recommendations.GroupedContractTests.test_query_and_saved_preference_have_independent_bounds",
+      "result": "passed"
+    },
+    {
+      "id": "ai_storage.tests.RoutingTests.test_memory_and_knowledge_are_routed_to_ai_storage_only",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.tests.GraphTests.test_each_specialist_reaches_summary_and_compliance",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.tests.GraphTests.test_normal_answer_can_refer_to_human_support",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.tests.GraphTests.test_order_context_is_loaded_only_for_after_sales",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.tests.GraphTests.test_pii_node_runs_before_classifier",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.tests.GraphTests.test_unclear_intent_uses_bounded_clarification",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.tests.PiiTests.test_contact_support_phrase_is_not_a_person_name",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.tests.PiiTests.test_redacts_order_phone_email_name_and_address",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.test_planning.ExecutorTests.test_budget_stops_dispatch",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.test_planning.ExecutorTests.test_dependency_overrides_storage_order_but_preserves_output_order",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.test_planning.ExecutorTests.test_error_does_not_silently_complete_a_task",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.test_planning.ExecutorTests.test_no_match_skips_only_dependent_steps",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.test_planning.PlanningTests.test_complete_graph_compiles",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.test_planning.PlanningTests.test_context_only_continues_a_pending_clarification",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.test_planning.PlanningTests.test_duplicate_output_ids_are_rejected",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.test_planning.PlanningTests.test_explicit_introductions_do_not_inherit_shopping_history",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.test_planning.PlanningTests.test_forged_tool_and_cycles_are_rejected",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.test_planning.PlanningTests.test_mixed_tasks_and_requested_count",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.test_planning.PlanningTests.test_negative_requests_are_not_executed",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.test_planning.PlanningTests.test_product_dependency_is_program_owned",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.test_planning.PlanningTests.test_quoted_recommendation_is_not_a_new_request",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.test_mixed_tea.MixedPlanningTests.test_attributive_reference_is_not_a_second_knowledge_task",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.test_mixed_tea.MixedPlanningTests.test_constraints_and_negative_clauses_do_not_add_model_tasks",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.test_mixed_tea.MixedPlanningTests.test_failed_introduction_skips_dependent_recommendation",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.test_mixed_tea.MixedPlanningTests.test_forged_source_is_rejected",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.test_mixed_tea.MixedPlanningTests.test_scoped_retrieval_shares_candidate_budget",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.test_mixed_tea.MixedPlanningTests.test_synonyms_and_coordinated_clauses_preserve_scopes",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.test_mixed_tea.MixedPlanningTests.test_uncovered_clause_uses_model_instead_of_short_circuiting",
+      "result": "passed"
+    },
+    {
+      "id": "support_ai.test_mixed_tea.MixedPlanningTests.test_user_sentence_contains_two_ordered_tasks",
+      "result": "passed"
+    }
+  ],
+  "probes": [
+    {
+      "id": "OBS-NEWS-LOGIN",
+      "httpStatus": 401,
+      "fact": "Published news read requires login; not anonymous."
+    },
+    {
+      "id": "OBS-ERROR-SHAPE",
+      "httpStatus": 401,
+      "keys": [
+        "error"
+      ]
+    },
+    {
+      "id": "OBS-ORDER-FOREIGN",
+      "httpStatus": 200,
+      "visibleOrders": [],
+      "rawReferenceInSafeMessage": true,
+      "rawReferenceInMockModel": true,
+      "newSuccessTurns": 1
+    },
+    {
+      "id": "OBS-ORDER-MISSING",
+      "httpStatus": 200,
+      "visibleOrders": [],
+      "rawReferenceInSafeMessage": true,
+      "rawReferenceInMockModel": true,
+      "newSuccessTurns": 1
+    },
+    {
+      "id": "OBS-HISTORY-PROJECTION",
+      "httpStatus": 200,
+      "rawSyntheticReferenceInBody": true
+    }
+  ],
+  "environment": "SQLite default+ai_storage / LocMem / fake models / blocked sockets",
+  "blockedNetworkAttempts": 0,
+  "sourceHashes": {
+    "admin_panel/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "admin_panel/agent_views.py": "f7c0252eaa2a1b0bab197b495066cb86d53760547fc1d44bc0b2612bf01fd98e",
+    "admin_panel/apps.py": "44cb819bc52435a4356a3e6401c58f78651bf7cabb7f05603172e3f57cb5e7d6",
+    "admin_panel/urls.py": "72a16a0864e966531581145690485ea3d2a631c46292b71fb68daa543decab1b",
+    "admin_panel/views.py": "156d7e7f3ad9cdf40da798b067f9210e4ab4d541c2f816a82d82921bbcdbfe07",
+    "ai_storage/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "ai_storage/apps.py": "2228cc6e64a92096fa6f0553230922847b5dc7fe39b763661031936150c8c216",
+    "ai_storage/embeddings.py": "b3d9d75bfdd7d34be2c38fd203228090d8e50ed4e2b0290c1f6c802fc455d63f",
+    "ai_storage/knowledge.py": "f2ac2baa91d71670d4e0343bf6fe8d1291e7b9d53833b7255daf868d0693f718",
+    "ai_storage/management/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "ai_storage/management/commands/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "ai_storage/management/commands/import_middle_east_tea_knowledge.py": "9e47e86d27bafa73c80ce4bff686a2416d0a41d373fdc7f91e9b974b8e98ffc0",
+    "ai_storage/management/commands/transfer_support_preferences.py": "64957c8b0b080755feed21bc8d5fb48b9332276bacc337a4a3f3b95221eb8e88",
+    "ai_storage/migrations/0001_initial.py": "8e6980652ef08d11d63f77a3a5750ff4a609e02265214769ea1c9c662ace4928",
+    "ai_storage/migrations/0002_embedding_validation.py": "3e092bf93ce2cba01936b5fcc6c6dd98a586a8cf648c3584932bcb7675bf20c6",
+    "ai_storage/migrations/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "ai_storage/models.py": "159cfc06ca1a84739ac3cdf1ca21a636091d0e01e7caa6acccc929787fccede0",
+    "ai_storage/reranking.py": "b9e60bb6929351f9f819e991c29a9ad0b936258c94af33350ca70c6498fde540",
+    "ai_storage/router.py": "6d57077164290d5607f36e5d4609c13cf88b34af2aa026a41f6caa698ae060fc",
+    "ai_storage/tests.py": "b5c745ab6f4a9042fa88c7364bf90be5ec5108df19f0c70983757e118f9138ab",
+    "carts/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "carts/apps.py": "8c87eb267df45ca0998978d7fe3b34d89da4419ec021c1895c702d3c08f27c75",
+    "carts/migrations/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "carts/urls.py": "cf15378d055bc65fad8b30943413a6735a3b3828a50fd3610a4563c8ffa0ab71",
+    "carts/views.py": "ef55d04bf51e84a578b87745a85eb682eaad6a9c402e602452917f65550f6d8c",
+    "client/static/css/404.css": "854a5f3c1fa9a141c4cf3067b5e3cfe84cdaa369c9c7316601c84f724957a01b",
+    "client/static/css/admin-agents.css": "73beefd3817aa13909e318d73123fbce4d19e90ebf9e8ac3598584bc55dfb129",
+    "client/static/css/animate.css": "81b2c714dcf0e1d0448de4447bb279f656da17121feadb0ee83cd9e3e27df715",
+    "client/static/css/base.css": "de3e95fda97f0a4491e644684e03fd42700d59ab89bcee6e83049ff77afe2b85",
+    "client/static/css/buyer-account.css": "a156b0252efe99ca9c3c443884773749f45835e89a57cf4f7009b83241e71b57",
+    "client/static/css/buyer-orders.css": "22c1dbd33ab17ab1f47b3914c10e518a8e8a6160b13b50714adf669d7a89b403",
+    "client/static/css/buyer-storefront.css": "17995538915d5728599eebb91cc20154de6313aa15c1115abb5a136531bc9f0f",
+    "client/static/css/buyer-support.css": "bc241b5b88b6758337ef54ab8eae6c13e3d521ea6e10bd0c4d994482c755b9db",
+    "client/static/css/buyer-workbench.css": "d3f60c3924ced2b40abb414863a34548725e68805946c8c86c6bffec3de95bc4",
+    "client/static/css/cart.css": "268edae789a11ddd0fff85f5c29e3b1085409baa3514e8b69feed428c75715dc",
+    "client/static/css/customs-9710.css": "727ce90a93b3c47c5677becbe0b30c21aa589f38dbc6bd90fe30d2a67a5e0c1d",
+    "client/static/css/design-tokens.css": "9ef5a4ca1eb078596522a9c8f6649898dc7d69bfae565c41351f80f99327fcb0",
+    "client/static/css/findpass.css": "f36a7ac1960b9b97bc812fe901258e00bad23519c0fbf39ab85ded9a97e6a77b",
+    "client/static/css/foodstore.css": "c4aaf4cdc118afddd9e4f30554fdc0d1fb2960b248ddedce2e8e94b45aace448",
+    "client/static/css/footer.css": "16102d48d5db45fb264d4a33fb5298113a9a8bf90c90a936a2bb17816076067f",
+    "client/static/css/header-enhanced.css": "f7edec600395f95bf75a5dd8f23d2f4801502c807e5fcfe9500d258cf5d501eb",
+    "client/static/css/header.css": "42a7c1b0e04b78564abaae467eec53d4ba2c5b34a6a2c175c777aa576986137d",
+    "client/static/css/icon/css/bootstrap.min.css": "072bf7fc4228f5d0d8213dae92acd044f3ad24c34b78b70be507bc77c94a9b91",
+    "client/static/css/icon/css/cropper.min.css": "d382b160fdccf9a0b26a0a221880ab8432d50a9ce5b8c6a3c5ad53f9c572ef35",
+    "client/static/css/icon/css/font-awesome.min.css": "799aeb25cc0373fdee0e1b1db7ad6c2f6a0e058dfadaa3379689f583213190bd",
+    "client/static/css/icon/css/myOrder.css": "31ac60e758b8cdcb9bfb971eb327ef086b2fabaf796cf3c5b82ee7bd118da99d",
+    "client/static/css/icon/css/sitelogo.css": "26f61312c527a40ffa526b5828f737dd1ffd7e011fce8fdddff32d7fdd6146fa",
+    "client/static/css/icon/myOrder.css": "1f302d683d8fb03917ca6b18d979402ee5b0cc6a5cfba90dbc5d1d80262a6536",
+    "client/static/css/index.css": "aece44e3f1ad14321c61502b0271a75c247e1a9d9a0b4815766cefe0fdc6d3f8",
+    "client/static/css/item_food.css": "c467e31d9fe1aa7f75d02783d6c423f7427e8bdd23ec0acb1e205853b81c6df2",
+    "client/static/css/itemCat.css": "725026f6b522504a9aa73ea07e96e6e476ddd8f0f9a5a9d15e4e13dcbd1f1a4a",
+    "client/static/css/login-portal.css": "ebc9655ef662cca296fc444748fc706f32d19cc160b3b8419c017186ffd07fab",
+    "client/static/css/login.css": "9c4e51ad2a4710e31d32f01c395a4293684273d9e5eb725529586a28e2acde30",
+    "client/static/css/merchant_products.css": "423b2480d7b41afa0131c40c094153f31e4130a9af5d5ae0d35d5883c6692627",
+    "client/static/css/merchant_workbench.css": "97cc1cff214d3b8b23667e0bd367713b3ae60f7cfe21475fcef333585ece7cab",
+    "client/static/css/modal.css": "01cb4fede149c154c74971bd37ed57e96e655ada6e9d2492b8845138bdabd0df",
+    "client/static/css/myCollect.css": "23f21677e146e9682337d501d8eba1791c9a8b2885af2ee5fb2792e9991f2b81",
+    "client/static/css/myOrder.css": "548fadc5b069aafa6aa1acf9a5c0a6d286fb241e974bc1218a606f04a1436215",
+    "client/static/css/operations-dashboard.css": "ae41a610f91f82d4f0d9888074c78b3d4b556d1c73aba41d9ed48d840a6656dd",
+    "client/static/css/orderConfirm.css": "676e52c07c24e17c24508b8b7af783efba2d5e475175efe26a41f644a5fc7972",
+    "client/static/css/orderInfo.css": "fd2fb893406ca8b73fcf95410ab20a9c144429d001107c8c9f69093d21ddd101",
+    "client/static/css/payment.css": "97c8e3cc94fa7e4d070562701fdc02c6e909b1f3d116730374af7807f97b85b2",
+    "client/static/css/personage.css": "6c0f24f60f8ee766e1ee81242b270cb2fd0a20fca88122dbcb37dd862347a0b3",
+    "client/static/css/pro_details.css": "a2df48cc05d2baf92ae2f622a35a0afc3a755ebe6c3e2225837a49be7a595e05",
+    "client/static/css/products.css": "34ff9ea4b5b044a8faedc6499710fd613d5a557e94b63d8f5a55d8fda6e3469c",
+    "client/static/css/register.css": "d8c09a34b5f004bdfea8ebd39f31e223ffe25f5c2da981d66c71e6eaaaa90050",
+    "client/static/css/rtl.css": "9be7b5e129412d4df93dc94abf0bb2990a2a7652590a843ca491ef4967a1c618",
+    "client/static/css/search.css": "916f655e0de8785b4af2d57f07279801c75e767bbcc22b248b1e01b0be362b82",
+    "client/static/css/slide.css": "a09e095e79a0f8b50ab9c59d288a9653090b49fc0fa1cbc2e6296504223d5412",
+    "client/static/css/supplier-workbench.css": "16c126b67aa6293dbe3977edbd6bc35c3b77f2b887ecbc028845864ff4199245",
+    "client/static/css/system-theme.css": "16192e1c1c4a4c1f979da17457bb7509ee82389f61b687f939c778a7c38c7749",
+    "client/static/css/theme.css": "690cc7202d0aae95069ebb7e63f69d1cf842010b87c5b42a3b56a99da3cf7f45",
+    "client/static/css/trace.css": "7610d85ef444746cc57a2f5ce4acfcddc7ac53512db525870ed7678077c54f88",
+    "client/static/css/workbench-loading.css": "57932c518b464a14c75e754b89c4d99ba62a3be593c57ad289a34d0c0ad9dbe4",
+    "client/static/js/admin-agents.js": "896644106d550ceacdb32f58843ae1abe5d8b827dccaa85d19cf9293fc954abf",
+    "client/static/js/admin-panel.js": "cdd40c607141c0ca7b64e7ec8dd8f5d9ea6e745f2fa97cf76ec8528999e64f1b",
+    "client/static/js/auth-storage.js": "c3168be619088e3e3280de8f71faf891be4cfd2f18af3237a5d81138b6990ab0",
+    "client/static/js/base.js": "915239b7f26f2317d9b7477abf7ab9ddbadf662ca3f2b1a7043cd235eb91ce83",
+    "client/static/js/buyer-orders.js": "877cc3f1c0d7c9269adb92977e0b8fe744cfe01eb7878bd4f9cfbc03f735cbd9",
+    "client/static/js/buyer-password.js": "eebbaebdc54083b4ed9950b5748c259b45a2a20e6f31e753a84478ad57116a80",
+    "client/static/js/buyer-products.js": "20aea674c9740270b67e42161dc7dd7415d5ba4d93f0d0cfe0603ec7624bea69",
+    "client/static/js/buyer-profile.js": "ae3716b3db073f596c7bc01e4323dcb3de4c90eba37de3818830ce9e1a60f22e",
+    "client/static/js/buyer-support.js": "ebaa96ca4b0c4b8e969ee4e445fd01321c4d94c8ac92a939862453a8bfd01ef8",
+    "client/static/js/buyer-workbench.js": "0c4742b1e205d59b677e594d986eb06926c81c538f2384b71b512cf31bfb34eb",
+    "client/static/js/cart.js": "b97f5ee605820777da33da2b0e8fef670d139307e70e54d4c7c68964f89c10a0",
+    "client/static/js/collect.js": "7a6a9dd6cccf755138600fe8e6624b83ea162128595e3fef5414b5302d8b90c1",
+    "client/static/js/common.js": "5c7a13aaebc2223effe9feafa429be59f2a5951b17f9c5e8a2b0105bf1d4b489",
+    "client/static/js/customs-9710.js": "a079dd75d61b6272a05af999d6651ca7ecc4de86ab217c54869369086ec46b56",
+    "client/static/js/distpicker.data.js": "d6708cfb54e787f1d6fa84163c5e6b45fbd8825392b4a796e02fdc7b1fa2eab7",
+    "client/static/js/distpicker.js": "16786d348a703a023d51fe99ba39cc9c98f7c907a3b4d8dedcd9e2372bdf3773",
+    "client/static/js/findpass.js": "f9272a9d05ce36ca951021bac4609dde0c3f4e630fba17b71f6006be3db5a8de",
+    "client/static/js/icon/bootstrap.min.js": "d5fd173d00d9733900834e0e1083de86b532e048b15c0420ba5c2db0623644b8",
+    "client/static/js/icon/cropper.js": "0410be777f7280c344e51aee8a87375fd62018a6fc888f83f8ff9cd8912e8841",
+    "client/static/js/icon/html2canvas.min.js": "737473b145a0fb2d97963ba71104b42ea59d434e17d43de3db67ddffc24200ac",
+    "client/static/js/icon/sitelogo.js": "b93d809b63a683d0a406bdeb2b790a0dd363447c5bfbb8b897416305740639e3",
+    "client/static/js/index.js": "0444fc8207a860a5a434a60cdfc04bbdb764f97dc2228df3dbd77f809924171d",
+    "client/static/js/init.js": "1f712a63cb2dd6c5c939be67a43abe0e8b58e00a218c543e943a06b14b785974",
+    "client/static/js/jquery-1.11.3.js": "2065aecca0fb9b0567358d352ed5f1ab72fce139bf449b4d09805f5d9c3725ed",
+    "client/static/js/jquery-3.1.1.min.js": "85556761a8800d14ced8fcd41a6b8b26bf012d44a318866c0d81a62092efd9bf",
+    "client/static/js/jquery-3.3.1.js": "d8aa24ecc6cecb1a60515bc093f1c9da38a0392612d9ab8ae0f7f36e6eee1fad",
+    "client/static/js/jquery.cookie.js": "13161f845883ddc67c4adec84919b2350c3ab125c5c4263dbb736594c54ccd71",
+    "client/static/js/jquery.min.js": "540bc6dec1dd4b92ea4d3fb903f69eabf6d919afd48f4e312b163c28cff0f441",
+    "client/static/js/jquery.page.js": "0f9913a8ab9135fdaff7bbe45386b1a2f22d1d3e90b3d1a3fb61d9ad3a7a20bb",
+    "client/static/js/js.cookie-2.2.1.min.js": "31d1799663bbb6029214d90ba7db9cdc725fa02c16d4b090add3721e44238b6b",
+    "client/static/js/login-portal.js": "9706d3221f2a31e46755317a939827e1e3b504729ad75a52ea56a6c0ccd464e0",
+    "client/static/js/lozad.js": "a33c0b4b7df8a1bc4aa75c5fc631da287429b6540a83f40b282e24333edd7cdf",
+    "client/static/js/merchant_products.js": "483e14715836bf4fbf9b6f300ea88da5824aaeabe44c29d22ab657112992d73c",
+    "client/static/js/operations-dashboard.js": "6e2856e74ff096178c8ea125d11698c2d309c9f998b52716d2b9193ed1e1d37a",
+    "client/static/js/orderconfirm.js": "3d565ab2aa722ecb4022eb6784be156fa7a3152a7b22488f6da72aa315c4a418",
+    "client/static/js/register-portal.js": "83a4dfd0e8586e43e8054e4cb154a3a656c739c49bea9978ba014ca22a0d7a7e",
+    "client/static/js/router.js": "c1679c82f138114f75ac94301a04b8d53d58056d2765f05c85fe7b365a6bed79",
+    "client/static/js/supplier-profile.js": "20885c51acabe3e85095e951e291cd405927e7b489bf218a0271a0bf3a0cd37e",
+    "client/static/js/supplier-workbench.js": "408b560778279c5060a7fea5ce2b5d349a04e130587b93232fb44d495d3299d9",
+    "client/static/js/trace.js": "d37c615dc96b063f906ddda939f2e2c741c891c1ee88e7f666faaf74a425ba8c",
+    "client/templates/active.html": "a1378170334555335d2850967026a87e286541692446d9697a5e6e8056ca84f0",
+    "client/templates/admin/base_site.html": "4551c74224bd690da3c965073af50123736cfa919ed9aac655b1c5c289bb3c81",
+    "client/templates/admin/goods/sku/change_list.html": "39c6bc082d2bf483d52d7f27264256ee38668cdc06b8eaa2d25a3b727ec29914",
+    "client/templates/admin_agents.html": "dd5d9d21a277bef3341aa15dc39da08f697f6519c368b2ce6ccac0f02eab3fc6",
+    "client/templates/admin_panel.html": "67fc9fce637b189d0d57929fecd63e67e57bbad7a9d9308a606235c9d1004bbd",
+    "client/templates/buyer_dashboard.html": "a4913adfb0703b5cf54190ae09fedde6ac1db25b0455cc9225db370e28ca4117",
+    "client/templates/buyer_header.html": "50f4484f6af31af91326141f3c0d96a32ca034513fbcb52f11c4aaadd1309647",
+    "client/templates/buyer_orders.html": "f8a82cc2faa20f7274958ed73e231daedcd31af97ce85284725173f12e7ab0c5",
+    "client/templates/buyer_password.html": "4a89160ece962927ad4b602a08be9fa7c52db721d88d4f79bca307f2296f7087",
+    "client/templates/buyer_products.html": "2c9952586084d0a9e22b58754defba3b91a31d684c0548923e19103f03af987a",
+    "client/templates/buyer_profile.html": "6bf8c7cac533718fba91db25f6f32a58c432ebdd9a7febb5e64b1974b45eaa39",
+    "client/templates/buyer_sidebar.html": "a1c0554fd652609eaa34f045db39c24ff4073d719f0102e4327036182d783175",
+    "client/templates/buyer_support.html": "b9a4839e6eab85886ca337281a639c3da43bd214d34596623a07ffb87324d3aa",
+    "client/templates/callback.html": "2d684bf92742d7fbc86e9ab498b75103c3b1e928e0d1422c6c0a14a9a9bec227",
+    "client/templates/cart.html": "1072d5dc3040b1772c25e00e5ae8608066e6b02f00f0b5df73e42cf44b8c7048",
+    "client/templates/customs_9710.html": "09a6ddeb4647fd47e8f6828b0e3ba387923fda27d36c3d23ea46db6e6c53b793",
+    "client/templates/findPass.html": "ed498c75588dac0ff609deed135a878e0e4603aca7d1441f227de867149f6a73",
+    "client/templates/footer.html": "713da4180fab3cef43e0b698a011e068de82659b7de3fe8f6b53a233ff27776e",
+    "client/templates/gopay.html": "8f272f11612d2efa04cb47a26c06305410e1c13731891b37d4ba27839dc80b17",
+    "client/templates/header.html": "4f49c46d7174757fc3b455ba76344c0453f0988377e11dfb8e5c236ca1900b1c",
+    "client/templates/login.html": "67d185c4c00058db47951243caa5e82281def785c54826e8a2804487fa1e5a09",
+    "client/templates/logistics_track.html": "951cd1b13873943b62238176eded27f1692615564b70f5e05faea87546458962",
+    "client/templates/merchant_dashboard.html": "fb4ade62b387c264f71c47578bc910f49ebc50130490ed08eed782571d21b6db",
+    "client/templates/merchant_inventory.html": "ba9c4b3c56dfa5050672d44bea83a52a3594430fc2f65e7aba696eba0ee3b31c",
+    "client/templates/merchant_orders.html": "117fab9ade5518352ebc5a55fe52d2684662b471431b0191294f77e323527b9d",
+    "client/templates/merchant_products.html": "c49d93fc1d776562fa41a1f23ff3cf34501570211d6b06a046995b095829ce63",
+    "client/templates/merchant_settlement.html": "f15c1db0341605211e1d3dc2721e8f2f9957dd026c49d9827602cf178f919dd3",
+    "client/templates/operations_dashboard.html": "42bdb76e807081d5fce75f78041e3308ea1ca3409514cb3d2c5327158012525f",
+    "client/templates/orderConfirm.html": "0546ddabd722e50bd1099d17e6b588870d87282b397ce2a76d01aad32388b075",
+    "client/templates/pay_success.html": "5fe2ddb024df60950f8c8196a9ce4e5a3e206d68f6da8b66f1961b7590e71979",
+    "client/templates/payment.html": "866964f081a1857d92c505f7dcbd4f05a18800905a729a516c132a64d156b370",
+    "client/templates/product_details.html": "9f582b9bd8533ff4400f19e9673f2a9f44b952cca0229de4dce97d50f297dd29",
+    "client/templates/register_sms.html": "bfb49571ae388062c43f59084f5956bf0c18d057558f0c13ed10626c27c5709b",
+    "client/templates/search_list.html": "e70cd6e1eda4ebedbe20a5187c5772ec308f1444fc8e88f0ca271ce95666c335",
+    "client/templates/shared/system_theme.html": "1442781359da0936c9f71959e648fc1f9a4353948d67b603099fea3be6f19bd4",
+    "client/templates/supplier_password.html": "f4ae7d65f4f9e8c58dd0144b7d04217fc287d34485a4e6fc448a6f07ee36303e",
+    "client/templates/supplier_profile.html": "07f33bede88c27d74d192cd74612adad674e3ef86aea648852c11b4bdd9f9be7",
+    "client/templates/terminal_login.html": "ea5e7fb3dd0da8a67fc3719e602ca04462854e3528b6821de9e1d9aa605a743c",
+    "client/templates/trace.html": "280ddb103be924677cceb59c3d48073f7ee1a6be5c6ff34f3b275865488329c6",
+    "dadashop/__init__.py": "c55fc8aa9a8097861058544c0fecb5b087e723f5c1c3d7fab1b30be653f14ca6",
+    "dadashop/asgi.py": "87b9c374739c1d610dfaa5917cd68869dfdb17532ddc8e5f2a059a8f28018a42",
+    "dadashop/settings.py": "1d0f03627e290c4769cd0faffdbee17b7427f0466b833a44e1e565ef3d78aeec",
+    "dadashop/urls.py": "c4c0df2c4d23d9b1a0aa65f913f315f2267893bb4c8202b1837e1e94a3e66671",
+    "dadashop/utils.py": "dfd003d8db7d0d7e6c0299d30388b2b6121e992fc5ddcc53191db2dfbe5b5ffe",
+    "dadashop/wsgi.py": "df50977685fe7cc2d8a3d234740d5bd78dca882fb25cad33972953a46abf8547",
+    "deploy/observability/collector.yaml": "90338a05a4d628957c40a1c8a41ff67091fba881d3787bae70e9994a75b27ccb",
+    "deploy/observability/jaeger.yaml": "cdc2836b5121c15af888e4332817fe3c88a00ffa5c97f7cc95247bad3ede17a5",
+    "deploy/observability/prometheus.yaml": "69b3b193d23899eac2d700f67c3f4d6efb65aa1b95f22be20c788d3fede75c34",
+    "deploy/reranker/download_model.py": "fc8be0f907d756fc5f95403312724248990d139c0f0a5afcef927f4e3c6bd532",
+    "deploy/reranker/server.py": "7b0f66c600205f7278bbac0ed4eb1657c4554c1b62be276947a7ffab5ebb609f",
+    "goods/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "goods/admin.py": "c255ecd7a72c5415fec53319c98fd572748ac14e089ce697af7452853bc182db",
+    "goods/apps.py": "1d909f99070acf2483bb492144329e7b6ced14d118bf4d02b8ea62f878685be2",
+    "goods/management/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "goods/management/commands/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "goods/management/commands/seed_virtual_tea_products.py": "7d288b05cf275ddb304ae0e715a9857540d3b9d537d8ef521fd68c3f19795d6c",
+    "goods/merchant_views.py": "6fbfcc502dd90aebb2151a992f6f07578bd644a4c44efa0ee3676b4a41d97ae9",
+    "goods/migrations/0001_initial.py": "8e91933df4e540c91c4b62b9d08269c503e1c0fa9aa92e1b030d174d23a0e0ac",
+    "goods/migrations/0002_spu_merchant.py": "667a0709b38abd714bc2905d939fd14fbbd43877e0cbeb9f986138e939b88945",
+    "goods/migrations/0003_auto_20260218_0147.py": "eaf6c60b3c8c44df9fd1e8b10eb26aa84a96f52b93adbf3604a1f95b93fb7d63",
+    "goods/migrations/0004_add_carousel_slide.py": "f3c1ddc31f8024df54e831c38d89997878bc33afb6ac7200b3865e7010f3a91e",
+    "goods/migrations/0005_brand_logo_optional.py": "77b6c26e178524ebdd48fd5b1ac24553fbed0022217122f5eefb466a136bcd30",
+    "goods/migrations/0006_sku_is_recommended.py": "ebb3908973b932aeac12f04609df70a1baf8162a2775e0710f8f2741bfe15c74",
+    "goods/migrations/0007_spu_brand_optional.py": "00f69008a17fef35f98bfaea133defe08f58b82700cc0eb20c8e5c6843a25070",
+    "goods/migrations/0008_auto_20261002_2159.py": "5ba91261326c0bb98fce54532022a1c8b03cec1f20cc6f47bdc068b914c6a7ca",
+    "goods/migrations/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "goods/models.py": "7243cffdaa0d00f2113a6a1f4121a5ba35971ab6e4d57c28e2ebb48149fed3c2",
+    "goods/urls.py": "5c97b40e7a1b54f38da4b9b2a6106bcd37affef251891b1c9d32daa1e4afbbec",
+    "goods/views.py": "46c8299782d009c13373ee95f760d77a6c8d3cfbc1df52af084989c01fa82688",
+    "inventory/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "inventory/apps.py": "dad5d729f877f0de8c7c3572cc44c876364a11b3fca92f10b5bca101c6f0d769",
+    "inventory/migrations/0001_initial.py": "11430ca5c4eefc9fdb54c193748feb4fccf42d1c11d99253bb97fa226540ddc0",
+    "inventory/migrations/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "inventory/models.py": "1430ff9cbe9f978d887445dedf2b78fd47587b57fa2ece64e00350667ff42e0d",
+    "inventory/services.py": "03529fe258e1b285f3aa725d98f63817e42ad52cd90c737b93991f8d3c271224",
+    "inventory/urls.py": "5498ff8251c02ef1f2cb2b95e9bef3bddbb416438ca1ad2e4001b578abe3e1ea",
+    "inventory/views.py": "ecd8ccb8e7765e72c2cda4edd7d5bae70d3861d1a205ba0062d9621057ef51b2",
+    "logistics/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "logistics/apps.py": "39f9b23d7c5b4723aafb7818e96083b163d591c6680daaea79bbe45b3938a935",
+    "logistics/migrations/0001_initial.py": "50e0df82a68515d0bde4f0a3fbdf9f68de1b8a1c8d38735295cdc9e88065a489",
+    "logistics/migrations/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "logistics/models.py": "39e3e1742af2a2d957ce12ca1c8b7c050537e62c38e67eb53b7c54ba72d93255",
+    "logistics/services.py": "89fbb9d5d1eb6e28eda5f530c70cb57db4ec90f45c260aefd738d792eeb8410b",
+    "logistics/urls.py": "4b3b31ed089f301e336d9e1b74fa6d3c67a48ef3a26da0e4d77d36df6e410faf",
+    "logistics/views.py": "20ec108baaf0cdccd8668b5abe6a8f72d481c79005a83ead48408162d3631097",
+    "manage.py": "58ee73311c1c4014691711413342cfc878aa67b955436e6419a16c5430471b03",
+    "news/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "news/admin.py": "bac6a7a53ebe92b371fa8563984b66e6705e199999ba88a7b0cef5efdd1f6779",
+    "news/apps.py": "0d06048739ca7eabc74a278f8bd5e845ce2c895d5b4568619b05762cf5a4fb89",
+    "news/migrations/0001_initial.py": "def6398363fb015e9d44058ae3642310ce85081dc49d783e83125a75cb52ee66",
+    "news/migrations/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "news/models.py": "2652a4f5da1555d5066fa0ae6e084660284b5f9abc2c58988e26ee5599515967",
+    "news/urls.py": "28f0fea42cd5713ec9dde1ab9d883fd7cef5e137d6c0a39ae836b7653fe257ef",
+    "news/views.py": "e0a11eca8172a5704ec8cce8eb144ed666863476a43e1560e5a052e3b350816c",
+    "orders/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "orders/apps.py": "318d553b2000ea18f4534b0e918f47f7c4a7f432e6ed18801d8320731a9cb91d",
+    "orders/management/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "orders/management/commands/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "orders/management/commands/seed_demo_orders.py": "a992e690e2f1b0bb9492d6a4afdf25d8eda3085b6385ee2fb3e87e5e9a18a401",
+    "orders/migrations/0001_initial.py": "c708e7694b4c3d394162c5a364e43f4dd9b78782631303385f5616b4c575feec",
+    "orders/migrations/0002_auto_20260218_0147.py": "74f9e1a8a67893c9af5af79caf1f422d8ccc05eec6f1c522cd1c169153d5da5f",
+    "orders/migrations/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "orders/models.py": "55e0eef121efbe5827a2a42ece37cbc1bf1c2207dc9e9646151f674474cd4e11",
+    "orders/urls.py": "0da450d2fc4f22f40e4407fd64c7ce4e1200371a6e8fb89dace3e62bb7737f62",
+    "orders/views.py": "9b0b4d34266266729bc5389eba160b041eea09d8dcc5c81b27445f57980ed5f0",
+    "pays/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "pays/apps.py": "cc6fa3a4dfd7ecb8283b23a5061273fa66ace419b72b6cc572c558d0cca275d2",
+    "pays/migrations/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "pays/urls.py": "9057932c7d0a09fc2a263adb9510f23b6e42ce590e3dc6633ee4e1ed2b7aeb07",
+    "pays/views.py": "d4dc43225dd84db5663fb561dcdaeb5b568ee4e57ee444711db41102c51a82bd",
+    "requirements.txt": "263561fe405f0d040b64f95dae2ea56942005fd201fc8e2803c4d8d146fedcec",
+    "supplier/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "supplier/analytics.py": "0fafbaa25b0d8707d7fbe7b7739ad72b8e62dcae4d80cb7a848f0473ee9e00e7",
+    "supplier/apps.py": "cde76fe6a0ea9bd06c0791080e580b933c2fb2b85dd72f522228cfee0e4b3ef0",
+    "supplier/migrations/0001_initial.py": "9b61ee9f8c049f0da04030b7339db22fbbffdb0b7502811f47863227a8a4303c",
+    "supplier/migrations/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "supplier/models.py": "e4266d86d5b96c9614b494333e144b1a231fe0512015338582ba5ceceddd9c70",
+    "supplier/urls.py": "af480c22e857535c0039763994e744bb2d63d433bbe278fa4e156fd738857c5b",
+    "supplier/views.py": "636967b0c9ef6c6cd91116177b638f2c22a3d14dc76ba1ea11dc38e2619566e8",
+    "support_ai/__init__.py": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "support_ai/configuration.py": "f3d6e2d2e99af8ad98a1fb8531bda0590d32aca53bb6c68502876139be1f2f53",
+    "support_ai/context.py": "442e2793e005cd57bfd4f4b009821a71d00cfaa8ee04a8e9768c981d88ec09e2",
+    "support_ai/contracts.py": "067f6d101dde7e3d0b083acc15e01c0815a50d326e4498ed5d45d036d70a1acf",
+    "support_ai/diagnostics.py": "f2a6c7a51a45771ec48c0a032c4ee215f789cec441f141a5812169d037581399",
+    "support_ai/evaluation/__init__.py": "b3656130efe43a3a71fd6e755e80a1f44b6849da756b04a1c68ace5c6d20727f",
+    "support_ai/evaluation/compare.py": "3b6021febd446d1da05ca57335da2f4337b36d83c30149cc5834773329d22b2a",
+    "support_ai/evaluation/replay_grouped_preview.py": "e2ede99525d000a685261334a20edef03907b8720b8923c57942f14c5d359ffd",
+    "support_ai/evaluation/replay_mixed_tea.py": "3dbe7454e7369fbcbe3d13c63a5ac91c685fc8d624b41d99d06144c2f7795009",
+    "support_ai/evaluation/report.py": "9a9c3b4d4ae0a2cbe7649b41340a8104568a62e0ecd4165f85a30675d2b3e5ce",
+    "support_ai/execution.py": "0e97da757349ffacd3b4c7c4ba72fb86845ea03fb03b5fe3c1827acf167a6e1c",
+    "support_ai/management/commands/agent_preview.py": "30984c6e626e2439c2f1b56f6a11697932e22b1840cc4ef9296d4df91d0c4e1f",
+    "support_ai/management/commands/prune_agent_telemetry.py": "771b31f32aef7607c20bac34e38c4964076ad6ee70d5f8da9ca29f7caffb4b49",
+    "support_ai/migrations/0001_initial.py": "50125fe1c62c6b0566b336123eaabd01037477b523e07f64338adad7dc38484a",
+    "support_ai/migrations/0002_agent_observability.py": "79328f291612d425b0b5156e952e081295512d19fd31ae3a41ce62ea8d330e73",
+    "support_ai/migrations/0003_agent_reranking.py": "5b7ed157e90ab0be105c1c5f8b180dc9e0c8ef243c5c152039c5b2bd89fedd13",
+    "support_ai/migrations/0004_conversation_order_context.py": "f6f0dbb0785208fa53c1e0e35d1457bc79621eb7fc72a5f2ad4258ab2ee14344",
+    "support_ai/migrations/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "support_ai/model_client.py": "4844fc779243c6d3371fc1f06c9e4c01d61b0279fb49840dfb00da44f879b061",
+    "support_ai/models.py": "c9d0495083abf20f9e5612a81506d0a87de3589b2d0504caf275ed2c77e5d235",
+    "support_ai/pg_test_settings.py": "4a1c44f73a724fafc3524c83cc8c7ff345c2821d04ef7d762ef53b58eca2a8ec",
+    "support_ai/pii.py": "80bafa3b2b45d485a931a7f44c096cfe7f7d8bbf8362bf56631d4b4a3352d1e4",
+    "support_ai/planning.py": "8dd3cec7234626a09fa55524d8ed09093a673bb87340f262ebf3429bbe3d5e46",
+    "support_ai/preview.py": "aa4b8c6f5cbaad719159e0a2128eb2fb1b29fcf5ac75b88ec09ffec5f7601fc3",
+    "support_ai/recommendation_options.py": "6bf950a0ad7bad99fbf1a344694d439c10df13e9a37596f513d9dc843dada4bb",
+    "support_ai/recommendations.py": "e3ee0a8a0b0ab903d28605db111b6a0577a8671463dd8f3cff90463ebbb7f51e",
+    "support_ai/retrieval.py": "31cab5d783a9dbad29c3aa1b0f4a2c3a9c52719b3d4e9c1d8b7259fa67f9b0d4",
+    "support_ai/tea_explanation.py": "c25ccccb55b893f3a5f9a5c6a07dcf882100bc42e97b5d4bc37c73f00c4baa19",
+    "support_ai/telemetry.py": "16e02967c8238c14c2689954e9b11b53a6e0491e77596bdda4b4a28d938e63de",
+    "support_ai/test_grouped_recommendations.py": "a37ec80f812ed4b5df5d00d88e49cea0b43f39dfc43c3259d00f81b519409eab",
+    "support_ai/test_mixed_tea.py": "b0c3f6e72c1220a8cb8b9d70732e2d1837d60060eb1cf9515f5d0085e243bccc",
+    "support_ai/test_planning.py": "497fdfe552f0135abfc5d64b81397c97455f5d4e1a01b84396a70f82ad056593",
+    "support_ai/test_settings.py": "03772e0225d0ec46f6c89fb656a363e4ef18b62ddf8e3f07171488d6a7868ae5",
+    "support_ai/test_task_tools.py": "5f49bf9c319bcdf912af89aa7b8d9fb8e786adabc8afcc83da62bf49268b7c97",
+    "support_ai/test_telemetry.py": "2b7e1eb82e358bcd22f5ad7641bddb0f54b894a6ed1251aa0408d32a6f3bea2e",
+    "support_ai/tests.py": "2195b56fea89fab069b3ff9903bb11791732c82603e48429227dc74493ade88c",
+    "support_ai/tool_services.py": "21836588f1edb438807f5103325f648ece15583ea7df252d49c91717e49baa61",
+    "support_ai/urls.py": "722ac4c251c3f2ce0e6bd4159f4ea51600edcf6af512f47a8ddfc62cc0053e4e",
+    "support_ai/views.py": "4c744c26169ace4409cf68cfa60b51e76f5da8047118df88a293b572f247fb1a",
+    "support_ai/workflow.py": "1df3db1823021b26540555347609b5776ff84e2e0d43c5a0b01639ece325177e",
+    "templates/activation.html": "9f237f3dec245ec95d3fe0d99932ad925d909e686790a85db91f9f247502fcd8",
+    "templates/findpassword.html": "905be5573f7e07403cbb8224b5ed33e961c87b85398f775d0f585ad1c639de56",
+    "tools/diagnose_reranker.py": "334d2037274088428abf09bd88ee42ff87f92d44accea02ee4affc905ad5d815",
+    "tools/module_versions.py": "c45c60f2ec8ea8dac3c26d0961340f171122f4b9a65a2fe165e25a7b54de9e9b",
+    "users/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "users/apps.py": "bb73c06360191905d2587d834a443594e4c8566df7a946f378a96cd09f07f0da",
+    "users/decorators.py": "3a46691e78ae52e93b434c43729db198f0dd41bcf131e2feaf278d1f47526fa4",
+    "users/management/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "users/management/commands/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "users/management/commands/create_customs_user.py": "0fecae36dca5f02af20b68fb161641c2273672412e28a1e7744adc982d9664e2",
+    "users/management/commands/create_super_admin.py": "8d91293a2ca570b49f5dc3a6cd7feee0cff56f3e95ccc0e89eab0209fe36d9ec",
+    "users/management/commands/seed_rbac.py": "a9c00fd1249d67d1e62a3b534aa62336f03f4482fb9111084477652e40f495c0",
+    "users/migrations/0001_initial.py": "e370fd82120c59aed5a1ebc3aa34a1b2a5e675f3b2c094d5ac0d719b6a2ed2f1",
+    "users/migrations/0002_address.py": "c5c0fedc9495e841e15759919353fd7664251dd1069bfa23327eb5ff5313dfcf",
+    "users/migrations/0003_weiboprofile.py": "6da3739edf9f36cee755b821aae7ec5ca99e36e0f1e99324b6859c9f30df8049",
+    "users/migrations/0004_auto_20260218_0108.py": "8b1ab371a6b55970da5263d19713e94efced9610a46bb733fb7fd14b7cf6c7b8",
+    "users/migrations/0005_permission_role_rolepermission_userrole.py": "d448b6704911bd74e771eae15fa9d748a271ee3029077843796498a944879023",
+    "users/migrations/0006_create_admin_user.py": "c58dc05d9243a07708e5038a5d212504c7dba58f2cb7afbefd14eb60cdfd5974",
+    "users/migrations/0007_create_customs_user.py": "18c0e80f1059a3a2227f5d30b0f8f55dc7f7bce5c4bf0d05516e64fac19f4b79",
+    "users/migrations/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "users/models.py": "3f6fa5fb7a5be1676b8a046fe65e837a4f0123045c4e90ba47863abc4c6d5e6d",
+    "users/permissions.py": "35a74c2b79cbaef747840bce9a8f724d9a788a0162e384cf64924a4bc5c56fc6",
+    "users/urls.py": "e9b0df5967ea65bbc9eb70c1cbc512058b6a590f3d94146c570643bae08631bc",
+    "users/views.py": "15b1c153c6e781e706f11ec41162546fa086f13500a737388d9d21f47f0b6786",
+    "versions/modules.json": "a072c98aef7759f45028d4348b12f6b85f1ee1fdca31591c26a7e9ef188b6750"
+  },
+  "sourceChangedDuringRun": [],
+  "implementationVersions": {
+    "core": {
+      "title": "项目核心",
+      "version": "0.1.2",
+      "paths": [
+        "dadashop/",
+        "manage.py",
+        "requirements.txt",
+        ".gitignore",
+        ".env.example",
+        "tools/",
+        "versions/",
+        "docs/",
+        "versions/changelogs/core.md"
+      ],
+      "dependencies": []
+    },
+    "users": {
+      "title": "用户与权限",
+      "version": "0.1.0",
+      "paths": [
+        "users/",
+        "versions/changelogs/users.md"
+      ],
+      "dependencies": [
+        "core"
+      ]
+    },
+    "goods": {
+      "title": "商品管理",
+      "version": "0.2.0",
+      "paths": [
+        "goods/",
+        "goods_data.json",
+        "media/",
+        "docs/虚拟商品数据.md",
+        "reports/virtual-products/",
+        "versions/changelogs/goods.md"
+      ],
+      "dependencies": [
+        "core",
+        "users",
+        "inventory"
+      ]
+    },
+    "carts": {
+      "title": "购物车",
+      "version": "0.1.0",
+      "paths": [
+        "carts/",
+        "versions/changelogs/carts.md"
+      ],
+      "dependencies": [
+        "core",
+        "users",
+        "goods"
+      ]
+    },
+    "orders": {
+      "title": "订单与报关",
+      "version": "0.1.0",
+      "paths": [
+        "orders/",
+        "versions/changelogs/orders.md"
+      ],
+      "dependencies": [
+        "core",
+        "users",
+        "goods"
+      ]
+    },
+    "pays": {
+      "title": "支付",
+      "version": "0.1.0",
+      "paths": [
+        "pays/",
+        "app_key/",
+        "versions/changelogs/pays.md"
+      ],
+      "dependencies": [
+        "core",
+        "orders"
+      ]
+    },
+    "news": {
+      "title": "内容资讯",
+      "version": "0.1.0",
+      "paths": [
+        "news/",
+        "versions/changelogs/news.md"
+      ],
+      "dependencies": [
+        "core",
+        "users"
+      ]
+    },
+    "inventory": {
+      "title": "库存管理",
+      "version": "0.1.0",
+      "paths": [
+        "inventory/",
+        "versions/changelogs/inventory.md"
+      ],
+      "dependencies": [
+        "core",
+        "users",
+        "goods"
+      ]
+    },
+    "logistics": {
+      "title": "物流",
+      "version": "0.1.0",
+      "paths": [
+        "logistics/",
+        "versions/changelogs/logistics.md"
+      ],
+      "dependencies": [
+        "core",
+        "users",
+        "orders"
+      ]
+    },
+    "supplier": {
+      "title": "商家与结算",
+      "version": "0.1.0",
+      "paths": [
+        "supplier/",
+        "versions/changelogs/supplier.md"
+      ],
+      "dependencies": [
+        "core",
+        "users",
+        "goods",
+        "orders",
+        "inventory"
+      ]
+    },
+    "admin_panel": {
+      "title": "平台运营",
+      "version": "0.3.0",
+      "paths": [
+        "admin_panel/",
+        "versions/changelogs/admin_panel.md"
+      ],
+      "dependencies": [
+        "core",
+        "users",
+        "support_ai"
+      ]
+    },
+    "support_ai": {
+      "title": "智能客服",
+      "version": "0.8.1",
+      "paths": [
+        "support_ai/",
+        "docs/客服商品推荐设计.md",
+        "docs/Agent监控与模型设置.md",
+        "docs/Agent多轮对话.md",
+        "docs/Agent任务模板与对照评测.md",
+        "docs/Agent终端预览.md",
+        "docs/Agent分类推荐.md",
+        "reports/agent-preview/",
+        "reports/agent-evaluation/",
+        "deploy/observability/",
+        "compose.agent-observability.yml",
+        "versions/changelogs/support_ai.md"
+      ],
+      "dependencies": [
+        "core",
+        "users",
+        "goods",
+        "orders",
+        "ai_storage"
+      ]
+    },
+    "ai_storage": {
+      "title": "AI 记忆与知识存储",
+      "version": "0.3.1",
+      "paths": [
+        "ai_storage/",
+        "deploy/postgres/",
+        "compose.ai-storage.yml",
+        ".env.postgres.example",
+        "docs/PostgreSQL与pgvector配置.md",
+        "versions/changelogs/ai_storage.md",
+        "compose.reranker.yml",
+        "deploy/reranker/",
+        "docs/本地重排序.md"
+      ],
+      "dependencies": [
+        "core",
+        "support_ai"
+      ]
+    },
+    "web": {
+      "title": "页面与前端资源",
+      "version": "0.4.1",
+      "paths": [
+        "client/",
+        "templates/",
+        "versions/changelogs/web.md",
+        "docs/全站主题规范.md"
+      ],
+      "dependencies": [
+        "core",
+        "users",
+        "goods",
+        "carts",
+        "orders",
+        "pays",
+        "news",
+        "inventory",
+        "logistics",
+        "supplier",
+        "admin_panel",
+        "support_ai"
+      ]
+    }
+  },
+  "log": "regression.log",
+  "logSha256": "762bb460ba846d6b23aa21fb24c3f27d4a2a11aec16743960e2723e7a6f1732f",
+  "stagePromotion": false,
+  "runtimeAcceptanceComplete": false,
+  "limitations": [
+    "Source presence is not full business acceptance.",
+    "PostgreSQL-only tests may be skipped.",
+    "No real business DB, model, browser, payment, SMS, email or logistics gateway calls."
+  ]
+}

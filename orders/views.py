@@ -15,6 +15,7 @@ from django_redis import get_redis_connection
 
 from django.db import transaction
 from goods.models import SKU
+from goods.images import sku_image_name
 from users.models import UserProfile, Address
 from dadashop.utils import jwt_decode
 from .models import OrderInfo, OrderGoods
@@ -31,7 +32,7 @@ def build_single_data(sku_object, number, status):
         'id': sku_object.id,
         'name': sku_object.name,
         'price': sku_object.price,
-        'default_image_url': sku_object.default_image_url.name,
+        'default_image_url': sku_image_name(sku_object),
         'count': number,
         'selected': status,
         'sku_sale_attr_name': sku_sale_attr_name,
@@ -311,8 +312,7 @@ class OrdersView(View):
             for dict1 in order_good:
                 sku = SKU.objects.get(id=dict1.get('sku'))
                 # 确保空图片路径不导致前端请求 /media/
-                if not dict1.get('default_image_url'):
-                    dict1['default_image_url'] = None
+                dict1['default_image_url'] = sku_image_name(sku) or None
                 dict1.update({
                     "sku_sale_attr_names": [item.name for item in sku.spu.spusaleattr_set.all()],
                     "sku_sale_attr_vals": [item.name for item in sku.sale_attr_value.all()],
