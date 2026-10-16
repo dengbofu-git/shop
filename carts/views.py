@@ -2,6 +2,7 @@ from django.http import HttpResponse, JsonResponse
 import json
 from django.conf import settings
 from goods.models import SKU
+from goods.images import sku_image_name
 from users.models import UserProfile
 from django.views import View
 from django_redis import get_redis_connection
@@ -125,7 +126,7 @@ class CartsView(View):
                 "count": count,
                 "available_stock": available_stock,
                 "selected": value.get('status'),
-                "default_image_url": sku.default_image_url.name if sku.default_image_url else "",
+                "default_image_url": sku_image_name(sku),
                 "unit_price": unit_price,
                 "price": unit_price * count,
                 "sku_sale_attr_name": [item.name for item in sku.spu.spusaleattr_set.all()],
@@ -213,7 +214,7 @@ class CartsView(View):
                 "name": sku.name,
                 "count": count,
                 "selected": value.get('status'),
-                "default_image_url": sku.default_image_url.name if sku.default_image_url else "",
+                "default_image_url": sku_image_name(sku),
                 "unit_price": unit_price,
                 "price": unit_price * count,
                 "sku_sale_attr_name": [item.name for item in sku.spu.spusaleattr_set.all()],
@@ -244,7 +245,7 @@ class CartsView(View):
                         "name": sku.name,
                         "count": count,
                         "selected": value.get('status'),
-                        "default_image_url": sku.default_image_url.name if sku.default_image_url else "",
+                        "default_image_url": sku_image_name(sku),
                         "unit_price": unit_price,
                         "price": unit_price * count,
                         "sku_sale_attr_name": [item.name for item in sku.spu.spusaleattr_set.all()],

@@ -1,0 +1,15 @@
+{
+  "version": "0.8.1",
+  "files": {
+    "support_ai/planning.py": "8dd3cec7234626a09fa55524d8ed09093a673bb87340f262ebf3429bbe3d5e46",
+    "support_ai/recommendation_options.py": "6bf950a0ad7bad99fbf1a344694d439c10df13e9a37596f513d9dc843dada4bb",
+    "support_ai/tea_explanation.py": "c25ccccb55b893f3a5f9a5c6a07dcf882100bc42e97b5d4bc37c73f00c4baa19",
+    "support_ai/tool_services.py": "21836588f1edb438807f5103325f648ece15583ea7df252d49c91717e49baa61",
+    "support_ai/recommendations.py": "e3ee0a8a0b0ab903d28605db111b6a0577a8671463dd8f3cff90463ebbb7f51e",
+    "support_ai/workflow.py": "1df3db1823021b26540555347609b5776ff84e2e0d43c5a0b01639ece325177e",
+    "support_ai/context.py": "442e2793e005cd57bfd4f4b009821a71d00cfaa8ee04a8e9768c981d88ec09e2",
+    "support_ai/preview.py": "aa4b8c6f5cbaad719159e0a2128eb2fb1b29fcf5ac75b88ec09ffec5f7601fc3",
+    "support_ai/retrieval.py": "31cab5d783a9dbad29c3aa1b0f4a2c3a9c52719b3d4e9c1d8b7259fa67f9b0d4",
+    "support_ai/views.py": "4c744c26169ace4409cf68cfa60b51e76f5da8047118df88a293b572f247fb1a"
+  }
+}

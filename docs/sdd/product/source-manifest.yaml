@@ -1,0 +1,74 @@
+schemaVersion: "0.1"
+observedAt: "2026-10-16"
+timezone: Asia/Shanghai
+target:
+  root: 'E:\django\dadashop'
+  head: 4db3fd12e985c5b5fc3b04de20b780d926a4e319
+  branch: main
+  workingTree: dirty
+  scope: 初始本地源码和文档的静态观察；后续发现性隔离回归分别见SRC-LOCAL-007，HEAD不能独立复现脏工作区或各次运行。
+reference:
+  root: 'E:\实习\store-ai-tp'
+  mode: read-only-method-reference
+  copiedRuntimeOrChecker: false
+sources:
+  - id: SRC-REF-001
+    project: store-ai-tp
+    paths: [docs/sdd/README.md, new-project-sdd-handoff.md]
+    use: 渐进式发现、候选与活动能力分离、两轨探索、能力阶段、未知管理。
+    limit: 方法参考；不移植新项目假设、业务、人员、技术栈或已批准状态。
+  - id: SRC-REF-002
+    project: store-ai-tp
+    paths: [docs/sdd/catalog.yaml, docs/sdd/modules/ai-learning/capability-map.yaml, docs/sdd/modules/platform-foundation/capabilities/CAP-PLAT-001/capability.yaml]
+    use: 模块与能力结构、主归属、manifest、依赖和可追踪批准格式。
+    limit: 本项目采用简化 schema；未复制来源批准记录。
+  - id: SRC-REF-003
+    project: store-ai-tp
+    paths: [docs/sdd/governance/simple-vs-full-flow.md, docs/sdd/governance/repository-profile.yaml, docs/sdd/templates/requirements.template.md, docs/sdd/templates/test-plan.template.yaml]
+    use: 按语义分流、按风险验证、权威路径显式声明、需求和测试追踪。
+    limit: 没有接入来源检查器，不宣称 profile 或命令兼容。
+  - id: SRC-LOCAL-001
+    project: dadashop
+    paths: [docs/项目接手指南.md, requirements.txt, dadashop/urls.py, dadashop/settings.py, versions/modules.json, versions/README.md]
+    use: 定位、技术资产、路由、配置和 14 个实现版本模块。
+    limit: 现有说明及配置不代表部署事实。
+  - id: SRC-LOCAL-002
+    project: dadashop
+    paths: [users/permissions.py, users/decorators.py, users/urls.py, goods/urls.py, carts/urls.py, news/urls.py, admin_panel/urls.py]
+    use: 身份权限和主要功能入口盘点。
+    limit: 未穷尽所有函数分支或执行全部权限检查。
+  - id: SRC-LOCAL-003
+    project: dadashop
+    paths: [orders/models.py, orders/views.py, pays/views.py, inventory/services.py, logistics/views.py, supplier/views.py, supplier/urls.py]
+    use: 订单类型、支付信任边界、库存时点、物流数据范围及商家操作的静态观察。
+    limit: 未连接真实数据库或支付服务，不是端到端审计结论。
+  - id: SRC-LOCAL-004
+    project: dadashop
+    paths: [support_ai/views.py, support_ai/context.py, support_ai/tool_services.py, support_ai/test_task_tools.py, support_ai/test_settings.py, ai_storage/router.py, admin_panel/agent_views.py]
+    use: 试点接口、本人订单读模型、会话提交、测试环境和运营访问范围。
+    limit: 未运行测试，未调用模型，也未验证真实跨库和故障行为。
+  - id: SRC-LOCAL-005
+    project: dadashop
+    paths: [docs/Agent任务模板与对照评测.md, docs/客服商品推荐设计.md]
+    use: 已有 Agent 实现说明、历史测试命令和评测边界。
+    limit: 历史结论仅作为材料，不提升当前规格阶段。
+  - id: SRC-LOCAL-006
+    project: dadashop
+    paths: [client/templates/customs_9710.html, client/static/js/customs-9710.js, client/static/js/trace.js]
+    use: 区分页面演示与真实申报／溯源集成。
+    limit: 未核验页面中的法规、目的国要求或演示记录真实性，不把它们写入有效规则。
+  - id: SRC-LOCAL-007
+    project: dadashop
+    paths: [docs/sdd/evidence/2026-10-16-ai-003-discovery/baseline-manifest.json, docs/sdd/evidence/2026-10-16-ai-003-discovery/baseline-recheck-manifest.json, docs/sdd/evidence/2026-10-16-ai-003-discovery/probes-manifest.json]
+    use: 已有隔离回归的两次独立快照、订单查询的合成数据探针和源码哈希。
+    limit: 发现性证据，不是规格0.2.0全部AC通过、真实组件验收或阶段批准；并行改动前后的结果不能混成一次运行。
+  - id: SRC-LOCAL-008
+    project: dadashop
+    paths: [support_ai/views.py, support_ai/context.py, support_ai/pii.py, support_ai/workflow.py, support_ai/models.py, support_ai/urls.py, client/static/js/buyer-support.js, client/templates/buyer_support.html]
+    use: 接口字段/处理顺序、响应结构、模型提示词边界及现有页面恢复/重试的静态设计输入。
+    limit: 新设计为规格0.2.0下的proposed材料；没有实施新错误代码或404、运行新测试、执行浏览器验收或沿用旧快照为当前通过证据。
+  - id: SRC-LOCAL-009
+    project: dadashop
+    paths: [docs/sdd/evidence/2026-10-16-sdd-reconciliation/manifest.json, docs/sdd/evidence/2026-10-16-sdd-reconciliation/source-inventory.json, docs/Agent分类推荐.md, docs/Agent终端预览.md, docs/虚拟商品数据.md, support_ai/tea_explanation.py, support_ai/recommendation_options.py, supplier/analytics.py]
+    use: 全部24能力源码对账、当前0.8.1功能、资讯登录/交易库存及看板边界，101项隔离检查与5项探针。
+    limit: 98通过/3项真实PostgreSQL跳过；非AI域以静态检查为主，未运行造数、真实模型/支付/物流或浏览器验收；历史资料不等于当前数据库内容。

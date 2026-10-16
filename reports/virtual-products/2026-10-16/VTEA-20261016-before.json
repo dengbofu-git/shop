@@ -1,0 +1,458 @@
+{
+  "database": "dadashop",
+  "server_uuid": "6b35ae3b-0afa-11f1-808b-2632d3201c4a",
+  "tables": {
+    "goods.CarouselSlide": [],
+    "goods.Catalog": [
+      {
+        "id": 1,
+        "name": "123",
+        "created_time": "2026-02-17 18:51:00.448811+00:00",
+        "updated_time": "2026-02-17 18:51:00.448811+00:00"
+      },
+      {
+        "id": 2,
+        "name": "b",
+        "created_time": "2026-02-17 20:19:34.313220+00:00",
+        "updated_time": "2026-02-17 20:19:34.313220+00:00"
+      },
+      {
+        "id": 3,
+        "name": "1",
+        "created_time": "2026-02-17 20:27:50.388217+00:00",
+        "updated_time": "2026-02-17 20:27:50.388217+00:00"
+      },
+      {
+        "id": 4,
+        "name": "西湖",
+        "created_time": "2026-02-17 20:30:51.565948+00:00",
+        "updated_time": "2026-02-17 20:30:51.565948+00:00"
+      },
+      {
+        "id": 5,
+        "name": "000",
+        "created_time": "2026-02-17 20:37:22.169598+00:00",
+        "updated_time": "2026-02-17 20:37:22.169598+00:00"
+      },
+      {
+        "id": 6,
+        "name": "3333",
+        "created_time": "2026-02-17 21:03:07.077836+00:00",
+        "updated_time": "2026-02-17 21:03:07.077836+00:00"
+      },
+      {
+        "id": 7,
+        "name": "4545",
+        "created_time": "2026-02-17 21:05:38.447484+00:00",
+        "updated_time": "2026-02-17 21:05:38.447484+00:00"
+      },
+      {
+        "id": 8,
+        "name": "红茶",
+        "created_time": "2026-02-23 16:38:12.278127+00:00",
+        "updated_time": "2026-02-23 16:38:12.278870+00:00"
+      },
+      {
+        "id": 9,
+        "name": "绿茶",
+        "created_time": "2026-10-02 15:06:23.344030+00:00",
+        "updated_time": "2026-10-02 15:06:23.344030+00:00"
+      }
+    ],
+    "goods.Brand": [
+      {
+        "id": 1,
+        "name": "12",
+        "logo": "",
+        "first_letter": "1",
+        "created_time": "2026-02-17 18:51:00.432629+00:00",
+        "updated_time": "2026-02-17 18:51:00.432629+00:00"
+      },
+      {
+        "id": 2,
+        "name": "a",
+        "logo": "",
+        "first_letter": "A",
+        "created_time": "2026-02-17 20:19:34.296678+00:00",
+        "updated_time": "2026-02-17 20:19:34.296678+00:00"
+      },
+      {
+        "id": 3,
+        "name": "龙井",
+        "logo": "",
+        "first_letter": "龙",
+        "created_time": "2026-02-17 20:27:50.371995+00:00",
+        "updated_time": "2026-02-17 20:27:50.371995+00:00"
+      },
+      {
+        "id": 4,
+        "name": "西湖",
+        "logo": "",
+        "first_letter": "西",
+        "created_time": "2026-02-17 20:30:51.548879+00:00",
+        "updated_time": "2026-02-17 20:30:51.548879+00:00"
+      },
+      {
+        "id": 5,
+        "name": "000",
+        "logo": "",
+        "first_letter": "0",
+        "created_time": "2026-02-17 20:37:22.152186+00:00",
+        "updated_time": "2026-02-17 20:37:22.152186+00:00"
+      },
+      {
+        "id": 6,
+        "name": "1",
+        "logo": "",
+        "first_letter": "1",
+        "created_time": "2026-02-17 20:45:38.540134+00:00",
+        "updated_time": "2026-02-17 20:45:38.540134+00:00"
+      },
+      {
+        "id": 7,
+        "name": "123",
+        "logo": "",
+        "first_letter": "1",
+        "created_time": "2026-02-17 20:48:16.637288+00:00",
+        "updated_time": "2026-02-17 20:48:16.637288+00:00"
+      },
+      {
+        "id": 8,
+        "name": "3333",
+        "logo": "",
+        "first_letter": "3",
+        "created_time": "2026-02-17 21:03:07.061854+00:00",
+        "updated_time": "2026-02-17 21:03:07.061854+00:00"
+      },
+      {
+        "id": 9,
+        "name": "4545",
+        "logo": "",
+        "first_letter": "4",
+        "created_time": "2026-02-17 21:05:38.433711+00:00",
+        "updated_time": "2026-02-17 21:05:38.433711+00:00"
+      },
+      {
+        "id": 10,
+        "name": "英德大叶种",
+        "logo": "",
+        "first_letter": "英",
+        "created_time": "2026-05-06 14:50:42.651932+00:00",
+        "updated_time": "2026-05-06 14:50:42.651932+00:00"
+      },
+      {
+        "id": 11,
+        "name": "华农石牌茶",
+        "logo": "",
+        "first_letter": "华",
+        "created_time": "2026-10-02 15:06:23.362393+00:00",
+        "updated_time": "2026-10-02 15:06:23.362393+00:00"
+      },
+      {
+        "id": 12,
+        "name": "英红",
+        "logo": "",
+        "first_letter": "英",
+        "created_time": "2026-10-03 05:24:36.674230+00:00",
+        "updated_time": "2026-10-03 05:24:36.674230+00:00"
+      }
+    ],
+    "goods.SPU": [
+      {
+        "id": 6,
+        "name": "1",
+        "sales": 0,
+        "comments": 0,
+        "brand_id": 6,
+        "catalog_id": 3,
+        "merchant_id": 8,
+        "created_time": "2026-02-17 20:45:38.557228+00:00",
+        "updated_time": "2026-02-17 20:45:38.557228+00:00"
+      },
+      {
+        "id": 7,
+        "name": "123",
+        "sales": 0,
+        "comments": 0,
+        "brand_id": 7,
+        "catalog_id": 1,
+        "merchant_id": 8,
+        "created_time": "2026-02-17 20:48:16.651919+00:00",
+        "updated_time": "2026-02-17 20:48:16.651919+00:00"
+      },
+      {
+        "id": 8,
+        "name": "3333",
+        "sales": 0,
+        "comments": 0,
+        "brand_id": 8,
+        "catalog_id": 6,
+        "merchant_id": 8,
+        "created_time": "2026-02-17 21:03:07.089112+00:00",
+        "updated_time": "2026-02-17 21:03:07.089112+00:00"
+      },
+      {
+        "id": 9,
+        "name": "4545",
+        "sales": 0,
+        "comments": 0,
+        "brand_id": 9,
+        "catalog_id": 7,
+        "merchant_id": 8,
+        "created_time": "2026-02-17 21:05:38.458431+00:00",
+        "updated_time": "2026-02-17 21:05:38.458431+00:00"
+      },
+      {
+        "id": 10,
+        "name": "英德大叶种叶茶礼盒",
+        "sales": 0,
+        "comments": 0,
+        "brand_id": null,
+        "catalog_id": 8,
+        "merchant_id": 8,
+        "created_time": "2026-02-23 16:42:47.807810+00:00",
+        "updated_time": "2026-02-23 16:42:47.808366+00:00"
+      },
+      {
+        "id": 11,
+        "name": "英德大叶种叶茶礼盒",
+        "sales": 0,
+        "comments": 0,
+        "brand_id": null,
+        "catalog_id": 8,
+        "merchant_id": 8,
+        "created_time": "2026-02-23 16:53:38.846325+00:00",
+        "updated_time": "2026-02-23 16:53:38.846325+00:00"
+      },
+      {
+        "id": 12,
+        "name": "英德大叶种叶茶礼盒",
+        "sales": 0,
+        "comments": 0,
+        "brand_id": null,
+        "catalog_id": 8,
+        "merchant_id": 8,
+        "created_time": "2026-02-23 17:27:51.522555+00:00",
+        "updated_time": "2026-02-23 17:27:51.522555+00:00"
+      },
+      {
+        "id": 13,
+        "name": "英德大叶种叶茶礼盒",
+        "sales": 0,
+        "comments": 0,
+        "brand_id": null,
+        "catalog_id": 8,
+        "merchant_id": 8,
+        "created_time": "2026-02-23 17:30:16.540987+00:00",
+        "updated_time": "2026-02-23 17:30:16.540987+00:00"
+      },
+      {
+        "id": 14,
+        "name": "英德大叶种叶茶礼盒",
+        "sales": 0,
+        "comments": 0,
+        "brand_id": null,
+        "catalog_id": 8,
+        "merchant_id": 8,
+        "created_time": "2026-02-23 17:44:01.268602+00:00",
+        "updated_time": "2026-02-23 17:44:01.268602+00:00"
+      },
+      {
+        "id": 15,
+        "name": "英德大叶种叶茶礼盒",
+        "sales": 0,
+        "comments": 0,
+        "brand_id": null,
+        "catalog_id": 8,
+        "merchant_id": 8,
+        "created_time": "2026-02-23 17:44:27.185846+00:00",
+        "updated_time": "2026-02-23 17:44:27.185846+00:00"
+      },
+      {
+        "id": 16,
+        "name": "英德大叶种叶茶礼盒",
+        "sales": 0,
+        "comments": 0,
+        "brand_id": null,
+        "catalog_id": 8,
+        "merchant_id": 8,
+        "created_time": "2026-02-23 17:48:12.749825+00:00",
+        "updated_time": "2026-02-23 17:48:12.749825+00:00"
+      },
+      {
+        "id": 17,
+        "name": "英红九号金毛毫明前礼盒",
+        "sales": 0,
+        "comments": 0,
+        "brand_id": null,
+        "catalog_id": 8,
+        "merchant_id": 8,
+        "created_time": "2026-02-23 17:56:50.438566+00:00",
+        "updated_time": "2026-02-23 17:56:50.438566+00:00"
+      },
+      {
+        "id": 18,
+        "name": "英红九号一级明前礼盒",
+        "sales": 0,
+        "comments": 0,
+        "brand_id": null,
+        "catalog_id": 8,
+        "merchant_id": 8,
+        "created_time": "2026-02-23 17:58:03.133101+00:00",
+        "updated_time": "2026-02-23 17:58:03.133101+00:00"
+      },
+      {
+        "id": 19,
+        "name": "英红九号金毛毫明前体验装",
+        "sales": 0,
+        "comments": 0,
+        "brand_id": null,
+        "catalog_id": 8,
+        "merchant_id": 8,
+        "created_time": "2026-02-23 18:02:42.302063+00:00",
+        "updated_time": "2026-02-23 18:02:42.302063+00:00"
+      },
+      {
+        "id": 20,
+        "name": "de",
+        "sales": 0,
+        "comments": 0,
+        "brand_id": 1,
+        "catalog_id": 1,
+        "merchant_id": 8,
+        "created_time": "2026-04-25 14:22:39.499439+00:00",
+        "updated_time": "2026-04-25 14:22:39.500043+00:00"
+      },
+      {
+        "id": 21,
+        "name": "英德大叶种叶茶礼盒",
+        "sales": 0,
+        "comments": 0,
+        "brand_id": 10,
+        "catalog_id": 8,
+        "merchant_id": 8,
+        "created_time": "2026-05-06 14:50:42.663227+00:00",
+        "updated_time": "2026-05-06 14:50:42.663227+00:00"
+      },
+      {
+        "id": 22,
+        "name": "英德大叶种叶茶礼盒",
+        "sales": 0,
+        "comments": 0,
+        "brand_id": 10,
+        "catalog_id": 8,
+        "merchant_id": 8,
+        "created_time": "2026-05-06 14:53:58.201242+00:00",
+        "updated_time": "2026-05-06 14:53:58.201242+00:00"
+      },
+      {
+        "id": 23,
+        "name": "石牌茶",
+        "sales": 0,
+        "comments": 0,
+        "brand_id": 11,
+        "catalog_id": 9,
+        "merchant_id": 8,
+        "created_time": "2026-10-02 15:06:23.376360+00:00",
+        "updated_time": "2026-10-02 15:06:23.376360+00:00"
+      },
+      {
+        "id": 24,
+        "name": "英红9号",
+        "sales": 0,
+        "comments": 0,
+        "brand_id": 12,
+        "catalog_id": 8,
+        "merchant_id": 8,
+        "created_time": "2026-10-03 05:24:36.684833+00:00",
+        "updated_time": "2026-10-03 05:24:41.717226+00:00"
+      }
+    ],
+    "goods.SPUSaleAttr": [],
+    "goods.SaleAttrValue": [],
+    "goods.SKU": [
+      {
+        "id": 21,
+        "name": "150g (30包 * 5g)",
+        "caption": "",
+        "spu_id": 21,
+        "price": "320.00",
+        "cost_price": "0.00",
+        "market_price": "320.00",
+        "stock": 1000,
+        "sales": 0,
+        "comments": 0,
+        "is_launched": false,
+        "is_recommended": false,
+        "default_image_url": "",
+        "version": 0,
+        "created_time": "2026-05-06 14:50:42.705226+00:00",
+        "updated_time": "2026-10-02 15:30:48.898394+00:00"
+      },
+      {
+        "id": 22,
+        "name": "150g (30包 * 5g)",
+        "caption": "",
+        "spu_id": 22,
+        "price": "320.00",
+        "cost_price": "0.00",
+        "market_price": "320.00",
+        "stock": 199,
+        "sales": 0,
+        "comments": 0,
+        "is_launched": true,
+        "is_recommended": false,
+        "default_image_url": "",
+        "version": 0,
+        "created_time": "2026-05-06 14:53:58.229306+00:00",
+        "updated_time": "2026-10-02 14:17:41.161623+00:00"
+      },
+      {
+        "id": 23,
+        "name": "默认规格",
+        "caption": "",
+        "spu_id": 23,
+        "price": "75.00",
+        "cost_price": "0.00",
+        "market_price": "75.00",
+        "stock": 999,
+        "sales": 0,
+        "comments": 0,
+        "is_launched": true,
+        "is_recommended": false,
+        "default_image_url": "sku/23/f3d3572c11dfa9ec8a1380704f99e003918fa0ec6b08.webp",
+        "version": 0,
+        "created_time": "2026-10-02 15:06:23.414135+00:00",
+        "updated_time": "2026-10-02 15:06:23.448774+00:00"
+      },
+      {
+        "id": 24,
+        "name": "英红9号",
+        "caption": "好喝不上头",
+        "spu_id": 24,
+        "price": "123.00",
+        "cost_price": "0.00",
+        "market_price": "123.00",
+        "stock": 9999,
+        "sales": 0,
+        "comments": 0,
+        "is_launched": true,
+        "is_recommended": false,
+        "default_image_url": "sku/24/4d086e061d950a7b020843e0da8975d9f2d3572c63c4.webp",
+        "version": 0,
+        "created_time": "2026-10-03 05:24:36.706618+00:00",
+        "updated_time": "2026-10-03 05:24:41.762367+00:00"
+      }
+    ],
+    "goods.SKUImage": [],
+    "goods.SPUSpec": [],
+    "goods.SKUSpecValue": [],
+    "goods.ProductTemplate": [],
+    "goods.ProductAttribute": [],
+    "goods.ProductAttributeValue": [],
+    "inventory.Warehouse": [],
+    "inventory.Inventory": [],
+    "inventory.InventoryLog": [],
+    "goods.SKU_sale_attr_value": []
+  }
+}

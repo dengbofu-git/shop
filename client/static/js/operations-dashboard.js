@@ -6,10 +6,11 @@
 (function() {
     'use strict';
 
-    var colorPrimary = '#165DFF';
-    var colorTea = '#2E7D32';
-    var colorGold = '#D4AF37';
-    var colorMuted = 'rgba(255,255,255,0.5)';
+    var theme = getComputedStyle(document.documentElement);
+    var colorPrimary = theme.getPropertyValue('--color-primary').trim() || '#185c3b';
+    var colorTea = '#50886a';
+    var colorGold = '#91b19b';
+    var colorMuted = '#6a7d73';
 
     var _charts = [];
     var _resizeTimer = null;
@@ -136,7 +137,7 @@
         var industry = projectDays.map(function(d) { return d + 5; });
         chart.setOption({
             backgroundColor: 'transparent',
-            tooltip: { trigger: 'axis', backgroundColor: 'rgba(0,0,0,0.8)' },
+            tooltip: { trigger: 'axis', backgroundColor: '#ffffff', borderColor: '#e1e9e3', textStyle: { color: '#17352b' } },
             legend: {
                 data: ['项目报关周期', '行业平均'],
                 textStyle: { color: colorMuted, fontSize: 12 },
@@ -146,14 +147,14 @@
             xAxis: {
                 type: 'category',
                 data: months,
-                axisLine: { lineStyle: { color: 'rgba(255,255,255,0.2)' } },
+                axisLine: { lineStyle: { color: '#cfdbd1' } },
                 axisLabel: { color: colorMuted }
             },
             yAxis: {
                 type: 'value',
                 name: '天数',
                 axisLine: { show: false },
-                splitLine: { lineStyle: { color: 'rgba(255,255,255,0.08)' } },
+                splitLine: { lineStyle: { color: '#edf0eb' } },
                 axisLabel: { color: colorMuted }
             },
             series: [
@@ -171,20 +172,20 @@
         var pass = (data && data.summary) ? data.summary.compliance_pass_rate : 99;
         chart.setOption({
             backgroundColor: 'transparent',
-            tooltip: { trigger: 'item', backgroundColor: 'rgba(0,0,0,0.8)' },
+            tooltip: { trigger: 'item', backgroundColor: '#ffffff', borderColor: '#e1e9e3', textStyle: { color: '#17352b' } },
             series: [{
                 type: 'pie',
                 radius: ['50%', '75%'],
                 center: ['50%', '50%'],
                 avoidLabelOverlap: false,
                 itemStyle: {
-                    borderColor: '#0a0e1a',
+                    borderColor: '#ffffff',
                     borderWidth: 2
                 },
                 label: { show: true, color: colorMuted, fontSize: 12 },
                 data: [
                     { value: pass, name: '通过', itemStyle: { color: colorTea } },
-                    { value: Math.max(0, 100 - pass), name: '待整改', itemStyle: { color: 'rgba(255,255,255,0.2)' } }
+                    { value: Math.max(0, 100 - pass), name: '待整改', itemStyle: { color: '#cfdbd1' } }
                 ]
             }]
         });
@@ -200,19 +201,19 @@
         var yData = regions.length ? regions.map(function(r) { return r.sales_wan; }) : [0, 0, 0, 0];
         chart.setOption({
             backgroundColor: 'transparent',
-            tooltip: { trigger: 'axis', formatter: '{b}: ¥{c}万', backgroundColor: 'rgba(0,0,0,0.8)' },
+            tooltip: { trigger: 'axis', formatter: '{b}: ¥{c}万', backgroundColor: '#ffffff', borderColor: '#e1e9e3', textStyle: { color: '#17352b' } },
             grid: { left: '15%', right: '5%', bottom: '15%', top: '15%' },
             xAxis: {
                 type: 'category',
                 data: xData,
-                axisLine: { lineStyle: { color: 'rgba(255,255,255,0.2)' } },
+                axisLine: { lineStyle: { color: '#cfdbd1' } },
                 axisLabel: { color: colorMuted }
             },
             yAxis: {
                 type: 'value',
                 name: '销售额(万)',
                 axisLine: { show: false },
-                splitLine: { lineStyle: { color: 'rgba(255,255,255,0.08)' } },
+                splitLine: { lineStyle: { color: '#edf0eb' } },
                 axisLabel: { color: colorMuted }
             },
             series: [{
@@ -237,18 +238,18 @@
         var yCat = cats.length ? cats.map(function(c) { return c.pct; }) : [0];
         chart.setOption({
             backgroundColor: 'transparent',
-            tooltip: { trigger: 'axis', backgroundColor: 'rgba(0,0,0,0.8)' },
+            tooltip: { trigger: 'axis', backgroundColor: '#ffffff', borderColor: '#e1e9e3', textStyle: { color: '#17352b' } },
             grid: { left: '3%', right: '4%', bottom: '3%', top: '10%', containLabel: true },
             xAxis: {
                 type: 'category',
                 data: xCat,
-                axisLine: { lineStyle: { color: 'rgba(255,255,255,0.2)' } },
+                axisLine: { lineStyle: { color: '#cfdbd1' } },
                 axisLabel: { color: colorMuted }
             },
             yAxis: {
                 type: 'value',
                 axisLine: { show: false },
-                splitLine: { lineStyle: { color: 'rgba(255,255,255,0.08)' } },
+                splitLine: { lineStyle: { color: '#edf0eb' } },
                 axisLabel: { color: colorMuted }
             },
             series: [{
@@ -270,7 +271,7 @@
         var funnel = (data && data.funnel) ? data.funnel : [];
         chart.setOption({
             backgroundColor: 'transparent',
-            tooltip: { trigger: 'item', backgroundColor: 'rgba(0,0,0,0.8)' },
+            tooltip: { trigger: 'item', backgroundColor: '#ffffff', borderColor: '#e1e9e3', textStyle: { color: '#17352b' } },
             series: [{
                 type: 'funnel',
                 left: '10%', width: '80%',
@@ -280,7 +281,7 @@
                 gap: 4,
                 label: { show: true, position: 'inside', color: '#fff', fontSize: 12 },
                 labelLine: { show: false },
-                itemStyle: { borderColor: '#0a0e1a', borderWidth: 2 },
+                itemStyle: { borderColor: '#ffffff', borderWidth: 2 },
                 data: funnel.map(function(item, idx) {
                     var colors = [colorPrimary, colorTea, colorGold];
                     return { value: item.value, name: item.name, itemStyle: { color: colors[idx % colors.length] } };

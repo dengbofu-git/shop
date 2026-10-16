@@ -1,0 +1,19 @@
+{
+  "type": "deployment",
+  "capabilityId": "CAP-CAT-004",
+  "specVersion": "0.1.0",
+  "head": "4db3fd12e985c5b5fc3b04de20b780d926a4e319",
+  "workingTreeDirty": true,
+  "time": "2026-10-16T14:35:55.455397+08:00",
+  "environment": "configured local default MySQL; no credentials recorded",
+  "migration": "goods.0009_browsinghistory_favorite",
+  "migrationSha256": "3c30ef550526df5f2e507191ead80b4bc83bc6562888f2fa98aa4e78abfb0e8f",
+  "applyCommand": "manage.py migrate goods 0009 --database default --noinput",
+  "applyExitCode": 0,
+  "applyObservation": "Applying goods.0009_browsinghistory_favorite... OK",
+  "verificationCommand": "manage.py showmigrations goods --plan --database default",
+  "verificationExitCode": 0,
+  "log": "local-migrations.log",
+  "reviewer": null,
+  "scope": "local schema migration only; no production release"
+}

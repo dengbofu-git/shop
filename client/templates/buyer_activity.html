@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>收藏与足迹 · 茗越山关</title>
+    <link rel="icon" href="/static/images/index/py.ico">
+    <link rel="stylesheet" href="/static/css/design-tokens.css">
+    <link rel="stylesheet" href="/static/css/rtl.css">
+    <link rel="stylesheet" href="/static/css/buyer-workbench.css">
+    <link rel="stylesheet" href="/static/css/buyer-activity.css?v=20261016-card-favorites">
+    <script src="/static/js/init.js"></script>
+    <script src="/static/js/auth-storage.js"></script>
+    {% include "shared/system_theme.html" %}
+</head>
+<body class="ds-theme buyer-workbench" id="buyer-body">
+    <div class="buyer-layout">
+        {% include 'buyer_sidebar.html' %}
+        <main class="buyer-main">
+            {% include 'buyer_header.html' %}
+            <div class="buyer-content activity-content">
+                <p class="activity-eyebrow">BUYER WORKBENCH</p>
+                <h1 id="activity-title">我的收藏</h1>
+                <p id="activity-description"></p>
+                <div class="activity-toolbar">
+                    <span id="activity-count"></span>
+                    <button type="button" id="activity-clear" hidden>清空足迹</button>
+                </div>
+                <div id="activity-message" role="status" aria-live="polite"></div>
+                <button type="button" id="activity-retry" hidden>重试</button>
+                <a href="buyer_products.html" id="activity-browse" hidden>去逛逛</a>
+                <section id="activity-grid" class="activity-grid" aria-label="商品列表" aria-busy="true"></section>
+                <nav class="activity-pagination" aria-label="分页">
+                    <button type="button" id="activity-prev" disabled>上一页</button>
+                    <span id="activity-page" aria-live="polite"></span>
+                    <button type="button" id="activity-next" disabled>下一页</button>
+                </nav>
+            </div>
+        </main>
+    </div>
+    <script src="/static/js/jquery-3.1.1.min.js"></script>
+    <script src="/static/js/buyer-workbench.js"></script>
+    <script src="/static/js/buyer-activity.js?v=20261016-card-favorites"></script>
+</body>
+</html>

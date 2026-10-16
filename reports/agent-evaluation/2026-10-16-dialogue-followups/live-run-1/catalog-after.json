@@ -1,0 +1,2450 @@
+[
+  {
+    "sku_id": 22,
+    "name": "150g (30包 * 5g)",
+    "product_name": "英德大叶种叶茶礼盒",
+    "category": "红茶",
+    "brand": "英德大叶种",
+    "price": "320.00",
+    "currency": "USD",
+    "available_stock": 199,
+    "image_url": "/v1/goods/sku/22/image",
+    "detail_url": "/product_details.html?skuid=22",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {}
+  },
+  {
+    "sku_id": 23,
+    "name": "默认规格",
+    "product_name": "石牌茶",
+    "category": "绿茶",
+    "brand": "华农石牌茶",
+    "price": "75.00",
+    "currency": "USD",
+    "available_stock": 999,
+    "image_url": "/v1/goods/sku/23/image",
+    "detail_url": "/product_details.html?skuid=23",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {}
+  },
+  {
+    "sku_id": 24,
+    "name": "英红9号",
+    "product_name": "英红9号",
+    "category": "红茶",
+    "brand": "英红",
+    "price": "123.00",
+    "currency": "USD",
+    "available_stock": 9999,
+    "image_url": "/v1/goods/sku/24/image",
+    "detail_url": "/product_details.html?skuid=24",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {}
+  },
+  {
+    "sku_id": 25,
+    "name": "100g·密封袋装·优选级",
+    "product_name": "【虚拟】青岚·春露绿茶",
+    "category": "绿茶",
+    "brand": "虚拟青岚茶社",
+    "price": "9.00",
+    "currency": "USD",
+    "available_stock": 157,
+    "image_url": "/v1/goods/sku/25/image",
+    "detail_url": "/product_details.html?skuid=25",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "青岚虚拟示范区",
+      "净含量（克）": "100.00",
+      "包装形式": "密封袋装",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "清爽回甘",
+      "模拟香气": "花香"
+    }
+  },
+  {
+    "sku_id": 26,
+    "name": "150g·金属罐装·优选级",
+    "product_name": "【虚拟】青岚·云芽绿茶",
+    "category": "绿茶",
+    "brand": "虚拟青岚茶社",
+    "price": "14.70",
+    "currency": "USD",
+    "available_stock": 194,
+    "image_url": "/v1/goods/sku/26/image",
+    "detail_url": "/product_details.html?skuid=26",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "青岚虚拟示范区",
+      "净含量（克）": "150.00",
+      "包装形式": "金属罐装",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "柔和醇润",
+      "模拟香气": "熟果香"
+    }
+  },
+  {
+    "sku_id": 27,
+    "name": "200g·双罐礼盒·优选级",
+    "product_name": "【虚拟】青岚·竹影绿茶",
+    "category": "绿茶",
+    "brand": "虚拟青岚茶社",
+    "price": "23.60",
+    "currency": "USD",
+    "available_stock": 231,
+    "image_url": "/v1/goods/sku/27/image",
+    "detail_url": "/product_details.html?skuid=27",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "青岚虚拟示范区",
+      "净含量（克）": "200.00",
+      "包装形式": "双罐礼盒",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "饱满顺滑",
+      "模拟香气": "谷物香"
+    }
+  },
+  {
+    "sku_id": 28,
+    "name": "50g·独立茶包盒·优选级",
+    "product_name": "【虚拟】青岚·晴岚绿茶",
+    "category": "绿茶",
+    "brand": "虚拟青岚茶社",
+    "price": "5.90",
+    "currency": "USD",
+    "available_stock": 268,
+    "image_url": "/v1/goods/sku/28/image",
+    "detail_url": "/product_details.html?skuid=28",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "青岚虚拟示范区",
+      "净含量（克）": "50.00",
+      "包装形式": "独立茶包盒",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "清淡鲜爽",
+      "模拟香气": "木质香"
+    }
+  },
+  {
+    "sku_id": 29,
+    "name": "500g·大袋装·优选级",
+    "product_name": "【虚拟】青岚·溪翠绿茶",
+    "category": "绿茶",
+    "brand": "虚拟青岚茶社",
+    "price": "41.50",
+    "currency": "USD",
+    "available_stock": 305,
+    "image_url": "/v1/goods/sku/29/image",
+    "detail_url": "/product_details.html?skuid=29",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "青岚虚拟示范区",
+      "净含量（克）": "500.00",
+      "包装形式": "大袋装",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "浓醇厚实",
+      "模拟香气": "清香"
+    }
+  },
+  {
+    "sku_id": 30,
+    "name": "100g·密封袋装·精品级",
+    "product_name": "【虚拟】青岚·晨曦绿茶",
+    "category": "绿茶",
+    "brand": "虚拟青岚茶社",
+    "price": "10.95",
+    "currency": "USD",
+    "available_stock": 342,
+    "image_url": "/v1/goods/sku/30/image",
+    "detail_url": "/product_details.html?skuid=30",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "青岚虚拟示范区",
+      "净含量（克）": "100.00",
+      "包装形式": "密封袋装",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "柔和醇润",
+      "模拟香气": "花香"
+    }
+  },
+  {
+    "sku_id": 31,
+    "name": "150g·金属罐装·精品级",
+    "product_name": "【虚拟】青岚·山风绿茶",
+    "category": "绿茶",
+    "brand": "虚拟青岚茶社",
+    "price": "17.62",
+    "currency": "USD",
+    "available_stock": 379,
+    "image_url": "/v1/goods/sku/31/image",
+    "detail_url": "/product_details.html?skuid=31",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "青岚虚拟示范区",
+      "净含量（克）": "150.00",
+      "包装形式": "金属罐装",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "饱满顺滑",
+      "模拟香气": "熟果香"
+    }
+  },
+  {
+    "sku_id": 32,
+    "name": "200g·双罐礼盒·精品级",
+    "product_name": "【虚拟】青岚·雨青绿茶",
+    "category": "绿茶",
+    "brand": "虚拟青岚茶社",
+    "price": "27.50",
+    "currency": "USD",
+    "available_stock": 416,
+    "image_url": "/v1/goods/sku/32/image",
+    "detail_url": "/product_details.html?skuid=32",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "青岚虚拟示范区",
+      "净含量（克）": "200.00",
+      "包装形式": "双罐礼盒",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "清淡鲜爽",
+      "模拟香气": "谷物香"
+    }
+  },
+  {
+    "sku_id": 33,
+    "name": "50g·独立茶包盒·精品级",
+    "product_name": "【虚拟】青岚·碧潭绿茶",
+    "category": "绿茶",
+    "brand": "虚拟青岚茶社",
+    "price": "6.88",
+    "currency": "USD",
+    "available_stock": 453,
+    "image_url": "/v1/goods/sku/33/image",
+    "detail_url": "/product_details.html?skuid=33",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "青岚虚拟示范区",
+      "净含量（克）": "50.00",
+      "包装形式": "独立茶包盒",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "浓醇厚实",
+      "模拟香气": "木质香"
+    }
+  },
+  {
+    "sku_id": 34,
+    "name": "500g·大袋装·精品级",
+    "product_name": "【虚拟】青岚·柳烟绿茶",
+    "category": "绿茶",
+    "brand": "虚拟青岚茶社",
+    "price": "51.25",
+    "currency": "USD",
+    "available_stock": 490,
+    "image_url": "/v1/goods/sku/34/image",
+    "detail_url": "/product_details.html?skuid=34",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "青岚虚拟示范区",
+      "净含量（克）": "500.00",
+      "包装形式": "大袋装",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "清爽回甘",
+      "模拟香气": "清香"
+    }
+  },
+  {
+    "sku_id": 35,
+    "name": "100g·密封袋装·特选级",
+    "product_name": "【虚拟】青岚·石泉绿茶",
+    "category": "绿茶",
+    "brand": "虚拟青岚茶社",
+    "price": "13.29",
+    "currency": "USD",
+    "available_stock": 527,
+    "image_url": "/v1/goods/sku/35/image",
+    "detail_url": "/product_details.html?skuid=35",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "青岚虚拟示范区",
+      "净含量（克）": "100.00",
+      "包装形式": "密封袋装",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "饱满顺滑",
+      "模拟香气": "花香"
+    }
+  },
+  {
+    "sku_id": 36,
+    "name": "150g·金属罐装·特选级",
+    "product_name": "【虚拟】青岚·松月绿茶",
+    "category": "绿茶",
+    "brand": "虚拟青岚茶社",
+    "price": "21.14",
+    "currency": "USD",
+    "available_stock": 564,
+    "image_url": "/v1/goods/sku/36/image",
+    "detail_url": "/product_details.html?skuid=36",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "青岚虚拟示范区",
+      "净含量（克）": "150.00",
+      "包装形式": "金属罐装",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "清淡鲜爽",
+      "模拟香气": "熟果香"
+    }
+  },
+  {
+    "sku_id": 37,
+    "name": "200g·双罐礼盒·特选级",
+    "product_name": "【虚拟】青岚·露华绿茶",
+    "category": "绿茶",
+    "brand": "虚拟青岚茶社",
+    "price": "32.18",
+    "currency": "USD",
+    "available_stock": 601,
+    "image_url": "/v1/goods/sku/37/image",
+    "detail_url": "/product_details.html?skuid=37",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "青岚虚拟示范区",
+      "净含量（克）": "200.00",
+      "包装形式": "双罐礼盒",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "浓醇厚实",
+      "模拟香气": "谷物香"
+    }
+  },
+  {
+    "sku_id": 38,
+    "name": "50g·独立茶包盒·特选级",
+    "product_name": "【虚拟】青岚·清溪绿茶",
+    "category": "绿茶",
+    "brand": "虚拟青岚茶社",
+    "price": "8.04",
+    "currency": "USD",
+    "available_stock": 638,
+    "image_url": "/v1/goods/sku/38/image",
+    "detail_url": "/product_details.html?skuid=38",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "青岚虚拟示范区",
+      "净含量（克）": "50.00",
+      "包装形式": "独立茶包盒",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "清爽回甘",
+      "模拟香气": "木质香"
+    }
+  },
+  {
+    "sku_id": 39,
+    "name": "500g·大袋装·特选级",
+    "product_name": "【虚拟】青岚·林语绿茶",
+    "category": "绿茶",
+    "brand": "虚拟青岚茶社",
+    "price": "62.95",
+    "currency": "USD",
+    "available_stock": 675,
+    "image_url": "/v1/goods/sku/39/image",
+    "detail_url": "/product_details.html?skuid=39",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "青岚虚拟示范区",
+      "净含量（克）": "500.00",
+      "包装形式": "大袋装",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "柔和醇润",
+      "模拟香气": "清香"
+    }
+  },
+  {
+    "sku_id": 40,
+    "name": "100g·密封袋装·优选级",
+    "product_name": "【虚拟】青岚·翠谷绿茶",
+    "category": "绿茶",
+    "brand": "虚拟青岚茶社",
+    "price": "9.00",
+    "currency": "USD",
+    "available_stock": 712,
+    "image_url": "/v1/goods/sku/40/image",
+    "detail_url": "/product_details.html?skuid=40",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "青岚虚拟示范区",
+      "净含量（克）": "100.00",
+      "包装形式": "密封袋装",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "清爽回甘",
+      "模拟香气": "花香"
+    }
+  },
+  {
+    "sku_id": 41,
+    "name": "150g·金属罐装·优选级",
+    "product_name": "【虚拟】青岚·春汀绿茶",
+    "category": "绿茶",
+    "brand": "虚拟青岚茶社",
+    "price": "14.70",
+    "currency": "USD",
+    "available_stock": 749,
+    "image_url": "/v1/goods/sku/41/image",
+    "detail_url": "/product_details.html?skuid=41",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "青岚虚拟示范区",
+      "净含量（克）": "150.00",
+      "包装形式": "金属罐装",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "柔和醇润",
+      "模拟香气": "熟果香"
+    }
+  },
+  {
+    "sku_id": 42,
+    "name": "200g·双罐礼盒·优选级",
+    "product_name": "【虚拟】青岚·鹿鸣绿茶",
+    "category": "绿茶",
+    "brand": "虚拟青岚茶社",
+    "price": "23.60",
+    "currency": "USD",
+    "available_stock": 786,
+    "image_url": "/v1/goods/sku/42/image",
+    "detail_url": "/product_details.html?skuid=42",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "青岚虚拟示范区",
+      "净含量（克）": "200.00",
+      "包装形式": "双罐礼盒",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "饱满顺滑",
+      "模拟香气": "谷物香"
+    }
+  },
+  {
+    "sku_id": 43,
+    "name": "50g·独立茶包盒·优选级",
+    "product_name": "【虚拟】青岚·岚光绿茶",
+    "category": "绿茶",
+    "brand": "虚拟青岚茶社",
+    "price": "5.90",
+    "currency": "USD",
+    "available_stock": 823,
+    "image_url": "/v1/goods/sku/43/image",
+    "detail_url": "/product_details.html?skuid=43",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "青岚虚拟示范区",
+      "净含量（克）": "50.00",
+      "包装形式": "独立茶包盒",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "清淡鲜爽",
+      "模拟香气": "木质香"
+    }
+  },
+  {
+    "sku_id": 44,
+    "name": "500g·大袋装·优选级",
+    "product_name": "【虚拟】青岚·碧野绿茶",
+    "category": "绿茶",
+    "brand": "虚拟青岚茶社",
+    "price": "41.50",
+    "currency": "USD",
+    "available_stock": 860,
+    "image_url": "/v1/goods/sku/44/image",
+    "detail_url": "/product_details.html?skuid=44",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "青岚虚拟示范区",
+      "净含量（克）": "500.00",
+      "包装形式": "大袋装",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "浓醇厚实",
+      "模拟香气": "清香"
+    }
+  },
+  {
+    "sku_id": 45,
+    "name": "100g·密封袋装·优选级",
+    "product_name": "【虚拟】赤霞·朝霞红茶",
+    "category": "红茶",
+    "brand": "虚拟赤霞茶坊",
+    "price": "7.70",
+    "currency": "USD",
+    "available_stock": 897,
+    "image_url": "/v1/goods/sku/45/image",
+    "detail_url": "/product_details.html?skuid=45",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "赤霞虚拟示范区",
+      "净含量（克）": "100.00",
+      "包装形式": "密封袋装",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "清爽回甘",
+      "模拟香气": "花香"
+    }
+  },
+  {
+    "sku_id": 46,
+    "name": "150g·金属罐装·优选级",
+    "product_name": "【虚拟】赤霞·暖阳红茶",
+    "category": "红茶",
+    "brand": "虚拟赤霞茶坊",
+    "price": "12.75",
+    "currency": "USD",
+    "available_stock": 934,
+    "image_url": "/v1/goods/sku/46/image",
+    "detail_url": "/product_details.html?skuid=46",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "赤霞虚拟示范区",
+      "净含量（克）": "150.00",
+      "包装形式": "金属罐装",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "柔和醇润",
+      "模拟香气": "熟果香"
+    }
+  },
+  {
+    "sku_id": 47,
+    "name": "200g·双罐礼盒·优选级",
+    "product_name": "【虚拟】赤霞·金穗红茶",
+    "category": "红茶",
+    "brand": "虚拟赤霞茶坊",
+    "price": "21.00",
+    "currency": "USD",
+    "available_stock": 971,
+    "image_url": "/v1/goods/sku/47/image",
+    "detail_url": "/product_details.html?skuid=47",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "赤霞虚拟示范区",
+      "净含量（克）": "200.00",
+      "包装形式": "双罐礼盒",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "饱满顺滑",
+      "模拟香气": "谷物香"
+    }
+  },
+  {
+    "sku_id": 48,
+    "name": "50g·独立茶包盒·优选级",
+    "product_name": "【虚拟】赤霞·桂影红茶",
+    "category": "红茶",
+    "brand": "虚拟赤霞茶坊",
+    "price": "5.25",
+    "currency": "USD",
+    "available_stock": 128,
+    "image_url": "/v1/goods/sku/48/image",
+    "detail_url": "/product_details.html?skuid=48",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "赤霞虚拟示范区",
+      "净含量（克）": "50.00",
+      "包装形式": "独立茶包盒",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "清淡鲜爽",
+      "模拟香气": "木质香"
+    }
+  },
+  {
+    "sku_id": 49,
+    "name": "500g·大袋装·优选级",
+    "product_name": "【虚拟】赤霞·秋岚红茶",
+    "category": "红茶",
+    "brand": "虚拟赤霞茶坊",
+    "price": "35.00",
+    "currency": "USD",
+    "available_stock": 165,
+    "image_url": "/v1/goods/sku/49/image",
+    "detail_url": "/product_details.html?skuid=49",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "赤霞虚拟示范区",
+      "净含量（克）": "500.00",
+      "包装形式": "大袋装",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "浓醇厚实",
+      "模拟香气": "清香"
+    }
+  },
+  {
+    "sku_id": 50,
+    "name": "100g·密封袋装·精品级",
+    "product_name": "【虚拟】赤霞·红韵红茶",
+    "category": "红茶",
+    "brand": "虚拟赤霞茶坊",
+    "price": "9.32",
+    "currency": "USD",
+    "available_stock": 202,
+    "image_url": "/v1/goods/sku/50/image",
+    "detail_url": "/product_details.html?skuid=50",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "赤霞虚拟示范区",
+      "净含量（克）": "100.00",
+      "包装形式": "密封袋装",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "柔和醇润",
+      "模拟香气": "花香"
+    }
+  },
+  {
+    "sku_id": 51,
+    "name": "150g·金属罐装·精品级",
+    "product_name": "【虚拟】赤霞·晚晴红茶",
+    "category": "红茶",
+    "brand": "虚拟赤霞茶坊",
+    "price": "15.19",
+    "currency": "USD",
+    "available_stock": 239,
+    "image_url": "/v1/goods/sku/51/image",
+    "detail_url": "/product_details.html?skuid=51",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "赤霞虚拟示范区",
+      "净含量（克）": "150.00",
+      "包装形式": "金属罐装",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "饱满顺滑",
+      "模拟香气": "熟果香"
+    }
+  },
+  {
+    "sku_id": 52,
+    "name": "200g·双罐礼盒·精品级",
+    "product_name": "【虚拟】赤霞·星火红茶",
+    "category": "红茶",
+    "brand": "虚拟赤霞茶坊",
+    "price": "24.25",
+    "currency": "USD",
+    "available_stock": 276,
+    "image_url": "/v1/goods/sku/52/image",
+    "detail_url": "/product_details.html?skuid=52",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "赤霞虚拟示范区",
+      "净含量（克）": "200.00",
+      "包装形式": "双罐礼盒",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "清淡鲜爽",
+      "模拟香气": "谷物香"
+    }
+  },
+  {
+    "sku_id": 53,
+    "name": "50g·独立茶包盒·精品级",
+    "product_name": "【虚拟】赤霞·琥珀红茶",
+    "category": "红茶",
+    "brand": "虚拟赤霞茶坊",
+    "price": "6.06",
+    "currency": "USD",
+    "available_stock": 313,
+    "image_url": "/v1/goods/sku/53/image",
+    "detail_url": "/product_details.html?skuid=53",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "赤霞虚拟示范区",
+      "净含量（克）": "50.00",
+      "包装形式": "独立茶包盒",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "浓醇厚实",
+      "模拟香气": "木质香"
+    }
+  },
+  {
+    "sku_id": 54,
+    "name": "500g·大袋装·精品级",
+    "product_name": "【虚拟】赤霞·麦香红茶",
+    "category": "红茶",
+    "brand": "虚拟赤霞茶坊",
+    "price": "43.12",
+    "currency": "USD",
+    "available_stock": 350,
+    "image_url": "/v1/goods/sku/54/image",
+    "detail_url": "/product_details.html?skuid=54",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "赤霞虚拟示范区",
+      "净含量（克）": "500.00",
+      "包装形式": "大袋装",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "清爽回甘",
+      "模拟香气": "清香"
+    }
+  },
+  {
+    "sku_id": 55,
+    "name": "100g·密封袋装·特选级",
+    "product_name": "【虚拟】赤霞·云锦红茶",
+    "category": "红茶",
+    "brand": "虚拟赤霞茶坊",
+    "price": "11.28",
+    "currency": "USD",
+    "available_stock": 387,
+    "image_url": "/v1/goods/sku/55/image",
+    "detail_url": "/product_details.html?skuid=55",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "赤霞虚拟示范区",
+      "净含量（克）": "100.00",
+      "包装形式": "密封袋装",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "饱满顺滑",
+      "模拟香气": "花香"
+    }
+  },
+  {
+    "sku_id": 56,
+    "name": "150g·金属罐装·特选级",
+    "product_name": "【虚拟】赤霞·晨光红茶",
+    "category": "红茶",
+    "brand": "虚拟赤霞茶坊",
+    "price": "18.11",
+    "currency": "USD",
+    "available_stock": 424,
+    "image_url": "/v1/goods/sku/56/image",
+    "detail_url": "/product_details.html?skuid=56",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "赤霞虚拟示范区",
+      "净含量（克）": "150.00",
+      "包装形式": "金属罐装",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "清淡鲜爽",
+      "模拟香气": "熟果香"
+    }
+  },
+  {
+    "sku_id": 57,
+    "name": "200g·双罐礼盒·特选级",
+    "product_name": "【虚拟】赤霞·枫语红茶",
+    "category": "红茶",
+    "brand": "虚拟赤霞茶坊",
+    "price": "28.15",
+    "currency": "USD",
+    "available_stock": 461,
+    "image_url": "/v1/goods/sku/57/image",
+    "detail_url": "/product_details.html?skuid=57",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "赤霞虚拟示范区",
+      "净含量（克）": "200.00",
+      "包装形式": "双罐礼盒",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "浓醇厚实",
+      "模拟香气": "谷物香"
+    }
+  },
+  {
+    "sku_id": 58,
+    "name": "50g·独立茶包盒·特选级",
+    "product_name": "【虚拟】赤霞·山岚红茶",
+    "category": "红茶",
+    "brand": "虚拟赤霞茶坊",
+    "price": "7.04",
+    "currency": "USD",
+    "available_stock": 498,
+    "image_url": "/v1/goods/sku/58/image",
+    "detail_url": "/product_details.html?skuid=58",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "赤霞虚拟示范区",
+      "净含量（克）": "50.00",
+      "包装形式": "独立茶包盒",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "清爽回甘",
+      "模拟香气": "木质香"
+    }
+  },
+  {
+    "sku_id": 59,
+    "name": "500g·大袋装·特选级",
+    "product_name": "【虚拟】赤霞·夕照红茶",
+    "category": "红茶",
+    "brand": "虚拟赤霞茶坊",
+    "price": "52.88",
+    "currency": "USD",
+    "available_stock": 535,
+    "image_url": "/v1/goods/sku/59/image",
+    "detail_url": "/product_details.html?skuid=59",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "赤霞虚拟示范区",
+      "净含量（克）": "500.00",
+      "包装形式": "大袋装",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "柔和醇润",
+      "模拟香气": "清香"
+    }
+  },
+  {
+    "sku_id": 60,
+    "name": "100g·密封袋装·优选级",
+    "product_name": "【虚拟】赤霞·丹露红茶",
+    "category": "红茶",
+    "brand": "虚拟赤霞茶坊",
+    "price": "7.70",
+    "currency": "USD",
+    "available_stock": 572,
+    "image_url": "/v1/goods/sku/60/image",
+    "detail_url": "/product_details.html?skuid=60",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "赤霞虚拟示范区",
+      "净含量（克）": "100.00",
+      "包装形式": "密封袋装",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "清爽回甘",
+      "模拟香气": "花香"
+    }
+  },
+  {
+    "sku_id": 61,
+    "name": "150g·金属罐装·优选级",
+    "product_name": "【虚拟】赤霞·醇风红茶",
+    "category": "红茶",
+    "brand": "虚拟赤霞茶坊",
+    "price": "12.75",
+    "currency": "USD",
+    "available_stock": 609,
+    "image_url": "/v1/goods/sku/61/image",
+    "detail_url": "/product_details.html?skuid=61",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "赤霞虚拟示范区",
+      "净含量（克）": "150.00",
+      "包装形式": "金属罐装",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "柔和醇润",
+      "模拟香气": "熟果香"
+    }
+  },
+  {
+    "sku_id": 62,
+    "name": "200g·双罐礼盒·优选级",
+    "product_name": "【虚拟】赤霞·花丘红茶",
+    "category": "红茶",
+    "brand": "虚拟赤霞茶坊",
+    "price": "21.00",
+    "currency": "USD",
+    "available_stock": 646,
+    "image_url": "/v1/goods/sku/62/image",
+    "detail_url": "/product_details.html?skuid=62",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "赤霞虚拟示范区",
+      "净含量（克）": "200.00",
+      "包装形式": "双罐礼盒",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "饱满顺滑",
+      "模拟香气": "谷物香"
+    }
+  },
+  {
+    "sku_id": 63,
+    "name": "50g·独立茶包盒·优选级",
+    "product_name": "【虚拟】赤霞·远山红茶",
+    "category": "红茶",
+    "brand": "虚拟赤霞茶坊",
+    "price": "5.25",
+    "currency": "USD",
+    "available_stock": 683,
+    "image_url": "/v1/goods/sku/63/image",
+    "detail_url": "/product_details.html?skuid=63",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "赤霞虚拟示范区",
+      "净含量（克）": "50.00",
+      "包装形式": "独立茶包盒",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "清淡鲜爽",
+      "模拟香气": "木质香"
+    }
+  },
+  {
+    "sku_id": 64,
+    "name": "500g·大袋装·优选级",
+    "product_name": "【虚拟】赤霞·云杉红茶",
+    "category": "红茶",
+    "brand": "虚拟赤霞茶坊",
+    "price": "35.00",
+    "currency": "USD",
+    "available_stock": 720,
+    "image_url": "/v1/goods/sku/64/image",
+    "detail_url": "/product_details.html?skuid=64",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "赤霞虚拟示范区",
+      "净含量（克）": "500.00",
+      "包装形式": "大袋装",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "浓醇厚实",
+      "模拟香气": "清香"
+    }
+  },
+  {
+    "sku_id": 65,
+    "name": "100g·密封袋装·优选级",
+    "product_name": "【虚拟】云岭·岩语乌龙茶",
+    "category": "乌龙茶",
+    "brand": "虚拟云岭茶庄",
+    "price": "10.80",
+    "currency": "USD",
+    "available_stock": 757,
+    "image_url": "/v1/goods/sku/65/image",
+    "detail_url": "/product_details.html?skuid=65",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "云岭虚拟示范区",
+      "净含量（克）": "100.00",
+      "包装形式": "密封袋装",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "清爽回甘",
+      "模拟香气": "花香"
+    }
+  },
+  {
+    "sku_id": 66,
+    "name": "150g·金属罐装·优选级",
+    "product_name": "【虚拟】云岭·兰溪乌龙茶",
+    "category": "乌龙茶",
+    "brand": "虚拟云岭茶庄",
+    "price": "17.40",
+    "currency": "USD",
+    "available_stock": 794,
+    "image_url": "/v1/goods/sku/66/image",
+    "detail_url": "/product_details.html?skuid=66",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "云岭虚拟示范区",
+      "净含量（克）": "150.00",
+      "包装形式": "金属罐装",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "柔和醇润",
+      "模拟香气": "熟果香"
+    }
+  },
+  {
+    "sku_id": 67,
+    "name": "200g·双罐礼盒·优选级",
+    "product_name": "【虚拟】云岭·山韵乌龙茶",
+    "category": "乌龙茶",
+    "brand": "虚拟云岭茶庄",
+    "price": "27.20",
+    "currency": "USD",
+    "available_stock": 831,
+    "image_url": "/v1/goods/sku/67/image",
+    "detail_url": "/product_details.html?skuid=67",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "云岭虚拟示范区",
+      "净含量（克）": "200.00",
+      "包装形式": "双罐礼盒",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "饱满顺滑",
+      "模拟香气": "谷物香"
+    }
+  },
+  {
+    "sku_id": 68,
+    "name": "50g·独立茶包盒·优选级",
+    "product_name": "【虚拟】云岭·焙月乌龙茶",
+    "category": "乌龙茶",
+    "brand": "虚拟云岭茶庄",
+    "price": "6.80",
+    "currency": "USD",
+    "available_stock": 868,
+    "image_url": "/v1/goods/sku/68/image",
+    "detail_url": "/product_details.html?skuid=68",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "云岭虚拟示范区",
+      "净含量（克）": "50.00",
+      "包装形式": "独立茶包盒",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "清淡鲜爽",
+      "模拟香气": "木质香"
+    }
+  },
+  {
+    "sku_id": 69,
+    "name": "500g·大袋装·优选级",
+    "product_name": "【虚拟】云岭·云峰乌龙茶",
+    "category": "乌龙茶",
+    "brand": "虚拟云岭茶庄",
+    "price": "50.50",
+    "currency": "USD",
+    "available_stock": 905,
+    "image_url": "/v1/goods/sku/69/image",
+    "detail_url": "/product_details.html?skuid=69",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "云岭虚拟示范区",
+      "净含量（克）": "500.00",
+      "包装形式": "大袋装",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "浓醇厚实",
+      "模拟香气": "清香"
+    }
+  },
+  {
+    "sku_id": 70,
+    "name": "100g·密封袋装·精品级",
+    "product_name": "【虚拟】云岭·松涛乌龙茶",
+    "category": "乌龙茶",
+    "brand": "虚拟云岭茶庄",
+    "price": "13.20",
+    "currency": "USD",
+    "available_stock": 942,
+    "image_url": "/v1/goods/sku/70/image",
+    "detail_url": "/product_details.html?skuid=70",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "云岭虚拟示范区",
+      "净含量（克）": "100.00",
+      "包装形式": "密封袋装",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "柔和醇润",
+      "模拟香气": "花香"
+    }
+  },
+  {
+    "sku_id": 71,
+    "name": "150g·金属罐装·精品级",
+    "product_name": "【虚拟】云岭·花涧乌龙茶",
+    "category": "乌龙茶",
+    "brand": "虚拟云岭茶庄",
+    "price": "21.00",
+    "currency": "USD",
+    "available_stock": 979,
+    "image_url": "/v1/goods/sku/71/image",
+    "detail_url": "/product_details.html?skuid=71",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "云岭虚拟示范区",
+      "净含量（克）": "150.00",
+      "包装形式": "金属罐装",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "饱满顺滑",
+      "模拟香气": "熟果香"
+    }
+  },
+  {
+    "sku_id": 72,
+    "name": "200g·双罐礼盒·精品级",
+    "product_name": "【虚拟】云岭·青岩乌龙茶",
+    "category": "乌龙茶",
+    "brand": "虚拟云岭茶庄",
+    "price": "32.00",
+    "currency": "USD",
+    "available_stock": 136,
+    "image_url": "/v1/goods/sku/72/image",
+    "detail_url": "/product_details.html?skuid=72",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "云岭虚拟示范区",
+      "净含量（克）": "200.00",
+      "包装形式": "双罐礼盒",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "清淡鲜爽",
+      "模拟香气": "谷物香"
+    }
+  },
+  {
+    "sku_id": 73,
+    "name": "50g·独立茶包盒·精品级",
+    "product_name": "【虚拟】云岭·岚谷乌龙茶",
+    "category": "乌龙茶",
+    "brand": "虚拟云岭茶庄",
+    "price": "8.00",
+    "currency": "USD",
+    "available_stock": 173,
+    "image_url": "/v1/goods/sku/73/image",
+    "detail_url": "/product_details.html?skuid=73",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "云岭虚拟示范区",
+      "净含量（克）": "50.00",
+      "包装形式": "独立茶包盒",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "浓醇厚实",
+      "模拟香气": "木质香"
+    }
+  },
+  {
+    "sku_id": 74,
+    "name": "500g·大袋装·精品级",
+    "product_name": "【虚拟】云岭·清音乌龙茶",
+    "category": "乌龙茶",
+    "brand": "虚拟云岭茶庄",
+    "price": "62.50",
+    "currency": "USD",
+    "available_stock": 210,
+    "image_url": "/v1/goods/sku/74/image",
+    "detail_url": "/product_details.html?skuid=74",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "云岭虚拟示范区",
+      "净含量（克）": "500.00",
+      "包装形式": "大袋装",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "清爽回甘",
+      "模拟香气": "清香"
+    }
+  },
+  {
+    "sku_id": 75,
+    "name": "100g·密封袋装·特选级",
+    "product_name": "【虚拟】云岭·岩泉乌龙茶",
+    "category": "乌龙茶",
+    "brand": "虚拟云岭茶庄",
+    "price": "16.08",
+    "currency": "USD",
+    "available_stock": 247,
+    "image_url": "/v1/goods/sku/75/image",
+    "detail_url": "/product_details.html?skuid=75",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "云岭虚拟示范区",
+      "净含量（克）": "100.00",
+      "包装形式": "密封袋装",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "饱满顺滑",
+      "模拟香气": "花香"
+    }
+  },
+  {
+    "sku_id": 76,
+    "name": "150g·金属罐装·特选级",
+    "product_name": "【虚拟】云岭·雾岭乌龙茶",
+    "category": "乌龙茶",
+    "brand": "虚拟云岭茶庄",
+    "price": "25.32",
+    "currency": "USD",
+    "available_stock": 284,
+    "image_url": "/v1/goods/sku/76/image",
+    "detail_url": "/product_details.html?skuid=76",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "云岭虚拟示范区",
+      "净含量（克）": "150.00",
+      "包装形式": "金属罐装",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "清淡鲜爽",
+      "模拟香气": "熟果香"
+    }
+  },
+  {
+    "sku_id": 77,
+    "name": "200g·双罐礼盒·特选级",
+    "product_name": "【虚拟】云岭·桂岚乌龙茶",
+    "category": "乌龙茶",
+    "brand": "虚拟云岭茶庄",
+    "price": "37.76",
+    "currency": "USD",
+    "available_stock": 321,
+    "image_url": "/v1/goods/sku/77/image",
+    "detail_url": "/product_details.html?skuid=77",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "云岭虚拟示范区",
+      "净含量（克）": "200.00",
+      "包装形式": "双罐礼盒",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "浓醇厚实",
+      "模拟香气": "谷物香"
+    }
+  },
+  {
+    "sku_id": 78,
+    "name": "50g·独立茶包盒·特选级",
+    "product_name": "【虚拟】云岭·秋涧乌龙茶",
+    "category": "乌龙茶",
+    "brand": "虚拟云岭茶庄",
+    "price": "9.44",
+    "currency": "USD",
+    "available_stock": 358,
+    "image_url": "/v1/goods/sku/78/image",
+    "detail_url": "/product_details.html?skuid=78",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "云岭虚拟示范区",
+      "净含量（克）": "50.00",
+      "包装形式": "独立茶包盒",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "清爽回甘",
+      "模拟香气": "木质香"
+    }
+  },
+  {
+    "sku_id": 79,
+    "name": "500g·大袋装·特选级",
+    "product_name": "【虚拟】云岭·林泉乌龙茶",
+    "category": "乌龙茶",
+    "brand": "虚拟云岭茶庄",
+    "price": "76.90",
+    "currency": "USD",
+    "available_stock": 395,
+    "image_url": "/v1/goods/sku/79/image",
+    "detail_url": "/product_details.html?skuid=79",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "云岭虚拟示范区",
+      "净含量（克）": "500.00",
+      "包装形式": "大袋装",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "柔和醇润",
+      "模拟香气": "清香"
+    }
+  },
+  {
+    "sku_id": 80,
+    "name": "100g·密封袋装·优选级",
+    "product_name": "【虚拟】云岭·月岩乌龙茶",
+    "category": "乌龙茶",
+    "brand": "虚拟云岭茶庄",
+    "price": "10.80",
+    "currency": "USD",
+    "available_stock": 432,
+    "image_url": "/v1/goods/sku/80/image",
+    "detail_url": "/product_details.html?skuid=80",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "云岭虚拟示范区",
+      "净含量（克）": "100.00",
+      "包装形式": "密封袋装",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "清爽回甘",
+      "模拟香气": "花香"
+    }
+  },
+  {
+    "sku_id": 81,
+    "name": "150g·金属罐装·优选级",
+    "product_name": "【虚拟】云岭·鹤鸣乌龙茶",
+    "category": "乌龙茶",
+    "brand": "虚拟云岭茶庄",
+    "price": "17.40",
+    "currency": "USD",
+    "available_stock": 469,
+    "image_url": "/v1/goods/sku/81/image",
+    "detail_url": "/product_details.html?skuid=81",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "云岭虚拟示范区",
+      "净含量（克）": "150.00",
+      "包装形式": "金属罐装",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "柔和醇润",
+      "模拟香气": "熟果香"
+    }
+  },
+  {
+    "sku_id": 82,
+    "name": "200g·双罐礼盒·优选级",
+    "product_name": "【虚拟】云岭·山岫乌龙茶",
+    "category": "乌龙茶",
+    "brand": "虚拟云岭茶庄",
+    "price": "27.20",
+    "currency": "USD",
+    "available_stock": 506,
+    "image_url": "/v1/goods/sku/82/image",
+    "detail_url": "/product_details.html?skuid=82",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "云岭虚拟示范区",
+      "净含量（克）": "200.00",
+      "包装形式": "双罐礼盒",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "饱满顺滑",
+      "模拟香气": "谷物香"
+    }
+  },
+  {
+    "sku_id": 83,
+    "name": "50g·独立茶包盒·优选级",
+    "product_name": "【虚拟】云岭·澄香乌龙茶",
+    "category": "乌龙茶",
+    "brand": "虚拟云岭茶庄",
+    "price": "6.80",
+    "currency": "USD",
+    "available_stock": 543,
+    "image_url": "/v1/goods/sku/83/image",
+    "detail_url": "/product_details.html?skuid=83",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "云岭虚拟示范区",
+      "净含量（克）": "50.00",
+      "包装形式": "独立茶包盒",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "清淡鲜爽",
+      "模拟香气": "木质香"
+    }
+  },
+  {
+    "sku_id": 84,
+    "name": "500g·大袋装·优选级",
+    "product_name": "【虚拟】云岭·霁峰乌龙茶",
+    "category": "乌龙茶",
+    "brand": "虚拟云岭茶庄",
+    "price": "50.50",
+    "currency": "USD",
+    "available_stock": 580,
+    "image_url": "/v1/goods/sku/84/image",
+    "detail_url": "/product_details.html?skuid=84",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "云岭虚拟示范区",
+      "净含量（克）": "500.00",
+      "包装形式": "大袋装",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "浓醇厚实",
+      "模拟香气": "清香"
+    }
+  },
+  {
+    "sku_id": 85,
+    "name": "100g·密封袋装·优选级",
+    "product_name": "【虚拟】白汀·月白白茶",
+    "category": "白茶",
+    "brand": "虚拟白汀茶舍",
+    "price": "12.00",
+    "currency": "USD",
+    "available_stock": 617,
+    "image_url": "/v1/goods/sku/85/image",
+    "detail_url": "/product_details.html?skuid=85",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "白汀虚拟示范区",
+      "净含量（克）": "100.00",
+      "包装形式": "密封袋装",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "清爽回甘",
+      "模拟香气": "花香"
+    }
+  },
+  {
+    "sku_id": 86,
+    "name": "150g·金属罐装·优选级",
+    "product_name": "【虚拟】白汀·银露白茶",
+    "category": "白茶",
+    "brand": "虚拟白汀茶舍",
+    "price": "19.20",
+    "currency": "USD",
+    "available_stock": 654,
+    "image_url": "/v1/goods/sku/86/image",
+    "detail_url": "/product_details.html?skuid=86",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "白汀虚拟示范区",
+      "净含量（克）": "150.00",
+      "包装形式": "金属罐装",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "柔和醇润",
+      "模拟香气": "熟果香"
+    }
+  },
+  {
+    "sku_id": 87,
+    "name": "200g·双罐礼盒·优选级",
+    "product_name": "【虚拟】白汀·晴雪白茶",
+    "category": "白茶",
+    "brand": "虚拟白汀茶舍",
+    "price": "29.60",
+    "currency": "USD",
+    "available_stock": 691,
+    "image_url": "/v1/goods/sku/87/image",
+    "detail_url": "/product_details.html?skuid=87",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "白汀虚拟示范区",
+      "净含量（克）": "200.00",
+      "包装形式": "双罐礼盒",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "饱满顺滑",
+      "模拟香气": "谷物香"
+    }
+  },
+  {
+    "sku_id": 88,
+    "name": "50g·独立茶包盒·优选级",
+    "product_name": "【虚拟】白汀·芦汀白茶",
+    "category": "白茶",
+    "brand": "虚拟白汀茶舍",
+    "price": "7.40",
+    "currency": "USD",
+    "available_stock": 728,
+    "image_url": "/v1/goods/sku/88/image",
+    "detail_url": "/product_details.html?skuid=88",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "白汀虚拟示范区",
+      "净含量（克）": "50.00",
+      "包装形式": "独立茶包盒",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "清淡鲜爽",
+      "模拟香气": "木质香"
+    }
+  },
+  {
+    "sku_id": 89,
+    "name": "500g·大袋装·优选级",
+    "product_name": "【虚拟】白汀·星芽白茶",
+    "category": "白茶",
+    "brand": "虚拟白汀茶舍",
+    "price": "56.50",
+    "currency": "USD",
+    "available_stock": 765,
+    "image_url": "/v1/goods/sku/89/image",
+    "detail_url": "/product_details.html?skuid=89",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "白汀虚拟示范区",
+      "净含量（克）": "500.00",
+      "包装形式": "大袋装",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "浓醇厚实",
+      "模拟香气": "清香"
+    }
+  },
+  {
+    "sku_id": 90,
+    "name": "100g·密封袋装·精品级",
+    "product_name": "【虚拟】白汀·素岚白茶",
+    "category": "白茶",
+    "brand": "虚拟白汀茶舍",
+    "price": "14.70",
+    "currency": "USD",
+    "available_stock": 802,
+    "image_url": "/v1/goods/sku/90/image",
+    "detail_url": "/product_details.html?skuid=90",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "白汀虚拟示范区",
+      "净含量（克）": "100.00",
+      "包装形式": "密封袋装",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "柔和醇润",
+      "模拟香气": "花香"
+    }
+  },
+  {
+    "sku_id": 91,
+    "name": "150g·金属罐装·精品级",
+    "product_name": "【虚拟】白汀·白鹿白茶",
+    "category": "白茶",
+    "brand": "虚拟白汀茶舍",
+    "price": "23.25",
+    "currency": "USD",
+    "available_stock": 839,
+    "image_url": "/v1/goods/sku/91/image",
+    "detail_url": "/product_details.html?skuid=91",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "白汀虚拟示范区",
+      "净含量（克）": "150.00",
+      "包装形式": "金属罐装",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "饱满顺滑",
+      "模拟香气": "熟果香"
+    }
+  },
+  {
+    "sku_id": 92,
+    "name": "200g·双罐礼盒·精品级",
+    "product_name": "【虚拟】白汀·云棉白茶",
+    "category": "白茶",
+    "brand": "虚拟白汀茶舍",
+    "price": "35.00",
+    "currency": "USD",
+    "available_stock": 876,
+    "image_url": "/v1/goods/sku/92/image",
+    "detail_url": "/product_details.html?skuid=92",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "白汀虚拟示范区",
+      "净含量（克）": "200.00",
+      "包装形式": "双罐礼盒",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "清淡鲜爽",
+      "模拟香气": "谷物香"
+    }
+  },
+  {
+    "sku_id": 93,
+    "name": "50g·独立茶包盒·精品级",
+    "product_name": "【虚拟】白汀·晨霜白茶",
+    "category": "白茶",
+    "brand": "虚拟白汀茶舍",
+    "price": "8.75",
+    "currency": "USD",
+    "available_stock": 913,
+    "image_url": "/v1/goods/sku/93/image",
+    "detail_url": "/product_details.html?skuid=93",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "白汀虚拟示范区",
+      "净含量（克）": "50.00",
+      "包装形式": "独立茶包盒",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "浓醇厚实",
+      "模拟香气": "木质香"
+    }
+  },
+  {
+    "sku_id": 94,
+    "name": "500g·大袋装·精品级",
+    "product_name": "【虚拟】白汀·清羽白茶",
+    "category": "白茶",
+    "brand": "虚拟白汀茶舍",
+    "price": "70.00",
+    "currency": "USD",
+    "available_stock": 950,
+    "image_url": "/v1/goods/sku/94/image",
+    "detail_url": "/product_details.html?skuid=94",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "白汀虚拟示范区",
+      "净含量（克）": "500.00",
+      "包装形式": "大袋装",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "清爽回甘",
+      "模拟香气": "清香"
+    }
+  },
+  {
+    "sku_id": 95,
+    "name": "100g·密封袋装·特选级",
+    "product_name": "【虚拟】白汀·雪溪白茶",
+    "category": "白茶",
+    "brand": "虚拟白汀茶舍",
+    "price": "17.94",
+    "currency": "USD",
+    "available_stock": 987,
+    "image_url": "/v1/goods/sku/95/image",
+    "detail_url": "/product_details.html?skuid=95",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "白汀虚拟示范区",
+      "净含量（克）": "100.00",
+      "包装形式": "密封袋装",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "饱满顺滑",
+      "模拟香气": "花香"
+    }
+  },
+  {
+    "sku_id": 96,
+    "name": "150g·金属罐装·特选级",
+    "product_name": "【虚拟】白汀·秋白白茶",
+    "category": "白茶",
+    "brand": "虚拟白汀茶舍",
+    "price": "28.11",
+    "currency": "USD",
+    "available_stock": 144,
+    "image_url": "/v1/goods/sku/96/image",
+    "detail_url": "/product_details.html?skuid=96",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "白汀虚拟示范区",
+      "净含量（克）": "150.00",
+      "包装形式": "金属罐装",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "清淡鲜爽",
+      "模拟香气": "熟果香"
+    }
+  },
+  {
+    "sku_id": 97,
+    "name": "200g·双罐礼盒·特选级",
+    "product_name": "【虚拟】白汀·鹤影白茶",
+    "category": "白茶",
+    "brand": "虚拟白汀茶舍",
+    "price": "41.48",
+    "currency": "USD",
+    "available_stock": 181,
+    "image_url": "/v1/goods/sku/97/image",
+    "detail_url": "/product_details.html?skuid=97",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "白汀虚拟示范区",
+      "净含量（克）": "200.00",
+      "包装形式": "双罐礼盒",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "浓醇厚实",
+      "模拟香气": "谷物香"
+    }
+  },
+  {
+    "sku_id": 98,
+    "name": "50g·独立茶包盒·特选级",
+    "product_name": "【虚拟】白汀·露汀白茶",
+    "category": "白茶",
+    "brand": "虚拟白汀茶舍",
+    "price": "10.37",
+    "currency": "USD",
+    "available_stock": 218,
+    "image_url": "/v1/goods/sku/98/image",
+    "detail_url": "/product_details.html?skuid=98",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "白汀虚拟示范区",
+      "净含量（克）": "50.00",
+      "包装形式": "独立茶包盒",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "清爽回甘",
+      "模拟香气": "木质香"
+    }
+  },
+  {
+    "sku_id": 99,
+    "name": "500g·大袋装·特选级",
+    "product_name": "【虚拟】白汀·山雪白茶",
+    "category": "白茶",
+    "brand": "虚拟白汀茶舍",
+    "price": "86.20",
+    "currency": "USD",
+    "available_stock": 255,
+    "image_url": "/v1/goods/sku/99/image",
+    "detail_url": "/product_details.html?skuid=99",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "白汀虚拟示范区",
+      "净含量（克）": "500.00",
+      "包装形式": "大袋装",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "柔和醇润",
+      "模拟香气": "清香"
+    }
+  },
+  {
+    "sku_id": 100,
+    "name": "100g·密封袋装·优选级",
+    "product_name": "【虚拟】金露·金芽黄茶",
+    "category": "黄茶",
+    "brand": "虚拟金露茶集",
+    "price": "12.70",
+    "currency": "USD",
+    "available_stock": 292,
+    "image_url": "/v1/goods/sku/100/image",
+    "detail_url": "/product_details.html?skuid=100",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "金露虚拟示范区",
+      "净含量（克）": "100.00",
+      "包装形式": "密封袋装",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "清爽回甘",
+      "模拟香气": "花香"
+    }
+  },
+  {
+    "sku_id": 101,
+    "name": "150g·金属罐装·优选级",
+    "product_name": "【虚拟】金露·黄露黄茶",
+    "category": "黄茶",
+    "brand": "虚拟金露茶集",
+    "price": "20.25",
+    "currency": "USD",
+    "available_stock": 329,
+    "image_url": "/v1/goods/sku/101/image",
+    "detail_url": "/product_details.html?skuid=101",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "金露虚拟示范区",
+      "净含量（克）": "150.00",
+      "包装形式": "金属罐装",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "柔和醇润",
+      "模拟香气": "熟果香"
+    }
+  },
+  {
+    "sku_id": 102,
+    "name": "200g·双罐礼盒·优选级",
+    "product_name": "【虚拟】金露·晴穗黄茶",
+    "category": "黄茶",
+    "brand": "虚拟金露茶集",
+    "price": "31.00",
+    "currency": "USD",
+    "available_stock": 366,
+    "image_url": "/v1/goods/sku/102/image",
+    "detail_url": "/product_details.html?skuid=102",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "金露虚拟示范区",
+      "净含量（克）": "200.00",
+      "包装形式": "双罐礼盒",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "饱满顺滑",
+      "模拟香气": "谷物香"
+    }
+  },
+  {
+    "sku_id": 103,
+    "name": "50g·独立茶包盒·优选级",
+    "product_name": "【虚拟】金露·谷香黄茶",
+    "category": "黄茶",
+    "brand": "虚拟金露茶集",
+    "price": "7.75",
+    "currency": "USD",
+    "available_stock": 403,
+    "image_url": "/v1/goods/sku/103/image",
+    "detail_url": "/product_details.html?skuid=103",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "金露虚拟示范区",
+      "净含量（克）": "50.00",
+      "包装形式": "独立茶包盒",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "清淡鲜爽",
+      "模拟香气": "木质香"
+    }
+  },
+  {
+    "sku_id": 104,
+    "name": "500g·大袋装·优选级",
+    "product_name": "【虚拟】金露·暖岚黄茶",
+    "category": "黄茶",
+    "brand": "虚拟金露茶集",
+    "price": "60.00",
+    "currency": "USD",
+    "available_stock": 440,
+    "image_url": "/v1/goods/sku/104/image",
+    "detail_url": "/product_details.html?skuid=104",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "金露虚拟示范区",
+      "净含量（克）": "500.00",
+      "包装形式": "大袋装",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "浓醇厚实",
+      "模拟香气": "清香"
+    }
+  },
+  {
+    "sku_id": 105,
+    "name": "100g·密封袋装·精品级",
+    "product_name": "【虚拟】金露·金汀黄茶",
+    "category": "黄茶",
+    "brand": "虚拟金露茶集",
+    "price": "15.58",
+    "currency": "USD",
+    "available_stock": 477,
+    "image_url": "/v1/goods/sku/105/image",
+    "detail_url": "/product_details.html?skuid=105",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "金露虚拟示范区",
+      "净含量（克）": "100.00",
+      "包装形式": "密封袋装",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "柔和醇润",
+      "模拟香气": "花香"
+    }
+  },
+  {
+    "sku_id": 106,
+    "name": "150g·金属罐装·精品级",
+    "product_name": "【虚拟】金露·山穗黄茶",
+    "category": "黄茶",
+    "brand": "虚拟金露茶集",
+    "price": "24.56",
+    "currency": "USD",
+    "available_stock": 514,
+    "image_url": "/v1/goods/sku/106/image",
+    "detail_url": "/product_details.html?skuid=106",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "金露虚拟示范区",
+      "净含量（克）": "150.00",
+      "包装形式": "金属罐装",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "饱满顺滑",
+      "模拟香气": "熟果香"
+    }
+  },
+  {
+    "sku_id": 107,
+    "name": "200g·双罐礼盒·精品级",
+    "product_name": "【虚拟】金露·秋金黄茶",
+    "category": "黄茶",
+    "brand": "虚拟金露茶集",
+    "price": "36.75",
+    "currency": "USD",
+    "available_stock": 551,
+    "image_url": "/v1/goods/sku/107/image",
+    "detail_url": "/product_details.html?skuid=107",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "金露虚拟示范区",
+      "净含量（克）": "200.00",
+      "包装形式": "双罐礼盒",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "清淡鲜爽",
+      "模拟香气": "谷物香"
+    }
+  },
+  {
+    "sku_id": 108,
+    "name": "50g·独立茶包盒·精品级",
+    "product_name": "【虚拟】金露·露穗黄茶",
+    "category": "黄茶",
+    "brand": "虚拟金露茶集",
+    "price": "9.19",
+    "currency": "USD",
+    "available_stock": 588,
+    "image_url": "/v1/goods/sku/108/image",
+    "detail_url": "/product_details.html?skuid=108",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "金露虚拟示范区",
+      "净含量（克）": "50.00",
+      "包装形式": "独立茶包盒",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "浓醇厚实",
+      "模拟香气": "木质香"
+    }
+  },
+  {
+    "sku_id": 109,
+    "name": "500g·大袋装·精品级",
+    "product_name": "【虚拟】金露·麦月黄茶",
+    "category": "黄茶",
+    "brand": "虚拟金露茶集",
+    "price": "74.38",
+    "currency": "USD",
+    "available_stock": 625,
+    "image_url": "/v1/goods/sku/109/image",
+    "detail_url": "/product_details.html?skuid=109",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "金露虚拟示范区",
+      "净含量（克）": "500.00",
+      "包装形式": "大袋装",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "清爽回甘",
+      "模拟香气": "清香"
+    }
+  },
+  {
+    "sku_id": 110,
+    "name": "100g·密封袋装·优选级",
+    "product_name": "【虚拟】墨山·墨韵黑茶",
+    "category": "黑茶",
+    "brand": "虚拟墨山茶仓",
+    "price": "9.40",
+    "currency": "USD",
+    "available_stock": 662,
+    "image_url": "/v1/goods/sku/110/image",
+    "detail_url": "/product_details.html?skuid=110",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "墨山虚拟示范区",
+      "净含量（克）": "100.00",
+      "包装形式": "密封袋装",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "清爽回甘",
+      "模拟香气": "花香"
+    }
+  },
+  {
+    "sku_id": 111,
+    "name": "150g·金属罐装·优选级",
+    "product_name": "【虚拟】墨山·陈岚黑茶",
+    "category": "黑茶",
+    "brand": "虚拟墨山茶仓",
+    "price": "15.30",
+    "currency": "USD",
+    "available_stock": 699,
+    "image_url": "/v1/goods/sku/111/image",
+    "detail_url": "/product_details.html?skuid=111",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "墨山虚拟示范区",
+      "净含量（克）": "150.00",
+      "包装形式": "金属罐装",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "柔和醇润",
+      "模拟香气": "熟果香"
+    }
+  },
+  {
+    "sku_id": 112,
+    "name": "200g·双罐礼盒·优选级",
+    "product_name": "【虚拟】墨山·山藏黑茶",
+    "category": "黑茶",
+    "brand": "虚拟墨山茶仓",
+    "price": "24.40",
+    "currency": "USD",
+    "available_stock": 736,
+    "image_url": "/v1/goods/sku/112/image",
+    "detail_url": "/product_details.html?skuid=112",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "墨山虚拟示范区",
+      "净含量（克）": "200.00",
+      "包装形式": "双罐礼盒",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "饱满顺滑",
+      "模拟香气": "谷物香"
+    }
+  },
+  {
+    "sku_id": 113,
+    "name": "50g·独立茶包盒·优选级",
+    "product_name": "【虚拟】墨山·暖木黑茶",
+    "category": "黑茶",
+    "brand": "虚拟墨山茶仓",
+    "price": "6.10",
+    "currency": "USD",
+    "available_stock": 773,
+    "image_url": "/v1/goods/sku/113/image",
+    "detail_url": "/product_details.html?skuid=113",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "墨山虚拟示范区",
+      "净含量（克）": "50.00",
+      "包装形式": "独立茶包盒",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "清淡鲜爽",
+      "模拟香气": "木质香"
+    }
+  },
+  {
+    "sku_id": 114,
+    "name": "500g·大袋装·优选级",
+    "product_name": "【虚拟】墨山·岩藏黑茶",
+    "category": "黑茶",
+    "brand": "虚拟墨山茶仓",
+    "price": "43.50",
+    "currency": "USD",
+    "available_stock": 810,
+    "image_url": "/v1/goods/sku/114/image",
+    "detail_url": "/product_details.html?skuid=114",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "墨山虚拟示范区",
+      "净含量（克）": "500.00",
+      "包装形式": "大袋装",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "浓醇厚实",
+      "模拟香气": "清香"
+    }
+  },
+  {
+    "sku_id": 115,
+    "name": "100g·密封袋装·精品级",
+    "product_name": "【虚拟】墨山·深林黑茶",
+    "category": "黑茶",
+    "brand": "虚拟墨山茶仓",
+    "price": "11.45",
+    "currency": "USD",
+    "available_stock": 847,
+    "image_url": "/v1/goods/sku/115/image",
+    "detail_url": "/product_details.html?skuid=115",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "墨山虚拟示范区",
+      "净含量（克）": "100.00",
+      "包装形式": "密封袋装",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "柔和醇润",
+      "模拟香气": "花香"
+    }
+  },
+  {
+    "sku_id": 116,
+    "name": "150g·金属罐装·精品级",
+    "product_name": "【虚拟】墨山·秋仓黑茶",
+    "category": "黑茶",
+    "brand": "虚拟墨山茶仓",
+    "price": "18.38",
+    "currency": "USD",
+    "available_stock": 884,
+    "image_url": "/v1/goods/sku/116/image",
+    "detail_url": "/product_details.html?skuid=116",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "墨山虚拟示范区",
+      "净含量（克）": "150.00",
+      "包装形式": "金属罐装",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "饱满顺滑",
+      "模拟香气": "熟果香"
+    }
+  },
+  {
+    "sku_id": 117,
+    "name": "200g·双罐礼盒·精品级",
+    "product_name": "【虚拟】墨山·古径黑茶",
+    "category": "黑茶",
+    "brand": "虚拟墨山茶仓",
+    "price": "28.50",
+    "currency": "USD",
+    "available_stock": 921,
+    "image_url": "/v1/goods/sku/117/image",
+    "detail_url": "/product_details.html?skuid=117",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "墨山虚拟示范区",
+      "净含量（克）": "200.00",
+      "包装形式": "双罐礼盒",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "清淡鲜爽",
+      "模拟香气": "谷物香"
+    }
+  },
+  {
+    "sku_id": 118,
+    "name": "50g·独立茶包盒·精品级",
+    "product_name": "【虚拟】墨山·山醇黑茶",
+    "category": "黑茶",
+    "brand": "虚拟墨山茶仓",
+    "price": "7.12",
+    "currency": "USD",
+    "available_stock": 958,
+    "image_url": "/v1/goods/sku/118/image",
+    "detail_url": "/product_details.html?skuid=118",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "墨山虚拟示范区",
+      "净含量（克）": "50.00",
+      "包装形式": "独立茶包盒",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "浓醇厚实",
+      "模拟香气": "木质香"
+    }
+  },
+  {
+    "sku_id": 119,
+    "name": "500g·大袋装·精品级",
+    "product_name": "【虚拟】墨山·石韵黑茶",
+    "category": "黑茶",
+    "brand": "虚拟墨山茶仓",
+    "price": "53.75",
+    "currency": "USD",
+    "available_stock": 995,
+    "image_url": "/v1/goods/sku/119/image",
+    "detail_url": "/product_details.html?skuid=119",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "墨山虚拟示范区",
+      "净含量（克）": "500.00",
+      "包装形式": "大袋装",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "清爽回甘",
+      "模拟香气": "清香"
+    }
+  },
+  {
+    "sku_id": 120,
+    "name": "100g·密封袋装·特选级",
+    "product_name": "【虚拟】墨山·云仓黑茶",
+    "category": "黑茶",
+    "brand": "虚拟墨山茶仓",
+    "price": "13.91",
+    "currency": "USD",
+    "available_stock": 152,
+    "image_url": "/v1/goods/sku/120/image",
+    "detail_url": "/product_details.html?skuid=120",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "墨山虚拟示范区",
+      "净含量（克）": "100.00",
+      "包装形式": "密封袋装",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "饱满顺滑",
+      "模拟香气": "花香"
+    }
+  },
+  {
+    "sku_id": 121,
+    "name": "150g·金属罐装·特选级",
+    "product_name": "【虚拟】墨山·沉香黑茶",
+    "category": "黑茶",
+    "brand": "虚拟墨山茶仓",
+    "price": "22.06",
+    "currency": "USD",
+    "available_stock": 189,
+    "image_url": "/v1/goods/sku/121/image",
+    "detail_url": "/product_details.html?skuid=121",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "墨山虚拟示范区",
+      "净含量（克）": "150.00",
+      "包装形式": "金属罐装",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "清淡鲜爽",
+      "模拟香气": "熟果香"
+    }
+  },
+  {
+    "sku_id": 122,
+    "name": "200g·双罐礼盒·特选级",
+    "product_name": "【虚拟】墨山·谷藏黑茶",
+    "category": "黑茶",
+    "brand": "虚拟墨山茶仓",
+    "price": "33.42",
+    "currency": "USD",
+    "available_stock": 226,
+    "image_url": "/v1/goods/sku/122/image",
+    "detail_url": "/product_details.html?skuid=122",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "墨山虚拟示范区",
+      "净含量（克）": "200.00",
+      "包装形式": "双罐礼盒",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "浓醇厚实",
+      "模拟香气": "谷物香"
+    }
+  },
+  {
+    "sku_id": 123,
+    "name": "50g·独立茶包盒·特选级",
+    "product_name": "【虚拟】墨山·林藏黑茶",
+    "category": "黑茶",
+    "brand": "虚拟墨山茶仓",
+    "price": "8.36",
+    "currency": "USD",
+    "available_stock": 263,
+    "image_url": "/v1/goods/sku/123/image",
+    "detail_url": "/product_details.html?skuid=123",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "墨山虚拟示范区",
+      "净含量（克）": "50.00",
+      "包装形式": "独立茶包盒",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "清爽回甘",
+      "模拟香气": "木质香"
+    }
+  },
+  {
+    "sku_id": 124,
+    "name": "500g·大袋装·特选级",
+    "product_name": "【虚拟】墨山·远岫黑茶",
+    "category": "黑茶",
+    "brand": "虚拟墨山茶仓",
+    "price": "66.05",
+    "currency": "USD",
+    "available_stock": 300,
+    "image_url": "/v1/goods/sku/124/image",
+    "detail_url": "/product_details.html?skuid=124",
+    "reasons": [
+      "当前上架且有可用库存"
+    ],
+    "facts": {
+      "模拟产地国家": "虚拟中国",
+      "模拟产区": "墨山虚拟示范区",
+      "净含量（克）": "500.00",
+      "包装形式": "大袋装",
+      "模拟配料": "模拟茶叶100%（虚拟数据）",
+      "模拟口感": "柔和醇润",
+      "模拟香气": "清香"
+    }
+  }
+]

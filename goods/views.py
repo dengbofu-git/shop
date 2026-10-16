@@ -9,6 +9,7 @@ from django.db.models import F
 from django.conf import settings
 import json
 from django.core import paginator
+from .images import resolve_sku_image, sku_image_name
 
 
 def _sku_public_dict(sku):
@@ -24,7 +25,8 @@ def _sku_public_dict(sku):
         'product_name': spu_name,
         'caption': caption,
         'price': str(sku.price),
-        'image': sku.default_image_url.name if sku.default_image_url else None,
+        'image': sku_image_name(sku) or None,
+        'image_url': f'/v1/goods/sku/{sku.id}/image',
         'image_text': spu_name or sku_name or caption or '商品图',
     }
 
@@ -35,7 +37,7 @@ def carousel(request):
     GET: stable=1 不随机，按 id 降序；limit=N 条（默认 8）
     """
     import random
-    skus = list(SKU.objects.filter(is_launched=True).select_related('spu')[:200])
+    skus = list(SKU.objects.filter(is_launched=True).select_related('spu__catalog')[:200])
     skus_with_stock = []
     for sku in skus:
         if _get_available_stock(sku) > 0:
@@ -53,7 +55,7 @@ def carousel(request):
     slides = skus_with_stock[:n]
     data = []
     for sku in slides:
-        img_path = sku.default_image_url.name if sku.default_image_url else None
+        img_path = sku_image_name(sku) or None
         image_url = request.build_absolute_uri(f'/v1/goods/sku/{sku.id}/image') if sku.id else None
         intro = (sku.caption or sku.name or sku.spu.name or '')[:80]
         data.append({
@@ -76,7 +78,7 @@ def recommended_products(request):
     """推荐商品列表（公开API），有可用库存的推荐 SKU（与库存服务一致）。"""
     qs = SKU.objects.filter(
         is_recommended=True, is_launched=True
-    ).select_related('spu').order_by('-updated_time', '-id')[:80]
+    ).select_related('spu__catalog').order_by('-updated_time', '-id')[:80]
     data = []
     for sku in qs:
         if _get_available_stock(sku) <= 0:
@@ -106,7 +108,7 @@ def index(request):
     for category in categories:
         sku_qs = SKU.objects.filter(
             spu__in=category.spu_set.all(), is_launched=True, stock__gt=0
-        ).select_related('spu')
+        ).select_related('spu__catalog')
         sku_list = [_sku_public_dict(sku) for sku in sku_qs]
         if sku_list:  # 只返回有商品的分类
             data.append({
@@ -127,7 +129,7 @@ def catalogs(request, id):
     goods = Catalog.objects.get(id=id)
     sku_qs = SKU.objects.filter(
         spu__in=goods.spu_set.all(), is_launched=True, stock__gt=0
-    ).select_related('spu').order_by('-id')
+    ).select_related('spu__catalog').order_by('-id')
     data = [_sku_public_dict(sku) for sku in sku_qs]
     paginator_object = paginator.Paginator(data, 12)
     page_object = paginator_object.get_page(page)
@@ -199,66 +201,9 @@ def _get_sku_image_path_for_api(sku):
 
 
 def _find_sku_image_file(sku):
-    """
-    查找当前 SKU 对应的图片文件路径。
-    优先当前 SKU，其次同 SPU 其他 SKU；跳过空文件。
-    """
-    def _valid_file(p):
-        try:
-            if not p:
-                return False
-            pp = Path(p) if not isinstance(p, Path) else p
-            return pp.exists() and pp.is_file() and pp.stat().st_size > 0
-        except (OSError, ValueError, TypeError):
-            return False
-
-    media_root = Path(settings.MEDIA_ROOT)
-    sku_id = sku.id
-
-    # 1. 当前 SKU：数据库路径
-    image_field = _get_sku_image_field(sku)
-    if image_field and getattr(image_field, 'name', None):
-        for base_path in [
-            Path(image_field.path) if hasattr(image_field, 'path') else None,
-            media_root / image_field.name.replace('\\', '/'),
-        ]:
-            if _valid_file(base_path):
-                return base_path
-
-    # 2. 当前 SKU：sku/{sku_id}/ 下首张图
-    sku_dir = media_root / 'sku' / str(sku_id)
-    if sku_dir.exists():
-        for ext in ('*.jpg', '*.jpeg', '*.png', '*.gif', '*.webp'):
-            for f in sku_dir.glob(ext):
-                if _valid_file(f):
-                    return f
-
-    # 3. 当前 SKU：sku/{sku_id}.jpg 等
-    for ext in ('jpg', 'jpeg', 'png', 'gif', 'webp'):
-        old_path = media_root / 'sku' / f'{sku_id}.{ext}'
-        if _valid_file(old_path):
-            return old_path
-
-    # 4. 同 SPU 下其他 SKU 的图片（当前 SKU 无图时回退）
-    for other in SKU.objects.filter(spu=sku.spu).exclude(id=sku.id):
-        o_field = _get_sku_image_field(other)
-        if o_field and getattr(o_field, 'name', None):
-            for bp in [Path(o_field.path) if hasattr(o_field, 'path') else None,
-                       media_root / o_field.name.replace('\\', '/')]:
-                if _valid_file(bp):
-                    return bp
-        o_dir = media_root / 'sku' / str(other.id)
-        if o_dir.exists():
-            for ext in ('*.jpg', '*.jpeg', '*.png', '*.gif', '*.webp'):
-                for f in o_dir.glob(ext):
-                    if _valid_file(f):
-                        return f
-        for ext in ('jpg', 'jpeg', 'png', 'gif', 'webp'):
-            op = media_root / 'sku' / f'{other.id}.{ext}'
-            if _valid_file(op):
-                return op
-
-    return None
+    """兼容现有调用：真实商品图片优先，其次使用已登记的茶类虚拟图。"""
+    selection = resolve_sku_image(sku)
+    return selection.path if selection else None
 
 
 def _placeholder_image_response():
@@ -290,18 +235,21 @@ def _placeholder_image_response():
 def sku_image(request, sku_id):
     """直接返回当前 SKU 对应的图片文件"""
     try:
-        sku = SKU.objects.get(id=sku_id)
+        sku = SKU.objects.select_related('spu__catalog').get(id=sku_id)
     except SKU.DoesNotExist:
         return HttpResponse(status=404)
-    file_path = _find_sku_image_file(sku)
-    if not file_path:
+    selection = resolve_sku_image(sku)
+    if not selection:
         return _placeholder_image_response()
+    file_path = selection.path
     content_type, _ = mimetypes.guess_type(str(file_path))
     if not content_type:
         content_type = 'image/jpeg'
     try:
         with open(file_path, 'rb') as f:
-            return HttpResponse(f.read(), content_type=content_type)
+            response = HttpResponse(f.read(), content_type=content_type)
+            response['X-Image-Source'] = 'catalog-virtual' if selection.is_virtual else 'product-upload'
+            return response
     except OSError:
         return HttpResponse(status=404)
 
@@ -360,8 +308,8 @@ def detail(request, id):
         spu__catalog=sku.spu.catalog,
         is_launched=True,
         stock__gt=0
-    ).exclude(id=sku.id).values('name', 'price', skuid=F('id'), image=F('default_image_url'))[:8]
-    rec_list = list(rec_skus)
+    ).exclude(id=sku.id).select_related('spu__catalog')[:8]
+    rec_list = [_sku_public_dict(item) for item in rec_skus]
     for r in rec_list:
         r['image_text'] = r.get('name') or '商品图'
 
@@ -376,6 +324,7 @@ def detail(request, id):
         "code": 200,
         "data": {
             "catalog_id": sku.spu.catalog_id,
+            "is_launched": sku.is_launched,
             "catalog_name": sku.spu.catalog.name,
             "spu_name": spu_name,
             "product_name": spu_name,

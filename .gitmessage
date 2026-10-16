@@ -1,0 +1,6 @@
+# <type>(<scope>): <中文主题>（不超过100字符）
+# 例如 feat(goods): 增加商品筛选
+# type: feat fix docs style refactor perf test build ci chore revert
+# scope 使用模块名；跨模块治理可用 core。
+
+# 说明改动目的、影响，以及必要的验证结果。

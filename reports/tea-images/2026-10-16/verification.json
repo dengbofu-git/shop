@@ -1,0 +1,131 @@
+{
+  "type": "verification",
+  "capability": "CAP-CAT-001 / FEAT-004 image fallback increment",
+  "time": "2026-10-16T15:04:23.694467+08:00",
+  "head": "4db3fd12e985c5b5fc3b04de20b780d926a4e319",
+  "workingTreeDirty": true,
+  "inputHashes": {
+    "goods/models.py": "87131347b63d1ca0820ed47a6aa9d74649d4c17564ce7b74f78ad7f88c382a77",
+    "goods/images.py": "f2f0650b0a6a280e5157c54ca48757de2469b4781e1dc92eb47f274731f44d19",
+    "goods/views.py": "7c2ae33b5a16934b2746c16d9f77b4848f3cf4e981322de0d129da702995ed42",
+    "goods/merchant_views.py": "dde4fc2bb869c8930ed8698643bfce0eb2d996a503d4fba5b72de4b5752b7ef8",
+    "goods/migrations/0010_catalog_fallback_image.py": "b6fcaa5e5a503677029809f42f1557abed7881348c14428a5c09cac45480ec50",
+    "goods/test_images.py": "92d1fbbb2649f45ba9ed52f0bdcf652006a4b3c57235820655f20c2f77cf8c4b",
+    "goods/test_activity.py": "75a5ac1b33547a30aa316f174ea6995bdf476cac1bcffb178c61c99dadc0e36f",
+    "goods/management/commands/register_tea_images.py": "f2e904ea9f341ae7d5743c6a6392a61ebaffdf728ae39641836cecd3fb9b0253",
+    "carts/views.py": "72202f734fb143881cd69bbad4cd4dd69b54f331c524e9e4c00360a16240f6f3",
+    "orders/views.py": "53e3acd41c569fa4a0864926b10845a59030fe66bc0367111e3fdd63370015bc",
+    "versions/modules.json": "032a47d16fc11f09c99d3d26a5dc9576930f5da370d5c0cde460d434c55cb7d9",
+    "docs/sdd/modules/catalog-content/image-fallback.md": "b237132138a2be3ae33afbeb41ddb4e1061d916c129db85df060855df0dea5fd"
+  },
+  "inputsStable": true,
+  "commands": [
+    {
+      "command": [
+        "E:\\miniconda\\envs\\dadashop\\python.exe",
+        "manage.py",
+        "test",
+        "goods.test_images",
+        "goods.test_activity",
+        "--settings=support_ai.test_settings",
+        "--noinput",
+        "-v",
+        "2"
+      ],
+      "exitCode": 0,
+      "log": "sqlite.log"
+    },
+    {
+      "command": [
+        "E:\\miniconda\\envs\\dadashop\\python.exe",
+        "manage.py",
+        "test",
+        "goods.test_images",
+        "goods.test_activity",
+        "--settings=goods.test_mysql_settings",
+        "--noinput",
+        "-v",
+        "2"
+      ],
+      "exitCode": 0,
+      "log": "mysql.log"
+    },
+    {
+      "command": [
+        "E:\\miniconda\\envs\\dadashop\\python.exe",
+        "manage.py",
+        "makemigrations",
+        "goods",
+        "--check",
+        "--dry-run",
+        "--settings=support_ai.test_settings"
+      ],
+      "exitCode": 0,
+      "log": "migration-drift.log"
+    },
+    {
+      "command": [
+        "E:\\miniconda\\envs\\dadashop\\python.exe",
+        "tools/module_versions.py",
+        "check"
+      ],
+      "exitCode": 0,
+      "log": "versions.log"
+    }
+  ],
+  "generator": "built-in image_gen",
+  "promptSet": "plan.json",
+  "assets": [
+    {
+      "name": "红茶",
+      "file": "tea_categories/20261016/black-v1.png",
+      "sha256": "3ab85d4064730984b1a04b39667fbb868cec5421fd69a8a9d58de12b27890c8f"
+    },
+    {
+      "name": "绿茶",
+      "file": "tea_categories/20261016/green-v1.png",
+      "sha256": "cf4149501b70eb8806082737362754d86c32c43d01e373cd84b6ca485c96f342"
+    },
+    {
+      "name": "乌龙茶",
+      "file": "tea_categories/20261016/oolong-v1.png",
+      "sha256": "42aa2ad4669e9cc65339f6f1ce1f9b60e353d9dba2c2fc1bce5771c92b33c64f"
+    },
+    {
+      "name": "白茶",
+      "file": "tea_categories/20261016/white-v1.png",
+      "sha256": "4111bf8bafa9a667c78355cac2b0a657f147518909a199d939a440560d119dad"
+    },
+    {
+      "name": "黄茶",
+      "file": "tea_categories/20261016/yellow-v1.png",
+      "sha256": "76ef0d99fb7274a4b81e45ef5ff863b505a98f16637137b6082ff898e3fb6820"
+    },
+    {
+      "name": "黑茶",
+      "file": "tea_categories/20261016/dark-v1.png",
+      "sha256": "602ec826b13ae8c0ee01fb2a4b826d628c1b06eebbe7fc787561a453eb1a290c"
+    }
+  ],
+  "localDatabaseAudit": {
+    "file": "database-audit.json",
+    "skuCount": 104,
+    "counts": {
+      "virtual": 102,
+      "real": 2
+    },
+    "realUploadsUnchanged": true
+  },
+  "localDeployment": {
+    "migration": "goods.0010_catalog_fallback_image",
+    "result": "applied",
+    "registrationCommand": "manage.py register_tea_images --manifest reports/tea-images/2026-10-16/plan.json --apply",
+    "registeredCatalogs": 6
+  },
+  "limitations": [
+    "No production release, full-site regression or browser acceptance.",
+    "Cart test uses fake Redis; no transaction or price semantics changed."
+  ],
+  "reviewer": null,
+  "result": "pass"
+}

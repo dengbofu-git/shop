@@ -1,0 +1,38 @@
+{
+  "baseline_0.5.0": {
+    "cases": 11,
+    "intent_exact_correct": 4,
+    "intent_exact_accuracy": 0.36363636363636365,
+    "micro_precision": 0.45454545454545453,
+    "micro_recall": 0.4166666666666667,
+    "micro_f1": 0.43478260869565216,
+    "recommendation_constraints_correct": 2,
+    "recommendation_cases": 6,
+    "mean_ms": 4629.564545454546,
+    "median_ms": 3260.69,
+    "p95_ms": 10962.86,
+    "llm_calls": 40,
+    "input_tokens": 37911,
+    "output_tokens": 4190,
+    "top_level_errors": 0,
+    "tool_errors": 0
+  },
+  "candidate_0.6.0": {
+    "cases": 11,
+    "intent_exact_correct": 11,
+    "intent_exact_accuracy": 1.0,
+    "micro_precision": 1.0,
+    "micro_recall": 1.0,
+    "micro_f1": 1.0,
+    "recommendation_constraints_correct": 6,
+    "recommendation_cases": 6,
+    "mean_ms": 9038.703636363636,
+    "median_ms": 14784.21,
+    "p95_ms": 17268.39,
+    "llm_calls": 13,
+    "input_tokens": 39095,
+    "output_tokens": 5936,
+    "top_level_errors": 0,
+    "tool_errors": 0
+  }
+}

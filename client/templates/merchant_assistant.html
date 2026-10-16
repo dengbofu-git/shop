@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>商家智能助手 · 茶企工作台</title>
+    {% include "shared/system_theme.html" %}
+    <link rel="stylesheet" href="/static/css/merchant-assistant.css?v=0.1.0">
+    <script src="/static/js/auth-storage.js"></script>
+</head>
+<body class="ds-theme ds-page-merchant_assistant">
+    <main class="ma-content">
+        <header class="ma-page-head">
+            <div>
+                <p class="ma-eyebrow">茶企工作台</p>
+                <h1>商家智能助手</h1>
+                <p class="ma-subtitle">商家工作任务的统一入口</p>
+            </div>
+            <a class="ma-back" href="/merchant_dashboard.html">返回商家工作台</a>
+        </header>
+
+        <section class="ma-panel" aria-labelledby="ma-panel-title">
+            <header class="ma-panel-head">
+                <span class="ma-avatar" aria-hidden="true">助</span>
+                <div class="ma-panel-title">
+                    <h2 id="ma-panel-title">商家助手</h2>
+                    <p>具体功能将逐步开放</p>
+                </div>
+                <span class="ma-version">v0.1.0</span>
+            </header>
+
+            <div class="ma-empty">
+                <span class="ma-empty-mark" aria-hidden="true">…</span>
+                <h3>欢迎使用商家智能助手</h3>
+                <p>入口已就绪。功能开放后，你可以在这里发起商家工作任务。</p>
+                <p>当前版本暂不支持发送消息。</p>
+            </div>
+
+            <div class="ma-status" id="ma-status" role="status" aria-live="polite">
+                <span id="ma-status-text">正在确认入口状态…</span>
+                <button id="ma-retry" type="button" hidden>重试</button>
+                <a id="ma-login" href="/login.html" target="_top" hidden>前往登录</a>
+            </div>
+            <div class="ma-compose" aria-describedby="ma-compose-notice">
+                <label class="ma-visually-hidden" for="ma-input">商家助手消息（暂未开放）</label>
+                <textarea id="ma-input" rows="2" disabled placeholder="助手功能准备中，暂不可发送消息"></textarea>
+                <button id="ma-send" type="button" disabled>发送</button>
+            </div>
+            <p id="ma-compose-notice" class="ma-notice">功能开放后可在此对话；当前页面不会提交消息或文件。</p>
+        </section>
+    </main>
+    <script src="/static/js/merchant-assistant.js?v=0.1.0"></script>
+</body>
+</html>

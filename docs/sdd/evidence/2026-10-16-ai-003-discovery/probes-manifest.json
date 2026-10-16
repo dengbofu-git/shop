@@ -1,0 +1,301 @@
+{
+  "schemaVersion": "0.1",
+  "evidenceType": "discovery-probes",
+  "capabilityId": "CAP-AI-003",
+  "specVersion": "0.2.0",
+  "stagePromotion": false,
+  "observedAt": "2026-10-16T12:14:41.788810+08:00",
+  "command": "E:/miniconda/envs/dadashop/python.exe docs/sdd/evidence/2026-10-16-ai-003-discovery/run_probes.py",
+  "environment": "support_ai.test_settings; two SQLite memory databases; synthetic data; no model calls",
+  "observations": [
+    {
+      "id": "PROBE-AI-003-01",
+      "acceptanceIds": [
+        "AC-AI-003-01",
+        "AC-AI-003-07"
+      ],
+      "result": "observed-conforming",
+      "details": {
+        "selectedOwnOrder": true,
+        "rows": [
+          {
+            "order": "当前会话所选订单",
+            "status": "待付款",
+            "created_date": "2026-10-16"
+          }
+        ],
+        "safeMessage": "订单号：[订单号]"
+      }
+    },
+    {
+      "id": "PROBE-AI-003-02",
+      "acceptanceIds": [
+        "AC-AI-003-04"
+      ],
+      "result": "observed-conforming",
+      "details": {
+        "rowCount": 3
+      }
+    },
+    {
+      "id": "PROBE-AI-003-03",
+      "acceptanceIds": [
+        "AC-AI-003-03",
+        "AC-AI-003-07"
+      ],
+      "result": "gap",
+      "details": {
+        "samples": [
+          {
+            "syntheticReference": "SDD-ORDER-B1",
+            "safeMessage": "order id: SDD-ORDER-B1",
+            "dto": [],
+            "rawReferenceSurvivesSecondRedaction": true
+          },
+          {
+            "syntheticReference": "SDD-MISSING-X1",
+            "safeMessage": "order id: SDD-MISSING-X1",
+            "dto": [],
+            "rawReferenceSurvivesSecondRedaction": true
+          }
+        ],
+        "boundary": "Application output and workflow redactor; no external model called."
+      }
+    },
+    {
+      "id": "PROBE-AI-003-04",
+      "acceptanceIds": [
+        "AC-AI-003-05"
+      ],
+      "result": "observed-conforming",
+      "details": {
+        "liveStatusReloaded": true,
+        "expiredReferenceSelected": false,
+        "expiredRows": 3
+      }
+    },
+    {
+      "id": "PROBE-AI-003-05",
+      "acceptanceIds": [
+        "AC-AI-003-06"
+      ],
+      "result": "observed-conforming",
+      "details": {
+        "sameNumericStatus": 4,
+        "texts": [
+          "订单完成",
+          "试用中",
+          "待发货"
+        ],
+        "boundary": "One representative state per type; not full state-machine verification."
+      }
+    },
+    {
+      "id": "PROBE-AI-003-06",
+      "acceptanceIds": [
+        "AC-AI-003-02"
+      ],
+      "result": "observed-conforming",
+      "details": {
+        "httpStatuses": [
+          401,
+          401,
+          400
+        ]
+      }
+    },
+    {
+      "id": "PROBE-AI-003-07",
+      "acceptanceIds": [
+        "AC-AI-003-01"
+      ],
+      "result": "observed-conforming",
+      "details": {
+        "existingOrderRowsUnchangedByQueries": true,
+        "boundary": "OrderInfo rows at query seam only; not full HTTP or inventory-write verification."
+      }
+    },
+    {
+      "id": "PROBE-AI-003-08",
+      "acceptanceIds": [
+        "AC-AI-003-03"
+      ],
+      "result": "gap",
+      "details": {
+        "httpStatuses": [
+          200,
+          200
+        ],
+        "newTurnCounts": [
+          1,
+          1
+        ],
+        "rawReferencePresentInMockModelInput": [
+          true,
+          true
+        ],
+        "boundary": "Mock-model HTTP probe; current business decision requires uniform 404."
+      }
+    }
+  ],
+  "blockedNetworkAttempts": 0,
+  "sourceChangedDuringRun": [],
+  "sourceHashes": {
+    "support_ai/context.py": "c64d846f533a22e1a56f778e52a2e5f9ce8ed14a2056a6a28743a7b3eedae919",
+    "support_ai/pii.py": "80bafa3b2b45d485a931a7f44c096cfe7f7d8bbf8362bf56631d4b4a3352d1e4",
+    "support_ai/views.py": "152c160092a625c15d3bae1a8de0682a2f27a4c666cc6953234d65a749dd1ac9",
+    "orders/models.py": "55e0eef121efbe5827a2a42ece37cbc1bf1c2207dc9e9646151f674474cd4e11",
+    "users/models.py": "3f6fa5fb7a5be1676b8a046fe65e837a4f0123045c4e90ba47863abc4c6d5e6d",
+    "support_ai/models.py": "c9d0495083abf20f9e5612a81506d0a87de3589b2d0504caf275ed2c77e5d235",
+    "support_ai/test_settings.py": "03772e0225d0ec46f6c89fb656a363e4ef18b62ddf8e3f07171488d6a7868ae5",
+    "docs/sdd/evidence/2026-10-16-ai-003-discovery/run_probes.py": "8d49fa21ab8f4ae8e96e77a03209e1efe4303697303aded625faa129662697ba",
+    "dadashop/asgi.py": "87b9c374739c1d610dfaa5917cd68869dfdb17532ddc8e5f2a059a8f28018a42",
+    "dadashop/settings.py": "1d0f03627e290c4769cd0faffdbee17b7427f0466b833a44e1e565ef3d78aeec",
+    "dadashop/urls.py": "c4c0df2c4d23d9b1a0aa65f913f315f2267893bb4c8202b1837e1e94a3e66671",
+    "dadashop/utils.py": "dfd003d8db7d0d7e6c0299d30388b2b6121e992fc5ddcc53191db2dfbe5b5ffe",
+    "dadashop/wsgi.py": "df50977685fe7cc2d8a3d234740d5bd78dca882fb25cad33972953a46abf8547",
+    "dadashop/__init__.py": "c55fc8aa9a8097861058544c0fecb5b087e723f5c1c3d7fab1b30be653f14ca6",
+    "users/apps.py": "bb73c06360191905d2587d834a443594e4c8566df7a946f378a96cd09f07f0da",
+    "users/decorators.py": "3a46691e78ae52e93b434c43729db198f0dd41bcf131e2feaf278d1f47526fa4",
+    "users/permissions.py": "35a74c2b79cbaef747840bce9a8f724d9a788a0162e384cf64924a4bc5c56fc6",
+    "users/urls.py": "e9b0df5967ea65bbc9eb70c1cbc512058b6a590f3d94146c570643bae08631bc",
+    "users/views.py": "15b1c153c6e781e706f11ec41162546fa086f13500a737388d9d21f47f0b6786",
+    "users/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "users/management/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "users/management/commands/create_customs_user.py": "0fecae36dca5f02af20b68fb161641c2273672412e28a1e7744adc982d9664e2",
+    "users/management/commands/create_super_admin.py": "8d91293a2ca570b49f5dc3a6cd7feee0cff56f3e95ccc0e89eab0209fe36d9ec",
+    "users/management/commands/seed_rbac.py": "a9c00fd1249d67d1e62a3b534aa62336f03f4482fb9111084477652e40f495c0",
+    "users/management/commands/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "users/migrations/0001_initial.py": "e370fd82120c59aed5a1ebc3aa34a1b2a5e675f3b2c094d5ac0d719b6a2ed2f1",
+    "users/migrations/0002_address.py": "c5c0fedc9495e841e15759919353fd7664251dd1069bfa23327eb5ff5313dfcf",
+    "users/migrations/0003_weiboprofile.py": "6da3739edf9f36cee755b821aae7ec5ca99e36e0f1e99324b6859c9f30df8049",
+    "users/migrations/0004_auto_20260218_0108.py": "8b1ab371a6b55970da5263d19713e94efced9610a46bb733fb7fd14b7cf6c7b8",
+    "users/migrations/0005_permission_role_rolepermission_userrole.py": "d448b6704911bd74e771eae15fa9d748a271ee3029077843796498a944879023",
+    "users/migrations/0006_create_admin_user.py": "c58dc05d9243a07708e5038a5d212504c7dba58f2cb7afbefd14eb60cdfd5974",
+    "users/migrations/0007_create_customs_user.py": "18c0e80f1059a3a2227f5d30b0f8f55dc7f7bce5c4bf0d05516e64fac19f4b79",
+    "users/migrations/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "goods/admin.py": "c255ecd7a72c5415fec53319c98fd572748ac14e089ce697af7452853bc182db",
+    "goods/apps.py": "1d909f99070acf2483bb492144329e7b6ced14d118bf4d02b8ea62f878685be2",
+    "goods/merchant_views.py": "6fbfcc502dd90aebb2151a992f6f07578bd644a4c44efa0ee3676b4a41d97ae9",
+    "goods/models.py": "7243cffdaa0d00f2113a6a1f4121a5ba35971ab6e4d57c28e2ebb48149fed3c2",
+    "goods/urls.py": "5c97b40e7a1b54f38da4b9b2a6106bcd37affef251891b1c9d32daa1e4afbbec",
+    "goods/views.py": "46c8299782d009c13373ee95f760d77a6c8d3cfbc1df52af084989c01fa82688",
+    "goods/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "goods/management/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "goods/management/commands/seed_virtual_tea_products.py": "7d288b05cf275ddb304ae0e715a9857540d3b9d537d8ef521fd68c3f19795d6c",
+    "goods/management/commands/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "goods/migrations/0001_initial.py": "8e91933df4e540c91c4b62b9d08269c503e1c0fa9aa92e1b030d174d23a0e0ac",
+    "goods/migrations/0002_spu_merchant.py": "667a0709b38abd714bc2905d939fd14fbbd43877e0cbeb9f986138e939b88945",
+    "goods/migrations/0003_auto_20260218_0147.py": "eaf6c60b3c8c44df9fd1e8b10eb26aa84a96f52b93adbf3604a1f95b93fb7d63",
+    "goods/migrations/0004_add_carousel_slide.py": "f3c1ddc31f8024df54e831c38d89997878bc33afb6ac7200b3865e7010f3a91e",
+    "goods/migrations/0005_brand_logo_optional.py": "77b6c26e178524ebdd48fd5b1ac24553fbed0022217122f5eefb466a136bcd30",
+    "goods/migrations/0006_sku_is_recommended.py": "ebb3908973b932aeac12f04609df70a1baf8162a2775e0710f8f2741bfe15c74",
+    "goods/migrations/0007_spu_brand_optional.py": "00f69008a17fef35f98bfaea133defe08f58b82700cc0eb20c8e5c6843a25070",
+    "goods/migrations/0008_auto_20261002_2159.py": "5ba91261326c0bb98fce54532022a1c8b03cec1f20cc6f47bdc068b914c6a7ca",
+    "goods/migrations/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "carts/apps.py": "8c87eb267df45ca0998978d7fe3b34d89da4419ec021c1895c702d3c08f27c75",
+    "carts/urls.py": "cf15378d055bc65fad8b30943413a6735a3b3828a50fd3610a4563c8ffa0ab71",
+    "carts/views.py": "ef55d04bf51e84a578b87745a85eb682eaad6a9c402e602452917f65550f6d8c",
+    "carts/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "carts/migrations/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "orders/apps.py": "318d553b2000ea18f4534b0e918f47f7c4a7f432e6ed18801d8320731a9cb91d",
+    "orders/urls.py": "0da450d2fc4f22f40e4407fd64c7ce4e1200371a6e8fb89dace3e62bb7737f62",
+    "orders/views.py": "9b0b4d34266266729bc5389eba160b041eea09d8dcc5c81b27445f57980ed5f0",
+    "orders/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "orders/management/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "orders/management/commands/seed_demo_orders.py": "a992e690e2f1b0bb9492d6a4afdf25d8eda3085b6385ee2fb3e87e5e9a18a401",
+    "orders/management/commands/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "orders/migrations/0001_initial.py": "c708e7694b4c3d394162c5a364e43f4dd9b78782631303385f5616b4c575feec",
+    "orders/migrations/0002_auto_20260218_0147.py": "74f9e1a8a67893c9af5af79caf1f422d8ccc05eec6f1c522cd1c169153d5da5f",
+    "orders/migrations/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "pays/apps.py": "cc6fa3a4dfd7ecb8283b23a5061273fa66ace419b72b6cc572c558d0cca275d2",
+    "pays/urls.py": "9057932c7d0a09fc2a263adb9510f23b6e42ce590e3dc6633ee4e1ed2b7aeb07",
+    "pays/views.py": "d4dc43225dd84db5663fb561dcdaeb5b568ee4e57ee444711db41102c51a82bd",
+    "pays/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "pays/migrations/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "news/admin.py": "bac6a7a53ebe92b371fa8563984b66e6705e199999ba88a7b0cef5efdd1f6779",
+    "news/apps.py": "0d06048739ca7eabc74a278f8bd5e845ce2c895d5b4568619b05762cf5a4fb89",
+    "news/models.py": "2652a4f5da1555d5066fa0ae6e084660284b5f9abc2c58988e26ee5599515967",
+    "news/urls.py": "28f0fea42cd5713ec9dde1ab9d883fd7cef5e137d6c0a39ae836b7653fe257ef",
+    "news/views.py": "e0a11eca8172a5704ec8cce8eb144ed666863476a43e1560e5a052e3b350816c",
+    "news/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "news/migrations/0001_initial.py": "def6398363fb015e9d44058ae3642310ce85081dc49d783e83125a75cb52ee66",
+    "news/migrations/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "inventory/apps.py": "dad5d729f877f0de8c7c3572cc44c876364a11b3fca92f10b5bca101c6f0d769",
+    "inventory/models.py": "1430ff9cbe9f978d887445dedf2b78fd47587b57fa2ece64e00350667ff42e0d",
+    "inventory/services.py": "03529fe258e1b285f3aa725d98f63817e42ad52cd90c737b93991f8d3c271224",
+    "inventory/urls.py": "5498ff8251c02ef1f2cb2b95e9bef3bddbb416438ca1ad2e4001b578abe3e1ea",
+    "inventory/views.py": "ecd8ccb8e7765e72c2cda4edd7d5bae70d3861d1a205ba0062d9621057ef51b2",
+    "inventory/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "inventory/migrations/0001_initial.py": "11430ca5c4eefc9fdb54c193748feb4fccf42d1c11d99253bb97fa226540ddc0",
+    "inventory/migrations/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "logistics/apps.py": "39f9b23d7c5b4723aafb7818e96083b163d591c6680daaea79bbe45b3938a935",
+    "logistics/models.py": "39e3e1742af2a2d957ce12ca1c8b7c050537e62c38e67eb53b7c54ba72d93255",
+    "logistics/services.py": "89fbb9d5d1eb6e28eda5f530c70cb57db4ec90f45c260aefd738d792eeb8410b",
+    "logistics/urls.py": "4b3b31ed089f301e336d9e1b74fa6d3c67a48ef3a26da0e4d77d36df6e410faf",
+    "logistics/views.py": "20ec108baaf0cdccd8668b5abe6a8f72d481c79005a83ead48408162d3631097",
+    "logistics/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "logistics/migrations/0001_initial.py": "50e0df82a68515d0bde4f0a3fbdf9f68de1b8a1c8d38735295cdc9e88065a489",
+    "logistics/migrations/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "supplier/analytics.py": "0fafbaa25b0d8707d7fbe7b7739ad72b8e62dcae4d80cb7a848f0473ee9e00e7",
+    "supplier/apps.py": "cde76fe6a0ea9bd06c0791080e580b933c2fb2b85dd72f522228cfee0e4b3ef0",
+    "supplier/models.py": "e4266d86d5b96c9614b494333e144b1a231fe0512015338582ba5ceceddd9c70",
+    "supplier/urls.py": "af480c22e857535c0039763994e744bb2d63d433bbe278fa4e156fd738857c5b",
+    "supplier/views.py": "636967b0c9ef6c6cd91116177b638f2c22a3d14dc76ba1ea11dc38e2619566e8",
+    "supplier/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "supplier/migrations/0001_initial.py": "9b61ee9f8c049f0da04030b7339db22fbbffdb0b7502811f47863227a8a4303c",
+    "supplier/migrations/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "admin_panel/agent_views.py": "f7c0252eaa2a1b0bab197b495066cb86d53760547fc1d44bc0b2612bf01fd98e",
+    "admin_panel/apps.py": "44cb819bc52435a4356a3e6401c58f78651bf7cabb7f05603172e3f57cb5e7d6",
+    "admin_panel/urls.py": "72a16a0864e966531581145690485ea3d2a631c46292b71fb68daa543decab1b",
+    "admin_panel/views.py": "156d7e7f3ad9cdf40da798b067f9210e4ab4d541c2f816a82d82921bbcdbfe07",
+    "admin_panel/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "support_ai/configuration.py": "f3d6e2d2e99af8ad98a1fb8531bda0590d32aca53bb6c68502876139be1f2f53",
+    "support_ai/contracts.py": "067f6d101dde7e3d0b083acc15e01c0815a50d326e4498ed5d45d036d70a1acf",
+    "support_ai/diagnostics.py": "f4f4cb9471930035e5070c584ed8fa4a5db434a25dae5d3c73bcfd47f271c41e",
+    "support_ai/execution.py": "0e97da757349ffacd3b4c7c4ba72fb86845ea03fb03b5fe3c1827acf167a6e1c",
+    "support_ai/model_client.py": "4844fc779243c6d3371fc1f06c9e4c01d61b0279fb49840dfb00da44f879b061",
+    "support_ai/pg_test_settings.py": "4a1c44f73a724fafc3524c83cc8c7ff345c2821d04ef7d762ef53b58eca2a8ec",
+    "support_ai/planning.py": "d9863af7275d179f78647a92eecf7a2a54c56b73d40b0bea18c5a1f14dc6b8f2",
+    "support_ai/preview.py": "5cd3bcfceec8266ef342eb810ab12ac9ee8fc18a76d60ef5c75e5667df598d0f",
+    "support_ai/recommendations.py": "9e45bae8c59f8fde36ab32bbf937edad88bc8d15fda6db4372d0716f835bf407",
+    "support_ai/recommendation_options.py": "c62870d15a4dc000d5306a999eb490a3d3592169c5e49456541e8f55479c8f56",
+    "support_ai/retrieval.py": "088628ef362d0376dcca3f3c09dcc5fffdfa42f319a052bb80363987829264b9",
+    "support_ai/telemetry.py": "16e02967c8238c14c2689954e9b11b53a6e0491e77596bdda4b4a28d938e63de",
+    "support_ai/tests.py": "2195b56fea89fab069b3ff9903bb11791732c82603e48429227dc74493ade88c",
+    "support_ai/test_grouped_recommendations.py": "6a356f5c5fd32693ce81789e099e2582a7391f3f124e20c3cf6daffdb3c19ed3",
+    "support_ai/test_planning.py": "497fdfe552f0135abfc5d64b81397c97455f5d4e1a01b84396a70f82ad056593",
+    "support_ai/test_task_tools.py": "5f49bf9c319bcdf912af89aa7b8d9fb8e786adabc8afcc83da62bf49268b7c97",
+    "support_ai/test_telemetry.py": "2b7e1eb82e358bcd22f5ad7641bddb0f54b894a6ed1251aa0408d32a6f3bea2e",
+    "support_ai/tool_services.py": "5592a2b45435e1734c0223f47736d95ad2bba29238c04dbeb952b280219e1165",
+    "support_ai/urls.py": "722ac4c251c3f2ce0e6bd4159f4ea51600edcf6af512f47a8ddfc62cc0053e4e",
+    "support_ai/workflow.py": "5084449ff321183efe559cbe10645c3371ebaccf0c2279df53bb966392b2e012",
+    "support_ai/__init__.py": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "support_ai/evaluation/compare.py": "3b6021febd446d1da05ca57335da2f4337b36d83c30149cc5834773329d22b2a",
+    "support_ai/evaluation/report.py": "9a9c3b4d4ae0a2cbe7649b41340a8104568a62e0ecd4165f85a30675d2b3e5ce",
+    "support_ai/evaluation/__init__.py": "b3656130efe43a3a71fd6e755e80a1f44b6849da756b04a1c68ace5c6d20727f",
+    "support_ai/management/commands/agent_preview.py": "30984c6e626e2439c2f1b56f6a11697932e22b1840cc4ef9296d4df91d0c4e1f",
+    "support_ai/management/commands/prune_agent_telemetry.py": "771b31f32aef7607c20bac34e38c4964076ad6ee70d5f8da9ca29f7caffb4b49",
+    "support_ai/migrations/0001_initial.py": "50125fe1c62c6b0566b336123eaabd01037477b523e07f64338adad7dc38484a",
+    "support_ai/migrations/0002_agent_observability.py": "79328f291612d425b0b5156e952e081295512d19fd31ae3a41ce62ea8d330e73",
+    "support_ai/migrations/0003_agent_reranking.py": "5b7ed157e90ab0be105c1c5f8b180dc9e0c8ef243c5c152039c5b2bd89fedd13",
+    "support_ai/migrations/0004_conversation_order_context.py": "f6f0dbb0785208fa53c1e0e35d1457bc79621eb7fc72a5f2ad4258ab2ee14344",
+    "support_ai/migrations/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "ai_storage/apps.py": "2228cc6e64a92096fa6f0553230922847b5dc7fe39b763661031936150c8c216",
+    "ai_storage/embeddings.py": "b3d9d75bfdd7d34be2c38fd203228090d8e50ed4e2b0290c1f6c802fc455d63f",
+    "ai_storage/knowledge.py": "f2ac2baa91d71670d4e0343bf6fe8d1291e7b9d53833b7255daf868d0693f718",
+    "ai_storage/models.py": "159cfc06ca1a84739ac3cdf1ca21a636091d0e01e7caa6acccc929787fccede0",
+    "ai_storage/reranking.py": "b9e60bb6929351f9f819e991c29a9ad0b936258c94af33350ca70c6498fde540",
+    "ai_storage/router.py": "6d57077164290d5607f36e5d4609c13cf88b34af2aa026a41f6caa698ae060fc",
+    "ai_storage/tests.py": "b5c745ab6f4a9042fa88c7364bf90be5ec5108df19f0c70983757e118f9138ab",
+    "ai_storage/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "ai_storage/management/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "ai_storage/management/commands/import_middle_east_tea_knowledge.py": "9e47e86d27bafa73c80ce4bff686a2416d0a41d373fdc7f91e9b974b8e98ffc0",
+    "ai_storage/management/commands/transfer_support_preferences.py": "64957c8b0b080755feed21bc8d5fb48b9332276bacc337a4a3f3b95221eb8e88",
+    "ai_storage/management/commands/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "ai_storage/migrations/0001_initial.py": "8e6980652ef08d11d63f77a3a5750ff4a609e02265214769ea1c9c662ace4928",
+    "ai_storage/migrations/0002_embedding_validation.py": "3e092bf93ce2cba01936b5fcc6c6dd98a586a8cf648c3584932bcb7675bf20c6",
+    "ai_storage/migrations/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "limitations": "Seam-level observations do not prove model behavior, telemetry privacy, browser behavior, production locking or full AC completion."
+}

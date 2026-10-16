@@ -15,9 +15,10 @@
     <style>
         .buyer-workbench.checkout-page .okPay a { color: #1a1a1a; font-weight: 700; }
     </style>
+{% include "shared/system_theme.html" %}
 </head>
 
-<body class="buyer-workbench checkout-page storefront-page" id="buyer-body">
+<body class="ds-page-payment ds-theme buyer-workbench checkout-page storefront-page" id="buyer-body">
     <div class="buyer-layout">
         {% include 'buyer_sidebar.html' with active='cart' fixed_currency=True %}
 
@@ -122,8 +123,8 @@
         var canvas = document.getElementById("canvas_blue");
         var cxt = canvas.getContext("2d");
         var blue = cxt.createLinearGradient(10, 0, 10, 38);
-        blue.addColorStop(0, '#1A5D1A');
-        blue.addColorStop(1, '#1A5D1A');
+        blue.addColorStop(0, '#185c3b');
+        blue.addColorStop(1, '#185c3b');
         cxt.beginPath();
         cxt.fillStyle = blue;
         cxt.moveTo(20, 19);

@@ -1,0 +1,47 @@
+{
+  "versions": {
+    "support_ai": "0.9.0",
+    "ai_storage": "0.3.2",
+    "core": "0.1.3"
+  },
+  "before_sha256": {
+    ".env.example": "502ec2b173e85dd0db7b0d440cbb0c3298f8571914168d9f44d85c663c84e8c8",
+    "ai_storage/embeddings.py": "b3d9d75bfdd7d34be2c38fd203228090d8e50ed4e2b0290c1f6c802fc455d63f",
+    "dadashop/settings.py": "1d0f03627e290c4769cd0faffdbee17b7427f0466b833a44e1e565ef3d78aeec",
+    "support_ai/management/commands/agent_preview.py": "30984c6e626e2439c2f1b56f6a11697932e22b1840cc4ef9296d4df91d0c4e1f",
+    "support_ai/model_client.py": "4844fc779243c6d3371fc1f06c9e4c01d61b0279fb49840dfb00da44f879b061",
+    "support_ai/preview.py": "aa4b8c6f5cbaad719159e0a2128eb2fb1b29fcf5ac75b88ec09ffec5f7601fc3",
+    "support_ai/retrieval.py": "31cab5d783a9dbad29c3aa1b0f4a2c3a9c52719b3d4e9c1d8b7259fa67f9b0d4",
+    "support_ai/telemetry.py": "16e02967c8238c14c2689954e9b11b53a6e0491e77596bdda4b4a28d938e63de",
+    "support_ai/tool_services.py": "21836588f1edb438807f5103325f648ece15583ea7df252d49c91717e49baa61",
+    "support_ai/views.py": "4c744c26169ace4409cf68cfa60b51e76f5da8047118df88a293b572f247fb1a",
+    "versions/changelogs/ai_storage.md": "bc53e28c8ee2bde3092522725c6e8bb95e0acb88fa43f5d29a14b0e9b342be5c",
+    "versions/changelogs/core.md": "b2df4137f72fe5ae1eec5df67cdc5d261892e5069a5408cc212a87f5737cc522",
+    "versions/changelogs/support_ai.md": "c3dcafa91397a242a07be7c3d6de58b95d5a0d8cc5fc7439d48d77ed5c441f36",
+    "versions/modules.json": "a072c98aef7759f45028d4348b12f6b85f1ee1fdca31591c26a7e9ef188b6750",
+    "versions/README.md": "8ffc0a59c8cacebffa30fda99ae6265b02ce87977f628a5b3b2083d5ff8887b4"
+  },
+  "implementation_sha256": {
+    "support_ai/query_rewrite.py": "fd0443c9421977d3277971ee332de6f30452b32c3b537174a5b4dd8dfd04702e",
+    "support_ai/retrieval.py": "c7d106520a70f1707d663186d1e00e2ce5cf10f7df48be133976388cafe2ad3a",
+    "support_ai/tool_services.py": "db5e98c11df2b1706fddb3a251ebb47aea437d841d910adca0cae5aac90da399",
+    "support_ai/model_client.py": "08f4601f749240cfb5812d19d37b9d82e9186938fac6873242c1d07a51e9d7bc",
+    "support_ai/views.py": "bb8e035832b436f2d8c22c66cca4cbf57eb54a4c8d766455d088fef87f17b7c0",
+    "support_ai/preview.py": "120639de69463ece2d3b28f87b47ea3cd28e3b69fe631eddc52961805ddb849e",
+    "support_ai/telemetry.py": "943e62a21be2be023719f53f8275b365cc6efff449a2b87c273423801bb0aecf",
+    "support_ai/management/commands/agent_preview.py": "54fe0130bd189909e8a6b3756d428bd2f8e68b412a3fbd9d3a5dc150e0216075",
+    "ai_storage/embeddings.py": "41050ed409a70c0c34230e48baf7e655a6828e7a56fd4c363ad841f7fe6e9288",
+    "dadashop/settings.py": "0d87397c816ba2a2cbf7f49b9d4d551839f5be072ed349e392442c3a1ce3e94d",
+    "versions/modules.json": "49a896b8c1695040ee97fa73c99020e3fe3ecda7865825849d7f6c9f02ccb421",
+    "docs/Agent查询改写.md": "51416358c5a524f77959992f5b1ade49fc27dea62f7091f966b7a86aa85d930d"
+  },
+  "checks": {
+    "syntax": "passed",
+    "django_system_check": "passed",
+    "module_registry": "passed",
+    "entrypoint_import": "passed"
+  },
+  "tests_run": false,
+  "real_model_evaluation_run": false,
+  "backend_pid": 28024
+}

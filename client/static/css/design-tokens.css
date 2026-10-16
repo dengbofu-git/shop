@@ -6,30 +6,30 @@
 
 :root {
     /* ========== 核心配色 ========== */
-    /* 主色1：大湾区科技蓝 - 核心功能、标题、按钮 */
-    --color-primary: #165DFF;
-    --color-primary-hover: #4080FF;
-    --color-primary-light: rgba(22, 93, 255, 0.1);
+    /* 主色：Agent 运营页茶绿，统一全站交互 */
+    --color-primary: #185c3b;
+    --color-primary-hover: #12482e;
+    --color-primary-light: #e7f2e9;
 
     /* 主色2：茶田绿 - 品控、溯源、茶园模块 */
-    --color-tea: #2E7D32;
-    --color-tea-hover: #1B5E20;
-    --color-tea-light: #E8F5E9;
-    --color-tea-muted: #81C784;
+    --color-tea: #185c3b;
+    --color-tea-hover: #12482e;
+    --color-tea-light: #e7f2e9;
+    --color-tea-muted: #7aa68a;
 
-    /* 主色3：中东金 - 品牌强调、高端产品、本土元素 */
-    --color-gold: #D4AF37;
-    --color-gold-hover: #B8962E;
-    --color-gold-light: rgba(212, 175, 55, 0.15);
+    /* 旧强调色别名，兼容现有组件并统一为茶绿 */
+    --color-gold: #185c3b;
+    --color-gold-hover: #12482e;
+    --color-gold-light: #e7f2e9;
 
     /* 辅助色 */
-    --color-bg: #F5F7FA;
-    --color-text: #1D2129;
-    --color-text-secondary: #4E5969;
-    --color-text-muted: #86909C;
+    --color-bg: #f3f6f2;
+    --color-text: #17352b;
+    --color-text-secondary: #526b5e;
+    --color-text-muted: #6a7d73;
     --color-white: #FFFFFF;
-    --color-border: rgba(0, 0, 0, 0.06);
-    --color-border-strong: rgba(0, 0, 0, 0.12);
+    --color-border: #e1e9e3;
+    --color-border-strong: #cfdbd1;
 
     /* ========== 字体 ========== */
     /* 中文：思源黑体 */
@@ -37,7 +37,7 @@
     /* 英文/阿拉伯语：Noto Sans */
     --font-en: "Noto Sans", "Noto Sans Arabic", "Roboto", Arial, sans-serif;
     /* 复合字体栈 */
-    --font-family: var(--font-zh), var(--font-en);
+    --font-family: system-ui, -apple-system, "Microsoft YaHei", sans-serif;
 
     /* 字重 */
     --font-weight-light: 300;
@@ -62,7 +62,7 @@
     /* ========== 布局 ========== */
     --grid-columns: 12;
     --container-max: 1920px;
-    --content-width: 1200px;
+    --content-width: 1280px;
     --sidebar-width: 240px;
     --header-height: 56px;
 
@@ -75,15 +75,15 @@
     --spacing-xxl: 48px;
 
     /* 圆角 */
-    --radius-sm: 2px;
-    --radius-md: 4px;
-    --radius-lg: 8px;
-    --radius-xl: 12px;
+    --radius-sm: 6px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --radius-xl: 16px;
 
     /* 阴影 */
-    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-    --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.08);
-    --shadow-lg: 0 4px 12px rgba(0, 0, 0, 0.1);
+    --shadow-sm: 0 2px 8px #153c2604;
+    --shadow-md: 0 4px 16px #153c2604;
+    --shadow-lg: 0 8px 24px #153c2608;
 
     /* ========== 图标 ========== */
     --icon-stroke: 2px;

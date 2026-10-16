@@ -1,0 +1,207 @@
+E:\miniconda\envs\dadashop\lib\site-packages\langgraph\checkpoint\base\__init__.py:18: LangChainPendingDeprecationWarning: The default value of `allowed_objects` will change in a future version. Pass an explicit value (e.g., allowed_objects='messages' or allowed_objects='core') to suppress this warning.
+  from langgraph.checkpoint.serde.jsonplus import JsonPlusSerializer
+Creating test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
+Operations to perform:
+  Synchronize unmigrated apps: admin_panel, corsheaders, messages, staticfiles
+  Apply all migrations: admin, ai_storage, auth, contenttypes, goods, inventory, logistics, news, orders, sessions, supplier, support_ai, users
+Synchronizing apps without migrations:
+  Creating tables...
+    Running deferred SQL...
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying auth.0001_initial... OK
+  Applying admin.0001_initial... OK
+  Applying admin.0002_logentry_remove_auto_add... OK
+  Applying admin.0003_logentry_add_action_flag_choices... OK
+  Applying ai_storage.0001_initial... OK
+  Applying ai_storage.0002_embedding_validation... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying auth.0012_alter_user_first_name_max_length... OK
+  Applying users.0001_initial... OK
+  Applying users.0002_address... OK
+  Applying users.0003_weiboprofile... OK
+  Applying users.0004_auto_20260218_0108... OK
+  Applying goods.0001_initial... OK
+  Applying goods.0002_spu_merchant... OK
+  Applying goods.0003_auto_20260218_0147... OK
+  Applying goods.0004_add_carousel_slide... OK
+  Applying goods.0005_brand_logo_optional... OK
+  Applying goods.0006_sku_is_recommended... OK
+  Applying goods.0007_spu_brand_optional... OK
+  Applying goods.0008_auto_20261002_2159... OK
+  Applying inventory.0001_initial... OK
+  Applying orders.0001_initial... OK
+  Applying orders.0002_auto_20260218_0147... OK
+  Applying logistics.0001_initial... OK
+  Applying news.0001_initial... OK
+  Applying sessions.0001_initial... OK
+  Applying users.0005_permission_role_rolepermission_userrole... OK
+  Applying supplier.0001_initial... OK
+  Applying users.0006_create_admin_user... OK
+  Applying users.0007_create_customs_user... OK
+  Applying support_ai.0001_initial... OK
+  Applying support_ai.0002_agent_observability... OK
+  Applying support_ai.0003_agent_reranking... OK
+  Applying support_ai.0004_conversation_order_context... OK
+Creating test database for alias 'ai_storage' ('file:memorydb_ai_storage?mode=memory&cache=shared')...
+Operations to perform:
+  Synchronize unmigrated apps: admin_panel, corsheaders, messages, staticfiles
+  Apply all migrations: admin, ai_storage, auth, contenttypes, goods, inventory, logistics, news, orders, sessions, supplier, support_ai, users
+Synchronizing apps without migrations:
+  Creating tables...
+    Running deferred SQL...
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying auth.0001_initial... OK
+  Applying admin.0001_initial... OK
+  Applying admin.0002_logentry_remove_auto_add... OK
+  Applying admin.0003_logentry_add_action_flag_choices... OK
+  Applying ai_storage.0001_initial... OK
+  Applying ai_storage.0002_embedding_validation... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying auth.0012_alter_user_first_name_max_length... OK
+  Applying users.0001_initial... OK
+  Applying users.0002_address... OK
+  Applying users.0003_weiboprofile... OK
+  Applying users.0004_auto_20260218_0108... OK
+  Applying goods.0001_initial... OK
+  Applying goods.0002_spu_merchant... OK
+  Applying goods.0003_auto_20260218_0147... OK
+  Applying goods.0004_add_carousel_slide... OK
+  Applying goods.0005_brand_logo_optional... OK
+  Applying goods.0006_sku_is_recommended... OK
+  Applying goods.0007_spu_brand_optional... OK
+  Applying goods.0008_auto_20261002_2159... OK
+  Applying inventory.0001_initial... OK
+  Applying orders.0001_initial... OK
+  Applying orders.0002_auto_20260218_0147... OK
+  Applying logistics.0001_initial... OK
+  Applying news.0001_initial... OK
+  Applying sessions.0001_initial... OK
+  Applying users.0005_permission_role_rolepermission_userrole... OK
+  Applying supplier.0001_initial... OK
+  Applying users.0006_create_admin_user... OK
+  Applying users.0007_create_customs_user... OK
+  Applying support_ai.0001_initial... OK
+  Applying support_ai.0002_agent_observability... OK
+  Applying support_ai.0003_agent_reranking... OK
+  Applying support_ai.0004_conversation_order_context... OK
+System check identified no issues (0 silenced).
+test_commit_rechecks_revision_after_slow_model_work (support_ai.tests.RecommendationIntegrationTests) ... ok
+test_http_recommendation_uses_saved_memory_and_commits_exact_replay (support_ai.tests.RecommendationIntegrationTests) ... ok
+test_invalid_model_output_and_model_failure_do_not_commit_a_turn (support_ai.tests.RecommendationIntegrationTests) ... FAIL
+test_matching_enforces_budget_launch_and_inventory_without_popular_fallback (support_ai.tests.RecommendationIntegrationTests) ... ok
+test_other_users_conversations_and_preferences_are_isolated (support_ai.tests.RecommendationIntegrationTests) ... ok
+test_preferences_are_explicit_validated_and_deletable (support_ai.tests.RecommendationIntegrationTests) ... ok
+test_retry_payload_conflict_and_conversation_revision_conflict (support_ai.tests.RecommendationIntegrationTests) ... ok
+test_short_context_contains_only_committed_redacted_same_conversation_turns (support_ai.tests.RecommendationIntegrationTests) ... ok
+test_short_context_excludes_old_turns_and_unrelated_conversations (support_ai.tests.RecommendationIntegrationTests) ... ok
+test_unavailable_memory_database_returns_safe_503_without_model_or_commit (support_ai.tests.RecommendationIntegrationTests) ... Customer support storage failed: OperationalError
+ok
+test_unavailable_preference_store_does_not_fall_back_to_mysql (support_ai.tests.RecommendationIntegrationTests) ... Customer support storage failed: OperationalError
+ok
+test_foreign_conversation_is_rejected (support_ai.test_task_tools.TaskToolIntegrationTests) ... ok
+test_generic_category_is_range_not_false_no_match (support_ai.test_task_tools.TaskToolIntegrationTests) ... ok
+test_invalid_hard_conditions_do_not_commit_failed_turn (support_ai.test_task_tools.TaskToolIntegrationTests) ... FAIL
+test_knowledge_and_recommendation_both_execute_in_user_order (support_ai.test_task_tools.TaskToolIntegrationTests) ... ok
+test_one_product_and_dependent_live_details (support_ai.test_task_tools.TaskToolIntegrationTests) ... ok
+test_order_followup_reloads_status_and_keeps_identity_private (support_ai.test_task_tools.TaskToolIntegrationTests) ... ok
+test_saved_preference_quote_is_canonicalized_only_after_owner_verification (support_ai.test_task_tools.TaskToolIntegrationTests) ... FAIL
+test_simple_slots_do_not_discard_budget_before_recommendation_verb (support_ai.test_task_tools.TaskToolIntegrationTests) ... ok
+test_unknown_category_requests_clarification_instead_of_no_match (support_ai.test_task_tools.TaskToolIntegrationTests) ... ok
+test_buyer_and_anonymous_cannot_read_or_modify_configuration (support_ai.test_telemetry.AgentOperationsTests) ... ok
+test_catalog_is_loaded_from_authenticated_provider (support_ai.test_telemetry.AgentOperationsTests) ... ok
+test_inactive_operator_is_forbidden (support_ai.test_telemetry.AgentOperationsTests) ... ok
+test_invalid_model_and_collector_address_are_rejected (support_ai.test_telemetry.AgentOperationsTests) ... ok
+test_monitoring_summary_and_trace_detail_come_from_otel_spans (support_ai.test_telemetry.AgentOperationsTests) ... ok
+test_platform_page_contains_settings_and_monitoring (support_ai.test_telemetry.AgentOperationsTests) ... ok
+test_switch_changes_next_model_and_has_versioned_audit (support_ai.test_telemetry.AgentOperationsTests) ... ok
+test_configuration_refresh_keeps_inflight_trace_alive (support_ai.test_telemetry.AgentTelemetryTests) ... ok
+test_disabled_monitoring_creates_no_records (support_ai.test_telemetry.AgentTelemetryTests) ... ok
+test_errors_record_class_without_exception_message (support_ai.test_telemetry.AgentTelemetryTests) ... ok
+test_model_error_closes_child_span_and_counts_call_without_logging_payload (support_ai.test_telemetry.AgentTelemetryTests) ... ok
+test_persistence_failure_does_not_break_agent (support_ai.test_telemetry.AgentTelemetryTests) ... Agent telemetry persistence failed: RuntimeError
+ok
+test_span_parentage_token_usage_and_privacy (support_ai.test_telemetry.AgentTelemetryTests) ... ok
+test_thinking_mode_structured_output_contains_schema_without_forced_tool_choice (support_ai.test_telemetry.AgentTelemetryTests) ... ok
+test_buyer_pages_share_header_and_support_navigation (support_ai.tests.BuyerShellTests) ... ok
+test_support_page_contains_preference_controls_and_new_conversation (support_ai.tests.BuyerShellTests) ... ok
+test_support_requires_login (support_ai.tests.BuyerShellTests) ... ok
+test_model_uses_configured_deepseek_options (support_ai.tests.ModelConfigurationTests) ... ok
+test_current_category_overrides_long_term_preference (support_ai.tests.RecommendationContractTests) ... ok
+test_memory_cannot_supply_hard_conditions (support_ai.tests.RecommendationContractTests) ... ok
+test_only_known_recent_user_turns_can_supply_continuation (support_ai.tests.RecommendationContractTests) ... ok
+test_requires_original_user_evidence_and_rejects_injected_query_fields (support_ai.tests.RecommendationContractTests) ... ok
+test_unknown_currency_or_total_budget_clarifies_instead_of_becoming_unit_price (support_ai.tests.RecommendationContractTests) ... ok
+test_recommendation_requires_registered_application_tools (support_ai.tests.RecommendationGraphTests) ... ok
+test_each_specialist_reaches_summary_and_compliance (support_ai.tests.GraphTests) ... ok
+test_normal_answer_can_refer_to_human_support (support_ai.tests.GraphTests) ... ok
+test_order_context_is_loaded_only_for_after_sales (support_ai.tests.GraphTests) ... ok
+test_pii_node_runs_before_classifier (support_ai.tests.GraphTests) ... ok
+test_unclear_intent_uses_bounded_clarification (support_ai.tests.GraphTests) ... ok
+test_contact_support_phrase_is_not_a_person_name (support_ai.tests.PiiTests) ... ok
+test_redacts_order_phone_email_name_and_address (support_ai.tests.PiiTests) ... ok
+test_budget_stops_dispatch (support_ai.test_planning.ExecutorTests) ... ok
+test_dependency_overrides_storage_order_but_preserves_output_order (support_ai.test_planning.ExecutorTests) ... ok
+test_error_does_not_silently_complete_a_task (support_ai.test_planning.ExecutorTests) ... ok
+test_no_match_skips_only_dependent_steps (support_ai.test_planning.ExecutorTests) ... ok
+test_complete_graph_compiles (support_ai.test_planning.PlanningTests) ... ok
+test_context_only_continues_a_pending_clarification (support_ai.test_planning.PlanningTests) ... ok
+test_duplicate_output_ids_are_rejected (support_ai.test_planning.PlanningTests) ... ok
+test_explicit_introductions_do_not_inherit_shopping_history (support_ai.test_planning.PlanningTests) ... ok
+test_forged_tool_and_cycles_are_rejected (support_ai.test_planning.PlanningTests) ... ok
+test_mixed_tasks_and_requested_count (support_ai.test_planning.PlanningTests) ... ok
+test_negative_requests_are_not_executed (support_ai.test_planning.PlanningTests) ... ok
+test_product_dependency_is_program_owned (support_ai.test_planning.PlanningTests) ... ok
+test_quoted_recommendation_is_not_a_new_request (support_ai.test_planning.PlanningTests) ... ok
+
+======================================================================
+FAIL: test_invalid_model_output_and_model_failure_do_not_commit_a_turn (support_ai.tests.RecommendationIntegrationTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "E:\django\dadashop\support_ai\tests.py", line 304, in test_invalid_model_output_and_model_failure_do_not_commit_a_turn
+    self.assertEqual(self.post_chat(bad, message='推荐测试品牌绿茶').status_code, 503)
+AssertionError: 200 != 503
+
+======================================================================
+FAIL: test_invalid_hard_conditions_do_not_commit_failed_turn (support_ai.test_task_tools.TaskToolIntegrationTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "E:\django\dadashop\support_ai\test_task_tools.py", line 83, in test_invalid_hard_conditions_do_not_commit_failed_turn
+    self.assertEqual(response.status_code, 503)
+AssertionError: 200 != 503
+
+======================================================================
+FAIL: test_saved_preference_quote_is_canonicalized_only_after_owner_verification (support_ai.test_task_tools.TaskToolIntegrationTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "E:\django\dadashop\support_ai\test_task_tools.py", line 97, in test_saved_preference_quote_is_canonicalized_only_after_owner_verification
+    self.assertEqual(self.chat('推荐我偏好的商品', payload).status_code, 503)
+AssertionError: 200 != 503
+
+----------------------------------------------------------------------
+Ran 64 tests in 3.315s
+
+FAILED (failures=3)
+Destroying test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
+Destroying test database for alias 'ai_storage' ('file:memorydb_ai_storage?mode=memory&cache=shared')...

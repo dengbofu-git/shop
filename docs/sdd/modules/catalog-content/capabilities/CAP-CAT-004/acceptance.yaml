@@ -1,0 +1,65 @@
+schemaVersion: "0.1"
+capabilityId: CAP-CAT-004
+specVersion: "0.1.1"
+acceptance:
+  - id: AC-CAT-004-01
+    references: [REQ-CAT-004-01, REQ-CAT-004-05]
+    given: 买家打开共用顶部导航。
+    when: 点击收藏或最近浏览入口。
+    then: 展示独立列表页；切换仅使用顶部入口，正文无重复切换栏，支持商品详情、分页、空列表与去逛逛入口。
+    tests: [test_page_routes_and_header_links, browser-navigation-pagination]
+  - id: AC-CAT-004-02
+    references: [REQ-CAT-004-02, RULE-CAT-004-02]
+    given: 当前买家查看有效SKU。
+    when: 重复收藏、查询状态、刷新、取消并重复取消。
+    then: 仅有一条收藏，重复收藏不改时间，状态与持久存储一致。
+    tests: [test_favorite_idempotency_state_and_uniqueness, test_concurrent_favorite_requests_create_one_record, browser-detail-favorite]
+  - id: AC-CAT-004-03
+    references: [REQ-CAT-004-03, RULE-CAT-004-02]
+    given: 买家成功查看多件商品且再次访问旧商品。
+    when: 记录足迹并越过100件限制。
+    then: 按最近查看倒序、去重、保留最新100件。
+    tests: [test_recent_deduplicates_and_revisit_moves_to_front, test_history_retention_removal_and_clear_leave_favorites, test_concurrent_history_writes_keep_latest_100, browser-detail-recent]
+  - id: AC-CAT-004-04
+    references: [REQ-CAT-004-04, RULE-CAT-004-01]
+    given: 两个账号各有私有记录。
+    when: 使用伪造owner字段读取、删除或清空当前账号记录。
+    then: 无法读取或修改他人记录，清空足迹不删除收藏。
+    tests: [test_cross_account_read_delete_and_clear_are_isolated, test_history_retention_removal_and_clear_leave_favorites, browser-clear-empty]
+  - id: AC-CAT-004-05
+    references: [RULE-CAT-004-01]
+    given: 无Token、无效Token、停用账号或商家账号。
+    when: 请求任一私有读写接口。
+    then: 前三者401，商家403，无数据变动。
+    tests: [test_all_endpoints_require_valid_active_buyer]
+  - id: AC-CAT-004-06
+    references: [RULE-CAT-004-03, RULE-CAT-004-04]
+    given: 商品改价、下架或实体删除。
+    when: 再次读取或新增收藏、足迹。
+    then: 读取当前价格；下架原记录标记不可用且可删，新增404；实体删除级联清理。
+    tests: [test_pagination_current_product_fields_and_favorite_projection, test_unlaunched_and_missing_products, test_deleted_sku_cascades_records]
+  - id: AC-CAT-004-07
+    references: [RULE-CAT-004-05]
+    given: 列表多于12件。
+    when: 请求下一页、超出范围或非法页码。
+    then: 返回每页12件和总数，越界回落末页，非法页码400。
+    tests: [test_pagination_current_product_fields_and_favorite_projection, browser-navigation-pagination]
+  - id: AC-CAT-004-08
+    references: [REQ-CAT-004-05]
+    given: 买家在收藏或足迹页。
+    when: 网络失败、401、403、重复点击或切换三语。
+    then: 有明确状态，网络失败可重试，401有登录入口，操作中禁用按钮，三语更新且阿语RTL。
+    tests: [browser-language-rtl]
+    limitation: 网络失败及401/403前端状态尚待定向浏览器探针；接口拒绝已有自动化测试。
+  - id: AC-CAT-004-09
+    references: [RULE-CAT-004-02]
+    given: 接口收到未支持的方法。
+    when: 执行调用。
+    then: 返回405和Allow，不写入数据。
+    tests: [test_wrong_methods_do_not_write]
+  - id: AC-CAT-004-10
+    references: [REQ-CAT-004-02]
+    given: 买家浏览采购列表、工作台精选和推荐卡片，同一SKU可能多处出现。
+    when: 点击卡片收藏或取消，刷新页面并切换语言。
+    then: 有直接可见入口，同SKU按钮状态同步且持久化，不触发整卡采购操作，按钮文字随语言更新。
+    tests: [browser-card-favorites]

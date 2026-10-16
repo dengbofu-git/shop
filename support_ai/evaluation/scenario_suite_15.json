@@ -1,0 +1,17 @@
+[
+  {"id":1,"session":"knowledge","message":"绿茶和红茶在制作工艺上有什么区别？","expected_intents":[["question_answering"]],"goal":"比较两类加工区别，引用知识来源，不主动推荐商品。","kind":"knowledge","terms":["绿茶","红茶"]},
+  {"id":2,"session":"knowledge","message":"那白茶和它们相比有什么不同？","expected_intents":[["question_answering"]],"goal":"承接第1题，将它们解析为绿茶和红茶，比较白茶，不编造证据。","kind":"knowledge","terms":["白茶","绿茶","红茶"],"previous":1},
+  {"id":3,"session":"shopping","message":"推荐两款绿茶，每盒单价不超过15美元。","expected_intents":[["recommendation"]],"goal":"返回两款绿茶，USD单价均不超过15，商品价格及库存可核对。","kind":"products","count":2,"categories":["绿茶"],"price_max":"15"},
+  {"id":4,"session":"shopping","message":"第一款现在多少钱，还有多少库存？","expected_intents":[["product_details"]],"goal":"定位第3题第一款商品，重新读取当前价格及可用库存。","kind":"details","reference_case":3,"position":1,"previous":3},
+  {"id":5,"session":"shopping","message":"还是绿茶，把每盒预算提高到25美元，换两款推荐给我。","expected_intents":[["recommendation"]],"goal":"保留绿茶并把预算更新为25美元；换两款意味着不重复第3题商品。","kind":"products","count":2,"categories":["绿茶"],"price_max":"25","different_from":3,"previous":4},
+  {"id":6,"session":"groups","message":"按不同茶类每类推荐一款，并说明推荐理由。","expected_intents":[["recommendation"]],"goal":"按六大茶类各推荐一款，给出有商品数据依据的理由。","kind":"groups","categories":["绿茶","红茶","白茶","乌龙茶","黄茶","黑茶"],"per_group":1},
+  {"id":7,"session":"groups","message":"请介绍第二类茶的冲泡方法，再说明那款商品的规格和库存。","expected_intents":[["question_answering","product_details"]],"goal":"第二类对应第6题红茶；先给出有依据的冲泡说明，再给出同一商品规格和实时库存。","kind":"knowledge_details","reference_case":6,"position":2,"terms":["红茶"],"previous":6},
+  {"id":8,"session":"mixed","message":"说明不同茶种的区别，给出具体说明的茶种的推荐商品。","expected_intents":[["question_answering","recommendation"]],"goal":"有序说明六类茶区别，再推荐所说明茶类的对应商品，不能漏掉说明。","kind":"explain_products","categories":["绿茶","红茶","白茶","乌龙茶","黄茶","黑茶"],"per_group":1},
+  {"id":9,"session":"mixed","message":"只保留你刚才说明的绿茶和红茶，每类推荐两款，每盒单价不超过20美元。","expected_intents":[["recommendation"]],"goal":"承接第8题，范围收窄为绿茶和红茶，各两款且单价不超过20美元。","kind":"groups","categories":["绿茶","红茶"],"per_group":2,"price_max":"20","previous":8},
+  {"id":10,"session":"reverse","message":"先推荐一款白茶，再介绍白茶的加工特点。","expected_intents":[["recommendation","question_answering"]],"goal":"保持先推荐再介绍的顺序，返回一款白茶及有出处的加工知识。","kind":"reverse_mixed","categories":["白茶"],"count":1},
+  {"id":11,"session":"no_match","message":"推荐两款每盒单价不超过1美元的红茶。","expected_intents":[["recommendation"]],"goal":"按真实商品库判断，无匹配则明确告知，不能放宽预算或虚构低价商品。","kind":"no_match","categories":["红茶"],"price_max":"1"},
+  {"id":12,"session":"budget","message":"给我推荐红茶，总预算100美元。","expected_intents":[["recommendation"]],"goal":"澄清总采购数量与每份预算，不能把总预算直接当成商品单价上限。","kind":"budget_clarification"},
+  {"id":13,"session":"cross_language","message":"Please recommend two black teas，每盒单价不超过15美元，不要green tea。","expected_intents":[["recommendation"]],"goal":"理解中英混合输入；black tea映射红茶，排除绿茶，返回两款且单价不超过15美元。","kind":"products","count":2,"categories":["红茶"],"price_max":"15","excluded":["绿茶"]},
+  {"id":14,"session":"middle_east","message":"请比较沙特阿拉伯与阿联酋的饮茶习惯。","expected_intents":[["question_answering"]],"goal":"依据国家相关资料比较饮茶习惯，缺证据要说明，不能把进口量替代消费习惯。","kind":"country_knowledge","terms":["沙特","阿联酋"]},
+  {"id":15,"session":"orders","message":"帮我查询我的订单现在到哪了，可以直接退款吗？","expected_intents":[["after_sales"],["after_sales","question_answering"]],"goal":"未绑定买家时提示身份要求，不编造订单状态，不声称执行退款或泄露他人数据。","kind":"order_boundary"}
+]

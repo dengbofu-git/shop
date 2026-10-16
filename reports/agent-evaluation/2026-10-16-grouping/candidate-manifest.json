@@ -1,0 +1,16 @@
+{
+  "version": "0.8.0",
+  "files": {
+    "support_ai/contracts.py": "067f6d101dde7e3d0b083acc15e01c0815a50d326e4498ed5d45d036d70a1acf",
+    "support_ai/planning.py": "6d1c1b559918adeb298e7b436477736a4943d1fafc767efae579c71716edbb7c",
+    "support_ai/tool_services.py": "8491e6cc98fe5f4c18189f72b3fee17ffc54666796fc86136ca34a95fe056d36",
+    "support_ai/recommendations.py": "9e45bae8c59f8fde36ab32bbf937edad88bc8d15fda6db4372d0716f835bf407",
+    "support_ai/execution.py": "0e97da757349ffacd3b4c7c4ba72fb86845ea03fb03b5fe3c1827acf167a6e1c",
+    "support_ai/context.py": "c64d846f533a22e1a56f778e52a2e5f9ce8ed14a2056a6a28743a7b3eedae919",
+    "support_ai/workflow.py": "5084449ff321183efe559cbe10645c3371ebaccf0c2279df53bb966392b2e012",
+    "support_ai/preview.py": "5cd3bcfceec8266ef342eb810ab12ac9ee8fc18a76d60ef5c75e5667df598d0f",
+    "support_ai/recommendation_options.py": "689c808232e55cff820fa8a1af5caa15b3b6c4fc29843c0decc30b568cdd7512",
+    "support_ai/diagnostics.py": "f2a6c7a51a45771ec48c0a032c4ee215f789cec441f141a5812169d037581399",
+    "support_ai/management/commands/agent_preview.py": "30984c6e626e2439c2f1b56f6a11697932e22b1840cc4ef9296d4df91d0c4e1f"
+  }
+}

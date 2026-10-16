@@ -1,0 +1,128 @@
+[
+  {
+    "name": "一次非法字段后恢复",
+    "mode": "local_fault_injection_no_external_model",
+    "passed": true,
+    "checks": {
+      "status": true,
+      "bounded_calls": true,
+      "attempts_recorded": true,
+      "no_products_on_failure": true,
+      "recovery_diagnostic_retained": true
+    },
+    "status": "success",
+    "calls": 2,
+    "extraction_attempts": 2,
+    "diagnostics": [
+      {
+        "stage": "recommendation.conditions",
+        "error_type": "ValidationError",
+        "fields": [
+          {
+            "field": "evidence.0.field",
+            "code": "literal_error",
+            "message": "字段值不在允许范围"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "连续非法字段为系统错误",
+    "mode": "local_fault_injection_no_external_model",
+    "passed": true,
+    "checks": {
+      "status": true,
+      "bounded_calls": true,
+      "attempts_recorded": true,
+      "no_products_on_failure": true,
+      "not_business_clarification": true
+    },
+    "status": "error",
+    "calls": 2,
+    "extraction_attempts": 2,
+    "diagnostics": [
+      {
+        "stage": "recommendation.conditions",
+        "error_type": "ValidationError",
+        "fields": [
+          {
+            "field": "evidence.0.field",
+            "code": "literal_error",
+            "message": "字段值不在允许范围"
+          }
+        ]
+      },
+      {
+        "stage": "recommendation.conditions",
+        "error_type": "ValidationError",
+        "fields": [
+          {
+            "field": "evidence.0.field",
+            "code": "literal_error",
+            "message": "字段值不在允许范围"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "真实缺少币种需业务澄清",
+    "mode": "local_fault_injection_no_external_model",
+    "passed": true,
+    "checks": {
+      "status": true,
+      "bounded_calls": true,
+      "attempts_recorded": true,
+      "no_products_on_failure": true
+    },
+    "status": "needs_clarification",
+    "calls": 1,
+    "extraction_attempts": 1,
+    "diagnostics": []
+  },
+  {
+    "name": "连续伪造来源被拒绝",
+    "mode": "local_fault_injection_no_external_model",
+    "passed": true,
+    "checks": {
+      "status": true,
+      "bounded_calls": true,
+      "attempts_recorded": true,
+      "no_products_on_failure": true,
+      "not_business_clarification": true
+    },
+    "status": "error",
+    "calls": 2,
+    "extraction_attempts": 2,
+    "diagnostics": [
+      {
+        "stage": "recommendation.conditions",
+        "error_type": "ValueError",
+        "fields": [],
+        "message": "意向条件无法对应输入证据"
+      },
+      {
+        "stage": "recommendation.conditions",
+        "error_type": "ValueError",
+        "fields": [],
+        "message": "意向条件无法对应输入证据"
+      }
+    ]
+  },
+  {
+    "name": "简单分类规则不调用抽取模型",
+    "mode": "local_fault_injection_no_external_model",
+    "passed": true,
+    "checks": {
+      "status": true,
+      "bounded_calls": true,
+      "attempts_recorded": true,
+      "no_products_on_failure": true
+    },
+    "status": "success",
+    "calls": 0,
+    "extraction_attempts": 0,
+    "diagnostics": []
+  }
+]

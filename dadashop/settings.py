@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'supplier',
     'admin_panel',
     'support_ai',
+    'merchant_ai.apps.MerchantAiConfig',
     'ai_storage',
 ]
 MIDDLEWARE = [
@@ -112,6 +113,13 @@ DATABASES['ai_storage'] = {
     'OPTIONS': {'connect_timeout': 5},
 }
 DATABASE_ROUTERS = ['ai_storage.router.AiStorageRouter']
+AI_OLLAMA_BASE_URL = os.getenv('AI_OLLAMA_BASE_URL', 'http://127.0.0.1:11434').rstrip('/')
+AI_OLLAMA_MODEL = os.getenv('AI_OLLAMA_MODEL', 'bge-m3')
+AI_OLLAMA_REVISION = os.getenv('AI_OLLAMA_REVISION', 'latest')
+AI_EMBEDDING_SPACE_KEY = os.getenv('AI_EMBEDDING_SPACE_KEY', 'bge-m3-1024-v1')
+AI_RERANK_BASE_URL = os.getenv('AI_RERANK_BASE_URL', 'http://127.0.0.1:18081').rstrip('/')
+AI_RERANK_MODELS = ('BAAI/bge-reranker-v2-m3',)
+AI_RERANK_REVISION = os.getenv('AI_RERANK_REVISION', '953dc6f6f85a1b2dbfca4c34a2796e7dde08d41e')
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -191,6 +199,17 @@ SUPPORT_API_KEY = os.environ['SUPPORT_API_KEY']
 SUPPORT_MODEL = os.environ['SUPPORT_MODEL']
 SUPPORT_BASE_URL = os.environ['SUPPORT_BASE_URL']
 SUPPORT_THINKING = os.environ.get('SUPPORT_THINKING', '')
+
+# Request-local RAG expansion. Operational model/reranker settings still come
+# from AgentConfiguration; these bounded pipeline switches need no DB migration.
+SUPPORT_RAG_QUERY_ENABLED = os.getenv('SUPPORT_RAG_QUERY_ENABLED', 'true').lower() == 'true'
+SUPPORT_RAG_QUERY_LANGUAGES = tuple(v.strip() for v in os.getenv('SUPPORT_RAG_QUERY_LANGUAGES', 'zh,en').split(',') if v.strip())
+SUPPORT_RAG_MAX_QUERIES = int(os.getenv('SUPPORT_RAG_MAX_QUERIES', '4'))
+SUPPORT_RAG_REWRITE_CALLS = int(os.getenv('SUPPORT_RAG_REWRITE_CALLS', '2'))
+SUPPORT_RAG_REWRITE_TIMEOUT = float(os.getenv('SUPPORT_RAG_REWRITE_TIMEOUT', '5'))
+SUPPORT_RAG_RETRY_ENABLED = os.getenv('SUPPORT_RAG_RETRY_ENABLED', 'true').lower() == 'true'
+SUPPORT_RAG_BUDGET_SECONDS = float(os.getenv('SUPPORT_RAG_BUDGET_SECONDS', '25'))
+SUPPORT_RAG_WEAK_SCORE = float(os.getenv('SUPPORT_RAG_WEAK_SCORE', '0.1'))
 ADMIN_INITIAL_PASSWORD = os.environ['ADMIN_INITIAL_PASSWORD']
 CUSTOMS_INITIAL_PASSWORD = os.environ['CUSTOMS_INITIAL_PASSWORD']
 ####################JWT配置结束#######################

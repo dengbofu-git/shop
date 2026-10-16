@@ -1,0 +1,175 @@
+{
+  "type": "verification",
+  "capabilityId": "CAP-CAT-004",
+  "specVersion": "0.1.0",
+  "time": "2026-10-16T14:35:20.572713+08:00",
+  "head": "4db3fd12e985c5b5fc3b04de20b780d926a4e319",
+  "workingTreeDirty": true,
+  "inputHashes": {
+    "goods/models.py": "a202b59d924302094c7a7f7157df8813dfa4fff793df06e55d93ffa136a54b9c",
+    "goods/activity_views.py": "c74532bd2cc7a5f9ec95dd83d1509cc80420d518e676a0fb62bfcf1d3f33f5f6",
+    "goods/views.py": "2ee61ebe3152bd8e1b4b933ec73e82fd2312a7b202bbe7122396f4bddeb46a1d",
+    "goods/urls.py": "eade1b2c9d9d1be439e4c37a50ee65f5ede621dacd611e41746b7be82b8e0dd3",
+    "goods/migrations/0009_browsinghistory_favorite.py": "3c30ef550526df5f2e507191ead80b4bc83bc6562888f2fa98aa4e78abfb0e8f",
+    "goods/test_activity.py": "75a5ac1b33547a30aa316f174ea6995bdf476cac1bcffb178c61c99dadc0e36f",
+    "goods/test_mysql_settings.py": "00ddab0b21a69d5e294f3d166f2912be83fb90bb74cac7191a2a019378d737f0",
+    "support_ai/test_settings.py": "03772e0225d0ec46f6c89fb656a363e4ef18b62ddf8e3f07171488d6a7868ae5",
+    "dadashop/urls.py": "d1926f388ea29ab28d0263c8f21df13f686d6869a3487d71b3c19351b1a76e76",
+    "client/templates/buyer_header.html": "e2bd60d5dc4c344c62c19f1a82064bc4a8bf86851e38199a109c7e75ee8796bf",
+    "client/templates/buyer_activity.html": "e4d58c966b66b033353ed130b2286f8b6a3e9d65b4bbc2c4fe1aebafbc91b739",
+    "client/templates/product_details.html": "bcbeaaea537470a5ed7c62fe28a0950effed198803cb79ceb49390399132dd9d",
+    "client/static/js/buyer-activity.js": "59f0dd660865dc0b20620adc59b7ea3c150833af612c8531d08a164ce5f1a6d2",
+    "client/static/css/buyer-activity.css": "35cfda796446419a8d1adbf3aeeef251548076ff90c5c982f92f3d73ac2809b3",
+    "versions/modules.json": "559761bb975317d2599d3a81f5ce428310c649594f4fd25927624487dd48dcca"
+  },
+  "inputsStable": true,
+  "implementationVersions": {
+    "core": "0.1.5",
+    "goods": "0.3.0",
+    "web": "0.6.0"
+  },
+  "introducedVersions": {
+    "goods": "0.3.0",
+    "web": "0.5.0",
+    "core": "0.1.4"
+  },
+  "environment": {
+    "python": "3.9.25 (main, Nov  3 2025, 22:44:01) [MSC v.1929 64 bit (AMD64)]",
+    "databases": [
+      "SQLite in-memory",
+      "MySQL unique disposable test database"
+    ],
+    "cache": "LocMem",
+    "externalModels": "not-called"
+  },
+  "commands": [
+    {
+      "command": [
+        "E:\\miniconda\\envs\\dadashop\\python.exe",
+        "manage.py",
+        "test",
+        "goods.test_activity",
+        "--settings=support_ai.test_settings",
+        "--noinput",
+        "-v",
+        "2"
+      ],
+      "exitCode": 0,
+      "log": "sqlite.log"
+    },
+    {
+      "command": [
+        "E:\\miniconda\\envs\\dadashop\\python.exe",
+        "manage.py",
+        "test",
+        "goods.test_activity",
+        "--settings=goods.test_mysql_settings",
+        "--noinput",
+        "-v",
+        "2"
+      ],
+      "exitCode": 0,
+      "log": "mysql.log"
+    },
+    {
+      "command": [
+        "E:\\miniconda\\envs\\dadashop\\python.exe",
+        "manage.py",
+        "makemigrations",
+        "goods",
+        "--check",
+        "--dry-run",
+        "--settings=support_ai.test_settings"
+      ],
+      "exitCode": 0,
+      "log": "migration-drift.log"
+    },
+    {
+      "command": [
+        "node",
+        "--check",
+        "client/static/js/buyer-activity.js"
+      ],
+      "exitCode": 0,
+      "log": "js-syntax.log"
+    },
+    {
+      "command": [
+        "E:\\miniconda\\envs\\dadashop\\python.exe",
+        "tools/module_versions.py",
+        "check"
+      ],
+      "exitCode": 0,
+      "log": "versions.log"
+    },
+    {
+      "command": [
+        "E:\\miniconda\\envs\\dadashop\\python.exe",
+        "E:\\django\\dadashop\\docs\\sdd\\evidence\\2026-10-16-buyer-activity\\check_spec.py"
+      ],
+      "exitCode": 0,
+      "log": "sdd-consistency.log"
+    }
+  ],
+  "acceptanceIds": [
+    "AC-CAT-004-01",
+    "AC-CAT-004-02",
+    "AC-CAT-004-03",
+    "AC-CAT-004-04",
+    "AC-CAT-004-05",
+    "AC-CAT-004-06",
+    "AC-CAT-004-07",
+    "AC-CAT-004-08",
+    "AC-CAT-004-09"
+  ],
+  "browser": {
+    "environment": "temporary SQLite, synthetic data, localhost:8001",
+    "checks": [
+      "navigation-pagination",
+      "detail-favorite",
+      "detail-recent",
+      "clear-empty",
+      "language-rtl"
+    ],
+    "screenshots": [
+      "favorites.png",
+      "recent.png"
+    ],
+    "mobile": "single column; clientWidth=scrollWidth=375; viewport restored"
+  },
+  "deploymentObservation": {
+    "environment": "configured local default MySQL",
+    "command": "manage.py migrate goods 0009 --database default --noinput",
+    "result": "goods.0009_browsinghistory_favorite applied successfully",
+    "note": "Migration only; no production release approval."
+  },
+  "reviewer": null,
+  "limitations": [
+    "Browser network failure and authorization error-state probes not executed.",
+    "No production release or full-site regression; existing unrelated dirty changes preserved."
+  ],
+  "result": "pass",
+  "postVerificationChanges": [],
+  "documentHashes": {
+    "docs/sdd/modules/catalog-content/capabilities/CAP-CAT-004/acceptance.yaml": "a5a0312ae03def79534681ca514b5e7d0203f5d7ca4651ef3c99191a07978308",
+    "docs/sdd/modules/catalog-content/capabilities/CAP-CAT-004/api-contract.yaml": "7146255f8e9ad5900a099acb5c5a3e59ef17ffa29cf8189459e0d0de3a3496af",
+    "docs/sdd/modules/catalog-content/capabilities/CAP-CAT-004/capability.yaml": "b6d5545a7c7c7fa6b9a564a5f80f4d0a49380150d8256612b31d4a107076fedb",
+    "docs/sdd/modules/catalog-content/capabilities/CAP-CAT-004/design.md": "501f6ee6933ffb64f78f2ac300930caaa4c23b89614733ba94c988c47efb5ca5",
+    "docs/sdd/modules/catalog-content/capabilities/CAP-CAT-004/requirements.md": "01e27c5c6349c0818783d72b7a677eb029c7ceba303fd5528d2377abd18d4437",
+    "docs/sdd/catalog.yaml": "04cb5aa68fbc405964d5aeb5f02d75519875ecca131f4aba64577496e7369dca",
+    "docs/sdd/product/feature-inventory.yaml": "12f6b1716b7bcec75c3fd41a07c5116b39a33bdb33e78d569f3467b481757658"
+  },
+  "testSummary": {
+    "sqlite": {
+      "passed": 10,
+      "skipped": 2,
+      "failed": 0
+    },
+    "mysql": {
+      "passed": 12,
+      "skipped": 0,
+      "failed": 0
+    }
+  },
+  "deploymentManifest": "deployment.json"
+}

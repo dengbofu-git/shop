@@ -1,0 +1,83 @@
+Skipping setup of unused database(s): ai_storage.
+Creating test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
+Operations to perform:
+  Synchronize unmigrated apps: admin_panel, corsheaders, merchant_ai, messages, staticfiles
+  Apply all migrations: admin, ai_storage, auth, contenttypes, goods, inventory, logistics, news, orders, sessions, supplier, support_ai, users
+Synchronizing apps without migrations:
+  Creating tables...
+    Running deferred SQL...
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying auth.0001_initial... OK
+  Applying admin.0001_initial... OK
+  Applying admin.0002_logentry_remove_auto_add... OK
+  Applying admin.0003_logentry_add_action_flag_choices... OK
+  Applying ai_storage.0001_initial... OK
+  Applying ai_storage.0002_embedding_validation... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying auth.0012_alter_user_first_name_max_length... OK
+  Applying users.0001_initial... OK
+  Applying users.0002_address... OK
+  Applying users.0003_weiboprofile... OK
+  Applying users.0004_auto_20260218_0108... OK
+  Applying users.0005_permission_role_rolepermission_userrole... OK
+  Applying users.0006_create_admin_user... OK
+  Applying users.0007_create_customs_user... OK
+  Applying goods.0001_initial... OK
+  Applying goods.0002_spu_merchant... OK
+  Applying goods.0003_auto_20260218_0147... OK
+  Applying goods.0004_add_carousel_slide... OK
+  Applying goods.0005_brand_logo_optional... OK
+  Applying goods.0006_sku_is_recommended... OK
+  Applying goods.0007_spu_brand_optional... OK
+  Applying goods.0008_auto_20261002_2159... OK
+  Applying goods.0009_browsinghistory_favorite... OK
+  Applying goods.0010_catalog_fallback_image... OK
+  Applying inventory.0001_initial... OK
+  Applying orders.0001_initial... OK
+  Applying orders.0002_auto_20260218_0147... OK
+  Applying logistics.0001_initial... OK
+  Applying news.0001_initial... OK
+  Applying sessions.0001_initial... OK
+  Applying supplier.0001_initial... OK
+  Applying support_ai.0001_initial... OK
+  Applying support_ai.0002_agent_observability... OK
+  Applying support_ai.0003_agent_reranking... OK
+  Applying support_ai.0004_conversation_order_context... OK
+System check identified no issues (0 silenced).
+test_broken_default_and_first_gallery_do_not_hide_valid_gallery (goods.test_images.CatalogImageTests) ... ok
+test_cart_uses_fallback_with_fake_redis (goods.test_images.CatalogImageTests) ... ok
+test_catalogs_are_isolated_and_missing_files_use_generic_placeholder (goods.test_images.CatalogImageTests) ... ok
+test_real_sibling_and_legacy_photos_take_priority (goods.test_images.CatalogImageTests) ... ok
+test_real_upload_immediately_overrides_virtual_and_delete_restores_fallback (goods.test_images.CatalogImageTests) ... ok
+test_registration_previews_applies_idempotently_and_validates_hash (goods.test_images.CatalogImageTests) ... ok
+test_storefront_and_order_dtos_use_resolved_paths (goods.test_images.CatalogImageTests) ... ok
+test_virtual_image_served_and_upload_field_remains_empty (goods.test_images.CatalogImageTests) ... ok
+test_all_endpoints_require_valid_active_buyer (goods.test_activity.BuyerActivityTests) ... ok
+test_cross_account_read_delete_and_clear_are_isolated (goods.test_activity.BuyerActivityTests) ... ok
+test_deleted_sku_cascades_records (goods.test_activity.BuyerActivityTests) ... ok
+test_favorite_idempotency_state_and_uniqueness (goods.test_activity.BuyerActivityTests) ... ok
+test_history_retention_removal_and_clear_leave_favorites (goods.test_activity.BuyerActivityTests) ... ok
+test_page_routes_and_header_links (goods.test_activity.BuyerActivityTests) ... ok
+test_pagination_current_product_fields_and_favorite_projection (goods.test_activity.BuyerActivityTests) ... ok
+test_recent_deduplicates_and_revisit_moves_to_front (goods.test_activity.BuyerActivityTests) ... ok
+test_unlaunched_and_missing_products (goods.test_activity.BuyerActivityTests) ... ok
+test_wrong_methods_do_not_write (goods.test_activity.BuyerActivityTests) ... ok
+test_concurrent_favorite_requests_create_one_record (goods.test_activity.BuyerActivityConcurrencyTests) ... skipped "Database doesn't support feature(s): has_select_for_update"
+test_concurrent_history_writes_keep_latest_100 (goods.test_activity.BuyerActivityConcurrencyTests) ... skipped "Database doesn't support feature(s): has_select_for_update"
+
+----------------------------------------------------------------------
+Ran 20 tests in 0.436s
+
+OK (skipped=2)
+Destroying test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...

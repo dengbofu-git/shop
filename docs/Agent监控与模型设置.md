@@ -1,0 +1,76 @@
+# Agent 监控与模型设置
+
+平台运营入口：`/admin_panel.html` → **Agent 运行与设置**（`/admin_agents.html`）。所有设置、模型目录和监控数据接口要求登录且拥有 `system_config` 权限；停用账号、普通买家和普通商家无权访问。现有超级管理员角色已包含该权限。
+
+## 安装与启动
+
+使用现有 Python 3.9 环境安装 `requirements.txt`。OpenTelemetry API、SDK 和 OTLP HTTP 导出器固定为支持 Python 3.9 的 `1.41.1`。
+
+```powershell
+python -m pip install -r requirements.txt
+# 业务库连接应保持原 .env 中的配置，不要改成其他项目的 MySQL 实例。
+python manage.py migrate support_ai --database default
+docker compose --env-file .env.postgres -f compose.agent-observability.yml up -d
+python manage.py runserver 127.0.0.1:8000
+```
+
+服务启动进程必须能访问配置的 DeepSeek 地址，以及本地 Ollama、PostgreSQL、MySQL 和 Collector。若启动进程继承了网络沙箱限制，模型会返回连接错误；修改 API Key 不能修复该权限问题。
+
+在设置页启用监控和 OTLP 导出，Collector 基地址填写 `http://127.0.0.1:4318`。应用会分别追加 `/v1/traces` 和 `/v1/metrics`。HTTPS Collector 也可使用；认证 Header 通过服务器标准 `OTEL_EXPORTER_OTLP_HEADERS` 环境变量配置，或通过受控本地网关转发，不在后台页面输入或回显。
+
+| 服务 | 本机入口 | 存储 |
+|---|---|---|
+| 平台 Agent 页面 | http://127.0.0.1:8000/admin_agents.html | 原业务 MySQL 的监控投影和配置审计表 |
+| OTel Collector | http://127.0.0.1:4318 | 接收并转发 OTLP HTTP/protobuf |
+| Collector 健康检查 | http://127.0.0.1:13134 | 当前采集进程状态 |
+| Jaeger | http://127.0.0.1:16686 | 本地开发使用内存存储，重启会清空 Jaeger 自身的历史链路 |
+| Prometheus | http://127.0.0.1:9091 | 独立 Docker 数据卷，指标保留 30 天 |
+
+Compose 使用独立项目 `dadashop-agent-observability`，所有主机映射端口仅绑定 `127.0.0.1`。Jaeger 内存历史不影响 MySQL 中的平台监控记录。生产环境需自行配置鉴权、持久化 Jaeger 存储和资源限制。
+
+## 模型配置
+
+`SUPPORT_API_KEY`、`SUPPORT_BASE_URL` 保持在服务器环境中，不写入配置表、响应 JSON 或监控。模型选择通过当前服务器配置的 DeepSeek `/models` 接口读取，并在切换前再次校验。当前可用模型以该接口为准，不在前端写死模型列表。
+
+数据库配置不存在或模型未覆盖时沿用 `SUPPORT_MODEL`。保存后，新请求读取同一份不可变配置快照，意图识别、专家回答、总结、合规节点使用同一模型；已在执行的请求继续使用原快照。已有 `request_id` 的幂等重放仍返回当时保存的回答。
+
+思考模式可选择沿用 `SUPPORT_THINKING`、开启或关闭。DeepSeek 思考模式不接受当前结构化工具调用中的强制 `tool_choice`，因此开启时使用附带 JSON Schema 的 JSON mode 并进行 Pydantic 校验；关闭时保留原有工具结构化输出。思考模式单次调用超时为 60 秒，非思考模式为 20 秒，均允许 SDK 重试 1 次。
+
+设置采用版本号检查，旧页面保存返回 HTTP 409，防止覆盖其他运营人员的修改。每次成功保存都记录操作者、时间和前后配置，不包含密钥。
+
+## 监控含义
+
+使用手动 OpenTelemetry SDK 埋点，只采集 Agent 运行，不采集其他业务的请求正文或数据库参数。
+
+- 根 Span `support.chat`：已通过认证和输入检查、实际执行的 Agent 请求。耗时包含执行图、推荐结果验证及会话提交，不含认证、输入检查、HTTP 传输或前端渲染。幂等重放不重复生成链路。
+- 节点 Span：`agent.pii`、`agent.classify`、`agent.question_answering`、`agent.recommendation`、`agent.after_sales`、`agent.summarize`、`agent.compliance` 等。
+- 0.6.0 当前执行路径为 `dialogue.resolve`、`agent.plan`、`agent.execute`、`tool.<工具名>`、`agent.compose`、`agent.compliance` 及 `agent.finalize`；上一条保留旧版节点说明。计划白名单属性含来源、任务类型与数量；工具属性仅含步骤标识和执行状态，不记录请求、结果正文。
+- RAG Span：`knowledge.retrieve`、`embedding.bge-m3`、`knowledge.vector_search`，记录命中条数及异常类型。
+- 模型 Span `chat.deepseek`：请求模型、服务返回的模型名称（可用时）、输入/输出 Token、耗时、错误类型。用量来自服务响应；未返回用量时按 0 记录，不估算费用。
+- 指标：`agent.requests`、`agent.request.duration`、`agent.tokens`、`gen_ai.client.operation.duration`。Prometheus 名称会转换为下划线形式并补充类型/单位后缀。
+
+SDK 的本地 SpanExporter 将完成的 Span 投影到 `AgentSpan`，平台按根 Span 聚合近 1 小时、24 小时或 7 天的数据，提供分页列表和父子节点时间线。安全拦截与执行异常分别统计：被合规节点拦截的请求仍可能成功执行。
+
+OTLP 开启时，Trace 经 BatchSpanProcessor 导出，Metric 每 5 秒导出；Collector 转发至 Jaeger，并提供 Prometheus 抓取端点。导出失败不影响买家回答；队列有界且导出超时为 3 秒。平台展示当前 Web 进程最近一次链路/指标导出结果；多进程部署时，各进程在处理下一次请求时读取新设置，导出状态也各自维护。
+
+监控只保存明确允许的运行属性，不记录问题、回答、推理正文、用户 ID、订单数据、请求 Header、API Key、异常消息或堆栈。页面展示 Trace ID 以便关联服务端链路，客户端响应也携带对应 `trace_id`。
+
+本地投影默认不自动清理。按保留策略手动执行：
+
+```powershell
+python manage.py prune_agent_telemetry --days 30
+```
+
+该命令只删除过期监控 Span，不删除聊天记录、用户、配置审计、商品或订单。
+
+## 接口与验证
+
+平台接口位于 `/v1/admin-panel/agent/`：`settings`（GET/PUT）、`models`（GET）、`monitoring`（GET）、`traces/<trace_id>`（GET）。监控支持 `hours=1|24|168` 和 `page`，每页 20 条根请求。
+
+```powershell
+python manage.py test support_ai.tests support_ai.test_telemetry --settings=support_ai.test_settings --noinput
+```
+
+测试使用隔离的 SQLite/LocMem 配置，覆盖运营权限、停用账号、版本冲突、模型校验、审计、监控停用、链路父子关系、Token 汇总、隐私过滤及采集故障隔离。
+
+参考：[OpenTelemetry Python 导出器](https://opentelemetry.io/docs/languages/python/exporters/)、[DeepSeek 模型目录](https://api-docs.deepseek.com/api/list-models/)、[DeepSeek 思考模式](https://api-docs.deepseek.com/guides/thinking_mode/)。

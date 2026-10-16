@@ -1,0 +1,642 @@
+{
+  "purpose": "diagnostic only; original A/B records unchanged",
+  "results": [
+    {
+      "name": "A_exact_query_pool",
+      "query": "绿茶冲泡水温是否必须固定为80摄氏度？",
+      "candidate_ids": [
+        65,
+        74,
+        68,
+        67,
+        81,
+        63,
+        64,
+        66,
+        70,
+        58,
+        72,
+        61,
+        57,
+        69,
+        79,
+        62,
+        71,
+        80,
+        76,
+        78,
+        73,
+        75,
+        77,
+        56,
+        59,
+        53,
+        48,
+        55,
+        46,
+        49
+      ],
+      "status": "success",
+      "ranking": [
+        {
+          "chunk_id": 74,
+          "rank": 1,
+          "score": 0.029458453878760338,
+          "document_id": "3c6bce99-3268-4dfa-ae54-5edcdd5059a7"
+        },
+        {
+          "chunk_id": 65,
+          "rank": 2,
+          "score": 0.009999380446970463,
+          "document_id": "3c6bce99-3268-4dfa-ae54-5edcdd5059a7"
+        },
+        {
+          "chunk_id": 68,
+          "rank": 3,
+          "score": 0.005689825396984816,
+          "document_id": "3c6bce99-3268-4dfa-ae54-5edcdd5059a7"
+        },
+        {
+          "chunk_id": 66,
+          "rank": 4,
+          "score": 0.0027249630074948072,
+          "document_id": "3c6bce99-3268-4dfa-ae54-5edcdd5059a7"
+        },
+        {
+          "chunk_id": 70,
+          "rank": 5,
+          "score": 0.0013165045529603958,
+          "document_id": "3c6bce99-3268-4dfa-ae54-5edcdd5059a7"
+        },
+        {
+          "chunk_id": 81,
+          "rank": 6,
+          "score": 0.0013008094392716885,
+          "document_id": "49fec67b-d2ee-4efe-8d02-7c7f04ace769"
+        },
+        {
+          "chunk_id": 63,
+          "rank": 7,
+          "score": 0.0009681106312200427,
+          "document_id": "3c6bce99-3268-4dfa-ae54-5edcdd5059a7"
+        },
+        {
+          "chunk_id": 71,
+          "rank": 8,
+          "score": 0.0008460567914880812,
+          "document_id": "3c6bce99-3268-4dfa-ae54-5edcdd5059a7"
+        },
+        {
+          "chunk_id": 79,
+          "rank": 9,
+          "score": 0.0006991645786911249,
+          "document_id": "3149884f-b8b9-41cd-afd7-c2ce6a8b3ed6"
+        },
+        {
+          "chunk_id": 67,
+          "rank": 10,
+          "score": 0.00041653180960565805,
+          "document_id": "3c6bce99-3268-4dfa-ae54-5edcdd5059a7"
+        },
+        {
+          "chunk_id": 73,
+          "rank": 11,
+          "score": 0.0004054740711580962,
+          "document_id": "3c6bce99-3268-4dfa-ae54-5edcdd5059a7"
+        },
+        {
+          "chunk_id": 78,
+          "rank": 12,
+          "score": 0.00031125734676606953,
+          "document_id": "3e4ce43c-cfbf-440d-bd73-b5222fb18f33"
+        },
+        {
+          "chunk_id": 64,
+          "rank": 13,
+          "score": 0.00016979873180389404,
+          "document_id": "3c6bce99-3268-4dfa-ae54-5edcdd5059a7"
+        },
+        {
+          "chunk_id": 59,
+          "rank": 14,
+          "score": 0.00015613324649166316,
+          "document_id": "a0b41b06-96d6-45fb-9366-e0ad3b7e4212"
+        },
+        {
+          "chunk_id": 58,
+          "rank": 15,
+          "score": 0.00013135693734511733,
+          "document_id": "d83c8643-6309-467d-925b-89eb7c03f4b7"
+        },
+        {
+          "chunk_id": 72,
+          "rank": 16,
+          "score": 0.00013037821918260306,
+          "document_id": "3c6bce99-3268-4dfa-ae54-5edcdd5059a7"
+        },
+        {
+          "chunk_id": 57,
+          "rank": 17,
+          "score": 0.00012760005483869463,
+          "document_id": "d83c8643-6309-467d-925b-89eb7c03f4b7"
+        },
+        {
+          "chunk_id": 62,
+          "rank": 18,
+          "score": 0.00011639718286460266,
+          "document_id": "56989039-6ef0-4c83-bd12-2953bc3c0a60"
+        },
+        {
+          "chunk_id": 61,
+          "rank": 19,
+          "score": 0.00011291672853985801,
+          "document_id": "6e394a8b-9713-4425-8cd0-1d2d82b9f5f2"
+        },
+        {
+          "chunk_id": 69,
+          "rank": 20,
+          "score": 8.483789133606479e-05,
+          "document_id": "3c6bce99-3268-4dfa-ae54-5edcdd5059a7"
+        },
+        {
+          "chunk_id": 80,
+          "rank": 21,
+          "score": 7.955586625030264e-05,
+          "document_id": "3149884f-b8b9-41cd-afd7-c2ce6a8b3ed6"
+        },
+        {
+          "chunk_id": 75,
+          "rank": 22,
+          "score": 6.729126471327618e-05,
+          "document_id": "80de85ff-4ab6-47b5-b042-6a05b304e36b"
+        },
+        {
+          "chunk_id": 77,
+          "rank": 23,
+          "score": 6.55589101370424e-05,
+          "document_id": "80de85ff-4ab6-47b5-b042-6a05b304e36b"
+        },
+        {
+          "chunk_id": 76,
+          "rank": 24,
+          "score": 3.87242398574017e-05,
+          "document_id": "80de85ff-4ab6-47b5-b042-6a05b304e36b"
+        },
+        {
+          "chunk_id": 53,
+          "rank": 25,
+          "score": 3.3035146770998836e-05,
+          "document_id": "ef6a19e8-3fd2-4746-94f3-ecb3a1e46658"
+        },
+        {
+          "chunk_id": 48,
+          "rank": 26,
+          "score": 3.129375181742944e-05,
+          "document_id": "ef6a19e8-3fd2-4746-94f3-ecb3a1e46658"
+        },
+        {
+          "chunk_id": 56,
+          "rank": 27,
+          "score": 2.7654956284095533e-05,
+          "document_id": "ef6a19e8-3fd2-4746-94f3-ecb3a1e46658"
+        },
+        {
+          "chunk_id": 55,
+          "rank": 28,
+          "score": 2.621575549710542e-05,
+          "document_id": "ef6a19e8-3fd2-4746-94f3-ecb3a1e46658"
+        },
+        {
+          "chunk_id": 46,
+          "rank": 29,
+          "score": 2.5717536118463613e-05,
+          "document_id": "5228c9a3-c09c-42d5-8129-5b58590d4e66"
+        },
+        {
+          "chunk_id": 49,
+          "rank": 30,
+          "score": 2.2439267922891304e-05,
+          "document_id": "ef6a19e8-3fd2-4746-94f3-ecb3a1e46658"
+        }
+      ],
+      "selected_ids": [
+        74,
+        65,
+        81,
+        79,
+        78
+      ],
+      "gold_74": {
+        "rank": 1,
+        "score": 0.029458453878760338
+      },
+      "first_five_before_source_limit": [
+        74,
+        65,
+        68,
+        66,
+        70
+      ],
+      "seconds": 18.52
+    },
+    {
+      "name": "B_exact_first_round",
+      "query": "绿茶冲泡水温是否必须固定为80摄氏度? | Must the brewing water temperature for green tea be fixed at 80 degrees Celsius?",
+      "candidate_ids": [
+        65,
+        74,
+        68,
+        81,
+        67,
+        70,
+        63,
+        64,
+        66,
+        58,
+        72,
+        61,
+        57,
+        69,
+        79
+      ],
+      "status": "success",
+      "ranking": [
+        {
+          "chunk_id": 65,
+          "rank": 1,
+          "score": 0.9946874380111694,
+          "document_id": "3c6bce99-3268-4dfa-ae54-5edcdd5059a7"
+        },
+        {
+          "chunk_id": 68,
+          "rank": 2,
+          "score": 0.9912422895431519,
+          "document_id": "3c6bce99-3268-4dfa-ae54-5edcdd5059a7"
+        },
+        {
+          "chunk_id": 74,
+          "rank": 3,
+          "score": 0.9864919781684875,
+          "document_id": "3c6bce99-3268-4dfa-ae54-5edcdd5059a7"
+        },
+        {
+          "chunk_id": 66,
+          "rank": 4,
+          "score": 0.971004843711853,
+          "document_id": "3c6bce99-3268-4dfa-ae54-5edcdd5059a7"
+        },
+        {
+          "chunk_id": 70,
+          "rank": 5,
+          "score": 0.9691734313964844,
+          "document_id": "3c6bce99-3268-4dfa-ae54-5edcdd5059a7"
+        },
+        {
+          "chunk_id": 63,
+          "rank": 6,
+          "score": 0.9603918790817261,
+          "document_id": "3c6bce99-3268-4dfa-ae54-5edcdd5059a7"
+        },
+        {
+          "chunk_id": 67,
+          "rank": 7,
+          "score": 0.9571462869644165,
+          "document_id": "3c6bce99-3268-4dfa-ae54-5edcdd5059a7"
+        },
+        {
+          "chunk_id": 61,
+          "rank": 8,
+          "score": 0.8853701949119568,
+          "document_id": "6e394a8b-9713-4425-8cd0-1d2d82b9f5f2"
+        },
+        {
+          "chunk_id": 57,
+          "rank": 9,
+          "score": 0.8344088196754456,
+          "document_id": "d83c8643-6309-467d-925b-89eb7c03f4b7"
+        },
+        {
+          "chunk_id": 72,
+          "rank": 10,
+          "score": 0.807375967502594,
+          "document_id": "3c6bce99-3268-4dfa-ae54-5edcdd5059a7"
+        },
+        {
+          "chunk_id": 81,
+          "rank": 11,
+          "score": 0.7987134456634521,
+          "document_id": "49fec67b-d2ee-4efe-8d02-7c7f04ace769"
+        },
+        {
+          "chunk_id": 64,
+          "rank": 12,
+          "score": 0.7382959127426147,
+          "document_id": "3c6bce99-3268-4dfa-ae54-5edcdd5059a7"
+        },
+        {
+          "chunk_id": 79,
+          "rank": 13,
+          "score": 0.7227641940116882,
+          "document_id": "3149884f-b8b9-41cd-afd7-c2ce6a8b3ed6"
+        },
+        {
+          "chunk_id": 69,
+          "rank": 14,
+          "score": 0.6766037940979004,
+          "document_id": "3c6bce99-3268-4dfa-ae54-5edcdd5059a7"
+        },
+        {
+          "chunk_id": 58,
+          "rank": 15,
+          "score": 0.5851315259933472,
+          "document_id": "d83c8643-6309-467d-925b-89eb7c03f4b7"
+        }
+      ],
+      "selected_ids": [
+        65,
+        68,
+        61,
+        57,
+        81
+      ],
+      "gold_74": {
+        "rank": 3,
+        "score": 0.9864919781684875
+      },
+      "first_five_before_source_limit": [
+        65,
+        68,
+        74,
+        66,
+        70
+      ],
+      "seconds": 9.149
+    },
+    {
+      "name": "B_exact_second_round",
+      "query": "绿茶冲泡水温是否必须固定为80摄氏度? | Must the brewing water temperature for green tea be fixed at 80 degrees Celsius?",
+      "candidate_ids": [
+        65,
+        74,
+        68,
+        81,
+        67,
+        64,
+        70,
+        63,
+        69,
+        66,
+        58,
+        72,
+        61,
+        57,
+        79
+      ],
+      "status": "success",
+      "ranking": [
+        {
+          "chunk_id": 65,
+          "rank": 1,
+          "score": 0.9946874380111694,
+          "document_id": "3c6bce99-3268-4dfa-ae54-5edcdd5059a7"
+        },
+        {
+          "chunk_id": 68,
+          "rank": 2,
+          "score": 0.9912422895431519,
+          "document_id": "3c6bce99-3268-4dfa-ae54-5edcdd5059a7"
+        },
+        {
+          "chunk_id": 74,
+          "rank": 3,
+          "score": 0.9864919781684875,
+          "document_id": "3c6bce99-3268-4dfa-ae54-5edcdd5059a7"
+        },
+        {
+          "chunk_id": 66,
+          "rank": 4,
+          "score": 0.971004843711853,
+          "document_id": "3c6bce99-3268-4dfa-ae54-5edcdd5059a7"
+        },
+        {
+          "chunk_id": 70,
+          "rank": 5,
+          "score": 0.9691734313964844,
+          "document_id": "3c6bce99-3268-4dfa-ae54-5edcdd5059a7"
+        },
+        {
+          "chunk_id": 63,
+          "rank": 6,
+          "score": 0.9603918790817261,
+          "document_id": "3c6bce99-3268-4dfa-ae54-5edcdd5059a7"
+        },
+        {
+          "chunk_id": 67,
+          "rank": 7,
+          "score": 0.9571462869644165,
+          "document_id": "3c6bce99-3268-4dfa-ae54-5edcdd5059a7"
+        },
+        {
+          "chunk_id": 61,
+          "rank": 8,
+          "score": 0.8853702545166016,
+          "document_id": "6e394a8b-9713-4425-8cd0-1d2d82b9f5f2"
+        },
+        {
+          "chunk_id": 57,
+          "rank": 9,
+          "score": 0.8344088196754456,
+          "document_id": "d83c8643-6309-467d-925b-89eb7c03f4b7"
+        },
+        {
+          "chunk_id": 72,
+          "rank": 10,
+          "score": 0.807375967502594,
+          "document_id": "3c6bce99-3268-4dfa-ae54-5edcdd5059a7"
+        },
+        {
+          "chunk_id": 81,
+          "rank": 11,
+          "score": 0.7987134456634521,
+          "document_id": "49fec67b-d2ee-4efe-8d02-7c7f04ace769"
+        },
+        {
+          "chunk_id": 64,
+          "rank": 12,
+          "score": 0.7382959127426147,
+          "document_id": "3c6bce99-3268-4dfa-ae54-5edcdd5059a7"
+        },
+        {
+          "chunk_id": 79,
+          "rank": 13,
+          "score": 0.7227641940116882,
+          "document_id": "3149884f-b8b9-41cd-afd7-c2ce6a8b3ed6"
+        },
+        {
+          "chunk_id": 69,
+          "rank": 14,
+          "score": 0.6766037940979004,
+          "document_id": "3c6bce99-3268-4dfa-ae54-5edcdd5059a7"
+        },
+        {
+          "chunk_id": 58,
+          "rank": 15,
+          "score": 0.585131824016571,
+          "document_id": "d83c8643-6309-467d-925b-89eb7c03f4b7"
+        }
+      ],
+      "selected_ids": [
+        65,
+        68,
+        61,
+        57,
+        81
+      ],
+      "gold_74": {
+        "rank": 3,
+        "score": 0.9864919781684875
+      },
+      "first_five_before_source_limit": [
+        65,
+        68,
+        74,
+        66,
+        70
+      ],
+      "seconds": 9.65
+    },
+    {
+      "name": "B_pool_english_anchor_only",
+      "query": "Must the brewing water temperature for green tea be fixed at 80 degrees Celsius?",
+      "candidate_ids": [
+        65,
+        74,
+        68,
+        81,
+        67,
+        70,
+        63,
+        64,
+        66,
+        58,
+        72,
+        61,
+        57,
+        69,
+        79
+      ],
+      "status": "success",
+      "ranking": [
+        {
+          "chunk_id": 74,
+          "rank": 1,
+          "score": 0.1266583353281021,
+          "document_id": "3c6bce99-3268-4dfa-ae54-5edcdd5059a7"
+        },
+        {
+          "chunk_id": 65,
+          "rank": 2,
+          "score": 0.02140817604959011,
+          "document_id": "3c6bce99-3268-4dfa-ae54-5edcdd5059a7"
+        },
+        {
+          "chunk_id": 81,
+          "rank": 3,
+          "score": 0.003533793380483985,
+          "document_id": "49fec67b-d2ee-4efe-8d02-7c7f04ace769"
+        },
+        {
+          "chunk_id": 79,
+          "rank": 4,
+          "score": 0.0034306033048778772,
+          "document_id": "3149884f-b8b9-41cd-afd7-c2ce6a8b3ed6"
+        },
+        {
+          "chunk_id": 70,
+          "rank": 5,
+          "score": 0.0030773761682212353,
+          "document_id": "3c6bce99-3268-4dfa-ae54-5edcdd5059a7"
+        },
+        {
+          "chunk_id": 63,
+          "rank": 6,
+          "score": 0.0030497019179165363,
+          "document_id": "3c6bce99-3268-4dfa-ae54-5edcdd5059a7"
+        },
+        {
+          "chunk_id": 58,
+          "rank": 7,
+          "score": 0.0006891628145240247,
+          "document_id": "d83c8643-6309-467d-925b-89eb7c03f4b7"
+        },
+        {
+          "chunk_id": 57,
+          "rank": 8,
+          "score": 0.0003963304916396737,
+          "document_id": "d83c8643-6309-467d-925b-89eb7c03f4b7"
+        },
+        {
+          "chunk_id": 72,
+          "rank": 9,
+          "score": 0.00034842517925426364,
+          "document_id": "3c6bce99-3268-4dfa-ae54-5edcdd5059a7"
+        },
+        {
+          "chunk_id": 61,
+          "rank": 10,
+          "score": 0.00028761045541614294,
+          "document_id": "6e394a8b-9713-4425-8cd0-1d2d82b9f5f2"
+        },
+        {
+          "chunk_id": 68,
+          "rank": 11,
+          "score": 0.0002791169681586325,
+          "document_id": "3c6bce99-3268-4dfa-ae54-5edcdd5059a7"
+        },
+        {
+          "chunk_id": 64,
+          "rank": 12,
+          "score": 0.00027803017292171717,
+          "document_id": "3c6bce99-3268-4dfa-ae54-5edcdd5059a7"
+        },
+        {
+          "chunk_id": 66,
+          "rank": 13,
+          "score": 0.0002713734284043312,
+          "document_id": "3c6bce99-3268-4dfa-ae54-5edcdd5059a7"
+        },
+        {
+          "chunk_id": 67,
+          "rank": 14,
+          "score": 0.00026712880935519934,
+          "document_id": "3c6bce99-3268-4dfa-ae54-5edcdd5059a7"
+        },
+        {
+          "chunk_id": 69,
+          "rank": 15,
+          "score": 0.00019994463946204633,
+          "document_id": "3c6bce99-3268-4dfa-ae54-5edcdd5059a7"
+        }
+      ],
+      "selected_ids": [
+        74,
+        65,
+        81,
+        79,
+        58
+      ],
+      "gold_74": {
+        "rank": 1,
+        "score": 0.1266583353281021
+      },
+      "first_five_before_source_limit": [
+        74,
+        65,
+        81,
+        79,
+        70
+      ],
+      "seconds": 7.028
+    }
+  ]
+}

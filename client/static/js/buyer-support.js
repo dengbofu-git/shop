@@ -12,7 +12,7 @@
         brands: document.getElementById('bs-pref-brands'),
         keywords: document.getElementById('bs-pref-keywords')
     };
-    var labels = { recommendation: '商品推荐', question_answering: '咨询问答', after_sales: '售后服务', unavailable: '其他问题' };
+    var labels = { recommendation: '商品推荐', recommendation_explanation: '推荐理由', question_answering: '咨询问答', product_details: '商品详情', after_sales: '售后服务', clarification: '补充信息', multi_intent: '多任务', unavailable: '其他问题' };
     var storageKey = 'support-conversation:' + (AuthStorage.getUser() || '');
     var conversation = null;
     var pending = null;
@@ -67,12 +67,33 @@
 
     function showResult(bubble, result) {
         bubble.textContent = result.answer;
-        var note = labels[result.intent] || '智能客服';
+        var note = result.intents && result.intents.length ? result.intents.map(function (intent) { return labels[intent] || intent; }).join(' → ') : labels[result.intent] || '智能客服';
         if (result.pii_redacted) note += ' · 已脱敏';
         if (result.memory_used) note += ' · 使用了长期偏好';
         var meta = document.createElement('small');
         meta.textContent = note;
         bubble.parentNode.appendChild(meta);
+        if (result.knowledge_sources && result.knowledge_sources.length) {
+            var sources = document.createElement('small');
+            sources.className = 'bs-sources';
+            sources.appendChild(document.createTextNode('参考资料：'));
+            result.knowledge_sources.forEach(function (source, index) {
+                try {
+                    var sourceUrl = new URL(source.url);
+                    if (sourceUrl.protocol !== 'https:') return;
+                    if (index) sources.appendChild(document.createTextNode(' · '));
+                    var link = document.createElement('a');
+                    link.href = sourceUrl.href;
+                    link.target = '_blank';
+                    link.rel = 'noopener noreferrer';
+                    link.textContent = source.title + (source.year ? ' (' + source.year + ')' : '');
+                    sources.appendChild(link);
+                } catch (error) {
+                    // Ignore malformed source URLs in response data.
+                }
+            });
+            bubble.parentNode.appendChild(sources);
+        }
         if (result.recommendations && result.recommendations.length) {
             var cards = document.createElement('div');
             cards.className = 'bs-products';

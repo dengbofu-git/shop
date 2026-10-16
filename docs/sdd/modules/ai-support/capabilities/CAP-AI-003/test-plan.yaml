@@ -1,0 +1,91 @@
+schemaVersion: "0.1"
+capabilityId: CAP-AI-003
+specVersion: "0.2.0"
+status: in-review-with-discovery-baseline
+note: 已执行既有隔离回归和发现探针；以下 TEST 分组仍为计划，不宣称当前全部 AC 已覆盖或通过。逐项结果见 review.md。
+testScope:
+  - id: TEST-AI-003-01
+    type: isolated-integration
+    covers: [AC-AI-003-01, AC-AI-003-02, AC-AI-003-03, AC-AI-003-04, AC-AI-003-06]
+    existingAssets: [support_ai/tests.py, support_ai/test_task_tools.py]
+    work: 按已确认 AC 核对并补本人及外人订单、三类状态、无结果和输入拒绝；他人／不存在编号验证统一 404、固定提示及无成功轮次；伪造模型，使用合成数据。
+    result: not-executed
+  - id: TEST-AI-003-02
+    type: isolated-integration
+    covers: [AC-AI-003-05, AC-AI-003-08]
+    existingAssets: [support_ai/tests.py, support_ai/test_task_tools.py]
+    work: 核查追问刷新、过期引用、跨用户幂等和 revision 冲突；不能用 SQLite 结果声称真实锁语义通过。
+    result: not-executed
+  - id: TEST-AI-003-03
+    type: privacy-and-tool-boundary
+    covers: [AC-AI-003-03, AC-AI-003-07, AC-AI-003-11]
+    existingAssets: [support_ai/tests.py, support_ai/test_planning.py, support_ai/test_telemetry.py]
+    work: 捕获模型调用和日志／span，检查敏感数据泄漏与伪造工具；测试允许及拒绝路径。
+    result: not-executed
+  - id: TEST-AI-003-04
+    type: real-component-integration
+    covers: [AC-AI-003-05, AC-AI-003-08, AC-AI-003-09]
+    existingAssets: [support_ai/pg_test_settings.py]
+    work: 在隔离合成 MySQL/PostgreSQL/Redis 环境验证数据路由、真实提交并发和逐依赖失败；现有 pg 设置不代表完整环境。
+    result: not-executed
+    blockedBy: [Q-011]
+  - id: TEST-AI-003-05
+    type: browser-acceptance
+    covers: [AC-AI-003-01, AC-AI-003-04, AC-AI-003-09, AC-AI-003-10]
+    existingAssets: [client/templates/buyer_support.html, client/static/js/buyer-support.js]
+    work: 用合成买家验证状态反馈、历史与新查询、重复提交和恢复；目标视口待体验评审确认。
+    result: not-executed
+    blockedBy: [Q-011]
+  - id: TEST-AI-003-06
+    type: model-acceptance
+    covers: [AC-AI-003-01, AC-AI-003-03, AC-AI-003-04, AC-AI-003-06, AC-AI-003-07, AC-AI-003-11]
+    existingAssets: [docs/Agent任务模板与对照评测.md]
+    work: 在明确允许的数据范围和调用授权内，以当前规格合成输入验证事实忠实度、拒绝行为和泄漏；记录模型配置、样例数、失败和耗时，不直接借用历史回放结论。
+    result: not-executed
+    blockedBy: [Q-011, Q-013]
+  - id: TEST-AI-003-07
+    type: api-contract-integration
+    covers: [AC-AI-003-01, AC-AI-003-02, AC-AI-003-03, AC-AI-003-08, AC-AI-003-09]
+    designRefs: [api-contract.yaml, design.md]
+    work: 逐状态验证目标error_code、错误优先级、404前零模型调用/零成功轮次、偏好503、请求指纹及重放；覆盖省略/null/伪造字段、混合任务404和历史路由非JSON。
+    result: not-executed
+  - id: TEST-AI-003-08
+    type: redaction-boundary-integration
+    covers: [AC-AI-003-03, AC-AI-003-07, AC-AI-003-11]
+    designRefs: [redaction.md]
+    work: 实现RED-AI-003-01至09正反例；捕获所有提示词、完整响应树、历史GET、成功重放及日志/span；核实临时上下文引用映射和私有键不出站。
+    result: not-executed
+  - id: TEST-AI-003-09
+    type: browser-state-acceptance
+    covers: [AC-AI-003-02, AC-AI-003-03, AC-AI-003-04, AC-AI-003-05, AC-AI-003-08, AC-AI-003-09, AC-AI-003-10]
+    designRefs: [screen-spec.md]
+    work: 覆盖UI-AI-003-01至16，包括订单404保留会话、会话404清理、409恢复、503原ID重试、未知提交结果、历史非实时、账号切换及键盘/读屏；建议PC和窄屏视口，最终由体验评审确认。
+    result: not-executed
+    blockedBy: [Q-011]
+execution:
+  isolatedCommand: python manage.py test support_ai.tests support_ai.test_planning support_ai.test_task_tools support_ai.test_telemetry support_ai.test_grouped_recommendations support_ai.test_mixed_tea ai_storage.tests --settings=support_ai.test_settings --noinput
+  isolatedEnvironment: SQLite in-memory and LocMem cache
+  realComponentCommand: null
+  realComponentCommandReason: 目标环境和故障注入方案须在 Q-011 确认后确定，不直接连接默认业务数据库。
+completionCriteria:
+  - 当前全部 AC 均有可执行测试或明确人工验收步骤，覆盖版本一致。
+  - 对象隔离、伪造身份、无效引用、敏感泄漏、重放与并发的定向用例通过。
+  - 他人／不存在订单统一 404；偏好库失败 503 且无成功轮次，不能只测成功路径。
+  - 真实模型验收与隔离回归分开记录；模型样例范围内无跨用户泄漏、交易写入或编造当前状态。
+  - 延迟和可用性阈值在目标环境确认，不用历史均值代替正式指标。
+  - 证据记录规格版本、实现提交及未提交内容哈希、环境配置、命令结果、覆盖 AC、时间和限制。
+  - API错误码及页面状态有一一对应，不通过中文answer猜分支；旧服务端/旧前端兼容行为有定向验证。
+  - 脱敏语法在解析和替换之间一致，完整响应、历史、重放和遥测各有反向断言；静态schema检查不能替代这些运行断言。
+evidenceManifests: []
+discoveryEvidence:
+  - docs/sdd/evidence/2026-10-16-ai-003-discovery/baseline-manifest.json
+  - docs/sdd/evidence/2026-10-16-ai-003-discovery/baseline-recheck-manifest.json
+  - docs/sdd/evidence/2026-10-16-ai-003-discovery/probes-manifest.json
+reconciliationEvidence:
+  manifest: docs/sdd/evidence/2026-10-16-sdd-reconciliation/manifest.json
+  executedTests: 101
+  passed: 98
+  failed: 0
+  skipped: 3
+  skipReason: 真实PostgreSQL/pgvector相关测试在SQLite下跳过。
+  formalAcceptanceComplete: false

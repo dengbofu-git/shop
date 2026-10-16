@@ -1,0 +1,40 @@
+{
+  "version": "0.8.1",
+  "unit_tests": 96,
+  "live_cases_passed": 3,
+  "business_counts": {
+    "turns": 16,
+    "conversations": 6,
+    "spans": 118
+  },
+  "unchanged": true,
+  "cases": [
+    {
+      "case": "mixed_user_question",
+      "seconds": 20.364,
+      "calls": 2,
+      "input_tokens": 10880,
+      "output_tokens": 2107,
+      "described": 6,
+      "products": 6
+    },
+    {
+      "case": "plain_group_followup",
+      "seconds": 1.275,
+      "calls": 0,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "described": 0,
+      "products": 6
+    },
+    {
+      "case": "explicit_two_types",
+      "seconds": 16.009,
+      "calls": 2,
+      "input_tokens": 5094,
+      "output_tokens": 856,
+      "described": 2,
+      "products": 2
+    }
+  ]
+}

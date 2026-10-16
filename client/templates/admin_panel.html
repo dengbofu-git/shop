@@ -42,12 +42,14 @@
         .pa-msg.err { color: #c62828; }
         .pa-edit-row input, .pa-edit-row select { width: 100%; max-width: 140px; padding: 4px 6px; font-size: 12px; }
     </style>
+{% include "shared/system_theme.html" %}
 </head>
-<body class="platform-admin-page">
+<body class="ds-page-admin_panel ds-theme platform-admin-page">
     <div class="pa-wrap">
         <div class="pa-topbar">
             <h1>平台运营 · 买家与茶企账号管理</h1>
             <div class="pa-topbar-actions">
+                <a class="pa-btn pa-btn-green" href="/admin_agents.html">Agent 运行与设置</a>
                 <button type="button" class="pa-btn pa-btn-ghost" id="btn-admin-logout">退出登录</button>
             </div>
         </div>

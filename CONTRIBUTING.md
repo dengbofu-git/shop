@@ -1,0 +1,14 @@
+# 参与 Dadashop 开发
+
+仓库：[dengbofu-git/shop](https://github.com/dengbofu-git/shop)。先阅读 [AGENTS.md](AGENTS.md)、[Git 协作规范](docs/Git协作规范.md) 和 [模块版本管理](docs/模块版本管理.md)。
+
+每个克隆首次执行：
+
+```powershell
+python tools/git_policy.py install
+git switch -c codex/core-example
+```
+
+依赖：Git、Python 3.9+；交付 JavaScript 修改时需要 Node.js。Git for Windows 使用自带的 sh 执行 Hook；终端需能找到 `python` 和 `node`。
+
+提交示例：`fix(goods): 修复商品库存显示`。只暂存本次授权的文件，代码、对应模块版本和 changelog 一起提交。向 `main` 提交 PR，验证结论按实际命令与结果填写。

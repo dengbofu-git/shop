@@ -12,8 +12,9 @@
     <script src="../static/js/init.js"></script>
     <script src="../static/js/auth-storage.js"></script>
     <script src="../static/js/jquery-3.1.1.min.js"></script>
+{% include "shared/system_theme.html" %}
 </head>
-<body class="merchant-body supplier-workbench">
+<body class="ds-page-merchant_dashboard ds-theme merchant-body supplier-workbench">
     <div class="supplier-layout">
         <!-- 左侧固定导航栏 -->
         <aside class="supplier-sidebar" id="sidebar">
@@ -37,6 +38,13 @@
                     <a href="#" class="nav-item" data-panel="merchant_orders.html">
                         <span class="nav-icon">📋</span>
                         <span class="nav-text" data-i18n="nav_orders">全部订单</span>
+                    </a>
+                </div>
+
+                <div class="nav-group">
+                    <a href="merchant_assistant.html" class="nav-item" data-panel="merchant_assistant.html">
+                        <span class="nav-icon" aria-hidden="true">💬</span>
+                        <span class="nav-text" data-i18n="nav_assistant">智能助手</span>
                     </a>
                 </div>
 
@@ -325,6 +333,6 @@
         </main>
     </div>
 
-    <script src="../static/js/supplier-workbench.js?v=20261003-supplier-menu"></script>
+    <script src="../static/js/supplier-workbench.js?v=20261016-merchant-ai-010"></script>
 </body>
 </html>

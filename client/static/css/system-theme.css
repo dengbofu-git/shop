@@ -1,0 +1,308 @@
+/* Shared visual language from the Agent operations page.
+   Only appearance is overridden: tab, modal and embedded-page visibility stay
+   under the control of their original styles and scripts. */
+:root {
+    --green: #185c3b;
+    --ink: #17352b;
+    --muted: #6a7d73;
+    --border: #e1e9e3;
+    --surface: #fff;
+    --bg: #f3f6f2;
+    --buyer-primary: #185c3b;
+    --buyer-gold: #185c3b;
+    --buyer-bg: #f3f6f2;
+    --buyer-card-shadow: 0 4px 16px #153c2604;
+    --buyer-radius: 16px;
+}
+body.ds-theme {
+    margin: 0;
+    background: var(--bg) !important;
+    background-image: none !important;
+    color: var(--ink) !important;
+    font: 14px/1.65 system-ui, -apple-system, "Microsoft YaHei", sans-serif !important;
+}
+.ds-theme *, .ds-theme *::before, .ds-theme *::after { box-sizing: border-box; }
+.ds-theme button, .ds-theme input, .ds-theme select, .ds-theme textarea { font: inherit; }
+.ds-theme :is(h1, h2, h3, h4, p, a, label, button, input, select, textarea, th, td) { font-family: system-ui, -apple-system, "Microsoft YaHei", sans-serif; text-shadow: none; }
+.ds-theme :where(div, section, article, main, aside, nav, header, footer, span:not(.iconfont)) { font-family: system-ui, -apple-system, "Microsoft YaHei", sans-serif; }
+.ds-theme a { color: var(--green); }
+.ds-theme h1, .ds-theme h2, .ds-theme h3 { color: var(--ink); letter-spacing: -.4px; }
+.ds-theme h1 { font-size: 29px; line-height: 1.4; }
+.ds-theme h2 { font-size: 18px; }
+.ds-theme :focus-visible { outline: 3px solid #9bc9a8; outline-offset: 3px; }
+.ds-theme :is(input:not([type=checkbox]):not([type=radio]):not([type=submit]):not([type=button]):not([type=range]):not([type=file]), select, textarea) {
+    background: #fff; color: var(--ink); border: 1px solid #cfdbd1;
+    border-radius: 8px; box-shadow: none;
+}
+.ds-theme :is(input, select, textarea):focus { border-color: #78a88b; box-shadow: 0 0 0 3px #185c3b0d; }
+.ds-theme input::placeholder, .ds-theme textarea::placeholder { color: #85958b; }
+.ds-theme :is(button, .btn, .button, .pa-btn) { border-radius: 8px; }
+.ds-theme :is(.btn-primary, button.primary, .btn-login, .btn-search, .btn-refresh, .pa-btn-green, .pa-btn-gold, .ba-btn-primary, .bs-compose button, .gradient_blue, .foot_cash, .okPay) {
+    background: var(--green) !important; background-image: none !important;
+    color: #fff !important; border-color: var(--green) !important; box-shadow: none !important;
+    text-shadow: none; border-radius: 8px;
+}
+.ds-theme :is(.btn-primary, button.primary, .btn-login, .btn-refresh, .ba-btn-primary):hover { background: #12482e !important; transform: none; }
+.ds-theme :is(.btn-ghost, .btn-outline, .pa-btn-ghost, .quiet, .btn-secondary) {
+    background: #fff; color: var(--ink); border: 1px solid var(--border); box-shadow: none;
+}
+.ds-theme :is(.eyebrow, .ba-eyebrow, .cart-eyebrow, .pa-tip) { color: var(--green); }
+.ds-theme :is(.muted, .ba-hint, .metric-tag, .metric-label, .chart-subtitle) { color: var(--muted); }
+.ds-theme :is(.panel, .card, .pa-card, .ba-panel, .bs-panel, .cart-card, .order-card, .chart-card, .metric-card, .trace-section, .product-info, .track-timeline, .mp-topbar) {
+    background: #fff; background-image: none; border: 1px solid var(--border);
+    border-radius: 16px; box-shadow: 0 4px 16px #153c2604;
+}
+.ds-theme :is(.card, .pa-card, .chart-card, .metric-card):hover { transform: none; box-shadow: 0 4px 16px #153c2604; border-color: var(--border); }
+.ds-theme :is(.pa-card, .ba-panel, .chart-card) { padding: 24px; }
+.ds-theme :is(.metric, .stat-card, .summary-card) { background: #f6f8f5; border: 1px solid #edf0eb; border-radius: 12px; box-shadow: none; }
+.ds-theme table { border-collapse: collapse; color: var(--ink); }
+.ds-theme th { background: #f8faf7 !important; color: var(--muted) !important; font-weight: 500; border-color: var(--border) !important; }
+.ds-theme td { border-color: #eef2ed !important; }
+.ds-theme tbody tr:hover { background-color: #f8faf7; }
+.ds-theme :is(.pa-table, .ba-address-table, .merchant-content table, .mp-wrap table) :is(th, td) { padding: 12px; }
+.ds-theme :is(.topbar, .buyer-topbar, .supplier-topbar, .dashboard-header, .merchant-header-brand, .page-header) {
+    background: #fff !important; background-image: none !important; color: var(--ink);
+    border-bottom: 1px solid var(--border); box-shadow: none !important; backdrop-filter: none;
+}
+.ds-theme :is(.buyer-sidebar, .supplier-sidebar, .sidebar) {
+    background: #fff !important; background-image: none !important; color: var(--ink) !important;
+    border-inline-end: 1px solid var(--border); box-shadow: none;
+}
+.ds-theme :is(.buyer-sidebar, .supplier-sidebar, .sidebar) :is(.nav-item, .nav-text, .sidebar-title, .brand-name, .sidebar-brand, .sidebar-section-title) { color: var(--muted); }
+.ds-theme :is(.buyer-sidebar, .supplier-sidebar, .sidebar) .nav-item.active,
+.ds-theme :is(.buyer-sidebar, .supplier-sidebar, .sidebar) .nav-item:hover {
+    background: #e7f2e9; color: var(--green); border-color: var(--green); box-shadow: none;
+}
+.ds-theme :is(.buyer-sidebar, .supplier-sidebar, .sidebar) select { background: #fff; color: var(--ink); border-color: var(--border); }
+.ds-theme :is(.buyer-main, .supplier-main, .dashboard-root) { background: var(--bg); background-image: none; }
+.ds-theme :is(.pa-wrap, .customs-root, .dashboard-root) { max-width: 1280px; margin-inline: auto; }
+.ds-theme .pa-wrap { padding: 36px 24px 60px; }
+.ds-theme :is(.pa-topbar h1, .dashboard-title, .mp-title, .ba-page-head h1, .cart-page-title h1) { color: var(--ink); font-size: 29px; font-weight: 700; letter-spacing: -.8px; }
+.ds-theme :is(.buyer-banner, .banner-pattern, .banner-section, .banner-item, .buyer-products-banner, .welcome-banner) {
+    background-color: #e7f2e9; background-image: none; color: var(--ink); border-radius: 16px;
+}
+.ds-theme :is(.banner-content h1, .banner-content h2, .banner-content p, .banner-price) { color: var(--ink); text-shadow: none; }
+.ds-theme :is(.ba-tab.active, .cat-tab.active, .category-tab.active, .role-tab.active, .register-role-tab.active, .lang-btn.active, .step-nav .active) {
+    background: #e7f2e9 !important; color: var(--green) !important; border-color: #c9decf !important; box-shadow: none;
+}
+.ds-theme :is(.product-card, .recommend-card) { background: #fff; border: 1px solid var(--border); border-radius: 16px; box-shadow: none; overflow: hidden; }
+.ds-theme :is(.product-card, .recommend-card):hover { border-color: #a7c4b0; box-shadow: 0 4px 16px #153c2608; transform: none; }
+.ds-theme :is(.product-price, .price, .totalPrices, .cart-title-summary, .metric-value) { color: var(--green); }
+.ds-theme :is(.btn-add-cart, .btn-banner-inquiry, .btn-view-sku, .btn-order, #bt-register, #bt-login, #bt-terminal-login, #findpass .save) {
+    background: var(--green) !important; color: #fff !important; border-color: var(--green) !important;
+    border-radius: 8px; box-shadow: none !important; text-shadow: none;
+}
+.ds-theme :is(.banner-section, .welcome-banner) { border: 1px solid var(--border); box-shadow: none; }
+.ds-theme .banner-slider { border-radius: 16px; box-shadow: none; }
+.ds-theme .lang-btn { color: var(--muted); border-color: var(--border); background: #fff; }
+.ds-theme :is(.rec-price, .product-card .product-price), .ds-theme.product-detail-page #pro_price span { color: var(--green); }
+.ds-theme .buyer-pager a.current, .ds-theme .buyer-pager a:hover:not(.disabled) { background: #e7f2e9; color: var(--green); border-color: #c9decf; }
+.ds-theme :is(.btn-search:hover, .user-trigger:hover, #bo-search:focus, .bs-compose textarea:focus) { border-color: #78a88b; box-shadow: 0 0 0 3px #185c3b0d; }
+.ds-theme :is(.sidebar-brand, .sidebar-currency) { border-color: var(--border); }
+.ds-theme .sidebar-currency label { color: var(--muted); }
+.ds-theme .sidebar-currency select { color-scheme: light; }
+.ds-theme .sidebar-currency :is(option, optgroup) { color: var(--ink); background: #fff; }
+.ds-theme :is(.whatsapp-btn, .btn-whatsapp) { background: var(--green); color: #fff; box-shadow: none; }
+.ds-theme :is(.buyer-footer, .ba-footer, .cart-footer, .merchant-footer, .foot_bj, #foot, #foot_box) {
+    background: #fff !important; background-image: none !important; color: var(--muted) !important;
+    border-top: 1px solid var(--border); box-shadow: none !important;
+}
+.ds-theme :is(.foot_bj, #foot, #foot_box) :is(a, p, span, h3, h4) { color: var(--muted) !important; text-shadow: none; }
+/* Supplier pages retain their iframe and standalone layouts. */
+.ds-theme .merchant-header-brand .brand-container { background: #fff !important; box-shadow: none !important; backdrop-filter: none !important; animation: none !important; }
+.ds-theme .merchant-header-brand :is(.brand-title, .brand-subtitle) {
+    color: var(--ink) !important; -webkit-text-fill-color: var(--ink) !important;
+    background: none !important; text-shadow: none !important; font-size: 18px !important; letter-spacing: 0 !important;
+}
+.ds-theme .merchant-header-brand .brand-container::before { background: none !important; }
+.ds-theme .merchant-nav { background: #fff; border: 1px solid var(--border); border-radius: 12px; box-shadow: none; }
+.ds-theme .merchant-nav a { color: var(--muted); background: #fff; text-shadow: none; }
+.ds-theme .merchant-nav a.active, .ds-theme .merchant-nav a:hover { background: #e7f2e9 !important; color: var(--green) !important; transform: none; box-shadow: none; }
+.ds-theme .merchant-nav a::before, .ds-theme .merchant-nav a::after { background: none !important; box-shadow: none; }
+.ds-theme .merchant-content { background: #fff !important; border: 1px solid var(--border); border-radius: 16px !important; box-shadow: 0 4px 16px #153c2604 !important; }
+.ds-theme .merchant-content:hover { transform: none !important; }
+.ds-theme .merchant-wrap { max-width: 1280px; }
+.ds-theme :is(.wb-section, .wb-subcard, .welcome-card, .qa-btn) { border: 1px solid var(--border); border-radius: 16px; background: #fff; box-shadow: 0 4px 16px #153c2604; }
+.ds-theme .wb-section-head { background: #fff; border-bottom: 1px solid var(--border); padding: 20px 24px 12px; }
+.ds-theme .wb-section-title { color: var(--ink); font-size: 18px; font-weight: 600; letter-spacing: 0; }
+.ds-theme :is(.welcome-title, .section-title) { color: var(--ink); }
+.ds-theme :is(.welcome-sub, .metric-meta, .nav-group-title) { color: var(--muted); }
+.ds-theme :is(.meta-link, .row-action.primary) { color: var(--green); }
+.ds-theme.supplier-workbench .metric-card { display: grid; grid-template-columns: 48px minmax(0, 1fr); gap: 14px; text-align: start; }
+.ds-theme.supplier-workbench .metric-card .metric-meta { grid-column: 2; min-width: 0; justify-content: flex-start; flex-wrap: wrap; }
+/* Operations charts use the same light surface as the Agent metrics. */
+.ds-theme .dashboard-header { padding: 24px 32px; }
+.ds-theme :is(.dashboard-title, .chart-title, .metric-value, .metric-label) { color: var(--ink); }
+.ds-theme .chart-title { border-bottom-color: var(--border); }
+.ds-theme .metric-tag { color: var(--muted); }
+.ds-theme :is(.metric-blue, .metric-green, .metric-gold) { background: #fff; border-color: var(--border); }
+.ds-theme .filter-select { color: var(--ink); background: #fff; }
+.ds-theme :is(.aux-card, .aux-card:hover) { background: #fff; border: 1px solid var(--border); border-radius: 16px; box-shadow: none; }
+.ds-theme .aux-value { color: var(--ink); }
+.ds-theme :is(.aux-label, .metric-display-desc, .metric-display-unit) { color: var(--muted); }
+.ds-theme :is(.wb-loading-dialog, .modal_dialog, .modal-content) { background: #fff; color: var(--ink); border: 1px solid var(--border); border-radius: 16px; box-shadow: 0 12px 48px #17352b1a; }
+/* Authentication shares the reference page's calm, bordered surfaces. */
+.ds-theme.login-portal-page .portal-layout { background: var(--bg); }
+.ds-theme.login-portal-page :is(.brand-panel, .login-panel) { background: var(--bg); background-image: none; }
+.ds-theme.login-portal-page .brand-panel { border-inline-end: 1px solid var(--border); }
+.ds-theme.login-portal-page :is(.brand-slogan, .brand-slogan-sub, .brand-slogan-ar, .portal-title, .card-text) { color: var(--ink); text-shadow: none; }
+.ds-theme.login-portal-page .brand-panel::before, .ds-theme.login-portal-page .brand-panel::after { background: none; }
+.ds-theme.login-portal-page .highlight-card { background: #fff; border: 1px solid var(--border); border-radius: 12px; box-shadow: none; }
+.ds-theme.login-portal-page .login-content { background: #fff; border: 1px solid var(--border); border-radius: 16px; padding: 32px; box-shadow: 0 4px 16px #153c2604; }
+.ds-theme.login-portal-page .hero-bg-img { max-height: 360px; object-fit: contain; border-radius: 16px; }
+.ds-theme.login-portal-page .brand-hero { height: 360px; }
+.ds-theme.login-portal-page .role-tabs { background: #f6f8f5; border: 1px solid var(--border); }
+.ds-theme :is(#cover, #findpass, .parent .panel) { background: #fff !important; border: 1px solid var(--border); border-radius: 16px; box-shadow: 0 4px 16px #153c2604 !important; }
+.ds-theme #cover .txt, .ds-theme .parent .txt { background: none !important; color: var(--ink) !important; }
+.ds-theme :is(#top, #top_input) { background: #fff; border-color: var(--border); }
+.ds-theme .parent :is(h1, h2, .txt) { color: var(--ink) !important; }
+.ds-theme .parent :is(label, .register-role-hint) { color: var(--muted); }
+.ds-theme .trace-brand { background: #e7f2e9; color: var(--ink); border-bottom: 1px solid var(--border); }
+.ds-theme .trace-brand :is(.brand-title, .brand-subtitle) { color: var(--ink); text-shadow: none; }
+.ds-theme .trace-brand .brand-bg { opacity: .08; }
+.ds-theme .trace-section { padding: 24px; }
+.ds-theme .trace-wrap { background: var(--bg); }
+.ds-theme :is(.bo-panel, .checkout-card, .storefront-product-wrap, .bs-preferences, .step-nav) {
+    background: #fff; border: 1px solid var(--border); border-radius: 16px; box-shadow: 0 4px 16px #153c2604;
+}
+.ds-theme :is(.bo-eyebrow, .bs-eyebrow, .storefront-page-head .cart-eyebrow) { color: var(--green); }
+.ds-theme :is(.bo-primary-link, .bo-action-primary) { background: var(--green); border-color: var(--green); color: #fff; }
+.ds-theme :is(.bo-good-price, .bo-order-total strong) { color: var(--green); }
+.ds-theme .bo-tab.active { background: #e7f2e9; color: var(--green); border-color: #c9decf; }
+.ds-theme .bs-user .bs-bubble { background: var(--green); }
+.ds-theme :is(.bs-bubble, .bo-results-head, .bo-order-head) { background: #f6f8f5; }
+.ds-theme :is(.bo-page-head h1, .bs-page-head h1, .storefront-page-title) { color: var(--ink); font-size: 29px; letter-spacing: -.8px; }
+.ds-theme :is(.navlist_blue, .navlist_blue_left, .navlist_blue_right) { background: var(--green) !important; color: #fff; }
+.ds-theme :is(.okPay a, .foot_cash a) { color: #fff; }
+.ds-theme .step-item.active :is(.step-num, .step-text) { color: var(--green); }
+.ds-theme #form-register .txt p { color: var(--ink); }
+.ds-theme #form-register .txt { border-bottom: 1px solid var(--border); }
+.ds-theme.product-detail-page .right_detail > .shops .shop { background: var(--green); color: #fff; }
+.ds-theme.product-detail-page .right_detail .price { background: #f6f8f5; box-shadow: none; border-color: var(--border); }
+.ds-theme #header #top, .ds-theme > #top { width: 100%; max-width: 1280px; height: auto; min-height: 76px; margin: 0 auto; padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; border-radius: 0; box-shadow: none; }
+.ds-theme #header { width: 100%; height: auto; margin: 0; background: #fff; }
+.ds-theme #logo img { width: 48px; height: 48px; object-fit: cover; border-radius: 12px; }
+.ds-theme #header .nav-links { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.ds-theme #header #top :is(.rt, .nav-links) { float: none; margin: 0; }
+.ds-theme #header #top li { margin: 0; }
+.ds-theme #header #nav { width: 100%; margin: 0; background: #fff !important; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.ds-theme #header #nav a { color: var(--green) !important; }
+.ds-theme #header #top { margin: 0 auto !important; border-radius: 0 !important; box-shadow: none !important; border: none !important; }
+.ds-theme #header .nav-link:hover { color: var(--green) !important; background: #e7f2e9 !important; transform: none !important; box-shadow: none !important; }
+.ds-theme #header .nav-link::before { background: var(--green); }
+.ds-theme #header .search-nav-btn { background: var(--green) !important; box-shadow: none !important; }
+.ds-theme .store_action { width: calc(100% - 48px); max-width: 1280px; margin: 28px auto; }
+.ds-theme .store_action_left { width: 100%; }
+.ds-theme :is(.store_action_left_content, .store_action_right_top) { background: #fff; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; }
+.ds-theme :is(.salc_top, .store_action_right_top > p) { color: var(--ink) !important; background: #f8faf7 !important; box-shadow: none; padding: 12px 20px; height: auto; }
+.ds-theme :is(.salc_content, .pager) { background: #fff !important; box-shadow: none; }
+.ds-theme #foot_box { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; width: 100%; height: auto; padding: 24px; }
+.ds-theme #foot_box > div { width: auto; height: auto; margin: 0; padding: 0; float: none; text-align: center; }
+.ds-theme #foot { max-width: 1280px; width: 100%; height: auto; margin: auto; padding: 24px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 24px; }
+.ds-theme #foot :is(.lf, .service, .download) { float: none; margin: 0; position: static; max-width: 100%; }
+.ds-theme #foot .service p { width: auto; max-width: 240px; }
+.ds-theme #foot .record { width: 100%; margin: 16px 0 0; }
+.ds-theme #foot .footLogo { max-width: 72px; height: auto; }
+body.ds-theme #navlist :is(.navlist_blue, .navlist_blue_left, .navlist_blue_right) { background: var(--green) !important; color: #fff !important; box-shadow: none; }
+body.ds-theme #navlist .navlist_gray { background: #eaf0e8 !important; color: var(--muted); box-shadow: none; }
+body.ds-theme.checkout-page #count_bar :is(.go_pay, .okPay), body.ds-theme.checkout-page #pay_now { background: var(--green) !important; color: #fff !important; border-radius: 8px; }
+/* Django's built-in administration uses its own documented variable names. */
+html:has(body.ds-admin) { color-scheme: light; }
+.ds-admin {
+    --primary: #185c3b; --secondary: #185c3b; --accent: #fff;
+    --primary-fg: #fff; --body-fg: #17352b; --body-bg: #f3f6f2;
+    --body-quiet-color: #6a7d73; --body-loud-color: #17352b;
+    --header-color: #17352b; --header-branding-color: #185c3b; --header-bg: #fff; --header-link-color: #185c3b;
+    --breadcrumbs-fg: #6a7d73; --breadcrumbs-link-fg: #185c3b; --breadcrumbs-bg: #e7f2e9;
+    --link-fg: #185c3b; --link-hover-color: #12482e; --link-selected-fg: #185c3b;
+    --hairline-color: #e1e9e3; --border-color: #e1e9e3; --darkened-bg: #f8faf7;
+    --selected-bg: #e7f2e9; --selected-row: #e7f2e9;
+    --button-bg: #185c3b; --button-hover-bg: #12482e; --default-button-bg: #185c3b; --default-button-hover-bg: #12482e;
+}
+.ds-admin #header { border-bottom: 1px solid var(--border); }
+.ds-admin :is(.module, .submit-row) { border: 1px solid var(--border); border-radius: 12px; overflow: hidden; background: #fff; }
+.ds-admin #content { padding: 32px 24px; }
+.ds-admin .module :is(h2, caption) { background: #e7f2e9; color: var(--ink); }
+.ds-admin .module caption a { color: var(--green); }
+.ds-admin.login #container { background: #fff; border: 1px solid var(--border); border-radius: 16px; box-shadow: 0 4px 16px #153c2604; overflow: hidden; }
+@media (max-width: 1024px) {
+    [dir="rtl"] .ds-theme .buyer-sidebar { order: 0; }
+    [dir="rtl"] .ds-theme .buyer-main { order: 1; }
+    .ds-theme .buyer-topbar .topbar-search { min-width: 0; max-width: 100%; }
+    .ds-theme .buyer-topbar .topbar-search input { min-width: 0; width: 100%; }
+    .ds-theme .buyer-topbar .btn-search { flex-shrink: 0; }
+}
+@media (max-width: 760px) {
+    .ds-theme :is(.pa-wrap, .customs-root) { padding: 20px 16px 36px; }
+    .ds-theme :is(.pa-card, .ba-panel, .chart-card, .trace-section) { padding: 18px; }
+    .ds-theme :is(.pa-topbar h1, .dashboard-title, .mp-title, .ba-page-head h1) { font-size: 24px; }
+    .ds-theme .merchant-wrap { width: auto !important; margin: 16px; }
+    .ds-theme .merchant-nav { display: flex; flex-wrap: wrap; height: auto; }
+    .ds-theme .merchant-content { min-width: 0; overflow-x: auto; padding: 16px !important; }
+    .ds-theme :is(#top, #top_input, #foot_box, .foot_bj, #foot, .parent, #container, .store_action) { max-width: 100%; }
+    .ds-theme.login-portal-page .login-content { padding: 24px 18px; }
+    .ds-theme .dashboard-header { padding: 20px 16px; flex-wrap: wrap; gap: 16px; }
+    .ds-theme .core-metrics { padding: 20px 16px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .ds-theme .main-charts { padding: 0 16px 24px; grid-template-columns: minmax(0, 1fr); }
+    .ds-theme .aux-metrics { padding: 0 16px 24px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .ds-theme #findpass { width: auto; margin: 24px 16px; padding: 20px; }
+    .ds-theme #top_input { float: none; width: auto; margin: 12px 16px; }
+    .ds-theme #top_input input { width: calc(100% - 48px); }
+    .ds-theme #top .top { padding: 12px 16px; gap: 12px; }
+    .ds-theme #top .top span { white-space: normal; font-size: 14px; }
+    .ds-theme .parent { padding: 24px 16px 48px; }
+    .ds-theme .supplier-topbar { flex-wrap: wrap; gap: 12px; padding: 16px; }
+    .ds-theme .supplier-topbar .topbar-left { flex: 1 1 100%; min-width: 0; }
+    .ds-theme .supplier-topbar .topbar-actions { flex-wrap: wrap; width: 100%; gap: 8px; justify-content: flex-start; }
+    .ds-theme .supplier-topbar .topbar-welcome { white-space: normal; }
+    .ds-theme .supplier-topbar .lang-btn { white-space: nowrap; }
+    .ds-theme :is(#header #top, body > #top) { padding: 16px; gap: 12px; }
+    .ds-theme #header #top > .rt { width: 100%; }
+    .ds-theme #top_input { margin: 0; max-width: 100%; }
+    .ds-theme #top_input #input { width: 100%; max-width: 100%; padding-inline-end: 40px; }
+    .ds-theme #top_input { flex: 1 1 100%; }
+    .ds-theme > #top > .rt { width: 100%; }
+    .ds-theme > #top > .rt ul { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; }
+    .ds-theme #findpass .pitem { height: auto; line-height: 1.6; padding: 12px 0; }
+    .ds-theme #findpass .same { width: auto; text-align: start; margin-bottom: 6px; }
+    .ds-theme #findpass .rs_username { width: 100%; height: 42px; padding: 8px 12px; }
+    .ds-theme #foot_box { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .ds-theme #foot { padding: 24px 16px; }
+    .ds-theme .store_action { width: calc(100% - 32px); }
+    .ds-theme :is(.store_action_left_content, .store_action_right, .salc_content) { width: 100%; float: none; }
+    .ds-theme .store_action_right { margin-top: 20px; }
+    .ds-theme .salc_content { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; padding: 12px; }
+    .ds-theme .salc_content .product { width: auto; min-width: 0; margin: 0; }
+    .ds-theme .salc_content img { max-width: 100%; height: auto; }
+    .ds-theme.checkout-page :is(#navlist, #container, #count_bar, .pay_info, .product_confirm, .product_confirm > p, .product_confirm ul, .pay_type_title, #pay_type) { width: 100%; max-width: 100%; }
+    body.ds-theme.checkout-page #navlist { height: auto; margin: 0 0 24px; }
+    body.ds-theme.checkout-page #navlist ul { display: flex; gap: 8px; flex-direction: column; }
+    body.ds-theme.checkout-page #navlist li { float: none; width: 100%; border-radius: 8px; }
+    body.ds-theme.checkout-page #navlist :is(.navlist_blue_left, .navlist_blue_right, .navlist_gray_left, .navlist_gray_right, .navlist_blue_arro, .navlist_gray_arro, li > b) { display: none; }
+    body.ds-theme.checkout-page #count_bar { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; height: auto; min-height: 60px; margin-top: 24px; padding: 12px; line-height: 1.6; }
+    body.ds-theme.checkout-page #count_bar > * { position: static; float: none; margin: 0; max-width: 100%; }
+    body.ds-theme.checkout-page #count_bar .go_pay { width: 100%; }
+    .ds-theme.checkout-page .product_confirm .item_title { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; }
+    .ds-theme.checkout-page .item_title > li { width: auto; padding: 8px 2px; }
+    .ds-theme #dnBank ul { width: 100%; padding: 16px; }
+    .ds-theme.product-detail-page :is(#mediumDiv, #mImg, #pro_price, #show-details, #show-details .price, #show-details .parameter, .right_detail, #iteminfo) { width: 100%; max-width: 100%; min-width: 0; margin-inline: 0; }
+    .ds-theme.product-detail-page :is(#mediumDiv, #mImg) { height: auto; min-height: 180px; object-fit: contain; }
+    .ds-theme.product-detail-page :is(.right_detail, #show-details) { overflow-wrap: anywhere; }
+    .ds-theme.product-detail-page .right_detail :is(.price, .promise, .parameter, .accountChose, #pro_price) { width: 100%; max-width: 100%; height: auto; min-width: 0; }
+    .ds-theme.product-detail-page .right_detail .price { padding: 12px; }
+    .ds-theme.product-detail-page :is(#pro_price b, .promise b, .promise span) { position: static; margin-inline: 0; white-space: normal; }
+    .ds-theme.product-detail-page .shops { display: flex; flex-wrap: wrap; gap: 8px; width: 100%; height: auto; }
+    .ds-theme.product-detail-page .shops > a { width: 100%; margin: 0; }
+    .ds-theme.product-detail-page #iteminfo :is(div, p, ul) { max-width: 100%; height: auto; }
+    .ds-theme.product-detail-page #iteminfo img { max-width: 100%; height: auto; }
+    .ds-theme.product-detail-page #iteminfo :is(#tab, .tab, .cat, .cart) { width: 100%; float: none; }
+    .ds-theme.product-detail-page #iteminfo #tab { display: flex; flex-wrap: wrap; gap: 8px; }
+    .ds-theme.product-detail-page #iteminfo .cart { position: static; text-align: start; }
+    .ds-theme #header #top > .rt { flex-basis: 100% !important; justify-content: flex-start !important; }
+    .ds-theme.ds-page-gopay :is(#navlist, #container, #count_bar, .pay_info, #pay_type) { width: calc(100% - 32px); max-width: 100%; margin-inline: 16px; }
+    .ds-theme.ds-page-gopay #navlist { height: auto; }
+    .ds-theme.ds-page-gopay #navlist ul { display: flex; flex-direction: column; gap: 8px; }
+    .ds-theme.ds-page-gopay #navlist li { float: none; width: 100%; border-radius: 8px; }
+    .ds-theme.ds-page-gopay #navlist :is(.navlist_blue_arro, .navlist_gray_arro, .navlist_gray_left, .navlist_gray_right, li > b) { display: none; }
+    .ds-theme.ds-page-gopay #count_bar { margin-top: 24px; display: flex; flex-wrap: wrap; height: auto; gap: 12px; padding: 12px; line-height: 1.6; }
+}

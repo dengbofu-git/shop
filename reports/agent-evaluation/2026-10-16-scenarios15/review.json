@@ -1,0 +1,233 @@
+{
+  "rubric": {
+    "通过": "核心目标完成，人工核对未发现影响本题的错误；不代表全域事实验证或用户满意度。",
+    "基本完成": "核心目标完成，但有明确的术语或操作引导问题。",
+    "部分完成": "完成一部分或安全止步，未满足完整目标。",
+    "失败": "本轮输入可执行而未完成，或无匹配状态处理错误。",
+    "前序阻塞": "前一轮失败导致缺少必要对象；本轮合理澄清，不独立判为指代能力错误。"
+  },
+  "limitations": [
+    "15题每题仅跑一次，使用实际前文，不代表统计意义的总体准确率。",
+    "商品匹配核对只覆盖实际返回的7张商品卡；失败请求不能被空列表判为推荐准确。",
+    "知识复核依据本轮召回片段，未独立访问来源站点验证原始文献。",
+    "匿名预览订单题仅检查身份边界，不覆盖已登录订单权限、真实物流查询或退款执行。",
+    "仅观测图返回状态，未保存推荐抽取模型原始结构，因此未知证据字段具体名称仍待诊断。"
+  ],
+  "metrics": {
+    "review_status_counts": {
+      "通过": 3,
+      "失败": 6,
+      "前序阻塞": 2,
+      "基本完成": 2,
+      "部分完成": 2
+    },
+    "core_goals_completed": 5,
+    "no_observed_review_issue": 3,
+    "nominal_intent_match": 10,
+    "intent_match_excluding_blocked": {
+      "matched": 10,
+      "eligible": 13
+    },
+    "recommendation_tool_status": {
+      "needs_clarification": 7,
+      "success": 2
+    },
+    "returned_product_cards": 7,
+    "returned_cards_catalog_price_check": true,
+    "elapsed_mean_seconds": 9.491,
+    "elapsed_median_seconds": 6.44,
+    "elapsed_p95_nearest_rank_seconds": 21.698,
+    "elapsed_total_seconds": 142.371,
+    "model_calls": 32,
+    "input_tokens": 59070,
+    "output_tokens": 9215,
+    "total_tokens": 68285
+  },
+  "cases": [
+    {
+      "case_id": 1,
+      "status": "通过",
+      "reason": "解释绿茶杀青与红茶酶促氧化的区别，未推销商品，主要结论与召回证据一致。",
+      "seconds": 20.001,
+      "model_calls": 2,
+      "actual_intents": [
+        "question_answering"
+      ],
+      "nominal_intent_match": true,
+      "automatic_checks_pass": true
+    },
+    {
+      "case_id": 2,
+      "status": "通过",
+      "reason": "正确承接绿茶、红茶，比较白茶的萎凋和干燥工艺。",
+      "seconds": 16.846,
+      "model_calls": 4,
+      "actual_intents": [
+        "question_answering"
+      ],
+      "nominal_intent_match": true,
+      "automatic_checks_pass": true
+    },
+    {
+      "case_id": 3,
+      "status": "失败",
+      "reason": "没有推荐商品；条件明确，却因未知的意向证据字段退回通用澄清。快照有10款绿茶满足15美元上限。",
+      "seconds": 2.357,
+      "model_calls": 1,
+      "actual_intents": [
+        "recommendation"
+      ],
+      "nominal_intent_match": true,
+      "automatic_checks_pass": false
+    },
+    {
+      "case_id": 4,
+      "status": "前序阻塞",
+      "reason": "第3题未产生商品，澄清第一款指什么是合理的；本轮无法验证商品定位与实时库存。",
+      "seconds": 2.176,
+      "model_calls": 1,
+      "actual_intents": [
+        "clarification"
+      ],
+      "nominal_intent_match": false,
+      "automatic_checks_pass": false
+    },
+    {
+      "case_id": 5,
+      "status": "失败",
+      "reason": "没有商品；多出澄清任务，推荐仍被证据字段校验拦截。预算更新任务未完成；换款去重因第3题失败未能验证。",
+      "seconds": 6.44,
+      "model_calls": 4,
+      "actual_intents": [
+        "clarification",
+        "recommendation"
+      ],
+      "nominal_intent_match": false,
+      "automatic_checks_pass": false
+    },
+    {
+      "case_id": 6,
+      "status": "失败",
+      "reason": "将说明推荐理由误拆成知识问答；推荐条件校验失败，六类商品均未返回，回复暴露内部状态和错误术语。",
+      "seconds": 18.898,
+      "model_calls": 3,
+      "actual_intents": [
+        "recommendation",
+        "question_answering"
+      ],
+      "nominal_intent_match": false,
+      "automatic_checks_pass": false
+    },
+    {
+      "case_id": 7,
+      "status": "前序阻塞",
+      "reason": "第6题没有分类结果和商品，无法定位第二类或那款商品；合理澄清，冲泡和详情能力未能验证。",
+      "seconds": 2.599,
+      "model_calls": 1,
+      "actual_intents": [
+        "clarification"
+      ],
+      "nominal_intent_match": false,
+      "automatic_checks_pass": false
+    },
+    {
+      "case_id": 8,
+      "status": "通过",
+      "reason": "先说明六类加工区别，再按说明范围推荐六款对应商品；SKU、分类、价格与快照一致。理由仍偏通用。",
+      "seconds": 21.698,
+      "model_calls": 2,
+      "actual_intents": [
+        "question_answering",
+        "recommendation"
+      ],
+      "nominal_intent_match": true,
+      "automatic_checks_pass": true
+    },
+    {
+      "case_id": 9,
+      "status": "失败",
+      "reason": "范围收窄误加澄清任务；推荐校验失败。快照中绿茶11款、红茶12款符合20美元上限，足够各选两款。",
+      "seconds": 6.797,
+      "model_calls": 4,
+      "actual_intents": [
+        "clarification",
+        "recommendation"
+      ],
+      "nominal_intent_match": false,
+      "automatic_checks_pass": false
+    },
+    {
+      "case_id": 10,
+      "status": "基本完成",
+      "reason": "一款白茶与加工说明均完成，先推荐后介绍顺序正确；补充分类把black tea译成黑茶，遗漏红茶并重复黑茶。",
+      "seconds": 15.759,
+      "model_calls": 2,
+      "actual_intents": [
+        "recommendation",
+        "question_answering"
+      ],
+      "nominal_intent_match": true,
+      "automatic_checks_pass": true
+    },
+    {
+      "case_id": 11,
+      "status": "失败",
+      "reason": "快照没有1美元以内红茶，应明确无匹配；实际停在校验失败并要求澄清，未返回NO_MATCH。",
+      "seconds": 2.459,
+      "model_calls": 1,
+      "actual_intents": [
+        "recommendation"
+      ],
+      "nominal_intent_match": true,
+      "automatic_checks_pass": false
+    },
+    {
+      "case_id": 12,
+      "status": "部分完成",
+      "reason": "没有误将总预算作为单价，也未乱推荐；但实际因证据字段错误进入泛化澄清，没有针对性询问采购数量和单份预算。",
+      "seconds": 2.669,
+      "model_calls": 1,
+      "actual_intents": [
+        "recommendation"
+      ],
+      "nominal_intent_match": true,
+      "automatic_checks_pass": true
+    },
+    {
+      "case_id": 13,
+      "status": "失败",
+      "reason": "中英混合问题未产生商品，同样因未知的意向证据字段失败；此记录不足以证明语言映射或reranker导致失败。",
+      "seconds": 2.712,
+      "model_calls": 1,
+      "actual_intents": [
+        "recommendation"
+      ],
+      "nominal_intent_match": true,
+      "automatic_checks_pass": false
+    },
+    {
+      "case_id": 14,
+      "status": "部分完成",
+      "reason": "沙特习惯有召回依据，明确承认本轮缺少阿联酋习惯证据，未把历史预测当实际消费；两国习惯比较未完成。",
+      "seconds": 16.355,
+      "model_calls": 2,
+      "actual_intents": [
+        "question_answering"
+      ],
+      "nominal_intent_match": true,
+      "automatic_checks_pass": true
+    },
+    {
+      "case_id": 15,
+      "status": "基本完成",
+      "reason": "未绑定买家时阻止订单查询，未虚构物流或执行退款；但让用户在对话中提供账号/用户ID不等于完成登录绑定，应引导认证或由测试人员重启绑定预览。",
+      "seconds": 4.605,
+      "model_calls": 3,
+      "actual_intents": [
+        "after_sales"
+      ],
+      "nominal_intent_match": true,
+      "automatic_checks_pass": true
+    }
+  ]
+}

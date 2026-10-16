@@ -1,0 +1,979 @@
+{
+  "time": "2026-10-16T14:56:40.156131+08:00",
+  "skuCount": 104,
+  "counts": {
+    "virtual": 102,
+    "real": 2
+  },
+  "realUploadsUnchanged": true,
+  "catalogs": [
+    {
+      "id": 8,
+      "name": "红茶",
+      "fallback_image": "tea_categories/20261016/black-v1.png"
+    },
+    {
+      "id": 9,
+      "name": "绿茶",
+      "fallback_image": "tea_categories/20261016/green-v1.png"
+    },
+    {
+      "id": 10,
+      "name": "乌龙茶",
+      "fallback_image": "tea_categories/20261016/oolong-v1.png"
+    },
+    {
+      "id": 11,
+      "name": "白茶",
+      "fallback_image": "tea_categories/20261016/white-v1.png"
+    },
+    {
+      "id": 12,
+      "name": "黄茶",
+      "fallback_image": "tea_categories/20261016/yellow-v1.png"
+    },
+    {
+      "id": 13,
+      "name": "黑茶",
+      "fallback_image": "tea_categories/20261016/dark-v1.png"
+    }
+  ],
+  "skus": [
+    {
+      "skuId": 21,
+      "catalogId": 8,
+      "catalog": "红茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/black-v1.png",
+      "sha256": "3ab85d4064730984b1a04b39667fbb868cec5421fd69a8a9d58de12b27890c8f",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 22,
+      "catalogId": 8,
+      "catalog": "红茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/black-v1.png",
+      "sha256": "3ab85d4064730984b1a04b39667fbb868cec5421fd69a8a9d58de12b27890c8f",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 23,
+      "catalogId": 9,
+      "catalog": "绿茶",
+      "source": "real",
+      "path": "sku/23/f3d3572c11dfa9ec8a1380704f99e003918fa0ec6b08.webp",
+      "sha256": "a37fce4dfb546b9bcbeb10b41c82ec2ad6fbca49a61a953ecda097637501bc0e",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 24,
+      "catalogId": 8,
+      "catalog": "红茶",
+      "source": "real",
+      "path": "sku/24/4d086e061d950a7b020843e0da8975d9f2d3572c63c4.webp",
+      "sha256": "ab157c9e845047743d77dc4e98164f75645cf422e361900944526ecf3e8e974c",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 25,
+      "catalogId": 9,
+      "catalog": "绿茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/green-v1.png",
+      "sha256": "cf4149501b70eb8806082737362754d86c32c43d01e373cd84b6ca485c96f342",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 26,
+      "catalogId": 9,
+      "catalog": "绿茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/green-v1.png",
+      "sha256": "cf4149501b70eb8806082737362754d86c32c43d01e373cd84b6ca485c96f342",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 27,
+      "catalogId": 9,
+      "catalog": "绿茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/green-v1.png",
+      "sha256": "cf4149501b70eb8806082737362754d86c32c43d01e373cd84b6ca485c96f342",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 28,
+      "catalogId": 9,
+      "catalog": "绿茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/green-v1.png",
+      "sha256": "cf4149501b70eb8806082737362754d86c32c43d01e373cd84b6ca485c96f342",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 29,
+      "catalogId": 9,
+      "catalog": "绿茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/green-v1.png",
+      "sha256": "cf4149501b70eb8806082737362754d86c32c43d01e373cd84b6ca485c96f342",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 30,
+      "catalogId": 9,
+      "catalog": "绿茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/green-v1.png",
+      "sha256": "cf4149501b70eb8806082737362754d86c32c43d01e373cd84b6ca485c96f342",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 31,
+      "catalogId": 9,
+      "catalog": "绿茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/green-v1.png",
+      "sha256": "cf4149501b70eb8806082737362754d86c32c43d01e373cd84b6ca485c96f342",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 32,
+      "catalogId": 9,
+      "catalog": "绿茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/green-v1.png",
+      "sha256": "cf4149501b70eb8806082737362754d86c32c43d01e373cd84b6ca485c96f342",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 33,
+      "catalogId": 9,
+      "catalog": "绿茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/green-v1.png",
+      "sha256": "cf4149501b70eb8806082737362754d86c32c43d01e373cd84b6ca485c96f342",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 34,
+      "catalogId": 9,
+      "catalog": "绿茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/green-v1.png",
+      "sha256": "cf4149501b70eb8806082737362754d86c32c43d01e373cd84b6ca485c96f342",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 35,
+      "catalogId": 9,
+      "catalog": "绿茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/green-v1.png",
+      "sha256": "cf4149501b70eb8806082737362754d86c32c43d01e373cd84b6ca485c96f342",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 36,
+      "catalogId": 9,
+      "catalog": "绿茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/green-v1.png",
+      "sha256": "cf4149501b70eb8806082737362754d86c32c43d01e373cd84b6ca485c96f342",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 37,
+      "catalogId": 9,
+      "catalog": "绿茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/green-v1.png",
+      "sha256": "cf4149501b70eb8806082737362754d86c32c43d01e373cd84b6ca485c96f342",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 38,
+      "catalogId": 9,
+      "catalog": "绿茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/green-v1.png",
+      "sha256": "cf4149501b70eb8806082737362754d86c32c43d01e373cd84b6ca485c96f342",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 39,
+      "catalogId": 9,
+      "catalog": "绿茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/green-v1.png",
+      "sha256": "cf4149501b70eb8806082737362754d86c32c43d01e373cd84b6ca485c96f342",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 40,
+      "catalogId": 9,
+      "catalog": "绿茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/green-v1.png",
+      "sha256": "cf4149501b70eb8806082737362754d86c32c43d01e373cd84b6ca485c96f342",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 41,
+      "catalogId": 9,
+      "catalog": "绿茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/green-v1.png",
+      "sha256": "cf4149501b70eb8806082737362754d86c32c43d01e373cd84b6ca485c96f342",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 42,
+      "catalogId": 9,
+      "catalog": "绿茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/green-v1.png",
+      "sha256": "cf4149501b70eb8806082737362754d86c32c43d01e373cd84b6ca485c96f342",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 43,
+      "catalogId": 9,
+      "catalog": "绿茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/green-v1.png",
+      "sha256": "cf4149501b70eb8806082737362754d86c32c43d01e373cd84b6ca485c96f342",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 44,
+      "catalogId": 9,
+      "catalog": "绿茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/green-v1.png",
+      "sha256": "cf4149501b70eb8806082737362754d86c32c43d01e373cd84b6ca485c96f342",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 45,
+      "catalogId": 8,
+      "catalog": "红茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/black-v1.png",
+      "sha256": "3ab85d4064730984b1a04b39667fbb868cec5421fd69a8a9d58de12b27890c8f",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 46,
+      "catalogId": 8,
+      "catalog": "红茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/black-v1.png",
+      "sha256": "3ab85d4064730984b1a04b39667fbb868cec5421fd69a8a9d58de12b27890c8f",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 47,
+      "catalogId": 8,
+      "catalog": "红茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/black-v1.png",
+      "sha256": "3ab85d4064730984b1a04b39667fbb868cec5421fd69a8a9d58de12b27890c8f",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 48,
+      "catalogId": 8,
+      "catalog": "红茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/black-v1.png",
+      "sha256": "3ab85d4064730984b1a04b39667fbb868cec5421fd69a8a9d58de12b27890c8f",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 49,
+      "catalogId": 8,
+      "catalog": "红茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/black-v1.png",
+      "sha256": "3ab85d4064730984b1a04b39667fbb868cec5421fd69a8a9d58de12b27890c8f",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 50,
+      "catalogId": 8,
+      "catalog": "红茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/black-v1.png",
+      "sha256": "3ab85d4064730984b1a04b39667fbb868cec5421fd69a8a9d58de12b27890c8f",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 51,
+      "catalogId": 8,
+      "catalog": "红茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/black-v1.png",
+      "sha256": "3ab85d4064730984b1a04b39667fbb868cec5421fd69a8a9d58de12b27890c8f",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 52,
+      "catalogId": 8,
+      "catalog": "红茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/black-v1.png",
+      "sha256": "3ab85d4064730984b1a04b39667fbb868cec5421fd69a8a9d58de12b27890c8f",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 53,
+      "catalogId": 8,
+      "catalog": "红茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/black-v1.png",
+      "sha256": "3ab85d4064730984b1a04b39667fbb868cec5421fd69a8a9d58de12b27890c8f",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 54,
+      "catalogId": 8,
+      "catalog": "红茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/black-v1.png",
+      "sha256": "3ab85d4064730984b1a04b39667fbb868cec5421fd69a8a9d58de12b27890c8f",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 55,
+      "catalogId": 8,
+      "catalog": "红茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/black-v1.png",
+      "sha256": "3ab85d4064730984b1a04b39667fbb868cec5421fd69a8a9d58de12b27890c8f",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 56,
+      "catalogId": 8,
+      "catalog": "红茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/black-v1.png",
+      "sha256": "3ab85d4064730984b1a04b39667fbb868cec5421fd69a8a9d58de12b27890c8f",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 57,
+      "catalogId": 8,
+      "catalog": "红茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/black-v1.png",
+      "sha256": "3ab85d4064730984b1a04b39667fbb868cec5421fd69a8a9d58de12b27890c8f",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 58,
+      "catalogId": 8,
+      "catalog": "红茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/black-v1.png",
+      "sha256": "3ab85d4064730984b1a04b39667fbb868cec5421fd69a8a9d58de12b27890c8f",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 59,
+      "catalogId": 8,
+      "catalog": "红茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/black-v1.png",
+      "sha256": "3ab85d4064730984b1a04b39667fbb868cec5421fd69a8a9d58de12b27890c8f",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 60,
+      "catalogId": 8,
+      "catalog": "红茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/black-v1.png",
+      "sha256": "3ab85d4064730984b1a04b39667fbb868cec5421fd69a8a9d58de12b27890c8f",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 61,
+      "catalogId": 8,
+      "catalog": "红茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/black-v1.png",
+      "sha256": "3ab85d4064730984b1a04b39667fbb868cec5421fd69a8a9d58de12b27890c8f",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 62,
+      "catalogId": 8,
+      "catalog": "红茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/black-v1.png",
+      "sha256": "3ab85d4064730984b1a04b39667fbb868cec5421fd69a8a9d58de12b27890c8f",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 63,
+      "catalogId": 8,
+      "catalog": "红茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/black-v1.png",
+      "sha256": "3ab85d4064730984b1a04b39667fbb868cec5421fd69a8a9d58de12b27890c8f",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 64,
+      "catalogId": 8,
+      "catalog": "红茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/black-v1.png",
+      "sha256": "3ab85d4064730984b1a04b39667fbb868cec5421fd69a8a9d58de12b27890c8f",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 65,
+      "catalogId": 10,
+      "catalog": "乌龙茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/oolong-v1.png",
+      "sha256": "42aa2ad4669e9cc65339f6f1ce1f9b60e353d9dba2c2fc1bce5771c92b33c64f",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 66,
+      "catalogId": 10,
+      "catalog": "乌龙茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/oolong-v1.png",
+      "sha256": "42aa2ad4669e9cc65339f6f1ce1f9b60e353d9dba2c2fc1bce5771c92b33c64f",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 67,
+      "catalogId": 10,
+      "catalog": "乌龙茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/oolong-v1.png",
+      "sha256": "42aa2ad4669e9cc65339f6f1ce1f9b60e353d9dba2c2fc1bce5771c92b33c64f",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 68,
+      "catalogId": 10,
+      "catalog": "乌龙茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/oolong-v1.png",
+      "sha256": "42aa2ad4669e9cc65339f6f1ce1f9b60e353d9dba2c2fc1bce5771c92b33c64f",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 69,
+      "catalogId": 10,
+      "catalog": "乌龙茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/oolong-v1.png",
+      "sha256": "42aa2ad4669e9cc65339f6f1ce1f9b60e353d9dba2c2fc1bce5771c92b33c64f",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 70,
+      "catalogId": 10,
+      "catalog": "乌龙茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/oolong-v1.png",
+      "sha256": "42aa2ad4669e9cc65339f6f1ce1f9b60e353d9dba2c2fc1bce5771c92b33c64f",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 71,
+      "catalogId": 10,
+      "catalog": "乌龙茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/oolong-v1.png",
+      "sha256": "42aa2ad4669e9cc65339f6f1ce1f9b60e353d9dba2c2fc1bce5771c92b33c64f",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 72,
+      "catalogId": 10,
+      "catalog": "乌龙茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/oolong-v1.png",
+      "sha256": "42aa2ad4669e9cc65339f6f1ce1f9b60e353d9dba2c2fc1bce5771c92b33c64f",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 73,
+      "catalogId": 10,
+      "catalog": "乌龙茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/oolong-v1.png",
+      "sha256": "42aa2ad4669e9cc65339f6f1ce1f9b60e353d9dba2c2fc1bce5771c92b33c64f",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 74,
+      "catalogId": 10,
+      "catalog": "乌龙茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/oolong-v1.png",
+      "sha256": "42aa2ad4669e9cc65339f6f1ce1f9b60e353d9dba2c2fc1bce5771c92b33c64f",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 75,
+      "catalogId": 10,
+      "catalog": "乌龙茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/oolong-v1.png",
+      "sha256": "42aa2ad4669e9cc65339f6f1ce1f9b60e353d9dba2c2fc1bce5771c92b33c64f",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 76,
+      "catalogId": 10,
+      "catalog": "乌龙茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/oolong-v1.png",
+      "sha256": "42aa2ad4669e9cc65339f6f1ce1f9b60e353d9dba2c2fc1bce5771c92b33c64f",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 77,
+      "catalogId": 10,
+      "catalog": "乌龙茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/oolong-v1.png",
+      "sha256": "42aa2ad4669e9cc65339f6f1ce1f9b60e353d9dba2c2fc1bce5771c92b33c64f",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 78,
+      "catalogId": 10,
+      "catalog": "乌龙茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/oolong-v1.png",
+      "sha256": "42aa2ad4669e9cc65339f6f1ce1f9b60e353d9dba2c2fc1bce5771c92b33c64f",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 79,
+      "catalogId": 10,
+      "catalog": "乌龙茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/oolong-v1.png",
+      "sha256": "42aa2ad4669e9cc65339f6f1ce1f9b60e353d9dba2c2fc1bce5771c92b33c64f",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 80,
+      "catalogId": 10,
+      "catalog": "乌龙茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/oolong-v1.png",
+      "sha256": "42aa2ad4669e9cc65339f6f1ce1f9b60e353d9dba2c2fc1bce5771c92b33c64f",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 81,
+      "catalogId": 10,
+      "catalog": "乌龙茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/oolong-v1.png",
+      "sha256": "42aa2ad4669e9cc65339f6f1ce1f9b60e353d9dba2c2fc1bce5771c92b33c64f",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 82,
+      "catalogId": 10,
+      "catalog": "乌龙茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/oolong-v1.png",
+      "sha256": "42aa2ad4669e9cc65339f6f1ce1f9b60e353d9dba2c2fc1bce5771c92b33c64f",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 83,
+      "catalogId": 10,
+      "catalog": "乌龙茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/oolong-v1.png",
+      "sha256": "42aa2ad4669e9cc65339f6f1ce1f9b60e353d9dba2c2fc1bce5771c92b33c64f",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 84,
+      "catalogId": 10,
+      "catalog": "乌龙茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/oolong-v1.png",
+      "sha256": "42aa2ad4669e9cc65339f6f1ce1f9b60e353d9dba2c2fc1bce5771c92b33c64f",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 85,
+      "catalogId": 11,
+      "catalog": "白茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/white-v1.png",
+      "sha256": "4111bf8bafa9a667c78355cac2b0a657f147518909a199d939a440560d119dad",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 86,
+      "catalogId": 11,
+      "catalog": "白茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/white-v1.png",
+      "sha256": "4111bf8bafa9a667c78355cac2b0a657f147518909a199d939a440560d119dad",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 87,
+      "catalogId": 11,
+      "catalog": "白茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/white-v1.png",
+      "sha256": "4111bf8bafa9a667c78355cac2b0a657f147518909a199d939a440560d119dad",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 88,
+      "catalogId": 11,
+      "catalog": "白茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/white-v1.png",
+      "sha256": "4111bf8bafa9a667c78355cac2b0a657f147518909a199d939a440560d119dad",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 89,
+      "catalogId": 11,
+      "catalog": "白茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/white-v1.png",
+      "sha256": "4111bf8bafa9a667c78355cac2b0a657f147518909a199d939a440560d119dad",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 90,
+      "catalogId": 11,
+      "catalog": "白茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/white-v1.png",
+      "sha256": "4111bf8bafa9a667c78355cac2b0a657f147518909a199d939a440560d119dad",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 91,
+      "catalogId": 11,
+      "catalog": "白茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/white-v1.png",
+      "sha256": "4111bf8bafa9a667c78355cac2b0a657f147518909a199d939a440560d119dad",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 92,
+      "catalogId": 11,
+      "catalog": "白茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/white-v1.png",
+      "sha256": "4111bf8bafa9a667c78355cac2b0a657f147518909a199d939a440560d119dad",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 93,
+      "catalogId": 11,
+      "catalog": "白茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/white-v1.png",
+      "sha256": "4111bf8bafa9a667c78355cac2b0a657f147518909a199d939a440560d119dad",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 94,
+      "catalogId": 11,
+      "catalog": "白茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/white-v1.png",
+      "sha256": "4111bf8bafa9a667c78355cac2b0a657f147518909a199d939a440560d119dad",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 95,
+      "catalogId": 11,
+      "catalog": "白茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/white-v1.png",
+      "sha256": "4111bf8bafa9a667c78355cac2b0a657f147518909a199d939a440560d119dad",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 96,
+      "catalogId": 11,
+      "catalog": "白茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/white-v1.png",
+      "sha256": "4111bf8bafa9a667c78355cac2b0a657f147518909a199d939a440560d119dad",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 97,
+      "catalogId": 11,
+      "catalog": "白茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/white-v1.png",
+      "sha256": "4111bf8bafa9a667c78355cac2b0a657f147518909a199d939a440560d119dad",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 98,
+      "catalogId": 11,
+      "catalog": "白茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/white-v1.png",
+      "sha256": "4111bf8bafa9a667c78355cac2b0a657f147518909a199d939a440560d119dad",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 99,
+      "catalogId": 11,
+      "catalog": "白茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/white-v1.png",
+      "sha256": "4111bf8bafa9a667c78355cac2b0a657f147518909a199d939a440560d119dad",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 100,
+      "catalogId": 12,
+      "catalog": "黄茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/yellow-v1.png",
+      "sha256": "76ef0d99fb7274a4b81e45ef5ff863b505a98f16637137b6082ff898e3fb6820",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 101,
+      "catalogId": 12,
+      "catalog": "黄茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/yellow-v1.png",
+      "sha256": "76ef0d99fb7274a4b81e45ef5ff863b505a98f16637137b6082ff898e3fb6820",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 102,
+      "catalogId": 12,
+      "catalog": "黄茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/yellow-v1.png",
+      "sha256": "76ef0d99fb7274a4b81e45ef5ff863b505a98f16637137b6082ff898e3fb6820",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 103,
+      "catalogId": 12,
+      "catalog": "黄茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/yellow-v1.png",
+      "sha256": "76ef0d99fb7274a4b81e45ef5ff863b505a98f16637137b6082ff898e3fb6820",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 104,
+      "catalogId": 12,
+      "catalog": "黄茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/yellow-v1.png",
+      "sha256": "76ef0d99fb7274a4b81e45ef5ff863b505a98f16637137b6082ff898e3fb6820",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 105,
+      "catalogId": 12,
+      "catalog": "黄茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/yellow-v1.png",
+      "sha256": "76ef0d99fb7274a4b81e45ef5ff863b505a98f16637137b6082ff898e3fb6820",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 106,
+      "catalogId": 12,
+      "catalog": "黄茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/yellow-v1.png",
+      "sha256": "76ef0d99fb7274a4b81e45ef5ff863b505a98f16637137b6082ff898e3fb6820",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 107,
+      "catalogId": 12,
+      "catalog": "黄茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/yellow-v1.png",
+      "sha256": "76ef0d99fb7274a4b81e45ef5ff863b505a98f16637137b6082ff898e3fb6820",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 108,
+      "catalogId": 12,
+      "catalog": "黄茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/yellow-v1.png",
+      "sha256": "76ef0d99fb7274a4b81e45ef5ff863b505a98f16637137b6082ff898e3fb6820",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 109,
+      "catalogId": 12,
+      "catalog": "黄茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/yellow-v1.png",
+      "sha256": "76ef0d99fb7274a4b81e45ef5ff863b505a98f16637137b6082ff898e3fb6820",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 110,
+      "catalogId": 13,
+      "catalog": "黑茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/dark-v1.png",
+      "sha256": "602ec826b13ae8c0ee01fb2a4b826d628c1b06eebbe7fc787561a453eb1a290c",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 111,
+      "catalogId": 13,
+      "catalog": "黑茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/dark-v1.png",
+      "sha256": "602ec826b13ae8c0ee01fb2a4b826d628c1b06eebbe7fc787561a453eb1a290c",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 112,
+      "catalogId": 13,
+      "catalog": "黑茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/dark-v1.png",
+      "sha256": "602ec826b13ae8c0ee01fb2a4b826d628c1b06eebbe7fc787561a453eb1a290c",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 113,
+      "catalogId": 13,
+      "catalog": "黑茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/dark-v1.png",
+      "sha256": "602ec826b13ae8c0ee01fb2a4b826d628c1b06eebbe7fc787561a453eb1a290c",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 114,
+      "catalogId": 13,
+      "catalog": "黑茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/dark-v1.png",
+      "sha256": "602ec826b13ae8c0ee01fb2a4b826d628c1b06eebbe7fc787561a453eb1a290c",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 115,
+      "catalogId": 13,
+      "catalog": "黑茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/dark-v1.png",
+      "sha256": "602ec826b13ae8c0ee01fb2a4b826d628c1b06eebbe7fc787561a453eb1a290c",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 116,
+      "catalogId": 13,
+      "catalog": "黑茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/dark-v1.png",
+      "sha256": "602ec826b13ae8c0ee01fb2a4b826d628c1b06eebbe7fc787561a453eb1a290c",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 117,
+      "catalogId": 13,
+      "catalog": "黑茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/dark-v1.png",
+      "sha256": "602ec826b13ae8c0ee01fb2a4b826d628c1b06eebbe7fc787561a453eb1a290c",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 118,
+      "catalogId": 13,
+      "catalog": "黑茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/dark-v1.png",
+      "sha256": "602ec826b13ae8c0ee01fb2a4b826d628c1b06eebbe7fc787561a453eb1a290c",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 119,
+      "catalogId": 13,
+      "catalog": "黑茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/dark-v1.png",
+      "sha256": "602ec826b13ae8c0ee01fb2a4b826d628c1b06eebbe7fc787561a453eb1a290c",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 120,
+      "catalogId": 13,
+      "catalog": "黑茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/dark-v1.png",
+      "sha256": "602ec826b13ae8c0ee01fb2a4b826d628c1b06eebbe7fc787561a453eb1a290c",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 121,
+      "catalogId": 13,
+      "catalog": "黑茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/dark-v1.png",
+      "sha256": "602ec826b13ae8c0ee01fb2a4b826d628c1b06eebbe7fc787561a453eb1a290c",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 122,
+      "catalogId": 13,
+      "catalog": "黑茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/dark-v1.png",
+      "sha256": "602ec826b13ae8c0ee01fb2a4b826d628c1b06eebbe7fc787561a453eb1a290c",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 123,
+      "catalogId": 13,
+      "catalog": "黑茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/dark-v1.png",
+      "sha256": "602ec826b13ae8c0ee01fb2a4b826d628c1b06eebbe7fc787561a453eb1a290c",
+      "httpStatus": 200
+    },
+    {
+      "skuId": 124,
+      "catalogId": 13,
+      "catalog": "黑茶",
+      "source": "virtual",
+      "path": "tea_categories/20261016/dark-v1.png",
+      "sha256": "602ec826b13ae8c0ee01fb2a4b826d628c1b06eebbe7fc787561a453eb1a290c",
+      "httpStatus": 200
+    }
+  ]
+}
