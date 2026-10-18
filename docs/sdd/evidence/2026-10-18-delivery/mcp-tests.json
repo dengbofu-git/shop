@@ -1,0 +1,12 @@
+{
+  "command": [
+    "tools/dadashop_mcp/.venv/Scripts/python.exe",
+    "-m",
+    "unittest",
+    "tools.dadashop_mcp.test_server",
+    "-v"
+  ],
+  "exit_code": 0,
+  "output": "test_cancellation_reaps_backend (tools.dadashop_mcp.test_server.AdapterTests.test_cancellation_reaps_backend) ... ok\ntest_failure_and_malformed_output_do_not_expose_stderr (tools.dadashop_mcp.test_server.AdapterTests.test_failure_and_malformed_output_do_not_expose_stderr) ... ok\ntest_fixed_command_and_structured_success (tools.dadashop_mcp.test_server.AdapterTests.test_fixed_command_and_structured_success) ... ok\ntest_invalid_backend_envelope_is_not_forwarded (tools.dadashop_mcp.test_server.AdapterTests.test_invalid_backend_envelope_is_not_forwarded) ... ok\ntest_invalid_ids_never_spawn_backend (tools.dadashop_mcp.test_server.AdapterTests.test_invalid_ids_never_spawn_backend) ... ok\ntest_protocol_success_no_match_and_unknown_tool (tools.dadashop_mcp.test_server.AdapterTests.test_protocol_success_no_match_and_unknown_tool) ... Tool 'execute_sql' not listed, no validation will be performed\nok\ntest_real_stdio_initialize_list_and_error_call (tools.dadashop_mcp.test_server.AdapterTests.test_real_stdio_initialize_list_and_error_call) ... ok\ntest_stdio_to_real_django_command_with_synthetic_sqlite (tools.dadashop_mcp.test_server.AdapterTests.test_stdio_to_real_django_command_with_synthetic_sqlite) ... Executing <Task pending name='Task-38' coro=<AdapterTests.test_stdio_to_real_django_command_with_synthetic_sqlite() running at E:\\django\\dadashop\\tools\\dadashop_mcp\\test_server.py:122> cb=[_run_until_complete_cb() at E:\\miniconda\\Lib\\asyncio\\base_events.py:181] created at E:\\miniconda\\Lib\\asyncio\\runners.py:100> took 2.500 seconds\nExecuting <Task pending name='Task-38' coro=<AdapterTests.test_stdio_to_real_django_command_with_synthetic_sqlite() running at E:\\django\\dadashop\\tools\\dadashop_mcp\\test_server.py:133> cb=[_run_until_complete_cb() at E:\\miniconda\\Lib\\asyncio\\base_events.py:181] created at E:\\miniconda\\Lib\\asyncio\\runners.py:100> took 1.500 seconds\nok\ntest_timeout_kills_backend_and_sanitizes_error (tools.dadashop_mcp.test_server.AdapterTests.test_timeout_kills_backend_and_sanitizes_error) ... ok\n\n----------------------------------------------------------------------\nRan 9 tests in 8.780s\n\nOK\n",
+  "fixture": "temporary synthetic SQLite"
+}

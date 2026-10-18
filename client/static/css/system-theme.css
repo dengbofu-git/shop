@@ -75,7 +75,7 @@ body.ds-theme {
 }
 .ds-theme :is(.buyer-sidebar, .supplier-sidebar, .sidebar) select { background: #fff; color: var(--ink); border-color: var(--border); }
 .ds-theme :is(.buyer-main, .supplier-main, .dashboard-root) { background: var(--bg); background-image: none; }
-.ds-theme :is(.pa-wrap, .customs-root, .dashboard-root) { max-width: 1280px; margin-inline: auto; }
+.ds-theme :is(.pa-wrap, .dashboard-root) { max-width: 1280px; margin-inline: auto; }
 .ds-theme .pa-wrap { padding: 36px 24px 60px; }
 .ds-theme :is(.pa-topbar h1, .dashboard-title, .mp-title, .ba-page-head h1, .cart-page-title h1) { color: var(--ink); font-size: 29px; font-weight: 700; letter-spacing: -.8px; }
 .ds-theme :is(.buyer-banner, .banner-pattern, .banner-section, .banner-item, .buyer-products-banner, .welcome-banner) {
@@ -233,7 +233,7 @@ html:has(body.ds-admin) { color-scheme: light; }
     .ds-theme .buyer-topbar .btn-search { flex-shrink: 0; }
 }
 @media (max-width: 760px) {
-    .ds-theme :is(.pa-wrap, .customs-root) { padding: 20px 16px 36px; }
+    .ds-theme .pa-wrap { padding: 20px 16px 36px; }
     .ds-theme :is(.pa-card, .ba-panel, .chart-card, .trace-section) { padding: 18px; }
     .ds-theme :is(.pa-topbar h1, .dashboard-title, .mp-title, .ba-page-head h1) { font-size: 24px; }
     .ds-theme .merchant-wrap { width: auto !important; margin: 16px; }

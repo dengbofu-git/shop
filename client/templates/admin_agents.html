@@ -3,20 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>平台运营 · Agent 运行与设置</title>
-    <link rel="stylesheet" href="/static/css/admin-agents.css?v=20261015">
-    <script src="/static/js/auth-storage.js"></script>
+    <title>平台运营 · Agent 管理</title>
+    <link rel="stylesheet" href="/static/css/admin-agents.css?v=20261018-checkbox-only">
+    <script src="/static/js/auth-storage.js?v=20261018-session-isolation"></script>
 {% include "shared/system_theme.html" %}
+    <link rel="stylesheet" href="/static/css/platform-admin.css?v=20261018-embedded">
 </head>
-<body class="ds-page-admin_agents ds-theme">
-    <header class="topbar">
+<body class="ds-page-admin_agents ds-theme" style="visibility:hidden">
+    {% if not embedded %}<header class="topbar">
         <a class="brand" href="/admin_panel.html"><span class="brand-mark">茗</span><span>茗越山关 <small>平台运营</small></span></a>
-        <nav aria-label="平台运营导航"><a href="/admin_panel.html">账号管理</a><a href="/admin_agents.html" aria-current="page">Agent 运行与设置</a></nav>
+        {% include "shared/platform_nav.html" with active="agents" %}
         <a class="button quiet" href="/login.html">返回登录</a>
-    </header>
+    </header>{% endif %}
     <main>
         <div class="heading"><div><p class="eyebrow">AGENT OPERATIONS</p><h1>让每一次回答都有迹可循</h1><p class="muted">管理茶品智能助手的模型，观察从意图识别到知识检索、回答生成的运行情况。</p></div><span id="current-model" class="pill">读取配置中</span></div>
         <p id="page-status" class="message" role="status" aria-live="polite"></p>
+
+        <section id="knowledge-base" class="panel" aria-labelledby="knowledge-heading">
+            <div class="section-head"><div><h2 id="knowledge-heading">知识库文件</h2><p class="muted" id="knowledge-description">文件提交功能暂未开放，后续可在此补充知识库资料。</p></div><span class="pill">暂未开放</span></div>
+            <button id="submit-knowledge-file" class="button primary" type="button" disabled aria-describedby="knowledge-description">提交知识库文件</button>
+        </section>
 
         <section class="panel" aria-labelledby="monitor-heading">
             <div class="section-head"><div><h2 id="monitor-heading">运行概览</h2><p class="muted">OpenTelemetry 采集的数据，自启用后开始统计；每 30 秒刷新。</p></div><div class="actions"><label for="time-window" class="sr-only">时间范围</label><select id="time-window"><option value="1">近 1 小时</option><option value="24" selected>近 24 小时</option><option value="168">近 7 天</option></select><button id="refresh-monitor" type="button" class="button quiet">刷新数据</button></div></div>
@@ -36,7 +42,7 @@
                     <p class="hint">思考模式会影响响应时间；客服各节点使用同一份模型配置快照。</p>
                     <div class="divider"></div>
                     <h2>知识检索与重排序</h2>
-                    <label class="switch-row"><span><strong>启用本地重排序</strong><small>向量召回后，按问题与正文的相关性重新排序。</small></span><input id="rerank-enabled" type="checkbox"></label>
+                    <div class="switch-row"><span><strong id="rerank-enabled-label">启用本地重排序</strong><small id="rerank-enabled-description">向量召回后，按问题与正文的相关性重新排序。</small></span><input id="rerank-enabled" type="checkbox" aria-labelledby="rerank-enabled-label" aria-describedby="rerank-enabled-description"></div>
                     <label for="rerank-model">已部署的重排序模型</label><select id="rerank-model" required></select>
                     <div class="health-row"><span id="rerank-service-status" role="status">读取模型服务状态中…</span><button id="refresh-reranker" class="button quiet" type="button">刷新状态</button></div>
                     <div class="retrieval-grid">
@@ -48,10 +54,10 @@
                         <div><label for="rerank-min-score">最低相关性分数（选填）</label><input id="rerank-min-score" type="number" min="0" max="1" step="0.01" placeholder="留空时不过滤"></div>
                     </div>
                     <p class="hint">每来源上限在证据不足时放宽。分数用于相关性排序，不代表答案正确率；阈值建议经业务评估后设置。</p>
-                    <label class="switch-row"><span><strong>异常时回退到向量排序</strong><small>关闭后，重排序失败将不提供知识库证据。</small></span><input id="rerank-fallback" type="checkbox"></label>
+                    <div class="switch-row"><span><strong id="rerank-fallback-label">异常时回退到向量排序</strong><small id="rerank-fallback-description">关闭后，重排序失败将不提供知识库证据。</small></span><input id="rerank-fallback" type="checkbox" aria-labelledby="rerank-fallback-label" aria-describedby="rerank-fallback-description"></div>
                     <div class="divider"></div>
-                    <label class="switch-row"><span><strong>启用 Agent 监控</strong><small>记录节点耗时、模型调用、Token 用量和错误类型。</small></span><input id="telemetry-enabled" type="checkbox"></label>
-                    <label class="switch-row"><span><strong>导出到 OpenTelemetry Collector</strong><small>通过 OTLP HTTP/protobuf 发送链路和指标。</small></span><input id="export-enabled" type="checkbox"></label>
+                    <div class="switch-row"><span><strong id="telemetry-enabled-label">启用 Agent 监控</strong><small id="telemetry-enabled-description">记录节点耗时、模型调用、Token 用量和错误类型。</small></span><input id="telemetry-enabled" type="checkbox" aria-labelledby="telemetry-enabled-label" aria-describedby="telemetry-enabled-description"></div>
+                    <div class="switch-row"><span><strong id="export-enabled-label">导出到 OpenTelemetry Collector</strong><small id="export-enabled-description">通过 OTLP HTTP/protobuf 发送链路和指标。</small></span><input id="export-enabled" type="checkbox" aria-labelledby="export-enabled-label" aria-describedby="export-enabled-description"></div>
                     <label for="otlp-endpoint">Collector 地址</label><input id="otlp-endpoint" type="url" required maxlength="200" placeholder="http://127.0.0.1:4318"><p class="hint">填写基地址，例如 http://127.0.0.1:4318。API Key 由服务器环境配置管理。</p>
                     <div class="form-footer"><span id="settings-status" class="message" role="status" aria-live="polite"></span><button id="save-settings" class="button primary" type="submit">保存设置</button></div>
                 </form>
@@ -63,6 +69,7 @@
         </div>
     </main>
     <dialog id="trace-detail"><div class="section-head"><div><h2>Agent 调用链路</h2><p id="detail-trace-id" class="mono muted"></p></div><button id="close-trace" type="button" class="button quiet">关闭</button></div><p id="detail-status" class="message" role="status"></p><div id="span-list"></div></dialog>
-    <script src="/static/js/admin-agents.js?v=20261016-followups"></script>
+    <script src="/static/js/platform-access.js?v=20261018-embedded"></script>
+    <script src="/static/js/admin-agents.js?v=20261018-unified"></script>
 </body>
 </html>

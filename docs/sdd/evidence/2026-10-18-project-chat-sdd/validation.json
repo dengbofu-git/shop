@@ -1,0 +1,20 @@
+{
+  "status": "passed",
+  "checks": {
+    "yamlFiles": 12,
+    "businessModules": 8,
+    "capabilities": 25,
+    "features": 34,
+    "implementationModules": 15,
+    "checkedCurrentDocuments": 25,
+    "gitDiffCheckExit": 0,
+    "sourceHashesStable": true,
+    "pageAliasesValidated": {
+      "myCollect.html": "buyer_activity.html",
+      "recent.html": "buyer_activity.html"
+    }
+  },
+  "errors": [],
+  "runtimeTestsExecuted": false,
+  "scope": "SDD static consistency only"
+}

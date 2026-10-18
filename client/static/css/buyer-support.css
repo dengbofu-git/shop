@@ -37,6 +37,27 @@
 .bs-preference-actions { display: flex; gap: 10px; margin-top: 12px; }
 .bs-preference-actions button, .bs-new-conversation { padding: 8px 12px; background: #fff; border: 1px solid #b8cbb2; color: #224329; border-radius: 6px; cursor: pointer; }
 .bs-new-conversation { margin-left: auto; white-space: nowrap; }
+.bs-head-copy { min-width: 0; }
+.bs-conversation-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-inline-start: auto; }
+.bs-conversation-actions .bs-new-conversation { margin: 0; min-height: 40px; }
+.buyer-support-page [hidden] { display: none !important; }
+.bs-history { padding: 16px 20px; border-bottom: 1px solid #dce5d9; background: #f5f9f3; }
+.bs-history-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.bs-history-head h2 { margin: 0; color: #224329; font-size: 15px; }
+.bs-history-head button, .bs-history-more, .bs-history-paging button { min-height: 40px; padding: 8px 12px; border: 1px solid #b8cbb2; border-radius: 7px; background: #fff; color: #224329; cursor: pointer; }
+.bs-history p { margin: 10px 0; color: #58685b; font-size: 12px; line-height: 1.6; }
+.bs-history-list { display: grid; gap: 8px; max-height: 320px; overflow-y: auto; overscroll-behavior: contain; }
+.bs-history-item { width: 100%; min-height: 64px; padding: 11px 13px; border: 1px solid #dce5d9; border-radius: 8px; background: #fff; color: #224329; text-align: start; cursor: pointer; }
+.bs-history-item strong { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 13px; }
+.bs-history-item small { display: block; margin-top: 5px; color: #58685b; font-size: 12px; }
+.bs-history-item:hover, .bs-history-item[aria-current="true"] { background: #e9f2e7; border-color: #5d865d; }
+.bs-history-more { margin-top: 12px; }
+.bs-session-bar { display: flex; flex-wrap: wrap; gap: 6px 14px; padding: 12px 20px 4px; color: #58685b; font-size: 12px; line-height: 1.6; }
+.bs-session-bar strong { color: #224329; overflow-wrap: anywhere; }
+.bs-history-paging { text-align: center; padding: 4px 12px; }
+.bs-history button:disabled, .bs-history-paging button:disabled { opacity: .6; cursor: wait; }
+.bs-history button:focus-visible, .bs-history-paging button:focus-visible { outline: 2px solid #1a5d1a; outline-offset: 2px; }
+@media (max-width: 560px) { .bs-panel-head { flex-wrap: wrap; padding: 14px; } .bs-conversation-actions { width: 100%; margin-inline-start: 0; } .bs-conversation-actions button { flex: 1; } .bs-history { padding: 14px; } .bs-session-bar { padding-inline: 14px; } }
 .bs-products { display: grid; gap: 10px; margin-top: 10px; }
 .bs-product { display: flex; align-items: start; gap: 12px; padding: 12px; border: 1px solid #dce5d9; border-radius: 8px; background: #fff; color: #224329; text-decoration: none; }
 .bs-product img { width: 64px; height: 64px; object-fit: cover; border-radius: 5px; }

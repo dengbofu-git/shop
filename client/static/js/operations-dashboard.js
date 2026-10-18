@@ -97,8 +97,10 @@
             if (el) el.textContent = text;
         }
         set('m-total-sales', s.total_sales_display || ('¥' + s.total_sales));
-        set('m-order-count', '订单 ' + s.order_count + ' 笔');
-        set('m-pass-rate', (s.compliance_pass_rate || 0) + '%');
+        set('m-order-count', '已付 ' + s.paid_order_count + ' / 全部 ' + s.order_count + ' 笔');
+        var periodNames = { month: '近30天', quarter: '近92天', year: '近365天' };
+        set('sales-basis', (periodNames[_currentPeriod] || '近365天') + ' · ' + data.sales_basis);
+        set('m-completion-rate', (s.completion_rate || 0) + '%');
         set('m-completed', '已完成 ' + s.completed + ' 笔');
         set('m-pending-ship', String(s.pending_ship));
         set('m-unpaid', '待付款 ' + (s.unpaid || 0) + ' 笔');
@@ -128,18 +130,18 @@
             .catch(function() { cb(null); });
     }
 
-    function initLogisticsChart(data) {
-        var dom = document.getElementById('chart-logistics');
+    function initSalesTrendChart(data) {
+        var dom = document.getElementById('chart-sales-trend');
         if (!dom) return;
         var chart = echarts.init(dom);
-        var months = (data && data.monthly) ? data.monthly.map(function(m) { return m.label; }) : ['1月', '2月', '3月', '4月', '5月', '6月'];
-        var projectDays = (data && data.logistics_days) ? data.logistics_days : [3, 2, 2, 2, 2, 2];
-        var industry = projectDays.map(function(d) { return d + 5; });
+        var monthly = (data && data.monthly) || [];
+        var months = monthly.map(function(m) { return m.label; });
+        var sales = monthly.map(function(m) { return m.sales; });
         chart.setOption({
             backgroundColor: 'transparent',
             tooltip: { trigger: 'axis', backgroundColor: '#ffffff', borderColor: '#e1e9e3', textStyle: { color: '#17352b' } },
             legend: {
-                data: ['项目报关周期', '行业平均'],
+                data: ['已付款销售额'],
                 textStyle: { color: colorMuted, fontSize: 12 },
                 bottom: 0
             },
@@ -152,24 +154,23 @@
             },
             yAxis: {
                 type: 'value',
-                name: '天数',
+                name: '金额（元）',
                 axisLine: { show: false },
                 splitLine: { lineStyle: { color: '#edf0eb' } },
                 axisLabel: { color: colorMuted }
             },
             series: [
-                { name: '项目报关周期', type: 'line', data: projectDays, smooth: true, lineStyle: { color: colorPrimary }, itemStyle: { color: colorPrimary } },
-                { name: '行业平均', type: 'line', data: industry, smooth: true, lineStyle: { color: colorMuted }, itemStyle: { color: colorMuted } }
+                { name: '已付款销售额', type: 'line', data: sales, smooth: true, lineStyle: { color: colorPrimary }, itemStyle: { color: colorPrimary } }
             ]
         });
         registerChart(chart);
     }
 
-    function initComplianceChart(data) {
-        var dom = document.getElementById('chart-compliance');
+    function initOrderStatusChart(data) {
+        var dom = document.getElementById('chart-order-status');
         if (!dom) return;
         var chart = echarts.init(dom);
-        var pass = (data && data.summary) ? data.summary.compliance_pass_rate : 99;
+        var summary = (data && data.summary) || {};
         chart.setOption({
             backgroundColor: 'transparent',
             tooltip: { trigger: 'item', backgroundColor: '#ffffff', borderColor: '#e1e9e3', textStyle: { color: '#17352b' } },
@@ -184,8 +185,10 @@
                 },
                 label: { show: true, color: colorMuted, fontSize: 12 },
                 data: [
-                    { value: pass, name: '通过', itemStyle: { color: colorTea } },
-                    { value: Math.max(0, 100 - pass), name: '待整改', itemStyle: { color: '#cfdbd1' } }
+                    { value: summary.unpaid || 0, name: '待付款', itemStyle: { color: colorMuted } },
+                    { value: summary.pending_ship || 0, name: '待发货', itemStyle: { color: colorGold } },
+                    { value: summary.in_transit || 0, name: '待收货', itemStyle: { color: colorTea } },
+                    { value: summary.completed || 0, name: '已完成', itemStyle: { color: colorPrimary } }
                 ]
             }]
         });
@@ -296,8 +299,8 @@
             try { c.dispose(); } catch (_) {}
         });
         _charts = [];
-        initLogisticsChart(data);
-        initComplianceChart(data);
+        initSalesTrendChart(data);
+        initOrderStatusChart(data);
         var pending = 3;
         function chartDone() {
             pending -= 1;

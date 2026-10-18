@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-i18n-title="procure_title">Product Procurement - Mingyue Shanguan 9710 Customs Digital System</title>
+    <title data-i18n-title="procure_title">Product Procurement - Mingyue Shanguan Cross-border Tea SaaS Platform</title>
     <link href="../static/css/design-tokens.css" rel="stylesheet">
     <link href="../static/css/rtl.css" rel="stylesheet">
-    <link href="../static/css/buyer-workbench.css?v=20261003-shared-shell" rel="stylesheet">
+    <link href="../static/css/buyer-workbench.css?v=20261018-trace-disabled" rel="stylesheet">
     <link rel="icon" href="../static/images/index/py.ico">
     <script src="../static/js/init.js"></script>
-    <script src="../static/js/auth-storage.js"></script>
+    <script src="../static/js/auth-storage.js?v=20261018-session-isolation"></script>
     <script src="../static/js/jquery-3.1.1.min.js"></script>
 {% include "shared/system_theme.html" %}
 </head>
@@ -38,6 +38,7 @@
                     <div class="category-tabs" id="category-tabs">
                         <span class="cat-loading" data-i18n="loading">Loading...</span>
                     </div>
+                    <p class="featured-summary" id="procurement-summary" aria-live="polite"></p>
                     <div class="product-grid" id="product-grid">
                         <div class="product-loading" data-i18n="loading">Loading...</div>
                     </div>
@@ -59,7 +60,15 @@
         </main>
     </div>
 
-    <script src="../static/js/buyer-workbench.js?v=20261003-shared-shell"></script>
-    <script src="../static/js/buyer-products.js?v=20261003-catalog-tab"></script>
+    <div class="modal-preview" id="modal-preview" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="modal-preview-title">
+        <div class="modal-backdrop" data-close="1"></div>
+        <div class="modal-card">
+            <button type="button" class="modal-close" data-close="1" aria-label="close">×</button>
+            <h3 id="modal-preview-title" data-i18n="preview_title">快速预览</h3>
+            <p class="modal-body" id="modal-preview-body"></p>
+        </div>
+    </div>
+    <script src="../static/js/buyer-workbench.js?v=20261018-tea-saas"></script>
+    <script src="../static/js/buyer-products.js?v=20261018-tea-saas"></script>
 </body>
 </html>

@@ -77,6 +77,19 @@ completionCriteria:
   - API错误码及页面状态有一一对应，不通过中文answer猜分支；旧服务端/旧前端兼容行为有定向验证。
   - 脱敏语法在解析和替换之间一致，完整响应、历史、重放和遥测各有反向断言；静态schema检查不能替代这些运行断言。
 evidenceManifests: []
+
+currentDocumentationReconciliation:
+  date: "2026-10-18"
+  manifest: docs/sdd/evidence/2026-10-18-project-chat-sdd/manifest.json
+  executedBusinessTests: false
+  historyIncrement: docs/sdd/modules/ai-support/conversation-history.md
+  pendingCases:
+    - 本人和他人列表／详情、停用账号及chat／preferences鉴权差异
+    - 默认6轮兼容、20轮页面请求、50上限、未知／重复参数、签名游标过期及跨用户拒绝
+    - sequence分页无重复遗漏、切换失败保留当前咨询、草稿／异步身份和409恢复
+    - 历史GET与成功replay分别验证脱敏；不得把前者覆盖误当后者已完成
+    - 保留原订单404、错误码、临时ctx和英文编号目标的反向测试
+  formalAcceptanceComplete: false
 discoveryEvidence:
   - docs/sdd/evidence/2026-10-16-ai-003-discovery/baseline-manifest.json
   - docs/sdd/evidence/2026-10-16-ai-003-discovery/baseline-recheck-manifest.json

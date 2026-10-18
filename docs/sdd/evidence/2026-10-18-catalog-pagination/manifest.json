@@ -1,0 +1,38 @@
+{
+  "date": "2026-10-18",
+  "scope": "10 products per page, homepage five columns and two rows on desktop",
+  "webVersion": "0.11.0",
+  "checks": {
+    "nodePagination": "PASS: 103 products, 11 pages, last page 3, no omissions/duplicates",
+    "djangoContract": "PASS: real view with disposable SQLite fixtures; per-category and all-category full traversal",
+    "djangoSystemCheck": "PASS",
+    "syntax": "PASS: affected JavaScript",
+    "moduleOwnership": "PASS",
+    "diffCheck": "PASS",
+    "browserVisual": "NOT EXECUTED: earlier browser URL-policy refusal; no workaround used"
+  },
+  "layout": {
+    "desktopMinWidth": 1200,
+    "columns": 5,
+    "fullPageRows": 2,
+    "pageSize": 10,
+    "responsiveColumns": [
+      4,
+      3,
+      2,
+      1
+    ]
+  },
+  "businessDatabaseAccess": false,
+  "deployment": false,
+  "sha256": {
+    "client/static/js/buyer-catalog-preview.js": "6974c3928fdbacdfadcaabd980ac829e6f67e04dc0cba014b2970d0e9b89c953",
+    "client/static/js/buyer-workbench.js": "f18a40e2a028d40a5cc6b925279a11f6a00b7cec59cff33b866df8a107c5f942",
+    "client/static/css/buyer-favorites.css": "95614b0db4929b14d17dd1f54d3b7da9cbf530b0c5c707946eef52510863771f",
+    "client/templates/buyer_dashboard.html": "e62577b46a2145391a38d9b27ea148364acfb890deece293f37bb911e72a53ae",
+    "client/templates/buyer_header.html": "d0031b81e1d09ae22910f3c63f443db32f968a16f37734bb803dd713f05304ba",
+    "client/tests/buyer-catalog-preview.test.js": "f98a1ffd6068cb69ae0da77ff119084dd39c0687501a2218e6861694e1a36100",
+    "client/tests/catalog-preview-contract.py": "a32f8b941ab3f1ecd056ab32df9cf760057901252fc9483fe38dabe01166629b",
+    "versions/modules.json": "85d9990cade682538f646a65faef44c22bba16080475091870c792802e8acfbc"
+  }
+}

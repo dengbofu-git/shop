@@ -1,5 +1,5 @@
 /**
- * 中东买家工作台 - 采购+订单追踪（系统：茗越山关跨境电商 9710 报关数字系统）
+ * 中东买家工作台 - 采购+订单追踪（系统：茗越山关跨境茶叶 SaaS 平台）
  * 三语、RTL、多币种、场景+茶类筛选
  */
 (function() {
@@ -9,7 +9,7 @@
 
     var i18n = {
         zh: {
-            brand_name: '茗越山关跨境电商 9710 报关数字系统',
+            brand_name: '茗越山关跨境茶叶 SaaS 平台',
             buyer_title: '买家工作台',
             nav_home: '首页',
             nav_procure: '商品采购',
@@ -29,10 +29,15 @@
             my_orders: '我的最近订单',
             orders_all: '查看全部',
             section_featured: '精选商品',
-            section_featured_sub: '先选采购场景，再选茶类；卡片为示例，完整列表见「商品采购」。',
+            section_featured_sub: '按茶类浏览在售商品，每页10件，可翻页查看全部商品。',
             view_all: '查看全部',
-            grid_empty: '该组合下暂无常驻示例商品，请点「查看全部」浏览完整商品库。',
-            brand_short: '茗越山关跨境电商 9710 报关数字系统',
+            grid_empty: '该茶类暂无可售商品，请查看其他分类。',
+            grid_summary: '当前显示 {start}–{end} 件，共 {total} 件可售商品',
+            grid_prev: '上一页',
+            grid_next: '下一页',
+            grid_pagination: '商品分页',
+            grid_retry: '重新加载',
+            brand_short: '茗越山关跨境茶叶 SaaS 平台',
             banner1_title: '开斋节礼盒促销',
             banner1_desc: '英德红茶礼盒 · 清真认证',
             banner1_price: '$68 起',
@@ -42,10 +47,6 @@
             banner3_title: '大宗采购阶梯优惠',
             banner3_desc: '100件以上 15% off · 500件以上 25% off',
             banner3_price: '询盘报价',
-            cat_bulk: '大宗批发款',
-            cat_daily: '家庭日常款',
-            cat_portable: '便携年轻款',
-            cat_gift: '高端礼盒款',
             tea_all: '全部',
             tea_black: '红茶',
             tea_green: '绿茶',
@@ -54,16 +55,17 @@
             tea_white: '白茶',
             tea_yellow: '黄茶',
             tea_scented: '花茶',
+            tea_dark: '黑茶',
             add_cart: '加入采购车',
             quick_preview: '快速预览',
             banner_empty: '暂无已上架、有库存的商品作为轮播',
             banner_loading: '正在加载轮播…',
             banner_loading_sub: '从数据库读取可售商品',
             grid_loading: '正在加载精选商品…',
-            grid_loading_err: '无法加载推荐商品，请检查网络或稍后再试。',
+            grid_loading_err: '无法加载茶类商品，请检查网络或重新加载。',
             btn_view_sku: '查看商品',
             preview_title: '快速预览',
-            preview_note: '以下为示例信息，以「商品采购」实价与规格为准。',
+            preview_note: '商品信息预览，当前价格与规格以商品详情为准。',
             trace_btn: '溯源',
             inquiry_now: '立即询价',
             view_logistics: '查看物流',
@@ -78,7 +80,7 @@
             adv_2t: '清真认证',
             adv_2d: '合作供应商具备合规 Halal 资质',
             adv_3t: '国际履约',
-            adv_3d: '报关与国际运输协同',
+            adv_3d: '采购、订单与国际运输协同',
             adv_4t: '大宗优惠',
             adv_4d: '量大可阶梯议价',
             quick_title: '快速服务',
@@ -113,12 +115,12 @@
             ft_contact: '联系',
             ft_follow: '关注我们',
             ft_ig: 'Instagram',
-            ft_copy: '© 2026 茗越山关跨境电商 9710 报关数字系统 · 中国地标茶出海中东',
+            ft_copy: '© 2026 茗越山关跨境茶叶 SaaS 平台 · 中国地标茶出海中东',
             add_cart_msg: '已加入采购车：',
             inquiry_msg_prefix: '询价：'
         },
         en: {
-            brand_name: 'Mingyue Shanguan Cross-border E-commerce 9710 Customs Digital System',
+            brand_name: 'Mingyue Shanguan Cross-border Tea SaaS Platform',
             buyer_title: 'Buyer Portal',
             nav_home: 'Home',
             nav_procure: 'Procurement',
@@ -138,10 +140,15 @@
             my_orders: 'My Recent Orders',
             orders_all: 'View all',
             section_featured: 'Featured',
-            section_featured_sub: 'Pick a scenario, then a tea type. Cards are samples — see Procurement for the full catalog.',
+            section_featured_sub: 'Browse 10 products per page by tea category. Use pagination to see every product.',
             view_all: 'View all',
-            grid_empty: 'No sample cards for this filter. Open View all to browse the full list.',
-            brand_short: 'Mingyue Shanguan 9710 Customs Digital System',
+            grid_empty: 'No available products in this category. Try another category.',
+            grid_summary: 'Showing {start}–{end} of {total} available products',
+            grid_prev: 'Previous',
+            grid_next: 'Next',
+            grid_pagination: 'Product pages',
+            grid_retry: 'Retry',
+            brand_short: 'Mingyue Shanguan Cross-border Tea SaaS Platform',
             banner1_title: 'Eid Gift Box',
             banner1_desc: 'Yingde black tea gift box · Halal certified',
             banner1_price: 'From $68',
@@ -151,10 +158,6 @@
             banner3_title: 'Bulk tier discount',
             banner3_desc: '100+ units: 15% off · 500+ units: 25% off',
             banner3_price: 'Request quote',
-            cat_bulk: 'Bulk wholesale',
-            cat_daily: 'Daily family',
-            cat_portable: 'Portable',
-            cat_gift: 'Premium gift',
             tea_all: 'All',
             tea_black: 'Black',
             tea_green: 'Green',
@@ -163,6 +166,7 @@
             tea_white: 'White',
             tea_yellow: 'Yellow',
             tea_scented: 'Scented',
+            tea_dark: 'Dark tea',
             add_cart: 'Add to cart',
             quick_preview: 'Quick view',
             banner_empty: 'No in-stock products for the carousel',
@@ -172,7 +176,7 @@
             grid_loading_err: 'Could not load products. Check your connection.',
             btn_view_sku: 'View product',
             preview_title: 'Quick view',
-            preview_note: 'Sample info only. See Procurement for live prices and specs.',
+            preview_note: 'Product preview. Check the product details for current prices and specifications.',
             trace_btn: 'Traceability',
             inquiry_now: 'Inquire now',
             view_logistics: 'View logistics',
@@ -187,7 +191,7 @@
             adv_2t: 'Halal',
             adv_2d: 'Compliant suppliers',
             adv_3t: 'Global delivery',
-            adv_3d: 'Customs & logistics',
+            adv_3d: 'Procurement, orders & logistics',
             adv_4t: 'Volume pricing',
             adv_4d: 'Tiered negotiation for bulk',
             quick_title: 'Quick links',
@@ -222,12 +226,12 @@
             ft_contact: 'Contact',
             ft_follow: 'Follow',
             ft_ig: 'Instagram',
-            ft_copy: '© 2026 Mingyue Shanguan Cross-border E-commerce 9710 Customs Digital System — China origin tea to MENA',
+            ft_copy: '© 2026 Mingyue Shanguan Cross-border Tea SaaS Platform — China origin tea to MENA',
             add_cart_msg: 'Added: ',
             inquiry_msg_prefix: 'Inquiry: '
         },
         ar: {
-            brand_name: 'نظام مينغ يوي شانغوان الرقمي للتجارة الإلكترونية عبر الحدود والتصريح الجمركي 9710',
+            brand_name: 'منصة مينغ يوي شانغوان SaaS لتجارة الشاي عبر الحدود',
             buyer_title: 'بوابة المشتري',
             nav_home: 'الرئيسية',
             nav_procure: 'المشتريات',
@@ -247,10 +251,15 @@
             my_orders: 'طلباتي الأخيرة',
             orders_all: 'عرض الكل',
             section_featured: 'مميز',
-            section_featured_sub: 'اختر المشهد ثم نوع الشاي. البطاقات للعينة — القائمة الكاملة في المشتريات.',
+            section_featured_sub: 'تصفح 10 منتجات في كل صفحة حسب فئة الشاي. تنقل بين الصفحات لعرض جميع المنتجات.',
             view_all: 'عرض الكل',
-            grid_empty: 'لا توجد بطاقة عينة لهذا الاختيار. افتح «عرض الكل».',
-            brand_short: 'مينغ يوي شانغوان 9710',
+            grid_empty: 'لا توجد منتجات متاحة في هذه الفئة. اختر فئة أخرى.',
+            grid_summary: 'عرض {start}–{end} من أصل {total} منتجاً متاحاً',
+            grid_prev: 'السابق',
+            grid_next: 'التالي',
+            grid_pagination: 'صفحات المنتجات',
+            grid_retry: 'إعادة المحاولة',
+            brand_short: 'مينغ يوي شانغوان للشاي SaaS',
             banner1_title: 'صندوق هدايا العيد',
             banner1_desc: 'شاي ينغدي · معتمد حلال',
             banner1_price: 'من 68$',
@@ -260,10 +269,6 @@
             banner3_title: 'خصم بالجملة',
             banner3_desc: '100+ وحدة: 15% · 500+ وحدة: 25%',
             banner3_price: 'طلب عرض سعر',
-            cat_bulk: 'جملة',
-            cat_daily: 'عائلي',
-            cat_portable: 'محمول',
-            cat_gift: 'هدايا فاخرة',
             tea_all: 'الكل',
             tea_black: 'أسود',
             tea_green: 'أخضر',
@@ -272,6 +277,7 @@
             tea_white: 'أبيض',
             tea_yellow: 'أصفر',
             tea_scented: 'معطر',
+            tea_dark: 'شاي داكن',
             add_cart: 'أضف للسلة',
             quick_preview: 'معاينة',
             banner_empty: 'لا بيانات عرض',
@@ -281,7 +287,7 @@
             grid_loading_err: 'تعذر التحميل',
             btn_view_sku: 'عرض',
             preview_title: 'معاينة سريعة',
-            preview_note: 'معلومات عينة. الأسعار في المشتريات.',
+            preview_note: 'معاينة المنتج. راجع تفاصيل المنتج للأسعار والمواصفات الحالية.',
             trace_btn: 'التتبع',
             inquiry_now: 'استفسر الآن',
             view_logistics: 'عرض الشحن',
@@ -296,7 +302,7 @@
             adv_2t: 'الحلال',
             adv_2d: 'موردون معتمدون',
             adv_3t: 'لوجستيات',
-            adv_3d: 'الجمرك والشحن',
+            adv_3d: 'المشتريات والطلبات والشحن',
             adv_4t: 'سعر الجملة',
             adv_4d: 'تدرجات للكميات',
             quick_title: 'خدمات سريعة',
@@ -331,7 +337,7 @@
             ft_contact: 'اتصال',
             ft_follow: 'تابعنا',
             ft_ig: 'إنستغرام',
-            ft_copy: '© 2026 نظام مينغ يوي شانغوان 9710 الرقمي',
+            ft_copy: '© 2026 منصة مينغ يوي شانغوان SaaS لتجارة الشاي عبر الحدود',
             add_cart_msg: 'تمت الإضافة: ',
             inquiry_msg_prefix: 'استفسار: '
         }
@@ -347,6 +353,7 @@
     }
 
     var _bannerTimer = null;
+    var catalogPreview = null;
 
     function setPriceDataFromCny(el, cny) {
         var c = parseFloat(cny);
@@ -358,29 +365,8 @@
         el.setAttribute('data-eur', (c * 0.13).toFixed(0));
     }
 
-    function applyProductFilter() {
-        var catEl = document.querySelector('.cat-tab.active');
-        var teaEl = document.querySelector('.tea-tab.active');
-        var cat = catEl && catEl.getAttribute('data-cat');
-        var tea = (teaEl && teaEl.getAttribute('data-tea')) || 'all';
-        var cards = document.querySelectorAll('#product-grid .product-card[data-sku-id]');
-        var visible = 0;
-        for (var i = 0; i < cards.length; i++) {
-            var card = cards[i];
-            var scenarios = (card.getAttribute('data-scenarios') || '').split(',');
-            var teaType = card.getAttribute('data-tea') || '';
-            var okCat = cat && scenarios.indexOf(cat) >= 0;
-            var okTea = tea === 'all' || teaType === 'all' || !teaType || tea === teaType;
-            var show = okCat && okTea;
-            card.style.display = show ? '' : 'none';
-            if (show) visible++;
-        }
-        var empty = document.getElementById('product-grid-empty');
-        if (empty) empty.style.display = visible ? 'none' : 'block';
-    }
-
     function addToCartFromCard(card) {
-        var skuId = card.getAttribute('data-sku-id');
+        var skuId = card.getAttribute('data-sku-id') || card.getAttribute('data-skuid');
         if (!skuId) return;
         var nameEl = card.querySelector('.product-name');
         var name = nameEl ? nameEl.textContent : '';
@@ -478,24 +464,6 @@
         return '';
     }
 
-    function normalizeProductRow(it) {
-        if (it.title && !it.spu_name) {
-            return {
-                skuid: it.skuid,
-                name: it.name || '',
-                spu_name: it.title,
-                caption: (it.intro || it.caption || '').slice(0, 200),
-                price: it.price,
-                image: it.image,
-                image_url: it.image_url,
-                link: it.link_url || it.link,
-                catalog_name: it.catalog_name || ''
-            };
-        }
-        if (!it.link && (it.link_url)) it.link = it.link_url;
-        return it;
-    }
-
     function loadBuyerDashboard() {
         var bSlider = document.getElementById('buyer-banner-slider');
         var bMsg = document.getElementById('banner-area-msg');
@@ -573,25 +541,19 @@
             if (sk2) sk2.remove();
         });
 
-        $.getJSON(getApiBase() + '/v1/goods/recommended-products', function(res) {
-            var rows = (res && res.code === 200 && res.data) ? res.data.slice() : [];
-            if (!rows.length) {
-                return $.getJSON(getApiBase() + '/v1/goods/carousel?stable=1&limit=12', function(r2) {
-                    if (r2 && r2.code === 200 && r2.data) {
-                        rows = r2.data.map(normalizeProductRow);
-                    }
-                    buildProductGrid(rows, gGrid, gSk, gErr);
-                }).fail(function() { buildProductGrid([], gGrid, gSk, gErr); });
-            }
-            buildProductGrid(rows.map(normalizeProductRow), gGrid, gSk, gErr);
-        }).fail(function() {
-            $.getJSON(getApiBase() + '/v1/goods/carousel?stable=1&limit=12', function(r2) {
-                var rows2 = (r2 && r2.data) ? r2.data.map(normalizeProductRow) : [];
-                buildProductGrid(rows2, gGrid, gSk, gErr);
-            }).fail(function() {
-                buildProductGrid([], gGrid, gSk, gErr);
+        if (gGrid && window.BuyerCatalogPreview) {
+            catalogPreview = BuyerCatalogPreview.start({
+                url: getApiBase() + '/v1/goods/index',
+                tabs: document.getElementById('featured-tea-tabs'), grid: gGrid,
+                summary: document.getElementById('featured-summary'), error: gErr,
+                retry: document.getElementById('featured-retry'),
+                empty: document.getElementById('product-grid-empty'),
+                pager: document.getElementById('featured-pagination'), section: document.getElementById('buyer-featured'),
+                viewAll: document.getElementById('featured-view-all'),
+                labels: function() { return getT(localStorage.getItem('buyer_lang') || 'zh'); },
+                render: function(rows) { buildProductGrid(rows, gGrid, gSk, gErr); }
             });
-        });
+        }
     }
 
     function buildProductGrid(rows, gGrid, gSk, gErr) {
@@ -599,20 +561,21 @@
         if (gSk) gSk.remove();
         gGrid.innerHTML = '';
         if (!rows || !rows.length) {
-            if (gErr) gErr.style.display = 'block';
+            if (gErr) gErr.style.display = 'none';
             var ge0 = document.getElementById('product-grid-empty');
-            if (ge0) ge0.style.display = 'none';
+            if (ge0) ge0.style.display = 'block';
             return;
         }
         if (gErr) gErr.style.display = 'none';
+        var empty = document.getElementById('product-grid-empty');
+        if (empty) empty.style.display = 'none';
         var lang = localStorage.getItem('buyer_lang') || 'zh';
         var ttx = getT(lang);
         rows.forEach(function(it) {
             var card = document.createElement('div');
-            card.className = 'product-card product-card--click product-card--api';
+            card.className = 'product-card product-card--api';
             card.setAttribute('data-sku-id', String(it.skuid));
-            card.setAttribute('data-scenarios', 'bulk,daily,portable,gift');
-            card.setAttribute('data-tea', 'all');
+            card.setAttribute('data-catalog-id', String(it.catalog_id));
             card.setAttribute('data-pname', productTitle(it));
             card.setAttribute('data-cny', String(it.price != null ? it.price : '0'));
             if (it.image) {
@@ -629,8 +592,11 @@
                 b1.textContent = '\uD83D\uDCCD ' + it.catalog_name;
                 badges.appendChild(b1);
             }
-            var wrap = document.createElement('div');
+            var detailsUrl = 'product_details.html?skuid=' + it.skuid;
+            var wrap = document.createElement('a');
             wrap.className = 'product-img-wrap';
+            wrap.href = detailsUrl;
+            wrap.setAttribute('aria-label', productTitle(it));
             var img = document.createElement('img');
             img.alt = '';
             img.src = it.image_url || (getApiBase() + '/v1/goods/sku/' + it.skuid + '/image');
@@ -650,15 +616,19 @@
             bPrev.className = 'btn-quick-preview';
             bPrev.setAttribute('data-i18n', 'quick_preview');
             bPrev.textContent = ttx.quick_preview;
-            var aTrace = document.createElement('a');
+            var aTrace = document.createElement('button');
             aTrace.className = 'btn-trace-link';
-            aTrace.href = it.link || 'product_details.html?skuid=' + it.skuid;
+            aTrace.type = 'button';
+            aTrace.disabled = true;
+            aTrace.setAttribute('aria-disabled', 'true');
             aTrace.setAttribute('data-i18n', 'trace_btn');
             aTrace.textContent = ttx.trace_btn;
-            aTrace.target = '_self';
             var h3 = document.createElement('h3');
             h3.className = 'product-name';
-            h3.textContent = productTitle(it);
+            var titleLink = document.createElement('a');
+            titleLink.href = detailsUrl;
+            titleLink.textContent = productTitle(it);
+            h3.appendChild(titleLink);
             var spec = document.createElement('p');
             spec.className = 'product-spec';
             spec.textContent = productSpec(it);
@@ -673,31 +643,22 @@
             bAdd.setAttribute('data-i18n', 'add_cart');
             bAdd.textContent = ttx.add_cart;
             act.appendChild(bAdd);
-            var hover = document.createElement('div');
-            hover.className = 'product-hover-info';
-            var hp = document.createElement('p');
-            hp.textContent = (it.caption && it.caption) ? it.caption : (ttx.preview_note || '');
-            hover.appendChild(hp);
-            if (it.catalog_name) {
-                var hp2 = document.createElement('p');
-                hp2.textContent = it.catalog_name;
-                hover.appendChild(hp2);
-            }
+            var secondary = document.createElement('div');
+            secondary.className = 'product-secondary-actions';
+            secondary.appendChild(bPrev);
+            secondary.appendChild(aTrace);
             if (badges) card.appendChild(badges);
             card.appendChild(wrap);
-            card.appendChild(bPrev);
-            card.appendChild(aTrace);
             card.appendChild(h3);
             card.appendChild(spec);
             card.appendChild(price);
             card.appendChild(act);
-            card.appendChild(hover);
+            card.appendChild(secondary);
             gGrid.appendChild(card);
         });
         var langNow = localStorage.getItem('buyer_lang') || 'zh';
         applyI18n(langNow);
         updatePrices();
-        applyProductFilter();
     }
 
     function syncLangButtons(lang) {
@@ -756,7 +717,7 @@
             document.title = (t.brand_name || t.brand_short || '') + ' · ' + (t.buyer_title || '');
         }
         updatePrices();
-        applyProductFilter();
+        if (catalogPreview) catalogPreview.setLanguage();
     }
 
     function updatePrices() {
@@ -818,24 +779,14 @@
             updatePrices();
         });
 
-        document.querySelectorAll('.cat-tab').forEach(function(tab) {
-            tab.addEventListener('click', function() {
-                document.querySelectorAll('.cat-tab').forEach(function(x) { x.classList.remove('active'); });
-                tab.classList.add('active');
-                applyProductFilter();
-            });
-        });
-        document.querySelectorAll('.tea-tab').forEach(function(tab) {
-            tab.addEventListener('click', function() {
-                document.querySelectorAll('.tea-tab').forEach(function(x) { x.classList.remove('active'); });
-                tab.classList.add('active');
-                applyProductFilter();
-            });
-        });
-
         var pg = document.getElementById('product-grid');
         var modal = document.getElementById('modal-preview');
         var modalBody = document.getElementById('modal-preview-body');
+        var previewTrigger = null;
+        function closePreview() {
+            modal.style.display = 'none';
+            if (previewTrigger) previewTrigger.focus();
+        }
         if (pg) {
             pg.addEventListener('click', function(e) {
                 if (e.target.closest('.btn-quick-preview')) {
@@ -850,11 +801,16 @@
                     if (modalBody) {
                         modalBody.textContent = (t1 || '') + (s1 ? '\n' + s1 : '') + '\n\n' + (tt.preview_note || '');
                     }
-                    if (modal) modal.style.display = 'flex';
+                    if (modal) {
+                        previewTrigger = e.target.closest('.btn-quick-preview');
+                        modal.style.display = 'flex';
+                        modal.querySelector('.modal-close').focus();
+                    }
                     return;
                 }
-                if (e.target.closest('a.btn-trace-link')) return;
-                var c = e.target.closest('.product-card[data-sku-id]');
+                // Only the explicit purchase button opens the cart flow.
+                if (!e.target.closest('.btn-add-cart')) return;
+                var c = e.target.closest('.product-card[data-sku-id], .product-card[data-skuid]');
                 if (c) {
                     e.preventDefault();
                     addToCartFromCard(c);
@@ -864,8 +820,12 @@
         if (modal) {
             modal.querySelectorAll('[data-close]').forEach(function(b) {
                 b.addEventListener('click', function() {
-                    modal.style.display = 'none';
+                    closePreview();
                 });
+            });
+            modal.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') { e.preventDefault(); closePreview(); }
+                if (e.key === 'Tab') { e.preventDefault(); modal.querySelector('.modal-close').focus(); }
             });
         }
 

@@ -1,0 +1,51 @@
+/* Product detail lower panel, scoped away from purchase and checkout controls. */
+.ds-theme.product-detail-page #iteminfo {
+    padding: 0; border: 1px solid var(--border, #e1e9e3); border-radius: 16px;
+    background: #fff; box-shadow: 0 4px 16px #153c2604; overflow-wrap: anywhere;
+}
+.product-detail-page #iteminfo .detail-tabs {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 8px 24px;
+    padding: 0 32px; border-bottom: 1px solid var(--border, #e1e9e3);
+}
+.product-detail-page #iteminfo .detail-tab {
+    display: inline-flex; align-items: center; min-height: 60px; padding: 16px 0;
+    border-bottom: 3px solid transparent; color: var(--muted, #6a7d73);
+    font-size: 15px; font-weight: 500; text-decoration: none;
+}
+.product-detail-page #iteminfo .detail-tab.active { color: var(--green, #185c3b); border-bottom-color: var(--green, #185c3b); font-weight: 700; }
+.product-detail-page #iteminfo .detail-back-top { margin-inline-start: auto; color: var(--muted, #6a7d73); font-size: 13px; text-decoration: none; }
+.product-detail-page #iteminfo .detail-content-layout { display: grid; grid-template-columns: minmax(0, 1fr) 180px; gap: 40px; padding: 32px; }
+.product-detail-page #iteminfo .detail-sections { min-width: 0; }
+.product-detail-page #iteminfo .detail-section { margin: 0; padding: 0 0 32px; scroll-margin-top: 160px; }
+.product-detail-page #iteminfo .detail-section + .detail-section { padding-top: 32px; border-top: 1px solid #edf1ed; }
+.product-detail-page #iteminfo .detail-section:last-child { padding-bottom: 0; }
+.product-detail-page #iteminfo .detail-section h2 { margin: 0 0 20px; font-size: 18px; font-weight: 600; line-height: 1.5; }
+.product-detail-page #iteminfo .detail-section h3 { margin: 0 0 8px; font-size: 15px; font-weight: 600; line-height: 1.6; color: var(--green, #185c3b); }
+.product-detail-page #iteminfo .detail-section p,
+.product-detail-page #iteminfo #product_intro_content .content {
+    margin: 0; padding: 0; border: 0; font: inherit; font-size: 14px; line-height: 1.9;
+    color: var(--muted, #6a7d73);
+}
+.product-detail-page #iteminfo #spec-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 24px; width: auto; min-height: 0; margin: 0; padding: 20px; list-style: none; background: #f6f8f5; border-radius: 10px; }
+.product-detail-page #iteminfo #spec-list li { min-width: 0; font-size: 14px; line-height: 1.8; }
+.product-detail-page #iteminfo .detail-service + .detail-service { margin-top: 24px; }
+.product-detail-page #iteminfo #product_intro_content img { max-width: 100%; height: auto; }
+.product-detail-page #iteminfo .detail-section-nav { align-self: start; display: flex; flex-direction: column; gap: 8px; position: sticky; top: 144px; border-inline-start: 1px solid var(--border, #e1e9e3); padding-inline-start: 24px; }
+.product-detail-page #iteminfo .detail-nav-label { margin: 0 0 8px; color: var(--muted, #6a7d73); font-size: 12px; }
+.product-detail-page #iteminfo .detail-section-nav a { display: flex; align-items: center; min-height: 44px; padding: 8px 12px; border-radius: 8px; color: var(--green, #185c3b); text-decoration: none; }
+.product-detail-page #iteminfo .detail-section-nav a:hover { background: #e7f2e9; }
+.product-detail-page #iteminfo .detail-section-nav .detail-nav-top { margin-top: 8px; border-top: 1px solid #edf1ed; border-radius: 0; color: var(--muted, #6a7d73); }
+.product-detail-page #iteminfo a:focus-visible { outline: 3px solid #9bc9a8; outline-offset: 3px; }
+@media (max-width: 900px) {
+    .product-detail-page #iteminfo .detail-content-layout { grid-template-columns: minmax(0, 1fr); gap: 24px; padding: 24px; }
+    .product-detail-page #iteminfo .detail-section-nav { grid-row: 1; position: static; flex-direction: row; flex-wrap: wrap; border: 0; padding: 0 0 20px; border-bottom: 1px solid var(--border, #e1e9e3); }
+    .product-detail-page #iteminfo .detail-nav-label { flex-basis: 100%; margin: 0; }
+    .product-detail-page #iteminfo .detail-section-nav a { background: #f6f8f5; }
+    .product-detail-page #iteminfo .detail-section-nav .detail-nav-top { margin: 0; border: 0; border-radius: 8px; }
+}
+@media (max-width: 600px) {
+    .product-detail-page #iteminfo .detail-tabs { gap: 8px 20px; padding: 0 20px; }
+    .product-detail-page #iteminfo .detail-content-layout { padding: 24px 20px; }
+    .product-detail-page #iteminfo #spec-list { grid-template-columns: minmax(0, 1fr); padding: 16px; }
+    .product-detail-page #iteminfo .detail-section { scroll-margin-top: 260px; }
+}

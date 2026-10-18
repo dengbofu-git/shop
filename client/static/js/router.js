@@ -16,7 +16,7 @@ class ApiClient {
      * 获取认证Token
      */
     getToken() {
-        return (typeof AuthStorage !== 'undefined' && AuthStorage.getToken) ? AuthStorage.getToken() : (localStorage.getItem('dashop_token') || '');
+        return (typeof AuthStorage !== 'undefined' && AuthStorage.getToken) ? AuthStorage.getToken() : '';
     }
 
     /**

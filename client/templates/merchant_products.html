@@ -3,27 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>商品管理 - 茗越山关跨境电商 9710 报关数字系统</title>
+    <title>商品管理 - 茗越山关跨境茶叶 SaaS 平台</title>
     <link rel="icon" href="/static/images/index/py.ico">
     <link href="/static/css/index.css" rel="stylesheet" />
     <link href="/static/css/theme.css" rel="stylesheet" />
     <link href="/static/css/merchant_workbench.css" rel="stylesheet" />
-    <link href="/static/css/merchant_products.css?v=20261002-product-form" rel="stylesheet" />
+    <link href="/static/css/merchant_products.css?v=20261018-merchant-preview" rel="stylesheet" />
     <script src="/static/js/init.js"></script>
-    <script src="/static/js/auth-storage.js"></script>
+    <script src="/static/js/auth-storage.js?v=20261018-session-isolation"></script>
     <script src="/static/js/jquery-3.1.1.min.js"></script>
     <script>
         if (window.location.search.indexOf('embed=1') >= 0 || window.self !== window.top) {
             document.documentElement.classList.add('embed-mode');
         }
     </script>
-    <script src="/static/js/merchant_products.js?v=20261002-product-form" defer></script>
+    <script src="/static/js/merchant-product-preview.js?v=20261018-merchant-preview" defer></script>
+    <script src="/static/js/merchant_products.js?v=20261018-merchant-preview" defer></script>
 {% include "shared/system_theme.html" %}
 </head>
 <body class="ds-page-merchant_products ds-theme merchant-body">
     <header class="merchant-header-brand">
         <div class="brand-container">
-            <img src="/static/images/logo/1.jpg" alt="茗越山关跨境电商 9710 报关数字系统" class="brand-logo-img" />
+            <img src="/static/images/logo/1.jpg" alt="茗越山关跨境茶叶 SaaS 平台" class="brand-logo-img" />
             <span class="brand-separator">·</span>
             <span class="brand-subtitle">供应商工作台</span>
         </div>
@@ -283,6 +284,6 @@
         })();
     </script>
 
-    <footer class="merchant-footer">茗越山关跨境电商 9710 报关数字系统 · 中国地标茶出海中东 © 2026</footer>
+    <footer class="merchant-footer">茗越山关跨境茶叶 SaaS 平台 · 中国地标茶出海中东 © 2026</footer>
 </body>
 </html>

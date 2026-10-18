@@ -36,6 +36,15 @@ def template_view(template_name):
     """返回渲染指定模板的视图函数"""
     return lambda r: render(r, template_name)
 
+
+def platform_workspace_page(template_name, section):
+    """Keep direct workspace links inside the platform shell."""
+    def view(request):
+        if request.GET.get('embedded') == '1':
+            return render(request, template_name, {'embedded': True})
+        return redirect('/admin_panel.html#' + section)
+    return view
+
 def chrome_devtools_json(request):
     """Chrome DevTools 自动请求，返回空 JSON 避免 404 日志"""
     return JsonResponse({})
@@ -45,7 +54,7 @@ urlpatterns = [
                   path('', index, name='home'),
                   path('index.html', index_page, name='index_page'),
                   path('login.html', login_page, name='login_page'),
-                  path('terminal_login.html', template_view('terminal_login.html')),
+                  path('terminal_login.html', lambda r: redirect('/login.html')),
                   path('header.html', template_view('header.html')),
                   path('footer.html', template_view('footer.html')),
                   path('product_list.html', lambda r: redirect('/buyer_products.html' + ('?' + r.META.get('QUERY_STRING', '') if r.META.get('QUERY_STRING') else ''))),
@@ -81,14 +90,13 @@ urlpatterns = [
                   path('super_terminal.html', lambda r: redirect('/admin_panel.html')),
                   path('operations_dashboard.html', template_view('operations_dashboard.html')),
                   path('admin_panel.html', template_view('admin_panel.html')),
-                  path('admin_agents.html', template_view('admin_agents.html')),
-                  path('customs_9710.html', template_view('customs_9710.html')),
+                  path('admin_users.html', platform_workspace_page('admin_users.html', 'users')),
+                  path('admin_agents.html', platform_workspace_page('admin_agents.html', 'agents')),
                   path('buyer_dashboard.html', template_view('buyer_dashboard.html')),
                   path('buyer_products.html', template_view('buyer_products.html')),
                   path('buyer_orders.html', template_view('buyer_orders.html')),
                   path('buyer_support.html', template_view('buyer_support.html')),
                   path('logistics_track.html', template_view('logistics_track.html')),
-                  path('trace.html', template_view('trace.html')),
                   path('admin/', admin.site.urls),
                   path('v1/users/', include('users.urls')),
                   path('v1/goods/', include('goods.urls')),

@@ -1,12 +1,14 @@
-# Dadashop · 茗越山关 9710
+# Dadashop · 茗越山关跨境茶叶 SaaS 平台
 
-面向茶叶跨境采购的多角色电商系统，包含买家工作台、茶企经营端、平台运营端和买家 AI 客服，并保留 9710 报关与溯源演示入口。
+面向跨境茶叶采购与商家经营的 SaaS 平台，包含买家工作台、茶企经营端、平台运营端和买家 AI 客服，覆盖商品采购、订单协作、库存、经营统计与结算记录展示。
 
 项目采用 **Django 多 App 单体后端 + Django 模板 / jQuery / 原生 JavaScript 多页面前端**。买家 Agent 基于 LangChain / LangGraph，运行在 Django 应用进程内；MySQL、Redis、PostgreSQL / pgvector 及本地推理服务分别承担业务存储、采购车缓存和知识检索职责。
 
-**当前状态：**业务实现、演示数据和待扩展入口并存，尚不能据此认定完整生产交易、海关申报或商家 AI 能力已交付。本文按 2026-10-16 的当前设计编写；模块版本以 [`versions/modules.json`](versions/modules.json) 为准，业务规格和验证边界见 [`docs/sdd/`](docs/sdd/README.md)。
+**当前状态：**业务实现、演示数据和待扩展入口并存，尚不能据此认定完整生产交易或商家 AI 能力已交付。SaaS 为平台定位，当前未实现租户级数据隔离、订阅套餐或自动计费。本文按 2026-10-18 的当前设计编写；模块版本以 [`versions/modules.json`](versions/modules.json) 为准，业务规格和验证边界见 [`docs/sdd/`](docs/sdd/README.md)。
 
 [项目接手指南](docs/项目接手指南.md) · [环境配置](docs/环境配置.md) · [当前模块版本](versions/README.md) · [SDD 入口](docs/sdd/README.md)
+
+[MCP 与 Skill 接入](docs/MCP与Skill接入.md)：仓库交付 Skill、本地只读商品详情工具，以及后续商品搜索设计。
 
 ## 目录
 
@@ -34,7 +36,7 @@
 | 买家 AI 客服 | 多轮知识问答、商品推荐、分类推荐、详情及推荐理由追问、本人订单查询、显式偏好 | 使用受控工具读取业务事实；当前仍有已记录的多轮和检索问题 |
 | 平台运营 | 业务用户管理、Agent 模型配置、重排序参数、配置变更记录、监控与链路查看 | 使用业务权限校验；与 Django 自带 Admin 分开 |
 | 商家智能助手 | 商家侧栏入口、欢迎页、认证后的模块状态 | `merchant_ai 0.1.0` 仅初始化入口，输入禁用，无聊天 / 上传接口，不调用模型 |
-| 报关与溯源 | 9710 页面、溯源页面和演示交互 | 不能视为已对接真实海关或已形成生产溯源闭环 |
+| 商品溯源 | 页面已删除，卡片按钮禁用 | 尚未形成生产溯源闭环 |
 
 买家和商家导航支持中文、英文、阿拉伯语及 RTL；页面通过共享主题保持视觉一致。语言切换覆盖范围取决于具体页面，商家助手 0.1 的正文仍为中文，并非所有业务内容都已完成三语本地化。
 
@@ -109,25 +111,25 @@ dadashop/
 <a id="versions"></a>
 ## 当前模块版本
 
-当前登记 15 个实现模块，版本独立管理。下表是 2026-10-16 快照；后续以机器可读清单和对应 changelog 为准。
+当前登记 15 个实现模块，版本独立管理。下表于 2026-10-18 按当前工作区清单核对；后续以机器可读清单和对应 changelog 为准。
 
 | 模块 | 版本 | 主要职责 |
 | --- | --- | --- |
-| `core` | 0.1.5 | 项目配置、路由、共享工具与交付支撑 |
-| `users` | 0.1.0 | 业务身份、RBAC、资料与地址 |
-| `goods` | 0.4.0 | 商品、媒体、收藏足迹、茶类默认图 |
+| `core` | 0.2.0 | 项目配置、路由、共享工具与交付支撑 |
+| `users` | 0.2.2 | 业务身份、RBAC、资料与地址 |
+| `goods` | 0.4.1 | 商品、媒体、收藏足迹、茶类默认图 |
 | `carts` | 0.1.1 | 采购车与统一图片回退 |
-| `orders` | 0.1.1 | 订单、预结算与统一图片选择 |
+| `orders` | 0.1.3 | 订单、预结算与统一图片选择 |
 | `pays` | 0.1.0 | 支付接口 |
 | `news` | 0.1.0 | 资讯 |
 | `inventory` | 0.1.0 | 仓库、库存和流水 |
 | `logistics` | 0.1.0 | 物流和轨迹 |
-| `supplier` | 0.1.0 | 商家经营与结算展示 |
-| `admin_panel` | 0.3.0 | 运营管理、模型设置与监控 |
-| `support_ai` | 0.10.0 | 买家客服与推荐追问 |
+| `supplier` | 0.2.0 | 商家经营与结算展示 |
+| `admin_panel` | 0.4.1 | 运营管理、模型设置与监控 |
+| `support_ai` | 0.11.1 | 买家客服与推荐追问 |
 | `merchant_ai` | 0.1.0 | 商家助手入口和状态 |
 | `ai_storage` | 0.3.2 | 长期偏好、知识和向量检索 |
-| `web` | 0.6.2 | 多角色页面、主题、语言和卡片收藏 |
+| `web` | 0.14.1 | 多角色页面、主题、语言和卡片收藏 |
 
 模块版本、Git 标签、数据库 Migration、Agent 配置 `revision` 和 SDD `specVersion` 表达不同含义；清单中的版本不自动代表已创建标签、已部署或已通过生产验收。
 
@@ -236,6 +238,8 @@ docker compose -f compose.agent-observability.yml up -d
 
 业务身份来自 `users.UserProfile` 和 JWT，`user_type` 与 RBAC 角色并存。浏览器使用 `AuthStorage` 管理登录状态，但最终权限和对象归属由服务端处理。私有收藏、足迹、偏好、会话和订单读取不能由客户端自报用户名决定归属；既有业务中仍需继续核查的权限差异见后文。
 
+登录页只有一个账号密码入口，服务端按有效角色及权限返回工作台地址，商家／供应商、买家和平台账号分别进入对应工作台；旧终端登录地址重定向统一入口。平台账号管理同时要求有效平台角色及 `user_manage`，Agent管理要求平台角色及 `system_config`，不再使用供应商共有的商品权限代替账号管理权限。完整规则与验证见[统一登录设计](docs/sdd/modules/identity/unified-login.md)。
+
 ### 商品、收藏与图片
 
 - SPU 表达商品系列，SKU 表达可定价、可库存管理的具体规格。
@@ -280,7 +284,7 @@ docker compose -f compose.agent-observability.yml up -d
 | 买家客服 | `buyer_support.html` | `/v1/support/chat/`、`preferences/`、`conversations/<uuid>/` |
 | 商家经营 | `merchant_dashboard.html`、商品 / 订单 / 库存 / 结算面板 | `/v1/goods/merchant/`、`/v1/supplier/`、`/v1/inventory/` |
 | 商家助手 | `merchant_assistant.html` | `GET /v1/merchant-ai/status/` |
-| 平台运营 | `terminal_login.html`、`admin_panel.html`、`admin_agents.html` | `/v1/admin-panel/users`、`/v1/admin-panel/agent/` 下的配置和监控接口 |
+| 平台运营 | 统一 `login.html` 自动分流；`admin_panel.html`、`admin_agents.html` | `/v1/admin-panel/users`、`/v1/admin-panel/agent/` 下的配置和监控接口 |
 | 物流 / 资讯 | `logistics_track.html`及资讯入口 | `/v1/logistics/`、`/v1/news/` |
 | Django Admin | `/admin/` | Django 自带管理站点 |
 
@@ -393,7 +397,7 @@ Dadashop 采用渐进式 SDD，当前仍有候选能力和人工评审阶段，�
 | 价格币种 | SKU 价格未独立记录币种；部分页面按 USD 使用，部分按 CNY 换算或显示人民币标签，需要统一业务口径 |
 | Agent 多轮 | 0.10.0 定向实测 15 组 / 41 轮中，37 轮满足预设检查、11 组全程通过；列表序号、条件补充和分组理由仍有已记录问题 |
 | 知识检索 | 0.9.0 对照评测未显示整体收益，存在重排序 / 选证据退化；后续推荐追问修复不自动解决检索问题 |
-| 演示边界 | 部分经营指标为推算，商家助手仅入口，报关与溯源页面不代表外部服务接入完成 |
+| 演示边界 | 部分经营指标为推算，商家助手仅入口；溯源页面已移除 |
 
 上述 Agent 数字来自限定样本，不是总体准确率或知识事实正确率。原始结果见 [推荐追问场景报告](reports/agent-evaluation/2026-10-16-dialogue-followups/live-run-1/report.md) 和 [RAG 对照报告](reports/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/report.md)。更多实现差异见 [SDD 对账](docs/sdd/reconciliation.md)，旧报告按各自版本和日期解读。
 

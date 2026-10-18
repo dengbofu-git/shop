@@ -1,0 +1,26 @@
+{
+  "date": "2026-10-18",
+  "scope": "buyer-homepage tea category previews",
+  "webVersion": "0.10.0",
+  "checks": {
+    "nodeBehavior": "PASS",
+    "djangoToNodeContract": "PASS: 2 fixture categories, 30 saleable SKUs; per-category membership checked",
+    "templateRender": "HTTP 200; 4 scenario buttons removed; script load order valid",
+    "djangoSystemCheck": "PASS",
+    "moduleOwnership": "PASS: tracked and untracked changes",
+    "gitDiffCheck": "PASS",
+    "browser": "NOT COMPLETED: browser URL security policy denied access"
+  },
+  "businessDatabaseAccess": false,
+  "deployment": false,
+  "sha256": {
+    "client/static/js/buyer-catalog-preview.js": "c1169ee7aafe06a4e7d4700ce6337d400f048c8691134d7e623440db16bddcb0",
+    "client/static/js/buyer-workbench.js": "3109d1cbb5668635068c2a30fc1dbf96b38d8e69f996dc3c62468146c9927c0c",
+    "client/static/css/buyer-favorites.css": "f371e06e9cb7250b54af781af7b011f8df82940a8d6cfd686c9f967046624fe4",
+    "client/templates/buyer_dashboard.html": "7362d917fec5dee0d5dd99ed819601f1172f59959b360f8ddf2404d4bd5eded4",
+    "client/templates/buyer_header.html": "6a95307c3da3e5b8bed0b97efc9fca954f8c66abaa6c77bd6d85e699622641e7",
+    "client/tests/buyer-catalog-preview.test.js": "a61739d9eb716a1100df8f584e99affde3bf7b45f5047de90588f4dbb1c91dc6",
+    "client/tests/catalog-preview-contract.py": "1dbe96657f518a6b81e5c6da5d1133b193a74b44007753675d2040e8d9df3f63",
+    "versions/modules.json": "e894053bf7dc15f7027a97a9dbee0aac87341b4c78f84fbcaf224ddb80573851"
+  }
+}

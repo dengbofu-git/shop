@@ -13,7 +13,7 @@ from django.utils import timezone
 from django.views.decorators.http import require_http_methods
 from requests import RequestException
 
-from users.decorators import permission_required
+from users.decorators import platform_permission_required
 from support_ai.configuration import (
     configuration_data, configuration_row, effective_configuration, provider_models, validate_changes,
 )
@@ -27,7 +27,7 @@ def reply(data, status=200):
 
 
 @require_http_methods(['GET', 'PUT'])
-@permission_required('system_config')
+@platform_permission_required('system_config')
 def agent_settings(request):
     if not request.user_profile.is_active:
         return reply({'error': '账号已停用'}, 403)
@@ -69,7 +69,7 @@ def agent_settings(request):
 
 
 @require_http_methods(['GET'])
-@permission_required('system_config')
+@platform_permission_required('system_config')
 def agent_models(request):
     if not request.user_profile.is_active:
         return reply({'error': '账号已停用'}, 403)
@@ -81,7 +81,7 @@ def agent_models(request):
 
 
 @require_http_methods(['GET'])
-@permission_required('system_config')
+@platform_permission_required('system_config')
 def agent_retrieval_status(request):
     if not request.user_profile.is_active:
         return reply({'error': '账号已停用'}, 403)
@@ -96,7 +96,7 @@ def span_data(row):
 
 
 @require_http_methods(['GET'])
-@permission_required('system_config')
+@platform_permission_required('system_config')
 def agent_monitoring(request):
     if not request.user_profile.is_active:
         return reply({'error': '账号已停用'}, 403)
@@ -146,7 +146,7 @@ def agent_monitoring(request):
 
 
 @require_http_methods(['GET'])
-@permission_required('system_config')
+@platform_permission_required('system_config')
 def agent_trace(request, trace_id):
     if not request.user_profile.is_active:
         return reply({'error': '账号已停用'}, 403)

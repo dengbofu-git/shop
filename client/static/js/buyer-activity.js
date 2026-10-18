@@ -40,6 +40,9 @@
         var endpoint = recent ? 'recent' : 'favorites';
         var page = 1, pages = 1, total = 0, rows = [], loading = false, failed = null, busy = false, actionError = null;
         var status = document.getElementById('activity-message');
+        var feedback = document.getElementById('activity-feedback');
+        var emptyIcon = document.getElementById('activity-empty-icon');
+        var pagination = document.getElementById('activity-pagination');
         var clear = document.getElementById('activity-clear');
         var retry = document.getElementById('activity-retry');
         var browse = document.getElementById('activity-browse');
@@ -55,6 +58,12 @@
             });
         }
         function render() {
+            var empty = !loading && !failed && !total;
+            feedback.classList.toggle('is-empty', empty);
+            feedback.hidden = !loading && !failed && !actionError && total > 0;
+            emptyIcon.hidden = !empty;
+            pagination.hidden = loading || !!failed || pages <= 1 || !total;
+            grid.hidden = loading || !!failed || !total;
             var title = t(recent ? 'recent' : 'favorites');
             document.title = title + ' · 茗越山关';
             message(document.getElementById('activity-title'), title);

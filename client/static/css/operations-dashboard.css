@@ -239,6 +239,8 @@ body.dashboard-page {
     color: rgba(255,255,255,0.6);
 }
 
+.sales-basis { margin: 0 0 20px; color: var(--muted, #6a7d73); font-size: 13px; }
+
 /* ========== 响应式 ========== */
 @media (max-width: 1400px) {
     .core-metrics {

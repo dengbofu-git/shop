@@ -3,111 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>平台运营 · 账号管理</title>
-    <link href="../static/css/design-tokens.css" rel="stylesheet">
-    <link href="../static/css/register.css" rel="stylesheet">
-    <link rel="icon" href="../static/images/index/py.ico">
-    <script src="../static/js/init.js"></script>
-    <script src="../static/js/auth-storage.js"></script>
-    <script src="../static/js/jquery-3.1.1.min.js"></script>
-    <style>
-        body.platform-admin-page { background: linear-gradient(180deg, #f1f8e9 0%, #e8f5e9 40%, #f5f7fa 100%); min-height: 100vh; }
-        .pa-wrap { max-width: 1100px; margin: 0 auto; padding: 24px 20px 48px; }
-        .pa-topbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 20px; }
-        .pa-topbar h1 { margin: 0; font-size: 22px; color: #1b5e20; }
-        .pa-topbar-actions { display: flex; gap: 8px; flex-wrap: wrap; }
-        .pa-btn { padding: 8px 16px; border-radius: 8px; border: none; cursor: pointer; font-size: 14px; font-weight: 600; text-decoration: none; display: inline-block; }
-        .pa-btn-ghost { background: #fff; color: #2e7d32; border: 1px solid rgba(46,125,50,0.25); }
-        .pa-btn-gold { background: linear-gradient(135deg, #d4af37, #c9a430); color: #1a1a1a; }
-        .pa-btn-danger { background: #c62828; color: #fff; }
-        .pa-btn-green { background: #1a5d1a; color: #fff; }
-        .pa-card { background: rgba(255,255,255,0.96); border: 1px solid rgba(46,125,50,0.14); border-radius: 14px; padding: 22px 24px; margin-bottom: 20px; box-shadow: 0 6px 24px rgba(27,94,32,0.06); }
-        .pa-card h2 { margin: 0 0 8px; font-size: 18px; color: #1b5e20; }
-        .pa-tip { margin: 0 0 16px; font-size: 13px; color: #558b2f; }
-        .pa-filter-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 16px; }
-        .pa-filter-row input[type="search"] { flex: 1; min-width: 200px; padding: 10px 12px; border: 1px solid rgba(46,125,50,0.22); border-radius: 8px; }
-        .pa-table-wrap { overflow-x: auto; }
-        .pa-table { width: 100%; border-collapse: collapse; font-size: 13px; }
-        .pa-table th { text-align: left; padding: 10px 8px; background: #f3f7ef; color: #4b624c; }
-        .pa-table td { padding: 10px 8px; border-bottom: 1px solid #edf0eb; vertical-align: middle; }
-        .pa-badge { display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; }
-        .pa-badge-merchant { background: #e8f5e9; color: #1b5e20; }
-        .pa-badge-customer { background: #e3f2fd; color: #1565c0; }
-        .pa-badge-off { background: #ffebee; color: #c62828; }
-        .pa-form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
-        .pa-form-grid label { display: block; font-size: 13px; color: #558b2f; margin-bottom: 4px; }
-        .pa-form-grid input, .pa-form-grid select { width: 100%; box-sizing: border-box; padding: 10px 12px; border: 1px solid rgba(46,125,50,0.22); border-radius: 8px; }
-        .pa-msg { margin-top: 10px; font-size: 13px; min-height: 18px; }
-        .pa-msg.ok { color: #1a5d1a; }
-        .pa-msg.err { color: #c62828; }
-        .pa-edit-row input, .pa-edit-row select { width: 100%; max-width: 140px; padding: 4px 6px; font-size: 12px; }
-    </style>
-{% include "shared/system_theme.html" %}
+    <title>平台运营 · 交易总览</title>
+    <link rel="icon" href="/static/images/index/py.ico">
+    <link rel="stylesheet" href="/static/css/admin-agents.css?v=20261015">
+    <script src="/static/js/auth-storage.js?v=20261018-session-isolation"></script>
+    {% include "shared/system_theme.html" %}
+    <link rel="stylesheet" href="/static/css/platform-admin.css?v=20261018-embedded">
 </head>
-<body class="ds-page-admin_panel ds-theme platform-admin-page">
-    <div class="pa-wrap">
-        <div class="pa-topbar">
-            <h1>平台运营 · 买家与茶企账号管理</h1>
-            <div class="pa-topbar-actions">
-                <a class="pa-btn pa-btn-green" href="/admin_agents.html">Agent 运行与设置</a>
-                <button type="button" class="pa-btn pa-btn-ghost" id="btn-admin-logout">退出登录</button>
-            </div>
+<body class="ds-page-admin_panel ds-theme platform-shell" style="visibility:hidden">
+    <header class="topbar">
+        <a class="brand" href="/admin_panel.html"><span class="brand-mark">茗</span><span>茗越山关 <small>平台运营</small></span></a>
+        {% include "shared/platform_nav.html" with active="overview" %}
+        <button type="button" class="button quiet" id="btn-admin-logout">退出登录</button>
+    </header>
+    <main id="overview-content" hidden>
+        <div class="heading"><div><p class="eyebrow">PLATFORM OVERVIEW</p><h1>平台交易总览</h1><p class="muted">掌握平台交易规模、订单进展与买家和茶企规模。</p></div><button type="button" id="refresh-overview" class="button quiet">刷新数据</button></div>
+        <p id="overview-status" class="message muted" role="status" aria-live="polite">正在读取平台交易数据…</p>
+        <section class="overview-metrics" aria-label="平台累计数据">
+            <article class="panel"><h2>平台总销售额</h2><strong id="total_sales" class="overview-value">—</strong><p class="muted">已全额支付商品金额，不含运费</p></article>
+            <article class="panel"><h2>交易总流水</h2><strong id="total_flow" class="overview-value">—</strong><p class="muted">按订单支付状态统计，未扣退款</p></article>
+            <article class="panel"><h2>订单总量</h2><strong id="order_count" class="overview-value">—</strong><p class="muted">标准订单、试单及预售订单</p></article>
+            <article class="panel"><h2>全额支付订单</h2><strong id="paid_order_count" class="overview-value">—</strong><p class="muted">剔除已退货试单与已取消预售</p></article>
+            <article class="panel"><h2>买家账号</h2><strong id="buyer_count" class="overview-value">—</strong><p class="muted">已注册买家，剔除平台管理账号</p></article>
+            <article class="panel"><h2>茶企账号</h2><strong id="merchant_count" class="overview-value">—</strong><p class="muted">已注册茶企，剔除平台管理账号</p></article>
+        </section>
+        <div class="overview-layout">
+            <section class="panel" aria-labelledby="trend-heading">
+                <div class="section-head"><div><h2 id="trend-heading">近 30 天销售趋势</h2><p class="muted">按下单日期归集，含今天；金额单位：人民币元。</p></div><span id="trend-peak" class="muted"></span></div>
+                <div id="sales-chart" class="overview-zero muted" aria-label="近30天销售额柱状图，对应数据见下方每日交易明细">正在加载…</div>
+                <div class="overview-axis muted"><span id="trend-start"></span><span id="trend-end"></span></div>
+                <details class="overview-details"><summary>查看每日交易明细</summary><div class="table-wrap"><table><caption class="sr-only">近30天每日销售额、流水和订单量</caption><thead><tr><th scope="col">下单日期</th><th scope="col">销售额</th><th scope="col">交易流水</th><th scope="col">订单量</th></tr></thead><tbody id="daily-rows"></tbody></table></div></details>
+            </section>
+            <section class="panel" aria-labelledby="states-heading"><h2 id="states-heading">订单状态分布</h2><p class="muted">全部历史订单当前状态</p><div id="order-states"></div></section>
         </div>
-
-        <div class="pa-card">
-            <h2>新建账号</h2>
-            <p class="pa-tip">创建中东买家或茶企商家登录账号；商家须填写店铺名称。</p>
-            <div class="pa-form-grid">
-                <div>
-                    <label for="user-username">登录账号（6–11 位）</label>
-                    <input type="text" id="user-username" maxlength="11" autocomplete="off">
-                </div>
-                <div>
-                    <label for="user-password">登录密码（6–12 位）</label>
-                    <input type="password" id="user-password" maxlength="12" autocomplete="new-password">
-                </div>
-                <div>
-                    <label for="user-type">账号类型</label>
-                    <select id="user-type">
-                        <option value="customer">买家用户</option>
-                        <option value="merchant">茶企商家</option>
-                    </select>
-                </div>
-                <div id="create-shop-wrap" style="display:none;">
-                    <label for="user-shop-name">店铺名称</label>
-                    <input type="text" id="user-shop-name" maxlength="50" placeholder="茶企 / 店铺名">
-                </div>
-                <div>
-                    <label for="user-email">邮箱</label>
-                    <input type="email" id="user-email" placeholder="选填">
-                </div>
-                <div>
-                    <label for="user-phone">手机号</label>
-                    <input type="tel" id="user-phone" maxlength="11" placeholder="选填">
-                </div>
-            </div>
-            <p style="margin-top:16px;">
-                <button type="button" class="pa-btn pa-btn-gold" id="btn-add-user">创建账号</button>
-            </p>
-            <p class="pa-msg" id="user-create-msg"></p>
-        </div>
-
-        <div class="pa-card">
-            <h2>账号列表</h2>
-            <div class="register-role-tabs pa-list-tabs" style="max-width:420px;margin-bottom:14px;">
-                <button type="button" class="register-role-tab active" data-filter-type="">全部</button>
-                <button type="button" class="register-role-tab" data-filter-type="customer">买家</button>
-                <button type="button" class="register-role-tab" data-filter-type="merchant">茶企</button>
-            </div>
-            <div class="pa-filter-row">
-                <input type="search" id="user-keyword" placeholder="搜索账号、邮箱、手机、店铺名…">
-                <button type="button" class="pa-btn pa-btn-green" id="btn-search-users">搜索</button>
-                <button type="button" class="pa-btn pa-btn-ghost" id="btn-reload-users">刷新</button>
-            </div>
-            <div class="pa-table-wrap" id="user-list">加载中…</div>
-        </div>
-    </div>
-
-    <script src="../static/js/admin-panel.js?v=20261003-users-only"></script>
+        <section class="panel overview-definition" aria-labelledby="definition-heading">
+            <h2 id="definition-heading">统计口径</h2>
+            <p class="muted">销售额：标准订单与试单按已付款状态计入，已退货试单不计入；预售须定金和尾款均已付且未取消。金额取商品订单总额，不含运费。</p>
+            <p class="muted">交易流水：标准订单与试单按已付款状态计入商品金额及运费；预售按已付标记累计定金和尾款。未扣除退款，预售运费未单独计入。当前没有独立支付对账记录，统计不作为财务对账依据。</p>
+            <p class="muted">数据范围：当前数据库保留的全部订单及账号，已删除记录不计入；趋势按下单日期而非支付日期归集。</p>
+            <p id="overview-updated" class="muted">数据尚未更新</p>
+        </section>
+    </main>
+    <section id="workspace-content" aria-label="管理功能内容区" hidden>
+        <iframe id="platform-workspace" title="管理功能" referrerpolicy="same-origin"></iframe>
+    </section>
+    <script src="/static/js/platform-access.js?v=20261018-embedded"></script>
+    <script src="/static/js/admin-overview.js?v=20261018-embedded-history"></script>
 </body>
 </html>

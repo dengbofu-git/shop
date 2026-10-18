@@ -6,6 +6,9 @@
     var items = [];
     var mediaBase = typeof imgUrl === 'string' ? imgUrl : apiBase + '/media/';
     var pendingDeleteId = null;
+    // 与商品采购页保持相同的展示比例，不改变服务端价格或结算数据。
+    var rates = { USD: 1, AED: 3.67, SAR: 3.75 };
+    var currentCurrency = 'USD';
 
     function escapeHtml(value) {
         return String(value == null ? '' : value).replace(/[&<>"']/g, function (char) {
@@ -15,7 +18,8 @@
 
     function money(value) {
         var amount = Number(value);
-        return '$' + (isFinite(amount) ? amount : 0).toFixed(2);
+        var symbol = currentCurrency === 'USD' ? '$' : currentCurrency + ' ';
+        return symbol + ((isFinite(amount) ? amount : 0) * rates[currentCurrency]).toFixed(2);
     }
 
     function unitPrice(item) {
@@ -49,6 +53,7 @@
     }
 
     function render() {
+        $('[data-cart-currency]').text(currentCurrency);
         var list = $('#cart_imfor').empty();
         $('.imfor_top').toggle(items.length > 0);
         if (!items.length) {
@@ -142,6 +147,16 @@
     }
 
     $(function () {
+        try {
+            var savedCurrency = localStorage.getItem('buyer_cart_currency');
+            if (Object.prototype.hasOwnProperty.call(rates, savedCurrency)) currentCurrency = savedCurrency;
+        } catch (_) {}
+        $('#currency-select').val(currentCurrency).on('change', function () {
+            currentCurrency = Object.prototype.hasOwnProperty.call(rates, this.value) ? this.value : 'USD';
+            $(this).val(currentCurrency);
+            try { localStorage.setItem('buyer_cart_currency', currentCurrency); } catch (_) {}
+            render();
+        });
         loadCart();
 
         $('#cart_imfor').on('click', '.reduc,.add', function () {

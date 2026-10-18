@@ -8,7 +8,7 @@ documentStatus: in-review
 designVersion: "0.1.0"
 owner: dengbofu
 technicalReviewer: null
-sourceFeatureIds: [FEAT-018]
+sourceFeatureIds: [FEAT-018, FEAT-030]
 journeyIds: [JOURNEY-AI-001]
 files:
   requirements: requirements.md
@@ -84,6 +84,7 @@ businessDecisions:
   record: review.md
   scope: 负责人、三类订单/三笔/24小时、偏好库失败策略、模型数据范围、无可见订单404；不是 BUILD_READY 或全量 AC 批准。
 existingAssets:
+  - support_ai/conversation_history.py
   - support_ai/context.py
   - support_ai/views.py
   - support_ai/tool_services.py
@@ -91,14 +92,16 @@ existingAssets:
   - support_ai/test_task_tools.py
   - client/templates/buyer_support.html
   - client/static/js/buyer-support.js
-implementationObservation: isolated-baseline-with-known-gaps
+implementationObservation: current-source-reconciled-with-historical-runtime-evidence-and-known-gaps
 implementationReconciliation:
-  date: "2026-10-16"
-  registeredVersion: "0.8.1"
-  report: docs/sdd/reconciliation.md
-  evidence: docs/sdd/evidence/2026-10-16-sdd-reconciliation/manifest.json
+  date: "2026-10-18"
+  registeredVersion: "0.11.1"
+  report: docs/sdd/reconciliation-2026-10-18.md
+  evidence: docs/sdd/evidence/2026-10-18-project-chat-sdd/manifest.json
+  historicalEvidence: docs/sdd/evidence/2026-10-16-sdd-reconciliation/manifest.json
   target404: not-implemented
   targetErrorCodes: not-implemented
-  targetHistoryProjection: not-implemented
+  targetHistoryProjection: partially-implemented-get-redaction-replay-gap
   targetTemporaryContextIds: not-implemented
   targetFullScreenStates: partially-implemented
+  historyListAndPaging: implemented-source-observed-not-interaction-verified

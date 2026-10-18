@@ -5,3 +5,4 @@
 app_key/*private*.pem
 __pycache__/
 *.py[cod]
+/tools/dadashop_mcp/.venv/

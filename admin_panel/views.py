@@ -3,9 +3,26 @@ from django.views import View
 from django.utils.decorators import method_decorator
 from django.db.models import Q
 from dadashop.utils import md5
-from users.decorators import login_required, permission_required
+from users.decorators import platform_permission_required
 from users.models import UserProfile
 import json
+import logging
+
+from django.views.decorators.http import require_GET
+
+from .analytics import build_platform_overview
+
+
+@require_GET
+@platform_permission_required('data_view')
+def platform_overview(request):
+    try:
+        response = JsonResponse({'code': 200, 'data': build_platform_overview()})
+    except Exception:
+        logging.getLogger(__name__).exception('Platform overview unavailable')
+        response = JsonResponse({'code': 503, 'error': '交易数据暂时不可用，请稍后重试'}, status=503)
+    response['Cache-Control'] = 'no-store'
+    return response
 
 
 def _serialize_admin_user(user):
@@ -22,8 +39,7 @@ def _serialize_admin_user(user):
     }
 
 
-@method_decorator(login_required, name='dispatch')
-@method_decorator(permission_required('goods_manage'), name='dispatch')
+@method_decorator(platform_permission_required('user_manage'), name='dispatch')
 class UserManagementView(View):
     """平台运营 - 买家 / 商家账号增删改查"""
 

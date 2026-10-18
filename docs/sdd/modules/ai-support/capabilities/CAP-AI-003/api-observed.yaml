@@ -1,20 +1,21 @@
 openapi: 3.0.3
 info:
   title: Dadashop 客服HTTP当前实现观察
-  version: "0.8.1-observed.20261016"
+  version: "0.11.1-observed.20261018"
   description: 当前工作区源码及隔离探针观察，不是生产验收；业务目标仍以api-contract.yaml和规格0.2.0为准。
-x-status: observed-source-and-isolated-probes
-x-evidence: docs/sdd/evidence/2026-10-16-sdd-reconciliation/manifest.json
+x-status: observed-current-source-with-historical-probes
+x-evidence: docs/sdd/evidence/2026-10-18-project-chat-sdd/manifest.json
+x-historical-evidence: docs/sdd/evidence/2026-10-16-sdd-reconciliation/manifest.json
 x-target-contract: api-contract.yaml
 x-observed-differences:
   - 当前JSON错误只有error和可能的trace_id，没有error_code。
   - 明确他人或不存在订单得到空DTO后仍进入模型；探针均HTTP200并各提交一个成功轮次。
   - 英文原始编号可能留在safe_message和mock模型输入中。
-  - 历史GET和成功重放直接返回保存内容，未做新的读取脱敏投影。
+  - 历史列表和详情GET已按既有模式再脱敏；成功重放仍直接返回保存内容。英文编号完整过滤目标仍未完成。
   - 模型上下文使用turn-数据库主键，没有临时ctx映射。
   - 未见纯订单empty/clarification的应用级模型前模板短路。
 x-request-notes:
-  - Bearer身份必须是customer类型；此HTTP认证函数未额外检查is_active，不能借CLI活跃买家限制推断HTTP也有。
+  - Bearer身份必须是customer类型；chat和preferences的共享认证未额外检查is_active，列表和详情GET已单独拒绝停用账号。
   - request_id省略时生成；expected_revision省略或null时跳过客户端revision比较，最终提交仍校验读到的revision。
   - conversation_id通过truthiness判断，旧入口除省略/null外也将空字符串等假值视作无会话；目标客户端只发送规范UUID或省略。
   - 同用户/同request_id的已有成功重放优先于会话加载、偏好读取和订单查询；不重新读取状态。
@@ -58,23 +59,56 @@ paths:
         '409': {$ref: '#/components/responses/ObservedError'}
         '413': {$ref: '#/components/responses/ObservedError'}
         '503': {$ref: '#/components/responses/ObservedError'}
+  /v1/support/conversations/:
+    get:
+      operationId: observedBuyerSupportConversationList
+      description: 本人活跃买家的非空咨询列表；读取不调用模型或偏好库，Cache-Control为no-store。
+      parameters:
+        - {name: limit, in: query, schema: {type: integer, minimum: 1, maximum: 50, default: 20}}
+        - {name: cursor, in: query, schema: {type: string, maxLength: 1000}, description: 用户绑定签名游标，有效期24小时；未知和重复参数返回400。}
+      responses:
+        '200':
+          description: 更新时间降序、UUID降序；只显示本人且有已保存轮次的会话。
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [conversations, has_more, next_cursor]
+                properties:
+                  conversations: {type: array, maxItems: 50, items: {$ref: '#/components/schemas/ObservedConversationSummary'}}
+                  has_more: {type: boolean}
+                  next_cursor: {type: string, nullable: true}
+        '400': {$ref: '#/components/responses/ObservedError'}
+        '401': {$ref: '#/components/responses/ObservedError'}
+        '403': {$ref: '#/components/responses/ObservedError'}
+        '405': {description: Django方法检查响应，可能不是JSON。}
+        '503': {$ref: '#/components/responses/ObservedError'}
   /v1/support/conversations/{conversation_id}/:
     get:
       operationId: observedBuyerSupportHistory
       parameters:
         - {name: conversation_id, in: path, required: true, schema: {type: string, format: uuid}}
+        - {name: limit, in: query, schema: {type: integer, minimum: 1, maximum: 50, default: 6}}
+        - {name: before_sequence, in: query, schema: {type: integer, minimum: 1, maximum: 2147483647}, description: 严格小于该序号的更早轮次；未知和重复参数返回400。}
       responses:
         '200':
-          description: 本人最近最多6轮，sequence升序；没有24小时过滤，返回保存的message和response，不查询当前状态。
+          description: 活跃买家本人会话；默认6轮，新页面显式请求20轮，上限50。每页sequence升序，字符串递归按既有规则脱敏；不刷新业务事实，不扩大模型24小时6轮窗口。
           content:
             application/json:
               schema:
                 type: object
-                required: [conversation_id, revision, turns]
+                required: [conversation_id, revision, turns, title, turn_count, created_at, updated_at, has_more, next_before_sequence]
                 properties:
                   conversation_id: {type: string, format: uuid}
                   revision: {type: integer, minimum: 0}
-                  turns: {type: array, maxItems: 6, items: {type: object, required: [message, response]}}
+                  title: {type: string}
+                  turn_count: {type: integer}
+                  created_at: {type: string, format: date-time}
+                  updated_at: {type: string, format: date-time}
+                  has_more: {type: boolean}
+                  next_before_sequence: {type: integer, nullable: true}
+                  turns: {type: array, maxItems: 50, items: {type: object, required: [sequence, created_at, message, response], properties: {sequence: {type: integer}, created_at: {type: string, format: date-time}, message: {type: string}, response: {type: object}}}}
+        '400': {$ref: '#/components/responses/ObservedError'}
         '401': {$ref: '#/components/responses/ObservedError'}
         '403': {$ref: '#/components/responses/ObservedError'}
         '404': {$ref: '#/components/responses/ObservedError'}
@@ -90,6 +124,15 @@ components:
         application/json:
           schema: {$ref: '#/components/schemas/ObservedError'}
   schemas:
+    ObservedConversationSummary:
+      type: object
+      required: [conversation_id, title, turn_count, created_at, updated_at]
+      properties:
+        conversation_id: {type: string, format: uuid}
+        title: {type: string, description: 首条用户消息脱敏后截取，最多60字加省略号，不由模型生成。}
+        turn_count: {type: integer, minimum: 0}
+        created_at: {type: string, format: date-time}
+        updated_at: {type: string, format: date-time}
     ObservedError:
       type: object
       required: [error]

@@ -1,16 +1,16 @@
 """Application-owned, read-only tool handlers; credentials/owners never come from plans."""
 import json
 import re
-from django.db.models import Q
 
 from langchain_core.prompts import ChatPromptTemplate
 
-from goods.models import Catalog, SKU, ProductAttributeValue
+from goods.models import Catalog, SKU
 from .contracts import RecommendationIntent, validate_recommendation_intent
 from .execution import ToolResult
 from .diagnostics import error_diagnostic
 from .pii import redact
-from .recommendations import CATEGORY_ALIASES, available_products, match_products, match_product_groups
+from .product_details import get_product_details, MISSING_ATTRIBUTES
+from .recommendations import CATEGORY_ALIASES, match_products, match_product_groups
 from .recommendation_options import BASIC_TEA_TYPES, CATEGORY_PATTERN, DESCRIBED_TEA_REFERENCE, ORDINAL, number
 from .tea_explanation import explain_tea_scope
 from .planning import explicit_requests
@@ -304,17 +304,11 @@ def create_tool_handlers(model, knowledge_search, message, resolved_question, hi
             if len(matches) != 1:
                 return result(step, 'needs_clarification', {'answer': '该名称无法唯一定位商品，请重新推荐或明确商品名称。'})
             selected = [{'sku_id': matches[0].pk}]
-        sku = available_products().filter(pk=selected[0]['sku_id']).first()
-        if sku is None:
+        details = get_product_details(selected[0]['sku_id'])
+        if details['status'] == 'no_match':
             return result(step, 'no_match', {'answer': '所指商品当前未上架或没有可用库存，请重新选择。'})
-        attributes = list(ProductAttributeValue.objects.filter(
-            Q(sku=sku) | Q(spu=sku.spu, sku__isnull=True)
-        ).values('attribute__name', 'value_text', 'value_number', 'value_boolean', 'value_date'))
-        attributes = [{k: redact(v) if isinstance(v, str) else v for k, v in row.items()} for row in attributes]
-        data = {'sku_id': sku.pk, 'product_name': redact(sku.spu.name), 'specification': redact(sku.name),
-                'category': redact(sku.spu.catalog.name), 'price': str(sku.price), 'currency': 'USD',
-                'available_stock': sku.available_stock, 'attributes': json.loads(json.dumps(attributes, default=str))}
-        return result(step, data=data, unmet=[] if attributes else ['该商品未配置可验证的风味、用途等结构化属性。'])
+        return result(step, data=details['data'],
+                      unmet=[] if details['data']['attributes'] else [MISSING_ATTRIBUTES])
 
     def orders(step, completed):
         return result(step, data={'question': step.request, 'orders': json.loads(order_context)})

@@ -1,7 +1,13 @@
 schemaVersion: "0.1"
-observedAt: "2026-10-16"
+observedAt: "2026-10-18"
 timezone: Asia/Shanghai
 target:
+  root: 'E:\django\dadashop'
+  head: 19b5f0b094305e7fd56c628729611dea8eb7317c
+  branch: codex/users-unified-login
+  workingTree: dirty
+  scope: 当前项目聊天涉及的功能增量、当前工作区源码和已有证据对账；本次仅静态SDD同步，不重跑业务或沿用历史授权。
+historicalTarget:
   root: 'E:\django\dadashop'
   head: 4db3fd12e985c5b5fc3b04de20b780d926a4e319
   branch: main
@@ -12,6 +18,26 @@ reference:
   mode: read-only-method-reference
   copiedRuntimeOrChecker: false
 sources:
+  - id: SRC-LOCAL-011
+    project: dadashop
+    paths: [docs/sdd/reconciliation-2026-10-18.md, docs/sdd/evidence/2026-10-18-project-chat-sdd/manifest.json]
+    use: 当前项目聊天标题及相关轮次的增量索引，与实际源码交叉核对，覆盖前端、管理员端、rag、功能补全、商家助手、MCP与Skill及既有Git和SDD规划。
+    limit: 聊天结论是来源线索，不代替源码或新的验证；其他项目的解释不导入业务，历史推送与服务状态不视为当前事实。
+  - id: SRC-LOCAL-012
+    project: dadashop
+    paths: [support_ai/planning.py, support_ai/conversation_tasks.py, support_ai/recommendation_explanations.py, support_ai/conversation_history.py, support_ai/product_details.py, support_ai/views.py, client/static/js/buyer-support.js, client/templates/admin_agents.html, merchant_ai/services.py, merchant_ai/views.py]
+    use: 六类任务、主题和理由追问、公开详情、历史分页及再脱敏、停用账号检查差异、管理开关与商家空能力状态。
+    limit: 本次源码静态观察；不表示历史GET和重放已经同等过滤，不表示交互、跨库或模型质量已验收。
+  - id: SRC-LOCAL-013
+    project: dadashop
+    paths: [docs/MCP与Skill接入.md, docs/sdd/evidence/2026-10-18-mcp-skill/verification.md, tools/dadashop_mcp/server.py, .agents/skills/dadashop-change-delivery/SKILL.md, docs/sdd/modules/ai-support/search-products-design.md]
+    use: 已实施的仓库Skill、本地详情MCP及其22项Django与9项MCP既有定向验证，尚未实施的搜索草案。
+    limit: 既有证据不代表本次重新运行；本地工具未接远程认证或用户级配置，相邻回归2项已有失败保留。
+  - id: SRC-LOCAL-010
+    project: dadashop
+    paths: [docs/sdd/modules/platform/tea-saas-platform.md, docs/sdd/evidence/2026-10-18-tea-saas/verification.md, client/tests/tea-saas-contract.py, client/tests/tea-saas-brand.test.js, supplier/test_analytics.py]
+    use: 2026-10-18用户确认的跨境茶叶SaaS定位、三语名称、订单经营指标及页面外壳定向验证。
+    limit: 未执行浏览器视觉、生产邮件／支付或业务数据库变更，历史快照不覆盖本次增量。
   - id: SRC-REF-001
     project: store-ai-tp
     paths: [docs/sdd/README.md, new-project-sdd-handoff.md]
@@ -30,7 +56,7 @@ sources:
   - id: SRC-LOCAL-001
     project: dadashop
     paths: [docs/项目接手指南.md, requirements.txt, dadashop/urls.py, dadashop/settings.py, versions/modules.json, versions/README.md]
-    use: 定位、技术资产、路由、配置和 14 个实现版本模块。
+    use: 初始定位、技术资产、路由、配置和当时14个实现版本模块；当前15模块以versions/modules.json及本次快照为准。
     limit: 现有说明及配置不代表部署事实。
   - id: SRC-LOCAL-002
     project: dadashop
@@ -52,11 +78,6 @@ sources:
     paths: [docs/Agent任务模板与对照评测.md, docs/客服商品推荐设计.md]
     use: 已有 Agent 实现说明、历史测试命令和评测边界。
     limit: 历史结论仅作为材料，不提升当前规格阶段。
-  - id: SRC-LOCAL-006
-    project: dadashop
-    paths: [client/templates/customs_9710.html, client/static/js/customs-9710.js, client/static/js/trace.js]
-    use: 区分页面演示与真实申报／溯源集成。
-    limit: 未核验页面中的法规、目的国要求或演示记录真实性，不把它们写入有效规则。
   - id: SRC-LOCAL-007
     project: dadashop
     paths: [docs/sdd/evidence/2026-10-16-ai-003-discovery/baseline-manifest.json, docs/sdd/evidence/2026-10-16-ai-003-discovery/baseline-recheck-manifest.json, docs/sdd/evidence/2026-10-16-ai-003-discovery/probes-manifest.json]

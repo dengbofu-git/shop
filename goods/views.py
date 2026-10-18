@@ -126,18 +126,24 @@ def index(request):
 
 def catalogs(request, id):
     page = request.GET.get('page', 1)
+    try:
+        page_size = int(request.GET.get('page_size', 12))
+    except (TypeError, ValueError):
+        page_size = 12
+    if not 1 <= page_size <= 100:
+        page_size = 12
     goods = Catalog.objects.get(id=id)
     sku_qs = SKU.objects.filter(
         spu__in=goods.spu_set.all(), is_launched=True, stock__gt=0
     ).select_related('spu__catalog').order_by('-id')
     data = [_sku_public_dict(sku) for sku in sku_qs]
-    paginator_object = paginator.Paginator(data, 12)
+    paginator_object = paginator.Paginator(data, page_size)
     page_object = paginator_object.get_page(page)
     context = {
         'code': 200,
         'data': list(page_object),
         'paginator': {
-            'pagesize': 12,
+            'pagesize': page_size,
             'total': sku_qs.count()
         },
         'base_url': settings.DADASHOP_MEDIA

@@ -8,9 +8,9 @@
     <link rel="stylesheet" href="/static/css/design-tokens.css">
     <link rel="stylesheet" href="/static/css/rtl.css">
     <link rel="stylesheet" href="/static/css/buyer-workbench.css?v=20261003-shared-shell">
-    <link rel="stylesheet" href="/static/css/buyer-support.css?v=20261012-recommendation">
+    <link rel="stylesheet" href="/static/css/buyer-support.css?v=20261018-history">
     <script src="/static/js/init.js"></script>
-    <script src="/static/js/auth-storage.js"></script>
+    <script src="/static/js/auth-storage.js?v=20261018-session-isolation"></script>
     <script src="/static/js/jquery-3.1.1.min.js"></script>
 {% include "shared/system_theme.html" %}
 </head>
@@ -45,9 +45,23 @@
                 <section class="bs-panel" aria-label="智能客服对话">
                     <div class="bs-panel-head">
                         <div class="bs-agent-avatar" aria-hidden="true">💬</div>
-                        <div><strong>茶品智能助手</strong><span>推荐商品 · 咨询问答 · 售后服务</span></div>
-                        <button type="button" id="bs-new-conversation" class="bs-new-conversation">新对话</button>
+                        <div class="bs-head-copy"><strong>茶品智能助手</strong><span>推荐商品 · 咨询问答 · 售后服务</span></div>
+                        <div class="bs-conversation-actions">
+                            <button type="button" id="bs-history-toggle" class="bs-new-conversation" aria-expanded="false" aria-controls="bs-history">历史咨询</button>
+                            <button type="button" id="bs-new-conversation" class="bs-new-conversation">新对话</button>
+                        </div>
                     </div>
+                    <section id="bs-history" class="bs-history" aria-label="历史咨询" hidden>
+                        <div class="bs-history-head"><h2>历史咨询</h2><button type="button" id="bs-history-refresh">刷新列表</button></div>
+                        <p id="bs-history-status" role="status">选择一段咨询即可查看记录并继续聊天。</p>
+                        <div id="bs-history-list" class="bs-history-list" aria-busy="false"></div>
+                        <button type="button" id="bs-history-more" class="bs-history-more" hidden>加载更多咨询</button>
+                    </section>
+                    <div class="bs-session-bar">
+                        <strong id="bs-current-conversation">当前：新咨询</strong>
+                        <span id="bs-conversation-status" role="status"></span>
+                    </div>
+                    <div class="bs-history-paging" hidden><button type="button" id="bs-history-older" hidden>加载更早记录</button></div>
                     <div class="bs-messages" id="bs-messages" role="log" aria-live="polite" aria-relevant="additions text">
                         <div class="bs-message bs-assistant"><div class="bs-bubble">您好！想挑选茶品、了解平台，或查询自己的订单？请告诉我您的问题。请勿发送姓名、电话、详细地址等个人信息。</div></div>
                     </div>
@@ -58,16 +72,17 @@
                     </div>
                     <form id="bs-form" class="bs-compose">
                         <label for="bs-input" class="bs-visually-hidden">输入问题</label>
-                        <textarea id="bs-input" rows="2" maxlength="1000" placeholder="请输入您的问题（最多 1000 字）" required></textarea>
+                        <textarea id="bs-input" rows="2" maxlength="1000" placeholder="请输入您的问题（最多 1000 字）" aria-describedby="bs-input-hint" required></textarea>
                         <button id="bs-send" type="submit">发送</button>
                     </form>
-                    <p class="bs-notice">问题会先脱敏，再连同本会话最近上下文和您保存的偏好交给模型理解。服务端保存脱敏对话以便恢复，模型使用最近 24 小时最多 6 轮；“新对话”停止使用旧上下文。推荐价格与库存以下单时为准，退款、发货事项请以订单和人工客服确认为准。</p>
+                    <p id="bs-input-hint" class="bs-notice">Enter 发送，Shift+Enter 换行。</p>
+                    <p class="bs-notice">问题会先脱敏，再连同本会话最近上下文和您保存的偏好交给模型理解。可在“历史咨询”中查看旧记录并继续聊天；模型仍只使用本会话最近 24 小时最多 6 轮。“新对话”停止使用旧上下文，旧记录保留在历史咨询中。历史价格、库存和订单状态仅供回看，当前情况需重新查询；退款、发货事项请以订单和人工客服确认为准。</p>
                 </section>
             </div>
-            <footer class="bs-footer">© 2026 茗越山关跨境电商 9710 报关数字系统 · 中国地标茶出海中东</footer>
+            <footer class="bs-footer">© 2026 茗越山关跨境茶叶 SaaS 平台 · 中国地标茶出海中东</footer>
         </main>
     </div>
-    <script src="/static/js/buyer-workbench.js?v=20261003-shared-shell"></script>
-    <script src="/static/js/buyer-support.js?v=20261016-followups"></script>
+    <script src="/static/js/buyer-workbench.js?v=20261018-tea-saas"></script>
+    <script src="/static/js/buyer-support.js?v=20261018-history"></script>
 </body>
 </html>

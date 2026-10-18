@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>供应商工作台 - 茗越山关跨境电商 9710 报关数字系统</title>
+    <title>供应商工作台 - 茗越山关跨境茶叶 SaaS 平台</title>
     <link href="../static/css/design-tokens.css" rel="stylesheet">
     <link href="../static/css/rtl.css" rel="stylesheet">
     <link href="../static/css/merchant_workbench.css" rel="stylesheet">
-    <link href="../static/css/supplier-workbench.css" rel="stylesheet">
+    <link href="../static/css/supplier-workbench.css?v=20261018-search-layout" rel="stylesheet">
     <link rel="icon" href="../static/images/index/py.ico">
     <script src="../static/js/init.js"></script>
-    <script src="../static/js/auth-storage.js"></script>
+    <script src="../static/js/auth-storage.js?v=20261018-session-isolation"></script>
     <script src="../static/js/jquery-3.1.1.min.js"></script>
 {% include "shared/system_theme.html" %}
 </head>
@@ -49,13 +49,6 @@
                 </div>
 
                 <div class="nav-group">
-                    <a href="#" class="nav-item" data-panel="customs_9710.html">
-                        <span class="nav-icon">🛃</span>
-                        <span class="nav-text">报关单管理</span>
-                    </a>
-                </div>
-
-                <div class="nav-group">
                     <a href="#" class="nav-item" data-panel="operations_dashboard.html">
                         <span class="nav-icon">📈</span>
                         <span class="nav-text" data-i18n="nav_data">数据中心</span>
@@ -74,10 +67,15 @@
                         <span data-i18n="welcome">欢迎</span> <strong id="supplier-shop-name">英德碧利茶园</strong> <span data-i18n="joined">入驻</span>
                     </div>
                 </div>
-                <div class="topbar-search">
-                    <span class="search-icon">🔎</span>
-                    <input id="global-search" type="search" placeholder="搜索订单号 / 商品名 / 批次号 / 溯源码" autocomplete="off">
-                </div>
+                <form class="topbar-search" id="global-search-form" role="search">
+                    <input id="global-search" type="search" aria-label="搜索订单号、商品名、批次号或溯源码" placeholder="搜索订单号 / 商品名 / 批次号 / 溯源码" autocomplete="off">
+                    <button class="btn-search" type="submit" aria-label="提交搜索" title="搜索">
+                        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false">
+                            <circle cx="10.5" cy="10.5" r="6.5"></circle>
+                            <path d="m16 16 4.5 4.5"></path>
+                        </svg>
+                    </button>
+                </form>
                 <div class="topbar-actions">
                     <button type="button" class="topbar-btn" title="通知">🔔</button>
                     <button type="button" class="topbar-btn" title="消息">✉️</button>
@@ -111,7 +109,7 @@
                     </div>
                     <div class="wb-section-body">
                     <div class="welcome-card welcome-card-only">
-                        <div class="welcome-title">您好，<span id="shop-name-2">英德碧利茶园</span>，欢迎入驻茗越山关跨境电商 9710 报关数字系统</div>
+                        <div class="welcome-title">您好，<span id="shop-name-2">英德碧利茶园</span>，欢迎入驻茗越山关跨境茶叶 SaaS 平台</div>
                         <div class="welcome-sub">今天也要把好茶卖到中东去。</div>
                     </div>
                     </div>
@@ -128,7 +126,7 @@
                         <div class="metric-icon">¥</div>
                         <div class="metric-body">
                             <div class="metric-value" id="stat-sales">—</div>
-                            <div class="metric-label" data-i18n="stat_sales">累计出口销售额</div>
+                            <div class="metric-label" data-i18n="stat_sales">近一年已付销售额</div>
                         </div>
                         <div class="metric-meta"><span class="meta-link" id="stat-sales-sub">加载中…</span></div>
                     </div>
@@ -140,13 +138,13 @@
                         </div>
                         <div class="metric-meta"><span class="meta-link" id="stat-pending-sub">来自订单库</span></div>
                     </div>
-                    <div class="metric-card metric-link nav-panel-link" data-panel="customs_9710.html">
-                        <div class="metric-icon">🛃</div>
+                    <div class="metric-card metric-link nav-panel-link" data-panel="merchant_orders.html">
+                        <div class="metric-icon">🚚</div>
                         <div class="metric-body">
-                            <div class="metric-value" id="stat-customs">—</div>
-                            <div class="metric-label" data-i18n="stat_customs">在途报关单数</div>
+                            <div class="metric-value" id="stat-in-transit">—</div>
+                            <div class="metric-label" data-i18n="stat_in_transit">待收货订单数</div>
                         </div>
-                        <div class="metric-meta"><span class="meta-link" id="stat-customs-sub">待收货/在途</span></div>
+                        <div class="metric-meta"><span class="meta-link" id="stat-in-transit-sub">待收货/在途</span></div>
                     </div>
                     <div class="metric-card metric-link nav-panel-link" data-panel="operations_dashboard.html">
                         <div class="metric-icon">📈</div>
@@ -212,7 +210,7 @@
                             </li>
                             <li class="message-item">
                                 <span class="msg-tag info">物流</span>
-                                <span class="msg-text">订单号 OD20240315001 已完成清关</span>
+                                <span class="msg-text">订单号 OD20240315001 已发货</span>
                             </li>
                         </ul>
                     </div>
@@ -286,7 +284,7 @@
                                     <div class="mini-card">
                                         <div class="mini-title">政策法规更新</div>
                                         <ul class="bullet-list">
-                                            <li>4 月报关流程调整通知</li>
+                                            <li>4 月商品采购服务更新通知</li>
                                             <li>中东国家标签合规提示</li>
                                             <li>出口退税材料清单更新</li>
                                         </ul>
@@ -309,7 +307,7 @@
                                 <a href="#" class="card-link nav-item-disabled" aria-disabled="true">查看全部</a>
                             </div>
                             <ul class="bullet-list">
-                                <li>关于 2024 年 4 月报关流程调整的通知</li>
+                                <li>关于商品采购服务更新的通知</li>
                                 <li>平台新增沙特阿拉伯物流专线</li>
                                 <li>五一假期平台服务时间安排</li>
                             </ul>
@@ -320,7 +318,7 @@
                             </div>
                             <div class="help-links">
                                 <a href="#" class="help-link nav-item-disabled" aria-disabled="true">如何上传商品</a>
-                                <a href="#" class="help-link nav-item-disabled" aria-disabled="true">报关流程指南</a>
+                                <a href="#" class="help-link nav-item-disabled" aria-disabled="true">平台使用指南</a>
                                 <a href="#" class="help-link nav-item-disabled" aria-disabled="true">溯源码使用说明</a>
                                 <a href="#" class="help-link nav-item-disabled" aria-disabled="true">结算提现规则</a>
                                 <a href="#" class="help-link nav-item-disabled" aria-disabled="true">联系在线客服</a>
@@ -333,6 +331,6 @@
         </main>
     </div>
 
-    <script src="../static/js/supplier-workbench.js?v=20261016-merchant-ai-010"></script>
+    <script src="../static/js/supplier-workbench.js?v=20261018-tea-saas"></script>
 </body>
 </html>

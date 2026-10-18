@@ -1,0 +1,5 @@
+<nav class="platform-nav" aria-label="平台运营导航">
+    <a href="/admin_panel.html#overview" data-platform-section="overview" data-platform-permission="data_view"{% if active == 'overview' %} aria-current="page"{% endif %}>交易总览</a>
+    <a href="/admin_panel.html#agents" data-platform-section="agents" data-platform-permission="system_config"{% if active == 'agents' %} aria-current="page"{% endif %}>Agent 管理</a>
+    <a href="/admin_panel.html#users" data-platform-section="users" data-platform-permission="user_manage"{% if active == 'users' %} aria-current="page"{% endif %}>账号管理</a>
+</nav>

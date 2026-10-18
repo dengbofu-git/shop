@@ -1,6 +1,8 @@
 from django.http import HttpResponse, JsonResponse
 from .models import UserProfile, Address, WeiboProfile, Role, UserRole
 from users import permissions as perm_constants
+from users.access import account_access
+from users.decorators import get_user_from_request
 from dadashop.utils import md5
 from django.views import View
 import json
@@ -8,6 +10,7 @@ from dadashop.utils import jwt_encode, jwt_decode
 from django.conf import settings
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
+from django.views.decorators.cache import never_cache
 import random
 import base64
 from django_redis import get_redis_connection
@@ -276,8 +279,11 @@ def login(request):
                 }
                 return JsonResponse(context)
         
+        access = account_access(user)
+        if not access['redirect_url']:
+            return JsonResponse({'code': 10006, 'error': '账号尚未配置可访问的工作台权限，请联系管理员'})
         token = jwt_encode({'id': user.pk, 'username': user.username})
-        
+
         # 获取购物车数量（仅客户）
         carts_count = 0
         if user.is_customer():
@@ -299,6 +305,7 @@ def login(request):
             'user_type_name': '店家' if user.is_merchant() else '客户',  # 用户类型中文名称
             'carts_count': carts_count,
             'shop_name': user.shop_name if user.is_merchant() else None,  # 店家店铺名称
+            **access,
         }
         return JsonResponse(context)
     except UserProfile.DoesNotExist:
@@ -316,6 +323,19 @@ def login(request):
             'error': f'登录失败: {str(e)}'
         }
         return JsonResponse(context)
+
+
+@never_cache
+def session_access(request):
+    """Read current portal grants; never trust cached browser roles."""
+    if request.method != 'GET':
+        return JsonResponse({'code': 405, 'error': '仅支持 GET'}, status=405)
+    user, error = get_user_from_request(request)
+    if error is not None:
+        return error
+    if not user.is_active:
+        return JsonResponse({'code': 403, 'error': '账号已停用'}, status=403)
+    return JsonResponse({'code': 200, **account_access(user)})
 
 
 def weibo_authorization(request):
@@ -366,7 +386,7 @@ def find_password(request):
         number = random.randint(1000, 9999)
         conn = get_redis_connection()
         conn.set(f'find_password_{email}', number, 600)
-        subject = '茗越山关跨境电商 9710 报关数字系统找回密码邮件'
+        subject = '茗越山关跨境茶叶 SaaS 平台找回密码邮件'
         message = ''
         from_email = settings.EMAIL_HOST_USER
         recipient_list = [email]
@@ -862,8 +882,8 @@ class WeiboUsers(View):
                 'carts_count': 0,
             }
             conn = get_redis_connection()
-            subject = '茗越山关跨境电商 9710 报关数字系统注册激活邮件'
-            # message = '您正在注册茗越山关跨境电商 9710 报关数字系统账号，此邮件仅用于测试，后续功能暂未开放，收到请勿回复。'
+            subject = '茗越山关跨境茶叶 SaaS 平台注册激活邮件'
+            # message = '您正在注册茗越山关跨境茶叶 SaaS 平台账号，此邮件仅用于测试，后续功能暂未开放，收到请勿回复。'
             message = ''
             from_email = settings.EMAIL_HOST_USER
             recipient_list = [email]
