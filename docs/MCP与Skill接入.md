@@ -1,4 +1,4 @@
-# Dadashop MCP 与 Skill 接入
+# 跨境茶叶saas平台 MCP 与 Skill 接入
 
 日期：2026-10-18。实现范围为仓库级 `dadashop-change-delivery` Skill 和本地 stdio MCP 的 `get_product_details`。`search_products` 尚处于[详细设计](sdd/modules/ai-support/search-products-design.md)阶段。本增量没有数据库迁移、HTTP MCP 地址、远端部署或模型调用。
 

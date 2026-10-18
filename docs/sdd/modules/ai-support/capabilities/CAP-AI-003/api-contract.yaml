@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  title: Dadashop 本人订单客服查询契约
+  title: 跨境茶叶saas平台 本人订单客服查询契约
   version: "0.1.0"
   description: CAP-AI-003 规格0.2.0的目标契约草案。保留现有路径和成功响应；新增错误代码及订单不可见404尚待实现，不能当作当前服务已支持。
 x-capability-id: CAP-AI-003

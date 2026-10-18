@@ -280,7 +280,7 @@ DADASHOP_MEDIA = "http://127.0.0.1:8000/media/"
 ####################支付宝配置开始#####################
 
 
-ALIPAY_SALLER_NAME = '茗越山关跨境茶叶 SaaS 平台'
+ALIPAY_SALLER_NAME = '跨境茶叶saas平台'
 ALIPAY_PAY_URL = os.environ['ALIPAY_PAY_URL']
 ALIPAY_APP_ID = os.environ['ALIPAY_APP_ID']
 ALIPAY_APP_PRIVATE_KEY = os.environ['ALIPAY_APP_PRIVATE_KEY']

@@ -386,7 +386,7 @@ def find_password(request):
         number = random.randint(1000, 9999)
         conn = get_redis_connection()
         conn.set(f'find_password_{email}', number, 600)
-        subject = '茗越山关跨境茶叶 SaaS 平台找回密码邮件'
+        subject = '跨境茶叶saas平台找回密码邮件'
         message = ''
         from_email = settings.EMAIL_HOST_USER
         recipient_list = [email]
@@ -882,8 +882,8 @@ class WeiboUsers(View):
                 'carts_count': 0,
             }
             conn = get_redis_connection()
-            subject = '茗越山关跨境茶叶 SaaS 平台注册激活邮件'
-            # message = '您正在注册茗越山关跨境茶叶 SaaS 平台账号，此邮件仅用于测试，后续功能暂未开放，收到请勿回复。'
+            subject = '跨境茶叶saas平台注册激活邮件'
+            # message = '您正在注册跨境茶叶saas平台账号，此邮件仅用于测试，后续功能暂未开放，收到请勿回复。'
             message = ''
             from_email = settings.EMAIL_HOST_USER
             recipient_list = [email]

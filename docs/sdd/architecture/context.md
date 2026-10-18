@@ -41,7 +41,7 @@ Redis：按配置用于缓存／购物车等；本地 embedding／reranker、OTe
 | 物流轨迹 | MOD-FUL | logistics | 每次读取检查订单对象范围；当前入口需专项核查 |
 | AI 查询、计划、会话 | MOD-AI | support_ai、admin_panel/agent_views.py | 应用装配脱敏 DTO，模型不能决定权限或写交易状态 |
 | 买家偏好、知识与向量 | MOD-KNOW | ai_storage | 显式 owner_id；禁止模型静默保存敏感记忆 |
-| 共用页面和运行支撑 | MOD-PLAT | dadashop、client、templates、deploy、tools | 支撑业务，不拥有其聚合展示的领域规则 |
+| 共用页面和运行支撑 | MOD-PLAT | 跨境茶叶saas平台、client、templates、deploy、tools | 支撑业务，不拥有其聚合展示的领域规则 |
 
 这是建议业务分域，不取代 `versions/modules.json` 的代码资产版本归属；一个 App 被多个业务能力使用时，版本管理仍保留原规则。
 

@@ -1,9 +1,9 @@
 ---
 name: dadashop-change-delivery
-description: 在 Dadashop 实现改动或交付已有改动时，按模块归属、版本、验证和 Git 授权边界完成工作。适用于实现、提交、推送和 PR 准备；不用于一般问答或自动部署。
+description: 在跨境茶叶saas平台实现改动或交付已有改动时，按模块归属、版本、验证和 Git 授权边界完成工作。适用于实现、提交、推送和 PR 准备；不用于一般问答或自动部署。
 ---
 
-# Dadashop 改动与交付
+# 跨境茶叶saas平台改动与交付
 
 先定位仓库根目录，读取根目录 `AGENTS.md`、`docs/Git协作规范.md` 和 `versions/modules.json`。这些文件是当前规则来源；本技能只组织执行，不复制版本号、门禁状态或历史测试结论。适用子目录规则继续生效。
 

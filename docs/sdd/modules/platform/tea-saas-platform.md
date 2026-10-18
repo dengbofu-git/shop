@@ -1,14 +1,18 @@
-# 跨境茶叶 SaaS 平台定位与界面基线
+# 跨境茶叶saas平台定位与界面基线
 
 更新：2026-10-18。用户明确要求调整产品范围与全站品牌，本文记录当前有效定位。
 
 ## 平台名称
 
-- 中文：茗越山关跨境茶叶 SaaS 平台。
-- 英文：Mingyue Shanguan Cross-border Tea SaaS Platform。
-- 阿拉伯语：منصة مينغ يوي شانغوان SaaS لتجارة الشاي عبر الحدود。
+- 中文：跨境茶叶saas平台。
+- 英文：Cross-border Tea SaaS Platform。
+- 阿拉伯语：منصة SaaS لتجارة الشاي عبر الحدود。
 
 页面标题、登录宣传、买家共用导航、各端页脚及系统邮件使用上述名称；客户端三语切换不能恢复旧名称。
+
+项目为个人学习与实践项目，源码开放获取，仅限非商业用途；README 与根目录 [LICENSE](../../../../LICENSE) 共同说明授权范围，禁止商业运营、商业交付及商业衍生使用，第三方依赖与素材继续遵循各自授权。
+
+名称统一仅修改当前展示和维护文档。Python 包名、数据库与环境名、配置键、MCP／Skill 调用标识、原始路径及来源标识继续保持兼容；历史 Migration、验证快照、原始聊天标题和旧版 changelog 保留原始记录。未更名这些工程标识不表示保留旧产品名称。
 
 ## 产品范围
 
@@ -29,4 +33,4 @@
 
 验证入口：`client/tests/tea-saas-contract.py`、`client/tests/tea-saas-brand.test.js`、`supplier.test_analytics`。页面渲染、旧路径失效、三语文本和真实聚合分别验证，不用语法检查代替浏览器视觉或生产验收。
 
-执行结果见[本次验证记录](../../evidence/2026-10-18-tea-saas/verification.md)。
+当前名称与个人项目授权的执行结果见[名称与授权验证记录](../../evidence/2026-10-18-branding/verification.md)；此前平台范围调整的原始结果见[范围调整验证记录](../../evidence/2026-10-18-tea-saas/verification.md)。

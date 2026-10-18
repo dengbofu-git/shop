@@ -1,6 +1,8 @@
-# 参与 Dadashop 开发
+# 参与 跨境茶叶saas平台 开发
 
 仓库：[dengbofu-git/shop](https://github.com/dengbofu-git/shop)。先阅读 [AGENTS.md](AGENTS.md)、[Git 协作规范](docs/Git协作规范.md) 和 [模块版本管理](docs/模块版本管理.md)。
+
+本仓库为个人项目，源码开放获取，仅限非商业使用。参与、复制或分享前请阅读 [LICENSE](LICENSE)；第三方代码与素材仍遵循其原有授权。
 
 每个克隆首次执行：
 
