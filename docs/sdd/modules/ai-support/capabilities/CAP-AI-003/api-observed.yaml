@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  title: Dadashop 客服HTTP当前实现观察
+  title: 跨境茶叶saas平台 客服HTTP当前实现观察
   version: "0.11.1-observed.20261018"
   description: 当前工作区源码及隔离探针观察，不是生产验收；业务目标仍以api-contract.yaml和规格0.2.0为准。
 x-status: observed-current-source-with-historical-probes

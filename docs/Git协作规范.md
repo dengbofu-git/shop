@@ -1,4 +1,4 @@
-# Dadashop Git 协作规范
+# 跨境茶叶saas平台 Git 协作规范
 
 适用日期：2026-10-16。仓库为 `https://github.com/dengbofu-git/shop`。
 

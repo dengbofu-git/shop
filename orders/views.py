@@ -190,7 +190,7 @@ class OrdersView(View):
             alipay_public_key_string=alipay_public_key_string,
         )
         alipay_pay_url_params = alipay_object.api_alipay_trade_page_pay(
-            subject=f'{username}_茗越山关跨境茶叶 SaaS 平台_确认支付',
+            subject=f'{username}_跨境茶叶saas平台_确认支付',
             out_trade_no=order_id,
             total_amount=float(price),
             return_url='http://127.0.0.1:8000/v1/pays/notify',
@@ -255,7 +255,7 @@ class OrdersView(View):
                 alipay_public_key_string=alipay_public_key_string
             )
             alipay_pay_url_params = alipay_object.api_alipay_trade_page_pay(
-                subject=f'{username}_茗越山关跨境茶叶 SaaS 平台_确认支付',
+                subject=f'{username}_跨境茶叶saas平台_确认支付',
                 out_trade_no=order_id,
                 total_amount=float(total_amount),
                 return_url='http://127.0.0.1:8000/v1/pays/notify'

@@ -1,138 +1,81 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>确认订单 · 茗越山关跨境茶叶 SaaS 平台</title>
+    <title>确认订单 · 跨境茶叶saas平台</title>
     <link rel="icon" href="/static/images/index/py.ico">
-    <link rel="stylesheet" href="/static/css/design-tokens.css">
     <link rel="stylesheet" href="/static/css/rtl.css">
     <link rel="stylesheet" href="/static/css/buyer-workbench.css?v=20261003-storefront">
-    <link rel="stylesheet" href="/static/css/orderConfirm.css">
-    <link rel="stylesheet" href="/static/css/personage.css">
     <link rel="stylesheet" href="/static/css/buyer-storefront.css?v=20261003-storefront">
     <script src="/static/js/init.js"></script>
     <script src="/static/js/auth-storage.js?v=20261018-session-isolation"></script>
-{% include "shared/system_theme.html" %}
+    {% include "shared/system_theme.html" %}
+    <link rel="stylesheet" href="/static/css/orderConfirm.css?v=20261018-checkout-layout">
 </head>
-
-<body class="ds-page-orderconfirm ds-theme buyer-workbench checkout-page order-confirm-page storefront-page" id="buyer-body">
-    <div class="buyer-layout">
-        {% include 'buyer_sidebar.html' with active='cart' fixed_currency=True %}
-
-        <main class="buyer-main">
-            {% include 'buyer_header.html' %}
-
-            <div class="buyer-content storefront-content">
-                <div class="storefront-page-head">
-                    <span class="cart-eyebrow">BUYER WORKBENCH</span>
-                    <h1 class="storefront-page-title">确认订单</h1>
+<body class="ds-page-orderconfirm ds-theme buyer-workbench order-confirm-page storefront-page" id="buyer-body">
+<div class="buyer-layout">
+    {% include 'buyer_sidebar.html' with active='cart' %}
+    <main class="buyer-main">
+        {% include 'buyer_header.html' %}
+        <div class="buyer-content storefront-content checkout-content">
+            <header class="checkout-heading">
+                <div><span class="cart-eyebrow">BUYER WORKBENCH</span><h1>确认订单</h1><p>核对收货信息与商品，确认后进入支付。</p></div>
+                <a class="checkout-back" href="cart.html">← 返回采购车</a>
+            </header>
+            <ol class="checkout-steps" aria-label="下单进度">
+                <li aria-current="step"><span>1</span><div><strong>确认订单</strong><small>核对商品与收货信息</small></div></li>
+                <li><span>2</span><div><strong>支付订单</strong><small>选择支付方式</small></div></li>
+                <li><span>3</span><div><strong>支付完成</strong><small>查看订单状态</small></div></li>
+            </ol>
+            <div id="checkout-status" class="checkout-status" role="status" aria-live="polite">正在加载订单信息…</div>
+            <div class="checkout-layout">
+                <div class="checkout-sections">
+                    <section class="checkout-panel" aria-labelledby="address-heading">
+                        <div class="checkout-section-head"><div><h2 id="address-heading">收货信息</h2><p>请选择本次订单的收货地址</p></div><button type="button" class="checkout-secondary" id="choose">＋ 新增地址</button></div>
+                        <div id="checkout-addresses" class="checkout-addresses" role="radiogroup" aria-labelledby="address-heading"></div>
+                        <p id="address-empty" class="checkout-empty" hidden>还没有收货地址，请先新增地址。</p>
+                    </section>
+                    <section class="checkout-panel" aria-labelledby="products-heading">
+                        <div class="checkout-section-head"><h2 id="products-heading">商品明细</h2><span id="checkout-lines-count" class="checkout-muted"></span></div>
+                        <div class="checkout-table-wrap">
+                            <table class="checkout-table"><thead><tr><th scope="col">商品信息</th><th scope="col">单价 <span data-checkout-currency>USD</span></th><th scope="col">数量</th><th scope="col">小计 <span data-checkout-currency>USD</span></th></tr></thead><tbody id="checkout-items"></tbody></table>
+                        </div>
+                        <p id="products-empty" class="checkout-empty" hidden>没有待结算商品，<a href="cart.html">返回采购车重新选择</a>。</p>
+                    </section>
                 </div>
-                <div class="checkout-card">
-    <div id="navlist">
-        <ul>
-            <li class="navlist_blue_left"></li>
-            <li class="navlist_blue">确认订单信息</li>
-            <li class="navlist_blue_arro"><canvas id="canvas_blue" width="20" height="38"></canvas>
-            </li>
-            <li class="navlist_gray">支付订单<b></b></li>
-            <li class="navlist_gray_arro"><canvas id="canvas_gray" width="20" height="38"></canvas>
-            </li>
-            <li class="navlist_gray">支付完成<b></b></li>
-            <li class="navlist_gray_right"></li>
-        </ul>
-    </div>
-    <!--订单确认-->
-    <div id="container" class="clear">
-        <!--收货地址-->
-        <div class="adress_choice">
-        </div>
-        <!-- 商品信息-->
-        <form name="" method="post" action="#">
-            <div class="product_confirm">
-                <p>确认商品信息</p>
-                <ul class="item_title">
-                    <li class="p_info">商品信息</li>
-                    <li class="p_price">单价(元)</li>
-                    <li class="p_count">数量</li>
-                    <li class="p_tPrice">金额</li>
-                </ul>
+                <aside class="checkout-panel checkout-summary" aria-labelledby="summary-heading">
+                    <h2 id="summary-heading">订单摘要</h2>
+                    <dl><div><dt>商品数量</dt><dd><span id="count">0</span> 件</dd></div><div><dt>展示币种</dt><dd data-checkout-currency>USD</dd></div><div class="checkout-total"><dt>商品合计</dt><dd class="zj" id="checkout-total">$0.00</dd></div></dl>
+                    <p id="currency-note" class="checkout-note">金额为商品参考合计。最终结算金额、运费及实际扣款币种以支付页为准。</p>
+                    <div class="checkout-delivery"><span>配送至</span><p id="checkout-delivery">请选择收货地址</p></div>
+                    <button type="button" class="checkout-primary" id="go_pay" disabled>确认并付款 <span aria-hidden="true">→</span></button>
+                    <p class="checkout-muted checkout-payment-tip">确认后进入支付页面</p>
+                </aside>
             </div>
-        </form>
-        <!-- 结算条-->
-        <div id="count_bar">
-            <span class="go_cart"><a href="cart.html">&lt;&lt;返回购物车</a></span>
-            <span class="count_bar_info">共<b id="count"> 0 </b>件商品&nbsp;&nbsp;合计:<b class="zj"></b> <input
-                    type="hidden" name="Payment" value="" />元</span>
-            <button type="button" class="go_pay" id="go_pay">确认并付款</button>
         </div>
-    </div>
-                </div>
-            </div>
-
-            <footer class="storefront-footer">© 2026 茗越山关跨境茶叶 SaaS 平台 · 中国地标茶出海中东</footer>
-        </main>
-    </div>
-    <!--标题栏-->
-    <div class="modal" style="display:none">
-        <!--收货人信息填写栏-->
-        <div class="rs_content rs_content_1">
-            <p class="cha">×</p>
-            <form method="post" action="">
-                <!--收货人姓名-->
-                <div class="recipients">
-                    <span class="kuan"><span class="red">*</span>收货人：</span>
-                    <input type="text" name="receiverName" id="receiverName" />
-                </div>
-                <!--收货人所在城市等信息-->
-                <div data-toggle="distpicker" class="address_content">
-                    <span class="kuan"><span class="red">*</span>省份：</span>
-                    <select data-province="---- 选择省 ----" id="receiverState">
-                    </select>
-                    城市：<select data-city="---- 选择市 ----" id="receiverCity">
-                    </select>
-                    区/县：<select data-district="---- 选择区 ----" id="receiverDistrict">
-                    </select>
-                </div>
-                <!--收货人详细地址-->
-                <div class="address_particular">
-                    <span class="kuan"><span class="red">*</span>详细地址：</span>
-                    <textarea name="receiverAddress" id="receiverAddress" cols="60" rows="3" placeholder="建议您如实填写详细收货地址"></textarea>
-
-                </div>
-                <!--收货人地址-->
-                <div class="address_tel">
-                    <span class="kuan"><span class="red">*</span>手机号码：</span>
-                    <input type="tel" id="receiverMobile" name="receiverMobile" />
-		</div>
-                <!--邮政编码-->
-                <div class="address_postcode">
-                    <span class="kuan"><span class="red">*</span>邮政编码：</span>
-                    <input type="text" id="receiverZip" name="receiverZip" />
-                </div>
-                <!--地址名称-->
-                <div class="address_name">
-                    <span class="kuan"><span class="red">*</span>地址名称：</span>
-                    <input type="text" id="addressName" name="addressName" />如：<span class="sp">家</span><span
-                        class="sp">公司</span><span class="sp">宿舍</span>
-                </div>
-                <!--保存收货人信息-->
-                <div class="save_recipient">
-                    保存收货人信息
-                </div>
-            </form>
+        <footer class="storefront-footer">© 2026 跨境茶叶saas平台 · 中国地标茶出海中东</footer>
+    </main>
+</div>
+<dialog id="address-dialog" class="checkout-address-dialog" aria-labelledby="new-address-title">
+    <form id="address-form">
+        <div class="checkout-section-head"><h2 id="new-address-title">新增收货地址</h2><button type="button" id="close-address" class="checkout-icon" aria-label="关闭新增地址">×</button></div>
+        <div class="checkout-form-grid">
+            <label>收货人<input name="receiverName" id="receiverName" required maxlength="10" autocomplete="shipping name"></label>
+            <label>手机号码<input type="tel" id="receiverMobile" required maxlength="11" autocomplete="shipping tel"></label>
         </div>
-    </div>
-    <script src="/static/js/jquery-3.1.1.min.js"></script>
-    <script src="/static/js/buyer-workbench.js?v=20261018-tea-saas"></script>
-    <script src="/static/js/distpicker.data.js"></script>
-    <script src="/static/js/distpicker.js"></script>
-    <script src="/static/js/orderconfirm.js?v=20261003-gopay"></script>
-    <script>
-        (function ($) {
-
-        })(jQuery)
-    </script>
+        <div class="checkout-form-grid checkout-region" data-toggle="distpicker"><label>省份<select data-province="---- 选择省 ----" id="receiverState" required></select></label><label>城市<select data-city="---- 选择市 ----" id="receiverCity" required></select></label><label>区／县<select data-district="---- 选择区 ----" id="receiverDistrict" required></select></label></div>
+        <label>详细地址<textarea id="receiverAddress" required maxlength="80" rows="3" autocomplete="shipping street-address" placeholder="街道、门牌号等详细信息"></textarea></label>
+        <div class="checkout-form-grid"><label>邮政编码<input id="receiverZip" required maxlength="7" autocomplete="shipping postal-code"></label><label>地址标签<input id="addressName" required maxlength="10" placeholder="如：家、公司、仓库"></label></div>
+        <p id="address-error" class="checkout-error" role="alert"></p>
+        <button type="submit" id="save-address" class="checkout-primary">保存并使用此地址</button>
+    </form>
+</dialog>
+<script src="/static/js/jquery-3.1.1.min.js"></script>
+<script src="/static/js/buyer-workbench.js?v=20261018-platform-name"></script>
+<script src="/static/js/distpicker.data.js"></script>
+<script src="/static/js/distpicker.js"></script>
+<script src="/static/js/checkout-utils.js?v=20261018-checkout-layout"></script>
+<script src="/static/js/orderconfirm.js?v=20261018-checkout-layout"></script>
 </body>
 </html>

@@ -1,299 +1,140 @@
 (function () {
-    var checkoutState = {
-        settlement_type: 0,
-        buy_count: null,
-        sku_id: null
-    };
-
-    function bindGoPayHandler() {
-        if (bindGoPayHandler.done) return;
-        bindGoPayHandler.done = true;
-        $(document).on('click', '#go_pay', function (e) {
-            e.preventDefault();
-            var $selected = $('.allAdd_content .base.base_select').first();
-            if (!$selected.length) {
-                $selected = $('.allAdd_content .base').first();
-            }
-            if (!$selected.length) {
-                alert('请先添加收货地址');
-                $('.modal').show();
-                return;
-            }
-            var addressId = $selected.attr('data-id');
-            if (!addressId) {
-                alert('收货地址无效，请重新选择');
-                return;
-            }
-            var st = checkoutState.settlement_type;
-            var url = 'payment.html?address_id=' + encodeURIComponent(addressId) +
-                '&settlement_type=' + encodeURIComponent(st);
-            if (checkoutState.buy_count && checkoutState.sku_id) {
-                url += '&buy_count=' + encodeURIComponent(checkoutState.buy_count) +
-                    '&sku_id=' + encodeURIComponent(checkoutState.sku_id);
-            }
-            window.location.href = url;
-        });
+    'use strict';
+    var utils = CheckoutUtils;
+    var apiBase = typeof baseUrl === 'string' ? baseUrl.replace(/\/$/, '') : '';
+    var state = { items: [], addresses: [], addressId: null, type: '0', count: null, sku: null, media: '', currency: 'USD', ready: false };
+    var token = AuthStorage.getToken(), user = AuthStorage.getUser();
+    function byId(id) { return document.getElementById(id); }
+    function node(tag, text, cls) {
+        var el = document.createElement(tag);
+        if (text !== undefined) el.textContent = text;
+        if (cls) el.className = cls;
+        return el;
     }
-
-    bindGoPayHandler();
-
-function orders() {
-                flag = false
-                function push_ajax(parameter_url,settlement_type){
-                checkoutState.settlement_type = settlement_type;
-                $.ajax({
-                    type: 'get',
-                    url: baseUrl+'/v1/orders/'+username+"/advance"+parameter_url,
-                    datatype: 'json',
-                    beforeSend:function(request){
-                        request.setRequestHeader("authorization",token)
-                    },
-                    async: false,
-                    success: function (response) {
-                        var result = JSON.stringify(response)
-                        var results = JSON.parse(result)
-                        if(results.code == 403){
-							alert('用户认证已过期，请重新登录');
-							AuthStorage.clear();
-							location.href = 'login.html';
-                            return;
-						}
-                        if (results.code !== 200 || !results.data) {
-                            alert(results.error || results.errmsg || '加载订单信息失败');
-                            return;
-                        }
-                        console.log(results)
-                        if(results.data.addresses.length==0){
-                            alert("地址为空,请添加地址")
-                            flag = true
-                        }
-			            var data_goods = results.data.sku_list
-			            console.log(data_goods)
-                        var data_address = results.data.addresses
-                        var buy_count = results.data.buy_count
-                        var sku_id = results.data.sku_id
-                        checkoutState.buy_count = buy_count;
-                        checkoutState.sku_id = sku_id;
-                        var orderConfirm = {
-                        }
-                        var base_url = results.base_url
-                        orderConfirm.data = {
-                            html_goods: function () {
-                                var HTML = '';
-                                var sumPrice = 0;
-                                for (var i = 0; i < data_goods.length; i++) {
-                                    HTML += ' <ul class="item_detail">'
-                                    HTML += '<li class="p_info">'
-                                    HTML += '<div class="product_name">'
-                                    HTML += '<p>'
-                                    HTML += data_goods[i].name
-                                    HTML += '</p>'
-                                    // HTML += '<span>颜色：深空灰</span>'
-                                    var saleattr_name = data_goods[i].sku_sale_attr_name
-                                    var saleattr_val = data_goods[i].sku_sale_attr_val
-                                    for (var j = 0; j < saleattr_name.length; j++){
-                                        HTML += '<span>'
-                                        HTML += saleattr_name[j]
-                                        HTML += ':'
-                                        HTML += saleattr_val[j]
-                                        HTML += '</span>&nbsp&nbsp'
-                                    }
-                                    HTML += '</div>'
-                                    var imgPath = (data_goods[i].default_image_url && String(data_goods[i].default_image_url).trim()) ? data_goods[i].default_image_url : '';
-                                    HTML += '<b><img src="'+ (imgPath ? (base_url + imgPath) : 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7') + '" style="width:100px"/></b>'
-                                    HTML += '</li>'
-                                    HTML += '<li class="p_price">'
-                                    HTML += '<i>皮粉专属价</i>'
-                                    HTML += '<br />'
-                                    HTML += '<span class="pro_price">￥<span class="ppp_price">' + data_goods[i].price +
-                                        '</span></span>'
-                                    HTML += '</li>'
-                                    HTML += '<li class="p_count"><span>' + data_goods[i].count + '</span></li>'
-                                    HTML += '<li class="p_tPrice">￥<span>' + data_goods[i].count * data_goods[i].price + '</span></li>'
-                                    HTML += '</ul>'
-                                    sumPrice += data_goods[i].count * data_goods[i].price;
-                                }
-                                $("#count").html(data_goods.length);
-                                $(".zj").html(sumPrice);
-                                return HTML;
-                            },
-                            html_address : function() {
-                                var HTML = '';
-                                HTML += '<p>收货人信息<span class="rt" id="choose">新增收货地址</span></p>'
-                                HTML += '<div class="allAdd_content">'
-                                console.log(data_address)
-                                for (var i = 0; i < data_address.length; i++) {
-                                    if (i==0){
-                                        HTML += '<div id="addresId1" data-id="'+data_address[i].id+'" class="base base_select">';
-                                    }else{
-                                        HTML += '<div id="addresId'+(i+1)+'" data-id="'+data_address[i].id+'" class="base">';
-                                    }
-                                    HTML += '<i class="address_name">';
-                                    HTML += data_address[i].name;
-                                    HTML += '</i><i class="user_address">';
-                                    HTML += data_address[i].address;
-                                    HTML += '&nbsp&nbsp';
-                                    HTML += data_address[i].mobile;
-                                    HTML += '</i><i class="user_site rt">';
-                                    HTML += data_address[i].title;
-                                    HTML += '</i></div>';
-                                }
-                                HTML += '</div>';
-                                HTML += '<a id="more" href="javascript:;">更多地址 &gt;&gt;</a>';
-                                return HTML;
-                                },
-                            addads: function () {
-                                var receiverName = $("#receiverName").val(); // 收件人
-                                var receiverState = $("#receiverState").val(); // 省
-                                var receiverCity = $("#receiverCity").val(); // 市
-                                var receiverDistrict = $("#receiverDistrict").val(); // 区/县
-                                var receiverAddress = $("#receiverAddress").val(); //
-                                var receiverMobile = $("#receiverMobile").val();
-                                var receiverZip = $("#receiverZip").val();
-                                var addressName = $("#addressName").val();
-                                var id = 0
-                                if (receiverName && receiverState && receiverCity && receiverDistrict && receiverAddress &&
-                                    receiverMobile) {
-                                    $.ajax({
-                                        type: 'post',
-                                        url: baseUrl + '/v1/users/'+username+'/address',
-                                        contentType:'application/json',
-                                        datatype: JSON,
-                                        beforeSend:function(request){
-                                            request.setRequestHeader("authorization",token)
-                                        },
-                                        data: JSON.stringify({
-                                            "receiver": receiverName,
-                                            "address": receiverState + receiverCity + receiverDistrict + receiverAddress,
-                                            "receiver_phone": receiverMobile,
-                                            'postcode': receiverZip,
-                                            'tag': addressName
-                                        }),
-                                        success: function (response) {
-                                            if(response.code == 403){
-                                                alert('用户认证已过期，请重新登录');
-                                                AuthStorage.clear();
-                                                location.href = 'login.html'
-                                            }
-                                            if(response.code==200){
-                                                // 添加地址成功
-                                                alert('添加地址成功！')
-                                                location.reload()
-                                                console.log(response.data)
-                                                $('.modal').hide()
-                                            }else{
-                                                alert(response.error.message)
-                                            }
-
-                                        },
-                                        error: function (err) {
-                                            alert('保存失败' + err)
-                                        }
-                                    })
-                                } else {
-                                    alert("请将必填信息填写完整");
-                                }
-                            },
-                            initPage: function () {
-                                //顶部支付订单背景画布
-                                var canvas = document.getElementById("canvas_gray");
-                                var cxt = canvas.getContext("2d");
-                                var gray = cxt.createLinearGradient(10, 0, 10, 38);
-                                gray.addColorStop(0, '#f5f4f5');
-                                gray.addColorStop(1, '#e6e6e5');
-                                cxt.beginPath();
-                                cxt.fillStyle = gray;
-                                cxt.moveTo(20, 19);
-                                cxt.lineTo(0, 38);
-                                cxt.lineTo(0, 0);
-                                cxt.fill();
-                                cxt.closePath();
-                                //顶部确认订单信息背景画布
-                                var canvas = document.getElementById("canvas_blue");
-                                var cxt = canvas.getContext("2d");
-                                var blue = cxt.createLinearGradient(10, 0, 10, 38);
-                                blue.addColorStop(0, '#1A5D1A');
-                                blue.addColorStop(1, '#1A5D1A');
-                                cxt.beginPath();
-                                cxt.fillStyle = blue;
-                                cxt.moveTo(20, 19);
-                                cxt.lineTo(0, 38);
-                                cxt.lineTo(0, 0);
-                                cxt.fill();
-                                cxt.closePath();
-                            }
-                        }
-                        $(function () {
-                            //初始化
-                            orderConfirm.data.initPage();
-                            $(".item_title").after(orderConfirm.data.html_goods());
-                            $(".adress_choice").after(orderConfirm.data.html_address());
-                            if(flag==true){
-                                $(".modal").show();
-                            }
-                            //点击显示更多地址事件
-                            $("#more").click(function () {
-                                if ($(this).hasClass("upup")) {
-                                    $(".base_select").siblings().hide();
-                                    // $(".allAdd_content>div:not(:first-child)").css("display","none");
-                                    $("#more").html("更多地址>>");
-                                    $(this).removeClass("upup");
-                                } else {
-                                    $(".base_select").siblings().show();
-                                    // $(".allAdd_content>div:not(:first-child)").css("display","block");
-                                    $("#more").html("收起地址>>");
-                                    $("#more").addClass("upup");
-                                }
-                            })
-
-                            // 选择地址（单选，不可取消到无选中）
-                            $(".allAdd_content").off('click.orderAddr', '.base').on('click.orderAddr', '.base', function () {
-                                $(this).addClass('base_select').siblings('.base').removeClass('base_select');
-                            });
-                            //控制新增收货地址框的显示隐藏
-                            $("#choose").click(function () {
-                                $(".modal").show();
-                            })
-                            $(".cha").click(function () {
-                                $(".modal").hide();
-                            })
-                            $(".user_site").click(function () {
-                                $(this).parent().attr("class", "base_select").siblings().attr("class", "base");
-                                $(this).hide();
-                            })
-                            //地址页面添加名称至输入框
-                            $(".sp").click(function () {
-                                var value = $(this).html();
-                                $("#addressName").val(value);
-                            })
-                            $('.save_recipient').click(function () {
-                                orderConfirm.data.addads()
-                            })
-                        })
-                    },
-                    error:function(){
-                        alert('加载订单失败，请检查网络或重新登录');
-                    }
-                }
-            )
-            }
-            var token=AuthStorage.getToken();
-            var username = AuthStorage.getUser();
-            var sku_data = location.search
-            console.log(sku_data)
-            if(sku_data==''){
-                paramenter_url = "?settlement_type=0"
-                settlement_type=0
-                push_ajax(paramenter_url,settlement_type)
-            }else{
-                paramenter_url = sku_data+"&settlement_type=1"
-                settlement_type=1
-                push_ajax(paramenter_url,settlement_type)
-            }
+    function address() { return state.addresses.find(function (item) { return String(item.id) === String(state.addressId); }); }
+    function updateDelivery() {
+        var selected = address();
+        byId('checkout-delivery').textContent = selected ? selected.name + '  ' + selected.mobile + '\n' + selected.address : '请选择收货地址';
+        byId('go_pay').disabled = !state.ready || !selected || !state.items.length;
+    }
+    function renderAddresses() {
+        var root = byId('checkout-addresses');
+        root.replaceChildren();
+        byId('address-empty').hidden = state.addresses.length > 0;
+        state.addresses.forEach(function (item) {
+            var label = node('label', undefined, 'checkout-address');
+            var radio = node('input');
+            radio.type = 'radio'; radio.name = 'checkout-address'; radio.value = item.id;
+            radio.checked = String(state.addressId) === String(item.id);
+            radio.addEventListener('change', function () { state.addressId = item.id; updateDelivery(); });
+            var copy = node('div', undefined, 'checkout-address-copy');
+            copy.append(node('strong', item.name), node('small', item.mobile));
+            if (item.title) copy.appendChild(node('span', item.title, 'checkout-tag'));
+            copy.appendChild(node('p', item.address));
+            label.append(radio, copy); root.appendChild(label);
+        });
+        updateDelivery();
+    }
+    function imageUrl(item) {
+        var value = String(item.default_image_url || '').trim();
+        if (!value) return '/static/images/cart/product_normal.png';
+        if (/^https?:\/\//i.test(value)) return value;
+        if (value.charAt(0) === '/') return apiBase + value;
+        return state.media.replace(/\/$/, '') + '/' + value;
+    }
+    function renderItems() {
+        var root = byId('checkout-items');
+        root.replaceChildren();
+        document.querySelectorAll('[data-checkout-currency]').forEach(function (el) { el.textContent = state.currency; });
+        state.items.forEach(function (item) {
+            var row = node('tr'), product = node('div', undefined, 'checkout-product');
+            var image = node('img'); image.src = imageUrl(item); image.alt = item.product_name || item.name || '商品图片';
+            image.addEventListener('error', function () { image.onerror = null; image.src = '/static/images/cart/product_normal.png'; }, { once: true });
+            var copy = node('div');
+            copy.appendChild(node('strong', item.product_name || item.name || '商品'));
+            if (item.product_name && item.name && item.product_name !== item.name) copy.appendChild(node('p', item.name));
+            var names = item.sku_sale_attr_name || [], values = item.sku_sale_attr_val || [];
+            if (names.length) copy.appendChild(node('p', names.map(function (name, i) { return name + '：' + (values[i] || ''); }).join(' · ')));
+            product.append(image, copy);
+            var cell = node('td'); cell.appendChild(product);
+            row.append(cell, node('td', utils.format(utils.line({ price: item.price, count: 1 }, state.currency), state.currency)),
+                node('td', String(item.count)), node('td', utils.format(utils.line(item, state.currency), state.currency)));
+            root.appendChild(row);
+        });
+        var total = utils.summary(state.items, state.currency);
+        byId('count').textContent = total.count;
+        byId('checkout-total').textContent = utils.format(total.cents, state.currency);
+        byId('checkout-lines-count').textContent = state.items.length + ' 款商品';
+        byId('products-empty').hidden = state.items.length > 0;
+        byId('currency-note').textContent = (state.currency === 'USD' ? '商品按 USD 基准价展示。' : '参考换算：1 USD ≈ ' + (state.currency === 'AED' ? '3.67 AED' : '3.75 SAR') + '，非实时汇率。') + '商品合计不含尚未确认的费用，最终结算金额、运费及实际扣款币种以支付页为准。';
+    }
+    async function api(path, options) {
+        var response = await fetch(apiBase + path, Object.assign({ headers: { Authorization: token, 'Content-Type': 'application/json' }, cache: 'no-store' }, options));
+        var data = await response.json();
+        if (response.status === 401 || response.status === 403 || data.code === 403) {
+            AuthStorage.clear(); location.href = 'login.html'; throw new Error('登录已过期，请重新登录');
         }
-
-window.onload = function () {
-    orders();
-};
-
+        if (!response.ok || data.code !== 200) throw new Error(data.error || data.errmsg || '请求失败，请稍后重试');
+        return data;
+    }
+    async function load(preferredAddress) {
+        state.ready = false; updateDelivery();
+        byId('checkout-status').textContent = '正在加载订单信息…';
+        try {
+            var query = utils.request(location.search);
+            state.type = query.get('settlement_type');
+            state.sku = query.get('sku_id'); state.count = query.get('buy_num');
+            var result = await api('/v1/orders/' + encodeURIComponent(user) + '/advance?' + query.toString());
+            var data = result.data;
+            if (!data || !Array.isArray(data.sku_list) || !Array.isArray(data.addresses)) throw new Error('订单信息不完整，请返回采购车重新选择');
+            utils.summary(data.sku_list, state.currency);
+            state.items = data.sku_list; state.addresses = data.addresses;
+            state.media = result.base_url || apiBase + '/media/';
+            var preferred = preferredAddress || state.addressId;
+            var chosen = state.addresses.find(function (item) { return String(item.id) === String(preferred); });
+            state.addressId = chosen ? chosen.id : (state.addresses.length ? state.addresses[0].id : null);
+            state.ready = true; renderItems(); renderAddresses();
+            byId('checkout-status').textContent = '';
+        } catch (error) {
+            byId('checkout-status').textContent = error.message;
+            state.ready = false; updateDelivery();
+        }
+    }
+    document.addEventListener('DOMContentLoaded', function () {
+        if (!token || !user) { location.href = 'login.html'; return; }
+        var select = byId('currency-select');
+        try { state.currency = utils.currency(localStorage.getItem('buyer_checkout_currency') || localStorage.getItem('buyer_cart_currency')); } catch (_) {}
+        select.value = state.currency;
+        select.addEventListener('change', function () {
+            state.currency = utils.currency(select.value); select.value = state.currency;
+            try { localStorage.setItem('buyer_checkout_currency', state.currency); } catch (_) {}
+            renderItems();
+        });
+        byId('choose').addEventListener('click', function () { byId('address-error').textContent = ''; byId('address-dialog').showModal(); });
+        byId('close-address').addEventListener('click', function () { byId('address-dialog').close(); });
+        byId('go_pay').addEventListener('click', function () {
+            if (!state.ready || !address() || !state.items.length) return;
+            location.href = utils.payment(state, state.addressId);
+        });
+        byId('address-form').addEventListener('submit', async function (event) {
+            event.preventDefault();
+            var save = byId('save-address'); if (save.disabled) return;
+            var addressText = ['receiverState', 'receiverCity', 'receiverDistrict', 'receiverAddress'].map(function (id) { return byId(id).value.trim(); }).join('');
+            if (addressText.length > 100) { byId('address-error').textContent = '收货地址总长度不能超过100字'; return; }
+            save.disabled = true; byId('address-error').textContent = '';
+            try {
+                var before = state.addresses.map(function (item) { return String(item.id); });
+                await api('/v1/users/' + encodeURIComponent(user) + '/address', { method: 'POST', body: JSON.stringify({
+                    receiver: byId('receiverName').value.trim(), receiver_phone: byId('receiverMobile').value.trim(),
+                    address: addressText, postcode: byId('receiverZip').value.trim(), tag: byId('addressName').value.trim()
+                }) });
+                await load();
+                var added = state.addresses.find(function (item) { return before.indexOf(String(item.id)) === -1; });
+                if (added) { state.addressId = added.id; renderAddresses(); }
+                byId('address-dialog').close();
+            } catch (error) { byId('address-error').textContent = error.message; }
+            finally { save.disabled = false; }
+        });
+        load();
+    });
 })();

@@ -4,7 +4,12 @@ const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
 const read = file => fs.readFileSync(path.join(__dirname, '../static/js', file), 'utf8');
-const forbidden = /9710|报关|清关|customs|الجمارك|الجمرك|جمركية/i;
+const forbidden = /9710|报关|清关|customs|الجمارك|الجمرك|جمركية|dadashop|茗越山关|Mingyue Shanguan|مينغ يوي شانغوان/i;
+const brand = {
+    zh: '跨境茶叶saas平台',
+    en: 'Cross-border Tea SaaS Platform',
+    ar: 'منصة SaaS لتجارة الشاي عبر الحدود'
+};
 for (const file of ['login-portal.js', 'buyer-workbench.js', 'buyer-products.js', 'supplier-workbench.js']) {
     const source = read(file);
     assert(!forbidden.test(source), file);
@@ -13,9 +18,10 @@ for (const file of ['login-portal.js', 'buyer-workbench.js', 'buyer-products.js'
     const labels = vm.runInNewContext(source.slice(start, end) + '\ni18n;');
     for (const language of ['zh', 'en', 'ar']) {
         const values = labels[language];
-        if (values.logo_text) assert(values.logo_text.includes('SaaS'));
-        if (values.brand_name) assert(values.brand_name.includes('SaaS'));
-        if (values.procure_title) assert(values.procure_title.includes('SaaS'));
+        if (values.logo_text) assert.equal(values.logo_text, brand[language]);
+        if (values.brand_name) assert.equal(values.brand_name, brand[language]);
+        if (values.brand_short) assert.equal(values.brand_short, brand[language]);
+        if (values.procure_title) assert(values.procure_title.includes(brand[language]));
         if (values.stat_in_transit) assert.equal('stat_customs' in values, false);
     }
 }

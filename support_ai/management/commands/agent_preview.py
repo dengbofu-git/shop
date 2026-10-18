@@ -48,7 +48,7 @@ class Command(BaseCommand):
             if not options['json']:
                 self.stdout.write('记录：' + str(session.log_path))
             return
-        self.stdout.write(self.style.SUCCESS('Dadashop Agent 终端预览已就绪'))
+        self.stdout.write(self.style.SUCCESS('跨境茶叶saas平台 Agent 终端预览已就绪'))
         self.stdout.write(json.dumps(session.status(), ensure_ascii=False, indent=2))
         self.stdout.write('输入会调用当前模型服务；记录经现有规则脱敏后保存在本地。\n' + HELP)
         while True:

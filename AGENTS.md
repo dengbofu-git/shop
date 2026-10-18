@@ -1,4 +1,4 @@
-# Dadashop 协作与 Git 交付规则
+# 跨境茶叶saas平台 协作与 Git 交付规则
 
 适用仓库：`https://github.com/dengbofu-git/shop`。详细流程见 [Git 协作规范](docs/Git协作规范.md)，版本事实源为 `versions/modules.json`。
 

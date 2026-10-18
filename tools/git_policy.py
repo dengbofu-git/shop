@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Dadashop Git checks. Uses only the Python standard library and Git."""
+"""跨境茶叶saas平台 Git checks. Uses only the Python standard library and Git."""
 import argparse
 import ast
 import json

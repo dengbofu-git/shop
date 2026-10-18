@@ -1,4 +1,4 @@
-# Dadashop 当前模块版本
+# 跨境茶叶saas平台当前模块版本
 
 2026-10-18交付更新：当前清单已同步15个实现模块，关联[SDD增量对账](../docs/sdd/reconciliation-2026-10-18.md)及[本轮交付记录](../docs/sdd/evidence/2026-10-18-delivery/verification.md)。下列2026-10-16叙述和历史测试保留当日语境，不是本次新验证。
 
@@ -21,21 +21,21 @@
 
 | 模块 | 当前版本 | 当前核对状态 | 完整变更记录 |
 | --- | --- | --- | --- |
-| core · 项目核心 | 0.2.0 | 跨境茶叶SaaS定位、路由与管理外壳、MCP／Skill、SDD及交付支撑 | [core](changelogs/core.md) |
-| users · 用户与权限 | 0.2.2 | 统一登录与权限分流、平台联合鉴权、会话权限、品牌与旧入口清理 | [users](changelogs/users.md) |
+| core · 项目核心 | 0.2.1 | 跨境茶叶SaaS定位、路由与管理外壳、MCP／Skill、SDD及交付支撑 | [core](changelogs/core.md) |
+| users · 用户与权限 | 0.2.3 | 统一登录与权限分流、平台联合鉴权、会话权限、品牌与旧入口清理 | [users](changelogs/users.md) |
 | goods · 商品管理 | 0.4.1 | 可选分类页长与商品分页验证；保留商品库存及图片既有口径 | [goods](changelogs/goods.md) |
 | carts · 购物车 | 0.1.1 | 保持采购车及商品图片基线；本轮仅web调整币种展示 | [carts](changelogs/carts.md) |
-| orders · 订单管理 | 0.1.3 | 共用已付销售条件、支付主题品牌；不新增可信支付闭环 | [orders](changelogs/orders.md) |
+| orders · 订单管理 | 0.1.4 | 共用已付销售条件、支付主题品牌；不新增可信支付闭环 | [orders](changelogs/orders.md) |
 | pays · 支付 | 0.1.0 | 保持已有支付基线；验签、金额与回调幂等仍待专项完善 | [pays](changelogs/pays.md) |
 | news · 内容资讯 | 0.1.0 | 保持内容与登录态资讯基线 | [news](changelogs/news.md) |
 | inventory · 库存管理 | 0.1.0 | 保持仓库库存与流水基线；全站库存口径仍待统一 | [inventory](changelogs/inventory.md) |
 | logistics · 物流 | 0.1.0 | 保持物流基线；对象范围与完整履约仍待核查 | [logistics](changelogs/logistics.md) |
 | supplier · 商家与结算 | 0.2.0 | 已付本店销售口径、自然月趋势、订单履约统计及旧推算字段移除 | [supplier](changelogs/supplier.md) |
 | admin_panel · 平台运营 | 0.4.1 | 平台交易总览、角色与权限联合控制、共用销售条件 | [admin_panel](changelogs/admin_panel.md) |
-| support_ai · 智能客服 | 0.11.1 | 历史咨询列表与分页、公开详情共用服务和MCP命令 | [support_ai](changelogs/support_ai.md) |
+| support_ai · 智能客服 | 0.11.2 | 历史咨询列表与分页、公开详情共用服务和MCP命令 | [support_ai](changelogs/support_ai.md) |
 | merchant_ai · 商家智能助手 | 0.1.0 | 入口与初始化状态，聊天／模型／上传／经营工具未接入 | [merchant_ai](changelogs/merchant_ai.md) |
 | ai_storage · AI 记忆与知识存储 | 0.3.2 | 保持查询改写所用知识／向量与短Embedding超时基线 | [ai_storage](changelogs/ai_storage.md) |
-| web · 页面与前端资源 | 0.14.1 | 统一登录、卡片及10件分页、标签页身份、历史咨询、管理外壳与SaaS品牌；同步SDD验证基线 | [web](changelogs/web.md) |
+| web · 页面与前端资源 | 0.15.1 | 统一登录、卡片分页、历史咨询、管理外壳、结算页三币种参考展示；统一项目名称 | [web](changelogs/web.md) |
 
 ## 历史实现演进和既有证据
 

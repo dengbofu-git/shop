@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Independent module versions for the Dadashop monorepo (stdlib only)."""
+"""Independent module versions for the 跨境茶叶saas平台 monorepo (stdlib only)."""
 import argparse
 import datetime
 import json
