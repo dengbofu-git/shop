@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>数据中心 - 茗越山关跨境电商 9710 报关数字系统</title>
+    <title>数据中心 - 茗越山关跨境茶叶 SaaS 平台</title>
     <link href="../static/css/design-tokens.css" rel="stylesheet">
     <link href="../static/css/workbench-loading.css" rel="stylesheet">
-    <link href="../static/css/operations-dashboard.css" rel="stylesheet">
+    <link href="../static/css/operations-dashboard.css?v=20261018-paid-sales" rel="stylesheet">
     <link rel="icon" href="../static/images/index/py.ico">
     <link rel="preconnect" href="https://cdn.bootcdn.net" crossorigin>
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
     <script src="../static/js/init.js"></script>
-    <script src="../static/js/auth-storage.js"></script>
+    <script src="../static/js/auth-storage.js?v=20261018-session-isolation"></script>
     <script defer src="https://cdn.bootcdn.net/ajax/libs/echarts/5.4.3/echarts.min.js" onerror="this.onerror=null;this.src='https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js';"></script>
     <script>
         if (window.location.search.indexOf('embed=1') >= 0 || window.self !== window.top) {
@@ -46,14 +46,15 @@
     </div>
 
     <!-- 顶部核心指标栏 -->
+    <p id="sales-basis" class="sales-basis">近365天 · 已全额付款的本店商品明细金额，不含运费；剔除已退货试单与已取消预售。</p>
     <section class="core-metrics">
         <div class="metric-card metric-blue">
             <div class="metric-value" id="m-total-sales">—</div>
-            <div class="metric-label">统计周期出口额</div>
+            <div class="metric-label">统计周期已付款销售额</div>
             <div class="metric-tag" id="m-order-count">订单 — 笔</div>
         </div>
         <div class="metric-card metric-blue">
-            <div class="metric-value" id="m-pass-rate">—</div>
+            <div class="metric-value" id="m-completion-rate">—</div>
             <div class="metric-label">履约完成率</div>
             <div class="metric-tag" id="m-completed">已完成 — 笔</div>
         </div>
@@ -69,8 +70,8 @@
         </div>
         <div class="metric-card metric-gold">
             <div class="metric-value" id="m-avg-order">—</div>
-            <div class="metric-label">客单价 (元)</div>
-            <div class="metric-tag">SKU 行汇总</div>
+            <div class="metric-label">已付订单均额 (元)</div>
+            <div class="metric-tag">仅计本店商品明细</div>
         </div>
         <div class="metric-card metric-gold">
             <div class="metric-value" id="m-turnover">—</div>
@@ -83,12 +84,12 @@
     <section class="main-charts">
         <div class="chart-column">
             <div class="chart-card">
-                <h3 class="chart-title">报关物流效率分析</h3>
-                <div id="chart-logistics" class="chart-container"></div>
+                <h3 class="chart-title">近六个月已付款销售趋势</h3>
+                <div id="chart-sales-trend" class="chart-container"></div>
             </div>
             <div class="chart-card">
-                <h3 class="chart-title">合规校验通过率</h3>
-                <div id="chart-compliance" class="chart-container"></div>
+                <h3 class="chart-title">订单履约状态</h3>
+                <div id="chart-order-status" class="chart-container"></div>
             </div>
         </div>
         <div class="chart-column">
@@ -138,6 +139,6 @@
     </section>
     </div>
 
-    <script defer src="../static/js/operations-dashboard.js?v=20261003-loading-v2"></script>
+    <script defer src="../static/js/operations-dashboard.js?v=20261018-tea-saas"></script>
 </body>
 </html>

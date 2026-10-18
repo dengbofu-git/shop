@@ -1,9 +1,22 @@
 /**
  * 商家商品管理（复用单页：列表 / 编辑）
- * 风格延续茗越山关跨境电商 9710 报关数字系统：茶田绿 + 白卡 + 8px/12px 圆角
+ * 风格延续茗越山关跨境茶叶 SaaS 平台：茶田绿 + 白卡 + 8px/12px 圆角
  */
 
 body.merchant-body { background: #f1f8e9; }
+
+.mp-preview { width: min(780px, calc(100vw - 40px)); max-height: calc(100vh - 40px); box-sizing: border-box; padding: 24px; border: 1px solid #d7e5db; border-radius: 16px; color: #183c2b; background: #fff; }
+.mp-preview::backdrop { background: rgba(18, 40, 30, .4); }
+.mp-preview-heading { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 20px; }
+.mp-preview-heading h2 { margin: 0; font-size: 22px; }
+.mp-preview-body { display: grid; grid-template-columns: minmax(160px, 1fr) minmax(0, 1.5fr); gap: 24px; }
+.mp-preview-body > img { width: 100%; max-height: 300px; object-fit: contain; border-radius: 12px; background: #f4f8f5; }
+.mp-preview-body h3 { margin: 0 0 16px; overflow-wrap: anywhere; }
+.mp-preview-body dl { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 10px 18px; }
+.mp-preview-body dt { color: #61766b; }
+.mp-preview-body dd { margin: 0; overflow-wrap: anywhere; }
+.mp-preview-caption { white-space: pre-wrap; overflow-wrap: anywhere; }
+@media (max-width: 560px) { .mp-preview { padding: 18px; } .mp-preview-body { grid-template-columns: 1fr; gap: 16px; } .mp-preview-body > img { max-height: 200px; } }
 
 html.embed-mode .merchant-header-brand,
 html.embed-mode .merchant-nav,

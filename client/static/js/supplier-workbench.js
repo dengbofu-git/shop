@@ -1,5 +1,5 @@
 /**
- * 供应商工作台（茶企端）- 品控溯源管理 · 茗越山关跨境电商 9710 报关数字系统
+ * 供应商工作台（茶企端）- 品控溯源管理 · 茗越山关跨境茶叶 SaaS 平台
  * 三语切换、编辑品控弹窗
  */
 (function() {
@@ -13,14 +13,13 @@
             nav_orders: '订单管理',
             nav_assistant: '智能助手',
             nav_qc: '品控溯源',
-            nav_customs: '报关服务',
             nav_settlement: '结算管理',
             nav_data: '数据中心',
             welcome: '欢迎',
             joined: '入驻',
-            stat_sales: '累计出口销售额',
+            stat_sales: '近一年已付销售额',
             stat_pending_ship: '待发货订单数',
-            stat_customs: '在途报关单数',
+            stat_in_transit: '待收货订单数',
             stat_trace: '溯源码生成数量',
             todo_title: '待办事项',
             todo_unshipped: '待发货订单',
@@ -44,14 +43,13 @@
             nav_orders: 'Orders',
             nav_assistant: 'AI Assistant',
             nav_qc: 'QC & Trace',
-            nav_customs: 'Customs',
             nav_settlement: 'Settlement',
             nav_data: 'Analytics',
             welcome: 'Welcome',
             joined: 'joined',
-            stat_sales: 'Total Export Sales',
+            stat_sales: 'Paid Sales (Past Year)',
             stat_pending_ship: 'Pending Shipments',
-            stat_customs: 'Customs in Transit',
+            stat_in_transit: 'Orders in Transit',
             stat_trace: 'Trace Codes Generated',
             todo_title: 'To-Do',
             todo_unshipped: 'Pending Shipments',
@@ -75,14 +73,13 @@
             nav_orders: 'الطلبات',
             nav_assistant: 'المساعد الذكي',
             nav_qc: 'المراقبة والتتبع',
-            nav_customs: 'الجمارك',
             nav_settlement: 'التسوية',
             nav_data: 'التحليلات',
             welcome: 'مرحباً',
             joined: 'انضم',
-            stat_sales: 'إجمالي مبيعات التصدير',
+            stat_sales: 'المبيعات المدفوعة خلال آخر سنة',
             stat_pending_ship: 'الشحنات المعلقة',
-            stat_customs: 'الجمرك قيد النقل',
+            stat_in_transit: 'الطلبات قيد النقل',
             stat_trace: 'أكواد التتبع',
             todo_title: 'المهام',
             todo_unshipped: 'الشحنات المعلقة',
@@ -119,7 +116,7 @@
             var key = el.getAttribute('data-i18n');
             if (t[key]) el.textContent = t[key];
         });
-        document.title = (lang === 'zh' ? '供应商工作台' : (lang === 'ar' ? 'بوابة المورد' : 'Supplier Portal')) + ' - 茗越山关跨境电商 9710 报关数字系统';
+        document.title = (lang === 'zh' ? '供应商工作台' : (lang === 'ar' ? 'بوابة المورد' : 'Supplier Portal')) + ' - 茗越山关跨境茶叶 SaaS 平台';
     }
 
     $(function() {
@@ -203,11 +200,11 @@
             if (!data || !data.summary) return;
             var s = data.summary;
             $('#stat-sales').text(s.total_sales_display || ('¥' + s.total_sales));
-            $('#stat-sales-sub').text('近一年有效订单 ' + s.order_count + ' 笔');
+            $('#stat-sales-sub').text('近365天已付订单 ' + s.paid_order_count + ' 笔 · 不含运费');
             $('#stat-pending-ship').text(s.pending_ship);
             $('#stat-pending-sub').text('待付款 ' + (s.unpaid || 0) + ' 笔');
-            $('#stat-customs').text(s.customs_in_transit);
-            $('#stat-customs-sub').text('已完成 ' + s.completed + ' 笔');
+            $('#stat-in-transit').text(s.in_transit);
+            $('#stat-in-transit-sub').text('已完成 ' + s.completed + ' 笔');
             $('#stat-orders-total').text(s.order_count);
             $('#todo-unshipped').text(s.pending_ship);
             $('#todo-settlement').text((data.todos && data.todos.settlement) || 0);
@@ -300,12 +297,10 @@
             });
         });
 
-        // 全局搜索（当前为前端占位：Enter 快速跳订单页）
-        $('#global-search').on('keydown', function(e) {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                showPanel('merchant_orders.html');
-            }
+        // 按钮和回车统一提交，沿用现有订单页入口。
+        $('#global-search-form').on('submit', function(e) {
+            e.preventDefault();
+            showPanel('merchant_orders.html');
         });
     });
 })();

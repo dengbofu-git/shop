@@ -1,5 +1,7 @@
 # Dadashop 当前模块版本
 
+2026-10-18交付更新：当前清单已同步15个实现模块，关联[SDD增量对账](../docs/sdd/reconciliation-2026-10-18.md)及[本轮交付记录](../docs/sdd/evidence/2026-10-18-delivery/verification.md)。下列2026-10-16叙述和历史测试保留当日语境，不是本次新验证。
+
 核对日期：2026-10-16（Asia/Shanghai）。机器可读版本以
 [modules.json](modules.json) 为准，各模块历史保存在 [changelogs](changelogs/)。
 2026-10-15 的核对沿用当时版本号；2026-10-16 先发布智能客服多轮 0.5.0，再升级至有序任务模板 0.6.0，页面脚本为 0.4.1。所有旧版本章节和原有说明均保留。
@@ -15,25 +17,27 @@
 
 ## 当前版本清单
 
-| 模块 | 当前版本 | 本次核对状态 | 完整变更记录 |
-| --- | --- | --- | --- |
-| core · 项目核心 | 0.1.6 | 注册商家助手；配置 Git 协作规范、本地 Hook 与 GitHub Actions | [core](changelogs/core.md) |
-| users · 用户与权限 | 0.1.0 | 保持已有基线 | [users](changelogs/users.md) |
-| goods · 商品管理 | 0.4.0 | 六类茶虚拟默认图入库、真实图片优先及统一媒体回退 | [goods](changelogs/goods.md) |
-| carts · 购物车 | 0.1.1 | 采购车接入茶类默认图片回退 | [carts](changelogs/carts.md) |
-| orders · 订单与报关 | 0.1.1 | 订单／预结算接入统一商品图片选择 | [orders](changelogs/orders.md) |
-| pays · 支付 | 0.1.0 | 保持已有基线 | [pays](changelogs/pays.md) |
-| news · 内容资讯 | 0.1.0 | 保持已有基线 | [news](changelogs/news.md) |
-| inventory · 库存管理 | 0.1.0 | 保持已有基线 | [inventory](changelogs/inventory.md) |
-| logistics · 物流 | 0.1.0 | 保持已有基线 | [logistics](changelogs/logistics.md) |
-| supplier · 商家与结算 | 0.1.0 | 保持已有基线 | [supplier](changelogs/supplier.md) |
-| admin_panel · 平台运营 | 0.3.0 | 补充重排序设置、状态接口和监控统计 | [admin_panel](changelogs/admin_panel.md) |
-| support_ai · 智能客服 | 0.10.0 | 15组41轮回归：11组全程通过，发现4组边界问题 | [support_ai](changelogs/support_ai.md) |
-| merchant_ai · 商家智能助手 | 0.1.0 | 开放商家入口与模块状态，真实能力暂未接入 | [merchant_ai](changelogs/merchant_ai.md) |
-| ai_storage · AI 记忆与知识存储 | 0.3.2 | 本地推理、公开知识查询及请求级Embedding超时 | [ai_storage](changelogs/ai_storage.md) |
-| web · 页面与前端资源 | 0.6.2 | 推荐理由标签；补齐卡片收藏入口并移除收藏页重复导航 | [web](changelogs/web.md) |
+当前工作区核对日期：2026-10-18（Asia/Shanghai）。以下按 `modules.json` 生成；版本登记不代表已创建标签、已部署或完整验收。
 
-## 当前代码范围
+| 模块 | 当前版本 | 当前核对状态 | 完整变更记录 |
+| --- | --- | --- | --- |
+| core · 项目核心 | 0.2.0 | 跨境茶叶SaaS定位、路由与管理外壳、MCP／Skill、SDD及交付支撑 | [core](changelogs/core.md) |
+| users · 用户与权限 | 0.2.2 | 统一登录与权限分流、平台联合鉴权、会话权限、品牌与旧入口清理 | [users](changelogs/users.md) |
+| goods · 商品管理 | 0.4.1 | 可选分类页长与商品分页验证；保留商品库存及图片既有口径 | [goods](changelogs/goods.md) |
+| carts · 购物车 | 0.1.1 | 保持采购车及商品图片基线；本轮仅web调整币种展示 | [carts](changelogs/carts.md) |
+| orders · 订单管理 | 0.1.3 | 共用已付销售条件、支付主题品牌；不新增可信支付闭环 | [orders](changelogs/orders.md) |
+| pays · 支付 | 0.1.0 | 保持已有支付基线；验签、金额与回调幂等仍待专项完善 | [pays](changelogs/pays.md) |
+| news · 内容资讯 | 0.1.0 | 保持内容与登录态资讯基线 | [news](changelogs/news.md) |
+| inventory · 库存管理 | 0.1.0 | 保持仓库库存与流水基线；全站库存口径仍待统一 | [inventory](changelogs/inventory.md) |
+| logistics · 物流 | 0.1.0 | 保持物流基线；对象范围与完整履约仍待核查 | [logistics](changelogs/logistics.md) |
+| supplier · 商家与结算 | 0.2.0 | 已付本店销售口径、自然月趋势、订单履约统计及旧推算字段移除 | [supplier](changelogs/supplier.md) |
+| admin_panel · 平台运营 | 0.4.1 | 平台交易总览、角色与权限联合控制、共用销售条件 | [admin_panel](changelogs/admin_panel.md) |
+| support_ai · 智能客服 | 0.11.1 | 历史咨询列表与分页、公开详情共用服务和MCP命令 | [support_ai](changelogs/support_ai.md) |
+| merchant_ai · 商家智能助手 | 0.1.0 | 入口与初始化状态，聊天／模型／上传／经营工具未接入 | [merchant_ai](changelogs/merchant_ai.md) |
+| ai_storage · AI 记忆与知识存储 | 0.3.2 | 保持查询改写所用知识／向量与短Embedding超时基线 | [ai_storage](changelogs/ai_storage.md) |
+| web · 页面与前端资源 | 0.14.1 | 统一登录、卡片及10件分页、标签页身份、历史咨询、管理外壳与SaaS品牌；同步SDD验证基线 | [web](changelogs/web.md) |
+
+## 历史实现演进和既有证据
 
 - 已实现本地 BGE-M3 向量检索、本地 BGE 重排序、证据选择、异常降级及 Agent 监控和运营设置。
 - 已有数据库增量迁移包括 `support_ai/0002_agent_observability` 和 `0003_agent_reranking`。
@@ -53,6 +57,8 @@
 运营人员保存配置不会自动产生模块发布版本；本表也不代表创建了新的 Git 发布标签。
 
 ## 后续维护
+
+本轮交付验证包含79项Django定向检查（78通过、1项旧页面直达断言失败）、8个前端行为脚本及页面／目录契约、9项MCP验证。命令、合成环境和未覆盖范围见[交付记录](../docs/sdd/evidence/2026-10-18-delivery/verification.md)。版本清单不是全测试通过或已发布的证明。
 
 - 现有版本补充说明时，在对应当前版本章节追加条目，保留其原有文字。
 - 新功能或修复正式升版时，新建更高版本章节，保留全部旧版本章节。

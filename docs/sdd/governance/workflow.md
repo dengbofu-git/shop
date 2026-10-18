@@ -69,7 +69,7 @@ DISCOVERY → SPEC_REVIEW → PROTOTYPE_READY → PROTOTYPE_VALIDATED
 
 `versions/modules.json.dependencies` 用于版本影响传播，与业务实施顺序不同；不能直接把它转成 SDD 阻塞图。尤其 `support_ai ↔ ai_storage` 的登记互依不应变成两个能力互相等待准入。
 
-买家、商家、运营／报关操作分别记录端级入口，订单状态等业务规则只由主能力定义；商家页面和 AI 查询可以引用订单事实，不重新定义订单状态机。
+买家、商家、运营操作分别记录端级入口，订单状态等业务规则只由主能力定义；商家页面和 AI 查询可以引用订单事实，不重新定义订单状态机。
 
 ## 文档权威和证据
 

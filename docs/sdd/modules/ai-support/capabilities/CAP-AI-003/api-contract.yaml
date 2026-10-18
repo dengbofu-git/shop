@@ -7,12 +7,13 @@ x-capability-id: CAP-AI-003
 x-spec-version: "0.2.0"
 x-status: proposed
 x-observed-contract: api-observed.yaml
-x-reconciliation-evidence: docs/sdd/evidence/2026-10-16-sdd-reconciliation/manifest.json
-x-implementation-status: 目标404/error_code/读取脱敏投影/本地空结果短路未实施；当前行为见api-observed.yaml，不从本目标schema推断运行功能。
+x-reconciliation-evidence: docs/sdd/evidence/2026-10-18-project-chat-sdd/manifest.json
+x-historical-evidence: docs/sdd/evidence/2026-10-16-sdd-reconciliation/manifest.json
+x-implementation-status: 目标404/error_code/完整英文引用与重放投影/本地空结果短路尚未实施；历史列表和详情分页及有限读取脱敏已增量实施，当前行为见api-observed.yaml。
 x-cache-policy: 所有应用JSON响应均为Cache-Control=no-store；框架405不作此保证。
 x-compatibility:
   preserved: [现有URL, Bearer认证, 直接JSON成功响应, request_id与revision行为, 既有成功重放结果]
-  additions: [错误JSON中的error_code]
+  additions: [错误JSON中的error_code, 历史列表与sequence分页增量]
   behaviorChange: 明确的不可查询订单在模型和成功会话提交前返回404，不再作为200成功聊天。
   rollout: 先部署服务端新增错误代码及404，再部署识别代码的前端；旧客户端仍可读取error文案。
   mixedTasks: 包含明确不可查询订单引用的整次新chat请求返回404，其他任务不先执行或提交；不在本切片增加部分成功协议。
@@ -125,6 +126,31 @@ paths:
         '409': [REQUEST_ID_CONFLICT, REVISION_CONFLICT]
         '413': [PAYLOAD_TOO_LARGE]
         '503': [SUPPORT_UNAVAILABLE]
+  /v1/support/conversations/:
+    get:
+      operationId: listBuyerSupportConversations
+      summary: 列出本人已保存的历史咨询
+      x-authorized-increment: docs/sdd/modules/ai-support/conversation-history.md
+      description: 活跃买家本人范围；每次默认20项、最多50项，签名游标绑定用户和更新时间／UUID，有效期24小时；不扩大模型上下文。
+      parameters:
+        - {name: limit, in: query, schema: {type: integer, minimum: 1, maximum: 50, default: 20}}
+        - {name: cursor, in: query, schema: {type: string, maxLength: 1000}}
+      responses:
+        '200':
+          description: 非空咨询列表，更新时间与UUID降序；Cache-Control为no-store。
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [conversations, has_more, next_cursor]
+                properties:
+                  conversations: {type: array, maxItems: 50, items: {$ref: '#/components/schemas/ConversationSummary'}}
+                  has_more: {type: boolean}
+                  next_cursor: {type: string, nullable: true}
+        '400': {$ref: '#/components/responses/JsonError'}
+        '401': {$ref: '#/components/responses/JsonError'}
+        '403': {$ref: '#/components/responses/JsonError'}
+        '503': {$ref: '#/components/responses/JsonError'}
   /v1/support/conversations/{conversation_id}/:
     get:
       operationId: getBuyerSupportConversation
@@ -135,9 +161,11 @@ paths:
           in: path
           required: true
           schema: {type: string, format: uuid}
+        - {name: limit, in: query, schema: {type: integer, minimum: 1, maximum: 50, default: 6}}
+        - {name: before_sequence, in: query, schema: {type: integer, minimum: 1, maximum: 2147483647}}
       responses:
         '200':
-          description: 最近最多6个成功轮次，按sequence升序返回；当前读取不刷新订单、执行模型或增加轮次。历史接口不承诺只返回24小时内数据。
+          description: 默认最近6个成功轮次以兼容旧客户端，新页面请求20轮、最多50轮，支持sequence向前分页；按sequence升序返回，不刷新订单或执行模型。历史展示不受模型24小时窗口限制。
           headers:
             Cache-Control: {schema: {type: string, enum: [no-store]}}
           content:
@@ -146,6 +174,7 @@ paths:
               examples:
                 emptyHistory:
                   value: {conversation_id: 33333333-3333-4333-8333-333333333333, revision: 0, turns: []}
+        '400': {$ref: '#/components/responses/JsonError'}
         '401': {$ref: '#/components/responses/JsonError'}
         '403': {$ref: '#/components/responses/JsonError'}
         '404': {$ref: '#/components/responses/JsonError'}
@@ -155,6 +184,7 @@ paths:
         '401': [AUTH_REQUIRED, AUTH_INVALID]
         '403': [BUYER_REQUIRED]
         '404': [CONVERSATION_NOT_FOUND]
+        '400': [INVALID_REQUEST]
         '503': [SUPPORT_UNAVAILABLE]
       x-router-caveat: 非UUID路径由现有Django路由直接404，可能是HTML且无error_code；客户端按历史读取上下文处理，不回显原始响应。
 components:
@@ -222,6 +252,15 @@ components:
           type: string
           enum: [INVALID_REQUEST, AUTH_REQUIRED, AUTH_INVALID, BUYER_REQUIRED, ORDER_NOT_QUERYABLE, CONVERSATION_NOT_FOUND, REQUEST_ID_CONFLICT, REVISION_CONFLICT, PAYLOAD_TOO_LARGE, SUPPORT_UNAVAILABLE]
         trace_id: {type: string, pattern: '^[0-9a-f]{32}$'}
+    ConversationSummary:
+      type: object
+      required: [conversation_id, title, turn_count, created_at, updated_at]
+      properties:
+        conversation_id: {type: string, format: uuid}
+        title: {type: string}
+        turn_count: {type: integer, minimum: 0}
+        created_at: {type: string, format: date-time}
+        updated_at: {type: string, format: date-time}
     ConversationHistory:
       type: object
       additionalProperties: false
@@ -229,14 +268,22 @@ components:
       properties:
         conversation_id: {type: string, format: uuid}
         revision: {type: integer, minimum: 0}
+        title: {type: string}
+        turn_count: {type: integer, minimum: 0}
+        created_at: {type: string, format: date-time}
+        updated_at: {type: string, format: date-time}
+        has_more: {type: boolean}
+        next_before_sequence: {type: integer, nullable: true}
         turns:
           type: array
-          maxItems: 6
+          maxItems: 50
           items:
             type: object
             additionalProperties: false
             required: [message, response]
             properties:
+              sequence: {type: integer, minimum: 1}
+              created_at: {type: string, format: date-time}
               message: {type: string}
               response:
                 type: object

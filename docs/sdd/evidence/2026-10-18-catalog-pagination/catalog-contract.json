@@ -1,0 +1,348 @@
+{
+  "code": 200,
+  "data": [
+    {
+      "catalog_id": 1,
+      "catalog_name": "\u7ea2\u8336",
+      "sku": [
+        {
+          "skuid": 1,
+          "name": "Fixture-0",
+          "spu_name": "\u7ea2\u8336",
+          "product_name": "\u7ea2\u8336",
+          "caption": "Synthetic only",
+          "price": "5.00",
+          "image": "sku/16/1.jpg",
+          "image_url": "/v1/goods/sku/1/image",
+          "image_text": "\u7ea2\u8336"
+        },
+        {
+          "skuid": 2,
+          "name": "Fixture-1",
+          "spu_name": "\u7ea2\u8336",
+          "product_name": "\u7ea2\u8336",
+          "caption": "Synthetic only",
+          "price": "5.00",
+          "image": "sku/16/1.jpg",
+          "image_url": "/v1/goods/sku/2/image",
+          "image_text": "\u7ea2\u8336"
+        },
+        {
+          "skuid": 3,
+          "name": "Fixture-2",
+          "spu_name": "\u7ea2\u8336",
+          "product_name": "\u7ea2\u8336",
+          "caption": "Synthetic only",
+          "price": "5.00",
+          "image": "sku/16/1.jpg",
+          "image_url": "/v1/goods/sku/3/image",
+          "image_text": "\u7ea2\u8336"
+        },
+        {
+          "skuid": 4,
+          "name": "Fixture-3",
+          "spu_name": "\u7ea2\u8336",
+          "product_name": "\u7ea2\u8336",
+          "caption": "Synthetic only",
+          "price": "5.00",
+          "image": "sku/16/1.jpg",
+          "image_url": "/v1/goods/sku/4/image",
+          "image_text": "\u7ea2\u8336"
+        },
+        {
+          "skuid": 5,
+          "name": "Fixture-4",
+          "spu_name": "\u7ea2\u8336",
+          "product_name": "\u7ea2\u8336",
+          "caption": "Synthetic only",
+          "price": "5.00",
+          "image": "sku/16/1.jpg",
+          "image_url": "/v1/goods/sku/5/image",
+          "image_text": "\u7ea2\u8336"
+        },
+        {
+          "skuid": 6,
+          "name": "Fixture-5",
+          "spu_name": "\u7ea2\u8336",
+          "product_name": "\u7ea2\u8336",
+          "caption": "Synthetic only",
+          "price": "5.00",
+          "image": "sku/16/1.jpg",
+          "image_url": "/v1/goods/sku/6/image",
+          "image_text": "\u7ea2\u8336"
+        },
+        {
+          "skuid": 7,
+          "name": "Fixture-6",
+          "spu_name": "\u7ea2\u8336",
+          "product_name": "\u7ea2\u8336",
+          "caption": "Synthetic only",
+          "price": "5.00",
+          "image": "sku/16/1.jpg",
+          "image_url": "/v1/goods/sku/7/image",
+          "image_text": "\u7ea2\u8336"
+        },
+        {
+          "skuid": 8,
+          "name": "Fixture-7",
+          "spu_name": "\u7ea2\u8336",
+          "product_name": "\u7ea2\u8336",
+          "caption": "Synthetic only",
+          "price": "5.00",
+          "image": "sku/16/1.jpg",
+          "image_url": "/v1/goods/sku/8/image",
+          "image_text": "\u7ea2\u8336"
+        },
+        {
+          "skuid": 9,
+          "name": "Fixture-8",
+          "spu_name": "\u7ea2\u8336",
+          "product_name": "\u7ea2\u8336",
+          "caption": "Synthetic only",
+          "price": "5.00",
+          "image": "sku/16/1.jpg",
+          "image_url": "/v1/goods/sku/9/image",
+          "image_text": "\u7ea2\u8336"
+        },
+        {
+          "skuid": 10,
+          "name": "Fixture-9",
+          "spu_name": "\u7ea2\u8336",
+          "product_name": "\u7ea2\u8336",
+          "caption": "Synthetic only",
+          "price": "5.00",
+          "image": "sku/16/1.jpg",
+          "image_url": "/v1/goods/sku/10/image",
+          "image_text": "\u7ea2\u8336"
+        },
+        {
+          "skuid": 11,
+          "name": "Fixture-10",
+          "spu_name": "\u7ea2\u8336",
+          "product_name": "\u7ea2\u8336",
+          "caption": "Synthetic only",
+          "price": "5.00",
+          "image": "sku/16/1.jpg",
+          "image_url": "/v1/goods/sku/11/image",
+          "image_text": "\u7ea2\u8336"
+        },
+        {
+          "skuid": 12,
+          "name": "Fixture-11",
+          "spu_name": "\u7ea2\u8336",
+          "product_name": "\u7ea2\u8336",
+          "caption": "Synthetic only",
+          "price": "5.00",
+          "image": "sku/16/1.jpg",
+          "image_url": "/v1/goods/sku/12/image",
+          "image_text": "\u7ea2\u8336"
+        },
+        {
+          "skuid": 13,
+          "name": "Fixture-12",
+          "spu_name": "\u7ea2\u8336",
+          "product_name": "\u7ea2\u8336",
+          "caption": "Synthetic only",
+          "price": "5.00",
+          "image": "sku/16/1.jpg",
+          "image_url": "/v1/goods/sku/13/image",
+          "image_text": "\u7ea2\u8336"
+        },
+        {
+          "skuid": 14,
+          "name": "Fixture-13",
+          "spu_name": "\u7ea2\u8336",
+          "product_name": "\u7ea2\u8336",
+          "caption": "Synthetic only",
+          "price": "5.00",
+          "image": "sku/16/1.jpg",
+          "image_url": "/v1/goods/sku/14/image",
+          "image_text": "\u7ea2\u8336"
+        },
+        {
+          "skuid": 15,
+          "name": "Fixture-14",
+          "spu_name": "\u7ea2\u8336",
+          "product_name": "\u7ea2\u8336",
+          "caption": "Synthetic only",
+          "price": "5.00",
+          "image": "sku/16/1.jpg",
+          "image_url": "/v1/goods/sku/15/image",
+          "image_text": "\u7ea2\u8336"
+        },
+        {
+          "skuid": 16,
+          "name": "Fixture-15",
+          "spu_name": "\u7ea2\u8336",
+          "product_name": "\u7ea2\u8336",
+          "caption": "Synthetic only",
+          "price": "5.00",
+          "image": "sku/16/1.jpg",
+          "image_url": "/v1/goods/sku/16/image",
+          "image_text": "\u7ea2\u8336"
+        }
+      ]
+    },
+    {
+      "catalog_id": 2,
+      "catalog_name": "\u7eff\u8336",
+      "sku": [
+        {
+          "skuid": 19,
+          "name": "Fixture-0",
+          "spu_name": "\u7eff\u8336",
+          "product_name": "\u7eff\u8336",
+          "caption": "Synthetic only",
+          "price": "5.00",
+          "image": "sku/19/6.jpg",
+          "image_url": "/v1/goods/sku/19/image",
+          "image_text": "\u7eff\u8336"
+        },
+        {
+          "skuid": 20,
+          "name": "Fixture-1",
+          "spu_name": "\u7eff\u8336",
+          "product_name": "\u7eff\u8336",
+          "caption": "Synthetic only",
+          "price": "5.00",
+          "image": "sku/19/6.jpg",
+          "image_url": "/v1/goods/sku/20/image",
+          "image_text": "\u7eff\u8336"
+        },
+        {
+          "skuid": 21,
+          "name": "Fixture-2",
+          "spu_name": "\u7eff\u8336",
+          "product_name": "\u7eff\u8336",
+          "caption": "Synthetic only",
+          "price": "5.00",
+          "image": "sku/19/6.jpg",
+          "image_url": "/v1/goods/sku/21/image",
+          "image_text": "\u7eff\u8336"
+        },
+        {
+          "skuid": 22,
+          "name": "Fixture-3",
+          "spu_name": "\u7eff\u8336",
+          "product_name": "\u7eff\u8336",
+          "caption": "Synthetic only",
+          "price": "5.00",
+          "image": "sku/19/6.jpg",
+          "image_url": "/v1/goods/sku/22/image",
+          "image_text": "\u7eff\u8336"
+        },
+        {
+          "skuid": 23,
+          "name": "Fixture-4",
+          "spu_name": "\u7eff\u8336",
+          "product_name": "\u7eff\u8336",
+          "caption": "Synthetic only",
+          "price": "5.00",
+          "image": "sku/23/f3d3572c11dfa9ec8a1380704f99e003918fa0ec6b08.webp",
+          "image_url": "/v1/goods/sku/23/image",
+          "image_text": "\u7eff\u8336"
+        },
+        {
+          "skuid": 24,
+          "name": "Fixture-5",
+          "spu_name": "\u7eff\u8336",
+          "product_name": "\u7eff\u8336",
+          "caption": "Synthetic only",
+          "price": "5.00",
+          "image": "sku/24/4d086e061d950a7b020843e0da8975d9f2d3572c63c4.webp",
+          "image_url": "/v1/goods/sku/24/image",
+          "image_text": "\u7eff\u8336"
+        },
+        {
+          "skuid": 25,
+          "name": "Fixture-6",
+          "spu_name": "\u7eff\u8336",
+          "product_name": "\u7eff\u8336",
+          "caption": "Synthetic only",
+          "price": "5.00",
+          "image": "sku/19/6.jpg",
+          "image_url": "/v1/goods/sku/25/image",
+          "image_text": "\u7eff\u8336"
+        },
+        {
+          "skuid": 26,
+          "name": "Fixture-7",
+          "spu_name": "\u7eff\u8336",
+          "product_name": "\u7eff\u8336",
+          "caption": "Synthetic only",
+          "price": "5.00",
+          "image": "sku/19/6.jpg",
+          "image_url": "/v1/goods/sku/26/image",
+          "image_text": "\u7eff\u8336"
+        },
+        {
+          "skuid": 27,
+          "name": "Fixture-8",
+          "spu_name": "\u7eff\u8336",
+          "product_name": "\u7eff\u8336",
+          "caption": "Synthetic only",
+          "price": "5.00",
+          "image": "sku/19/6.jpg",
+          "image_url": "/v1/goods/sku/27/image",
+          "image_text": "\u7eff\u8336"
+        },
+        {
+          "skuid": 28,
+          "name": "Fixture-9",
+          "spu_name": "\u7eff\u8336",
+          "product_name": "\u7eff\u8336",
+          "caption": "Synthetic only",
+          "price": "5.00",
+          "image": "sku/19/6.jpg",
+          "image_url": "/v1/goods/sku/28/image",
+          "image_text": "\u7eff\u8336"
+        },
+        {
+          "skuid": 29,
+          "name": "Fixture-10",
+          "spu_name": "\u7eff\u8336",
+          "product_name": "\u7eff\u8336",
+          "caption": "Synthetic only",
+          "price": "5.00",
+          "image": "sku/19/6.jpg",
+          "image_url": "/v1/goods/sku/29/image",
+          "image_text": "\u7eff\u8336"
+        },
+        {
+          "skuid": 30,
+          "name": "Fixture-11",
+          "spu_name": "\u7eff\u8336",
+          "product_name": "\u7eff\u8336",
+          "caption": "Synthetic only",
+          "price": "5.00",
+          "image": "sku/19/6.jpg",
+          "image_url": "/v1/goods/sku/30/image",
+          "image_text": "\u7eff\u8336"
+        },
+        {
+          "skuid": 31,
+          "name": "Fixture-12",
+          "spu_name": "\u7eff\u8336",
+          "product_name": "\u7eff\u8336",
+          "caption": "Synthetic only",
+          "price": "5.00",
+          "image": "sku/19/6.jpg",
+          "image_url": "/v1/goods/sku/31/image",
+          "image_text": "\u7eff\u8336"
+        },
+        {
+          "skuid": 32,
+          "name": "Fixture-13",
+          "spu_name": "\u7eff\u8336",
+          "product_name": "\u7eff\u8336",
+          "caption": "Synthetic only",
+          "price": "5.00",
+          "image": "sku/19/6.jpg",
+          "image_url": "/v1/goods/sku/32/image",
+          "image_text": "\u7eff\u8336"
+        }
+      ]
+    }
+  ],
+  "base_url": "http://127.0.0.1:8000/media/"
+}

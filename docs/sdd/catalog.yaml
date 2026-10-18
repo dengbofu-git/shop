@@ -1,14 +1,15 @@
 schemaVersion: "0.1"
 project: dadashop
-updatedAt: "2026-10-16"
+updatedAt: "2026-10-18"
 documentStatus: proposed
 mappingStatus: initial-source-map
 mappingComplete: false
 implementationReconciliation:
-  date: "2026-10-16"
-  report: docs/sdd/reconciliation.md
-  evidence: docs/sdd/evidence/2026-10-16-sdd-reconciliation/manifest.json
-  scope: 全部24个能力的源码核对；运行验证限于登记测试/探针，不等于全量业务验收。
+  date: "2026-10-18"
+  report: docs/sdd/reconciliation-2026-10-18.md
+  evidence: docs/sdd/evidence/2026-10-18-project-chat-sdd/manifest.json
+  scope: 项目聊天涉及增量与当前源码对账；8域25能力34功能15实现模块，仅静态同步，不提升验收状态。
+  historicalReport: docs/sdd/reconciliation.md
 authority:
   features: docs/sdd/product/feature-inventory.yaml
   sources: docs/sdd/product/source-manifest.yaml
@@ -51,15 +52,8 @@ modules:
     name: 商家经营
     stage: REGISTERED
     owner: null
-    capabilityIds: [CAP-MER-001, CAP-MER-002, CAP-MER-003]
+    capabilityIds: [CAP-MER-001, CAP-MER-002, CAP-MER-003, CAP-MER-004]
     boundary: 商家履约协作、经营指标和结算展示；订单状态及库存规则引用 TRD/FUL。
-  - id: MOD-CUS
-    slug: customs
-    name: 9710 与溯源
-    stage: REGISTERED
-    owner: null
-    capabilityIds: [CAP-CUS-001]
-    boundary: 报关资料、申报、回执与溯源的候选业务；当前仅确认演示资产。
   - id: MOD-AI
     slug: ai-support
     name: 智能客服与 Agent 运营
@@ -88,7 +82,7 @@ implementationModuleMapping:
   - {implementationModule: users, primaryBusinessModule: MOD-IAM}
   - {implementationModule: goods, primaryBusinessModule: MOD-CAT}
   - {implementationModule: carts, primaryBusinessModule: MOD-TRD}
-  - {implementationModule: orders, primaryBusinessModule: MOD-TRD, relatedBusinessModules: [MOD-CUS, MOD-MER, MOD-AI]}
+  - {implementationModule: orders, primaryBusinessModule: MOD-TRD, relatedBusinessModules: [MOD-MER, MOD-AI]}
   - {implementationModule: pays, primaryBusinessModule: MOD-TRD}
   - {implementationModule: news, primaryBusinessModule: MOD-CAT}
   - {implementationModule: inventory, primaryBusinessModule: MOD-FUL}
@@ -96,8 +90,9 @@ implementationModuleMapping:
   - {implementationModule: supplier, primaryBusinessModule: MOD-MER, relatedBusinessModules: [MOD-TRD, MOD-FUL]}
   - {implementationModule: admin_panel, primaryBusinessModule: MOD-PLAT, relatedBusinessModules: [MOD-AI]}
   - {implementationModule: support_ai, primaryBusinessModule: MOD-AI}
+  - {implementationModule: merchant_ai, primaryBusinessModule: MOD-MER, relatedBusinessModules: [MOD-AI, MOD-IAM]}
   - {implementationModule: ai_storage, primaryBusinessModule: MOD-KNOW}
-  - {implementationModule: web, primaryBusinessModule: MOD-PLAT, relatedBusinessModules: [MOD-IAM, MOD-CAT, MOD-TRD, MOD-FUL, MOD-MER, MOD-CUS, MOD-AI]}
+  - {implementationModule: web, primaryBusinessModule: MOD-PLAT, relatedBusinessModules: [MOD-IAM, MOD-CAT, MOD-TRD, MOD-FUL, MOD-MER, MOD-AI]}
 
 # candidate 不表示业务已确认或交付承诺。活动能力的状态需与 manifest 一致。
 capabilities:
@@ -122,19 +117,19 @@ capabilities:
   - {id: CAP-MER-001, moduleId: MOD-MER, name: 商家订单处理与发货协作, status: candidate, priority: P1, sourceFeatureIds: [FEAT-012]}
   - {id: CAP-MER-002, moduleId: MOD-MER, name: 经营指标与看板, status: candidate, priority: P3, sourceFeatureIds: [FEAT-013]}
   - {id: CAP-MER-003, moduleId: MOD-MER, name: 商家结算展示与对账, status: candidate, priority: P3, sourceFeatureIds: [FEAT-014]}
-  - {id: CAP-CUS-001, moduleId: MOD-CUS, name: 报关与溯源业务发现, status: candidate, priority: P3, sourceFeatureIds: [FEAT-015]}
-  - {id: CAP-AI-001, moduleId: MOD-AI, name: 商品推荐与指代详情, status: candidate, priority: P2, sourceFeatureIds: [FEAT-016, FEAT-025]}
+  - {id: CAP-MER-004, moduleId: MOD-MER, name: 商家智能助手入口与受控经营能力, status: candidate, priority: P2, sourceFeatureIds: [FEAT-032], implementationState: entry-only, specification: docs/sdd/modules/merchant-operations/assistant-entry.md}
+  - {id: CAP-AI-001, moduleId: MOD-AI, name: 商品推荐与指代详情, status: candidate, priority: P2, sourceFeatureIds: [FEAT-016, FEAT-025, FEAT-031, FEAT-033]}
   - {id: CAP-AI-002, moduleId: MOD-AI, name: 有证据的茶叶知识问答, status: candidate, priority: P2, sourceFeatureIds: [FEAT-017, FEAT-026]}
   - id: CAP-AI-003
     moduleId: MOD-AI
     name: 买家通过 AI 客服查询本人订单
     status: SPEC_REVIEW
     priority: P1
-    sourceFeatureIds: [FEAT-018]
+    sourceFeatureIds: [FEAT-018, FEAT-030]
     manifest: docs/sdd/modules/ai-support/capabilities/CAP-AI-003/capability.yaml
   - {id: CAP-AI-004, moduleId: MOD-AI, name: Agent 模型配置与监控, status: candidate, priority: P2, sourceFeatureIds: [FEAT-019, FEAT-027]}
   - {id: CAP-KNOW-001, moduleId: MOD-KNOW, name: 买家显式偏好管理, status: candidate, priority: P2, sourceFeatureIds: [FEAT-020]}
   - {id: CAP-KNOW-002, moduleId: MOD-KNOW, name: 知识入库与可见范围检索, status: candidate, priority: P2, sourceFeatureIds: [FEAT-021]}
   - {id: CAP-PLAT-001, moduleId: MOD-PLAT, name: 平台用户管理, status: candidate, priority: P2, sourceFeatureIds: [FEAT-022]}
-  - {id: CAP-PLAT-002, moduleId: MOD-PLAT, name: 多角色页面外壳与导航, status: candidate, priority: P2, sourceFeatureIds: [FEAT-023]}
-  - {id: CAP-PLAT-003, moduleId: MOD-PLAT, name: 环境运行与模块交付支撑, status: candidate, priority: P2, sourceFeatureIds: [FEAT-024]}
+  - {id: CAP-PLAT-002, moduleId: MOD-PLAT, name: 多角色页面外壳与导航, status: candidate, priority: P2, sourceFeatureIds: [FEAT-023, FEAT-035]}
+  - {id: CAP-PLAT-003, moduleId: MOD-PLAT, name: 环境运行与模块交付支撑, status: candidate, priority: P2, sourceFeatureIds: [FEAT-024, FEAT-034]}

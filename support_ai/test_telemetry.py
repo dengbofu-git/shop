@@ -120,7 +120,7 @@ class AgentOperationsTests(TestCase):
     def setUp(self):
         self.operator = UserProfile.objects.create(username='operator', password='unused', email='operator@test.com', phone='', is_active=True)
         self.buyer = UserProfile.objects.create(username='buyer', password='unused', email='buyer@test.com', phone='', is_active=True)
-        role = Role.objects.create(code='telemetry-admin', name='Operator')
+        role = Role.objects.create(code='admin', name='Operator')
         permission = Permission.objects.create(code='system_config', name='System configuration')
         RolePermission.objects.create(role=role, permission=permission)
         UserRole.objects.create(role=role, user_profile=self.operator)

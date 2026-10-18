@@ -2,7 +2,7 @@ schemaVersion: "0.1"
 id: CAP-CAT-004
 moduleId: MOD-CAT
 name: 买家收藏与浏览足迹
-specVersion: "0.1.1"
+specVersion: "0.1.2"
 status: IMPLEMENTING
 documentStatus: implemented-pending-review
 owner: null

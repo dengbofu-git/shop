@@ -1,0 +1,43 @@
+{
+  "date": "2026-10-18",
+  "branch": "codex/users-unified-login",
+  "webVersion": "0.8.0",
+  "scope": "buyer product-card interactions",
+  "diffCheck": "PASS",
+  "djangoCheck": "PASS",
+  "moduleOwnership": "PASS (15 modules including untracked file ownership checked)",
+  "javascriptSyntax": "PASS (3 affected buyer scripts)",
+  "relatedLoginRegression": "27 tests PASS; Node login/guard behavior PASS",
+  "browser": {
+    "desktopCards": 12,
+    "controlIntersections": 0,
+    "hoverOverlays": 0,
+    "mobileContentWidth": 375,
+    "mobileScrollWidth": 375,
+    "minimumControlHeight": 44,
+    "previewEscapeAndFocusReturn": "PASS",
+    "procurementPreviewAndLanguages": "PASS"
+  },
+  "limitations": [
+    "No real cart/favorite write or payment submission during browser verification",
+    "Traceability remains a demo",
+    "No deployment, commit or push"
+  ],
+  "inputSha256": {
+    "client/static/js/buyer-workbench.js": "771f974e41e067e0f8582f974626012a96ca5170c3b62ca144d6adae1ecc2cfe",
+    "client/static/js/buyer-products.js": "81221c6fb6af8c0ce49705c90cc73e1bf05035522fa258da45c829e6929adb20",
+    "client/static/js/buyer-favorites.js": "9357d18e426edbda5de2a4fe76450deff9c5e26897506c93534146d30df98426",
+    "client/static/css/buyer-workbench.css": "ee4baee8094cf15fea0973879f1021ef3b0d60e2c6eff23092b1a53ee9ba29e9",
+    "client/static/css/buyer-favorites.css": "53aceb28ec3b86bdf4b02462d61492f80f999536dd4794100a0bdda31f5c1057",
+    "client/templates/buyer_dashboard.html": "5917963465721ea9c7114eff08a146c9cdc978a214c29171a045227c5c0726b3",
+    "client/templates/buyer_products.html": "f7cb3cc7380e04686a142b61e45d755210efc3cfd2ee9f76ecff793d2840c1f9",
+    "client/templates/buyer_header.html": "eb1fcd9d1a386b29affe954804ea7aa123ee53b1d965a566e6256ca319239c95",
+    "versions/modules.json": "f31ecd308510fd39ade679bb9c007ac484ff0f0189c56074be42a8209893dc9e",
+    "docs/sdd/modules/catalog-content/card-interactions.md": "a3a1d8946cda974912086de30b87f3ba240ec1de6b1acc31a1b6ea990752fbf9"
+  },
+  "screenshots": {
+    "desktop.png": "8d5b8cec2f0390152835fdb5c1d6faa5d72964180bfe91dfe1458d9904ca3f02",
+    "mobile.png": "9f8f4c907ce0398e85b4e9275a0e064f5f98226712e4e5e4cd3f703cf71647ca",
+    "user-before.png": "49bea71834855e07ec07739d86c2b0eb294721a756bf6968183761090e248f61"
+  }
+}

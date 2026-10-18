@@ -8,9 +8,9 @@
     <link rel="stylesheet" href="/static/css/design-tokens.css">
     <link rel="stylesheet" href="/static/css/rtl.css">
     <link rel="stylesheet" href="/static/css/buyer-workbench.css">
-    <link rel="stylesheet" href="/static/css/buyer-activity.css?v=20261016-card-favorites">
+    <link rel="stylesheet" href="/static/css/buyer-activity.css?v=20261018-empty-layout">
     <script src="/static/js/init.js"></script>
-    <script src="/static/js/auth-storage.js"></script>
+    <script src="/static/js/auth-storage.js?v=20261018-session-isolation"></script>
     {% include "shared/system_theme.html" %}
 </head>
 <body class="ds-theme buyer-workbench" id="buyer-body">
@@ -19,18 +19,26 @@
         <main class="buyer-main">
             {% include 'buyer_header.html' %}
             <div class="buyer-content activity-content">
-                <p class="activity-eyebrow">BUYER WORKBENCH</p>
-                <h1 id="activity-title">我的收藏</h1>
-                <p id="activity-description"></p>
+                <div class="activity-page-header">
+                    <p class="activity-eyebrow">BUYER WORKBENCH</p>
+                    <h1 id="activity-title">我的收藏</h1>
+                    <p id="activity-description"></p>
+                </div>
                 <div class="activity-toolbar">
                     <span id="activity-count"></span>
                     <button type="button" id="activity-clear" hidden>清空足迹</button>
                 </div>
-                <div id="activity-message" role="status" aria-live="polite"></div>
-                <button type="button" id="activity-retry" hidden>重试</button>
-                <a href="buyer_products.html" id="activity-browse" hidden>去逛逛</a>
+                <div class="activity-feedback" id="activity-feedback">
+                    <svg id="activity-empty-icon" hidden viewBox="0 0 64 64" width="72" height="72" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                        <path d="M13 27h32v13a13 13 0 0 1-13 13h-6a13 13 0 0 1-13-13V27Z"></path>
+                        <path d="M45 30h4a7 7 0 0 1 0 14h-5M10 55h40M24 18c-5-6 5-7 0-13M34 18c-5-6 5-7 0-13"></path>
+                    </svg>
+                    <div id="activity-message" role="status" aria-live="polite"></div>
+                    <button type="button" id="activity-retry" hidden>重试</button>
+                    <a href="buyer_products.html" id="activity-browse" hidden>去逛逛</a>
+                </div>
                 <section id="activity-grid" class="activity-grid" aria-label="商品列表" aria-busy="true"></section>
-                <nav class="activity-pagination" aria-label="分页">
+                <nav class="activity-pagination" id="activity-pagination" aria-label="分页" hidden>
                     <button type="button" id="activity-prev" disabled>上一页</button>
                     <span id="activity-page" aria-live="polite"></span>
                     <button type="button" id="activity-next" disabled>下一页</button>
@@ -39,7 +47,7 @@
         </main>
     </div>
     <script src="/static/js/jquery-3.1.1.min.js"></script>
-    <script src="/static/js/buyer-workbench.js"></script>
-    <script src="/static/js/buyer-activity.js?v=20261016-card-favorites"></script>
+    <script src="/static/js/buyer-workbench.js?v=20261018-tea-saas"></script>
+    <script src="/static/js/buyer-activity.js?v=20261018-empty-layout"></script>
 </body>
 </html>

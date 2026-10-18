@@ -8,6 +8,7 @@ from django.utils import timezone
 
 from goods.models import SKU
 from orders.models import OrderInfo, OrderGoods
+from orders.analytics import sales_eligible_orders
 from supplier.models import SupplierSettlement
 
 
@@ -31,7 +32,7 @@ def _supplier_orders(user):
 
 
 def build_supplier_analytics(user, period='year'):
-    now = timezone.now()
+    now = timezone.localtime()
     if period == 'month':
         start = now - timedelta(days=30)
     elif period == 'quarter':
@@ -41,12 +42,15 @@ def build_supplier_analytics(user, period='year'):
 
     ogs = _supplier_order_goods(user).filter(order_info__created_time__gte=start)
     orders = _supplier_orders(user).filter(created_time__gte=start)
+    eligible_ids = OrderInfo.objects.filter(sales_eligible_orders()).values('pk')
+    sales_ogs = ogs.filter(order_info_id__in=eligible_ids)
 
     line_total = Decimal('0')
-    for og in ogs:
+    for og in sales_ogs:
         line_total += Decimal(str(og.count)) * Decimal(str(og.price))
 
     order_count = orders.count()
+    paid_order_count = sales_ogs.values('order_info_id').distinct().count()
     pending_ship = orders.filter(status=2).count()
     in_transit = orders.filter(status=3).count()
     completed = orders.filter(status=4).count()
@@ -55,11 +59,12 @@ def build_supplier_analytics(user, period='year'):
     # 月度趋势（最近 6 个自然月）
     monthly = []
     for i in range(5, -1, -1):
-        month_start = (now.replace(day=1, hour=0, minute=0, second=0, microsecond=0)
-                       - timedelta(days=30 * i))
-        month_end = month_start + timedelta(days=32)
-        month_end = month_end.replace(day=1)
-        month_ogs = ogs.filter(
+        month_index = now.year * 12 + now.month - 1 - i
+        month_start = now.replace(year=month_index // 12, month=month_index % 12 + 1,
+                                  day=1, hour=0, minute=0, second=0, microsecond=0)
+        month_end = month_start.replace(year=(month_index + 1) // 12,
+                                        month=(month_index + 1) % 12 + 1)
+        month_ogs = sales_ogs.filter(
             order_info__created_time__gte=month_start,
             order_info__created_time__lt=month_end,
         )
@@ -75,12 +80,12 @@ def build_supplier_analytics(user, period='year'):
         })
 
     region_sales = defaultdict(lambda: Decimal('0'))
-    for og in ogs:
+    for og in sales_ogs:
         region = _region_for_order(og.order_info.order_id)
         region_sales[region] += Decimal(str(og.count)) * Decimal(str(og.price))
 
     cat_sales = defaultdict(lambda: Decimal('0'))
-    for og in ogs:
+    for og in sales_ogs:
         cat = (og.sku.spu.catalog.name if og.sku.spu.catalog_id else '其他')
         cat_sales[cat] += Decimal(str(og.count)) * Decimal(str(og.price))
 
@@ -99,25 +104,10 @@ def build_supplier_analytics(user, period='year'):
         val = float(region_sales.get(name, 0))
         regions.append({'name': name, 'sales_wan': round(val / 10000, 1), 'sales': val})
 
-    # 物流周期：已完成订单的平均下单至更新间隔（天），按近 6 月每月均值
-    logistics_days = []
-    for bucket in monthly:
-        ms, me = bucket['month'], None
-        # 简化：用当月完成订单估算
-        logistics_days.append(max(2, min(7, 2 + bucket['order_count'] % 4)))
-
-    completed_orders = orders.filter(status=4, updated_time__isnull=False)
-    if completed_orders.exists():
-        avg_days = 2
-    else:
-        avg_days = 3
-
-    pass_rate = 99 if order_count else 0
-    if order_count:
-        pass_rate = min(100, max(85, int(90 + completed / max(order_count, 1) * 10)))
+    completion_rate = round(completed / order_count * 100, 1) if order_count else 0
 
     top_products = (
-        ogs.values(name=F('sku__name'))
+        sales_ogs.values(name=F('sku__name'))
         .annotate(qty=Sum('count'), amount=Sum(F('count') * F('price')))
         .order_by('-amount')[:5]
     )
@@ -132,13 +122,15 @@ def build_supplier_analytics(user, period='year'):
 
     recent = []
     for order in orders.order_by('-created_time')[:8]:
-        og = ogs.filter(order_info=order).first()
+        merchant_lines = ogs.filter(order_info=order)
+        og = merchant_lines.first()
         pname = og.sku.name if og else '-'
+        merchant_amount = sum((line.count * line.price for line in merchant_lines), Decimal('0'))
         recent.append({
             'order_id': order.order_id,
             'product': pname,
-            'count': order.total_count,
-            'amount': float(order.total_amount),
+            'count': sum(line.count for line in merchant_lines),
+            'amount': float(merchant_amount),
             'time': order.created_time.strftime('%m-%d %H:%M'),
             'status': order.status,
             'status_text': order.get_status_display_text(),
@@ -152,22 +144,22 @@ def build_supplier_analytics(user, period='year'):
         'summary': {
             'total_sales': float(line_total),
             'total_sales_wan': round(float(line_total) / 10000, 2),
-            'total_sales_display': _format_wan(line_total),
+            'total_sales_display': '¥{:,.2f}'.format(line_total),
             'order_count': order_count,
+            'paid_order_count': paid_order_count,
             'pending_ship': pending_ship,
             'in_transit': in_transit,
-            'customs_in_transit': in_transit,
             'completed': completed,
             'unpaid': unpaid,
-            'avg_order_amount': round(float(line_total) / order_count, 2) if order_count else 0,
+            'avg_order_amount': float((line_total / paid_order_count).quantize(Decimal('0.01'))) if paid_order_count else 0,
             'inventory_turnover_days': max(7, min(45, 12 + pending_ship)),
-            'compliance_pass_rate': pass_rate,
-            'logistics_avg_days': avg_days,
+            'completion_rate': completion_rate,
         },
+        'period': {'code': period, 'start': start.isoformat(), 'end': now.isoformat()},
+        'sales_basis': '已全额付款的本店商品明细金额，不含运费；剔除已退货试单与已取消预售，按下单日期归集。',
         'monthly': monthly,
         'regions': regions,
         'categories': categories or [{'name': '暂无', 'sales': 0, 'pct': 0}],
-        'logistics_days': logistics_days,
         'funnel': [
             {'name': '经销商询盘', 'value': max(order_count, int(order_count * 1.6) or 1)},
             {'name': '试销订单', 'value': max(completed + pending_ship, order_count // 2, 1)},
@@ -188,10 +180,3 @@ def build_supplier_analytics(user, period='year'):
             'satisfaction_score': round(4.2 + min(0.7, completed / max(order_count * 10, 1)), 1),
         },
     }
-
-
-def _format_wan(amount) -> str:
-    val = float(amount)
-    if val >= 10000:
-        return '¥{:.1f}万'.format(val / 10000)
-    return '¥{:.0f}'.format(val)

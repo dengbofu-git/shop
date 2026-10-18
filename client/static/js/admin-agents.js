@@ -1,5 +1,6 @@
-(function () {
+PlatformAccess.requirePermission('system_config').then(function (allowed) {
     'use strict';
+    if (!allowed) return;
     var token = AuthStorage.getToken();
     if (!token) { location.href = '/login.html'; return; }
     var config = null, page = 1, total = 0, loading = false;
@@ -143,4 +144,4 @@
     $('close-trace').addEventListener('click', function () { $('trace-detail').close(); });
     loadSettings().then(loadModels).catch(function (error) { message('page-status', error.message, true); });
     loadMonitoring(); loadReranker(); setInterval(function () { if (!document.hidden) { loadMonitoring(); loadReranker(); } }, 30000);
-})();
+});

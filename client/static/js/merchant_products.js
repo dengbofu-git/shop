@@ -356,7 +356,7 @@
         + '<td class="row-actions">'
         +   '<a href="merchant_products.html?mode=edit&product=' + encodeURIComponent(String(p.sku_id || '')) + '">编辑</a>'
         +   '<a href="#" data-act="settings" data-sku-id="' + escapeHtml(p.sku_id) + '">设置</a>'
-        +   '<a href="product_details.html?skuid=' + encodeURIComponent(String(p.sku_id || '')) + '" target="_blank" rel="noopener">查看</a>'
+        +   '<a href="#" data-act="view" data-sku-id="' + escapeHtml(p.sku_id) + '">查看</a>'
         +   '<a href="#" class="danger" data-act="delete" data-sku-id="' + escapeHtml(p.sku_id) + '">删除</a>'
         + '</td>';
       tbody.appendChild(tr);
@@ -470,6 +470,11 @@
         e.preventDefault();
         var skuId = a.getAttribute('data-sku-id');
         var act = a.getAttribute('data-act');
+        if (act === 'view') {
+          var product = state.list.find(function(x) { return String(x.sku_id) === skuId; });
+          if (product) MerchantProductPreview.open(product);
+          return;
+        }
         if (act === 'settings') {
           var p = state.list.find(function(x) { return String(x.sku_id) === skuId; });
           if (!p || !p.sku_id) return alert('未找到该商品，无法设置');
@@ -636,8 +641,7 @@
     if (!window.__mp_edit_wired) {
       window.__mp_edit_wired = true;
       document.getElementById('btn-preview').addEventListener('click', function() {
-        var sid = byId('f-sku-id') ? byId('f-sku-id').value : currentSku;
-        window.open('product_details.html?skuid=' + encodeURIComponent(String(sid || '')), '_blank');
+        MerchantProductPreview.open(p);
       });
       document.getElementById('btn-save-primary') && document.getElementById('btn-save-primary').addEventListener('click', function() {
         var skuId = byId('f-sku-id') ? byId('f-sku-id').value : null;

@@ -470,10 +470,6 @@
     box-shadow: 0 8px 24px rgba(0,0,0,0.12);
 }
 
-.product-card:hover .product-hover-info {
-    opacity: 1;
-}
-
 .product-badges {
     display: flex;
     gap: 8px;
@@ -556,32 +552,10 @@
 }
 
 .product-actions-row {
-    display: block;
-    margin-top: 4px;
-}
-
-.product-card.product-card--click {
-    cursor: pointer;
-    user-select: none;
-    transition: box-shadow 0.2s, border-color 0.2s;
-    border: 1px solid transparent;
-}
-
-.product-card.product-card--click:hover {
-    border-color: rgba(26, 93, 26, 0.2);
-    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
-}
-
-.product-card--click .btn-add-cart {
-    pointer-events: none;
-    width: 100%;
-}
-
-/* 阻止卡片内可交互子元素被当成「仅装饰」 */
-.product-card--click .btn-quick-preview,
-.product-card--click a.btn-trace-link {
-    pointer-events: auto;
-    cursor: pointer;
+    display: flex;
+    align-items: stretch;
+    gap: 10px;
+    margin-top: auto;
 }
 
 .product-card-skeleton,
@@ -942,24 +916,6 @@ a.btn-view-sku:hover {
 .modal-close:hover {
     background: #f0f0f0;
     color: #000;
-}
-
-.product-hover-info {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 16px 20px;
-    background: rgba(26,26,46,0.95);
-    color: #fff;
-    font-size: 12px;
-    border-radius: 0 0 12px 12px;
-    opacity: 0;
-    transition: opacity 0.3s;
-}
-
-.product-hover-info p {
-    margin: 4px 0;
 }
 
 /* ========== 订单区 ========== */

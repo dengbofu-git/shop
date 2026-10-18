@@ -5,6 +5,7 @@ from .views import AddressView, UserProfileView, WeiboUsers
 urlpatterns = [
     path('register', views.register),
     path('login', views.login),
+    path('session', views.session_access),
     path('<str:username>/profile', UserProfileView.as_view()),
     path('<str:username>/address', AddressView.as_view()),
     path('<str:username>/address/<int:id>', AddressView.as_view()),

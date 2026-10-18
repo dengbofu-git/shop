@@ -3,8 +3,9 @@ status: initial-source-map
 complete: false
 sourceType: current-working-tree-static-inspection
 note: 按主要入口归并的初步盘点，不是逐菜单逐操作或全部 API 清单；observed 不等于验收通过。
-reconciliationReport: docs/sdd/reconciliation.md
-reconciliationEvidence: docs/sdd/evidence/2026-10-16-sdd-reconciliation/manifest.json
+updatedAt: "2026-10-18"
+reconciliationReport: docs/sdd/reconciliation-2026-10-18.md
+reconciliationEvidence: docs/sdd/evidence/2026-10-18-project-chat-sdd/manifest.json
 features:
   - id: FEAT-029
     name: 买家收藏与最近浏览足迹
@@ -21,7 +22,7 @@ features:
     perspectives: [buyer, merchant, operations]
     pages: [login.html, terminal_login.html, register_sms.html, findPass.html]
     apiPrefixes: [/v1/users/]
-    codePaths: [users/views.py, users/urls.py]
+    codePaths: [users/views.py, users/urls.py, users/access.py, client/templates/login.html, client/static/js/login-portal.js]
     observation: observed-code
   - id: FEAT-002
     name: 资料密码与收货地址
@@ -37,18 +38,19 @@ features:
     perspectives: [buyer, merchant, operations]
     pages: []
     apiPrefixes: [/v1/users/]
-    codePaths: [users/permissions.py, users/decorators.py, users/models.py]
+    codePaths: [users/permissions.py, users/decorators.py, users/models.py, users/access.py]
     observation: observed-code-with-open-scope
   - id: FEAT-004
     name: 商品列表分类搜索与详情
     primaryCapability: CAP-CAT-001
     relatedCapabilities: [CAP-FUL-001]
     perspectives: [buyer]
-    pages: [buyer_products.html, product_details.html, search_list.html]
+    pages: [buyer_dashboard.html, buyer_products.html, product_details.html, search_list.html]
     apiPrefixes: [/v1/goods/]
     codePaths: [goods/urls.py, goods/views.py, goods/models.py, goods/images.py, goods/migrations/0010_catalog_fallback_image.py, goods/management/commands/register_tea_images.py]
     observation: observed-code-stock-max-ledger-or-sku-differs-from-ai-with-catalog-image-fallback
     imageFallbackSpec: docs/sdd/modules/catalog-content/image-fallback.md
+    catalogPreviewSpec: docs/sdd/modules/catalog-content/catalog-preview.md
   - id: FEAT-005
     name: 商家 SPU/SKU 与商品图片维护
     primaryCapability: CAP-CAT-002
@@ -127,7 +129,7 @@ features:
     pages: [merchant_dashboard.html, operations_dashboard.html]
     apiPrefixes: [/v1/supplier/analytics]
     codePaths: [supplier/analytics.py, supplier/views.py, client/static/js/operations-dashboard.js]
-    observation: merchant-scoped-aggregate-with-derived-region-and-customs-indicators
+    observation: merchant-scoped-order-aggregates-with-derived-region-display
   - id: FEAT-014
     name: 商家结算跟踪展示
     primaryCapability: CAP-MER-003
@@ -136,23 +138,14 @@ features:
     apiPrefixes: [/v1/supplier/settlement]
     codePaths: [supplier/models.py, supplier/views.py]
     observation: observed-read-entry-not-live-settlement-evidence
-  - id: FEAT-015
-    name: 9710 报关与溯源演示
-    primaryCapability: CAP-CUS-001
-    relatedCapabilities: [CAP-TRD-002, CAP-FUL-002]
-    perspectives: [customs, buyer]
-    pages: [customs_9710.html, trace.html]
-    apiPrefixes: []
-    codePaths: [client/templates/customs_9710.html, client/static/js/customs-9710.js, client/templates/trace.html, client/static/js/trace.js]
-    observation: demo-assets-no-external-integration-evidence
   - id: FEAT-016
-    name: 有序任务中的商品推荐与指代详情
+    name: 有序任务中的商品推荐与公开指代详情
     primaryCapability: CAP-AI-001
     relatedCapabilities: [CAP-CAT-001, CAP-KNOW-001]
     perspectives: [buyer]
     pages: [buyer_support.html]
     apiPrefixes: [/v1/support/chat/]
-    codePaths: [support_ai/planning.py, support_ai/execution.py, support_ai/tool_services.py, support_ai/recommendations.py]
+    codePaths: [support_ai/planning.py, support_ai/execution.py, support_ai/tool_services.py, support_ai/recommendations.py, support_ai/product_details.py]
     observation: observed-code
   - id: FEAT-017
     name: 检索证据支持的知识问答
@@ -171,7 +164,7 @@ features:
     pages: [buyer_support.html]
     apiPrefixes: [/v1/support/chat/, /v1/support/conversations/]
     codePaths: [support_ai/context.py, support_ai/views.py, support_ai/tool_services.py, support_ai/test_task_tools.py]
-    observation: existing-query-with-confirmed-target-404-redaction-history-gaps
+    observation: owner-scoped-query-with-target-404-english-reference-and-replay-projection-gaps
   - id: FEAT-019
     name: Agent 设置模型发现检索状态及监控
     primaryCapability: CAP-AI-004
@@ -179,7 +172,7 @@ features:
     perspectives: [operations]
     pages: [admin_agents.html]
     apiPrefixes: [/v1/admin-panel/agent/]
-    codePaths: [admin_panel/agent_views.py, support_ai/configuration.py, support_ai/telemetry.py]
+    codePaths: [admin_panel/agent_views.py, support_ai/configuration.py, support_ai/telemetry.py, client/templates/admin_agents.html]
     observation: observed-code
   - id: FEAT-020
     name: 买家主动保存读取清除长期偏好
@@ -207,11 +200,11 @@ features:
     pages: [admin_panel.html]
     apiPrefixes: [/v1/admin-panel/users]
     codePaths: [admin_panel/views.py, admin_panel/urls.py]
-    observation: observed-code-permission-semantics-unconfirmed
+    observation: active-platform-role-and-user-manage-required-see-unified-login-spec
   - id: FEAT-023
     name: 多角色导航主题与旧地址重定向
     primaryCapability: CAP-PLAT-002
-    perspectives: [buyer, merchant, operations, customs]
+    perspectives: [buyer, merchant, operations]
     pages: [buyer_dashboard.html, merchant_dashboard.html, terminal_login.html, header.html, footer.html]
     apiPrefixes: []
     codePaths: [dadashop/urls.py, client/static/css/design-tokens.css, client/static/css/system-theme.css, client/templates/shared/]
@@ -260,3 +253,61 @@ features:
     apiPrefixes: []
     codePaths: [goods/management/commands/seed_virtual_tea_products.py, docs/虚拟商品数据.md]
     observation: seed-command-and-batch-artifacts-exist-current-database-count-not-verified
+  - id: FEAT-030
+    name: 本人历史咨询列表与分页续聊
+    primaryCapability: CAP-AI-003
+    relatedCapabilities: [CAP-AI-001, CAP-AI-002, CAP-PLAT-002]
+    perspectives: [buyer]
+    pages: [buyer_support.html]
+    apiPrefixes: [/v1/support/conversations/]
+    codePaths: [support_ai/conversation_history.py, support_ai/views.py, support_ai/urls.py, client/static/js/buyer-support.js]
+    specification: docs/sdd/modules/ai-support/conversation-history.md
+    observation: implemented-paging-and-read-redaction-static-only-not-full-interaction-verified
+  - id: FEAT-031
+    name: 推荐主题继承与已有商品理由追问
+    primaryCapability: CAP-AI-001
+    relatedCapabilities: [CAP-AI-002, CAP-KNOW-001]
+    perspectives: [buyer]
+    pages: [buyer_support.html]
+    apiPrefixes: [/v1/support/chat/]
+    codePaths: [support_ai/conversation_tasks.py, support_ai/recommendation_explanations.py, support_ai/contracts.py, support_ai/planning.py]
+    specification: docs/sdd/modules/ai-support/current-agent.md
+    observation: implemented-with-historical-followup-quality-gaps
+  - id: FEAT-032
+    name: 商家智能助手入口与初始化状态
+    primaryCapability: CAP-MER-004
+    relatedCapabilities: [CAP-IAM-003, CAP-PLAT-002]
+    perspectives: [merchant]
+    pages: [merchant_assistant.html, merchant_dashboard.html]
+    apiPrefixes: [/v1/merchant-ai/status/]
+    codePaths: [merchant_ai/services.py, merchant_ai/views.py, merchant_ai/urls.py, merchant_ai/tests.py]
+    specification: docs/sdd/modules/merchant-operations/assistant-entry.md
+    observation: initialized-entry-only-chat-and-model-disabled-no-upload-or-business-tools
+  - id: FEAT-033
+    name: 本地 MCP 公开商品详情
+    primaryCapability: CAP-AI-001
+    relatedCapabilities: [CAP-CAT-001, CAP-PLAT-003]
+    perspectives: [developer]
+    pages: []
+    apiPrefixes: []
+    codePaths: [tools/dadashop_mcp/server.py, support_ai/product_details.py, support_ai/management/commands/mcp_product_details.py]
+    specification: docs/MCP与Skill接入.md
+    observation: implemented-local-stdio-only-no-http-or-user-config-install
+  - id: FEAT-034
+    name: 项目改动与交付 Skill
+    primaryCapability: CAP-PLAT-003
+    perspectives: [developer]
+    pages: []
+    apiPrefixes: []
+    codePaths: [.agents/skills/dadashop-change-delivery/SKILL.md, tools/git_policy.py, tools/module_versions.py]
+    observation: repo-skill-with-separate-git-authorization-not-agent-runtime-skill-loader
+  - id: FEAT-035
+    name: 平台交易总览与三导航管理外壳
+    primaryCapability: CAP-PLAT-002
+    relatedCapabilities: [CAP-PLAT-001, CAP-AI-004, CAP-MER-002, CAP-TRD-002]
+    perspectives: [operations]
+    pages: [admin_panel.html, admin_agents.html, admin_users.html]
+    apiPrefixes: [/v1/admin-panel/overview]
+    codePaths: [admin_panel/analytics.py, admin_panel/views.py, orders/analytics.py, client/static/js/admin-overview.js, client/static/js/admin-panel.js]
+    specification: docs/sdd/modules/platform/trading-overview.md
+    observation: platform-role-and-data-view-required-order-aggregation-not-payment-ledger

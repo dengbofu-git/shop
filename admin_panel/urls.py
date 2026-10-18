@@ -3,6 +3,7 @@ from . import views
 from . import agent_views
 
 urlpatterns = [
+    path('overview', views.platform_overview, name='admin_overview'),
     path('users', views.UserManagementView.as_view(), name='admin_users'),
     path('agent/settings', agent_views.agent_settings, name='admin_agent_settings'),
     path('agent/models', agent_views.agent_models, name='admin_agent_models'),

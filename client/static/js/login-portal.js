@@ -1,5 +1,5 @@
 /**
- * 中台登录页 - 三语切换、RTL、四角色、登录逻辑
+ * 中台登录页 - 三语切换、RTL、服务端权限跳转
  */
 
 (function() {
@@ -11,22 +11,16 @@
             slogan_sub: 'Fragrant tea knows no distance; spring breeze crosses all barriers',
             slogan_ar: 'الشاي العطِر لا يعرف المسافة؛ نسيم الربيع يتجاوز كل الحواجز',
             hero_desc: '大湾区港口 · 海上丝路 · 迪拜',
-            highlight1: '9710一键报关，通关时效提升90%',
-            highlight2: '广东地标茶一站式出海中东',
-            highlight3: '区块链全链路溯源',
-            logo_text: '茗越山关跨境电商 9710 报关数字系统',
-            role_admin: '平台运营',
-            role_supplier: '供应商',
-            role_buyer: '中东买家',
-            role_customs: '报关专员',
-            admin_hint: '平台运营请使用终端管理入口登录',
-            go_terminal: '前往终端登录',
+            highlight1: '商品采购、订单与经营协同',
+            highlight2: '茶叶采购与商家经营工作台',
+            highlight3: '智能客服与茶品推荐',
+            logo_text: '茗越山关跨境茶叶 SaaS 平台',
             placeholder_username: '请输入账号',
             placeholder_password: '请输入密码',
-            remember: '记住密码',
-            btn_login: '登录中台',
+            btn_login: '登录',
+            backend_mismatch: '登录服务尚未更新，请重启后端服务后刷新页面重试',
             challenge_cup: '第十五届挑战杯参赛项目',
-            platform_desc: '粤港澳大湾区茶产业出海中东专属平台',
+            platform_desc: '面向买家、茶企与运营的协作平台',
             register: '新用户注册',
             forget_pwd: '忘记密码'
         },
@@ -35,22 +29,16 @@
             slogan_sub: '香茗何须愁遥阻，春风直越万重关',
             slogan_ar: 'الشاي العطِر لا يعرف المسافة؛ نسيم الربيع يتجاوز كل الحواجز',
             hero_desc: 'Greater Bay Port · Maritime Silk Road · Dubai',
-            highlight1: '9710 One-Click Customs, 90% Faster Clearance',
-            highlight2: 'Guangdong Landmark Tea to Middle East',
-            highlight3: 'Blockchain Full-Chain Traceability',
-            logo_text: 'Mingyue Shanguan Cross-border E-commerce 9710 Customs Digital System',
-            role_admin: 'Platform Admin',
-            role_supplier: 'Supplier',
-            role_buyer: 'Middle East Buyer',
-            role_customs: 'Customs Officer',
-            admin_hint: 'Platform admin please use terminal login',
-            go_terminal: 'Go to Terminal Login',
+            highlight1: 'Connected Tea Procurement, Orders and Operations',
+            highlight2: 'Tea Procurement and Merchant Workspaces',
+            highlight3: 'AI Support and Tea Recommendations',
+            logo_text: 'Mingyue Shanguan Cross-border Tea SaaS Platform',
             placeholder_username: 'Username',
             placeholder_password: 'Password',
-            remember: 'Remember me',
             btn_login: 'Login',
+            backend_mismatch: 'The login service is out of date. Restart the backend and reload this page.',
             challenge_cup: '15th Challenge Cup Project',
-            platform_desc: 'GBA Tea Industry to Middle East Platform',
+            platform_desc: 'A Shared Platform for Buyers, Tea Merchants and Operators',
             register: 'Register',
             forget_pwd: 'Forgot password'
         },
@@ -59,29 +47,23 @@
             slogan_sub: 'Fragrant tea knows no distance',
             slogan_ar: '香茗何须愁遥阻，春风直越万重关',
             hero_desc: 'ميناء الخليج · طريق الحرير البحري · دبي',
-            highlight1: 'إجراءات جمركية 9710 بنقرة واحدة، كفاءة 90٪',
-            highlight2: 'شاي غوانغدونغ إلى الشرق الأوسط',
-            highlight3: 'تتبع سلسلة الكتل الكاملة',
-            logo_text: 'نظام مينغ يوي شانغوان 9710 الرقمي',
-            role_admin: 'إدارة المنصة',
-            role_supplier: 'المورد',
-            role_buyer: 'مشتري الشرق الأوسط',
-            role_customs: 'مسؤول الجمارك',
-            admin_hint: 'يرجى استخدام تسجيل الدخول الطرفي',
-            go_terminal: 'انتقل إلى تسجيل الدخول',
+            highlight1: 'إدارة مشتريات الشاي والطلبات والأعمال',
+            highlight2: 'مساحات عمل لمشتريات الشاي والتجار',
+            highlight3: 'دعم ذكي وتوصيات الشاي',
+            logo_text: 'منصة مينغ يوي شانغوان SaaS لتجارة الشاي عبر الحدود',
             placeholder_username: 'اسم المستخدم',
             placeholder_password: 'كلمة المرور',
-            remember: 'تذكرني',
             btn_login: 'تسجيل الدخول',
+            backend_mismatch: 'خدمة تسجيل الدخول غير محدثة. يرجى إعادة تشغيل الخادم وتحديث الصفحة.',
             challenge_cup: 'مشروع كأس التحدي الخامس عشر',
-            platform_desc: 'منصة شاي الخليج إلى الشرق الأوسط',
+            platform_desc: 'منصة مشتركة للمشترين وتجار الشاي والمشغلين',
             register: 'التسجيل',
             forget_pwd: 'نسيت كلمة المرور'
         }
     };
 
     var currentLang = localStorage.getItem('portal_lang') || 'zh';
-    var currentRole = 'admin';
+    if (!i18n[currentLang]) currentLang = 'zh';
 
     function setLang(lang) {
         currentLang = lang;
@@ -111,21 +93,12 @@
         }
     }
 
-    function switchRole(role) {
-        currentRole = role;
-        document.querySelectorAll('.role-tab').forEach(function(tab) {
-            tab.classList.toggle('active', tab.dataset.role === role);
-        });
-        document.querySelectorAll('.role-form').forEach(function(form) {
-            var show = form.id === 'form-' + role;
-            form.style.display = show ? 'block' : 'none';
-        });
-    }
+    var destinations = ['/admin_panel.html', '/admin_users.html', '/admin_agents.html', '/merchant_dashboard.html', '/buyer_dashboard.html'];
 
-    function doLogin(expectedType, username, password, resultEl, btnEl, selectedRole) {
+    function doLogin(username, password, resultEl, btnEl) {
         var carts_data = null;
         try { carts_data = JSON.parse(window.localStorage.getItem('cart') || 'null'); } catch(e) {}
-        var inputData = { username: username, password: password, carts: carts_data, expected_user_type: expectedType };
+        var inputData = { username: username, password: password, carts: carts_data };
 
         btnEl.disabled = true;
         btnEl.textContent = (currentLang === 'zh' ? '登录中...' : (currentLang === 'ar' ? 'جاري تسجيل الدخول...' : 'Logging in...'));
@@ -137,9 +110,14 @@
             data: JSON.stringify(inputData),
             success: function(result) {
                 if (result.code === 200) {
-                    if (expectedType && result.user_type !== expectedType) {
-                        var msg = (currentLang === 'zh' ? '账号类型不匹配' : (currentLang === 'ar' ? 'نوع الحساب غير متطابق' : 'Account type mismatch'));
-                        $(resultEl).html(msg).addClass('show');
+                    if (typeof result.redirect_url === 'undefined') {
+                        $(resultEl).text(i18n[currentLang].backend_mismatch).addClass('show');
+                        btnEl.disabled = false;
+                        btnEl.textContent = i18n[currentLang].btn_login;
+                        return;
+                    }
+                    if (destinations.indexOf(result.redirect_url) === -1) {
+                        $(resultEl).text(currentLang === 'zh' ? '账号没有可访问的工作台，请联系管理员' : (currentLang === 'ar' ? 'يرجى التواصل مع المسؤول لتفعيل صلاحية الدخول' : 'No workspace access. Please contact an administrator.')).addClass('show');
                         btnEl.disabled = false;
                         btnEl.textContent = i18n[currentLang].btn_login;
                         return;
@@ -152,24 +130,16 @@
                         if (result.shop_name) AuthStorage.setShop(result.shop_name);
                         AuthStorage.setUserType(result.user_type);
                     }
-                    var redirect;
-                    if (selectedRole === 'admin') {
-                        redirect = 'admin_panel.html';
-                    } else if (result.user_type === 'merchant') {
-                        redirect = 'merchant_dashboard.html';
-                    } else {
-                        redirect = 'buyer_dashboard.html';
-                    }
-                    window.location.href = redirect;
+                    window.location.href = result.redirect_url;
                 } else {
-                    $(resultEl).html(result.error || (currentLang === 'zh' ? '登录失败' : 'Login failed')).addClass('show');
+                    $(resultEl).text(result.error || (currentLang === 'zh' ? '登录失败' : 'Login failed')).addClass('show');
                     btnEl.disabled = false;
                     btnEl.textContent = i18n[currentLang].btn_login;
                 }
             },
             error: function(xhr) {
                 var err = (xhr.responseJSON && xhr.responseJSON.error) ? xhr.responseJSON.error : (currentLang === 'zh' ? '登录失败，请重试' : 'Login failed');
-                $(resultEl).html(err).addClass('show');
+                $(resultEl).text(err).addClass('show');
                 btnEl.disabled = false;
                 btnEl.textContent = i18n[currentLang].btn_login;
             }
@@ -185,28 +155,20 @@
             });
         });
 
-        document.querySelectorAll('.role-tab').forEach(function(tab) {
-            tab.addEventListener('click', function() {
-                switchRole(tab.dataset.role);
-            });
-        });
-
-        ['admin', 'supplier', 'buyer'].forEach(function(role) {
-            var form = document.getElementById('login-form-' + role);
-            if (!form) return;
-            var resultEl = document.getElementById('showResult-' + role);
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
-                var username = document.getElementById('username-' + role).value.trim();
-                var password = document.getElementById('password-' + role).value;
-                if (!username || !password) {
-                    $(resultEl).html(currentLang === 'zh' ? '请输入账号和密码' : 'Please enter username and password').addClass('show');
-                    return;
-                }
-                $(resultEl).empty().removeClass('show');
-                var expectedType = (role === 'buyer') ? 'customer' : (role === 'admin' ? null : 'merchant');
-                doLogin(expectedType, username, password, resultEl, form.querySelector('.btn-login'), role);
-            });
+        var form = document.getElementById('login-form');
+        var resultEl = document.getElementById('showResult');
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            var button = form.querySelector('.btn-login');
+            if (button.disabled) return;
+            var username = document.getElementById('username').value.trim();
+            var password = document.getElementById('password').value;
+            if (!username || !password) {
+                $(resultEl).text(currentLang === 'zh' ? '请输入账号和密码' : (currentLang === 'ar' ? 'يرجى إدخال اسم المستخدم وكلمة المرور' : 'Please enter username and password')).addClass('show');
+                return;
+            }
+            $(resultEl).empty().removeClass('show');
+            doLogin(username, password, resultEl, button);
         });
     });
 })();

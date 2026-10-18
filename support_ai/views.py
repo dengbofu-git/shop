@@ -18,6 +18,7 @@ from .contracts import Preferences
 from .context import (ConversationConflict, commit_turn, current_order_context,
                       recent_context, replay, saved_preferences, HISTORY_TURNS)
 from .models import SupportConversation
+from .conversation_history import list_conversations, conversation_page
 from pydantic import ValidationError
 
 
@@ -173,13 +174,32 @@ def preferences(request):
 
 @require_http_methods(['GET'])
 @_storage_errors
+def conversation_list(request):
+    user, error = _buyer(request)
+    if error is not None:
+        return error
+    if not user.is_active:
+        return _response({'error': '登录状态已失效，请重新登录。'}, 401)
+    try:
+        data = list_conversations(user, request.GET)
+    except ValueError:
+        return _response({'error': '历史咨询分页参数无效，请刷新列表后重试。'}, 400)
+    return _response(data, 200)
+
+
+@require_http_methods(['GET'])
+@_storage_errors
 def conversation_detail(request, conversation_id):
     user, error = _buyer(request)
     if error is not None:
         return error
+    if not user.is_active:
+        return _response({'error': '登录状态已失效，请重新登录。'}, 401)
     conversation = SupportConversation.objects.filter(pk=conversation_id, user=user).first()
     if conversation is None:
         return _response({'error': '会话不存在或无权访问。'}, 404)
-    turns = list(conversation.turns.order_by('-sequence')[:HISTORY_TURNS])
-    return _response({'conversation_id': str(conversation.pk), 'revision': conversation.revision,
-                      'turns': [{'message': turn.user_text, 'response': turn.response} for turn in reversed(turns)]}, 200)
+    try:
+        data = conversation_page(conversation, user, request.GET, default_limit=HISTORY_TURNS)
+    except ValueError:
+        return _response({'error': '对话记录分页参数无效，请重新打开该咨询。'}, 400)
+    return _response(data, 200)

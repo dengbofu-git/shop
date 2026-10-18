@@ -1,0 +1,96 @@
+[
+  {
+    "command": [
+      "node",
+      "client\\tests\\admin-shell.test.js"
+    ],
+    "exit_code": 0,
+    "output": "PASS: embedded workspace routing, permission fallback and overview error state\n"
+  },
+  {
+    "command": [
+      "node",
+      "client\\tests\\auth-storage.test.js"
+    ],
+    "exit_code": 0,
+    "output": "PASS: two-account isolation, blank tabs, refresh, iframe session and independent logout\n"
+  },
+  {
+    "command": [
+      "node",
+      "client\\tests\\buyer-catalog-preview.test.js"
+    ],
+    "exit_code": 0,
+    "output": "PASS: 10-item pages; all 103 items reachable exactly once over 11 pages; category reset, last page, navigation, language retention, empty/error states and retry\n"
+  },
+  {
+    "command": [
+      "node",
+      "client\\tests\\buyer-products-pagination.test.js"
+    ],
+    "exit_code": 0,
+    "output": "PASS: all 103 products across 11 pages of 10; single categories, deep links, totals, no omissions/duplicates and empty state\nPASS: complete page script renders 103 actual SKU cards in pages of 10; language retains page and all-category tab\n"
+  },
+  {
+    "command": [
+      "node",
+      "client\\tests\\cart-currency.test.js"
+    ],
+    "exit_code": 0,
+    "output": "PASS: guest/server cart currency, headers, totals, selection, quantity, persistence and raw-price integrity\n"
+  },
+  {
+    "command": [
+      "node",
+      "client\\tests\\merchant-product-preview.test.js"
+    ],
+    "exit_code": 0,
+    "output": "PASS: read-only merchant preview, safe text, close/reopen and no buyer navigation\n"
+  },
+  {
+    "command": [
+      "node",
+      "client\\tests\\tea-saas-brand.test.js"
+    ],
+    "exit_code": 0,
+    "output": "PASS: three-language SaaS branding, order-state chart and actual monthly-sales chart contracts\n"
+  },
+  {
+    "command": [
+      "node",
+      "client\\tests\\unified-login.test.js"
+    ],
+    "exit_code": 0,
+    "output": "PASS: login routing, destination allowlist, error recovery and platform initialization guards\n"
+  },
+  {
+    "command": [
+      "E:/miniconda/envs/dadashop/python.exe",
+      "-X",
+      "utf8",
+      "client/tests/tea-saas-contract.py"
+    ],
+    "exit_code": 0,
+    "output": "PASS: 25 page shells, retired routes/assets/command, optional legacy config and SDD maps\nNot Found: /customs_9710.html\nNot Found: /customs_9710.html\n"
+  },
+  {
+    "command": [
+      "E:/miniconda/envs/dadashop/python.exe",
+      "-X",
+      "utf8",
+      "client/tests/catalog-preview-contract.py",
+      "docs\\sdd\\evidence\\2026-10-18-delivery\\catalog-contract.json"
+    ],
+    "exit_code": 0,
+    "output": "PASS: real Django index contract has 2 categories and 30 saleable fixture SKUs; unlisted/out-of-stock rows excluded; homepage renders HTTP 200 without scenario buttons\n"
+  },
+  {
+    "command": [
+      "node",
+      "client/tests/buyer-catalog-preview.test.js",
+      "docs\\sdd\\evidence\\2026-10-18-delivery\\catalog-contract.json"
+    ],
+    "exit_code": 0,
+    "output": "PASS: Django catalog response consumed by actual preview script; every category contains only its own SKU IDs\nPASS: 10-item pages; all 103 items reachable exactly once over 11 pages; category reset, last page, navigation, language retention, empty/error states and retry\n"
+  }
+]

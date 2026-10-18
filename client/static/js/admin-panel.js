@@ -1,8 +1,9 @@
 /**
  * 平台运营后台 - 买家/茶企账号 CRUD
  */
-(function () {
+PlatformAccess.requirePermission('user_manage').then(function (allowed) {
     'use strict';
+    if (!allowed) return;
 
     var token = AuthStorage.getToken();
     if (!token) {
@@ -219,4 +220,4 @@
         toggleCreateShopField();
         loadUsers();
     });
-})();
+});

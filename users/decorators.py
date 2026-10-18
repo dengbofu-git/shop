@@ -176,6 +176,23 @@ def permission_required(permission_code):
     return decorator
 
 
+def platform_permission_required(permission_code):
+    """Require an active platform role and an active, explicit permission grant."""
+    def decorator(view_func):
+        @wraps(view_func)
+        def wrapper(request, *args, **kwargs):
+            from .access import account_access, can_access_platform
+            user, error = get_user_from_request(request)
+            if error is not None:
+                return error
+            if not user.is_active or not can_access_platform(account_access(user), permission_code):
+                return JsonResponse({'code': 403, 'error': '没有平台管理权限'}, status=403)
+            request.user_profile = user
+            return view_func(request, *args, **kwargs)
+        return wrapper
+    return decorator
+
+
 def role_required(role_code):
     """
     角色验证装饰器（基于角色代码）

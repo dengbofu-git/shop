@@ -8,16 +8,17 @@
     var RATES = { USD: 1, AED: 3.67, SAR: 3.75 };
     var currentCurrency = 'USD';
     var catalogs = [];
-    var currentCatalogId = null;
+    var currentCatalogId = 'all';
     var currentPage = 1;
     var pageMax = 1;
-    var pageSize = 12;
+    var PAGE_SIZE = 10;
     var baseUrlMedia = '';
 
     var i18n = {
         zh: {
-            procure_title: '商品采购 - 茗越山关跨境电商 9710 报关数字系统',
+            procure_title: '商品采购 - 茗越山关跨境茶叶 SaaS 平台',
             all_products: '全部产品',
+            page_summary: '当前显示 {start}–{end} 件，共 {total} 件商品',
             loading: '加载中...',
             no_products: '暂无商品',
             prev_page: '上一页',
@@ -25,11 +26,13 @@
             recommend_title: '推荐商品',
             recommend_empty: '暂无推荐',
             add_cart: '加入采购车',
-            trace_btn: '溯源'
+            trace_btn: '溯源',
+            quick_preview: '快速预览'
         },
         en: {
-            procure_title: 'Product Procurement - Mingyue Shanguan 9710 Customs Digital System',
+            procure_title: 'Product Procurement - Mingyue Shanguan Cross-border Tea SaaS Platform',
             all_products: 'All Products',
+            page_summary: 'Showing {start}–{end} of {total} products',
             loading: 'Loading...',
             no_products: 'No products',
             prev_page: 'Previous',
@@ -37,11 +40,13 @@
             recommend_title: 'Recommended',
             recommend_empty: 'No recommendations',
             add_cart: 'Add to Cart',
-            trace_btn: 'Traceability'
+            trace_btn: 'Traceability',
+            quick_preview: 'Quick preview'
         },
         ar: {
-            procure_title: 'المشتريات - مينغ يوي شانغوان 9710',
+            procure_title: 'المشتريات - مينغ يوي شانغوان للشاي SaaS',
             all_products: 'جميع المنتجات',
+            page_summary: 'عرض {start}–{end} من أصل {total} منتجاً',
             loading: 'جاري التحميل...',
             no_products: 'لا توجد منتجات',
             prev_page: 'السابق',
@@ -49,7 +54,8 @@
             recommend_title: 'موصى به',
             recommend_empty: 'لا توجد توصيات',
             add_cart: 'أضف للسلة',
-            trace_btn: 'التتبع'
+            trace_btn: 'التتبع',
+            quick_preview: 'معاينة سريعة'
         }
     };
 
@@ -107,31 +113,47 @@
             ? '<img src="' + imgUrl + '" alt="' + (el.name || '').replace(/"/g, '&quot;') + '" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\';">' +
               '<div class="product-img" style="display:none;">' + (el.image_text || el.name || '') + '</div>'
             : '<div class="product-img">' + (el.image_text || el.name || '') + '</div>';
-        var traceCode = 'TR-' + skuid;
-        return '<div class="product-card" data-skuid="' + skuid + '">' +
-            '<div class="product-badges"><span class="badge-gi">📍 GI</span></div>' +
-            '<div class="product-img-wrap">' + imgHtml + '</div>' +
-            '<a href="trace.html?code=' + traceCode + '" class="btn-trace-link" target="_blank" data-i18n="trace_btn">溯源</a>' +
+        return '<div class="product-card" data-skuid="' + skuid + '" data-cny="' + (Number(el.price) || 0) + '" data-pimg="' + String(el.image || '').replace(/"/g, '&quot;') + '">' +
+            '<a class="product-img-wrap" href="product_details.html?skuid=' + skuid + '" aria-label="' + title.replace(/&/g, '&amp;').replace(/"/g, '&quot;') + '">' + imgHtml + '</a>' +
             '<h3 class="product-name"><a href="product_details.html?skuid=' + skuid + '">' + title.replace(/</g, '&lt;') + '</a></h3>' +
             '<p class="product-spec">' + spec.replace(/</g, '&lt;') + '</p>' +
             '<div class="product-price" data-usd="' + (el.price || 0) + '" data-aed="' + ((el.price || 0) * 3.67).toFixed(0) + '" data-sar="' + ((el.price || 0) * 3.75).toFixed(0) + '">' + formatPrice(el.price) + '</div>' +
-            '<button type="button" class="btn-add-cart">加入采购车</button>' +
+            '<div class="product-actions-row"><button type="button" class="btn-add-cart">' + t('add_cart') + '</button></div>' +
+            '<div class="product-secondary-actions"><button type="button" class="btn-quick-preview" data-i18n="quick_preview">' + t('quick_preview') + '</button>' +
+            '<button type="button" class="btn-trace-link" data-i18n="trace_btn" disabled aria-disabled="true">溯源</button></div>' +
             '</div>';
+    }
+
+    function rowsForSelection() {
+        var groups = catalogs.filter(function(cat) {
+            return currentCatalogId === 'all' || Number(cat.catalog_id) === currentCatalogId;
+        }).map(function(cat) {
+            return (cat.sku || []).slice().sort(function(a, b) { return Number(b.skuid) - Number(a.skuid); });
+        });
+        // 全部分类轮流展示各茶类，先保留全部SKU，再按10件分页。
+        var rows = [], seen = new Set(), index = 0;
+        while (groups.some(function(group) { return index < group.length; })) {
+            groups.forEach(function(group) {
+                var row = group[index];
+                if (row && !seen.has(String(row.skuid))) {
+                    seen.add(String(row.skuid));
+                    rows.push(row);
+                }
+            });
+            index++;
+        }
+        return rows;
     }
 
     function loadCatalogs() {
         $.get(baseUrl + '/v1/goods/index', function(r) {
-            if (r.code === 200 && r.data && r.data.length) {
+            if (r.code === 200 && Array.isArray(r.data)) {
                 catalogs = r.data;
                 baseUrlMedia = (r.base_url || '').replace(/\/$/, '');
+                var catalogId = Number(getUrlParam('catalog_id') || getUrlParam('typeid'));
+                currentCatalogId = catalogs.some(function(cat) { return Number(cat.catalog_id) === catalogId; }) ? catalogId : 'all';
                 renderCategoryTabs();
-                var catalogId = getUrlParam('catalog_id') || getUrlParam('typeid') || (catalogs[0] && catalogs[0].catalog_id);
-                if (catalogId) {
-                    currentCatalogId = parseInt(catalogId, 10);
-                    loadProducts(1);
-                } else {
-                    $('#product-grid').html('<div class="product-loading">' + t('no_products') + '</div>');
-                }
+                loadProducts(1);
             } else {
                 $('#category-tabs').html('<p class="cat-loading">' + t('no_products') + '</p>');
                 $('#product-grid').html('<div class="product-loading">' + t('no_products') + '</div>');
@@ -143,54 +165,36 @@
     }
 
     function renderCategoryTabs() {
-        var html = '';
+        var total = catalogs.reduce(function(sum, cat) { return sum + (cat.sku || []).length; }, 0);
+        var allActive = currentCatalogId === 'all';
+        var html = '<button type="button" class="catalog-tab' + (allActive ? ' active' : '') + '" data-catalog-id="all" aria-pressed="' + allActive + '">' + t('all_products') + ' (' + total + ')</button>';
         catalogs.forEach(function(cat) {
-            var active = (currentCatalogId === cat.catalog_id) ? ' active' : '';
-            html += '<button type="button" class="catalog-tab' + active + '" data-catalog-id="' + cat.catalog_id + '">' + (cat.catalog_name || '') + '</button>';
+            var active = currentCatalogId === Number(cat.catalog_id);
+            html += '<button type="button" class="catalog-tab' + (active ? ' active' : '') + '" data-catalog-id="' + cat.catalog_id + '" aria-pressed="' + active + '">' + String(cat.catalog_name || '').replace(/&/g, '&amp;').replace(/</g, '&lt;') + ' (' + (cat.sku || []).length + ')</button>';
         });
         $('#category-tabs').html(html || '<span class="cat-loading">' + t('all_products') + '</span>');
 
         $('#category-tabs').off('click.catalogTab').on('click.catalogTab', '.catalog-tab', function() {
-            currentCatalogId = parseInt($(this).data('catalog-id'), 10);
-            if (!currentCatalogId) return;
-            history.replaceState(null, '', 'buyer_products.html?catalog_id=' + currentCatalogId);
-            $('#category-tabs .catalog-tab').removeClass('active');
-            $(this).addClass('active');
+            var value = $(this).data('catalog-id');
+            currentCatalogId = value === 'all' ? 'all' : Number(value);
+            history.replaceState(null, '', 'buyer_products.html' + (currentCatalogId === 'all' ? '' : '?catalog_id=' + currentCatalogId));
+            renderCategoryTabs();
             loadProducts(1);
         });
     }
 
     function loadProducts(page) {
-        currentPage = page || 1;
-        $('#product-grid').html('<div class="product-loading">' + t('loading') + '</div>');
-        $('#pager-wrap').hide();
-
-        $.get(baseUrl + '/v1/goods/catalogs/' + currentCatalogId + '?launched=true&page=' + currentPage, function(r) {
-            if (r.code === 200) {
-                baseUrlMedia = (r.base_url || baseUrlMedia || '').replace(/\/$/, '');
-                var data = r.data || [];
-                var total = (r.paginator && r.paginator.total) || 0;
-                pageSize = (r.paginator && r.paginator.pagesize) || 12;
-                pageMax = Math.ceil(total / pageSize) || 1;
-
-                if (data.length === 0) {
-                    $('#product-grid').html('<div class="product-loading">' + t('no_products') + '</div>');
-                } else {
-                    var html = '';
-                    data.forEach(function(el) {
-                        html += renderProductCard(el);
-                    });
-                    $('#product-grid').html(html);
-
-                    renderPager();
-                    bindProductEvents();
-                }
-            } else {
-                $('#product-grid').html('<div class="product-loading">' + t('no_products') + '</div>');
-            }
-        }).fail(function() {
-            $('#product-grid').html('<div class="product-loading">' + t('no_products') + '</div>');
-        });
+        var rows = rowsForSelection();
+        pageMax = Math.max(1, Math.ceil(rows.length / PAGE_SIZE));
+        currentPage = Math.max(1, Math.min(Number(page) || 1, pageMax));
+        var offset = (currentPage - 1) * PAGE_SIZE;
+        var data = rows.slice(offset, offset + PAGE_SIZE);
+        $('#product-grid').html(data.length ? data.map(renderProductCard).join('') : '<div class="product-loading">' + t('no_products') + '</div>');
+        $('#procurement-summary').text(t('page_summary')
+            .replace('{start}', rows.length ? offset + 1 : 0)
+            .replace('{end}', Math.min(offset + PAGE_SIZE, rows.length))
+            .replace('{total}', rows.length));
+        renderPager();
     }
 
     function renderPager() {
@@ -218,16 +222,6 @@
         });
         $('#pager-next').off('click').on('click', function() {
             if (currentPage < pageMax) loadProducts(currentPage + 1);
-        });
-    }
-
-    function bindProductEvents() {
-        $('.product-card .btn-add-cart').on('click', function() {
-            var card = $(this).closest('.product-card');
-            var name = card.find('.product-name').text().trim();
-            var lang = getLang();
-            var msg = (lang === 'zh' ? '已加入采购车：' : (lang === 'ar' ? 'تمت الإضافة: ' : 'Added to cart: ')) + name;
-            alert(msg);
         });
     }
 
@@ -297,6 +291,8 @@
             var lang = $(this).data('lang');
             localStorage.setItem('buyer_lang', lang);
             applyI18nProducts();
+            renderCategoryTabs();
+            loadProducts(currentPage);
         });
 
         $('#btn-search').on('click', function() {

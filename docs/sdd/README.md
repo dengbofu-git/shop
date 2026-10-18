@@ -1,21 +1,44 @@
 # Dadashop SDD 规划入口
 
+2026-10-18交付补充：[跨模块交付验证](evidence/2026-10-18-delivery/verification.md)记录本轮实际检查、版本说明和已知失败；历史SDD静态对账与本轮业务／界面定向验证分开使用，不提升能力阶段。
+
+当前统一入口：[项目聊天更新与 SDD 对账](reconciliation-2026-10-18.md)。已汇总买家／商家 Agent、历史咨询、管理端、前端、身份及 MCP／Skill 的实现和设计边界；当前清单为8域25能力34功能15实现模块，历史对账及测试快照继续按原版本保留。
+
+2026-10-18 工具增量：[MCP 与 Skill 接入](../MCP与Skill接入.md)提供本地只读商品详情和仓库交付 Skill；[商品搜索 MCP 详细设计](modules/ai-support/search-products-design.md)为后续草案，不改变其他切片评审状态。
+
+2026-10-18商家修复：[商家商品预览与标签页身份隔离](modules/catalog-content/merchant-preview.md)，查看留在商家工作台，身份不从共享存储跨标签页回填。
+
+2026-10-18增量：[统一登录与平台权限隔离](modules/identity/unified-login.md) 已按用户请求实施。当前规则及验证见增量文档；以下历史基线和证据不覆盖本次改动，不代表本次已发布。
+
 规划日期：2026-10-16（Asia/Shanghai）。SDD 指 Specification-Driven Development（规格驱动开发）。
 
 本目录保存**存量项目渐进式 SDD 规划与能力规格材料**。2026-10-16 已由 dengbofu 确认首个 AI 查询切片的核心业务选项，阶段为 `SPEC_REVIEW`，完整条款尚在评审。同日按用户明确请求新增并实施收藏与足迹 `CAP-CAT-004`，阶段为 `IMPLEMENTING`，附定向测试及本地迁移证据，待人工审阅；没有登记生产发布批准。
 
-收藏与足迹增量使当前目录共登记25个能力、29项功能。下列对账文件中24／28的数量仅指较早基线，原证据不覆盖新增实现。
+收藏与足迹及本次聊天对账后，当前目录登记25个能力、34项功能。早期24／28及25／29分别属于历史快照，不代表当前完整清单。
 
 ## 从这里阅读
 
+2026-10-18平台定位：[跨境茶叶 SaaS 平台](modules/platform/tea-saas-platform.md)，统一三语名称与产品范围，经营看板回归销售与订单履约指标。
+
+2026-10-18客服增量：[历史咨询入口与切换续聊](modules/ai-support/conversation-history.md)，提供本人会话列表、记录分页、草稿及历史提示，继续沿用模型上下文预算。
+
+2026-10-18分类预览：[首页茶类分类预览](modules/catalog-content/catalog-preview.md)，替换四个采购场景按钮和静态茶类，按数据库实际分类筛选。
+
+2026-10-18卡片增量：[买家商品卡片操作分层](modules/catalog-content/card-interactions.md)，固定主／次操作区域并移除遮挡层，见[验证记录](evidence/2026-10-18-card-actions/verification.md)。
+
 | 文件 | 用途 |
 | --- | --- |
+| [当前项目聊天对账](reconciliation-2026-10-18.md) | 各聊天增量、当前实施状态、证据范围和剩余差异 |
+| [当前买家 Agent](modules/ai-support/current-agent.md) | 六类任务、推荐／知识／订单／偏好／历史与工具边界 |
+| [商家助手入口](modules/merchant-operations/assistant-entry.md) | 已实现入口与未实现经营能力 |
+| [Agent 运营管理](modules/platform/agent-administration.md) | 权限、配置、知识库占位与开关交互 |
+| [页面补充交互](modules/platform/interface-increments.md) | 跨商品、采购、经营及管理端的界面变化 |
 | [茶类虚拟默认图片](modules/catalog-content/image-fallback.md) | 数据库六类茶图入库、真实图片优先、导入迁移与验证 |
 | [CAP-CAT-004 收藏与足迹](modules/catalog-content/capabilities/CAP-CAT-004/requirements.md) | 本次规则、范围、接口、验收及迁移 |
 | [收藏与足迹验证](evidence/2026-10-16-buyer-activity/verification.md) | 定向验证、浏览器检查和本地迁移结果 |
 | [roadmap.md](roadmap.md) | 推进顺序、交付物、完成条件和下一步 |
-| [reconciliation.md](reconciliation.md) | 全部24能力与当前源码的对账、28项功能、已知差异及本次验证 |
-| [catalog.yaml](catalog.yaml) | 9 个建议业务模块、24 个候选／活动能力及 14 个版本模块的归属 |
+| [reconciliation.md](reconciliation.md) | 2026-10-16历史对账与原验证范围；当前增量见新对账 |
+| [catalog.yaml](catalog.yaml) | 8 个建议业务模块、25 个候选／活动能力及 15 个版本模块的归属 |
 | [product/current-state.md](product/current-state.md) | 已观察事实、推断、差异与风险 |
 | [product/source-manifest.yaml](product/source-manifest.yaml) | 参考项目与本项目的材料来源、核查边界 |
 | [product/feature-inventory.yaml](product/feature-inventory.yaml) | 功能、页面、API、代码到唯一主能力的初步映射 |

@@ -1,5 +1,5 @@
 schemaVersion: "0.1"
-updatedAt: "2026-10-16"
+updatedAt: "2026-10-18"
 questions:
   - id: Q-001
     status: resolved
@@ -69,14 +69,6 @@ questions:
     recommendation: 先梳理真实调用再确认唯一数量语义，覆盖取消、支付失败、缺货及重试，不从函数注释直接定规则。
     resolveWith: 库存事件表、状态转换和并发示例。
     observedEvidence: 商品详情/购物车取max(账本,SKU.stock)，AI有账本时只认账本；发货扣减有调用，预留/释放/支付扣减未见业务接线。
-  - id: Q-007
-    status: open
-    question: 9710 与溯源的实际交付是演示还是正式集成，谁提供申报字段、规则、网关和回执？
-    affectedCapabilities: [CAP-CUS-001]
-    blockingFrom: SPEC_REVIEW
-    decisionOwner: null
-    recommendation: 当前按演示资产登记；真实法规、资料和外部流程另行确认。
-    resolveWith: 业务范围、外部系统契约、专业规则来源及验收责任。
   - id: Q-008
     status: open
     question: 结算展示的数据由谁生成，费用、币种、账期、退款、对账和实际付款如何定义？
@@ -87,13 +79,13 @@ questions:
     resolveWith: 账单样例、金额计算规则、数据来源和复核方式。
   - id: Q-009
     status: open
-    question: user_type、supplier/buyer/admin 等角色与真实岗位如何对应；用户管理为何使用 goods_manage 权限？
+    question: 统一登录与平台管理切片已明确；其他岗位、业务对象范围及停用账号策略如何统一？
     affectedCapabilities: [CAP-IAM-003, CAP-PLAT-001, CAP-AI-004]
     blockingFrom: SPEC_REVIEW
     decisionOwner: null
     recommendation: 业务确认最小权限和对象范围；不按界面可见性推断 API 已授权。
     resolveWith: 岗位、功能权限、对象范围和停用账号策略矩阵。
-    observedEvidence: 用户管理当前用goods_manage；通用库存列表不按商家过滤；购物车/创建订单有按URL用户名操作而未见同等认证路径；HTTP客服与CLI活跃买家检查不同。
+    observedEvidence: 2026-10-18统一登录切片要求有效平台角色加user_manage或system_config；其他对象范围仍待核查，通用库存列表不按商家过滤，URL用户名操作及HTTP客服与CLI检查仍有差异。
   - id: Q-010
     status: open
     question: 正式支持哪些语言、设备、商品价格及支付币种，预售定金尾款如何解释和换算？
@@ -131,13 +123,23 @@ questions:
     affectedCapabilities: [CAP-AI-003, CAP-AI-004, CAP-KNOW-001, CAP-KNOW-002]
     blockingFrom: BUILD_READY
     decisionOwner: dengbofu
-    recommendation: 模型可见字段已确认，持久化策略单独设计；不能把24小时模型上下文窗口当作数据库删除期限。
+    recommendation: 模型可见字段已确认，持久化策略单独设计；不能把24小时模型上下文窗口或历史列表游标有效期当作数据库删除期限。
     resolveWith: 数据类别、访问主体、保留周期、删除入口和验证步骤；由业务及技术评审共同确认。
+    observedEvidence: 历史咨询新增本人列表和分页，未新增删除／保留期功能；历史GET按既有regex再脱敏，成功重放仍直接读保存响应。
   - id: Q-014
     status: open
-    question: 区域、通关率、履约时长等经营指标应使用哪些真实来源，哪些演示/推算指标可以展示给哪些岗位？
+    question: 区域、库存周转等经营指标应使用哪些真实来源，哪些演示/推算指标可以展示给哪些岗位？
     affectedCapabilities: [CAP-MER-002, CAP-PLAT-002]
     blockingFrom: SPEC_REVIEW
     decisionOwner: null
     recommendation: 区分真实商家订单聚合和hash分区/常量或公式推算指标；不能把商家权限接口作为独立平台统计服务。
     resolveWith: 指标口径、来源、刷新频率、岗位范围和真实/演示标签；当前代码事实见reconciliation.md。
+    observedEvidence: 2026-10-18平台与商家销售额已共用已付订单条件，见modules/platform/sales-reconciliation.md；hash地区等推算指标仍需真实来源，问题不整体关闭。
+  - id: Q-015
+    status: open
+    question: 商家助手后续先交付哪些经营能力，文件／素材归属、库存事务、确认和幂等、生成任务及费用如何定义？
+    affectedCapabilities: [CAP-MER-004, CAP-CAT-002, CAP-FUL-001]
+    blockingFrom: SPEC_REVIEW
+    decisionOwner: null
+    recommendation: 保持0.1只开放入口；批量导入、文案／图片／视频和经营工具作为独立切片确认，不将方案讨论当成写入授权。
+    resolveWith: 首个经营切片范围、对象权限、草稿确认契约、隔离测试数据及失败恢复标准。

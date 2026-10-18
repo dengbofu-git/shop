@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>商品详情 · 茗越山关跨境电商 9710 报关数字系统</title>
+    <title>商品详情 · 茗越山关跨境茶叶 SaaS 平台</title>
     <link rel="icon" href="/static/images/index/py.ico">
     <link rel="stylesheet" href="/static/css/design-tokens.css">
     <link rel="stylesheet" href="/static/css/rtl.css">
@@ -13,8 +13,9 @@
     <link rel="stylesheet" href="/static/css/buyer-activity.css">
     <link rel="stylesheet" href="/static/css/buyer-storefront.css?v=20261003-storefront">
     <script src="/static/js/init.js"></script>
-    <script src="/static/js/auth-storage.js"></script>
+    <script src="/static/js/auth-storage.js?v=20261018-session-isolation"></script>
 {% include "shared/system_theme.html" %}
+    <link rel="stylesheet" href="/static/css/product-detail-content.css?v=20261018-detail-theme">
 </head>
 
 <body class="ds-page-product_details ds-theme buyer-workbench product-detail-page storefront-page" id="buyer-body">
@@ -98,83 +99,56 @@
     </div>
                 </div>
     <!--商品详情-->
-    <div id="iteminfo">
-        <div id="tab">
-            <div class="tab lf">
-                <div class="cat">
-                    <span class="active"><a href="">商品详情</a></span>
-                    <span><a href="lookforward.html">商品评价</a></span>
-                </div>
-            </div>
-             <div class="cart rt">返回顶部</div>
-        </div>
-        <div class="left lf">
-            <div class="all">
-                <!--<p><img src="images_x/pin_logo.png" alt=""/></p>-->
-                <div id="parm">
-                <div id="specification_parameter">
-                    <p>规格参数</p>
-                    <!-- <img src="images_x/canshu.png" alt="" class="ys5"/> -->
-                </div>
-                <ul id="spec-list"><!-- 由接口数据动态填充 --></ul>
-            </div>
-                <div id="product_introduction">
-                    <p>
-                    商品介绍
-                    <img src="../static/images/product_detail/product_detail_icon_4.png" alt="" class="ys5"/>
-                </p>
+    <section id="iteminfo" aria-label="商品详细信息">
+        <nav class="detail-tabs" aria-label="商品详情导航">
+            <a class="detail-tab active" href="#specification_parameter" aria-current="location">商品详情</a>
+            <a class="detail-tab" href="lookforward.html">商品评价</a>
+            <a class="detail-back-top" href="#buyer-body">返回顶部 ↑</a>
+        </nav>
+        <div class="detail-content-layout">
+            <div class="detail-sections">
+                <section id="specification_parameter" class="detail-section" aria-labelledby="specification-title">
+                    <h2 id="specification-title">规格参数</h2>
+                    <ul id="spec-list"><!-- 由接口数据动态填充 --></ul>
+                </section>
+                <section id="product_introduction" class="detail-section" aria-labelledby="introduction-title">
+                    <h2 id="introduction-title">商品介绍</h2>
                     <div id="product_intro_content"><!-- 由接口数据动态填充 --></div>
-                </div>
-                <div id="sale_protection">
-                    <p>
-                        售后保障
-                        <img src="../static/images/product_detail/product_detail_icon_3.png" alt="" class="ys5" />
-                    </p>
-
-                    <div class="sale_content">
-                        <p class="paper" id="sale_protect">
-                            <img src="../static/images/product_detail/product_detail_img16.png" alt="" />
-                            正品保障
-                        </p>
-
+                </section>
+                <section id="sale_protection" class="detail-section" aria-labelledby="protection-title">
+                    <h2 id="protection-title">售后保障</h2>
+                    <div class="detail-service">
+                        <h3 id="sale_protect">正品保障</h3>
                         <p class="content">
-                            茗越山关跨境电商 9710 报关数字系统向您保证所售地标茶均为正品，可开具正规发票。
+                            茗越山关跨境茶叶 SaaS 平台向您保证所售地标茶均为正品，可开具正规发票。
                         </p>
-
-                        <p class="paper">
-                            <img src="../static/images/product_detail/product_detail_img16.png" alt="" />
-                            全国联保
-                        </p>
-
+                    </div>
+                    <div class="detail-service">
+                        <h3>全国联保</h3>
                         <p class="content">
-                            凭质保证书及茗越山关跨境电商 9710 报关数字系统发票，可享受品质保障。中国地标茶出海中东，品质之选，请您放心采购！
+                            凭质保证书及茗越山关跨境茶叶 SaaS 平台发票，可享受品质保障。中国地标茶出海中东，品质之选，请您放心采购！
                             注：因厂家会在没有任何提前通知的情况下更改产品包装、产地或者一些附件，本司不能确保客户收到的货物与商城图片、产地、附件说明完全一致。只能确保为原厂正货！并且保证与当时市场上同样主流新品一致。若本商城没有及时更新，请大家谅解！
                         </p>
                     </div>
-                </div>
-                <div id="packing_list">
-                    <p>
-                        包装清单
-                        <img src="../static/images/product_detail/product_detail_icon_2.png" alt="" class="ys5" />
-                    </p>
-
-                    <p class="content" id="packing_content">地标茶品，品质保障。如需核实茶品产地与品质，可联系茗越山关跨境电商 9710 报关数字系统客服。</p>
-                </div>
+                </section>
+                <section id="packing_list" class="detail-section" aria-labelledby="packing-title">
+                    <h2 id="packing-title">包装清单</h2>
+                    <p class="content" id="packing_content">地标茶品，品质保障。如需核实茶品产地与品质，可联系茗越山关跨境茶叶 SaaS 平台客服。</p>
+                </section>
             </div>
+            <nav class="detail-section-nav" aria-label="本页目录">
+                <span class="detail-nav-label">本页目录</span>
+                <a href="#specification_parameter">规格参数</a>
+                <a href="#product_introduction">商品介绍</a>
+                <a href="#sale_protection">售后保障</a>
+                <a href="#packing_list">包装清单</a>
+                <a class="detail-nav-top" href="#buyer-body">回到顶部 ↑</a>
+            </nav>
         </div>
-        <div class="right rt">
-            <div class="aside_nav">
-                <!-- <p><i><img src="../images/product_detail/product_detail_icon_g_1.png" alt=""/></i><a href="#specification_parameter">规格参数</a></p> -->
-                <p><i><img src="../static/images/product_detail/product_detail_icon_t_1.png" alt="" /></i><a href="#product_introduction">商品介绍</a></p>
-                <p><i><img src="../static/images/product_detail/product_detail_icon_d_1.png" alt="" /></i><a href="#sale_protection">售后保障</a></p>
-                <p><i><img src="../static/images/product_detail/product_detail_icon_bao_1.png" alt="" /></i><a href="#sale_protect">包装清单</a></p>
-                <p><i><img src="../static/images/product_detail/product_detail_icon_up_1.png" alt="" /></i><a href="#">回到顶部</a></p>
-            </div>
-        </div>
-    </div>
+    </section>
             </div>
 
-            <footer class="storefront-footer">© 2026 茗越山关跨境电商 9710 报关数字系统 · 中国地标茶出海中东</footer>
+            <footer class="storefront-footer">© 2026 茗越山关跨境茶叶 SaaS 平台 · 中国地标茶出海中东</footer>
         </main>
     </div>
     <div class="modal" style="display:none">
@@ -192,7 +166,7 @@
         </div>
     </div>
     <script src="/static/js/jquery-3.1.1.min.js"></script>
-    <script src="/static/js/buyer-workbench.js?v=20261003-storefront"></script>
+    <script src="/static/js/buyer-workbench.js?v=20261018-tea-saas"></script>
     <script src="/static/js/lozad.js"></script>
     <script src="/static/js/buyer-activity.js"></script>
     <script>
@@ -313,13 +287,13 @@
                     var specList = result.data.spec_list || [];
                     var specHtml = '';
                     for (var i = 0; i < specList.length; i++) {
-                        specHtml += '<li><a href="#">' + specList[i].name + '：' + specList[i].value + '</a></li>';
+                        specHtml += '<li>' + specList[i].name + '：' + specList[i].value + '</li>';
                     }
-                    $('#spec-list').html(specHtml || '<li><a href="#">商品名称：' + (result.data.name || '-') + '</a></li>');
+                    $('#spec-list').html(specHtml || '<li>商品名称：' + (result.data.name || '-') + '</li>');
 
                     // 商品介绍：使用真实数据（caption）
                     var intro = result.data.product_intro || result.data.caption || result.data.name || '暂无详细介绍';
-                    $('#product_intro_content').html('<div class="content" style="padding:15px 0;line-height:1.8;color:#333;">' + intro + '</div>');
+                    $('#product_intro_content').html('<div class="content">' + intro + '</div>');
 
                 },
                 error: function (err) {

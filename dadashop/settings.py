@@ -211,7 +211,8 @@ SUPPORT_RAG_RETRY_ENABLED = os.getenv('SUPPORT_RAG_RETRY_ENABLED', 'true').lower
 SUPPORT_RAG_BUDGET_SECONDS = float(os.getenv('SUPPORT_RAG_BUDGET_SECONDS', '25'))
 SUPPORT_RAG_WEAK_SCORE = float(os.getenv('SUPPORT_RAG_WEAK_SCORE', '0.1'))
 ADMIN_INITIAL_PASSWORD = os.environ['ADMIN_INITIAL_PASSWORD']
-CUSTOMS_INITIAL_PASSWORD = os.environ['CUSTOMS_INITIAL_PASSWORD']
+# Compatibility only for the immutable users/0007 data migration; no active feature.
+CUSTOMS_INITIAL_PASSWORD = os.environ.get('CUSTOMS_INITIAL_PASSWORD', ADMIN_INITIAL_PASSWORD)
 ####################JWT配置结束#######################
 #####################第三方邮件服务器配置开始############
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -279,7 +280,7 @@ DADASHOP_MEDIA = "http://127.0.0.1:8000/media/"
 ####################支付宝配置开始#####################
 
 
-ALIPAY_SALLER_NAME = '茗越山关跨境电商 9710 报关数字系统'
+ALIPAY_SALLER_NAME = '茗越山关跨境茶叶 SaaS 平台'
 ALIPAY_PAY_URL = os.environ['ALIPAY_PAY_URL']
 ALIPAY_APP_ID = os.environ['ALIPAY_APP_ID']
 ALIPAY_APP_PRIVATE_KEY = os.environ['ALIPAY_APP_PRIVATE_KEY']

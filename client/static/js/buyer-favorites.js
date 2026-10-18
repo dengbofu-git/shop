@@ -64,7 +64,8 @@
             if (!button) {
                 button = document.createElement('button'); button.type = 'button';
                 button.className = 'btn-card-favorite'; button.setAttribute('data-favorite-sku', id);
-                parent.appendChild(button);
+                var actions = parent.querySelector('.product-actions-row');
+                (actions || parent).appendChild(button);
             }
             if (!states.has(id)) {
                 states.set(id, {saved: false, known: !auth, busy: false, pending: null});
