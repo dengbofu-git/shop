@@ -1,24 +1,16 @@
 # tea_saas
 
-2026-10-19运行日志更新：支持 JSON／文本输出、请求编号、业务错误码与 Agent Trace 关联。配置、轮转与隐私边界见[运行日志指南](docs/运行日志.md)。
-
-工程包、页面品牌和变量已统一为 `tea_saas`。现有安装升级前请阅读[命名变更与资源兼容](docs/sdd/modules/platform/project-identity.md)；本机目录、数据库、账号和已有数据卷不自动改名。
-
-开发协作入口：[本地任务与分诊](docs/agents/issue-tracker.md)、[领域术语](CONTEXT.md)、[ADR 约定](docs/adr/README.md)、[SDD 引用检索](docs/agents/sdd-refs.md)。
-
 **个人项目 · 源码开放获取 · 禁止商用**
 
 本项目由个人维护，用于学习、研究与工程实践。允许免费获取、阅读、修改和分享本项目中有权授权的原创代码与文档，仅限非商业用途。禁止出售源码、付费部署、商业项目交付、商业 SaaS 运营、企业商业业务使用及其他直接或间接商业行为；修改或衍生版本同样受此限制。分享时须保留版权、许可及项目来源。完整条款见 [非商业使用许可](LICENSE)，第三方依赖和素材遵循各自授权。
 
-面向跨境茶叶采购与商家经营的 SaaS 平台，包含买家工作台、茶企经营端、平台运营端和买家 AI 客服，覆盖商品采购、订单协作、库存、经营统计与结算记录展示。
+面向跨境茶叶采购与商家经营的 SaaS 平台，面向管理员、商家、买家三类角色提供对应工作台，覆盖平台管理、商品采购、订单协作、库存、经营统计、结算记录展示与买家 AI 客服。
 
 项目采用 **Django 多 App 单体后端 + Django 模板 / jQuery / 原生 JavaScript 多页面前端**。买家 Agent 基于 LangChain / LangGraph，运行在 Django 应用进程内；MySQL、Redis、PostgreSQL / pgvector 及本地推理服务分别承担业务存储、采购车缓存和知识检索职责。
 
-**当前状态：**业务实现、演示数据和待扩展入口并存，尚不能据此认定完整生产交易或商家 AI 能力已交付。SaaS 为平台定位，当前未实现租户级数据隔离、订阅套餐或自动计费。本文按 2026-10-18 的当前设计编写；模块版本以 [`versions/modules.json`](versions/modules.json) 为准，业务规格和验证边界见 [`docs/sdd/`](docs/sdd/README.md)。
+**当前状态：**业务实现、演示数据和待扩展入口并存，尚不能据此认定完整生产交易或商家 AI 能力已交付。SaaS 为平台定位，当前未实现租户级数据隔离、订阅套餐或自动计费。模块版本以 [`versions/modules.json`](versions/modules.json) 为准，业务规格和验证边界见 [`docs/sdd/`](docs/sdd/README.md)。
 
 [项目接手指南](docs/项目接手指南.md) · [环境配置](docs/环境配置.md) · [当前模块版本](versions/README.md) · [SDD 入口](docs/sdd/README.md)
-
-[MCP 与 Skill 接入](docs/MCP与Skill接入.md)：仓库交付 Skill、本地只读商品详情工具，以及后续商品搜索设计。
 
 ## 目录
 
@@ -38,17 +30,15 @@
 <a id="capabilities"></a>
 ## 功能与角色
 
-| 范围 | 当前提供的能力 | 实现边界 |
-| --- | --- | --- |
-| 买家采购 | 分类浏览、商品详情与规格、采购车、订单与收货操作、资料和收货地址 | 支付可信确认、库存口径和完整履约链路仍有待完善项 |
-| 收藏与足迹 | 商品卡片收藏 / 取消、独立收藏页、自动浏览记录、分页、单条删除和清空足迹 | 按活跃买家账号隔离，不合并匿名记录，也不自动写入 AI 长期偏好 |
-| 茶企经营 | SPU / SKU 维护、图片上传、上下架、库存、订单协作、看板和结算展示 | 部分经营指标为演示推算；结算页面不代表实际资金清结算 |
-| 买家 AI 客服 | 多轮知识问答、商品推荐、分类推荐、详情及推荐理由追问、本人订单查询、显式偏好 | 使用受控工具读取业务事实；当前仍有已记录的多轮和检索问题 |
-| 平台运营 | 业务用户管理、Agent 模型配置、重排序参数、配置变更记录、监控与链路查看 | 使用业务权限校验；与 Django 自带 Admin 分开 |
-| 商家智能助手 | 商家侧栏入口、欢迎页、认证后的模块状态 | `merchant_ai 0.1.0` 仅初始化入口，输入禁用，无聊天 / 上传接口，不调用模型 |
-| 商品溯源 | 页面已删除，卡片按钮禁用 | 尚未形成生产溯源闭环 |
+系统角色分为 **管理员、商家、买家**，各角色的功能与当前实现边界如下。
 
-买家和商家导航支持中文、英文、阿拉伯语及 RTL；页面通过共享主题保持视觉一致。语言切换覆盖范围取决于具体页面，商家助手 0.1 的正文仍为中文，并非所有业务内容都已完成三语本地化。
+| 角色 | 当前提供的能力 | 实现边界 |
+| --- | --- | --- |
+| 管理员 | 业务用户管理、Agent 模型配置、重排序参数、配置变更记录、监控与链路查看 | 使用业务权限校验；平台管理工作台 |
+| 商家 | SPU / SKU 维护、图片上传、上下架、库存、订单协作、经营看板和结算展示；商家智能助手入口及认证后的模块状态 | 部分经营指标为演示推算，结算页面不代表实际资金清结算；`merchant_ai 0.1.0` 仅初始化入口，输入禁用，无聊天 / 上传接口，不调用模型 |
+| 买家 | 分类浏览、商品详情与规格、采购车、订单与收货操作、资料和收货地址；商品收藏 / 取消、收藏分页、自动浏览记录、单条删除和清空足迹；AI 多轮知识问答、商品及分类推荐、详情和推荐理由追问、本人订单查询与显式偏好 | 支付可信确认、库存口径和完整履约链路仍有待完善项；收藏与足迹按活跃买家账号隔离，不合并匿名记录，不自动写入 AI 长期偏好；AI 使用受控工具读取业务事实，多轮和检索仍有已记录问题 |
+
+买家和商家导航支持中文、英文、阿拉伯语及 RTL。语言切换覆盖范围取决于具体页面，并非所有业务内容都已完成三语本地化。
 
 <a id="architecture"></a>
 ## 系统架构
@@ -74,17 +64,16 @@ flowchart TB
 
 | 组件 | 保存或处理的内容 | 当前约定 |
 | --- | --- | --- |
-| MySQL，`default` | 用户、RBAC、商品、订单、库存、收藏足迹；客服会话、短期上下文、Agent 配置和监控投影 | 连接来自 `.env` 的 `DB_*` |
-| PostgreSQL，`ai_storage` | 长期偏好、知识文档、知识片段及向量空间 | 由 `AiStorageRouter` 限定 App 读写与迁移 |
+| MySQL | 用户、RBAC、商品、订单、库存、收藏足迹；客服会话、短期上下文、Agent 配置和监控投影 | 连接来自 `.env` 的 `DB_*` |
+| PostgreSQL | 长期偏好、知识文档、知识片段及向量空间 | 由 `AiStorageRouter` 限定 App 读写与迁移 |
 | Redis | 默认缓存、采购车 Hash | `REDIS_CACHE_URL`／`REDIS_CARTS_URL` 配置地址，`REDIS_PASSWORD` 配置认证 |
 | `media/` | 上传图片和已生成的茶类默认图 | 数据库保存文件路径；备份数据库不能代替备份媒体文件 |
 | Ollama / BGE-M3 | 本地知识入库与查询向量化 | 与知识向量空间的模型、版本、维度保持匹配 |
 | 本地重排序服务 | 对召回候选重新评分和选证据 | 可启停；超时和异常按运营配置降级 |
-| 外部模型服务 | 意图 / 条件抽取及需要生成的回复 | 服务凭据在后端；不直接暴露给浏览器 |
-
-长期偏好的 `owner_id` 是 MySQL 用户 ID 的逻辑引用，**不是跨数据库外键**。两库没有统一事务或自动级联删除承诺；迁移、恢复和账号生命周期处理需要保持 ID 对应。
+| 模型服务 | 意图 / 条件抽取及需要生成的回复 | 服务凭据在后端；不直接暴露给浏览器 |
 
 <a id="repository"></a>
+
 ## 工程组成
 
 ```text
@@ -92,7 +81,7 @@ tea_saas/
 ├── manage.py                    Django 命令入口
 ├── tea_saas/                    settings、根路由、认证共享工具
 ├── client/
-│   ├── templates/               买家、商家、运营和演示页面
+│   ├── templates/               管理员、商家、买家页面及演示页面
 │   └── static/                  CSS、JavaScript 和静态素材
 ├── templates/                   邮件等模板
 ├── users/                       业务用户、角色权限、资料地址
@@ -139,7 +128,7 @@ tea_saas/
 | `support_ai` | 0.12.2 | 买家客服与推荐追问 |
 | `merchant_ai` | 0.1.0 | 商家助手入口和状态 |
 | `ai_storage` | 0.3.3 | 长期偏好、知识和向量检索 |
-| `web` | 0.18.1 | 多角色页面、主题、语言、商品轮播与卡片收藏 |
+| `web` | 0.20.1 | 多角色页面、主题、语言、商品轮播、卡片收藏、商家订单分类与数据中心异步展示 |
 
 模块版本、Git 标签、数据库 Migration、Agent 配置 `revision` 和 SDD `specVersion` 表达不同含义；清单中的版本不自动代表已创建标签、已部署或已通过生产验收。
 
@@ -156,9 +145,8 @@ tea_saas/
 | 可选观测 | OTel Collector、Jaeger、Prometheus | OTLP HTTP `4318`；Jaeger `16686`；Prometheus `9091` |
 | 前端脚本语法检查 | 本机 Node.js | 仅用于 `node --check` 等开发检查 |
 
-依赖中已包含 PyMySQL、psycopg2、pgvector、Pillow、LangChain、LangGraph、模型适配和 OTel SDK；无需另建一套 Agent Python 环境。重排序容器有自己的 Python / 模型依赖，与 Django 环境分开。
-
 <a id="quickstart"></a>
+
 ## 本地启动
 
 以下使用 PowerShell，均在项目根目录执行。其他系统按实际环境替换激活和复制命令。
@@ -199,7 +187,7 @@ python manage.py migrate --plan --database default
 python manage.py migrate --database default
 ```
 
-新环境需要初始化角色和业务运营账号时，再执行：
+新环境需要初始化角色和业务管理员账号时，再执行：
 
 ```powershell
 python manage.py seed_rbac
@@ -248,7 +236,7 @@ docker compose -f compose.agent-observability.yml up -d
 
 业务身份来自 `users.UserProfile` 和 JWT，`user_type` 与 RBAC 角色并存。浏览器使用 `AuthStorage` 管理登录状态，但最终权限和对象归属由服务端处理。私有收藏、足迹、偏好、会话和订单读取不能由客户端自报用户名决定归属；既有业务中仍需继续核查的权限差异见后文。
 
-登录页只有一个账号密码入口，服务端按有效角色及权限返回工作台地址，商家／供应商、买家和平台账号分别进入对应工作台；旧终端登录地址重定向统一入口。平台账号管理同时要求有效平台角色及 `user_manage`，Agent管理要求平台角色及 `system_config`，不再使用供应商共有的商品权限代替账号管理权限。完整规则与验证见[统一登录设计](docs/sdd/modules/identity/unified-login.md)。
+登录页只有一个账号密码入口，服务端按有效角色及权限返回工作台地址，管理员、商家和买家分别进入对应工作台；旧终端登录地址重定向统一入口。管理员的账号管理功能同时要求有效平台角色及 `user_manage`，Agent 管理要求平台角色及 `system_config`，不再使用商家共有的商品权限代替账号管理权限。完整规则与验证见[统一登录设计](docs/sdd/modules/identity/unified-login.md)。
 
 ### 商品、收藏与图片
 
@@ -294,7 +282,7 @@ docker compose -f compose.agent-observability.yml up -d
 | 买家客服 | `buyer_support.html` | `/v1/support/chat/`、`preferences/`、`conversations/<uuid>/` |
 | 商家经营 | `merchant_dashboard.html`、商品 / 订单 / 库存 / 结算面板 | `/v1/goods/merchant/`、`/v1/supplier/`、`/v1/inventory/` |
 | 商家助手 | `merchant_assistant.html` | `GET /v1/merchant-ai/status/` |
-| 平台运营 | 统一 `login.html` 自动分流；`admin_panel.html`、`admin_agents.html` | `/v1/admin-panel/users`、`/v1/admin-panel/agent/` 下的配置和监控接口 |
+| 管理员工作台 | 统一 `login.html` 自动分流；`admin_panel.html`、`admin_agents.html` | `/v1/admin-panel/users`、`/v1/admin-panel/agent/` 下的配置和监控接口 |
 | 物流 / 资讯 | `logistics_track.html`及资讯入口 | `/v1/logistics/`、`/v1/news/` |
 | Django Admin | `/admin/` | Django 自带管理站点 |
 
@@ -371,6 +359,8 @@ python -X utf8 -u manage.py agent_preview
 <a id="development"></a>
 ## 开发与交付
 
+资源清理与评测材料入口见 [报告索引](reports/README.md)。2026-10-16 的 Agent 历史资料已原字节归档，当前输出目录与在途测试继续独立维护。
+
 Git 分支、中文提交、PR 和交付检查统一遵循 [Git 协作规范](docs/Git协作规范.md) 与 [AGENTS.md](AGENTS.md)。每个克隆先运行 `python tools/git_policy.py install` 启用本地 Hook 和提交模板；开发使用 `codex/<模块>-<任务>`，通过 PR 合入 `main`。GitHub Actions 及服务端保护的生效边界见规范。
 
 1. 从当前页面 / 功能找到代码 App、实现模块和对应 SDD 能力，确认已知问题、规则归属及这次变更范围。
@@ -395,21 +385,6 @@ python tools/module_versions.py bump goods patch --note "说明本次修复"
 tea_saas采用渐进式 SDD，当前仍有候选能力和人工评审阶段，尚未接入自动阶段检查器。日常验证使用本节实际提供的命令；业务能力阶段以本仓库 `docs/sdd/catalog.yaml` 及活动能力 manifest 为准。
 
 <a id="limitations"></a>
-## 已知问题与文档
-
-### 当前需要继续完善的边界
-
-| 范围 | 已观察问题或限制 |
-| --- | --- |
-| 支付可信确认 | 当前 notify 按 GET 订单号更新支付状态，尚缺可信回调验签、金额 / 币种及幂等校验，不能直接作为生产支付闭环 |
-| 身份与对象权限 | 业务密码仍使用 MD5，CSRF 中间件未启用；JWT、角色权限和 URL 用户名校验并存，仍需逐接口梳理 |
-| 库存 | 商品详情 / 采购车与 AI 推荐的可用库存口径不同，不能认定下单已完整接通全部预留服务 |
-| 价格币种 | SKU 价格未独立记录币种；部分页面按 USD 使用，部分按 CNY 换算或显示人民币标签，需要统一业务口径 |
-| Agent 多轮 | 0.10.0 定向实测 15 组 / 41 轮中，37 轮满足预设检查、11 组全程通过；列表序号、条件补充和分组理由仍有已记录问题 |
-| 知识检索 | 0.9.0 对照评测未显示整体收益，存在重排序 / 选证据退化；后续推荐追问修复不自动解决检索问题 |
-| 演示边界 | 部分经营指标为推算，商家助手仅入口；溯源页面已移除 |
-
-上述 Agent 数字来自限定样本，不是总体准确率或知识事实正确率。原始结果见 [推荐追问场景报告](reports/agent-evaluation/2026-10-16-dialogue-followups/live-run-1/report.md) 和 [RAG 对照报告](reports/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/report.md)。更多实现差异见 [SDD 对账](docs/sdd/reconciliation.md)，旧报告按各自版本和日期解读。
 
 ### 文档导航
 
@@ -427,10 +402,3 @@ tea_saas采用渐进式 SDD，当前仍有候选能力和人工评审阶段，�
 | [查询改写](docs/Agent查询改写.md) | 多语言查询、融合和一次补检 |
 | [Agent 监控与模型设置](docs/Agent监控与模型设置.md) / [终端预览](docs/Agent终端预览.md) | 运行配置、链路与调试 |
 | [商家智能助手](docs/商家智能助手.md) / [全站主题](docs/全站主题规范.md) | 商家入口完成范围与 UI 基线 |
-
-### 配置、数据与公开仓库
-
-- 从示例创建本地配置，不提交密码、Token、真实服务凭据或应用私钥；`.env`、`.env.postgres` 和私钥文件受 `.gitignore` 管理。
-- 新机器需要单独准备数据库、媒体文件和服务数据卷；Git 克隆不会自动恢复现有业务数据。
-- `reports/` 中部分文件承担验证和批次追溯职责；公开或同步前核对内容，不能把真实用户信息、模型原始敏感输入或未脱敏日志作为普通示例上传。
-- 本项目采用 [个人项目非商业使用许可](LICENSE)，源码开放获取，禁止商用；该授权不属于 OSI 认可的开源许可。第三方依赖与素材的授权不因本项目公开而改变。

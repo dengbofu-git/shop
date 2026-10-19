@@ -182,6 +182,20 @@ body.dashboard-page {
     min-height: 180px;
 }
 
+/* Keep the page usable while statistics and chart code arrive independently. */
+.dashboard-load-toolbar {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 12px;
+    margin: 20px 32px 0; color: #6a7d73;
+}
+.dashboard-load-toolbar label { color: #17352b; }
+.dashboard-load-toolbar [role="status"] { flex: 1; min-width: 180px; font-size: 13px; }
+.dashboard-retry { padding: 8px 16px; border: 1px solid #cfdbd1; background: #fff; color: #185c3b; cursor: pointer; }
+.chart-placeholder { display: flex; align-items: center; justify-content: center; height: 100%; margin: 0; padding: 20px; color: #6a7d73; text-align: center; }
+.core-metrics[aria-busy="true"] .metric-value,
+.aux-metrics[aria-busy="true"] .aux-value { opacity: .45; }
+.dashboard-load-toolbar button:disabled { opacity: .55; cursor: wait; }
+@media (max-width: 600px) { .dashboard-load-toolbar { margin-inline: 16px; } }
+
 .metric-display {
     text-align: center;
     padding: 40px 20px;

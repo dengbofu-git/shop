@@ -47,7 +47,7 @@
 ## 验证
 
 隔离测试使用 SQLite/LocMem，不连接真实业务测试库；真实模型回放使用公开预览记录，单独写入评测目录，核对客户会话及监控数量未变化。
-详见 [对照结果](../reports/agent-evaluation/2026-10-16-grouping/comparison-report.md)。
+详见 [对照结果](../reports/archive/2026-10-16/agent-evaluation/2026-10-16-grouping/comparison-report.md)。
 
 ## 0.8.1：说明范围与推荐关联
 
@@ -66,4 +66,4 @@
 
 规则无法覆盖某个有实际语义的分句时，通过有限意图模型补充该分句，避免命中“推荐”后直接忽略其他任务。否定、预算及理由补充片段不会自行产生新任务。
 
-最终 96 项测试及原句、普通分类推荐、明确两类说明推荐的真实环境回放通过；见 [混合任务对照](../reports/agent-evaluation/2026-10-16-mixed-tea/comparison-report.md)。运行中的终端需退出后重启，`/config` 应显示 `agent_version: 0.8.1`。
+最终 96 项测试及原句、普通分类推荐、明确两类说明推荐的真实环境回放通过；见 [混合任务对照](../reports/archive/2026-10-16/agent-evaluation/2026-10-16-mixed-tea/comparison-report.md)。运行中的终端需退出后重启，`/config` 应显示 `agent_version: 0.8.1`。

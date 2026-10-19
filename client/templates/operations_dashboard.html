@@ -5,13 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>数据中心 - tea_saas</title>
     <link href="../static/css/design-tokens.css" rel="stylesheet">
-    <link href="../static/css/workbench-loading.css" rel="stylesheet">
-    <link href="../static/css/operations-dashboard.css?v=20261018-paid-sales" rel="stylesheet">
+    <link href="../static/css/workbench-loading.css?v=20261019-viewport-center" rel="stylesheet">
+    <link href="../static/css/operations-dashboard.css?v=20261019-progressive" rel="stylesheet">
     <link rel="preconnect" href="https://cdn.bootcdn.net" crossorigin>
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
     <script src="../static/js/init.js"></script>
     <script src="../static/js/auth-storage.js?v=20261018-session-isolation"></script>
-    <script defer src="https://cdn.bootcdn.net/ajax/libs/echarts/5.4.3/echarts.min.js" onerror="this.onerror=null;this.src='https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js';"></script>
     <script>
         if (window.location.search.indexOf('embed=1') >= 0 || window.self !== window.top) {
             document.documentElement.classList.add('embed-mode');
@@ -22,31 +21,30 @@
     </style>
 {% include "shared/system_theme.html" %}
 </head>
-<body class="ds-page-operations_dashboard ds-theme dashboard-page dashboard-is-loading">
+<body class="ds-page-operations_dashboard ds-theme dashboard-page">
     <div class="dashboard-root">
-    <div id="dashboard-loading" class="wb-loading-overlay" role="status" aria-live="polite" aria-busy="true">
-        <div class="wb-loading-dialog">
-            <div class="wb-loading-badge" aria-hidden="true">🍵</div>
-            <h2 class="wb-loading-title">数据中心</h2>
-            <p class="wb-loading-desc" id="dashboard-loading-desc">正在加载图表与统计数据，请稍候…</p>
-            <div class="wb-loading-spinner" aria-hidden="true"></div>
-        </div>
-    </div>
     <div class="dashboard-header">
         <h1 class="dashboard-title">数据中心</h1>
         <div class="dashboard-actions">
-            <select id="time-filter" class="filter-select">
-                <option value="month">月度</option>
-                <option value="quarter">季度</option>
-                <option value="year" selected>年度</option>
-            </select>
             <button type="button" class="btn-refresh" id="btn-logout">注销登录</button>
         </div>
     </div>
 
+    <div class="dashboard-load-toolbar">
+        <label for="time-filter">统计周期</label>
+        <select id="time-filter" class="filter-select">
+            <option value="month">月度</option>
+            <option value="quarter">季度</option>
+            <option value="year" selected>年度</option>
+        </select>
+        <button type="button" class="btn-refresh" id="refresh-data">刷新数据</button>
+        <span id="dashboard-load-status" role="status" aria-live="polite">正在加载统计数据，图表将陆续显示…</span>
+        <button type="button" class="dashboard-retry" id="retry-dashboard" hidden>重试</button>
+    </div>
+
     <!-- 顶部核心指标栏 -->
     <p id="sales-basis" class="sales-basis">近365天 · 已全额付款的本店商品明细金额，不含运费；剔除已退货试单与已取消预售。</p>
-    <section class="core-metrics">
+    <section class="core-metrics" aria-busy="true">
         <div class="metric-card metric-blue">
             <div class="metric-value" id="m-total-sales">—</div>
             <div class="metric-label">统计周期已付款销售额</div>
@@ -84,27 +82,27 @@
         <div class="chart-column">
             <div class="chart-card">
                 <h3 class="chart-title">近六个月已付款销售趋势</h3>
-                <div id="chart-sales-trend" class="chart-container"></div>
+                <div id="chart-sales-trend" class="chart-container" aria-busy="true"><p class="chart-placeholder">销售趋势加载中…</p></div>
             </div>
             <div class="chart-card">
                 <h3 class="chart-title">订单履约状态</h3>
-                <div id="chart-order-status" class="chart-container"></div>
+                <div id="chart-order-status" class="chart-container" aria-busy="true"><p class="chart-placeholder">订单状态加载中…</p></div>
             </div>
         </div>
         <div class="chart-column">
             <div class="chart-card">
                 <h3 class="chart-title">中东市场销售地图</h3>
-                <div id="chart-map" class="chart-container"></div>
+                <div id="chart-map" class="chart-container" aria-busy="true"><p class="chart-placeholder">市场分布加载中…</p></div>
             </div>
             <div class="chart-card">
                 <h3 class="chart-title">产品品类销售占比</h3>
-                <div id="chart-category" class="chart-container"></div>
+                <div id="chart-category" class="chart-container" aria-busy="true"><p class="chart-placeholder">品类占比加载中…</p></div>
             </div>
         </div>
         <div class="chart-column">
             <div class="chart-card">
                 <h3 class="chart-title">渠道转化漏斗</h3>
-                <div id="chart-funnel" class="chart-container"></div>
+                <div id="chart-funnel" class="chart-container" aria-busy="true"><p class="chart-placeholder">渠道转化加载中…</p></div>
             </div>
             <div class="chart-card">
                 <h3 class="chart-title">库存周转天数</h3>
@@ -118,7 +116,7 @@
     </section>
 
     <!-- 底部辅助数据区 -->
-    <section class="aux-metrics">
+    <section class="aux-metrics" aria-busy="true">
         <div class="aux-card">
             <div class="aux-value" id="aux-partners">—</div>
             <div class="aux-label">周期内活跃下单批次</div>
@@ -138,6 +136,6 @@
     </section>
     </div>
 
-    <script defer src="../static/js/operations-dashboard.js?v=20261018-tea-saas"></script>
+    <script defer src="../static/js/operations-dashboard.js?v=20261019-progressive"></script>
 </body>
 </html>

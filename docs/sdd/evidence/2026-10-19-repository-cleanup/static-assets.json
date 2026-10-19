@@ -1,0 +1,266 @@
+{
+  "image_aliases": [
+    {
+      "removed": "client/static/images/banklist/gongshang.jpeg",
+      "kept": "client/static/images/pay/pay_img2.jpg",
+      "sha256": "8a24e5524283ff429637505c0f99d131540de0ec35dc76e0229ca047991f2e5b",
+      "bytes_saved": 4093
+    },
+    {
+      "removed": "client/static/images/banklist/jianshe.jpeg",
+      "kept": "client/static/images/pay/pay_img4.jpg",
+      "sha256": "e6491905369d86ece128c854208fa0d9755ba5ef238eea6cf851b4543e0c99ea",
+      "bytes_saved": 3971
+    },
+    {
+      "removed": "client/static/images/banklist/nongye.jpeg",
+      "kept": "client/static/images/pay/pay_img5.jpg",
+      "sha256": "979fe7b880fabacc90d87bd7419ec80f5d9124710378bf142aafff033ea248f2",
+      "bytes_saved": 4213
+    },
+    {
+      "removed": "client/static/images/pay/pay_img3.jpg",
+      "kept": "client/static/images/banklist/zhaoshang.jpeg",
+      "sha256": "6a365aa675323bc82353cab7e84d35486320046bd5f90e17c10e086bc5ecdb34",
+      "bytes_saved": 3997
+    },
+    {
+      "removed": "client/static/images/banklist/zhongguo.jpeg",
+      "kept": "client/static/images/pay/pay_img1.jpg",
+      "sha256": "bc492bf6ffab3919c1e5ba5869c1725cba64af429995f2460236ebb30c67333e",
+      "bytes_saved": 4640
+    },
+    {
+      "removed": "client/static/images/footer/logo.png",
+      "kept": "client/static/images/header/logo.png",
+      "sha256": "fc4b8b8a9eb62e7fc671aa2fdc93d64fb2160923c0e930ac8d45423798104d77",
+      "bytes_saved": 14185
+    },
+    {
+      "removed": "client/static/images/personage/touxiang.png",
+      "kept": "client/static/images/headphoto/touxiang1.png",
+      "sha256": "21c0ee7532302a418a5bca7258899493425c344c214ffb35cbe1c4393a8bed65",
+      "bytes_saved": 18319
+    },
+    {
+      "removed": "client/static/images/list/product_5.png",
+      "kept": "client/static/images/index/index_Sbanner_img1.png",
+      "sha256": "ecb7879b4c1cba2e92e62c4f2a3350eb9a6fd8b9a90d0f1b93be5fc9fe24e043",
+      "bytes_saved": 67680
+    },
+    {
+      "removed": "client/static/images/list/product_6.png",
+      "kept": "client/static/images/index/index_Sbanner_img2.png",
+      "sha256": "06d71de5566b1ef8dcfa0b26fd330810f48563752c35c1443be5129c300d0a4e",
+      "bytes_saved": 267072
+    },
+    {
+      "removed": "client/static/images/list/product_7.png",
+      "kept": "client/static/images/index/index_Sbanner_img3.png",
+      "sha256": "3d1c198ba236f76978a8fc219599c67bdd612fe5bbd01952babdb3c188fbd15f",
+      "bytes_saved": 293958
+    },
+    {
+      "removed": "client/static/images/list/product_1.png",
+      "kept": "client/static/images/index/index_bp1.png",
+      "sha256": "fffbf0a84a408702c22c242cd9f5907962d6fe785880c0769b17313d5bc39b49",
+      "bytes_saved": 876415
+    },
+    {
+      "removed": "client/static/images/list/product_2.png",
+      "kept": "client/static/images/index/index_bp2.png",
+      "sha256": "6ca68a024f999b3af9598ca6128a82a417adb81f454c7fd0155a10d17cbf87a3",
+      "bytes_saved": 785115
+    },
+    {
+      "removed": "client/static/images/list/product_3.png",
+      "kept": "client/static/images/index/index_hb1.png",
+      "sha256": "1a2a6931506c2a9e6a2420c179fb53aecb467d862ef0e66b72d99af37aff892f",
+      "bytes_saved": 371335
+    },
+    {
+      "removed": "client/static/images/list/product_4.png",
+      "kept": "client/static/images/index/index_hb2.png",
+      "sha256": "e93a589eabda5f17798593351de7f6b1d95041194e4edab2b957ecc1b1eb583f",
+      "bytes_saved": 386654
+    },
+    {
+      "removed": "client/static/images/list/product_8.png",
+      "kept": "client/static/images/index/index_trunk1.png",
+      "sha256": "aea7ca10a36f7a80e98b080ad516cb4d4ba6f7b7b40b9c941421a2d1c4a775c2",
+      "bytes_saved": 179278
+    },
+    {
+      "removed": "client/static/images/list/product_9.png",
+      "kept": "client/static/images/index/index_trunk2.png",
+      "sha256": "df24377c3158b651b8b74eba2fdbaf61396e0d845feac4f30d887e117138d34c",
+      "bytes_saved": 239941
+    },
+    {
+      "removed": "client/static/images/ordersgood/102225.png",
+      "kept": "client/static/images/list/102225.png",
+      "sha256": "31a31402eb2c9757ca37e3d9cd9573e323ac48a24ffae1016ba4eab99af406cf",
+      "bytes_saved": 823707
+    },
+    {
+      "removed": "client/static/images/model/search/care.png",
+      "kept": "client/static/images/search/care.png",
+      "sha256": "8682762c65caefa995d48835ff074c48daa773b4b41fb0fa783dc7c2eb5bbae6",
+      "bytes_saved": 257
+    },
+    {
+      "removed": "client/static/images/model/search/care1.png",
+      "kept": "client/static/images/search/care1.png",
+      "sha256": "92822ed0a2dfa60350ecce928fdf955aa929ae0819f40482174f867187c06b35",
+      "bytes_saved": 291318
+    },
+    {
+      "removed": "client/static/images/model/search/down.png",
+      "kept": "client/static/images/search/down.png",
+      "sha256": "e4a9848620513051951d1c9b7d63efa8c42ed2bb60887e1464a967fd2efdced3",
+      "bytes_saved": 175
+    },
+    {
+      "removed": "client/static/images/model/search/down01.png",
+      "kept": "client/static/images/search/down01.png",
+      "sha256": "0a74d8b146ecd0ce6cca598a1f1a487fae13d95b0a0093ffff2b0e00231ed7ad",
+      "bytes_saved": 164
+    },
+    {
+      "removed": "client/static/images/model/search/product_img.png",
+      "kept": "client/static/images/search/product_img.png",
+      "sha256": "36b0527774391811d8e8966518d125863de58cf3b3db1b5947ecabc626c8554f",
+      "bytes_saved": 41717
+    },
+    {
+      "removed": "client/static/images/model/search/product_img1.png",
+      "kept": "client/static/images/search/product_img1.png",
+      "sha256": "a1086d6b9c01ce9755b66e705284b7c46de0c919c7480d47d992dfe20f8940ed",
+      "bytes_saved": 439210
+    },
+    {
+      "removed": "client/static/images/model/search/product_img2.png",
+      "kept": "client/static/images/search/product_img2.png",
+      "sha256": "8fdf08eef07d3e260b82186e89218d1357a09ecd2a0e95ad555206a3fbd29b0c",
+      "bytes_saved": 429646
+    },
+    {
+      "removed": "client/static/images/model/search/product_img3.png",
+      "kept": "client/static/images/search/product_img3.png",
+      "sha256": "919ee70dd66f8aa034cd17d1fb1c701b10dbadd59795adc20a901e3dc71f445e",
+      "bytes_saved": 438502
+    },
+    {
+      "removed": "client/static/images/model/search/product_img4.png",
+      "kept": "client/static/images/search/product_img4.png",
+      "sha256": "c64d9a697d9e583fbb44249b6748dc1262fe64fe702f3994bcae38e9c9945905",
+      "bytes_saved": 440140
+    },
+    {
+      "removed": "client/static/images/model/search/product_img5.png",
+      "kept": "client/static/images/search/product_img5.png",
+      "sha256": "26b193f31fa483a49105ae5c0d2337419988bb3e6000bc7f042e9fa30ec39aa8",
+      "bytes_saved": 438092
+    },
+    {
+      "removed": "client/static/images/model/search/product_img6.png",
+      "kept": "client/static/images/search/product_img6.png",
+      "sha256": "81e49dc192254ce7518d0b8e20e072b4654ec1db2e80186d13524821e16901c7",
+      "bytes_saved": 439794
+    },
+    {
+      "removed": "client/static/images/model/search/up.png",
+      "kept": "client/static/images/search/up.png",
+      "sha256": "a3cb42b40274b6b3b77895f9ae8008eca85a4d5ff3ba111ee74088a480f1c0c2",
+      "bytes_saved": 175
+    },
+    {
+      "removed": "client/static/images/myOrder/kefuf.gif",
+      "kept": "client/static/images/product_detail/kefuf.gif",
+      "sha256": "a6f31480669662bdbbdc51b9e4e65da3a579530b0a913625f2c3ee7650eadec5",
+      "bytes_saved": 4050
+    },
+    {
+      "removed": "client/static/images/orderinfo/kefuf.gif",
+      "kept": "client/static/images/product_detail/kefuf.gif",
+      "sha256": "a6f31480669662bdbbdc51b9e4e65da3a579530b0a913625f2c3ee7650eadec5",
+      "bytes_saved": 4050
+    },
+    {
+      "removed": "client/static/images/recommend/recommend_img1.png",
+      "kept": "client/static/images/product_detail/product_detail_1.png",
+      "sha256": "4218e3838035bcb572bebac6290606413823426d5cf5818eb35ba3c053192de3",
+      "bytes_saved": 29298
+    },
+    {
+      "removed": "client/static/images/recommend/recommend_img2.png",
+      "kept": "client/static/images/product_detail/product_detail_2.png",
+      "sha256": "0bff34faf96d1cb44721fd506de08429b0b23450e44bcd8b85d2bebadb97e4e6",
+      "bytes_saved": 27663
+    },
+    {
+      "removed": "client/static/images/recommend/recommend_img3.png",
+      "kept": "client/static/images/product_detail/product_detail_3.png",
+      "sha256": "9a70c26321c7e64cd7bd3b188b0293425b313f9101e627f1aba935b388db4719",
+      "bytes_saved": 28516
+    },
+    {
+      "removed": "client/static/images/recommend/recommend_img4.png",
+      "kept": "client/static/images/product_detail/product_detail_4.png",
+      "sha256": "267ee15b3c878dcb247c66904e5c2330c1db75c69033f708820749b6ae46fcc6",
+      "bytes_saved": 29647
+    },
+    {
+      "removed": "client/static/images/product_detail/product_detail_icon_g_1.png",
+      "kept": "client/static/images/product_detail/product_detail_icon_1.png",
+      "sha256": "5da49f805be264de93eab98bc7acfce31b4bd43d7ec1b2a16a233bc1eed3dd23",
+      "bytes_saved": 15095
+    },
+    {
+      "removed": "client/static/images/product_detail/product_detail_icon_bao_1.png",
+      "kept": "client/static/images/product_detail/product_detail_icon_2.png",
+      "sha256": "b8111756b6123631232d84ea8981d873e01b1377ef1cee7a41600175e54f6eac",
+      "bytes_saved": 540
+    },
+    {
+      "removed": "client/static/images/product_detail/product_detail_icon_d_1.png",
+      "kept": "client/static/images/product_detail/product_detail_icon_3.png",
+      "sha256": "e7053b4044ee0699d659fc9f9b7e977bd52bb4beaa6a101720852963c186679a",
+      "bytes_saved": 653
+    },
+    {
+      "removed": "client/static/images/product_detail/product_detail_icon_t_1.png",
+      "kept": "client/static/images/product_detail/product_detail_icon_4.png",
+      "sha256": "a86f2ec7f46c102a5f5b98a93df2e1fcf7fbdbfb1117de463d8609dd05a5c246",
+      "bytes_saved": 553
+    }
+  ],
+  "removed_old_components": [
+    "client/static/css/icon/css/bootstrap.min.css",
+    "client/static/css/icon/css/cropper.min.css",
+    "client/static/css/icon/css/font-awesome.min.css",
+    "client/static/css/icon/css/myOrder.css",
+    "client/static/css/icon/css/sitelogo.css",
+    "client/static/css/icon/fonts/FontAwesome.otf",
+    "client/static/css/icon/fonts/fontawesome-webfont.eot",
+    "client/static/css/icon/fonts/fontawesome-webfont.svg",
+    "client/static/css/icon/fonts/fontawesome-webfont.ttf",
+    "client/static/css/icon/fonts/fontawesome-webfont.woff",
+    "client/static/css/icon/fonts/fontawesome-webfont.woff2",
+    "client/static/css/icon/myOrder.css",
+    "client/static/js/icon/bootstrap.min.js",
+    "client/static/js/icon/cropper.js",
+    "client/static/js/icon/html2canvas.min.js",
+    "client/static/js/icon/sitelogo.js"
+  ],
+  "jquery": {
+    "kept": "client/static/js/jquery-3.1.1.min.js",
+    "removed": "client/static/js/jquery-3.3.1.js",
+    "templates": [
+      "client/templates/payment.html",
+      "client/templates/gopay.html"
+    ]
+  },
+  "archive_manifest": "reports/archive/2026-10-16/manifest.json",
+  "archived_files": 205
+}

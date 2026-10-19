@@ -1,0 +1,59 @@
+.ds-page-merchant_orders .merchant-wrap,
+.ds-page-merchant_orders .merchant-content { min-width: 0; }
+.ds-page-merchant_orders .merchant-content { overflow: hidden; }
+.ds-page-merchant_orders .order-status-filters {
+    display: flex; flex-wrap: wrap; gap: 10px; margin: 20px 0 16px;
+}
+.ds-page-merchant_orders .order-status-filters button {
+    display: inline-flex; align-items: center; gap: 10px;
+    min-height: 42px; padding: 9px 16px; border: 1px solid #cadbd1;
+    border-radius: 9px; background: #fff; color: #245b44; cursor: pointer;
+    font: inherit; white-space: nowrap;
+}
+.ds-page-merchant_orders .order-status-filters button[aria-pressed="true"] {
+    background: #185b3e; border-color: #185b3e; color: #fff;
+}
+.ds-page-merchant_orders .order-status-filters span {
+    border-radius: 20px; background: rgba(104, 149, 122, .14); min-width: 24px;
+    padding: 1px 6px; font-size: .85em; text-align: center;
+}
+.ds-page-merchant_orders .order-status-filters button[aria-pressed="true"] span { background: #ffffff29; }
+.ds-page-merchant_orders .order-summary { margin: 0 0 16px; color: #637b70; line-height: 1.6; }
+.ds-page-merchant_orders .order-table-scroll { width: 100%; overflow-x: auto; }
+.ds-page-merchant_orders .merchant-orders-table {
+    width: 100%; min-width: 1180px; table-layout: auto; border-collapse: collapse;
+}
+.ds-page-merchant_orders .merchant-orders-table th,
+.ds-page-merchant_orders .merchant-orders-table td {
+    padding: 16px 14px; white-space: nowrap; vertical-align: middle; line-height: 1.6;
+}
+.ds-page-merchant_orders .merchant-orders-table .order-address {
+    min-width: 220px; max-width: 300px; white-space: normal; overflow-wrap: anywhere;
+}
+.ds-page-merchant_orders .merchant-orders-table .order-receiver {
+    min-width: 90px; max-width: 180px; white-space: normal; overflow-wrap: anywhere;
+}
+.ds-page-merchant_orders .order-status-badge {
+    display: inline-block; padding: 4px 10px; border-radius: 6px; background: #edf1f6; color: #536477;
+}
+.ds-page-merchant_orders .order-status-0 { background: #fff3dc; color: #926116; }
+.ds-page-merchant_orders .order-status-1 { background: #e8f3ff; color: #276b9c; }
+.ds-page-merchant_orders .order-status-2 { background: #eeebfb; color: #695294; }
+.ds-page-merchant_orders .order-status-3 { background: #e6f3eb; color: #246846; }
+.ds-page-merchant_orders .order-actions { display: flex; gap: 8px; align-items: center; }
+.ds-page-merchant_orders .btn-delete-order,
+.ds-page-merchant_orders .order-retry {
+    padding: 7px 12px; border: 1px solid #cadbd1; background: #fff;
+    color: #245b44; border-radius: 6px; cursor: pointer; font: inherit;
+}
+.ds-page-merchant_orders .btn-delete-order { color: #a83d38; border-color: #ecd4d1; }
+.ds-page-merchant_orders button:disabled { opacity: .55; cursor: not-allowed; }
+.ds-page-merchant_orders .order-retry { margin-bottom: 16px; }
+.ds-page-merchant_orders .order-empty { padding: 64px 24px; text-align: center; color: #70867a; }
+.ds-page-merchant_orders button:focus-visible,
+.ds-page-merchant_orders .order-table-scroll:focus-visible { outline: 2px solid #185b3e; outline-offset: 3px; }
+.order-sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+@media (max-width: 640px) {
+    .ds-page-merchant_orders .order-status-filters { gap: 8px; }
+    .ds-page-merchant_orders .order-status-filters button { padding: 8px 12px; }
+}

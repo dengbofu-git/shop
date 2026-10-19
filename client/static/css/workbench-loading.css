@@ -2,6 +2,7 @@
  * 茶企工作台通用加载提示（与 supplier-workbench 视觉一致）
  */
 .wb-loading-overlay {
+    /* Anchor to the visible viewport, including when this page is inside an iframe. */
     position: fixed;
     inset: 0;
     z-index: 10000;
@@ -16,12 +17,6 @@
     opacity: 1;
     visibility: visible;
     transition: opacity 0.28s ease, visibility 0.28s ease;
-}
-
-html.embed-mode .wb-loading-overlay,
-.dashboard-root > .wb-loading-overlay {
-    position: absolute;
-    min-height: 100%;
 }
 
 .wb-loading-overlay.wb-loading-overlay--out {

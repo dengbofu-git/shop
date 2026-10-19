@@ -1,0 +1,9 @@
+{
+  "cases": 100,
+  "unique_results": 100,
+  "dataset_hash_matches": true,
+  "source_hashes_match": true,
+  "runner_copy_matches": true,
+  "markdown_prose_whitespace_check": "passed",
+  "fenced_inputs": "original whitespace intentionally preserved"
+}

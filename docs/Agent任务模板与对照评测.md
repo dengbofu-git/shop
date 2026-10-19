@@ -37,7 +37,7 @@ OTel 增加计划来源、步骤数、意图列表、工具状态、成功/失�
 
 ## 保留与回放
 
-目录：[2026-10-16 对照材料](../reports/agent-evaluation/2026-10-16-planner/)。
+目录：[2026-10-16 对照材料](../reports/archive/2026-10-16/agent-evaluation/2026-10-16-planner/)。
 
 修改前源码、脱敏历史、监控及分析均保留，旧版本章节未覆盖。历史 0.4.0 日志、修改前 0.5.0 同输入回放及 0.6.0 回放分别标识，不能混作同一个基线。
 
@@ -49,4 +49,4 @@ OTel 增加计划来源、步骤数、意图列表、工具状态、成功/失�
 python manage.py test support_ai.tests support_ai.test_planning support_ai.test_task_tools support_ai.test_telemetry --settings=support_ai.test_settings --noinput
 ```
 
-完整指标和限制见 [对照报告](../reports/agent-evaluation/2026-10-16-planner/comparison-report.md)。本批有序任务匹配 4/11 → 11/11，推荐返回及数量/分类检查 2/6 → 6/6；总体平均耗时 4.63 → 9.04 秒，不能宣称整体加速或通用意图准确率达到 100%。
+完整指标和限制见 [对照报告](../reports/archive/2026-10-16/agent-evaluation/2026-10-16-planner/comparison-report.md)。本批有序任务匹配 4/11 → 11/11，推荐返回及数量/分类检查 2/6 → 6/6；总体平均耗时 4.63 → 9.04 秒，不能宣称整体加速或通用意图准确率达到 100%。
