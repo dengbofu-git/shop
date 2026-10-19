@@ -1,4 +1,4 @@
-"""Offline cleanup contracts: immutable archive bytes and live static dependencies."""
+"""Offline cleanup contracts: immutable Git archive content and live dependencies."""
 import hashlib
 from html.parser import HTMLParser
 import json
@@ -61,13 +61,18 @@ class RepositoryCleanupTests(unittest.TestCase):
                     self.assertTrue((ROOT / 'client' / source[source.index('static/'):]).is_file())
         self.assertFalse((ROOT / self.assets['jquery']['removed']).exists())
 
-    def test_historical_payload_is_byte_identical_and_complete(self):
+    def test_historical_git_content_is_identical_and_complete(self):
         data = json.loads((ROOT / self.assets['archive_manifest']).read_text(encoding='utf-8'))
         self.assertEqual(len(data['files']), self.assets['archived_files'])
         self.assertEqual(len({record['original'] for record in data['files']}), len(data['files']))
         for record in data['files']:
             with self.subTest(path=record['archived']):
-                self.assertEqual(hashlib.sha256((ROOT / record['archived']).read_bytes()).hexdigest(), record['sha256'])
+                # Git text checkout may expand LF to CRLF on Windows. Only this
+                # conversion is allowed; whitespace and test inputs stay intact.
+                payload = (ROOT / record['archived']).read_bytes().replace(b'\r\n', b'\n')
+                self.assertEqual(hashlib.sha256(payload).hexdigest(), record['git_sha256'])
+                git_object = b'blob ' + str(len(payload)).encode('ascii') + b'\0' + payload
+                self.assertEqual(hashlib.sha1(git_object).hexdigest(), record['git_blob'])
                 self.assertFalse((ROOT / record['original']).exists())
                 self.assertNotIn('__pycache__', record['archived'])
 

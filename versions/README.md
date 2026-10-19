@@ -35,7 +35,7 @@
 | support_ai · 智能客服 | 0.12.4 | 旧评测原字节归档及当前评测入口调整；保留现有语义规划与会话能力 | [support_ai](changelogs/support_ai.md) |
 | merchant_ai · 商家智能助手 | 0.1.0 | 入口与初始化状态，聊天／模型／上传／经营工具未接入 | [merchant_ai](changelogs/merchant_ai.md) |
 | ai_storage · AI 记忆与知识存储 | 0.3.2 | 保持查询改写所用知识／向量与短Embedding超时基线 | [ai_storage](changelogs/ai_storage.md) |
-| web · 页面与前端资源 | 0.20.2 | 重复图片合并、旧组件清理及支付页单实例 jQuery；保留现有订单与数据中心增量 | [web](changelogs/web.md) |
+| web · 页面与前端资源 | 0.20.3 | 重复图片合并、旧组件清理及支付页单实例 jQuery；保留现有订单与数据中心增量 | [web](changelogs/web.md) |
 
 ## 历史实现演进和既有证据
 
