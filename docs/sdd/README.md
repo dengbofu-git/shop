@@ -1,5 +1,9 @@
 # tea_saas SDD 规划入口
 
+2026-10-19数据中心：[异步渐进展示](modules/merchant-operations/data-center-loading.md)，统计请求与图表库并行，指标先显示、图表独立绘制，失败可局部重试；替代整页等待遮罩。
+
+2026-10-19商家订单增量：[订单状态分类](modules/merchant-operations/order-status-filters.md)，按实际状态显示数量和列表，兼容工作台待发货入口，发货／删除后刷新分类，订单表支持横向滚动。
+
 2026-10-19采购推荐更新：[有库存商品按销量优先](modules/catalog-content/sales-recommendations.md)，全平台已上架 SKU 按销量、更新时间、ID 排序，不再要求人工推荐标记；保留既有库存口径并记录当前销量字段的数据限制。
 
 2026-10-19运行日志增量：[统一日志与 HTTP 关联](modules/platform/runtime-logging.md)实现安全字段输出、请求编号、耗时、业务错误码与当前 Agent Trace 关联；业务审计、集中检索、自动保留及告警仍为后续范围。

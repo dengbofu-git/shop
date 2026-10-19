@@ -18,50 +18,6 @@
     var _currentPeriod = 'year';
     var _loadToken = 0;
 
-    function buildLoadingOverlay() {
-        var root = document.querySelector('.dashboard-root');
-        if (!root) return null;
-        var el = document.createElement('div');
-        el.id = 'dashboard-loading';
-        el.className = 'wb-loading-overlay';
-        el.setAttribute('role', 'status');
-        el.setAttribute('aria-live', 'polite');
-        el.setAttribute('aria-busy', 'true');
-        el.innerHTML =
-            '<div class="wb-loading-dialog">' +
-            '<div class="wb-loading-badge" aria-hidden="true">🍵</div>' +
-            '<h2 class="wb-loading-title">数据中心</h2>' +
-            '<p class="wb-loading-desc" id="dashboard-loading-desc">正在加载图表与统计数据，请稍候…</p>' +
-            '<div class="wb-loading-spinner" aria-hidden="true"></div>' +
-            '</div>';
-        root.insertBefore(el, root.firstChild);
-        return el;
-    }
-
-    function showLoading(message) {
-        document.body.classList.add('dashboard-is-loading');
-        var el = document.getElementById('dashboard-loading') || buildLoadingOverlay();
-        if (!el) return;
-        el.classList.remove('wb-loading-overlay--out');
-        el.setAttribute('aria-busy', 'true');
-        var desc = document.getElementById('dashboard-loading-desc');
-        if (desc && message) desc.textContent = message;
-        else if (desc) desc.textContent = '正在加载图表与统计数据，请稍候…';
-    }
-
-    function hideLoading() {
-        document.body.classList.remove('dashboard-is-loading');
-        var el = document.getElementById('dashboard-loading');
-        if (!el) return;
-        el.setAttribute('aria-busy', 'false');
-        el.classList.add('wb-loading-overlay--out');
-        function removeEl() {
-            if (el.parentNode) el.parentNode.removeChild(el);
-        }
-        el.addEventListener('transitionend', removeEl, { once: true });
-        window.setTimeout(removeEl, 400);
-    }
-
     function registerChart(chart) {
         if (!chart) return;
         _charts.push(chart);
@@ -112,22 +68,6 @@
         set('aux-roi', (aux.campaign_roi || 0) + 'x');
         set('aux-warehouse', (aux.warehouse_health_pct || 0) + '%');
         set('aux-score', String(aux.satisfaction_score || 0));
-    }
-
-    function fetchAnalytics(period, cb) {
-        var token = typeof AuthStorage !== 'undefined' ? AuthStorage.getToken() : '';
-        if (!token || typeof baseUrl === 'undefined') {
-            cb(null);
-            return;
-        }
-        var url = baseUrl.replace(/\/$/, '') + '/v1/supplier/analytics?period=' + encodeURIComponent(period || 'year');
-        fetch(url, { headers: { Authorization: token } })
-            .then(function(r) { return r.json(); })
-            .then(function(json) {
-                if (json && json.code === 200) cb(json.data);
-                else cb(null);
-            })
-            .catch(function() { cb(null); });
     }
 
     function initSalesTrendChart(data) {
@@ -294,68 +234,198 @@
         registerChart(chart);
     }
 
-    function renderCharts(data, onComplete) {
-        _charts.forEach(function(c) {
-            try { c.dispose(); } catch (_) {}
-        });
+    var chartIds = ['chart-sales-trend', 'chart-order-status', 'chart-map', 'chart-category', 'chart-funnel'];
+    var _libraryPromise = null;
+    var _libraryCancel = null;
+    var _request = null;
+    var _destroyed = false;
+    var _chartLoading = false;
+
+    function notify(message, canRetry) {
+        document.getElementById('dashboard-load-status').textContent = message;
+        var button = document.getElementById('retry-dashboard');
+        button.hidden = !canRetry;
+        button.disabled = false;
+    }
+
+    function disposeCharts() {
+        _charts.forEach(function(chart) { try { chart.dispose(); } catch (_) {} });
         _charts = [];
-        initSalesTrendChart(data);
-        initOrderStatusChart(data);
-        var pending = 3;
-        function chartDone() {
-            pending -= 1;
-            if (pending <= 0 && typeof onComplete === 'function') {
-                window.requestAnimationFrame(function() { onComplete(); });
-            }
-        }
-        scheduleIdle(function() { initMapChart(data); chartDone(); }, 200);
-        scheduleIdle(function() { initCategoryChart(data); chartDone(); }, 300);
-        scheduleIdle(function() { initFunnelChart(data); chartDone(); }, 400);
     }
 
-    function waitForEcharts(cb, attempts) {
-        if (typeof echarts !== 'undefined') {
-            cb(true);
-            return;
-        }
-        var left = attempts != null ? attempts : 40;
-        if (left <= 0) {
-            cb(false);
-            return;
-        }
-        window.setTimeout(function() { waitForEcharts(cb, left - 1); }, 150);
+    function chartPlaceholder(id, message, busy) {
+        var el = document.getElementById(id);
+        if (!el) return;
+        el.replaceChildren();
+        var text = document.createElement('p');
+        text.className = 'chart-placeholder';
+        text.textContent = message;
+        el.appendChild(text);
+        el.setAttribute('aria-busy', String(busy));
     }
 
-    function init() {
-        var token = ++_loadToken;
-        var finished = false;
-        function finishLoading() {
-            if (finished || token !== _loadToken) return;
-            finished = true;
-            hideLoading();
-        }
-        showLoading();
-        window.setTimeout(finishLoading, 12000);
-
-        waitForEcharts(function(ok) {
-            if (token !== _loadToken) return;
-            if (!ok) {
-                console.error('ECharts 未加载，请检查网络连接');
-                showLoading('图表库加载失败，请刷新页面或检查网络');
-                window.setTimeout(finishLoading, 1600);
-                return;
-            }
-            setupResizeOnce();
-            fetchAnalytics(_currentPeriod, function(data) {
-                if (token !== _loadToken) return;
-                _analytics = data;
-                applySummary(data);
-                renderCharts(data, function() {
-                    finishLoading();
-                });
-            });
+    function metricsBusy(busy) {
+        document.querySelectorAll('.core-metrics, .aux-metrics').forEach(function(el) {
+            el.setAttribute('aria-busy', String(busy));
         });
     }
+
+    function resetMetrics() {
+        document.querySelectorAll('.metric-value, .metric-tag[id], .aux-value, #m-turnover-display').forEach(function(el) {
+            el.textContent = '—';
+        });
+    }
+
+    // The CDN is deliberately outside the document's defer chain: statistics never wait for it.
+    function loadEcharts() {
+        if (window.echarts) return Promise.resolve();
+        if (_libraryPromise) return _libraryPromise;
+        var sources = ['https://cdn.bootcdn.net/ajax/libs/echarts/5.4.3/echarts.min.js',
+            'https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js'];
+        function attempt(index) {
+            if (_destroyed || index >= sources.length) return Promise.reject(new Error('图表库加载失败'));
+            return new Promise(function(resolve, reject) {
+                var script = document.createElement('script'), done = false;
+                script.async = true;
+                script.src = sources[index];
+                function finish(error) {
+                    if (done) return;
+                    done = true;
+                    window.clearTimeout(timer);
+                    script.onload = script.onerror = null;
+                    script.remove();
+                    _libraryCancel = null;
+                    if (error) reject(error); else resolve();
+                }
+                var timer = window.setTimeout(function() { finish(new Error('图表库加载超时')); }, 5000);
+                _libraryCancel = function() { finish(new Error('页面已关闭')); };
+                script.onload = function() { finish(window.echarts ? null : new Error('图表库不可用')); };
+                script.onerror = function() { finish(new Error('图表库加载失败')); };
+                document.head.appendChild(script);
+            }).catch(function() { return attempt(index + 1); });
+        }
+        _libraryPromise = attempt(0).catch(function(error) {
+            _libraryPromise = null;
+            throw error;
+        });
+        return _libraryPromise;
+    }
+
+    function fetchAnalytics(period) {
+        var token = typeof AuthStorage !== 'undefined' ? AuthStorage.getToken() : '';
+        if (!token) return Promise.reject(new Error('请先登录后查看统计数据'));
+        var url = baseUrl.replace(/\/$/, '') + '/v1/supplier/analytics?period=' + encodeURIComponent(period);
+        return new Promise(function(resolve, reject) {
+            var abort = new AbortController(), done = false;
+            var request = {abort: function() { abort.abort(); finish(new Error('请求已取消')); }};
+            _request = request;
+            function finish(error, data) {
+                if (done) return;
+                done = true;
+                window.clearTimeout(timer);
+                if (_request === request) _request = null;
+                if (error) reject(error); else resolve(data);
+            }
+            var timer = window.setTimeout(function() {
+                abort.abort(); finish(new Error('统计请求超时，请重试'));
+            }, 12000);
+            fetch(url, {headers: {Authorization: token}, signal: abort.signal})
+                .then(function(response) {
+                    if (!response.ok) throw new Error(response.status === 401 ? '登录已过期，请重新登录' : '统计数据加载失败，请重试');
+                    return response.json();
+                }).then(function(json) {
+                    if (!json || json.code !== 200 || !json.data || !json.data.summary) throw new Error('统计数据加载失败，请重试');
+                    finish(null, json.data);
+                }).catch(function(error) { finish(error); });
+        });
+    }
+
+    async function renderCharts(data, token, libraryReady) {
+        _chartLoading = true;
+        notify('统计数据已更新，图表正在加载…', false);
+        var available = await libraryReady;
+        if (token !== _loadToken || _destroyed) return;
+        if (!available) {
+            _chartLoading = false;
+            chartIds.forEach(function(id) { chartPlaceholder(id, '图表库加载失败，可点击重试', false); });
+            notify('统计数据已显示，图表库加载失败，请重试。', true);
+            return;
+        }
+        setupResizeOnce();
+        var jobs = [initSalesTrendChart, initOrderStatusChart, initMapChart, initCategoryChart, initFunnelChart];
+        var pending = jobs.length, failures = 0;
+        jobs.forEach(function(job, index) {
+            scheduleIdle(function() {
+                if (token !== _loadToken || _destroyed) return;
+                var el = document.getElementById(chartIds[index]);
+                try {
+                    if (el) { el.replaceChildren(); job(data); el.setAttribute('aria-busy', 'false'); }
+                } catch (_) {
+                    failures += 1;
+                    // A partially initialized instance must not survive a failed setOption.
+                    var instance = el && window.echarts.getInstanceByDom && window.echarts.getInstanceByDom(el);
+                    if (instance) instance.dispose();
+                    chartPlaceholder(chartIds[index], '此图表加载失败，可点击重试', false);
+                }
+                pending -= 1;
+                if (!pending) {
+                    _chartLoading = false;
+                    notify(failures ? '统计数据已显示，部分图表加载失败，请重试。' : '统计数据与图表已更新', !!failures);
+                }
+            }, 200 + index * 100);
+        });
+    }
+
+    async function init() {
+        var token = ++_loadToken;
+        if (_request) _request.abort();
+        _analytics = null;
+        _chartLoading = false;
+        disposeCharts();
+        resetMetrics();
+        document.getElementById('sales-basis').textContent = '正在加载所选周期的统计数据…';
+        metricsBusy(true);
+        document.getElementById('refresh-data').disabled = true;
+        chartIds.forEach(function(id) { chartPlaceholder(id, '图表加载中…', true); });
+        notify('正在加载统计数据，图表将陆续显示…', false);
+        // Consume failures immediately, even when the statistics request is slower than both CDNs.
+        var libraryReady = loadEcharts().then(function() { return true; }, function() { return false; });
+        try {
+            var data = await fetchAnalytics(_currentPeriod);
+            if (token !== _loadToken || _destroyed) return;
+            _analytics = data;
+            applySummary(data);
+            metricsBusy(false);
+            renderCharts(data, token, libraryReady);
+        } catch (error) {
+            if (token !== _loadToken || _destroyed) return;
+            metricsBusy(false);
+            chartIds.forEach(function(id) { chartPlaceholder(id, '统计数据暂不可用', false); });
+            notify(error.message || '统计数据加载失败，请重试', true);
+        } finally {
+            if (token === _loadToken && !_destroyed) document.getElementById('refresh-data').disabled = false;
+        }
+    }
+
+    document.getElementById('refresh-data').addEventListener('click', function() { init(); });
+    document.getElementById('retry-dashboard').addEventListener('click', function() {
+        if (!_analytics) { init(); return; }
+        if (_chartLoading) return;
+        disposeCharts();
+        chartIds.forEach(function(id) { chartPlaceholder(id, '图表重新加载中…', true); });
+        renderCharts(_analytics, _loadToken, loadEcharts().then(function() { return true; }, function() { return false; }));
+    });
+    window.addEventListener('pagehide', function() {
+        _destroyed = true;
+        _loadToken += 1;
+        if (_request) _request.abort();
+        if (_libraryCancel) _libraryCancel();
+        if (_resizeTimer) window.clearTimeout(_resizeTimer);
+        disposeCharts();
+    });
+    window.addEventListener('pageshow', function(event) {
+        if (event.persisted) { _destroyed = false; init(); }
+    });
 
     document.getElementById('btn-logout') && document.getElementById('btn-logout').addEventListener('click', function() {
         try {

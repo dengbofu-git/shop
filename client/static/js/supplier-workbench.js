@@ -186,10 +186,6 @@
             $dropdown.hide();
             if (typeof showPanel === 'function') showPanel('supplier_password.html');
         });
-        $('#btn-settings').on('click', function (e) {
-            e.preventDefault();
-            if (typeof showPanel === 'function') showPanel('supplier_password.html');
-        });
 
         // 侧边栏折叠
         $('#btn-sidebar-toggle').on('click', function() {
