@@ -1,4 +1,10 @@
-# 跨境茶叶saas平台
+# tea_saas
+
+2026-10-19运行日志更新：支持 JSON／文本输出、请求编号、业务错误码与 Agent Trace 关联。配置、轮转与隐私边界见[运行日志指南](docs/运行日志.md)。
+
+工程包、页面品牌和变量已统一为 `tea_saas`。现有安装升级前请阅读[命名变更与资源兼容](docs/sdd/modules/platform/project-identity.md)；本机目录、数据库、账号和已有数据卷不自动改名。
+
+开发协作入口：[本地任务与分诊](docs/agents/issue-tracker.md)、[领域术语](CONTEXT.md)、[ADR 约定](docs/adr/README.md)、[SDD 引用检索](docs/agents/sdd-refs.md)。
 
 **个人项目 · 源码开放获取 · 禁止商用**
 
@@ -70,7 +76,7 @@ flowchart TB
 | --- | --- | --- |
 | MySQL，`default` | 用户、RBAC、商品、订单、库存、收藏足迹；客服会话、短期上下文、Agent 配置和监控投影 | 连接来自 `.env` 的 `DB_*` |
 | PostgreSQL，`ai_storage` | 长期偏好、知识文档、知识片段及向量空间 | 由 `AiStorageRouter` 限定 App 读写与迁移 |
-| Redis | 默认缓存、采购车 Hash | 当前地址写在 `settings.CACHES`，不是独立环境变量 |
+| Redis | 默认缓存、采购车 Hash | `REDIS_CACHE_URL`／`REDIS_CARTS_URL` 配置地址，`REDIS_PASSWORD` 配置认证 |
 | `media/` | 上传图片和已生成的茶类默认图 | 数据库保存文件路径；备份数据库不能代替备份媒体文件 |
 | Ollama / BGE-M3 | 本地知识入库与查询向量化 | 与知识向量空间的模型、版本、维度保持匹配 |
 | 本地重排序服务 | 对召回候选重新评分和选证据 | 可启停；超时和异常按运营配置降级 |
@@ -82,9 +88,9 @@ flowchart TB
 ## 工程组成
 
 ```text
-dadashop/
+tea_saas/
 ├── manage.py                    Django 命令入口
-├── dadashop/                    settings、根路由、认证共享工具
+├── tea_saas/                    settings、根路由、认证共享工具
 ├── client/
 │   ├── templates/               买家、商家、运营和演示页面
 │   └── static/                  CSS、JavaScript 和静态素材
@@ -119,21 +125,21 @@ dadashop/
 
 | 模块 | 版本 | 主要职责 |
 | --- | --- | --- |
-| `core` | 0.2.1 | 项目配置、路由、共享工具与交付支撑 |
-| `users` | 0.2.3 | 业务身份、RBAC、资料与地址 |
-| `goods` | 0.4.1 | 商品、媒体、收藏足迹、茶类默认图 |
-| `carts` | 0.1.1 | 采购车与统一图片回退 |
-| `orders` | 0.1.4 | 订单、预结算与统一图片选择 |
+| `core` | 0.4.0 | 项目配置、路由、共享工具与交付支撑 |
+| `users` | 0.2.5 | 业务身份、RBAC、资料与地址 |
+| `goods` | 0.4.2 | 商品、媒体、收藏足迹、茶类默认图 |
+| `carts` | 0.1.2 | 采购车与统一图片回退 |
+| `orders` | 0.1.6 | 订单、预结算与统一图片选择 |
 | `pays` | 0.1.0 | 支付接口 |
-| `news` | 0.1.0 | 资讯 |
+| `news` | 0.1.1 | 资讯 |
 | `inventory` | 0.1.0 | 仓库、库存和流水 |
 | `logistics` | 0.1.0 | 物流和轨迹 |
-| `supplier` | 0.2.0 | 商家经营与结算展示 |
-| `admin_panel` | 0.4.1 | 运营管理、模型设置与监控 |
-| `support_ai` | 0.11.2 | 买家客服与推荐追问 |
+| `supplier` | 0.2.1 | 商家经营与结算展示 |
+| `admin_panel` | 0.4.2 | 运营管理、模型设置与监控 |
+| `support_ai` | 0.12.2 | 买家客服与推荐追问 |
 | `merchant_ai` | 0.1.0 | 商家助手入口和状态 |
-| `ai_storage` | 0.3.2 | 长期偏好、知识和向量检索 |
-| `web` | 0.15.1 | 多角色页面、主题、语言和卡片收藏 |
+| `ai_storage` | 0.3.3 | 长期偏好、知识和向量检索 |
+| `web` | 0.16.1 | 多角色页面、主题、语言、卡片收藏及茶文化登录入口 |
 
 模块版本、Git 标签、数据库 Migration、Agent 配置 `revision` 和 SDD `specVersion` 表达不同含义；清单中的版本不自动代表已创建标签、已部署或已通过生产验收。
 
@@ -160,10 +166,10 @@ dadashop/
 ### 1. 获取代码与安装依赖
 
 ```powershell
-git clone https://github.com/dengbofu-git/shop.git dadashop
-cd dadashop
-conda create -n dadashop python=3.9 -y
-conda activate dadashop
+git clone https://github.com/dengbofu-git/shop.git tea_saas
+cd tea_saas
+conda create -n tea_saas python=3.9 -y
+conda activate tea_saas
 python -m pip install -r requirements.txt
 ```
 
@@ -179,7 +185,7 @@ if (-not (Test-Path -LiteralPath .env.postgres)) { Copy-Item -LiteralPath .env.p
 创建 MySQL 业务数据库，启动 Redis，并填写配置：
 
 - `DJANGO_SECRET_KEY`、`JWT_SECRET_KEY`、`DB_*`、允许访问的主机和管理账号初始密码。
-- 本地可启用 `SMS_MOCK_MODE=true`，从后端控制台查看验证码；它不模拟邮件、支付或 AI。
+- 注册与登录使用账号密码；旧短信验证码、邮箱激活／找回密码、微博认证接口已移除，无需配置对应服务。邮箱和手机号仍作为账号资料保留。
 - AI 使用 `SUPPORT_API_KEY`、`SUPPORT_BASE_URL`、`SUPPORT_MODEL`；仅浏览商城时可以暂不联调模型，但配置文件仍需保留导入时要求的变量键。
 - 使用长期偏好和知识问答时，填写 `.env.postgres` 的 PostgreSQL、Ollama 和向量空间参数。
 
@@ -208,7 +214,7 @@ python manage.py runserver 127.0.0.1:8000
 
 通过 [登录页](http://127.0.0.1:8000/login.html) 访问应用，不直接从磁盘打开模板。`runserver` 用于本地开发；本仓库的 Compose 不是完整生产部署方案。
 
-当前前端 `init.js` 的 API / 媒体地址和后端 `DADASHOP_MEDIA` 使用 `127.0.0.1:8000`。换域名或端口时，还需一起检查这些地址、CORS、`ALLOWED_HOSTS` 及支付 / OAuth 回调，不能只修改 runserver 参数。
+当前前端 `init.js` 的 API / 媒体地址和后端 `TEA_SAAS_MEDIA` 使用 `127.0.0.1:8000`。换域名或端口时，还需一起检查这些地址、CORS、`ALLOWED_HOSTS` 及支付 / OAuth 回调，不能只修改 runserver 参数。
 
 ### 4. 按需启用 AI 知识服务
 
@@ -277,7 +283,7 @@ docker compose -f compose.agent-observability.yml up -d
 <a id="entrypoints"></a>
 ## 页面与 API 导航
 
-下列为主要入口，完整定义以 [`dadashop/urls.py`](dadashop/urls.py) 和各 App 的 `urls.py` 为准。业务 API 的末尾斜线约定并不统一，请使用源码中的准确路径。
+下列为主要入口，完整定义以 [`tea_saas/urls.py`](tea_saas/urls.py) 和各 App 的 `urls.py` 为准。业务 API 的末尾斜线约定并不统一，请使用源码中的准确路径。
 
 | 场景 | 页面 | 主要 API 命名空间或路径 |
 | --- | --- | --- |
@@ -346,7 +352,7 @@ python manage.py test support_ai.tests support_ai.test_planning support_ai.test_
 ```powershell
 # 唯一命名的临时 MySQL 测试库，结束后删除；需建 / 删测试库权限
 python manage.py test goods.test_activity goods.test_images --settings=goods.test_mysql_settings --noinput
-# 业务使用 SQLite，AI 存储使用独立 test_dadashop_ai 测试库
+# 业务使用 SQLite，AI 存储使用独立 test_tea_saas_ai 测试库
 python manage.py test ai_storage.tests --settings=support_ai.pg_test_settings --noinput
 ```
 
@@ -386,7 +392,7 @@ python tools/module_versions.py bump goods patch --note "说明本次修复"
 
 标签约定为 `<模块>/v<版本>`，例如 `goods/v0.4.0`；工具不会自动提交或推送。流程见 [模块版本管理](docs/模块版本管理.md)。
 
-跨境茶叶saas平台采用渐进式 SDD，当前仍有候选能力和人工评审阶段，尚未接入自动阶段检查器。日常验证使用本节实际提供的命令；业务能力阶段以本仓库 `docs/sdd/catalog.yaml` 及活动能力 manifest 为准。
+tea_saas采用渐进式 SDD，当前仍有候选能力和人工评审阶段，尚未接入自动阶段检查器。日常验证使用本节实际提供的命令；业务能力阶段以本仓库 `docs/sdd/catalog.yaml` 及活动能力 manifest 为准。
 
 <a id="limitations"></a>
 ## 已知问题与文档

@@ -10,7 +10,7 @@ from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from django.views.decorators.http import require_http_methods
 
-from dadashop.utils import jwt_decode
+from tea_saas.utils import jwt_decode
 from users.models import UserProfile
 from ai_storage.models import BuyerMemory
 
@@ -37,7 +37,7 @@ def _storage_errors(view):
         try:
             return view(request, *args, **kwargs)
         except DatabaseError as exc:
-            logger.error('Customer support storage failed: %s', type(exc).__name__)
+            logger.exception('support.storage.failed')
             return _response({'error': '客服数据库服务暂不可用，请稍后再试。'}, 503)
     return guarded
 
@@ -142,7 +142,7 @@ def chat(request):
         return _response({'error': str(exc)}, 409)
     except Exception as exc:
         trace_id = observation.trace_id if observation else ''
-        logger.error('Customer support workflow failed: %s trace_id=%s', type(exc).__name__, trace_id or 'unavailable')
+        logger.exception('support.workflow.failed')
         error_response = {'error': '智能客服暂时无法响应，请稍后再试或联系人工客服。'}
         if trace_id:
             error_response['trace_id'] = trace_id

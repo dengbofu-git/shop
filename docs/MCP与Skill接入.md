@@ -1,14 +1,14 @@
-# 跨境茶叶saas平台 MCP 与 Skill 接入
+# tea_saas MCP 与 Skill 接入
 
-日期：2026-10-18。实现范围为仓库级 `dadashop-change-delivery` Skill 和本地 stdio MCP 的 `get_product_details`。`search_products` 尚处于[详细设计](sdd/modules/ai-support/search-products-design.md)阶段。本增量没有数据库迁移、HTTP MCP 地址、远端部署或模型调用。
+日期：2026-10-18。实现范围为仓库级 `tea-saas-change-delivery` Skill 和本地 stdio MCP 的 `get_product_details`。`search_products` 尚处于[详细设计](sdd/modules/ai-support/search-products-design.md)阶段。本增量没有数据库迁移、HTTP MCP 地址、远端部署或模型调用。
 
 ## Skill 使用
 
-技能入口为 [SKILL.md](../.agents/skills/dadashop-change-delivery/SKILL.md)，随仓库共享，由 Codex 从 `.agents/skills/` 发现。示例：
+技能入口为 [SKILL.md](../.agents/skills/tea-saas-change-delivery/SKILL.md)，随仓库共享，由 Codex 从 `.agents/skills/` 发现。示例：
 
 ```text
-使用 $dadashop-change-delivery 实现这次商品查询改动，并完成定向验证。
-使用 $dadashop-change-delivery 仅提交我指定的已有改动。
+使用 $tea-saas-change-delivery 实现这次商品查询改动，并完成定向验证。
+使用 $tea-saas-change-delivery 仅提交我指定的已有改动。
 ```
 
 技能读取 `AGENTS.md`、Git 协作规范和模块清单，不复制固定版本；区分 IMPLEMENT 与 DELIVERY_ONLY，并分别判断提交、推送、PR、合入和部署授权。添加技能不会向 LangGraph 自动加载指令，也不会自动提交代码。
@@ -17,10 +17,10 @@
 
 官方 SDK 与 Django 使用两个 Python 环境：
 
-- `tools/dadashop_mcp/.venv`：建议 Python 3.12，安装单独锁定的 MCP SDK 1.29.1（受支持的 v1 维护线）。
+- `tools/tea_saas_mcp/.venv`：建议 Python 3.12，安装单独锁定的 MCP SDK 1.29.1（受支持的 v1 维护线）。
 - 现有 Django Python 3.9：使用仓库业务依赖，通过固定 `manage.py mcp_product_details` 命令读取商品。
 
-本地宿主通过 stdio 调用 MCP，适配器使用宿主配置的绝对 `DADASHOP_PYTHON` 路径启动 Django 子进程。工具参数只能提供 `sku_id`，不能指定解释器、命令、设置模块、SQL、用户或文件路径。每次查询启动一个短生命周期进程，避免跨环境安装依赖；这会增加启动开销，应先测量后再决定是否采用常驻只读服务。
+本地宿主通过 stdio 调用 MCP，适配器使用宿主配置的绝对 `TEA_SAAS_PYTHON` 路径启动 Django 子进程。工具参数只能提供 `sku_id`，不能指定解释器、命令、设置模块、SQL、用户或文件路径。每次查询启动一个短生命周期进程，避免跨环境安装依赖；这会增加启动开销，应先测量后再决定是否采用常驻只读服务。
 
 本工具采用与买家 Agent 相同的可售范围，只提供已上架且正可用库存的公开商品字段。本地进程继承宿主配置，Django 按既有方式读取 `.env`；MCP 不输出凭据。它属于有本地运行权限的开发者接入，未实现互联网访问认证，不能直接暴露到公共网络。以后增加本人订单或商家数据时，必须另行设计身份绑定及对象授权。
 
@@ -30,32 +30,32 @@
 
 ```powershell
 # 使用 Python 3.12 创建 MCP 环境
-python -m venv tools/dadashop_mcp/.venv
-& tools/dadashop_mcp/.venv/Scripts/python.exe -m pip install -r tools/dadashop_mcp/requirements.txt
+python -m venv tools/tea_saas_mcp/.venv
+& tools/tea_saas_mcp/.venv/Scripts/python.exe -m pip install -r tools/tea_saas_mcp/requirements.txt
 ```
 
 若本机 venv 的 ensurepip 不可用，可用已安装的 uv 安装到同一个隔离环境：
 
 ```powershell
-uv venv --python 3.12 tools/dadashop_mcp/.venv
-uv pip install --python tools/dadashop_mcp/.venv/Scripts/python.exe -r tools/dadashop_mcp/requirements.txt
+uv venv --python 3.12 tools/tea_saas_mcp/.venv
+uv pip install --python tools/tea_saas_mcp/.venv/Scripts/python.exe -r tools/tea_saas_mcp/requirements.txt
 ```
 
-将下列配置合并到本地 Codex 配置（路径只是本项目工作区示例，不包含凭据）：
+将下列配置合并到本地 Codex 配置（路径是新克隆的示例，不代表当前物理工作区或 Conda 环境已改名；必须替换为本机实际绝对路径，不包含凭据）：
 
 ```toml
-[mcp_servers.dadashop_catalog]
-command = "E:/django/dadashop/tools/dadashop_mcp/.venv/Scripts/python.exe"
-args = ["E:/django/dadashop/tools/dadashop_mcp/server.py"]
-cwd = "E:/django/dadashop"
+[mcp_servers.tea_saas_catalog]
+command = "E:/django/tea_saas/tools/tea_saas_mcp/.venv/Scripts/python.exe"
+args = ["E:/django/tea_saas/tools/tea_saas_mcp/server.py"]
+cwd = "E:/django/tea_saas"
 enabled_tools = ["get_product_details"]
 tool_timeout_sec = 35
 
-[mcp_servers.dadashop_catalog.env]
-DADASHOP_PYTHON = "E:/miniconda/envs/dadashop/python.exe"
+[mcp_servers.tea_saas_catalog.env]
+TEA_SAAS_PYTHON = "E:/miniconda/envs/tea_saas/python.exe"
 ```
 
-外层工具超时建议大于桥接的 25 秒。加载配置后，通过客户端的 MCP 工具列表确认 `dadashop-catalog` 及 `get_product_details`。本次实现提供配置示例，不改用户级配置。
+外层工具超时建议大于桥接的 25 秒。加载配置后，通过客户端的 MCP 工具列表确认 `tea_saas-catalog` 及 `get_product_details`。本次实现提供配置示例，不改用户级配置。
 
 ## 商品详情契约
 
@@ -98,16 +98,16 @@ DADASHOP_PYTHON = "E:/miniconda/envs/dadashop/python.exe"
 ## 验证入口
 
 ```powershell
-python -X utf8 C:/Users/dbf/.codex/skills/.system/skill-creator/scripts/quick_validate.py .agents/skills/dadashop-change-delivery
-& E:/miniconda/envs/dadashop/python.exe manage.py test support_ai.test_product_details support_ai.test_planning --settings=support_ai.test_settings --noinput
-& tools/dadashop_mcp/.venv/Scripts/python.exe -m unittest tools.dadashop_mcp.test_server -v
+python -X utf8 C:/Users/dbf/.codex/skills/.system/skill-creator/scripts/quick_validate.py .agents/skills/tea-saas-change-delivery
+& E:/miniconda/envs/tea_saas/python.exe manage.py test support_ai.test_product_details support_ai.test_planning --settings=support_ai.test_settings --noinput
+& tools/tea_saas_mcp/.venv/Scripts/python.exe -m unittest tools.tea_saas_mcp.test_server -v
 python tools/module_versions.py check
 git diff --check
 ```
 
 Django 定向测试使用隔离 SQLite，不验证真实 MySQL 聚合语义。MCP 测试覆盖 SDK 协议、固定命令派发、错误及超时回收；合成协议测试不代表已接入用户当前客户端或真实商品库。[本次验证记录](sdd/evidence/2026-10-18-mcp-skill/verification.md)分别列出通过项与已有失败。
 
-需要验证 SDK → 子进程 → Django → 合成数据库完整链路时，在 MCP 测试前设置 `DADASHOP_TEST_PYTHON` 为现有业务解释器的绝对路径；测试自行创建临时 SQLite 并在结束时清理，不使用业务库。
+需要验证 SDK → 子进程 → Django → 合成数据库完整链路时，在 MCP 测试前设置 `TEA_SAAS_TEST_PYTHON` 为现有业务解释器的绝对路径；测试自行创建临时 SQLite 并在结束时清理，不使用业务库。
 
 ## 参考
 

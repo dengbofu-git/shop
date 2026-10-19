@@ -1,0 +1,27 @@
+{
+  "date": "2026-10-19",
+  "generator": "Built-in image_gen",
+  "assets": [
+    {
+      "path": "client/static/images/tea_saas/login-tea-hero.png",
+      "prompt": "Use case: photorealistic-natural. Asset type: original tea culture hero photograph for tea_saas login page, a refined tea green and warm ivory SaaS website. Create a beautiful editorial photograph, landscape 3:2 composition: mist rolling over layered Chinese tea terraces at dawn, soft distant mountain silhouettes, in the lower right foreground a small warm stone tea table with one pale celadon gaiwan and a shallow cup of amber tea, a delicate fresh tea sprig; authentic understated Chinese tea culture. Natural soft side light, atmospheric sage green, deep forest green #185c3b, muted warm cream #f4f6f1, restrained amber. Real ceramic glaze and leaf texture, quiet thoughtful premium feeling, balanced visual depth, ample misty negative space in upper half for separate HTML text, focal objects safely within central 75 percent for responsive cropping. No people, no buildings, no ships, no ports, no maps, no graphics, no lettering, no calligraphy, no text, no logo, no watermark. This is a finished original website image, not a UI screenshot.",
+      "sha256": "bdeff4c78bd1108cd033c2a384392d34d641b2dd85aa29b46bca73fc7c4862b1",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "mode": "RGB"
+    },
+    {
+      "path": "client/static/images/tea_saas/tea_saas-logo.png",
+      "prompt": "Use case: logo-brand. Generate an original minimalist single-color brand icon for tea_saas on a genuinely transparent background. A simple tea bowl in profile with a single curved rising stem ending in two small tea leaves. One cohesive well-balanced geometric silhouette, large clear shapes, flat solid dark forest green #185c3b everywhere, with negative space to define the bowl rim. Center the symbol in a square with 12 percent transparent padding. It must look refined and calm beside modern SaaS typography, readable at favicon size. Absolutely no gold, red, yellow or other colors, no artifacts, no speckles, no grain, no textures, no shading, no gradients, no shadows, no background, no border, no letters, no words, no mockup. Crisp clean edges and true transparent alpha.",
+      "sha256": "ff89c8fcdf41d17e64c2aa05c946cf46972d76dde21a695e45a97ac186a501a6",
+      "dimensions": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA"
+    }
+  ],
+  "notes": "New generation, no reference image or old logo used. Discarded logo variant is not a project asset."
+}

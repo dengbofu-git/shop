@@ -1,6 +1,6 @@
-# 跨境茶叶saas平台 项目聊天更新与 SDD 对账
+# tea_saas 项目聊天更新与 SDD 对账
 
-对账日期：2026-10-18（Asia/Shanghai）。范围为当前 跨境茶叶saas平台 项目已识别聊天中的功能增量、当前工作区源码和已有证据，包括买家 Agent、商家助手、管理端、前端、身份权限与 MCP／Skill。本文接续 [2026-10-16 基线](reconciliation.md)，旧测试和批准记录保留原时间与版本，不作为本次重新通过的结论。
+对账日期：2026-10-18（Asia/Shanghai）。范围为当前 tea_saas 项目已识别聊天中的功能增量、当前工作区源码和已有证据，包括买家 Agent、商家助手、管理端、前端、身份权限与 MCP／Skill。本文接续 [2026-10-16 基线](reconciliation.md)，旧测试和批准记录保留原时间与版本，不作为本次重新通过的结论。
 
 当前登记为 8 个业务域、25 个能力、34 项功能和 15 个实现版本模块。新增商家助手能力 CAP-MER-004，映射 merchant_ai 实现模块；新增历史咨询、推荐理由、商家助手入口、MCP 详情、开发交付 Skill 和平台交易总览六项功能。业务域仍是规则归属，实现版本仍以 `versions/modules.json` 为准。
 
@@ -17,11 +17,11 @@
 | agent设计 | 长期偏好、受控工具、会话和推荐设计 | CAP-AI-001、CAP-KNOW-001；关联当前能力与源码 | 偏好由本人显式维护；收藏／足迹和助手文字不自动保存为偏好 |
 | agent设计说明 | 商家入口 v0.1；TXT／PDF／Excel 导入、文案／图片／视频等后续方案 | 新增 CAP-MER-004；区分已实现入口与未实现经营能力 | 无聊天、上传、生成、入库接口；不将讨论中的方案变成已授权业务规则 |
 | agent-商家 | 点击助手404，本地服务重载后恢复 | CAP-MER-004；记录路由和运行重载边界 | 这是历史本地预览排障，不代表当前端口或服务仍在运行 |
-| 针对当前的dadashop项目，分析是否可以在MCP和Skill方面进行深化设计？ | dadashop-change-delivery、get_product_details 实现及 search_products 设计 | CAP-PLAT-003、CAP-AI-001；登记 Skill／MCP 当前事实，保留搜索草案 | 本地 stdio、独立 Python 环境；未改用户级配置，无远程认证；搜索未实现 |
+| 针对当前的tea_saas项目，分析是否可以在MCP和Skill方面进行深化设计？ | tea-saas-change-delivery、get_product_details 实现及 search_products 设计 | CAP-PLAT-003、CAP-AI-001；登记 Skill／MCP 当前事实，保留搜索草案 | 本地 stdio、独立 Python 环境；未改用户级配置，无远程认证；搜索未实现 |
 | git | Git 规范、hook、版本、提交／PR 历史 | CAP-PLAT-003；引用现有事实源，不把历史交付授权转移到本次 | 不联网刷新 PR 状态，不声称远端保护已启用；本次不提交／推送 |
-| 参考E:\实习\store-ai-tp，对dadashop项目进行sdd规划 | 初始业务域、目标接口、脱敏和页面状态、旧对账 | 保留历史基线，当前入口转到本次增量 | CAP-AI-003 仍 SPEC_REVIEW；未补写技术评审人或批准 |
+| 参考E:\实习\store-ai-tp，对tea_saas项目进行sdd规划 | 初始业务域、目标接口、脱敏和页面状态、旧对账 | 保留历史基线，当前入口转到本次增量 | CAP-AI-003 仍 SPEC_REVIEW；未补写技术评审人或批准 |
 
-“并发说明”“概念说明”等聊天主要解释其他项目或通用概念，没有据此将 Store 的 GENERAL／ABSTAIN、Java 接口、组织或治理规则导入 跨境茶叶saas平台。“为什么codex总是闪退”属于工具排障，不产生站内业务能力。
+“并发说明”“概念说明”等聊天主要解释其他项目或通用概念，没有据此将 Store 的 GENERAL／ABSTAIN、Java 接口、组织或治理规则导入 tea_saas。“为什么codex总是闪退”属于工具排障，不产生站内业务能力。
 
 ## 当前 Agent 能力
 

@@ -1,0 +1,25 @@
+{
+  "date": "2026-10-19",
+  "type": "verification",
+  "head": "566e4709dfd55ddba138eb4a2c41523838352bc7",
+  "working_tree": "dirty",
+  "module": "core",
+  "version": "0.3.1",
+  "files": {
+    "CONTEXT.md": "94bd7971ddc9158580d9978899e6e3b2ae71c8decf0fb393067a5265464b5424",
+    "docs/agents/issue-tracker.md": "2d732d95ad89e27c459b296c6a1a1146f3f9899a42ab17cf0a37d04525f99dd1",
+    "docs/agents/triage-labels.md": "07ceacf716b569f739ffa5de290e68117497ab6e90772b2229fdeffbb3130167",
+    "docs/agents/domain.md": "8d7bf286717b8eaf777fe2257ea2c3f3eb7004669b3059e33f639d6fdaeefc1e",
+    "docs/agents/sdd-refs.md": "e56ff81a7a636cc073107eab8335175a21ae3866bb850fea845fec4d981041d2",
+    "docs/adr/README.md": "3070e572b526d5551a494fdae6c7aae4cc1fc6c1e3ba3b053a0aa2d2e95a1bdc",
+    "tools/sdd_refs.py": "7e5687de8ac26d0488c40d82a9028ff8f82c8ba56b772abfe2a859e1cc6a3db1",
+    "tools/tests/test_sdd_refs.py": "230c53f19c63554787ec01772ed8071c564f66d33d25e8a6e09dc693263ae4e3",
+    "AGENTS.md": "e121bbf4c6d38e253f17dbd54b31715b8ddce81b9a67a441669fce0287522d3b",
+    ".gitignore": "ce52d7f66abd41d97b045f4e48983a4a782aabdca002214d76aec58a3e17c9dd",
+    "README.md": "b084c620513b5284c2e42991d1b7edfa9d97da070f3d460914421e005ad7db7f",
+    "docs/sdd/README.md": "32b874e00bd02b05d9a50a1ad9308d5df1e09740d8377280e052bea893e08b62",
+    "versions/modules.json": "da244b94a19e170b04416bd04e45b1f394455fb114d3ce7d97b59bd720e98434",
+    "versions/changelogs/core.md": "f05a48766d0a3685d11e08cc9d37b5ef8ef3beabf2833e2872bbc8c020b8b9d1",
+    "versions/README.md": "81fac9830018862324893b8e70cc7319984554904080dd3421de8a402812e2fb"
+  }
+}

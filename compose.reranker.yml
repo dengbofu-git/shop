@@ -1,4 +1,4 @@
-name: dadashop-reranker
+name: tea_saas-reranker
 services:
   reranker:
     build:
@@ -26,3 +26,4 @@ services:
       start_period: 15m
 volumes:
   reranker_models:
+    name: ${AI_RERANK_VOLUME_NAME:-tea_saas-reranker_reranker_models}

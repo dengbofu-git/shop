@@ -1,4 +1,4 @@
-# 跨境茶叶saas平台当前模块版本
+# tea_saas当前模块版本
 
 2026-10-18交付更新：当前清单已同步15个实现模块，关联[SDD增量对账](../docs/sdd/reconciliation-2026-10-18.md)及[本轮交付记录](../docs/sdd/evidence/2026-10-18-delivery/verification.md)。下列2026-10-16叙述和历史测试保留当日语境，不是本次新验证。
 
@@ -21,7 +21,7 @@
 
 | 模块 | 当前版本 | 当前核对状态 | 完整变更记录 |
 | --- | --- | --- | --- |
-| core · 项目核心 | 0.2.1 | 跨境茶叶SaaS定位、路由与管理外壳、MCP／Skill、SDD及交付支撑 | [core](changelogs/core.md) |
+| core · 项目核心 | 0.3.1 | 工程命名、MCP／Skill、任务与领域约定、SDD引用检索及交付支撑 | [core](changelogs/core.md) |
 | users · 用户与权限 | 0.2.3 | 统一登录与权限分流、平台联合鉴权、会话权限、品牌与旧入口清理 | [users](changelogs/users.md) |
 | goods · 商品管理 | 0.4.1 | 可选分类页长与商品分页验证；保留商品库存及图片既有口径 | [goods](changelogs/goods.md) |
 | carts · 购物车 | 0.1.1 | 保持采购车及商品图片基线；本轮仅web调整币种展示 | [carts](changelogs/carts.md) |

@@ -1,0 +1,25 @@
+[
+  {
+    "method": "GET",
+    "path": "/login.html",
+    "http_status": 200,
+    "http_request_id": "c8eaaaaeeb8b435e9068f0a5c3dc92de",
+    "logged_outcome": "success"
+  },
+  {
+    "method": "GET",
+    "path": "/v1/users/session",
+    "http_status": 401,
+    "http_request_id": "3347ce452a5a49c0945489939706642e",
+    "business_code": 401,
+    "logged_outcome": "client_error"
+  },
+  {
+    "method": "POST",
+    "path": "/v1/users/login",
+    "http_status": 200,
+    "http_request_id": "ad26ed32ab344ca99f2c0e828670ef0c",
+    "business_code": 10001,
+    "logged_outcome": "business_error"
+  }
+]

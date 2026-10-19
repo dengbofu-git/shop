@@ -9,7 +9,7 @@ FOLLOWUP = '我希望你能根据不同的茶叶种类给我进行一些商品�
 
 
 def main():
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'dadashop.settings')
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'tea_saas.settings')
     import django
     django.setup()
     from support_ai.preview import PreviewSession

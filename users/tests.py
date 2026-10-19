@@ -4,7 +4,7 @@ from unittest.mock import patch
 from django.core.management import call_command
 from django.test import TestCase
 
-from dadashop.utils import jwt_encode, md5
+from tea_saas.utils import jwt_encode, md5
 from users.models import Permission, Role, RolePermission, UserProfile, UserRole
 
 

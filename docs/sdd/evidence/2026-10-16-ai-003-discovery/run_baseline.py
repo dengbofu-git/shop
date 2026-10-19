@@ -39,7 +39,7 @@ def now():
 
 def snapshot():
     folders = [
-        'dadashop', 'users', 'goods', 'carts', 'orders', 'pays', 'news',
+        'tea_saas', 'users', 'goods', 'carts', 'orders', 'pays', 'news',
         'inventory', 'logistics', 'supplier', 'admin_panel', 'support_ai',
         'ai_storage', 'client', 'templates',
     ]
@@ -128,7 +128,7 @@ manifest = {
     'capabilityId': 'CAP-AI-003', 'specVersion': '0.1.0',
     'stagePromotion': False, 'startedAt': started, 'finishedAt': now(),
     'head': head, 'branch': branch, 'workingTree': 'dirty',
-    'command': 'E:/miniconda/envs/dadashop/python.exe docs/sdd/evidence/2026-10-16-ai-003-discovery/run_baseline.py' + (' ' + PREFIX if PREFIX != 'baseline' else ''),
+    'command': 'E:/miniconda/envs/tea_saas/python.exe docs/sdd/evidence/2026-10-16-ai-003-discovery/run_baseline.py' + (' ' + PREFIX if PREFIX != 'baseline' else ''),
     'python': platform.python_version(), 'django': django.get_version(),
     'environment': {
         'settings': 'support_ai.test_settings',

@@ -1,4 +1,4 @@
-name: dadashop-agent-observability
+name: tea_saas-agent-observability
 
 services:
   collector:
@@ -33,3 +33,4 @@ services:
 
 volumes:
   prometheus_data:
+    name: ${AGENT_PROMETHEUS_VOLUME_NAME:-tea_saas-agent-observability_prometheus_data}

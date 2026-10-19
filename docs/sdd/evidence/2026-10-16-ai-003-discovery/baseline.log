@@ -1,4 +1,4 @@
-E:\miniconda\envs\dadashop\lib\site-packages\langgraph\checkpoint\base\__init__.py:18: LangChainPendingDeprecationWarning: The default value of `allowed_objects` will change in a future version. Pass an explicit value (e.g., allowed_objects='messages' or allowed_objects='core') to suppress this warning.
+E:\miniconda\envs\tea_saas\lib\site-packages\langgraph\checkpoint\base\__init__.py:18: LangChainPendingDeprecationWarning: The default value of `allowed_objects` will change in a future version. Pass an explicit value (e.g., allowed_objects='messages' or allowed_objects='core') to suppress this warning.
   from langgraph.checkpoint.serde.jsonplus import JsonPlusSerializer
 Creating test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
 Operations to perform:
@@ -179,7 +179,7 @@ test_quoted_recommendation_is_not_a_new_request (support_ai.test_planning.Planni
 FAIL: test_invalid_model_output_and_model_failure_do_not_commit_a_turn (support_ai.tests.RecommendationIntegrationTests)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "E:\django\dadashop\support_ai\tests.py", line 304, in test_invalid_model_output_and_model_failure_do_not_commit_a_turn
+  File "E:\django\tea_saas\support_ai\tests.py", line 304, in test_invalid_model_output_and_model_failure_do_not_commit_a_turn
     self.assertEqual(self.post_chat(bad, message='推荐测试品牌绿茶').status_code, 503)
 AssertionError: 200 != 503
 
@@ -187,7 +187,7 @@ AssertionError: 200 != 503
 FAIL: test_invalid_hard_conditions_do_not_commit_failed_turn (support_ai.test_task_tools.TaskToolIntegrationTests)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "E:\django\dadashop\support_ai\test_task_tools.py", line 83, in test_invalid_hard_conditions_do_not_commit_failed_turn
+  File "E:\django\tea_saas\support_ai\test_task_tools.py", line 83, in test_invalid_hard_conditions_do_not_commit_failed_turn
     self.assertEqual(response.status_code, 503)
 AssertionError: 200 != 503
 
@@ -195,7 +195,7 @@ AssertionError: 200 != 503
 FAIL: test_saved_preference_quote_is_canonicalized_only_after_owner_verification (support_ai.test_task_tools.TaskToolIntegrationTests)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "E:\django\dadashop\support_ai\test_task_tools.py", line 97, in test_saved_preference_quote_is_canonicalized_only_after_owner_verification
+  File "E:\django\tea_saas\support_ai\test_task_tools.py", line 97, in test_saved_preference_quote_is_canonicalized_only_after_owner_verification
     self.assertEqual(self.chat('推荐我偏好的商品', payload).status_code, 503)
 AssertionError: 200 != 503
 

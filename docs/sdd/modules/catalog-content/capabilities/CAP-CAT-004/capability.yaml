@@ -10,7 +10,7 @@ technicalReviewer: null
 sourceFeatureIds: [FEAT-029]
 implementationAuthorization:
   source: 当前用户请求
-  scope: 跨境茶叶saas平台 收藏和足迹补全并更新 SDD
+  scope: tea_saas 收藏和足迹补全并更新 SDD
   date: "2026-10-16"
 files:
   requirements: requirements.md

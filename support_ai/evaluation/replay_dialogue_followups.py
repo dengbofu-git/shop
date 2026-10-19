@@ -120,7 +120,7 @@ def main():
     root.mkdir(parents=True, exist_ok=True)
     if any((root/name).exists() for name in ('manifest.json','results.jsonl','summary.json')):
         raise RuntimeError('Choose a fresh directory; existing results are preserved')
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE','dadashop.settings')
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE','tea_saas.settings')
     import django
     django.setup()
     from django.db import connections

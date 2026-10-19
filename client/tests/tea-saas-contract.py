@@ -24,7 +24,7 @@ def main():
              'payment', 'pay_success', 'merchant_dashboard', 'merchant_products',
              'merchant_orders', 'merchant_inventory', 'merchant_settlement',
              'merchant_assistant', 'operations_dashboard', 'logistics_track',
-             'admin_panel', 'admin_users', 'admin_agents', 'register_sms', 'findPass']
+             'admin_panel', 'admin_users', 'admin_agents', 'register_sms']
     forbidden = ['9710', '报关', '清关', 'customs', 'الجمارك', 'الجمرك', 'جمركية']
     client = Client()
     for page in pages:
@@ -55,7 +55,7 @@ def main():
     for filename in ['docs/sdd/catalog.yaml', 'docs/sdd/product/feature-inventory.yaml',
                      'docs/sdd/product/open-questions.yaml', 'docs/sdd/product/source-manifest.yaml']:
         yaml.safe_load((ROOT / filename).read_text(encoding='utf-8'))
-    print('PASS: 25 page shells, retired routes/assets/command, optional legacy config and SDD maps')
+    print('PASS: 24 page shells, retired routes/assets/command, optional legacy config and SDD maps')
 
 
 if __name__ == '__main__':

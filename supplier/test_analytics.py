@@ -7,7 +7,7 @@ from django.test import TestCase
 from django.utils import timezone
 
 from admin_panel.analytics import build_platform_overview
-from dadashop.utils import jwt_encode
+from tea_saas.utils import jwt_encode
 from goods.models import Catalog, SKU, SPU
 from orders.models import OrderGoods, OrderInfo, PreSaleOrder, TrialOrder
 from users.models import UserProfile

@@ -1,4 +1,4 @@
-E:\miniconda\envs\dadashop\lib\site-packages\langgraph\checkpoint\base\__init__.py:18: LangChainPendingDeprecationWarning: The default value of `allowed_objects` will change in a future version. Pass an explicit value (e.g., allowed_objects='messages' or allowed_objects='core') to suppress this warning.
+E:\miniconda\envs\tea_saas\lib\site-packages\langgraph\checkpoint\base\__init__.py:18: LangChainPendingDeprecationWarning: The default value of `allowed_objects` will change in a future version. Pass an explicit value (e.g., allowed_objects='messages' or allowed_objects='core') to suppress this warning.
   from langgraph.checkpoint.serde.jsonplus import JsonPlusSerializer
 Creating test database for alias 'default'...
 
@@ -14,7 +14,7 @@ System check identified no issues (0 silenced).
 FAIL: test_budget_still_applies_to_knowledge_bound_groups (support_ai.test_mixed_tea.MixedTeaIntegrationTests)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "E:\django\dadashop\support_ai\test_mixed_tea.py", line 183, in test_budget_still_applies_to_knowledge_bound_groups
+  File "E:\django\tea_saas\support_ai\test_mixed_tea.py", line 183, in test_budget_still_applies_to_knowledge_bound_groups
     self.assertEqual([p['category'] for p in data['recommendations']], ['绿茶'])
 AssertionError: Lists differ: [] != ['绿茶']
 

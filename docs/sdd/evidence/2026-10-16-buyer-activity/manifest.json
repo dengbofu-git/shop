@@ -14,7 +14,7 @@
     "goods/test_activity.py": "75a5ac1b33547a30aa316f174ea6995bdf476cac1bcffb178c61c99dadc0e36f",
     "goods/test_mysql_settings.py": "00ddab0b21a69d5e294f3d166f2912be83fb90bb74cac7191a2a019378d737f0",
     "support_ai/test_settings.py": "03772e0225d0ec46f6c89fb656a363e4ef18b62ddf8e3f07171488d6a7868ae5",
-    "dadashop/urls.py": "d1926f388ea29ab28d0263c8f21df13f686d6869a3487d71b3c19351b1a76e76",
+    "tea_saas/urls.py": "d1926f388ea29ab28d0263c8f21df13f686d6869a3487d71b3c19351b1a76e76",
     "client/templates/buyer_header.html": "e2bd60d5dc4c344c62c19f1a82064bc4a8bf86851e38199a109c7e75ee8796bf",
     "client/templates/buyer_activity.html": "e4d58c966b66b033353ed130b2286f8b6a3e9d65b4bbc2c4fe1aebafbc91b739",
     "client/templates/product_details.html": "bcbeaaea537470a5ed7c62fe28a0950effed198803cb79ceb49390399132dd9d",
@@ -45,7 +45,7 @@
   "commands": [
     {
       "command": [
-        "E:\\miniconda\\envs\\dadashop\\python.exe",
+        "E:\\miniconda\\envs\\tea_saas\\python.exe",
         "manage.py",
         "test",
         "goods.test_activity",
@@ -59,7 +59,7 @@
     },
     {
       "command": [
-        "E:\\miniconda\\envs\\dadashop\\python.exe",
+        "E:\\miniconda\\envs\\tea_saas\\python.exe",
         "manage.py",
         "test",
         "goods.test_activity",
@@ -73,7 +73,7 @@
     },
     {
       "command": [
-        "E:\\miniconda\\envs\\dadashop\\python.exe",
+        "E:\\miniconda\\envs\\tea_saas\\python.exe",
         "manage.py",
         "makemigrations",
         "goods",
@@ -95,7 +95,7 @@
     },
     {
       "command": [
-        "E:\\miniconda\\envs\\dadashop\\python.exe",
+        "E:\\miniconda\\envs\\tea_saas\\python.exe",
         "tools/module_versions.py",
         "check"
       ],
@@ -104,8 +104,8 @@
     },
     {
       "command": [
-        "E:\\miniconda\\envs\\dadashop\\python.exe",
-        "E:\\django\\dadashop\\docs\\sdd\\evidence\\2026-10-16-buyer-activity\\check_spec.py"
+        "E:\\miniconda\\envs\\tea_saas\\python.exe",
+        "E:\\django\\tea_saas\\docs\\sdd\\evidence\\2026-10-16-buyer-activity\\check_spec.py"
       ],
       "exitCode": 0,
       "log": "sdd-consistency.log"

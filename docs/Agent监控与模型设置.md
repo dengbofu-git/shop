@@ -1,5 +1,7 @@
 # Agent 监控与模型设置
 
+2026-10-19补充：普通运行日志已统一格式与隐私边界，HTTP 编号与当前 Agent Trace 可关联，见[运行日志指南](运行日志.md)。HTTP 编号不复用聊天幂等 request_id；本次没有启用 Collector 的普通日志采集管道。
+
 平台运营入口：`/admin_panel.html` → **Agent 运行与设置**（`/admin_agents.html`）。所有设置、模型目录和监控数据接口要求登录且拥有 `system_config` 权限；停用账号、普通买家和普通商家无权访问。现有超级管理员角色已包含该权限。
 
 ## 安装与启动
@@ -26,7 +28,7 @@ python manage.py runserver 127.0.0.1:8000
 | Jaeger | http://127.0.0.1:16686 | 本地开发使用内存存储，重启会清空 Jaeger 自身的历史链路 |
 | Prometheus | http://127.0.0.1:9091 | 独立 Docker 数据卷，指标保留 30 天 |
 
-Compose 使用独立项目 `dadashop-agent-observability`，所有主机映射端口仅绑定 `127.0.0.1`。Jaeger 内存历史不影响 MySQL 中的平台监控记录。生产环境需自行配置鉴权、持久化 Jaeger 存储和资源限制。
+Compose 使用独立项目 `tea_saas-agent-observability`，所有主机映射端口仅绑定 `127.0.0.1`。Jaeger 内存历史不影响 MySQL 中的平台监控记录。生产环境需自行配置鉴权、持久化 Jaeger 存储和资源限制。
 
 ## 模型配置
 

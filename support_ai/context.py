@@ -66,6 +66,27 @@ def context_from_turns(turns):
         answer = redact(turn.answer)[:1500]
         item = {'turn_id': 'turn-{}'.format(turn.pk), 'user_text': text,
                 'assistant_text': answer, 'intent': turn.intent}
+        if index == 0 and turn.response.get('dialogue_state'):
+            # Only application-committed JSON is admitted; clients cannot submit
+            # state. Bind this turn's CURRENT evidence to its real persisted ID.
+            from .semantic_planning import DialogueState
+            try:
+                snapshot = DialogueState.model_validate(turn.response['dialogue_state'])
+                if snapshot.purchase:
+                    for evidence in snapshot.purchase.evidence:
+                        if evidence.source == 'CURRENT':
+                            if evidence.quote not in text:
+                                raise ValueError('Invalid saved evidence')
+                            evidence.source = 'CONTEXT'
+                            evidence.source_id = item['turn_id']
+                if len(json.dumps(snapshot.model_dump(), ensure_ascii=False)) > 3000:
+                    snapshot = DialogueState(status='pending', task=snapshot.task,
+                                             missing_fields=['details'])
+                item['dialogue_state'] = snapshot.model_dump()
+            except ValueError:
+                # An invalid latest snapshot is an explicit boundary; never
+                # search older turns and revive a different pending task.
+                item['dialogue_state'] = DialogueState().model_dump()
         # Preserve display order and names to resolve "the second product". Historical
         # prices/stock are deliberately excluded; names identify products, not facts.
         products = (turn.response.get('recommendations') or turn.response.get('recommendation_references')

@@ -16,7 +16,7 @@ SPEC.loader.exec_module(policy)
 
 class SnapshotChecks(unittest.TestCase):
     def setUp(self):
-        self.directory = tempfile.TemporaryDirectory(prefix='dadashop-policy-test-')
+        self.directory = tempfile.TemporaryDirectory(prefix='tea_saas-policy-test-')
         self.addCleanup(self.directory.cleanup)
         self.root = Path(self.directory.name)
         self.original_root = policy.ROOT

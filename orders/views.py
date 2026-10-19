@@ -17,7 +17,7 @@ from django.db import transaction
 from goods.models import SKU
 from goods.images import sku_image_name
 from users.models import UserProfile, Address
-from dadashop.utils import jwt_decode
+from tea_saas.utils import jwt_decode
 from .models import OrderInfo, OrderGoods
 
 
@@ -73,7 +73,7 @@ def advance(request, username):
         sku_object_dict = build_single_data(sku_object, buy_num, True)
         context = {
             'code': 200,
-            'base_url': settings.DADASHOP_MEDIA,
+            'base_url': settings.TEA_SAAS_MEDIA,
             'data': {
                 'addresses': addresses,
                 'sku_list': [sku_object_dict],
@@ -88,7 +88,7 @@ def advance(request, username):
         sku_list = build_data(id_list, username, False)
         context = {
             'code': 200,
-            'base_url': settings.DADASHOP_MEDIA,
+            'base_url': settings.TEA_SAAS_MEDIA,
             'data': {
                 'addresses': addresses,
                 'sku_list': sku_list
@@ -190,7 +190,7 @@ class OrdersView(View):
             alipay_public_key_string=alipay_public_key_string,
         )
         alipay_pay_url_params = alipay_object.api_alipay_trade_page_pay(
-            subject=f'{username}_跨境茶叶saas平台_确认支付',
+            subject=f'{username}_tea_saas_确认支付',
             out_trade_no=order_id,
             total_amount=float(price),
             return_url='http://127.0.0.1:8000/v1/pays/notify',
@@ -255,7 +255,7 @@ class OrdersView(View):
                 alipay_public_key_string=alipay_public_key_string
             )
             alipay_pay_url_params = alipay_object.api_alipay_trade_page_pay(
-                subject=f'{username}_跨境茶叶saas平台_确认支付',
+                subject=f'{username}_tea_saas_确认支付',
                 out_trade_no=order_id,
                 total_amount=float(total_amount),
                 return_url='http://127.0.0.1:8000/v1/pays/notify'
@@ -324,12 +324,12 @@ class OrdersView(View):
                     })
 
         data = {'orders_list': list(orders_list)}
-        context = {"code": 200, "data": data, "base_url": settings.DADASHOP_MEDIA}
+        context = {"code": 200, "data": data, "base_url": settings.TEA_SAAS_MEDIA}
         return JsonResponse(context)
 
     def put(self, request, username):
         """顾客确认收货：状态 3→4，扣减商家库存"""
-        logger.info('PUT confirm_receipt: username=%s, path=%s', username, request.path)
+        logger.info('orders.receipt.requested')
         auth_header = request.headers.get('Authorization', '')
         if not auth_header:
             return JsonResponse({'code': 401, 'error': '未提供认证令牌'}, status=401)
@@ -346,15 +346,15 @@ class OrdersView(View):
             data = json.loads(request.body)
             order_id = data.get('order_id')
         except (json.JSONDecodeError, TypeError) as e:
-            logger.warning('PUT confirm_receipt parse error: %s, body=%s', e, request.body[:200] if request.body else b'')
+            logger.warning('orders.receipt.invalid_json', extra={'error_type': type(e).__name__})
             return JsonResponse({'code': 400, 'error': '请求参数错误'}, status=400)
         if not order_id:
             return JsonResponse({'code': 400, 'error': '缺少订单号'}, status=400)
-        logger.info('PUT confirm_receipt: order_id=%s, user_id=%s', order_id, user.id)
+        logger.info('orders.receipt.validated')
         try:
             order = OrderInfo.objects.get(order_id=order_id, user_profile=user)
         except OrderInfo.DoesNotExist:
-            logger.warning('PUT confirm_receipt: order not found order_id=%s user=%s', order_id, user.username)
+            logger.warning('orders.receipt.not_found')
             return JsonResponse({'code': 404, 'error': '订单不存在'}, status=404)
         
         if order.status != 3:
@@ -434,6 +434,6 @@ def delete_order(request, username):
         with transaction.atomic():
             order.delete()
     except Exception as e:
-        logger.exception('delete_order failed: order_id=%s, error=%s', order_id, e)
+        logger.exception('orders.delete.failed')
         return JsonResponse({'code': 500, 'error': f'删除失败: {str(e)}'}, status=500)
     return JsonResponse({'code': 200, 'msg': '订单已删除'})

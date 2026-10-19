@@ -22,7 +22,7 @@ os.environ['JWT_SECRET_KEY'] = 'synthetic-sdd-discovery-key-only'
 paths = ['support_ai/context.py', 'support_ai/pii.py', 'support_ai/views.py',
          'orders/models.py', 'users/models.py', 'support_ai/models.py',
          'support_ai/test_settings.py', Path(__file__).relative_to(ROOT).as_posix()]
-for folder in ['dadashop', 'users', 'goods', 'carts', 'orders', 'pays', 'news',
+for folder in ['tea_saas', 'users', 'goods', 'carts', 'orders', 'pays', 'news',
                'inventory', 'logistics', 'supplier', 'admin_panel', 'support_ai', 'ai_storage']:
     paths.extend(p.relative_to(ROOT).as_posix() for p in (ROOT / folder).rglob('*.py')
                  if '__pycache__' not in p.parts)
@@ -68,7 +68,7 @@ with redirect_stdout(log), redirect_stderr(log), \
         from support_ai.models import SupportConversation, SupportTurn
         from support_ai.context import current_order_context
         from support_ai.pii import redact
-        from dadashop.utils import jwt_encode
+        from tea_saas.utils import jwt_encode
         a = UserProfile.objects.create(username='sdd-a', password='unused', email='a@test.invalid', phone='', is_active=True)
         b = UserProfile.objects.create(username='sdd-b', password='unused', email='b@test.invalid', phone='', is_active=True)
 
@@ -164,7 +164,7 @@ manifest = {
     'schemaVersion': '0.1', 'evidenceType': 'discovery-probes',
     'capabilityId': 'CAP-AI-003', 'specVersion': '0.2.0', 'stagePromotion': False,
     'observedAt': datetime.now(timezone(timedelta(hours=8))).isoformat(),
-    'command': 'E:/miniconda/envs/dadashop/python.exe docs/sdd/evidence/2026-10-16-ai-003-discovery/run_probes.py',
+    'command': 'E:/miniconda/envs/tea_saas/python.exe docs/sdd/evidence/2026-10-16-ai-003-discovery/run_probes.py',
     'environment': 'support_ai.test_settings; two SQLite memory databases; synthetic data; no model calls',
     'observations': observations, 'blockedNetworkAttempts': len(network_attempts),
     'sourceChangedDuringRun': changed, 'sourceHashes': before,

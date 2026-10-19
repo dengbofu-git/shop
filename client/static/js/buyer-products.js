@@ -16,7 +16,7 @@
 
     var i18n = {
         zh: {
-            procure_title: '商品采购 - 跨境茶叶saas平台',
+            procure_title: '商品采购 - tea_saas',
             all_products: '全部产品',
             page_summary: '当前显示 {start}–{end} 件，共 {total} 件商品',
             loading: '加载中...',
@@ -30,7 +30,7 @@
             quick_preview: '快速预览'
         },
         en: {
-            procure_title: 'Product Procurement - Cross-border Tea SaaS Platform',
+            procure_title: 'Product Procurement - tea_saas',
             all_products: 'All Products',
             page_summary: 'Showing {start}–{end} of {total} products',
             loading: 'Loading...',
@@ -44,7 +44,7 @@
             quick_preview: 'Quick preview'
         },
         ar: {
-            procure_title: 'المشتريات - منصة SaaS لتجارة الشاي عبر الحدود',
+            procure_title: 'المشتريات - tea_saas',
             all_products: 'جميع المنتجات',
             page_summary: 'عرض {start}–{end} من أصل {total} منتجاً',
             loading: 'جاري التحميل...',

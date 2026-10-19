@@ -23,7 +23,7 @@ def run(name, args):
 paths = [
     'goods/models.py', 'goods/activity_views.py', 'goods/views.py', 'goods/urls.py',
     'goods/migrations/0009_browsinghistory_favorite.py', 'goods/test_activity.py',
-    'goods/test_mysql_settings.py', 'support_ai/test_settings.py', 'dadashop/urls.py',
+    'goods/test_mysql_settings.py', 'support_ai/test_settings.py', 'tea_saas/urls.py',
     'client/templates/buyer_header.html', 'client/templates/buyer_activity.html',
     'client/templates/product_details.html', 'client/static/js/buyer-activity.js',
     'client/static/css/buyer-activity.css', 'versions/modules.json',

@@ -1,0 +1,124 @@
+{
+  "date": "2026-10-19",
+  "baseline": "working tree at start of this cleanup, including existing uncommitted changes",
+  "module": "web",
+  "version": "0.17.1",
+  "removed": [
+    {
+      "path": "client/static/css/404.css",
+      "bytes": 1300,
+      "sha256": "854a5f3c1fa9a141c4cf3067b5e3cfe84cdaa369c9c7316601c84f724957a01b",
+      "project_references": []
+    },
+    {
+      "path": "client/static/css/foodstore.css",
+      "bytes": 9019,
+      "sha256": "c4aaf4cdc118afddd9e4f30554fdc0d1fb2960b248ddedce2e8e94b45aace448",
+      "project_references": []
+    },
+    {
+      "path": "client/static/css/footer.css",
+      "bytes": 3276,
+      "sha256": "16102d48d5db45fb264d4a33fb5298113a9a8bf90c90a936a2bb17816076067f",
+      "project_references": []
+    },
+    {
+      "path": "client/static/css/header.css",
+      "bytes": 4741,
+      "sha256": "42a7c1b0e04b78564abaae467eec53d4ba2c5b34a6a2c175c777aa576986137d",
+      "project_references": []
+    },
+    {
+      "path": "client/static/css/itemCat.css",
+      "bytes": 5110,
+      "sha256": "725026f6b522504a9aa73ea07e96e6e476ddd8f0f9a5a9d15e4e13dcbd1f1a4a",
+      "project_references": []
+    },
+    {
+      "path": "client/static/css/item_food.css",
+      "bytes": 7684,
+      "sha256": "c467e31d9fe1aa7f75d02783d6c423f7427e8bdd23ec0acb1e205853b81c6df2",
+      "project_references": []
+    },
+    {
+      "path": "client/static/css/modal.css",
+      "bytes": 1032,
+      "sha256": "01cb4fede149c154c74971bd37ed57e96e655ada6e9d2492b8845138bdabd0df",
+      "project_references": []
+    },
+    {
+      "path": "client/static/css/myCollect.css",
+      "bytes": 9229,
+      "sha256": "23f21677e146e9682337d501d8eba1791c9a8b2885af2ee5fb2792e9991f2b81",
+      "project_references": []
+    },
+    {
+      "path": "client/static/css/myOrder.css",
+      "bytes": 8987,
+      "sha256": "548fadc5b069aafa6aa1acf9a5c0a6d286fb241e974bc1218a606f04a1436215",
+      "project_references": []
+    },
+    {
+      "path": "client/static/css/orderInfo.css",
+      "bytes": 4209,
+      "sha256": "fd2fb893406ca8b73fcf95410ab20a9c144429d001107c8c9f69093d21ddd101",
+      "project_references": []
+    },
+    {
+      "path": "client/static/css/personage.css",
+      "bytes": 9961,
+      "sha256": "6c0f24f60f8ee766e1ee81242b270cb2fd0a20fca88122dbcb37dd862347a0b3",
+      "project_references": []
+    },
+    {
+      "path": "client/static/css/search.css",
+      "bytes": 13268,
+      "sha256": "916f655e0de8785b4af2d57f07279801c75e767bbcc22b248b1e01b0be362b82",
+      "project_references": []
+    },
+    {
+      "path": "client/static/css/slide.css",
+      "bytes": 1754,
+      "sha256": "a09e095e79a0f8b50ab9c59d288a9653090b49fc0fa1cbc2e6296504223d5412",
+      "project_references": []
+    },
+    {
+      "path": "client/static/js/collect.js",
+      "bytes": 5108,
+      "sha256": "7a6a9dd6cccf755138600fe8e6624b83ea162128595e3fef5414b5302d8b90c1",
+      "project_references": []
+    },
+    {
+      "path": "client/static/js/common.js",
+      "bytes": 239,
+      "sha256": "5c7a13aaebc2223effe9feafa429be59f2a5951b17f9c5e8a2b0105bf1d4b489",
+      "project_references": []
+    },
+    {
+      "path": "client/static/js/jquery-1.11.3.js",
+      "bytes": 284394,
+      "sha256": "2065aecca0fb9b0567358d352ed5f1ab72fce139bf449b4d09805f5d9c3725ed",
+      "project_references": []
+    },
+    {
+      "path": "client/static/js/jquery.min.js",
+      "bytes": 95786,
+      "sha256": "540bc6dec1dd4b92ea4d3fb903f69eabf6d919afd48f4e312b163c28cff0f441",
+      "project_references": []
+    },
+    {
+      "path": "client/static/js/js.cookie-2.2.1.min.js",
+      "bytes": 1642,
+      "sha256": "31d1799663bbb6029214d90ba7db9cdc725fa02c16d4b090add3721e44238b6b",
+      "project_references": []
+    },
+    {
+      "path": "client/static/js/router.js",
+      "bytes": 2939,
+      "sha256": "ca721f85b03f18c5424b5df6378058063969170e14917d82f9b415da1cf8b4a8",
+      "project_references": []
+    }
+  ],
+  "bytes_removed": 469678,
+  "source_files_inspected": 326
+}

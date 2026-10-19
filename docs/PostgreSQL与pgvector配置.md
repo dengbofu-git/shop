@@ -53,7 +53,7 @@ MySQL 连接由 `.env` 的 DB_* 配置决定；登录失败时先修正该配置
 ```powershell
 # 全部内存 SQLite，向量 SQL 测试明确跳过
 python manage.py test support_ai ai_storage --settings=support_ai.test_settings --noinput
-# 业务数据用 SQLite，AI 数据使用独立 test_dadashop_ai PostgreSQL 测试库
+# 业务数据用 SQLite，AI 数据使用独立 test_tea_saas_ai PostgreSQL 测试库
 python manage.py test support_ai ai_storage --settings=support_ai.pg_test_settings --noinput
 python manage.py makemigrations --check --dry-run --settings=support_ai.test_settings
 ```

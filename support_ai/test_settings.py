@@ -1,6 +1,6 @@
 """Isolated test database; never connect to the configured business MySQL/Redis."""
 
-from dadashop.settings import *  # noqa: F401,F403
+from tea_saas.settings import *  # noqa: F401,F403
 
 DATABASES = {'default': {'ENGINE': 'django.db.backends.sqlite3', 'NAME': ':memory:'}}
 DATABASES['ai_storage'] = {'ENGINE': 'django.db.backends.sqlite3', 'NAME': ':memory:', 'TEST': {'DEPENDENCIES': []}}

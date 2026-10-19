@@ -11,18 +11,13 @@
 </head>
 <body class="ds-page-admin_agents ds-theme" style="visibility:hidden">
     {% if not embedded %}<header class="topbar">
-        <a class="brand" href="/admin_panel.html"><span class="brand-mark">茶</span><span>跨境茶叶saas平台 <small>平台运营</small></span></a>
+        <a class="brand" href="/admin_panel.html"><span class="brand-mark">茶</span><span>tea_saas <small>平台运营</small></span></a>
         {% include "shared/platform_nav.html" with active="agents" %}
         <a class="button quiet" href="/login.html">返回登录</a>
     </header>{% endif %}
     <main>
         <div class="heading"><div><p class="eyebrow">AGENT OPERATIONS</p><h1>让每一次回答都有迹可循</h1><p class="muted">管理茶品智能助手的模型，观察从意图识别到知识检索、回答生成的运行情况。</p></div><span id="current-model" class="pill">读取配置中</span></div>
         <p id="page-status" class="message" role="status" aria-live="polite"></p>
-
-        <section id="knowledge-base" class="panel" aria-labelledby="knowledge-heading">
-            <div class="section-head"><div><h2 id="knowledge-heading">知识库文件</h2><p class="muted" id="knowledge-description">文件提交功能暂未开放，后续可在此补充知识库资料。</p></div><span class="pill">暂未开放</span></div>
-            <button id="submit-knowledge-file" class="button primary" type="button" disabled aria-describedby="knowledge-description">提交知识库文件</button>
-        </section>
 
         <section class="panel" aria-labelledby="monitor-heading">
             <div class="section-head"><div><h2 id="monitor-heading">运行概览</h2><p class="muted">OpenTelemetry 采集的数据，自启用后开始统计；每 30 秒刷新。</p></div><div class="actions"><label for="time-window" class="sr-only">时间范围</label><select id="time-window"><option value="1">近 1 小时</option><option value="24" selected>近 24 小时</option><option value="168">近 7 天</option></select><button id="refresh-monitor" type="button" class="button quiet">刷新数据</button></div></div>

@@ -4,46 +4,46 @@
  * 新开且不继承会话的标签页须登录，不从全浏览器共享存储猜测身份。
  */
 var AuthStorage = {
-    getToken: function() { return sessionStorage.getItem('dashop_token'); },
+    getToken: function() { return sessionStorage.getItem('tea_saas_token'); },
     setToken: function(v) {
         if (v != null) {
-            sessionStorage.setItem('dashop_token', v);
+            sessionStorage.setItem('tea_saas_token', v);
         }
     },
-    getUser: function() { return sessionStorage.getItem('dashop_user'); },
+    getUser: function() { return sessionStorage.getItem('tea_saas_user'); },
     setUser: function(v) {
         if (v != null) {
-            sessionStorage.setItem('dashop_user', v);
+            sessionStorage.setItem('tea_saas_user', v);
         }
     },
-    getCount: function() { return sessionStorage.getItem('dashop_count'); },
+    getCount: function() { return sessionStorage.getItem('tea_saas_count'); },
     setCount: function(v) {
         if (v != null) {
-            sessionStorage.setItem('dashop_count', v);
+            sessionStorage.setItem('tea_saas_count', v);
         }
     },
-    getShop: function() { return sessionStorage.getItem('dashop_shop'); },
+    getShop: function() { return sessionStorage.getItem('tea_saas_shop'); },
     setShop: function(v) {
         if (v != null) {
-            sessionStorage.setItem('dashop_shop', v);
+            sessionStorage.setItem('tea_saas_shop', v);
         }
     },
-    getUserType: function() { return sessionStorage.getItem('dashop_user_type'); },
+    getUserType: function() { return sessionStorage.getItem('tea_saas_user_type'); },
     setUserType: function(v) {
         if (v != null) {
-            sessionStorage.setItem('dashop_user_type', v);
+            sessionStorage.setItem('tea_saas_user_type', v);
         }
     },
     clear: function() {
-        var token = sessionStorage.getItem('dashop_token');
-        sessionStorage.removeItem('dashop_token');
-        sessionStorage.removeItem('dashop_user');
-        sessionStorage.removeItem('dashop_count');
-        sessionStorage.removeItem('dashop_shop');
-        sessionStorage.removeItem('dashop_user_type');
+        var token = sessionStorage.getItem('tea_saas_token');
+        sessionStorage.removeItem('tea_saas_token');
+        sessionStorage.removeItem('tea_saas_user');
+        sessionStorage.removeItem('tea_saas_count');
+        sessionStorage.removeItem('tea_saas_shop');
+        sessionStorage.removeItem('tea_saas_user_type');
         // Clean up only this account's legacy shared cache, never another tab's account.
-        if (token && localStorage.getItem('dashop_token') === token) {
-            ['dashop_token', 'dashop_user', 'dashop_count', 'dashop_shop', 'dashop_user_type'].forEach(function(key) {
+        if (token && localStorage.getItem('tea_saas_token') === token) {
+            ['tea_saas_token', 'tea_saas_user', 'tea_saas_count', 'tea_saas_shop', 'tea_saas_user_type'].forEach(function(key) {
                 localStorage.removeItem(key);
             });
         }

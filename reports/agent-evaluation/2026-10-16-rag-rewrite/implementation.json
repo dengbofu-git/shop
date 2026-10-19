@@ -7,7 +7,7 @@
   "before_sha256": {
     ".env.example": "502ec2b173e85dd0db7b0d440cbb0c3298f8571914168d9f44d85c663c84e8c8",
     "ai_storage/embeddings.py": "b3d9d75bfdd7d34be2c38fd203228090d8e50ed4e2b0290c1f6c802fc455d63f",
-    "dadashop/settings.py": "1d0f03627e290c4769cd0faffdbee17b7427f0466b833a44e1e565ef3d78aeec",
+    "tea_saas/settings.py": "1d0f03627e290c4769cd0faffdbee17b7427f0466b833a44e1e565ef3d78aeec",
     "support_ai/management/commands/agent_preview.py": "30984c6e626e2439c2f1b56f6a11697932e22b1840cc4ef9296d4df91d0c4e1f",
     "support_ai/model_client.py": "4844fc779243c6d3371fc1f06c9e4c01d61b0279fb49840dfb00da44f879b061",
     "support_ai/preview.py": "aa4b8c6f5cbaad719159e0a2128eb2fb1b29fcf5ac75b88ec09ffec5f7601fc3",
@@ -31,7 +31,7 @@
     "support_ai/telemetry.py": "943e62a21be2be023719f53f8275b365cc6efff449a2b87c273423801bb0aecf",
     "support_ai/management/commands/agent_preview.py": "54fe0130bd189909e8a6b3756d428bd2f8e68b412a3fbd9d3a5dc150e0216075",
     "ai_storage/embeddings.py": "41050ed409a70c0c34230e48baf7e655a6828e7a56fd4c363ad841f7fe6e9288",
-    "dadashop/settings.py": "0d87397c816ba2a2cbf7f49b9d4d551839f5be072ed349e392442c3a1ce3e94d",
+    "tea_saas/settings.py": "0d87397c816ba2a2cbf7f49b9d4d551839f5be072ed349e392442c3a1ce3e94d",
     "versions/modules.json": "49a896b8c1695040ee97fa73c99020e3fe3ecda7865825849d7f6c9f02ccb421",
     "docs/Agent查询改写.md": "51416358c5a524f77959992f5b1ade49fc27dea62f7091f966b7a86aa85d930d"
   },

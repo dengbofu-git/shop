@@ -4,7 +4,7 @@
 
 ## 自动验证
 
-`E:/miniconda/envs/dadashop/python.exe manage.py test users.tests support_ai.test_telemetry --settings=support_ai.test_settings --noinput`：27项通过。使用自动销毁的内存SQLite和合成账号，购物车Redis访问mock，不连接业务库、不调用外部模型。覆盖统一入口与旧地址、四种工作台地址、伪造客户端角色、平台无权限、停用角色／权限／账号、权限撤销后的旧JWT、供应商对账号CRUD及全部Agent接口的越权拒绝、合法运营账号CRUD及原有Agent运营配置／审计／监控回归。日志中的 `Agent telemetry persistence failed: RuntimeError` 是已有异常路径测试的预期日志，最终结果为OK。
+`E:/miniconda/envs/tea_saas/python.exe manage.py test users.tests support_ai.test_telemetry --settings=support_ai.test_settings --noinput`：27项通过。使用自动销毁的内存SQLite和合成账号，购物车Redis访问mock，不连接业务库、不调用外部模型。覆盖统一入口与旧地址、四种工作台地址、伪造客户端角色、平台无权限、停用角色／权限／账号、权限撤销后的旧JWT、供应商对账号CRUD及全部Agent接口的越权拒绝、合法运营账号CRUD及原有Agent运营配置／审计／监控回归。日志中的 `Agent telemetry persistence failed: RuntimeError` 是已有异常路径测试的预期日志，最终结果为OK。
 
 `node client/tests/unified-login.test.js`：通过。运行实际登录和运营守卫脚本，验证四个固定地址成功跳转、外部／未知地址拒绝、不保存失败登录Token、业务和网络失败后按钮恢复、平台角色与功能权限共同控制页面初始化。此项为Node行为测试，不冒充浏览器全链路登录。
 

@@ -1,6 +1,6 @@
 global:
   scrape_interval: 5s
 scrape_configs:
-  - job_name: dadashop-agent
+  - job_name: tea_saas-agent
     static_configs:
       - targets: [collector:8889]

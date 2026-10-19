@@ -70,7 +70,7 @@ def carousel(request):
     return JsonResponse({
         'code': 200,
         'data': data,
-        'base_url': settings.DADASHOP_MEDIA
+        'base_url': settings.TEA_SAAS_MEDIA
     })
 
 
@@ -97,7 +97,7 @@ def recommended_products(request):
     return JsonResponse({
         'code': 200,
         'data': data,
-        'base_url': settings.DADASHOP_MEDIA
+        'base_url': settings.TEA_SAAS_MEDIA
     })
 
 
@@ -119,7 +119,7 @@ def index(request):
     context = {
         'code': 200,
         'data': data,
-        "base_url": settings.DADASHOP_MEDIA,
+        "base_url": settings.TEA_SAAS_MEDIA,
     }
     return JsonResponse(context)
 
@@ -146,7 +146,7 @@ def catalogs(request, id):
             'pagesize': page_size,
             'total': sku_qs.count()
         },
-        'base_url': settings.DADASHOP_MEDIA
+        'base_url': settings.TEA_SAAS_MEDIA
     }
     return JsonResponse(context)
 
@@ -356,7 +356,7 @@ def detail(request, id):
             "sku_all_sale_attr_vals_id": {item.id: [temp.id for temp in item.saleattrvalue_set.all()] for item in spu_sale_attrs},
             "sku_all_sale_attr_vals_name": {item.id: [temp.name for temp in item.saleattrvalue_set.all()] for item in spu_sale_attrs},
         },
-        "base_url": settings.DADASHOP_MEDIA
+        "base_url": settings.TEA_SAAS_MEDIA
     }
     return JsonResponse(context)
 

@@ -1,5 +1,5 @@
 {
-  "baseline_log": "E:\\django\\dadashop\\reports\\agent-evaluation\\2026-10-16-grouping\\before\\20261016-114613-cf6a9b60bb8047dead1a4663ec911451.jsonl",
+  "baseline_log": "E:\\django\\tea_saas\\reports\\agent-evaluation\\2026-10-16-grouping\\before\\20261016-114613-cf6a9b60bb8047dead1a4663ec911451.jsonl",
   "runtime": {
     "agent_version": "0.8.0",
     "model": "deepseek-flash",
@@ -12,7 +12,7 @@
     "scope": "public",
     "telemetry": false,
     "history_turns": 6,
-    "log_file": "E:\\django\\dadashop\\reports\\agent-evaluation\\2026-10-16-grouping\\after-final\\20261016-121731-f29f677223cb4d728a54e2d75d0845f2.jsonl"
+    "log_file": "E:\\django\\tea_saas\\reports\\agent-evaluation\\2026-10-16-grouping\\after-final\\20261016-121731-f29f677223cb4d728a54e2d75d0845f2.jsonl"
   },
   "business_counts_before": {
     "turns": 16,

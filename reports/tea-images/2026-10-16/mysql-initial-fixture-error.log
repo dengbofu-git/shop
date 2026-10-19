@@ -80,78 +80,78 @@ test_concurrent_history_writes_keep_latest_100 (goods.test_activity.BuyerActivit
 ERROR: test_broken_default_and_first_gallery_do_not_hide_valid_gallery (goods.test_images.CatalogImageTests)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
     return self.cursor.execute(sql, params)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
     return self.cursor.execute(query, args)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\cursors.py", line 148, in execute
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\cursors.py", line 148, in execute
     result = self._query(query)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\cursors.py", line 310, in _query
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\cursors.py", line 310, in _query
     conn.query(q)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\connections.py", line 548, in query
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\connections.py", line 548, in query
     self._affected_rows = self._read_query_result(unbuffered=unbuffered)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\connections.py", line 775, in _read_query_result
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\connections.py", line 775, in _read_query_result
     result.read()
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\connections.py", line 1156, in read
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\connections.py", line 1156, in read
     first_packet = self.connection._read_packet()
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\connections.py", line 725, in _read_packet
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\connections.py", line 725, in _read_packet
     packet.raise_for_error()
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
     err.raise_mysql_exception(self._data)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
     raise errorclass(errno, errval)
 pymysql.err.DataError: (1406, "Data too long for column 'username' at row 1")
 
 The above exception was the direct cause of the following exception:
 
 Traceback (most recent call last):
-  File "E:\django\dadashop\goods\test_images.py", line 33, in setUp
+  File "E:\django\tea_saas\goods\test_images.py", line 33, in setUp
     self.merchant = UserProfile.objects.create(username='tea-merchant', user_type='merchant', is_active=True)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
     return getattr(self.get_queryset(), name)(*args, **kwargs)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\models\query.py", line 453, in create
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\models\query.py", line 453, in create
     obj.save(force_insert=True, using=self.db)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\models\base.py", line 739, in save
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\models\base.py", line 739, in save
     self.save_base(using=using, force_insert=force_insert,
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\models\base.py", line 776, in save_base
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\models\base.py", line 776, in save_base
     updated = self._save_table(
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\models\base.py", line 881, in _save_table
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\models\base.py", line 881, in _save_table
     results = self._do_insert(cls._base_manager, using, fields, returning_fields, raw)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\models\base.py", line 919, in _do_insert
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\models\base.py", line 919, in _do_insert
     return manager._insert(
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
     return getattr(self.get_queryset(), name)(*args, **kwargs)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\models\query.py", line 1270, in _insert
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\models\query.py", line 1270, in _insert
     return query.get_compiler(using=using).execute_sql(returning_fields)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\models\sql\compiler.py", line 1416, in execute_sql
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\models\sql\compiler.py", line 1416, in execute_sql
     cursor.execute(sql, params)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\backends\utils.py", line 66, in execute
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\backends\utils.py", line 66, in execute
     return self._execute_with_wrappers(sql, params, many=False, executor=self._execute)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\backends\utils.py", line 75, in _execute_with_wrappers
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\backends\utils.py", line 75, in _execute_with_wrappers
     return executor(sql, params, many, context)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
     return self.cursor.execute(sql, params)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\utils.py", line 90, in __exit__
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\utils.py", line 90, in __exit__
     raise dj_exc_value.with_traceback(traceback) from exc_value
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
     return self.cursor.execute(sql, params)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
     return self.cursor.execute(query, args)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\cursors.py", line 148, in execute
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\cursors.py", line 148, in execute
     result = self._query(query)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\cursors.py", line 310, in _query
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\cursors.py", line 310, in _query
     conn.query(q)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\connections.py", line 548, in query
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\connections.py", line 548, in query
     self._affected_rows = self._read_query_result(unbuffered=unbuffered)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\connections.py", line 775, in _read_query_result
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\connections.py", line 775, in _read_query_result
     result.read()
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\connections.py", line 1156, in read
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\connections.py", line 1156, in read
     first_packet = self.connection._read_packet()
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\connections.py", line 725, in _read_packet
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\connections.py", line 725, in _read_packet
     packet.raise_for_error()
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
     err.raise_mysql_exception(self._data)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
     raise errorclass(errno, errval)
 django.db.utils.DataError: (1406, "Data too long for column 'username' at row 1")
 
@@ -159,78 +159,78 @@ django.db.utils.DataError: (1406, "Data too long for column 'username' at row 1"
 ERROR: test_cart_uses_fallback_with_fake_redis (goods.test_images.CatalogImageTests)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
     return self.cursor.execute(sql, params)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
     return self.cursor.execute(query, args)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\cursors.py", line 148, in execute
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\cursors.py", line 148, in execute
     result = self._query(query)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\cursors.py", line 310, in _query
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\cursors.py", line 310, in _query
     conn.query(q)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\connections.py", line 548, in query
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\connections.py", line 548, in query
     self._affected_rows = self._read_query_result(unbuffered=unbuffered)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\connections.py", line 775, in _read_query_result
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\connections.py", line 775, in _read_query_result
     result.read()
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\connections.py", line 1156, in read
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\connections.py", line 1156, in read
     first_packet = self.connection._read_packet()
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\connections.py", line 725, in _read_packet
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\connections.py", line 725, in _read_packet
     packet.raise_for_error()
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
     err.raise_mysql_exception(self._data)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
     raise errorclass(errno, errval)
 pymysql.err.DataError: (1406, "Data too long for column 'username' at row 1")
 
 The above exception was the direct cause of the following exception:
 
 Traceback (most recent call last):
-  File "E:\django\dadashop\goods\test_images.py", line 33, in setUp
+  File "E:\django\tea_saas\goods\test_images.py", line 33, in setUp
     self.merchant = UserProfile.objects.create(username='tea-merchant', user_type='merchant', is_active=True)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
     return getattr(self.get_queryset(), name)(*args, **kwargs)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\models\query.py", line 453, in create
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\models\query.py", line 453, in create
     obj.save(force_insert=True, using=self.db)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\models\base.py", line 739, in save
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\models\base.py", line 739, in save
     self.save_base(using=using, force_insert=force_insert,
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\models\base.py", line 776, in save_base
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\models\base.py", line 776, in save_base
     updated = self._save_table(
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\models\base.py", line 881, in _save_table
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\models\base.py", line 881, in _save_table
     results = self._do_insert(cls._base_manager, using, fields, returning_fields, raw)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\models\base.py", line 919, in _do_insert
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\models\base.py", line 919, in _do_insert
     return manager._insert(
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
     return getattr(self.get_queryset(), name)(*args, **kwargs)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\models\query.py", line 1270, in _insert
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\models\query.py", line 1270, in _insert
     return query.get_compiler(using=using).execute_sql(returning_fields)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\models\sql\compiler.py", line 1416, in execute_sql
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\models\sql\compiler.py", line 1416, in execute_sql
     cursor.execute(sql, params)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\backends\utils.py", line 66, in execute
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\backends\utils.py", line 66, in execute
     return self._execute_with_wrappers(sql, params, many=False, executor=self._execute)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\backends\utils.py", line 75, in _execute_with_wrappers
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\backends\utils.py", line 75, in _execute_with_wrappers
     return executor(sql, params, many, context)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
     return self.cursor.execute(sql, params)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\utils.py", line 90, in __exit__
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\utils.py", line 90, in __exit__
     raise dj_exc_value.with_traceback(traceback) from exc_value
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
     return self.cursor.execute(sql, params)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
     return self.cursor.execute(query, args)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\cursors.py", line 148, in execute
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\cursors.py", line 148, in execute
     result = self._query(query)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\cursors.py", line 310, in _query
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\cursors.py", line 310, in _query
     conn.query(q)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\connections.py", line 548, in query
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\connections.py", line 548, in query
     self._affected_rows = self._read_query_result(unbuffered=unbuffered)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\connections.py", line 775, in _read_query_result
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\connections.py", line 775, in _read_query_result
     result.read()
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\connections.py", line 1156, in read
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\connections.py", line 1156, in read
     first_packet = self.connection._read_packet()
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\connections.py", line 725, in _read_packet
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\connections.py", line 725, in _read_packet
     packet.raise_for_error()
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
     err.raise_mysql_exception(self._data)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
     raise errorclass(errno, errval)
 django.db.utils.DataError: (1406, "Data too long for column 'username' at row 1")
 
@@ -238,78 +238,78 @@ django.db.utils.DataError: (1406, "Data too long for column 'username' at row 1"
 ERROR: test_catalogs_are_isolated_and_missing_files_use_generic_placeholder (goods.test_images.CatalogImageTests)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
     return self.cursor.execute(sql, params)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
     return self.cursor.execute(query, args)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\cursors.py", line 148, in execute
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\cursors.py", line 148, in execute
     result = self._query(query)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\cursors.py", line 310, in _query
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\cursors.py", line 310, in _query
     conn.query(q)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\connections.py", line 548, in query
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\connections.py", line 548, in query
     self._affected_rows = self._read_query_result(unbuffered=unbuffered)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\connections.py", line 775, in _read_query_result
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\connections.py", line 775, in _read_query_result
     result.read()
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\connections.py", line 1156, in read
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\connections.py", line 1156, in read
     first_packet = self.connection._read_packet()
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\connections.py", line 725, in _read_packet
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\connections.py", line 725, in _read_packet
     packet.raise_for_error()
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
     err.raise_mysql_exception(self._data)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
     raise errorclass(errno, errval)
 pymysql.err.DataError: (1406, "Data too long for column 'username' at row 1")
 
 The above exception was the direct cause of the following exception:
 
 Traceback (most recent call last):
-  File "E:\django\dadashop\goods\test_images.py", line 33, in setUp
+  File "E:\django\tea_saas\goods\test_images.py", line 33, in setUp
     self.merchant = UserProfile.objects.create(username='tea-merchant', user_type='merchant', is_active=True)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
     return getattr(self.get_queryset(), name)(*args, **kwargs)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\models\query.py", line 453, in create
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\models\query.py", line 453, in create
     obj.save(force_insert=True, using=self.db)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\models\base.py", line 739, in save
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\models\base.py", line 739, in save
     self.save_base(using=using, force_insert=force_insert,
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\models\base.py", line 776, in save_base
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\models\base.py", line 776, in save_base
     updated = self._save_table(
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\models\base.py", line 881, in _save_table
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\models\base.py", line 881, in _save_table
     results = self._do_insert(cls._base_manager, using, fields, returning_fields, raw)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\models\base.py", line 919, in _do_insert
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\models\base.py", line 919, in _do_insert
     return manager._insert(
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
     return getattr(self.get_queryset(), name)(*args, **kwargs)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\models\query.py", line 1270, in _insert
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\models\query.py", line 1270, in _insert
     return query.get_compiler(using=using).execute_sql(returning_fields)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\models\sql\compiler.py", line 1416, in execute_sql
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\models\sql\compiler.py", line 1416, in execute_sql
     cursor.execute(sql, params)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\backends\utils.py", line 66, in execute
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\backends\utils.py", line 66, in execute
     return self._execute_with_wrappers(sql, params, many=False, executor=self._execute)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\backends\utils.py", line 75, in _execute_with_wrappers
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\backends\utils.py", line 75, in _execute_with_wrappers
     return executor(sql, params, many, context)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
     return self.cursor.execute(sql, params)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\utils.py", line 90, in __exit__
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\utils.py", line 90, in __exit__
     raise dj_exc_value.with_traceback(traceback) from exc_value
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
     return self.cursor.execute(sql, params)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
     return self.cursor.execute(query, args)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\cursors.py", line 148, in execute
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\cursors.py", line 148, in execute
     result = self._query(query)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\cursors.py", line 310, in _query
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\cursors.py", line 310, in _query
     conn.query(q)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\connections.py", line 548, in query
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\connections.py", line 548, in query
     self._affected_rows = self._read_query_result(unbuffered=unbuffered)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\connections.py", line 775, in _read_query_result
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\connections.py", line 775, in _read_query_result
     result.read()
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\connections.py", line 1156, in read
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\connections.py", line 1156, in read
     first_packet = self.connection._read_packet()
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\connections.py", line 725, in _read_packet
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\connections.py", line 725, in _read_packet
     packet.raise_for_error()
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
     err.raise_mysql_exception(self._data)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
     raise errorclass(errno, errval)
 django.db.utils.DataError: (1406, "Data too long for column 'username' at row 1")
 
@@ -317,78 +317,78 @@ django.db.utils.DataError: (1406, "Data too long for column 'username' at row 1"
 ERROR: test_real_sibling_and_legacy_photos_take_priority (goods.test_images.CatalogImageTests)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
     return self.cursor.execute(sql, params)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
     return self.cursor.execute(query, args)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\cursors.py", line 148, in execute
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\cursors.py", line 148, in execute
     result = self._query(query)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\cursors.py", line 310, in _query
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\cursors.py", line 310, in _query
     conn.query(q)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\connections.py", line 548, in query
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\connections.py", line 548, in query
     self._affected_rows = self._read_query_result(unbuffered=unbuffered)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\connections.py", line 775, in _read_query_result
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\connections.py", line 775, in _read_query_result
     result.read()
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\connections.py", line 1156, in read
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\connections.py", line 1156, in read
     first_packet = self.connection._read_packet()
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\connections.py", line 725, in _read_packet
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\connections.py", line 725, in _read_packet
     packet.raise_for_error()
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
     err.raise_mysql_exception(self._data)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
     raise errorclass(errno, errval)
 pymysql.err.DataError: (1406, "Data too long for column 'username' at row 1")
 
 The above exception was the direct cause of the following exception:
 
 Traceback (most recent call last):
-  File "E:\django\dadashop\goods\test_images.py", line 33, in setUp
+  File "E:\django\tea_saas\goods\test_images.py", line 33, in setUp
     self.merchant = UserProfile.objects.create(username='tea-merchant', user_type='merchant', is_active=True)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
     return getattr(self.get_queryset(), name)(*args, **kwargs)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\models\query.py", line 453, in create
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\models\query.py", line 453, in create
     obj.save(force_insert=True, using=self.db)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\models\base.py", line 739, in save
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\models\base.py", line 739, in save
     self.save_base(using=using, force_insert=force_insert,
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\models\base.py", line 776, in save_base
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\models\base.py", line 776, in save_base
     updated = self._save_table(
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\models\base.py", line 881, in _save_table
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\models\base.py", line 881, in _save_table
     results = self._do_insert(cls._base_manager, using, fields, returning_fields, raw)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\models\base.py", line 919, in _do_insert
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\models\base.py", line 919, in _do_insert
     return manager._insert(
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
     return getattr(self.get_queryset(), name)(*args, **kwargs)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\models\query.py", line 1270, in _insert
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\models\query.py", line 1270, in _insert
     return query.get_compiler(using=using).execute_sql(returning_fields)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\models\sql\compiler.py", line 1416, in execute_sql
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\models\sql\compiler.py", line 1416, in execute_sql
     cursor.execute(sql, params)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\backends\utils.py", line 66, in execute
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\backends\utils.py", line 66, in execute
     return self._execute_with_wrappers(sql, params, many=False, executor=self._execute)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\backends\utils.py", line 75, in _execute_with_wrappers
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\backends\utils.py", line 75, in _execute_with_wrappers
     return executor(sql, params, many, context)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
     return self.cursor.execute(sql, params)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\utils.py", line 90, in __exit__
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\utils.py", line 90, in __exit__
     raise dj_exc_value.with_traceback(traceback) from exc_value
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
     return self.cursor.execute(sql, params)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
     return self.cursor.execute(query, args)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\cursors.py", line 148, in execute
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\cursors.py", line 148, in execute
     result = self._query(query)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\cursors.py", line 310, in _query
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\cursors.py", line 310, in _query
     conn.query(q)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\connections.py", line 548, in query
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\connections.py", line 548, in query
     self._affected_rows = self._read_query_result(unbuffered=unbuffered)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\connections.py", line 775, in _read_query_result
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\connections.py", line 775, in _read_query_result
     result.read()
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\connections.py", line 1156, in read
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\connections.py", line 1156, in read
     first_packet = self.connection._read_packet()
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\connections.py", line 725, in _read_packet
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\connections.py", line 725, in _read_packet
     packet.raise_for_error()
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
     err.raise_mysql_exception(self._data)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
     raise errorclass(errno, errval)
 django.db.utils.DataError: (1406, "Data too long for column 'username' at row 1")
 
@@ -396,78 +396,78 @@ django.db.utils.DataError: (1406, "Data too long for column 'username' at row 1"
 ERROR: test_real_upload_immediately_overrides_virtual_and_delete_restores_fallback (goods.test_images.CatalogImageTests)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
     return self.cursor.execute(sql, params)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
     return self.cursor.execute(query, args)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\cursors.py", line 148, in execute
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\cursors.py", line 148, in execute
     result = self._query(query)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\cursors.py", line 310, in _query
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\cursors.py", line 310, in _query
     conn.query(q)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\connections.py", line 548, in query
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\connections.py", line 548, in query
     self._affected_rows = self._read_query_result(unbuffered=unbuffered)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\connections.py", line 775, in _read_query_result
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\connections.py", line 775, in _read_query_result
     result.read()
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\connections.py", line 1156, in read
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\connections.py", line 1156, in read
     first_packet = self.connection._read_packet()
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\connections.py", line 725, in _read_packet
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\connections.py", line 725, in _read_packet
     packet.raise_for_error()
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
     err.raise_mysql_exception(self._data)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
     raise errorclass(errno, errval)
 pymysql.err.DataError: (1406, "Data too long for column 'username' at row 1")
 
 The above exception was the direct cause of the following exception:
 
 Traceback (most recent call last):
-  File "E:\django\dadashop\goods\test_images.py", line 33, in setUp
+  File "E:\django\tea_saas\goods\test_images.py", line 33, in setUp
     self.merchant = UserProfile.objects.create(username='tea-merchant', user_type='merchant', is_active=True)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
     return getattr(self.get_queryset(), name)(*args, **kwargs)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\models\query.py", line 453, in create
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\models\query.py", line 453, in create
     obj.save(force_insert=True, using=self.db)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\models\base.py", line 739, in save
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\models\base.py", line 739, in save
     self.save_base(using=using, force_insert=force_insert,
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\models\base.py", line 776, in save_base
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\models\base.py", line 776, in save_base
     updated = self._save_table(
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\models\base.py", line 881, in _save_table
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\models\base.py", line 881, in _save_table
     results = self._do_insert(cls._base_manager, using, fields, returning_fields, raw)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\models\base.py", line 919, in _do_insert
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\models\base.py", line 919, in _do_insert
     return manager._insert(
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
     return getattr(self.get_queryset(), name)(*args, **kwargs)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\models\query.py", line 1270, in _insert
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\models\query.py", line 1270, in _insert
     return query.get_compiler(using=using).execute_sql(returning_fields)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\models\sql\compiler.py", line 1416, in execute_sql
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\models\sql\compiler.py", line 1416, in execute_sql
     cursor.execute(sql, params)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\backends\utils.py", line 66, in execute
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\backends\utils.py", line 66, in execute
     return self._execute_with_wrappers(sql, params, many=False, executor=self._execute)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\backends\utils.py", line 75, in _execute_with_wrappers
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\backends\utils.py", line 75, in _execute_with_wrappers
     return executor(sql, params, many, context)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
     return self.cursor.execute(sql, params)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\utils.py", line 90, in __exit__
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\utils.py", line 90, in __exit__
     raise dj_exc_value.with_traceback(traceback) from exc_value
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
     return self.cursor.execute(sql, params)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
     return self.cursor.execute(query, args)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\cursors.py", line 148, in execute
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\cursors.py", line 148, in execute
     result = self._query(query)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\cursors.py", line 310, in _query
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\cursors.py", line 310, in _query
     conn.query(q)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\connections.py", line 548, in query
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\connections.py", line 548, in query
     self._affected_rows = self._read_query_result(unbuffered=unbuffered)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\connections.py", line 775, in _read_query_result
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\connections.py", line 775, in _read_query_result
     result.read()
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\connections.py", line 1156, in read
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\connections.py", line 1156, in read
     first_packet = self.connection._read_packet()
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\connections.py", line 725, in _read_packet
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\connections.py", line 725, in _read_packet
     packet.raise_for_error()
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
     err.raise_mysql_exception(self._data)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
     raise errorclass(errno, errval)
 django.db.utils.DataError: (1406, "Data too long for column 'username' at row 1")
 
@@ -475,78 +475,78 @@ django.db.utils.DataError: (1406, "Data too long for column 'username' at row 1"
 ERROR: test_registration_previews_applies_idempotently_and_validates_hash (goods.test_images.CatalogImageTests)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
     return self.cursor.execute(sql, params)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
     return self.cursor.execute(query, args)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\cursors.py", line 148, in execute
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\cursors.py", line 148, in execute
     result = self._query(query)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\cursors.py", line 310, in _query
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\cursors.py", line 310, in _query
     conn.query(q)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\connections.py", line 548, in query
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\connections.py", line 548, in query
     self._affected_rows = self._read_query_result(unbuffered=unbuffered)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\connections.py", line 775, in _read_query_result
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\connections.py", line 775, in _read_query_result
     result.read()
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\connections.py", line 1156, in read
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\connections.py", line 1156, in read
     first_packet = self.connection._read_packet()
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\connections.py", line 725, in _read_packet
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\connections.py", line 725, in _read_packet
     packet.raise_for_error()
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
     err.raise_mysql_exception(self._data)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
     raise errorclass(errno, errval)
 pymysql.err.DataError: (1406, "Data too long for column 'username' at row 1")
 
 The above exception was the direct cause of the following exception:
 
 Traceback (most recent call last):
-  File "E:\django\dadashop\goods\test_images.py", line 33, in setUp
+  File "E:\django\tea_saas\goods\test_images.py", line 33, in setUp
     self.merchant = UserProfile.objects.create(username='tea-merchant', user_type='merchant', is_active=True)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
     return getattr(self.get_queryset(), name)(*args, **kwargs)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\models\query.py", line 453, in create
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\models\query.py", line 453, in create
     obj.save(force_insert=True, using=self.db)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\models\base.py", line 739, in save
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\models\base.py", line 739, in save
     self.save_base(using=using, force_insert=force_insert,
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\models\base.py", line 776, in save_base
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\models\base.py", line 776, in save_base
     updated = self._save_table(
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\models\base.py", line 881, in _save_table
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\models\base.py", line 881, in _save_table
     results = self._do_insert(cls._base_manager, using, fields, returning_fields, raw)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\models\base.py", line 919, in _do_insert
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\models\base.py", line 919, in _do_insert
     return manager._insert(
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
     return getattr(self.get_queryset(), name)(*args, **kwargs)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\models\query.py", line 1270, in _insert
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\models\query.py", line 1270, in _insert
     return query.get_compiler(using=using).execute_sql(returning_fields)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\models\sql\compiler.py", line 1416, in execute_sql
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\models\sql\compiler.py", line 1416, in execute_sql
     cursor.execute(sql, params)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\backends\utils.py", line 66, in execute
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\backends\utils.py", line 66, in execute
     return self._execute_with_wrappers(sql, params, many=False, executor=self._execute)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\backends\utils.py", line 75, in _execute_with_wrappers
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\backends\utils.py", line 75, in _execute_with_wrappers
     return executor(sql, params, many, context)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
     return self.cursor.execute(sql, params)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\utils.py", line 90, in __exit__
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\utils.py", line 90, in __exit__
     raise dj_exc_value.with_traceback(traceback) from exc_value
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
     return self.cursor.execute(sql, params)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
     return self.cursor.execute(query, args)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\cursors.py", line 148, in execute
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\cursors.py", line 148, in execute
     result = self._query(query)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\cursors.py", line 310, in _query
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\cursors.py", line 310, in _query
     conn.query(q)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\connections.py", line 548, in query
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\connections.py", line 548, in query
     self._affected_rows = self._read_query_result(unbuffered=unbuffered)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\connections.py", line 775, in _read_query_result
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\connections.py", line 775, in _read_query_result
     result.read()
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\connections.py", line 1156, in read
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\connections.py", line 1156, in read
     first_packet = self.connection._read_packet()
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\connections.py", line 725, in _read_packet
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\connections.py", line 725, in _read_packet
     packet.raise_for_error()
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
     err.raise_mysql_exception(self._data)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
     raise errorclass(errno, errval)
 django.db.utils.DataError: (1406, "Data too long for column 'username' at row 1")
 
@@ -554,78 +554,78 @@ django.db.utils.DataError: (1406, "Data too long for column 'username' at row 1"
 ERROR: test_storefront_and_order_dtos_use_resolved_paths (goods.test_images.CatalogImageTests)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
     return self.cursor.execute(sql, params)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
     return self.cursor.execute(query, args)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\cursors.py", line 148, in execute
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\cursors.py", line 148, in execute
     result = self._query(query)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\cursors.py", line 310, in _query
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\cursors.py", line 310, in _query
     conn.query(q)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\connections.py", line 548, in query
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\connections.py", line 548, in query
     self._affected_rows = self._read_query_result(unbuffered=unbuffered)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\connections.py", line 775, in _read_query_result
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\connections.py", line 775, in _read_query_result
     result.read()
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\connections.py", line 1156, in read
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\connections.py", line 1156, in read
     first_packet = self.connection._read_packet()
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\connections.py", line 725, in _read_packet
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\connections.py", line 725, in _read_packet
     packet.raise_for_error()
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
     err.raise_mysql_exception(self._data)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
     raise errorclass(errno, errval)
 pymysql.err.DataError: (1406, "Data too long for column 'username' at row 1")
 
 The above exception was the direct cause of the following exception:
 
 Traceback (most recent call last):
-  File "E:\django\dadashop\goods\test_images.py", line 33, in setUp
+  File "E:\django\tea_saas\goods\test_images.py", line 33, in setUp
     self.merchant = UserProfile.objects.create(username='tea-merchant', user_type='merchant', is_active=True)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
     return getattr(self.get_queryset(), name)(*args, **kwargs)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\models\query.py", line 453, in create
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\models\query.py", line 453, in create
     obj.save(force_insert=True, using=self.db)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\models\base.py", line 739, in save
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\models\base.py", line 739, in save
     self.save_base(using=using, force_insert=force_insert,
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\models\base.py", line 776, in save_base
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\models\base.py", line 776, in save_base
     updated = self._save_table(
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\models\base.py", line 881, in _save_table
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\models\base.py", line 881, in _save_table
     results = self._do_insert(cls._base_manager, using, fields, returning_fields, raw)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\models\base.py", line 919, in _do_insert
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\models\base.py", line 919, in _do_insert
     return manager._insert(
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
     return getattr(self.get_queryset(), name)(*args, **kwargs)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\models\query.py", line 1270, in _insert
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\models\query.py", line 1270, in _insert
     return query.get_compiler(using=using).execute_sql(returning_fields)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\models\sql\compiler.py", line 1416, in execute_sql
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\models\sql\compiler.py", line 1416, in execute_sql
     cursor.execute(sql, params)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\backends\utils.py", line 66, in execute
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\backends\utils.py", line 66, in execute
     return self._execute_with_wrappers(sql, params, many=False, executor=self._execute)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\backends\utils.py", line 75, in _execute_with_wrappers
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\backends\utils.py", line 75, in _execute_with_wrappers
     return executor(sql, params, many, context)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
     return self.cursor.execute(sql, params)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\utils.py", line 90, in __exit__
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\utils.py", line 90, in __exit__
     raise dj_exc_value.with_traceback(traceback) from exc_value
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
     return self.cursor.execute(sql, params)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
     return self.cursor.execute(query, args)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\cursors.py", line 148, in execute
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\cursors.py", line 148, in execute
     result = self._query(query)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\cursors.py", line 310, in _query
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\cursors.py", line 310, in _query
     conn.query(q)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\connections.py", line 548, in query
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\connections.py", line 548, in query
     self._affected_rows = self._read_query_result(unbuffered=unbuffered)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\connections.py", line 775, in _read_query_result
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\connections.py", line 775, in _read_query_result
     result.read()
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\connections.py", line 1156, in read
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\connections.py", line 1156, in read
     first_packet = self.connection._read_packet()
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\connections.py", line 725, in _read_packet
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\connections.py", line 725, in _read_packet
     packet.raise_for_error()
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
     err.raise_mysql_exception(self._data)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
     raise errorclass(errno, errval)
 django.db.utils.DataError: (1406, "Data too long for column 'username' at row 1")
 
@@ -633,78 +633,78 @@ django.db.utils.DataError: (1406, "Data too long for column 'username' at row 1"
 ERROR: test_virtual_image_served_and_upload_field_remains_empty (goods.test_images.CatalogImageTests)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
     return self.cursor.execute(sql, params)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
     return self.cursor.execute(query, args)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\cursors.py", line 148, in execute
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\cursors.py", line 148, in execute
     result = self._query(query)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\cursors.py", line 310, in _query
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\cursors.py", line 310, in _query
     conn.query(q)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\connections.py", line 548, in query
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\connections.py", line 548, in query
     self._affected_rows = self._read_query_result(unbuffered=unbuffered)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\connections.py", line 775, in _read_query_result
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\connections.py", line 775, in _read_query_result
     result.read()
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\connections.py", line 1156, in read
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\connections.py", line 1156, in read
     first_packet = self.connection._read_packet()
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\connections.py", line 725, in _read_packet
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\connections.py", line 725, in _read_packet
     packet.raise_for_error()
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
     err.raise_mysql_exception(self._data)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
     raise errorclass(errno, errval)
 pymysql.err.DataError: (1406, "Data too long for column 'username' at row 1")
 
 The above exception was the direct cause of the following exception:
 
 Traceback (most recent call last):
-  File "E:\django\dadashop\goods\test_images.py", line 33, in setUp
+  File "E:\django\tea_saas\goods\test_images.py", line 33, in setUp
     self.merchant = UserProfile.objects.create(username='tea-merchant', user_type='merchant', is_active=True)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
     return getattr(self.get_queryset(), name)(*args, **kwargs)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\models\query.py", line 453, in create
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\models\query.py", line 453, in create
     obj.save(force_insert=True, using=self.db)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\models\base.py", line 739, in save
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\models\base.py", line 739, in save
     self.save_base(using=using, force_insert=force_insert,
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\models\base.py", line 776, in save_base
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\models\base.py", line 776, in save_base
     updated = self._save_table(
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\models\base.py", line 881, in _save_table
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\models\base.py", line 881, in _save_table
     results = self._do_insert(cls._base_manager, using, fields, returning_fields, raw)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\models\base.py", line 919, in _do_insert
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\models\base.py", line 919, in _do_insert
     return manager._insert(
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
     return getattr(self.get_queryset(), name)(*args, **kwargs)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\models\query.py", line 1270, in _insert
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\models\query.py", line 1270, in _insert
     return query.get_compiler(using=using).execute_sql(returning_fields)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\models\sql\compiler.py", line 1416, in execute_sql
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\models\sql\compiler.py", line 1416, in execute_sql
     cursor.execute(sql, params)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\backends\utils.py", line 66, in execute
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\backends\utils.py", line 66, in execute
     return self._execute_with_wrappers(sql, params, many=False, executor=self._execute)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\backends\utils.py", line 75, in _execute_with_wrappers
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\backends\utils.py", line 75, in _execute_with_wrappers
     return executor(sql, params, many, context)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
     return self.cursor.execute(sql, params)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\utils.py", line 90, in __exit__
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\utils.py", line 90, in __exit__
     raise dj_exc_value.with_traceback(traceback) from exc_value
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
     return self.cursor.execute(sql, params)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
     return self.cursor.execute(query, args)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\cursors.py", line 148, in execute
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\cursors.py", line 148, in execute
     result = self._query(query)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\cursors.py", line 310, in _query
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\cursors.py", line 310, in _query
     conn.query(q)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\connections.py", line 548, in query
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\connections.py", line 548, in query
     self._affected_rows = self._read_query_result(unbuffered=unbuffered)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\connections.py", line 775, in _read_query_result
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\connections.py", line 775, in _read_query_result
     result.read()
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\connections.py", line 1156, in read
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\connections.py", line 1156, in read
     first_packet = self.connection._read_packet()
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\connections.py", line 725, in _read_packet
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\connections.py", line 725, in _read_packet
     packet.raise_for_error()
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
     err.raise_mysql_exception(self._data)
-  File "E:\miniconda\envs\dadashop\lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
+  File "E:\miniconda\envs\tea_saas\lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
     raise errorclass(errno, errval)
 django.db.utils.DataError: (1406, "Data too long for column 'username' at row 1")
 

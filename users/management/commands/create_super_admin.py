@@ -7,7 +7,7 @@ from django.conf import settings
 from django.core.management.base import BaseCommand
 from users.models import UserProfile, Role, UserRole
 from users import permissions as perm_constants
-from dadashop.utils import md5
+from tea_saas.utils import md5
 
 
 class Command(BaseCommand):
@@ -21,7 +21,7 @@ class Command(BaseCommand):
             username=username,
             defaults={
                 'password': md5(password),
-                'email': f'{username}@dadashop.com',
+                'email': f'{username}@tea_saas.com',
                 'phone': '13800000000',
                 'user_type': 'customer',
                 'is_active': True,

@@ -17,10 +17,10 @@ features:
     codePaths: [goods/activity_views.py, goods/models.py, goods/migrations/0009_browsinghistory_favorite.py, client/templates/buyer_activity.html, client/static/js/buyer-activity.js, client/static/css/buyer-activity.css]
     observation: implemented-targeted-verification-see-capability-evidence
   - id: FEAT-001
-    name: 注册登录及密码恢复
+    name: 账号密码注册登录
     primaryCapability: CAP-IAM-001
     perspectives: [buyer, merchant, operations]
-    pages: [login.html, terminal_login.html, register_sms.html, findPass.html]
+    pages: [login.html, terminal_login.html, register_sms.html]
     apiPrefixes: [/v1/users/]
     codePaths: [users/views.py, users/urls.py, users/access.py, client/templates/login.html, client/static/js/login-portal.js]
     observation: observed-code
@@ -207,7 +207,7 @@ features:
     perspectives: [buyer, merchant, operations]
     pages: [buyer_dashboard.html, merchant_dashboard.html, terminal_login.html, header.html, footer.html]
     apiPrefixes: []
-    codePaths: [dadashop/urls.py, client/static/css/design-tokens.css, client/static/css/system-theme.css, client/templates/shared/]
+    codePaths: [tea_saas/urls.py, client/static/css/design-tokens.css, client/static/css/system-theme.css, client/templates/shared/]
     observation: observed-code-navigation-not-exhaustive
   - id: FEAT-024
     name: 数据路由环境观测部署及模块版本支撑
@@ -215,7 +215,7 @@ features:
     perspectives: [operations]
     pages: []
     apiPrefixes: []
-    codePaths: [dadashop/settings.py, requirements.txt, ai_storage/router.py, deploy/, tools/module_versions.py, versions/modules.json]
+    codePaths: [tea_saas/settings.py, requirements.txt, ai_storage/router.py, deploy/, tools/module_versions.py, versions/modules.json]
     observation: observed-config-not-runtime-evidence
   - id: FEAT-025
     name: 六类分组推荐与跨轮分组商品指代
@@ -290,7 +290,7 @@ features:
     perspectives: [developer]
     pages: []
     apiPrefixes: []
-    codePaths: [tools/dadashop_mcp/server.py, support_ai/product_details.py, support_ai/management/commands/mcp_product_details.py]
+    codePaths: [tools/tea_saas_mcp/server.py, support_ai/product_details.py, support_ai/management/commands/mcp_product_details.py]
     specification: docs/MCP与Skill接入.md
     observation: implemented-local-stdio-only-no-http-or-user-config-install
   - id: FEAT-034
@@ -299,7 +299,7 @@ features:
     perspectives: [developer]
     pages: []
     apiPrefixes: []
-    codePaths: [.agents/skills/dadashop-change-delivery/SKILL.md, tools/git_policy.py, tools/module_versions.py]
+    codePaths: [.agents/skills/tea-saas-change-delivery/SKILL.md, tools/git_policy.py, tools/module_versions.py]
     observation: repo-skill-with-separate-git-authorization-not-agent-runtime-skill-loader
   - id: FEAT-035
     name: 平台交易总览与三导航管理外壳

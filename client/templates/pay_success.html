@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>支付结果 · 跨境茶叶saas平台</title>
+    <title>支付结果 · tea_saas</title>
     <link rel="icon" href="/static/images/index/py.ico">
     <link rel="stylesheet" href="/static/css/design-tokens.css">
     <link rel="stylesheet" href="/static/css/rtl.css">
@@ -52,14 +52,14 @@
                                 <p>支付成功</p>
                                 <span><a href="buyer_orders.html" id="linkMyOrder">查看订单&gt;&gt;</a></span>
                                 <br />
-                                跨境茶叶saas平台不会以系统异常、订单升级为由，要求你点击任何链接进行退款操作！
+                                tea_saas不会以系统异常、订单升级为由，要求你点击任何链接进行退款操作！
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <footer class="storefront-footer">© 2026 跨境茶叶saas平台 · 中国地标茶出海中东</footer>
+            <footer class="storefront-footer">© 2026 tea_saas · 中国地标茶出海中东</footer>
         </main>
     </div>
 
@@ -109,13 +109,13 @@
                         $('.pay_result').html(
                             "<img src='/static/images/pay/pay_succ.png' alt='' /><p>支付成功</p>" +
                             "<span><a href='" + orderLink + "'>查看订单&gt;&gt;</a></span><br />" +
-                            '跨境茶叶saas平台不会以系统异常、订单升级为由，要求你点击任何链接进行退款操作！'
+                            'tea_saas不会以系统异常、订单升级为由，要求你点击任何链接进行退款操作！'
                         );
                     } else if (results.code == '50105') {
                         $('.pay_result').html(
                             "<img src='/static/images/pay/payfail.png' alt='' /><p>支付失败</p>" +
                             "<span><a href='" + orderLink + "'>查看订单&gt;&gt;</a></span><br />" +
-                            '跨境茶叶saas平台不会以系统异常、订单升级为由，要求你点击任何链接进行退款操作！'
+                            'tea_saas不会以系统异常、订单升级为由，要求你点击任何链接进行退款操作！'
                         );
                     }
                 }

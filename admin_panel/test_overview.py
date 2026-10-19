@@ -7,7 +7,7 @@ from django.core.management import call_command
 from django.test import TestCase
 from django.utils import timezone
 
-from dadashop.utils import jwt_encode
+from tea_saas.utils import jwt_encode
 from orders.models import OrderInfo, PreSaleOrder, TrialOrder
 from users.models import Permission, Role, RolePermission, UserProfile, UserRole
 
@@ -128,7 +128,7 @@ class PlatformOverviewTests(TestCase):
         self.assertEqual(response.status_code, 503)
         self.assertNotIn('data', response.json())
 
-    def test_navigation_and_knowledge_placeholder(self):
+    def test_navigation(self):
         page = self.client.get('/admin_panel.html')
         for label in ('交易总览', 'Agent 管理', '账号管理'):
             self.assertContains(page, label)
@@ -137,7 +137,7 @@ class PlatformOverviewTests(TestCase):
         self.assertNotContains(overview, '提交知识库文件')
         self.assertContains(overview, 'id="platform-workspace"')
         self.assertContains(self.client.get('/admin_users.html?embedded=1'), 'id="user-username"')
-        self.assertContains(self.client.get('/admin_agents.html?embedded=1'), 'disabled aria-describedby="knowledge-description"')
+        self.assertNotContains(self.client.get('/admin_agents.html?embedded=1'), 'id="knowledge-base"')
         for section in ('users', 'agents'):
             self.assertRedirects(self.client.get('/admin_' + section + '.html'),
                                  '/admin_panel.html#' + section, fetch_redirect_response=False)

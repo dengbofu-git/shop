@@ -17,7 +17,7 @@ def main():
     output = Path(args.output).resolve()
     if output.exists():
         raise RuntimeError('Preserve prior results; choose a fresh file')
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE','dadashop.settings')
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE','tea_saas.settings')
     import django
     django.setup()
     from django.db import connections

@@ -1,4 +1,4 @@
-# 跨境茶叶saas平台名称与个人项目授权验证
+# tea_saas名称与个人项目授权验证
 
 日期：2026-10-18（Asia/Shanghai）。本记录对应当前未提交工作区，不复用旧证据作为本轮通过结论。
 
@@ -18,9 +18,9 @@
 | `node client/tests/buyer-products-pagination.test.js` | 通过，分页、语言切换及真实卡片契约 |
 | `node client/tests/unified-login.test.js` | 通过，登录分流及初始化保护 |
 | `node client/tests/checkout.test.js` | 通过，已有金额、币种、地址保持及支付参数契约 |
-| `E:/miniconda/envs/dadashop/python.exe -X utf8 client/tests/tea-saas-contract.py` | 通过，25 个页面外壳与当前 SDD 映射；使用隔离测试设置，不访问业务库 |
-| `E:/miniconda/envs/dadashop/python.exe -X utf8 tools/module_versions.py check` | 通过，15 个模块归属 |
-| `E:/miniconda/envs/dadashop/python.exe -X utf8 C:/Users/dbf/.codex/skills/.system/skill-creator/scripts/quick_validate.py .agents/skills/dadashop-change-delivery` | 通过，Skill 结构有效 |
+| `E:/miniconda/envs/tea_saas/python.exe -X utf8 client/tests/tea-saas-contract.py` | 通过，25 个页面外壳与当前 SDD 映射；使用隔离测试设置，不访问业务库 |
+| `E:/miniconda/envs/tea_saas/python.exe -X utf8 tools/module_versions.py check` | 通过，15 个模块归属 |
+| `E:/miniconda/envs/tea_saas/python.exe -X utf8 C:/Users/dbf/.codex/skills/.system/skill-creator/scripts/quick_validate.py .agents/skills/tea-saas-change-delivery` | 通过，Skill 结构有效 |
 | `git diff --check` | 通过；换行转换提示不属于验证失败 |
 | 当前 SDD YAML 解析、三份版本表及 LICENSE 相对链接 | 通过 |
 | 当前页面／邮件模板／浏览器脚本的旧品牌扫描 | 通过，工程路径与兼容标识单独保留 |

@@ -38,4 +38,4 @@
 - 本次验证覆盖本切片及直接页面／路由／数据库依赖；没有运行全站AI、支付、短信、物流或生产发布验收。
 - MySQL真实测试库验证唯一键与行锁行为，不代表所有部署环境版本、负载和故障场景均已验证。
 
-复现命令（项目根目录）：`E:\miniconda\envs\dadashop\python.exe docs/sdd/evidence/2026-10-16-buyer-activity/verify.py`。MySQL测试需要当前连接账号可创建／删除测试库，测试库名随机生成，不复用业务库。
+复现命令（项目根目录）：`E:\miniconda\envs\tea_saas\python.exe docs/sdd/evidence/2026-10-16-buyer-activity/verify.py`。MySQL测试需要当前连接账号可创建／删除测试库，测试库名随机生成，不复用业务库。

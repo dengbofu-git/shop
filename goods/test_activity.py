@@ -6,7 +6,7 @@ from django.db import IntegrityError, connections, transaction
 from django.test import Client, TestCase, TransactionTestCase, skipUnlessDBFeature
 from django.utils import timezone
 
-from dadashop.utils import jwt_encode
+from tea_saas.utils import jwt_encode
 from users.models import UserProfile
 from .models import BrowsingHistory, Catalog, Favorite, SKU, SPU
 

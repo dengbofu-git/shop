@@ -11,7 +11,7 @@ node --check client/static/js/buyer-catalog-preview.js
 node --check client/static/js/buyer-workbench.js
 ```
 
-以上由Dadashop Python环境和本地Node执行，全部通过。
+以上由tea_saas Python环境和本地Node执行，全部通过。
 
 契约脚本仅使用support_ai.test_settings的临时SQLite数据库，运行真实Django迁移后创建合成红茶16件、绿茶14件和一个无可售商品的分类，另为各类创建缺货／未上架SKU。真实`GET /v1/goods/index`只返回两个有效分类及30件商品，缺货和未上架数据不出现；自动销毁测试库。响应保存为本目录catalog-contract.json，数据均为合成数据。
 

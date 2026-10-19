@@ -1,6 +1,6 @@
-# 跨境茶叶 SaaS 平台调整验证
+# tea_saas调整验证
 
-日期：2026-10-18。环境：Dadashop Python环境、Node；数据库验证只使用 `support_ai.test_settings` 的隔离SQLite内存库。
+日期：2026-10-18。环境：tea_saas Python环境、Node；数据库验证只使用 `support_ai.test_settings` 的隔离SQLite内存库。
 
 | 命令／检查 | 实际结果 |
 | --- | --- |

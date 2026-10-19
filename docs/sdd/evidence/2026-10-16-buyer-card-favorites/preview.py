@@ -18,7 +18,7 @@ os.environ['PYTHONDONTWRITEBYTECODE'] = '1'
 import django
 from django.conf import settings
 
-temporary = tempfile.TemporaryDirectory(prefix='dadashop-activity-')
+temporary = tempfile.TemporaryDirectory(prefix='tea_saas-activity-')
 settings.DATABASES['default']['NAME'] = str(Path(temporary.name) / 'preview.sqlite3')
 settings.DEBUG = True
 django.setup()
@@ -26,7 +26,7 @@ django.setup()
 from django.core.management import call_command
 call_command('migrate', database='default', verbosity=0)
 
-from dadashop.utils import jwt_encode
+from tea_saas.utils import jwt_encode
 from goods.models import Catalog, Favorite, SKU, SPU
 from users.models import UserProfile
 
@@ -40,7 +40,7 @@ for i in range(14):
 
 from django.http import HttpResponse
 from django.urls import path
-from dadashop.urls import urlpatterns as business_urls
+from tea_saas.urls import urlpatterns as business_urls
 import json
 
 encoded = jwt_encode({'id': user.id})

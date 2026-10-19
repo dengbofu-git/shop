@@ -22,7 +22,7 @@
   "commands": [
     {
       "command": [
-        "E:\\miniconda\\envs\\dadashop\\python.exe",
+        "E:\\miniconda\\envs\\tea_saas\\python.exe",
         "manage.py",
         "test",
         "goods.test_images",
@@ -37,7 +37,7 @@
     },
     {
       "command": [
-        "E:\\miniconda\\envs\\dadashop\\python.exe",
+        "E:\\miniconda\\envs\\tea_saas\\python.exe",
         "manage.py",
         "test",
         "goods.test_images",
@@ -52,7 +52,7 @@
     },
     {
       "command": [
-        "E:\\miniconda\\envs\\dadashop\\python.exe",
+        "E:\\miniconda\\envs\\tea_saas\\python.exe",
         "manage.py",
         "makemigrations",
         "goods",
@@ -65,7 +65,7 @@
     },
     {
       "command": [
-        "E:\\miniconda\\envs\\dadashop\\python.exe",
+        "E:\\miniconda\\envs\\tea_saas\\python.exe",
         "tools/module_versions.py",
         "check"
       ],

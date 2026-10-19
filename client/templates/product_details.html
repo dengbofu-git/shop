@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>商品详情 · 跨境茶叶saas平台</title>
+    <title>商品详情 · tea_saas</title>
     <link rel="icon" href="/static/images/index/py.ico">
     <link rel="stylesheet" href="/static/css/design-tokens.css">
     <link rel="stylesheet" href="/static/css/rtl.css">
@@ -120,20 +120,20 @@
                     <div class="detail-service">
                         <h3 id="sale_protect">正品保障</h3>
                         <p class="content">
-                            跨境茶叶saas平台向您保证所售地标茶均为正品，可开具正规发票。
+                            tea_saas向您保证所售地标茶均为正品，可开具正规发票。
                         </p>
                     </div>
                     <div class="detail-service">
                         <h3>全国联保</h3>
                         <p class="content">
-                            凭质保证书及跨境茶叶saas平台发票，可享受品质保障。中国地标茶出海中东，品质之选，请您放心采购！
+                            凭质保证书及tea_saas发票，可享受品质保障。中国地标茶出海中东，品质之选，请您放心采购！
                             注：因厂家会在没有任何提前通知的情况下更改产品包装、产地或者一些附件，本司不能确保客户收到的货物与商城图片、产地、附件说明完全一致。只能确保为原厂正货！并且保证与当时市场上同样主流新品一致。若本商城没有及时更新，请大家谅解！
                         </p>
                     </div>
                 </section>
                 <section id="packing_list" class="detail-section" aria-labelledby="packing-title">
                     <h2 id="packing-title">包装清单</h2>
-                    <p class="content" id="packing_content">地标茶品，品质保障。如需核实茶品产地与品质，可联系跨境茶叶saas平台客服。</p>
+                    <p class="content" id="packing_content">地标茶品，品质保障。如需核实茶品产地与品质，可联系tea_saas客服。</p>
                 </section>
             </div>
             <nav class="detail-section-nav" aria-label="本页目录">
@@ -148,7 +148,7 @@
     </section>
             </div>
 
-            <footer class="storefront-footer">© 2026 跨境茶叶saas平台 · 中国地标茶出海中东</footer>
+            <footer class="storefront-footer">© 2026 tea_saas · 中国地标茶出海中东</footer>
         </main>
     </div>
     <div class="modal" style="display:none">
@@ -170,35 +170,6 @@
     <script src="/static/js/lozad.js"></script>
     <script src="/static/js/buyer-activity.js?v=20261018-platform-name"></script>
     <script>
-//	$(function(){
-//        $("#btn00").click(function () {
-//            var url=window.location.href;
-//            $.ajax({
-//                url:baseUrl+"/v1/users/weibo/share",
-//                type:"post",
-//                dataType:"json",
-//                contentType:'application/json',
-//		beforeSend:function (request) {
-//                           request.setRequestHeader("authorization",AuthStorage.getToken())
-//                       },
-//                data:JSON.stringify({
-//                    // 'text':'',
-//                    'url':url
- //               }),
-//                //响应成功的回调函数
- //               success:function (data) {
-                    //发送成功以后重定向回http://127.0.0.1:7000/dadashop/templates/product_details.html
-//                    if(data.code===200){
- //                       alert("分享成功！");
-                        // window.location.href=url;
-//                    }else {
- //                       alert(data.error)
-//                    }
-//                }
- //           })
-//      })
-// })
-//****************************************************
         $(function() {
           (function ($) {
           $.getUrlParam = function (name) {
@@ -494,7 +465,7 @@
                         if (cart && cart.length) {
                             for (var i = 0; i < cart.length; i++) total += parseInt(cart[i].count || 1);
                         }
-                        window.localStorage.setItem('dashop_count', total);
+                        window.localStorage.setItem('tea_saas_count', total);
                         $('.my_cart_count').html(total);
                         alert("离线添加购物车成功！");
                         location.reload();

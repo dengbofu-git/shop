@@ -4,7 +4,7 @@
 
 ## 本次实现
 
-- `core 0.1.11`：仓库级 dadashop-change-delivery Skill、本地 stdio MCP 适配器、独立依赖环境、接入说明和搜索设计草案。
+- `core 0.1.11`：仓库级 tea-saas-change-delivery Skill、本地 stdio MCP 适配器、独立依赖环境、接入说明和搜索设计草案。
 - `support_ai 0.11.1`：公开商品详情服务、固定管理命令、站内详情工具复用及定向测试。
 - 只读取在售且正可用库存的公开商品，库存沿用账本优先／无账本回退口径。属性使用公开白名单，SQL 投影不含成本和商家身份字段。
 - 无数据库迁移。search_products 尚未实现，设计见 [详细草案](../../modules/ai-support/search-products-design.md)。
@@ -13,9 +13,9 @@
 
 | 验证 | 实际命令和结果 |
 | --- | --- |
-| Skill 结构 | `python -X utf8 C:/Users/dbf/.codex/skills/.system/skill-creator/scripts/quick_validate.py .agents/skills/dadashop-change-delivery`：Skill is valid |
-| Django 行为 | `E:/miniconda/envs/dadashop/python.exe manage.py test support_ai.test_product_details support_ai.test_planning support_ai.test_task_tools.TaskToolIntegrationTests.test_one_product_and_dependent_live_details --settings=support_ai.test_settings --noinput`：22 项通过，系统检查无问题 |
-| MCP 协议和桥接 | 先设置 `DADASHOP_TEST_PYTHON=E:/miniconda/envs/dadashop/python.exe`，再运行 `tools/dadashop_mcp/.venv/Scripts/python.exe -m unittest tools.dadashop_mcp.test_server -v`：9 项通过，无跳过 |
+| Skill 结构 | `python -X utf8 C:/Users/dbf/.codex/skills/.system/skill-creator/scripts/quick_validate.py .agents/skills/tea-saas-change-delivery`：Skill is valid |
+| Django 行为 | `E:/miniconda/envs/tea_saas/python.exe manage.py test support_ai.test_product_details support_ai.test_planning support_ai.test_task_tools.TaskToolIntegrationTests.test_one_product_and_dependent_live_details --settings=support_ai.test_settings --noinput`：22 项通过，系统检查无问题 |
+| MCP 协议和桥接 | 先设置 `TEA_SAAS_TEST_PYTHON=E:/miniconda/envs/tea_saas/python.exe`，再运行 `tools/tea_saas_mcp/.venv/Scripts/python.exe -m unittest tools.tea_saas_mcp.test_server -v`：9 项通过，无跳过 |
 | 模块清单 | `python tools/module_versions.py check`：15 模块，已跟踪文件均有归属；另对本次新增路径调用 owner 匹配，均有归属 |
 | 静态检查 | `git diff --check` 通过；本次新增 Python 文件 AST 解析通过；新增文本未发现冲突标记 |
 
@@ -30,7 +30,7 @@ Skill 还人工核对了三个授权场景：只实现时不提交；只提交�
 首次运行以下较宽范围回归共 30 项：28 项通过，1 项失败、1 项错误。
 
 ```powershell
-E:/miniconda/envs/dadashop/python.exe manage.py test support_ai.test_product_details support_ai.test_task_tools support_ai.test_planning --settings=support_ai.test_settings --noinput
+E:/miniconda/envs/tea_saas/python.exe manage.py test support_ai.test_product_details support_ai.test_task_tools support_ai.test_planning --settings=support_ai.test_settings --noinput
 ```
 
 - `test_invalid_hard_conditions_commit_only_safe_clarification`：期望 HTTP 200，实际为 503。

@@ -16,7 +16,7 @@
 
 Migration：`goods/0009_browsinghistory_favorite.py`，依赖 goods 0008 与 users 0007，只创建两张新表和约束。无既有数据回填，无匿名历史合并。
 
-本地运行：`E:\miniconda\envs\dadashop\python.exe manage.py migrate goods 0009 --database default --noinput`。本次已成功；其他环境需随代码执行迁移。联合版本 goods 0.3.0、web 0.5.0、core 0.1.4。
+本地运行：`E:\miniconda\envs\tea_saas\python.exe manage.py migrate goods 0009 --database default --noinput`。本次已成功；其他环境需随代码执行迁移。联合版本 goods 0.3.0、web 0.5.0、core 0.1.4。
 
 回退先回滚页面与 API 代码，可保留新增表以便恢复。若需回退到 goods 0008，先备份新增两表并确认可丢弃收藏与足迹，再人工反向迁移；本次没有执行反向迁移。
 

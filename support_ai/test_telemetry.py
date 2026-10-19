@@ -8,7 +8,7 @@ from langchain_core.messages import AIMessage
 from langchain_core.outputs import ChatGeneration, LLMResult
 from langchain_core.runnables import RunnableLambda
 
-from dadashop.utils import jwt_encode
+from tea_saas.utils import jwt_encode
 from users.models import Permission, Role, RolePermission, UserProfile, UserRole
 from .configuration import AgentConfig, effective_configuration
 from .models import AgentConfiguration, AgentConfigurationChange, AgentSpan

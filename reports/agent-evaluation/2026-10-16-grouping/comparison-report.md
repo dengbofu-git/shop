@@ -31,7 +31,7 @@
 81 项隔离自动化测试通过，包含原有回归及本次新增的分类条件、偏好数量保持、原文依据、数量歧义、预算和排除、无匹配、部分工具失败、模型条件校验、12 个商品引用、第二类多商品消歧、实时价格变化及历史字符预算。
 
 ```powershell
-& E:\miniconda\envs\dadashop\python.exe -X utf8 manage.py test support_ai.tests support_ai.test_planning support_ai.test_task_tools support_ai.test_grouped_recommendations support_ai.test_telemetry --settings=support_ai.test_settings --noinput
+& E:\miniconda\envs\tea_saas\python.exe -X utf8 manage.py test support_ai.tests support_ai.test_planning support_ai.test_task_tools support_ai.test_grouped_recommendations support_ai.test_telemetry --settings=support_ai.test_settings --noinput
 ```
 
 使用 SQLite 内存库和 LocMem 缓存，不在真实 MySQL 创建或清空测试库。最终记录见 `unit-tests-verified.log`。
@@ -51,7 +51,7 @@
 重复执行时使用新输出文件：
 
 ```powershell
-& E:\miniconda\envs\dadashop\python.exe -X utf8 -u -m support_ai.evaluation.replay_grouped_preview --output reports\agent-evaluation\2026-10-16-grouping\new-run.json
+& E:\miniconda\envs\tea_saas\python.exe -X utf8 -u -m support_ai.evaluation.replay_grouped_preview --output reports\agent-evaluation\2026-10-16-grouping\new-run.json
 ```
 
 该脚本拒绝覆盖已有输出，需当前 MySQL 和模型服务，使用保存的公开预览脱敏上下文。

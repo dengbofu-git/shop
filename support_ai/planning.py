@@ -4,17 +4,18 @@ from typing import List, Literal, Optional
 
 from langchain_core.prompts import ChatPromptTemplate
 from pydantic import BaseModel, ConfigDict, Field
-from .contracts import RecommendationOptions
+from .contracts import RecommendationOptions, RecommendationIntent
 from .recommendation_options import BASIC_TEA_TYPES, DESCRIBED_TEA_REFERENCE, ORDINAL, recommendation_options, tea_scope
 from .conversation_tasks import REASON_PATTERN, PREVIOUS_RECOMMENDATION
 
 
-Intent = Literal['recommendation', 'recommendation_explanation', 'question_answering', 'product_details', 'after_sales', 'clarification']
+Intent = Literal['recommendation', 'recommendation_explanation', 'question_answering', 'product_details', 'after_sales', 'clarification', 'greeting', 'system_help']
 TOOL_FOR_INTENT = {
     'recommendation': 'recommend_products', 'question_answering': 'introduce_tea',
     'product_details': 'get_product_details', 'after_sales': 'get_order_status',
     'clarification': 'ask_clarification',
     'recommendation_explanation': 'explain_recommendations',
+    'greeting': 'greet_user', 'system_help': 'describe_capabilities',
 }
 MAX_STEPS = 5
 
@@ -43,6 +44,9 @@ class TaskStep(BaseModel):
     recommendation: Optional[RecommendationOptions] = None
     knowledge_from: Optional[str] = None
     tea_scope: List[str] = Field(default_factory=list, max_length=6)
+    purchase_intent: Optional[RecommendationIntent] = None
+    reference_turn_id: Optional[str] = Field(default=None, max_length=80)
+    reference_position: Optional[int] = Field(default=None, ge=1, le=12)
 
 
 class TaskPlan(BaseModel):
@@ -247,6 +251,12 @@ def validate_plan(plan):
     for step in plan.steps:
         if step.tool != TOOL_FOR_INTENT[step.intent]:
             raise ValueError('Tool does not match its fixed template')
+        if step.purchase_intent is not None and step.intent != 'recommendation':
+            raise ValueError('Purchase conditions require a recommendation task')
+        if (step.reference_turn_id or step.reference_position is not None) and (
+                step.intent not in ('product_details', 'recommendation_explanation')
+                or not step.reference_turn_id or step.product_from):
+            raise ValueError('Invalid historical product reference')
         if any(dep not in ids or dep == step.id for dep in step.depends_on):
             raise ValueError('Invalid dependency')
         if step.product_from:

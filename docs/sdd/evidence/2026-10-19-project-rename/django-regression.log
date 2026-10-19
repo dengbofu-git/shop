@@ -1,0 +1,386 @@
+System check identified no issues (0 silenced).
+RBAC seeded: 6 roles, 9 permissions, 26 new role-permission mappings.
+RBAC seeded: 6 roles, 9 permissions, 26 new role-permission mappings.
+<python-env>\lib\site-packages\langgraph\checkpoint\base\__init__.py:18: LangChainPendingDeprecationWarning: The default value of `allowed_objects` will change in a future version. Pass an explicit value (e.g., allowed_objects='messages' or allowed_objects='core') to suppress this warning.
+  from langgraph.checkpoint.serde.jsonplus import JsonPlusSerializer
+Creating test database for alias 'default'...
+
+Creating test database for alias 'ai_storage'...
+
+.....................................................Semantic planning unavailable: ValidationError
+E....Semantic planning unavailable: ValidationError
+E.Customer support storage failed: OperationalError
+.Customer support storage failed: OperationalError
+.F.F..F......FFFFF.F..........Semantic planning unavailable: ValidationError
+ESemantic planning unavailable: ValidationError
+F..Semantic planning unavailable: ValidationError
+F.Semantic planning unavailable: ValidationError
+E.....F.....Agent telemetry persistence failed: RuntimeError
+....sssss..............................Semantic planning unavailable: ValidationError
+Semantic planning unavailable: ValidationError
+FSemantic planning unavailable: ValidationError
+.Semantic planning unavailable: ValidationError
+F.......................
+======================================================================
+ERROR: test_invalid_conditions_clarify_but_provider_failure_does_not_commit (support_ai.tests.RecommendationIntegrationTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<workspace>\support_ai\tests.py", line 306, in test_invalid_conditions_clarify_but_provider_failure_does_not_commit
+    self.assertEqual(data.json()['recommendation_status'], 'CLARIFY')
+KeyError: 'recommendation_status'
+
+======================================================================
+ERROR: test_short_context_contains_only_committed_redacted_same_conversation_turns (support_ai.tests.RecommendationIntegrationTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<workspace>\support_ai\tests.py", line 357, in test_short_context_contains_only_committed_redacted_same_conversation_turns
+    self.assertIn('turn-', next_model.calls[-1][1])
+IndexError: list index out of range
+
+======================================================================
+ERROR: test_invalid_hard_conditions_commit_only_safe_clarification (support_ai.test_task_tools.TaskToolIntegrationTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<workspace>\support_ai\test_task_tools.py", line 84, in test_invalid_hard_conditions_commit_only_safe_clarification
+    self.assertEqual(response.json()['recommendation_status'], 'CLARIFY')
+KeyError: 'recommendation_status'
+
+======================================================================
+ERROR: test_unknown_category_requests_clarification_instead_of_no_match (support_ai.test_task_tools.TaskToolIntegrationTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<workspace>\support_ai\test_task_tools.py", line 104, in test_unknown_category_requests_clarification_instead_of_no_match
+    self.assertEqual(data['recommendation_status'], 'CLARIFY')
+KeyError: 'recommendation_status'
+
+======================================================================
+FAIL: test_bad_model_conditions_clarify_without_unfiltered_query (support_ai.test_grouped_recommendations.GroupedRecommendationTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<workspace>\support_ai\test_grouped_recommendations.py", line 158, in test_bad_model_conditions_clarify_without_unfiltered_query
+    self.assertEqual(result.status, 'needs_clarification')
+AssertionError: 'error' != 'needs_clarification'
+- error
++ needs_clarification
+
+
+======================================================================
+FAIL: test_full_question_covers_all_six_types_without_condition_model (support_ai.test_grouped_recommendations.GroupedRecommendationTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<workspace>\support_ai\test_grouped_recommendations.py", line 93, in test_full_question_covers_all_six_types_without_condition_model
+    self.assertIn('匹配理由', result.data['answer'])
+AssertionError: '匹配理由' not found in '以下是本次推荐及依据（USD 单价，价格及库存以下单时为准）：\n\n1. 绿茶测试商品 · 规格0 · $10.00\n原推荐分组：绿茶\n推荐依据：对应原推荐列表的绿茶分组；当前上架且有可用库存；在这份列表中每份售价最低，单份购入成本较低（不代表按克最便宜）。\n尚无可验证的风味或包装等属性，无法据此进一步区分。\n\n2. 红茶测试商品 · 规格0 · $11.00\n原推荐分组：红茶\n推荐依据：对应原推荐列表的红茶分组；当前上架且有可用库存。\n尚无可验证的风味或包装等属性，无法据此进一步区分。\n\n3. 白茶测试商品 · 规格0 · $12.00\n原推荐分组：白茶\n推荐依据：对应原推荐列表的白茶分组；当前上架且有可用库存。\n尚无可验证的风味或包装等属性，无法据此进一步区分。\n\n4. 乌龙茶测试商品 · 规格0 · $13.00\n原推荐分组：乌龙茶\n推荐依据：对应原推荐列表的乌龙茶分组；当前上架且有可用库存。\n尚无可验证的风味或包装等属性，无法据此进一步区分。\n\n5. 黄茶测试商品 · 规格0 · $14.00\n原推荐分组：黄茶\n推荐依据：对应原推荐列表的黄茶分组；当前上架且有可用库存。\n尚无可验证的风味或包装等属性，无法据此进一步区分。\n\n6. 黑茶测试商品 · 规格0 · $15.00\n原推荐分组：黑茶\n推荐依据：对应原推荐列表的黑茶分组；当前上架且有可用库存。\n尚无可验证的风味或包装等属性，无法据此进一步区分。\n这些依据限于已确认条件及商品当前数据；尚不能据此认定某款最适合您的口味。价格及库存以下单时为准。'
+
+======================================================================
+FAIL: test_model_schema_failure_clarifies_and_reports_field (support_ai.test_grouped_recommendations.GroupedRecommendationTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<workspace>\support_ai\test_grouped_recommendations.py", line 163, in test_model_schema_failure_clarifies_and_reports_field
+    self.assertEqual(result.status, 'needs_clarification')
+AssertionError: 'error' != 'needs_clarification'
+- error
++ needs_clarification
+
+
+======================================================================
+FAIL: test_budget_still_applies_to_knowledge_bound_groups (support_ai.test_mixed_tea.MixedTeaIntegrationTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<workspace>\support_ai\test_mixed_tea.py", line 190, in test_budget_still_applies_to_knowledge_bound_groups
+    data = self.run_graph('说明绿茶和红茶的区别，并推荐对应商品，每盒不超过10美元')['response']
+  File "<workspace>\support_ai\test_mixed_tea.py", line 151, in run_graph
+    return build_graph(model, tool_factory=lambda state: create_tool_handlers(
+  File "<python-env>\lib\site-packages\langgraph\pregel\__init__.py", line 2336, in invoke
+    for chunk in self.stream(
+  File "<python-env>\lib\site-packages\langgraph\pregel\__init__.py", line 1993, in stream
+    for _ in runner.tick(
+  File "<python-env>\lib\site-packages\langgraph\pregel\runner.py", line 230, in tick
+    run_with_retry(
+  File "<python-env>\lib\site-packages\langgraph\pregel\retry.py", line 40, in run_with_retry
+    return task.proc.invoke(task.input, config)
+  File "<python-env>\lib\site-packages\langgraph\utils\runnable.py", line 546, in invoke
+    input = step.invoke(input, config, **kwargs)
+  File "<python-env>\lib\site-packages\langgraph\utils\runnable.py", line 310, in invoke
+    ret = context.run(self.func, *args, **kwargs)
+  File "<workspace>\support_ai\workflow.py", line 104, in resolve
+    semantic, source, previous = plan_turn(model, state['safe_message'], history, state.get('memory'))
+  File "<workspace>\support_ai\semantic_planning.py", line 192, in plan_turn
+    value = (prompt | model.with_structured_output(SemanticPlan)).invoke({
+  File "<python-env>\lib\site-packages\langchain_core\runnables\base.py", line 3268, in invoke
+    input_ = context.run(step.invoke, input_, config)
+  File "<python-env>\lib\site-packages\langchain_core\runnables\base.py", line 5048, in invoke
+    return self._call_with_config(
+  File "<python-env>\lib\site-packages\langchain_core\runnables\base.py", line 2106, in _call_with_config
+    context.run(
+  File "<python-env>\lib\site-packages\langchain_core\runnables\config.py", line 430, in call_func_with_variable_args
+    return func(input, **kwargs)  # type: ignore[call-arg]
+  File "<python-env>\lib\site-packages\langchain_core\runnables\base.py", line 4905, in _invoke
+    output = call_func_with_variable_args(
+  File "<python-env>\lib\site-packages\langchain_core\runnables\config.py", line 430, in call_func_with_variable_args
+    return func(input, **kwargs)  # type: ignore[call-arg]
+  File "<workspace>\support_ai\test_mixed_tea.py", line 58, in structured
+    raise AssertionError('Unexpected schema: ' + schema.__name__)
+AssertionError: Unexpected schema: SemanticPlan
+
+======================================================================
+FAIL: test_empty_or_fabricated_evidence_never_unlocks_products (support_ai.test_mixed_tea.MixedTeaIntegrationTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<workspace>\support_ai\test_mixed_tea.py", line 173, in test_empty_or_fabricated_evidence_never_unlocks_products
+    data = self.run_graph(model=model, search=search)['response']
+  File "<workspace>\support_ai\test_mixed_tea.py", line 151, in run_graph
+    return build_graph(model, tool_factory=lambda state: create_tool_handlers(
+  File "<python-env>\lib\site-packages\langgraph\pregel\__init__.py", line 2336, in invoke
+    for chunk in self.stream(
+  File "<python-env>\lib\site-packages\langgraph\pregel\__init__.py", line 1993, in stream
+    for _ in runner.tick(
+  File "<python-env>\lib\site-packages\langgraph\pregel\runner.py", line 230, in tick
+    run_with_retry(
+  File "<python-env>\lib\site-packages\langgraph\pregel\retry.py", line 40, in run_with_retry
+    return task.proc.invoke(task.input, config)
+  File "<python-env>\lib\site-packages\langgraph\utils\runnable.py", line 546, in invoke
+    input = step.invoke(input, config, **kwargs)
+  File "<python-env>\lib\site-packages\langgraph\utils\runnable.py", line 310, in invoke
+    ret = context.run(self.func, *args, **kwargs)
+  File "<workspace>\support_ai\workflow.py", line 104, in resolve
+    semantic, source, previous = plan_turn(model, state['safe_message'], history, state.get('memory'))
+  File "<workspace>\support_ai\semantic_planning.py", line 192, in plan_turn
+    value = (prompt | model.with_structured_output(SemanticPlan)).invoke({
+  File "<python-env>\lib\site-packages\langchain_core\runnables\base.py", line 3268, in invoke
+    input_ = context.run(step.invoke, input_, config)
+  File "<python-env>\lib\site-packages\langchain_core\runnables\base.py", line 5048, in invoke
+    return self._call_with_config(
+  File "<python-env>\lib\site-packages\langchain_core\runnables\base.py", line 2106, in _call_with_config
+    context.run(
+  File "<python-env>\lib\site-packages\langchain_core\runnables\config.py", line 430, in call_func_with_variable_args
+    return func(input, **kwargs)  # type: ignore[call-arg]
+  File "<python-env>\lib\site-packages\langchain_core\runnables\base.py", line 4905, in _invoke
+    output = call_func_with_variable_args(
+  File "<python-env>\lib\site-packages\langchain_core\runnables\config.py", line 430, in call_func_with_variable_args
+    return func(input, **kwargs)  # type: ignore[call-arg]
+  File "<workspace>\support_ai\test_mixed_tea.py", line 58, in structured
+    raise AssertionError('Unexpected schema: ' + schema.__name__)
+AssertionError: Unexpected schema: SemanticPlan
+
+======================================================================
+FAIL: test_explanation_and_six_matching_product_groups_are_both_present (support_ai.test_mixed_tea.MixedTeaIntegrationTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<workspace>\support_ai\test_mixed_tea.py", line 156, in test_explanation_and_six_matching_product_groups_are_both_present
+    data = self.run_graph()['response']
+  File "<workspace>\support_ai\test_mixed_tea.py", line 151, in run_graph
+    return build_graph(model, tool_factory=lambda state: create_tool_handlers(
+  File "<python-env>\lib\site-packages\langgraph\pregel\__init__.py", line 2336, in invoke
+    for chunk in self.stream(
+  File "<python-env>\lib\site-packages\langgraph\pregel\__init__.py", line 1993, in stream
+    for _ in runner.tick(
+  File "<python-env>\lib\site-packages\langgraph\pregel\runner.py", line 230, in tick
+    run_with_retry(
+  File "<python-env>\lib\site-packages\langgraph\pregel\retry.py", line 40, in run_with_retry
+    return task.proc.invoke(task.input, config)
+  File "<python-env>\lib\site-packages\langgraph\utils\runnable.py", line 546, in invoke
+    input = step.invoke(input, config, **kwargs)
+  File "<python-env>\lib\site-packages\langgraph\utils\runnable.py", line 310, in invoke
+    ret = context.run(self.func, *args, **kwargs)
+  File "<workspace>\support_ai\workflow.py", line 104, in resolve
+    semantic, source, previous = plan_turn(model, state['safe_message'], history, state.get('memory'))
+  File "<workspace>\support_ai\semantic_planning.py", line 192, in plan_turn
+    value = (prompt | model.with_structured_output(SemanticPlan)).invoke({
+  File "<python-env>\lib\site-packages\langchain_core\runnables\base.py", line 3268, in invoke
+    input_ = context.run(step.invoke, input_, config)
+  File "<python-env>\lib\site-packages\langchain_core\runnables\base.py", line 5048, in invoke
+    return self._call_with_config(
+  File "<python-env>\lib\site-packages\langchain_core\runnables\base.py", line 2106, in _call_with_config
+    context.run(
+  File "<python-env>\lib\site-packages\langchain_core\runnables\config.py", line 430, in call_func_with_variable_args
+    return func(input, **kwargs)  # type: ignore[call-arg]
+  File "<python-env>\lib\site-packages\langchain_core\runnables\base.py", line 4905, in _invoke
+    output = call_func_with_variable_args(
+  File "<python-env>\lib\site-packages\langchain_core\runnables\config.py", line 430, in call_func_with_variable_args
+    return func(input, **kwargs)  # type: ignore[call-arg]
+  File "<workspace>\support_ai\test_mixed_tea.py", line 58, in structured
+    raise AssertionError('Unexpected schema: ' + schema.__name__)
+AssertionError: Unexpected schema: SemanticPlan
+
+======================================================================
+FAIL: test_explicit_pair_does_not_expand_to_all_six (support_ai.test_mixed_tea.MixedTeaIntegrationTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<workspace>\support_ai\test_mixed_tea.py", line 178, in test_explicit_pair_does_not_expand_to_all_six
+    data = self.run_graph('说明绿茶和红茶的区别，并推荐对应商品')['response']
+  File "<workspace>\support_ai\test_mixed_tea.py", line 151, in run_graph
+    return build_graph(model, tool_factory=lambda state: create_tool_handlers(
+  File "<python-env>\lib\site-packages\langgraph\pregel\__init__.py", line 2336, in invoke
+    for chunk in self.stream(
+  File "<python-env>\lib\site-packages\langgraph\pregel\__init__.py", line 1993, in stream
+    for _ in runner.tick(
+  File "<python-env>\lib\site-packages\langgraph\pregel\runner.py", line 230, in tick
+    run_with_retry(
+  File "<python-env>\lib\site-packages\langgraph\pregel\retry.py", line 40, in run_with_retry
+    return task.proc.invoke(task.input, config)
+  File "<python-env>\lib\site-packages\langgraph\utils\runnable.py", line 546, in invoke
+    input = step.invoke(input, config, **kwargs)
+  File "<python-env>\lib\site-packages\langgraph\utils\runnable.py", line 310, in invoke
+    ret = context.run(self.func, *args, **kwargs)
+  File "<workspace>\support_ai\workflow.py", line 104, in resolve
+    semantic, source, previous = plan_turn(model, state['safe_message'], history, state.get('memory'))
+  File "<workspace>\support_ai\semantic_planning.py", line 192, in plan_turn
+    value = (prompt | model.with_structured_output(SemanticPlan)).invoke({
+  File "<python-env>\lib\site-packages\langchain_core\runnables\base.py", line 3268, in invoke
+    input_ = context.run(step.invoke, input_, config)
+  File "<python-env>\lib\site-packages\langchain_core\runnables\base.py", line 5048, in invoke
+    return self._call_with_config(
+  File "<python-env>\lib\site-packages\langchain_core\runnables\base.py", line 2106, in _call_with_config
+    context.run(
+  File "<python-env>\lib\site-packages\langchain_core\runnables\config.py", line 430, in call_func_with_variable_args
+    return func(input, **kwargs)  # type: ignore[call-arg]
+  File "<python-env>\lib\site-packages\langchain_core\runnables\base.py", line 4905, in _invoke
+    output = call_func_with_variable_args(
+  File "<python-env>\lib\site-packages\langchain_core\runnables\config.py", line 430, in call_func_with_variable_args
+    return func(input, **kwargs)  # type: ignore[call-arg]
+  File "<workspace>\support_ai\test_mixed_tea.py", line 58, in structured
+    raise AssertionError('Unexpected schema: ' + schema.__name__)
+AssertionError: Unexpected schema: SemanticPlan
+
+======================================================================
+FAIL: test_only_described_subset_is_recommended (support_ai.test_mixed_tea.MixedTeaIntegrationTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<workspace>\support_ai\test_mixed_tea.py", line 166, in test_only_described_subset_is_recommended
+    data = self.run_graph(model=ExplanationModel(allowed=['绿茶', '红茶']))['response']
+  File "<workspace>\support_ai\test_mixed_tea.py", line 151, in run_graph
+    return build_graph(model, tool_factory=lambda state: create_tool_handlers(
+  File "<python-env>\lib\site-packages\langgraph\pregel\__init__.py", line 2336, in invoke
+    for chunk in self.stream(
+  File "<python-env>\lib\site-packages\langgraph\pregel\__init__.py", line 1993, in stream
+    for _ in runner.tick(
+  File "<python-env>\lib\site-packages\langgraph\pregel\runner.py", line 230, in tick
+    run_with_retry(
+  File "<python-env>\lib\site-packages\langgraph\pregel\retry.py", line 40, in run_with_retry
+    return task.proc.invoke(task.input, config)
+  File "<python-env>\lib\site-packages\langgraph\utils\runnable.py", line 546, in invoke
+    input = step.invoke(input, config, **kwargs)
+  File "<python-env>\lib\site-packages\langgraph\utils\runnable.py", line 310, in invoke
+    ret = context.run(self.func, *args, **kwargs)
+  File "<workspace>\support_ai\workflow.py", line 104, in resolve
+    semantic, source, previous = plan_turn(model, state['safe_message'], history, state.get('memory'))
+  File "<workspace>\support_ai\semantic_planning.py", line 192, in plan_turn
+    value = (prompt | model.with_structured_output(SemanticPlan)).invoke({
+  File "<python-env>\lib\site-packages\langchain_core\runnables\base.py", line 3268, in invoke
+    input_ = context.run(step.invoke, input_, config)
+  File "<python-env>\lib\site-packages\langchain_core\runnables\base.py", line 5048, in invoke
+    return self._call_with_config(
+  File "<python-env>\lib\site-packages\langchain_core\runnables\base.py", line 2106, in _call_with_config
+    context.run(
+  File "<python-env>\lib\site-packages\langchain_core\runnables\config.py", line 430, in call_func_with_variable_args
+    return func(input, **kwargs)  # type: ignore[call-arg]
+  File "<python-env>\lib\site-packages\langchain_core\runnables\base.py", line 4905, in _invoke
+    output = call_func_with_variable_args(
+  File "<python-env>\lib\site-packages\langchain_core\runnables\config.py", line 430, in call_func_with_variable_args
+    return func(input, **kwargs)  # type: ignore[call-arg]
+  File "<workspace>\support_ai\test_mixed_tea.py", line 58, in structured
+    raise AssertionError('Unexpected schema: ' + schema.__name__)
+AssertionError: Unexpected schema: SemanticPlan
+
+======================================================================
+FAIL: test_verified_explanation_scope_survives_into_history (support_ai.test_mixed_tea.MixedTeaIntegrationTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<workspace>\support_ai\test_mixed_tea.py", line 197, in test_verified_explanation_scope_survives_into_history
+    data = self.run_graph('说明绿茶和红茶的区别，并推荐对应商品')['response']
+  File "<workspace>\support_ai\test_mixed_tea.py", line 151, in run_graph
+    return build_graph(model, tool_factory=lambda state: create_tool_handlers(
+  File "<python-env>\lib\site-packages\langgraph\pregel\__init__.py", line 2336, in invoke
+    for chunk in self.stream(
+  File "<python-env>\lib\site-packages\langgraph\pregel\__init__.py", line 1993, in stream
+    for _ in runner.tick(
+  File "<python-env>\lib\site-packages\langgraph\pregel\runner.py", line 230, in tick
+    run_with_retry(
+  File "<python-env>\lib\site-packages\langgraph\pregel\retry.py", line 40, in run_with_retry
+    return task.proc.invoke(task.input, config)
+  File "<python-env>\lib\site-packages\langgraph\utils\runnable.py", line 546, in invoke
+    input = step.invoke(input, config, **kwargs)
+  File "<python-env>\lib\site-packages\langgraph\utils\runnable.py", line 310, in invoke
+    ret = context.run(self.func, *args, **kwargs)
+  File "<workspace>\support_ai\workflow.py", line 104, in resolve
+    semantic, source, previous = plan_turn(model, state['safe_message'], history, state.get('memory'))
+  File "<workspace>\support_ai\semantic_planning.py", line 192, in plan_turn
+    value = (prompt | model.with_structured_output(SemanticPlan)).invoke({
+  File "<python-env>\lib\site-packages\langchain_core\runnables\base.py", line 3268, in invoke
+    input_ = context.run(step.invoke, input_, config)
+  File "<python-env>\lib\site-packages\langchain_core\runnables\base.py", line 5048, in invoke
+    return self._call_with_config(
+  File "<python-env>\lib\site-packages\langchain_core\runnables\base.py", line 2106, in _call_with_config
+    context.run(
+  File "<python-env>\lib\site-packages\langchain_core\runnables\config.py", line 430, in call_func_with_variable_args
+    return func(input, **kwargs)  # type: ignore[call-arg]
+  File "<python-env>\lib\site-packages\langchain_core\runnables\base.py", line 4905, in _invoke
+    output = call_func_with_variable_args(
+  File "<python-env>\lib\site-packages\langchain_core\runnables\config.py", line 430, in call_func_with_variable_args
+    return func(input, **kwargs)  # type: ignore[call-arg]
+  File "<workspace>\support_ai\test_mixed_tea.py", line 58, in structured
+    raise AssertionError('Unexpected schema: ' + schema.__name__)
+AssertionError: Unexpected schema: SemanticPlan
+
+======================================================================
+FAIL: test_knowledge_and_recommendation_both_execute_in_user_order (support_ai.test_task_tools.TaskToolIntegrationTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<workspace>\support_ai\test_task_tools.py", line 75, in test_knowledge_and_recommendation_both_execute_in_user_order
+    self.assertEqual(data['intents'], ['question_answering', 'recommendation'])
+AssertionError: Lists differ: ['clarification'] != ['question_answering', 'recommendation']
+
+First differing element 0:
+'clarification'
+'question_answering'
+
+Second list contains 1 additional elements.
+First extra element 1:
+'recommendation'
+
+- ['clarification']
++ ['question_answering', 'recommendation']
+
+======================================================================
+FAIL: test_saved_preference_quote_is_canonicalized_only_after_owner_verification (support_ai.test_task_tools.TaskToolIntegrationTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<workspace>\support_ai\test_task_tools.py", line 96, in test_saved_preference_quote_is_canonicalized_only_after_owner_verification
+    self.assertTrue(data['memory_used'])
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_platform_page_contains_settings_and_monitoring (support_ai.test_telemetry.AgentOperationsTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<workspace>\support_ai\test_telemetry.py", line 197, in test_platform_page_contains_settings_and_monitoring
+    self.assertIn(expected, html)
+AssertionError: 'agent-settings' not found in ''
+
+======================================================================
+FAIL: test_order_context_is_loaded_only_for_after_sales (support_ai.tests.GraphTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<workspace>\support_ai\tests.py", line 105, in test_order_context_is_loaded_only_for_after_sales
+    self.assertTrue(any(context.replace(' ', '') in text.replace(' ', '') for _, text in after_sales.calls))
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_unclear_intent_uses_bounded_clarification (support_ai.tests.GraphTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<workspace>\support_ai\tests.py", line 88, in test_unclear_intent_uses_bounded_clarification
+    self.assertEqual(result['answer'], FALLBACK)
+AssertionError: '暂时无法可靠确认本轮要求，请完整说明要处理的任务和筛选条件。' != '您希望了解茶叶知识、挑选商品，还是查询订单？请补充具体要求。'
+- 暂时无法可靠确认本轮要求，请完整说明要处理的任务和筛选条件。
++ 您希望了解茶叶知识、挑选商品，还是查询订单？请补充具体要求。
+
+
+----------------------------------------------------------------------
+Ran 174 tests in 7.872s
+
+FAILED (failures=14, errors=4, skipped=5)
+Destroying test database for alias 'default'...
+
+Destroying test database for alias 'ai_storage'...

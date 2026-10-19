@@ -128,7 +128,7 @@ class KnowledgeRetriever:
             # The original query and lexical expansion survive provider failure.
             audit['rewrite_status'].append('fallback')
             audit['rewrite_error_types'].append(type(exc).__name__)
-            logger.warning('Query rewrite unavailable: %s', type(exc).__name__)
+            logger.warning('support.query_rewrite.unavailable', extra={'error_type': type(exc).__name__})
             return []
 
     def initial_queries(self, query, audit, max_queries):
@@ -195,7 +195,7 @@ def _recall_queries(queries, owner_id, budget, retriever, audit, round_number):
             rankings.append(ranking)
         except Exception as exc:
             item['status'], item['error_type'] = 'error', type(exc).__name__
-            logger.warning('Knowledge query route unavailable: %s', type(exc).__name__)
+            logger.warning('support.query_route.unavailable', extra={'error_type': type(exc).__name__})
     return rankings
 
 
@@ -340,5 +340,5 @@ def _retrieve_single(query, owner_id, config):
                 span.set_attribute('agent.retrieval.hits', len(matches))
             return matches
     except Exception as exc:
-        logger.warning('Knowledge retrieval unavailable: %s', type(exc).__name__)
+        logger.warning('support.retrieval.unavailable', extra={'error_type': type(exc).__name__})
         return []

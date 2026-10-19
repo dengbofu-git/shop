@@ -84,7 +84,7 @@ PROBE-03 观察应用边界，PROBE-08 捕获 mock 模型输入，两者均复�
 若需要再次运行既有回归，使用新的输出前缀保留旧快照，例如：
 
 ```powershell
-E:\miniconda\envs\dadashop\python.exe docs\sdd\evidence\2026-10-16-ai-003-discovery\run_baseline.py baseline-local
+E:\miniconda\envs\tea_saas\python.exe docs\sdd\evidence\2026-10-16-ai-003-discovery\run_baseline.py baseline-local
 ```
 
 ## 接口、脱敏与页面设计补充

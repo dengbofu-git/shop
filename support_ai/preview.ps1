@@ -1,15 +1,15 @@
 param(
-    [string]$PythonPath = 'E:\miniconda\envs\dadashop\python.exe',
+    [string]$PythonPath = $env:TEA_SAAS_PYTHON,
     [Parameter(ValueFromRemainingArguments = $true)]
     [string[]]$AgentArguments
 )
 $ErrorActionPreference = 'Stop'
 $projectRoot = Split-Path -Parent $PSScriptRoot
 Set-Location -LiteralPath $projectRoot
-if (-not (Test-Path -LiteralPath $PythonPath)) {
+if (-not $PythonPath -or -not (Test-Path -LiteralPath $PythonPath)) {
     $PythonPath = (Get-Command python -ErrorAction Stop).Source
 }
-$Host.UI.RawUI.WindowTitle = 'Dadashop Agent Preview'
+$Host.UI.RawUI.WindowTitle = 'tea_saas Agent Preview'
 [Console]::InputEncoding = [System.Text.UTF8Encoding]::new($false)
 [Console]::OutputEncoding = [System.Text.UTF8Encoding]::new($false)
 $env:PYTHONIOENCODING = 'utf-8'

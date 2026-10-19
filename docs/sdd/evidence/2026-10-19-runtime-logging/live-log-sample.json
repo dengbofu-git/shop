@@ -1,0 +1,43 @@
+[
+  {
+    "timestamp": "2026-10-19T04:21:11.047+00:00",
+    "level": "INFO",
+    "service": "tea_saas",
+    "logger": "tea_saas.request_logging",
+    "event": "http.request.completed",
+    "http_request_id": "c8eaaaaeeb8b435e9068f0a5c3dc92de",
+    "method": "GET",
+    "route": "login.html",
+    "http_status": 200,
+    "duration_ms": 549.59,
+    "outcome": "success"
+  },
+  {
+    "timestamp": "2026-10-19T04:21:11.100+00:00",
+    "level": "WARNING",
+    "service": "tea_saas",
+    "logger": "tea_saas.request_logging",
+    "event": "http.request.completed",
+    "http_request_id": "3347ce452a5a49c0945489939706642e",
+    "method": "GET",
+    "route": "v1/users/session",
+    "http_status": 401,
+    "business_code": 401,
+    "duration_ms": 2.3,
+    "outcome": "client_error"
+  },
+  {
+    "timestamp": "2026-10-19T04:21:11.116+00:00",
+    "level": "WARNING",
+    "service": "tea_saas",
+    "logger": "tea_saas.request_logging",
+    "event": "http.request.completed",
+    "http_request_id": "ad26ed32ab344ca99f2c0e828670ef0c",
+    "method": "POST",
+    "route": "v1/users/login",
+    "http_status": 200,
+    "business_code": 10001,
+    "duration_ms": 0.83,
+    "outcome": "business_error"
+  }
+]

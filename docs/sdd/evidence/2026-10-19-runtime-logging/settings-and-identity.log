@@ -1,0 +1,10 @@
+test_defaults_keep_separate_databases_without_authentication (tools.tests.test_redis_settings.RedisSettingsTests) ... ok
+test_independent_endpoints_and_empty_shared_password (tools.tests.test_redis_settings.RedisSettingsTests) ... ok
+test_password_reaches_both_clients_without_url_encoding (tools.tests.test_redis_settings.RedisSettingsTests) ... ok
+test_current_file_names_and_utf8_contents_use_current_namespace (tools.tests.test_project_identity.ProjectIdentityTests) ... ok
+test_entrypoints_and_tool_package_exist (tools.tests.test_project_identity.ProjectIdentityTests) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.538s
+
+OK

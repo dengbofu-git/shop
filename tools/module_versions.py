@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Independent module versions for the 跨境茶叶saas平台 monorepo (stdlib only)."""
+"""Independent module versions for the tea_saas monorepo (stdlib only)."""
 import argparse
 import datetime
 import json
@@ -64,6 +64,13 @@ def changed_paths(base):
     return sorted(path for path in paths if path)
 
 
+def working_paths():
+    """Check current files, including unstaged renames, without staging user work."""
+    paths = set(git('ls-files', '-z').split('\0'))
+    paths.update(git('ls-files', '--others', '--exclude-standard', '-z').split('\0'))
+    return sorted(path for path in paths if path and (ROOT / path).is_file())
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     commands = parser.add_subparsers(dest='command', required=True)
@@ -85,11 +92,10 @@ def main():
         for name, module in modules.items():
             print('{}\t{}\t{}'.format(name, module['version'], module['title']))
     elif args.command == 'check':
-        unowned = [path for path in git('ls-files', '-z').split('\0')
-                   if path and not owner(path, modules)]
+        unowned = [path for path in working_paths() if not owner(path, modules)]
         if unowned:
             raise ValueError('Files without a module:\n' + '\n'.join(unowned))
-        print('OK: {} modules; all tracked files have an owner'.format(len(modules)))
+        print('OK: {} modules; all working-tree files have an owner'.format(len(modules)))
     elif args.command == 'changed':
         groups = {}
         for path in changed_paths(args.base):

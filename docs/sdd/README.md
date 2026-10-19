@@ -1,6 +1,16 @@
-# 跨境茶叶saas平台 SDD 规划入口
+# tea_saas SDD 规划入口
 
-2026-10-18名称与授权更新：当前产品名称统一为“跨境茶叶saas平台”，个人项目源码开放获取、禁止商用，见[平台定位](modules/platform/tea-saas-platform.md)、[非商业使用许可](../../LICENSE)与[本轮验证](evidence/2026-10-18-branding/verification.md)。工程标识和历史证据保持兼容。
+2026-10-19运行日志增量：[统一日志与 HTTP 关联](modules/platform/runtime-logging.md)实现安全字段输出、请求编号、耗时、业务错误码与当前 Agent Trace 关联；业务审计、集中检索、自动保留及告警仍为后续范围。
+
+引用定位：`python tools/sdd_refs.py CAP-AI-003`；默认检索当前 SDD 文本，历史证据需加 `--include-evidence`。详见[命令与退出码](../agents/sdd-refs.md)。本地任务、术语和架构决定分别见[任务约定](../agents/issue-tracker.md)、[CONTEXT](../../CONTEXT.md)与[ADR](../adr/README.md)；这些辅助材料不改变本目录的规格权威和能力阶段。
+
+2026-10-19登录视觉更新：[茶文化登录入口](modules/platform/login-visual-identity.md)替换主题图、透明 Logo、三语文案、浏览器标题及图标，支持桌面双栏与移动端短横幅，保持统一登录权限跳转。
+
+2026-10-19工程命名更新：[tea_saas 工程命名](modules/platform/project-identity.md)统一包、文件路径、变量与三语品牌，记录已有资源兼容、历史资料规范化和验证边界；覆盖下文历史名称更新中“工程标识保持兼容”的描述。
+
+2026-10-18本地运行修复：[Redis 认证与采购车配置](modules/platform/redis-runtime.md)，支持环境配置地址和认证，解决已启用 Redis 密码时采购车请求 500；不更改采购车和订单业务规则。
+
+2026-10-18名称与授权更新：当前产品名称统一为“tea_saas”，个人项目源码开放获取、禁止商用，见[平台定位](modules/platform/tea-saas-platform.md)、[非商业使用许可](../../LICENSE)与[本轮验证](evidence/2026-10-18-branding/verification.md)。工程标识和历史证据保持兼容。
 
 2026-10-18订单确认增量：[布局与币种展示](modules/trade/checkout-confirmation.md)，重排地址／商品／摘要，开放三币种参考展示并修复金额长小数，不改变订单结算参数。
 
@@ -22,7 +32,7 @@
 
 ## 从这里阅读
 
-2026-10-18平台定位：[跨境茶叶saas平台](modules/platform/tea-saas-platform.md)，统一三语名称与产品范围，经营看板回归销售与订单履约指标。
+2026-10-18平台定位：[tea_saas](modules/platform/tea-saas-platform.md)，统一三语名称与产品范围，经营看板回归销售与订单履约指标。
 
 2026-10-18客服增量：[历史咨询入口与切换续聊](modules/ai-support/conversation-history.md)，提供本人会话列表、记录分页、草稿及历史提示，继续沿用模型上下文预算。
 
@@ -64,7 +74,7 @@
 
 `CAP-AI-003` 已由 `DISCOVERY` 进入 `SPEC_REVIEW`；其余 23 项只登记为 `candidate`。全部模块为 `REGISTERED`，表示建议边界已登记，不宣称全量映射完成。功能清单是按主要业务入口采样的初步盘点，尚未逐端逐操作穷尽。
 
-参考 store-ai-tp 的：模块／能力分离、候选／活动分离、跨端共同规格、阶段准入、未知事项管理、规格与证据分离。针对 跨境茶叶saas平台 简化为：
+参考 store-ai-tp 的：模块／能力分离、候选／活动分离、跨端共同规格、阶段准入、未知事项管理、规格与证据分离。针对 tea_saas 简化为：
 
 - 将候选能力集中放在 `catalog.yaml`，只为当前试点创建活动能力目录。模块增长后再拆 `overview.md`、`capability-map.yaml` 等文件，并一次性迁移权威入口。
 - 用已有页面／API 盘点承接入口，暂不为每个菜单生成六件套。
@@ -88,7 +98,7 @@
 | 目标环境／真实模型／浏览器验收 | 未执行 |
 | 部署、发布 | 本轮未执行 |
 
-本目录中的 YAML 是 跨境茶叶saas平台 的规划数据，不宣称兼容 store-ai-tp 检查器。后续若引入检查器，再明确本项目 schema、固定权威路径、路径边界和测试；不能复制一个 profile 文件后声称门禁已生效。
+本目录中的 YAML 是 tea_saas 的规划数据，不宣称兼容 store-ai-tp 检查器。后续若引入检查器，再明确本项目 schema、固定权威路径、路径边界和测试；不能复制一个 profile 文件后声称门禁已生效。
 
 ## 下一次工作入口
 

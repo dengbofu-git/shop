@@ -4,7 +4,7 @@
 from functools import wraps
 from django.http import JsonResponse
 from .models import UserProfile
-from dadashop.utils import jwt_decode
+from tea_saas.utils import jwt_decode
 
 
 def get_user_from_request(request):

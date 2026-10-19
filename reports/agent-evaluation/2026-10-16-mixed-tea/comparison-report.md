@@ -57,5 +57,5 @@
 重放使用新文件以保留历史：
 
 ```powershell
-& E:\miniconda\envs\dadashop\python.exe -X utf8 -u -m support_ai.evaluation.replay_mixed_tea --output reports\agent-evaluation\2026-10-16-mixed-tea\new-run.json
+& E:\miniconda\envs\tea_saas\python.exe -X utf8 -u -m support_ai.evaluation.replay_mixed_tea --output reports\agent-evaluation\2026-10-16-mixed-tea\new-run.json
 ```

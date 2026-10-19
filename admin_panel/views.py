@@ -2,7 +2,7 @@ from django.http import JsonResponse
 from django.views import View
 from django.utils.decorators import method_decorator
 from django.db.models import Q
-from dadashop.utils import md5
+from tea_saas.utils import md5
 from users.decorators import platform_permission_required
 from users.models import UserProfile
 import json
@@ -91,7 +91,7 @@ class UserManagementView(View):
             user = UserProfile.objects.create(
                 username=username,
                 password=md5(password),
-                email=email or f'{username}@dadashop.com',
+                email=email or f'{username}@tea_saas.com',
                 phone=phone or '',
                 user_type=user_type,
                 shop_name=shop_name if user_type == 'merchant' else None,

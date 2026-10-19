@@ -27,7 +27,7 @@ def function_body(path, name):
 
 
 def main():
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'dadashop.settings')
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'tea_saas.settings')
     import django
     django.setup()
     from django.conf import settings
@@ -43,6 +43,7 @@ def main():
 
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output-dir', required=True)
+    parser.add_argument('--expected-database-name', required=True)
     args = parser.parse_args()
     root = Path(args.output_dir).resolve()
     root.mkdir(parents=True, exist_ok=True)
@@ -60,7 +61,7 @@ def main():
     with connection.cursor() as cursor:
         cursor.execute('SELECT DATABASE(), @@server_uuid')
         database = cursor.fetchone()
-    if database != ('dadashop','6b35ae3b-0afa-11f1-808b-2632d3201c4a'):
+    if database != (args.expected_database_name,'6b35ae3b-0afa-11f1-808b-2632d3201c4a'):
         raise RuntimeError('Unexpected business database target')
     sources = ['support_ai/'+p for p in ('retrieval.py','query_rewrite.py','tool_services.py','workflow.py',
         'planning.py','tea_explanation.py','model_client.py','preview.py','pii.py','context.py','configuration.py')]
