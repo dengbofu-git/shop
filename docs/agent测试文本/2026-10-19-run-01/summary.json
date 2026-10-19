@@ -1,0 +1,55 @@
+{
+  "completed_at": "2026-10-19T08:02:48.224176+00:00",
+  "total": 100,
+  "status_counts": {
+    "passed": 79,
+    "failed": 21
+  },
+  "model_calls": 136,
+  "input_tokens": 188259,
+  "output_tokens": 100243,
+  "groups": {
+    "多语言": {
+      "passed": 15,
+      "failed": 5
+    },
+    "上下文": {
+      "passed": 19,
+      "failed": 6
+    },
+    "脱敏": {
+      "passed": 13,
+      "failed": 2
+    },
+    "精确商品名称": {
+      "failed": 6,
+      "passed": 9
+    },
+    "知识库检索失败": {
+      "passed": 9,
+      "failed": 1
+    },
+    "输入超长": {
+      "passed": 8
+    },
+    "截断与违禁指令": {
+      "passed": 6,
+      "failed": 1
+    }
+  },
+  "counts_before": {
+    "sku": 23,
+    "turns": 0,
+    "conversations": 0,
+    "spans": 0
+  },
+  "counts_after": {
+    "sku": 23,
+    "turns": 0,
+    "conversations": 0,
+    "spans": 0
+  },
+  "no_fixture_writes_during_test": true,
+  "source_unchanged": true,
+  "dataset_unchanged": true
+}

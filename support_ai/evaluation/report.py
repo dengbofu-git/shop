@@ -4,7 +4,7 @@ import statistics
 from pathlib import Path
 
 
-ROOT = Path('reports/agent-evaluation/2026-10-16-planner')
+ROOT = Path('reports/archive/2026-10-16/agent-evaluation/2026-10-16-planner')
 
 
 def summarize(rows):

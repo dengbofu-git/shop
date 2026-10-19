@@ -21,7 +21,7 @@
 
 | 模块 | 当前版本 | 当前核对状态 | 完整变更记录 |
 | --- | --- | --- | --- |
-| core · 项目核心 | 0.3.1 | 工程命名、MCP／Skill、任务与领域约定、SDD引用检索及交付支撑 | [core](changelogs/core.md) |
+| core · 项目核心 | 0.4.4 | 维护脚本归位、报告索引及合法的 Worktree 回收配置键；保留既有工程支撑 | [core](changelogs/core.md) |
 | users · 用户与权限 | 0.2.3 | 统一登录与权限分流、平台联合鉴权、会话权限、品牌与旧入口清理 | [users](changelogs/users.md) |
 | goods · 商品管理 | 0.4.1 | 可选分类页长与商品分页验证；保留商品库存及图片既有口径 | [goods](changelogs/goods.md) |
 | carts · 购物车 | 0.1.1 | 保持采购车及商品图片基线；本轮仅web调整币种展示 | [carts](changelogs/carts.md) |
@@ -32,10 +32,10 @@
 | logistics · 物流 | 0.1.0 | 保持物流基线；对象范围与完整履约仍待核查 | [logistics](changelogs/logistics.md) |
 | supplier · 商家与结算 | 0.2.0 | 已付本店销售口径、自然月趋势、订单履约统计及旧推算字段移除 | [supplier](changelogs/supplier.md) |
 | admin_panel · 平台运营 | 0.4.1 | 平台交易总览、角色与权限联合控制、共用销售条件 | [admin_panel](changelogs/admin_panel.md) |
-| support_ai · 智能客服 | 0.11.2 | 历史咨询列表与分页、公开详情共用服务和MCP命令 | [support_ai](changelogs/support_ai.md) |
+| support_ai · 智能客服 | 0.12.4 | 旧评测原字节归档及当前评测入口调整；保留现有语义规划与会话能力 | [support_ai](changelogs/support_ai.md) |
 | merchant_ai · 商家智能助手 | 0.1.0 | 入口与初始化状态，聊天／模型／上传／经营工具未接入 | [merchant_ai](changelogs/merchant_ai.md) |
 | ai_storage · AI 记忆与知识存储 | 0.3.2 | 保持查询改写所用知识／向量与短Embedding超时基线 | [ai_storage](changelogs/ai_storage.md) |
-| web · 页面与前端资源 | 0.15.1 | 统一登录、卡片分页、历史咨询、管理外壳、结算页三币种参考展示；统一项目名称 | [web](changelogs/web.md) |
+| web · 页面与前端资源 | 0.20.3 | 重复图片合并、旧组件清理及支付页单实例 jQuery；保留现有订单与数据中心增量 | [web](changelogs/web.md) |
 
 ## 历史实现演进和既有证据
 
@@ -48,10 +48,10 @@
 - `support_ai 0.8.1` 修复混合说明与推荐漏识别，按证据验证后的介绍范围查询对应商品，保留完整说明及推荐内容。
 - 已实现全站主题统一，对应历史版本 `web 0.3.0`；本次 `web 0.4.0` 在其基础上增加重排序运营界面。
 - 已有只读评分诊断工具，复算当前公开知识候选；相关性偏差属于已知问题，不应将服务就绪等同于业务质量验证通过。
-- `support_ai 0.9.0` 已接入查询翻译、术语扩展、多路向量召回、RRF融合及一次补检；流程和限制见 [Agent查询改写](../docs/Agent查询改写.md)。随后完成15题双臂真实模型评测：未显示整体收益，发现1题重排/选证据退化；完整问答及口径见 [对照报告](../reports/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/report.md)。
+- `support_ai 0.9.0` 已接入查询翻译、术语扩展、多路向量召回、RRF融合及一次补检；流程和限制见 [Agent查询改写](../docs/Agent查询改写.md)。随后完成15题双臂真实模型评测：未显示整体收益，发现1题重排/选证据退化；完整问答及口径见 [对照报告](../reports/archive/2026-10-16/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/report.md)。
 - 多语言知识版本、按文档语言独立重排序和跨查询分数校准尚未实现，不列为已交付功能。
 - `support_ai 0.10.0` 的推荐追问处理见 [Agent推荐追问修复](../docs/Agent推荐追问修复.md)。没有新增迁移；本轮完成语法、导入与配置检查，未新增或运行对话测试。0.9.0 已记录的重排/选证据退化仍待修复。
-- 随后按用户授权完成0.10.0的15组41轮真实Agent场景测试：37轮满足预设检查，11组全程通过，4组暴露列表序号、修饰条件任务拆分及理由任务消重问题。完整问答与分析见 [对话测试报告](../reports/agent-evaluation/2026-10-16-dialogue-followups/live-run-1/report.md)；本次没有修改生产Agent逻辑，旧版记录与上述实施期说明继续保留。
+- 随后按用户授权完成0.10.0的15组41轮真实Agent场景测试：37轮满足预设检查，11组全程通过，4组暴露列表序号、修饰条件任务拆分及理由任务消重问题。完整问答与分析见 [对话测试报告](../reports/archive/2026-10-16/agent-evaluation/2026-10-16-dialogue-followups/live-run-1/report.md)；本次没有修改生产Agent逻辑，旧版记录与上述实施期说明继续保留。
 
 模块版本、数据库迁移编号和运营设置中的配置修订号含义不同。
 运营人员保存配置不会自动产生模块发布版本；本表也不代表创建了新的 Git 发布标签。

@@ -1,0 +1,1447 @@
+{
+  "date": "2026-10-16",
+  "archived_on": "2026-10-19",
+  "files": [
+    {
+      "original": "reports/agent-evaluation/2026-10-16-dialogue-followups/backend-0.10.0.stderr.log",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-dialogue-followups/backend-0.10.0.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-dialogue-followups/backend-0.10.0.stdout.log",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-dialogue-followups/backend-0.10.0.stdout.log",
+      "sha256": "fa4fbdabef20b1a55a06282eda9629227bcc4c0f7e6c05afbe8768fbaa78f78d",
+      "git_sha256": "4cc4c8f4d9ab08ade114c8c072feda0c20f32aa045347f5adcc8348e0de59b0b",
+      "git_blob": "1f39c70780039cc73c2f94c79d6aec8c23435341"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-dialogue-followups/backend-final-0.10.0.stderr.log",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-dialogue-followups/backend-final-0.10.0.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-dialogue-followups/backend-final-0.10.0.stdout.log",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-dialogue-followups/backend-final-0.10.0.stdout.log",
+      "sha256": "3625ee89695d4757dfbe7f3bf0f344b8d2c66a80fef9d898fbf1b5d8016da49d",
+      "git_sha256": "3eca23643418f3c7fbccd989fae856a1f5f143cadf5c4bb9a069a8e10b65415d",
+      "git_blob": "fa31600298e9d0721fb4d7e89fadb488ed8b1eb4"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-dialogue-followups/implementation.md",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-dialogue-followups/implementation.md",
+      "sha256": "a875a648cf11f229e8533dff43b96e7b1967b1158b78f741d63794f8323886cf",
+      "git_sha256": "a875a648cf11f229e8533dff43b96e7b1967b1158b78f741d63794f8323886cf",
+      "git_blob": "8b529b7b453594b558f032b6a79348e7bf7167cc"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-dialogue-followups/terminal-before.jsonl",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-dialogue-followups/terminal-before.jsonl",
+      "sha256": "f90bff70d0911bd990d28fb909ac2215f065a7a8590e630b7065cc66f3c82b84",
+      "git_sha256": "4a6aab022febd823607632e56b0cda1a40f9005280a5ae1c6a5ecfd627bebf87",
+      "git_blob": "4a16fd73f92772d380cbcee93fbd6a6867b088c0"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-dialogue-followups/live-run-1/cases.json",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-dialogue-followups/live-run-1/cases.json",
+      "sha256": "959f2409b376495d57608794affefd78f401841d7b7d1e82222e053f2a552db0",
+      "git_sha256": "6e04c342197b1391927967909edcf2bb2ab4e0ef70287da18bf0224cefa08323",
+      "git_blob": "e1e4cc6c9df545d4bdcc8e1c10af0b6de0438a32"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-dialogue-followups/live-run-1/catalog-after.json",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-dialogue-followups/live-run-1/catalog-after.json",
+      "sha256": "992221a98fc1b8d0330bf347496c6ccf89e62e239aaf5164cbf54a007ddaf854",
+      "git_sha256": "5f9d44fb0d8d5a78c04cd7c779a17e3a8202a79ff5840fcd4d11ac8deb64768e",
+      "git_blob": "fbe5ec93eb2b2db09d8797350d619bb53b444f8d"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-dialogue-followups/live-run-1/catalog-before.json",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-dialogue-followups/live-run-1/catalog-before.json",
+      "sha256": "992221a98fc1b8d0330bf347496c6ccf89e62e239aaf5164cbf54a007ddaf854",
+      "git_sha256": "5f9d44fb0d8d5a78c04cd7c779a17e3a8202a79ff5840fcd4d11ac8deb64768e",
+      "git_blob": "fbe5ec93eb2b2db09d8797350d619bb53b444f8d"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-dialogue-followups/live-run-1/contract-probes.json",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-dialogue-followups/live-run-1/contract-probes.json",
+      "sha256": "ae732b32cd18a41188be2a6264c39db7816e940237df24ea6945b4826a4bad4d",
+      "git_sha256": "fd4b054b92b4bb335ea1172272ccbc64a96c2cca2d92e1d3fe337e7dcefc3d4d",
+      "git_blob": "80d18f77d5bfa5662df3ea8709db23943c9b54ff"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-dialogue-followups/live-run-1/contract-recovery-v2.json",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-dialogue-followups/live-run-1/contract-recovery-v2.json",
+      "sha256": "648f1a56210d43c717e2d94d8dc3a18b0c7903fc359217d3b046243034654862",
+      "git_sha256": "c823d0f2b2c39a53a2c74aa18fa27494377c1e2e987e47d35fe842f23eee7c7f",
+      "git_blob": "6ec79e52b4c0243f5db4cdec1585728b51e08095"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-dialogue-followups/live-run-1/contract-recovery.json",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-dialogue-followups/live-run-1/contract-recovery.json",
+      "sha256": "648f1a56210d43c717e2d94d8dc3a18b0c7903fc359217d3b046243034654862",
+      "git_sha256": "c823d0f2b2c39a53a2c74aa18fa27494377c1e2e987e47d35fe842f23eee7c7f",
+      "git_blob": "6ec79e52b4c0243f5db4cdec1585728b51e08095"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-dialogue-followups/live-run-1/dialogues.md",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-dialogue-followups/live-run-1/dialogues.md",
+      "sha256": "010d807fc7b9d28b69e6d405bdbcaef93435e56e3e27ce582f7dc92fc22a2c3e",
+      "git_sha256": "e1c1190b6e929e1c7a62d486663b83bffd209e8ce1bb3dfa5fa9c0d3a7bd95a1",
+      "git_blob": "914fa6bb8886fbc9f1ab81761f464e8ace028ce7"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-dialogue-followups/live-run-1/manifest.json",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-dialogue-followups/live-run-1/manifest.json",
+      "sha256": "21dbc1e36c05805e18856ed54747906c82accde73ef64277073d69ec8a545d5f",
+      "git_sha256": "7af7da38fc1a2d69887be54b5482b600288d6f394cb4b0fe7e364fede8cd0dc9",
+      "git_blob": "a07cc77fb7fa659405c3b6b6129ffeca8b62e6d3"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-dialogue-followups/live-run-1/report.md",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-dialogue-followups/live-run-1/report.md",
+      "sha256": "a8a5d2a16f527d22e76eca74d32148f0eb30717bc38231977dfa5e3df888dd4b",
+      "git_sha256": "a8a5d2a16f527d22e76eca74d32148f0eb30717bc38231977dfa5e3df888dd4b",
+      "git_blob": "dba6f9772596f977cb246da60fba9114fb0a6517"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-dialogue-followups/live-run-1/results.jsonl",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-dialogue-followups/live-run-1/results.jsonl",
+      "sha256": "78e7bfc607ffc5e41a3daa819fda3c6a96b993581f854d445a8e8245fef95f7e",
+      "git_sha256": "f3a7571b08d466606fa9ec72e3865fa6fac5594c40f7e2e0062aebe2c86b4842",
+      "git_blob": "db7f50329ae17ee84cb8832446fa248597dd5a42"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-dialogue-followups/live-run-1/review-metrics.json",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-dialogue-followups/live-run-1/review-metrics.json",
+      "sha256": "38b6d7e9c3ff457e0f81afd4f1c23a39cb5807d381e9e70617d66a3dbf030639",
+      "git_sha256": "e2bd762a3ec47ec5fc48eded94f031f5f9fb6961ab9c19d916afc872c2d5e392",
+      "git_blob": "d376fbd4cad3af63aa92a8feb5a69f69df2f7ec9"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-dialogue-followups/live-run-1/summary.json",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-dialogue-followups/live-run-1/summary.json",
+      "sha256": "99ea93d3bc3b0a2df5c61183e2ff28c1bb75c9cd6f3e7de5ae22f1b54c7fbfb3",
+      "git_sha256": "c80b355f753dead1663a4a8ad3fe6c0dedfe027fb71ea07ded6772c0e9c73701",
+      "git_blob": "629cd0c322043ccf5e48f0967f13586997a5a8f7"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-dialogue-followups/before/support_ai/context.py",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-dialogue-followups/before/support_ai/context.py",
+      "sha256": "442e2793e005cd57bfd4f4b009821a71d00cfaa8ee04a8e9768c981d88ec09e2",
+      "git_sha256": "442e2793e005cd57bfd4f4b009821a71d00cfaa8ee04a8e9768c981d88ec09e2",
+      "git_blob": "8a5acae461e10062f008ec3f613dde867c4fe1dc"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-dialogue-followups/before/support_ai/contracts.py",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-dialogue-followups/before/support_ai/contracts.py",
+      "sha256": "067f6d101dde7e3d0b083acc15e01c0815a50d326e4498ed5d45d036d70a1acf",
+      "git_sha256": "067f6d101dde7e3d0b083acc15e01c0815a50d326e4498ed5d45d036d70a1acf",
+      "git_blob": "5930ea295a6acc9287e1068d4337cc8b92045b10"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-dialogue-followups/before/support_ai/diagnostics.py",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-dialogue-followups/before/support_ai/diagnostics.py",
+      "sha256": "f2a6c7a51a45771ec48c0a032c4ee215f789cec441f141a5812169d037581399",
+      "git_sha256": "f2a6c7a51a45771ec48c0a032c4ee215f789cec441f141a5812169d037581399",
+      "git_blob": "7ef892bc85a17f0d2c92e07e0b4f4521c802b8a3"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-dialogue-followups/before/support_ai/planning.py",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-dialogue-followups/before/support_ai/planning.py",
+      "sha256": "8dd3cec7234626a09fa55524d8ed09093a673bb87340f262ebf3429bbe3d5e46",
+      "git_sha256": "8dd3cec7234626a09fa55524d8ed09093a673bb87340f262ebf3429bbe3d5e46",
+      "git_blob": "3a67aae9f7ac3765f64b8ae82945a4ff20097a9b"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-dialogue-followups/before/support_ai/preview.py",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-dialogue-followups/before/support_ai/preview.py",
+      "sha256": "120639de69463ece2d3b28f87b47ea3cd28e3b69fe631eddc52961805ddb849e",
+      "git_sha256": "120639de69463ece2d3b28f87b47ea3cd28e3b69fe631eddc52961805ddb849e",
+      "git_blob": "c158507eb8cef4663b26f808a2b9d6a9f3ae5486"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-dialogue-followups/before/support_ai/recommendations.py",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-dialogue-followups/before/support_ai/recommendations.py",
+      "sha256": "e3ee0a8a0b0ab903d28605db111b6a0577a8671463dd8f3cff90463ebbb7f51e",
+      "git_sha256": "e3ee0a8a0b0ab903d28605db111b6a0577a8671463dd8f3cff90463ebbb7f51e",
+      "git_blob": "968501b34f84a3387543cec314b78528cc3e0dfe"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-dialogue-followups/before/support_ai/tool_services.py",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-dialogue-followups/before/support_ai/tool_services.py",
+      "sha256": "db5e98c11df2b1706fddb3a251ebb47aea437d841d910adca0cae5aac90da399",
+      "git_sha256": "db5e98c11df2b1706fddb3a251ebb47aea437d841d910adca0cae5aac90da399",
+      "git_blob": "26731e99ecc3406b0fc2ffdc2b262038e61f8af8"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-dialogue-followups/before/support_ai/workflow.py",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-dialogue-followups/before/support_ai/workflow.py",
+      "sha256": "1df3db1823021b26540555347609b5776ff84e2e0d43c5a0b01639ece325177e",
+      "git_sha256": "1df3db1823021b26540555347609b5776ff84e2e0d43c5a0b01639ece325177e",
+      "git_blob": "1ec0ac26c827ff04e70423020d69922ce9681310"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-dialogue-followups/before/versions/modules.json",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-dialogue-followups/before/versions/modules.json",
+      "sha256": "1114e9b847c793e4a0f07ea1fdfb14e058a907091536c1b8b0b22363cde04e36",
+      "git_sha256": "dd331191c8455c3ae0e01d890e3e6459600729de987bf5a13d91695aeebb6035",
+      "git_blob": "e1a25365b3132edce326a6c1fa7d28510ba11061"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-dialogue-followups/before/versions/README.md",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-dialogue-followups/before/versions/README.md",
+      "sha256": "21409d111df7126b3609ff409f218d7f27fb992f4371307fd6f7419d32ffc0ae",
+      "git_sha256": "21409d111df7126b3609ff409f218d7f27fb992f4371307fd6f7419d32ffc0ae",
+      "git_blob": "dfe7b983cbfe8457e25f6084a86bafcc2a830a21"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-dialogue-followups/before/client/static/js/admin-agents.js",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-dialogue-followups/before/client/static/js/admin-agents.js",
+      "sha256": "896644106d550ceacdb32f58843ae1abe5d8b827dccaa85d19cf9293fc954abf",
+      "git_sha256": "896644106d550ceacdb32f58843ae1abe5d8b827dccaa85d19cf9293fc954abf",
+      "git_blob": "914dbbdc3c9f54defa6c9a57593f9c6569340308"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-dialogue-followups/before/client/static/js/buyer-support.js",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-dialogue-followups/before/client/static/js/buyer-support.js",
+      "sha256": "ebaa96ca4b0c4b8e969ee4e445fd01321c4d94c8ac92a939862453a8bfd01ef8",
+      "git_sha256": "ebaa96ca4b0c4b8e969ee4e445fd01321c4d94c8ac92a939862453a8bfd01ef8",
+      "git_blob": "a774a15c30d427d8b619cdbbefafea526f5014a8"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-dialogue-followups/before/versions/changelogs/support_ai.md",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-dialogue-followups/before/versions/changelogs/support_ai.md",
+      "sha256": "330b2d4256b663d9c29012ed5437916e0d61b543bdc4723cc3cabc5c061b1e85",
+      "git_sha256": "8e6e77fc617b6324d8e3fdbb498e02c1b33fa3b0ee5c2dcb7282fe43ef94ac01",
+      "git_blob": "82bdf46c04012a5b5a44d32591b5c85a932223c4"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-dialogue-followups/before/versions/changelogs/web.md",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-dialogue-followups/before/versions/changelogs/web.md",
+      "sha256": "f861df53a6f3d6b72d271cfcb013780edbc673377e94b0872019c1d9ab2b5a51",
+      "git_sha256": "f9c0ddcf0b0c9f84a51d904fbe6d64506faa1e15c68731d5e0634bc515202176",
+      "git_blob": "d60358f1baa432eef1e9d7e58123068c8407d5ad"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-dialogue-followups/live-run-1/sessions/01/20261016-152821-8cae132ff87d4760967d39fc0b0a3dcd.jsonl",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-dialogue-followups/live-run-1/sessions/01/20261016-152821-8cae132ff87d4760967d39fc0b0a3dcd.jsonl",
+      "sha256": "0abf9b79ec315df9694c67aa8487fc24178bd200567b11e00b1f3b3750c2fef1",
+      "git_sha256": "185a5908a6b135ff29b35cd7457eb4a219af057a8e68af0d7d34db3f7e6ef29c",
+      "git_blob": "00562b242ba794642f8cbe71984adecef1f8b23e"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-dialogue-followups/live-run-1/sessions/02/20261016-152909-0239ef1b54dc4069a5782af947079e5c.jsonl",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-dialogue-followups/live-run-1/sessions/02/20261016-152909-0239ef1b54dc4069a5782af947079e5c.jsonl",
+      "sha256": "c46e0a99891880c6e6efe712c33b3f6b576d58bb6a259c205d2d2030851db3ee",
+      "git_sha256": "7cd78d49a25688b4ba7dd70309bc01f8a2cf1cb661b603523f6814103984703d",
+      "git_blob": "0144c3291e722a73fecdbbb16df9bd47a8b7e201"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-dialogue-followups/live-run-1/sessions/03/20261016-152926-ccf48771959b453087c4119a75e0f623.jsonl",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-dialogue-followups/live-run-1/sessions/03/20261016-152926-ccf48771959b453087c4119a75e0f623.jsonl",
+      "sha256": "c07c280fbf972176cd1433dc9014ebb10e5d2ceabaa9e3783db60c0c1b4a89fd",
+      "git_sha256": "b7d59c45d25731b854ff4b40f77fe675f42766e79097b07fdaf9699c04f2f07a",
+      "git_blob": "3c35a2d9b678acd01fe3329ab25f8e95376b4ef9"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-dialogue-followups/live-run-1/sessions/04/20261016-152945-731187b36e854ae8910bfa22ebd4bf48.jsonl",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-dialogue-followups/live-run-1/sessions/04/20261016-152945-731187b36e854ae8910bfa22ebd4bf48.jsonl",
+      "sha256": "b311dfb21ea7b0037dcaebb32ed1644040dc40683aa59c2d4f7de99c85aea8f2",
+      "git_sha256": "c38f9e6ef24c73861568f89a6733ee459961f1821c1ee822690d0f6f4708247b",
+      "git_blob": "6145e4608a7a23a16c9a3b91347bcba7cb1948da"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-dialogue-followups/live-run-1/sessions/05/20261016-153002-bfc4b3a6b85f4a8384bb92c9b4e80e86.jsonl",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-dialogue-followups/live-run-1/sessions/05/20261016-153002-bfc4b3a6b85f4a8384bb92c9b4e80e86.jsonl",
+      "sha256": "6b8011f11a76b9c16373fa531cb49aeee43a5158e92cc9da3d9f6306ed7ebdb1",
+      "git_sha256": "832fbc303183876b6d1260532c76f5af19a9abb39055bd46e1686751fb6c040c",
+      "git_blob": "4fbdeef06ede03dc789ef653cabcf315e949d039"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-dialogue-followups/live-run-1/sessions/06/20261016-153021-1e6b4abec4684d6d9a1c506eb32ce3bb.jsonl",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-dialogue-followups/live-run-1/sessions/06/20261016-153021-1e6b4abec4684d6d9a1c506eb32ce3bb.jsonl",
+      "sha256": "d4c20e5df71e6e30b05da579a1c12d1462b84900792304b2c8353719290f4f7c",
+      "git_sha256": "eed78577cdbd6a266badd395546bdfc99d48aedf8ae550a3cf30613780317ff2",
+      "git_blob": "0f6801abcdb6b7c3d75a766539fb7aab07189a81"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-dialogue-followups/live-run-1/sessions/07/20261016-153039-cd85665c2af441098c5ae08407dacfbc.jsonl",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-dialogue-followups/live-run-1/sessions/07/20261016-153039-cd85665c2af441098c5ae08407dacfbc.jsonl",
+      "sha256": "c1ead12ef3d2a5d3416da569013d6ac4b97ed954a695e30fbccbeb3ea842d826",
+      "git_sha256": "b5a70a897758809a8652551c145990d2ad075f8b45a778b1604ab62fedc0bdd1",
+      "git_blob": "0488953aad9f70359eec43d599572eac087aacf2"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-dialogue-followups/live-run-1/sessions/08/20261016-153048-bb74c8fe1df34b2199a8805847abfddb.jsonl",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-dialogue-followups/live-run-1/sessions/08/20261016-153048-bb74c8fe1df34b2199a8805847abfddb.jsonl",
+      "sha256": "8f40c2d440d495dc881bdd1f55dfa74ae8f62af8eca7a2e3ffd6bc148f931890",
+      "git_sha256": "4dad5449a9b42c91aed0824b21ba8cccf05cbd72f90a389231cba9d4a3439f4f",
+      "git_blob": "4471144f5e58dcd71b99a802161199b076758c1d"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-dialogue-followups/live-run-1/sessions/09/20261016-153056-a8b1c03b98ed445e9e2be8a957a3cb01.jsonl",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-dialogue-followups/live-run-1/sessions/09/20261016-153056-a8b1c03b98ed445e9e2be8a957a3cb01.jsonl",
+      "sha256": "b8544dafc73bfa7943b90e2a4a98b70871b77a33674342a0b115af02eb2d74f1",
+      "git_sha256": "58853e87fba27130ac66190a9b01b676fea97dac888ac7c34dbdd155321b1b50",
+      "git_blob": "8f555b687dcf5b5c18cb825b4e52f61c45d3cbd4"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-dialogue-followups/live-run-1/sessions/10/20261016-153102-8604305338f94fff9df4da11b64025ac.jsonl",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-dialogue-followups/live-run-1/sessions/10/20261016-153102-8604305338f94fff9df4da11b64025ac.jsonl",
+      "sha256": "23984f67a4c53b72fbf01e2703c3c95bac0499fbe0ee3af614db541120424aac",
+      "git_sha256": "99a601ca96d2b0839f1251b53dec1b5f8f74b61749b0732fadd9c043d7618013",
+      "git_blob": "912e95d0db0b72fa233c67b9ab1ec9177a203cdf"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-dialogue-followups/live-run-1/sessions/11/20261016-153124-6b2b9effb63d4e7ab03afa4c5389cea5.jsonl",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-dialogue-followups/live-run-1/sessions/11/20261016-153124-6b2b9effb63d4e7ab03afa4c5389cea5.jsonl",
+      "sha256": "36814349ebbd9438405101ea6cdcecbbb62508d2035e0fb92f3a1e1abf3aec61",
+      "git_sha256": "e19dcbd9ce5ba5cf22ac9762923ec4d327813afedd7232ff6c07a75d9ba2cf3e",
+      "git_blob": "b70e0fff78bab0745b4ac360929f35fa4dd26dec"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-dialogue-followups/live-run-1/sessions/12/20261016-153126-627ac5e78e2c438aba086f817ada9d25.jsonl",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-dialogue-followups/live-run-1/sessions/12/20261016-153126-627ac5e78e2c438aba086f817ada9d25.jsonl",
+      "sha256": "e4a91f597bd0e013e32a26fa10705cda6451315673858632c7869699d68811f0",
+      "git_sha256": "ceaa2f3a3c2dee6444daab3fc31f3d1028a886541ed9a5d859addfec29460424",
+      "git_blob": "5f9345de8aecb94c1af5c7f48a56b85cb9ec05f8"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-dialogue-followups/live-run-1/sessions/13/20261016-153136-876259ea27af4172b6803bdf3c240223.jsonl",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-dialogue-followups/live-run-1/sessions/13/20261016-153136-876259ea27af4172b6803bdf3c240223.jsonl",
+      "sha256": "21bbff7e27dad5895f8e7e245f8f7d5ab201c3f8d576b4f42ebea389a6255d27",
+      "git_sha256": "d3d8b7c8e9508a8b9fd46c683a17c7ab924dc5ffb902e6a1c078a67f1c3c9087",
+      "git_blob": "2b590f0123b748e52eec8280284d22a10c77bddc"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-dialogue-followups/live-run-1/sessions/14/20261016-153141-fa3ae228e423443e8aa8e8a5dab9460b.jsonl",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-dialogue-followups/live-run-1/sessions/14/20261016-153141-fa3ae228e423443e8aa8e8a5dab9460b.jsonl",
+      "sha256": "35de4ad8f2ea7040ab0fc0a9c5249e3a1e63532360b9e867100cd67ae9938c66",
+      "git_sha256": "7fbcf00dd58f2ee548e6e7af37d7704e94e2c86b06d67a38ce13b97147ccb79b",
+      "git_blob": "8d50eaec9e72abbcef4c01434fc43d9f7418955c"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-dialogue-followups/live-run-1/sessions/15/20261016-153145-0404a980d7a1445cae5fc7470b083d75.jsonl",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-dialogue-followups/live-run-1/sessions/15/20261016-153145-0404a980d7a1445cae5fc7470b083d75.jsonl",
+      "sha256": "6209c78dc60d6e97b45c1b5c48e8534e2424f28006edcd0d2e22561b2277b42e",
+      "git_sha256": "7effe8dbc9f59b0736c2badafeeb1a1a91ed35fe6a5bb831f78bd6e759652c14",
+      "git_blob": "7773e4496139a4268241aee090634f4e2c9c101b"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-grouping/candidate-manifest.json",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-grouping/candidate-manifest.json",
+      "sha256": "e4c4dd2cc638c1cdec27f145d74c5c0d09b42047167f45f1ad7a134063d5f58f",
+      "git_sha256": "1da1830c8288a58c029865ba54e1b37971325250abcb8c2fb2687036b35de77d",
+      "git_blob": "27e30e2188f1c96af414a3d65a015692ead7f20c"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-grouping/comparison-report.md",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-grouping/comparison-report.md",
+      "sha256": "8992e4a62f9359e5c968563c95d3c85868c0a906255882632b98c04c5c79dc3d",
+      "git_sha256": "8992e4a62f9359e5c968563c95d3c85868c0a906255882632b98c04c5c79dc3d",
+      "git_blob": "771ee4cd794884e50fa329704dfa366809a8cedd"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-grouping/live-replay-final.json",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-grouping/live-replay-final.json",
+      "sha256": "b04ca216d215b66d09bfaf885f873c027a12904d76a21bd115ff6031269dfe34",
+      "git_sha256": "3a54d894d017a5b499b0fa5caa03e17fbf043364cc07e8f98721d84b143b801e",
+      "git_blob": "006d5506cc9f32822d4b169575783965b946fedd"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-grouping/live-replay-verified.json",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-grouping/live-replay-verified.json",
+      "sha256": "a5830300a6c463bdd3333a6d92b63872aec5f082e7e8cd2f94585a69996584aa",
+      "git_sha256": "9f1c3db995676ed54a7a3530cc8f452d6d7a2598abd9a976b11e1c9551502104",
+      "git_blob": "11bb1949387c3d840ffbf879511eee5c76651cfa"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-grouping/live-replay.json",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-grouping/live-replay.json",
+      "sha256": "67a77c40e7d164c0049fc449cc4f0c03d70f12feced0e32df7a48f322cb3b735",
+      "git_sha256": "1ebf1357d7aee082b34ed822ae03399febc3a681b55d9c3295a7e0b19901bf2e",
+      "git_blob": "9807daf9f6a1af0785022cf6eea7d9fd19c3de6f"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-grouping/summary.json",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-grouping/summary.json",
+      "sha256": "7489d8104c9a72e321b273934eabbca8b12ef96b2af338621438ef4ea201ba9d",
+      "git_sha256": "0cbf37195fa070fd5200fb5eab0f0209630db3a26f1c9ab9192d7a96789b03cf",
+      "git_blob": "1fac58a5f124d4f6bbacff9b3459868384f4bef8"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-grouping/unit-tests-final.log",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-grouping/unit-tests-final.log",
+      "sha256": "4b79172ca041f36f8d7248b2ff3a487e45efc32e56c48a6333fe0fc9cf6bb6b9",
+      "git_sha256": "4b79172ca041f36f8d7248b2ff3a487e45efc32e56c48a6333fe0fc9cf6bb6b9",
+      "git_blob": "2cf094223c85d355df61e53f650e6ed4c08fa91f"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-grouping/unit-tests-verified.log",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-grouping/unit-tests-verified.log",
+      "sha256": "5cec6c1e5c00a5638d1bc1a0f7917501fce0e9274243fe6163f6751c68853ec9",
+      "git_sha256": "5cec6c1e5c00a5638d1bc1a0f7917501fce0e9274243fe6163f6751c68853ec9",
+      "git_blob": "404dae2ce377d37d9a4c86f82edc2966fad5f085"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-grouping/unit-tests.log",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-grouping/unit-tests.log",
+      "sha256": "be7391c76aea6f74eab7c7659564f936f5f94750f45f272e545f2cddff327a48",
+      "git_sha256": "be7391c76aea6f74eab7c7659564f936f5f94750f45f272e545f2cddff327a48",
+      "git_blob": "f2edef7e2cb15214eed1da318c5b1bcae9e4a854"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-grouping/after/20261016-121220-578274bc98664c15948c7cd5d64d5842.jsonl",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-grouping/after/20261016-121220-578274bc98664c15948c7cd5d64d5842.jsonl",
+      "sha256": "bc68e879bde45e6051250d3ce57583b5a6ae8ce7efcb175b1658d76cec75d8ef",
+      "git_sha256": "2df1d9d8a35103891f797a41e0341a31f79280dece51ef27b94294906f109985",
+      "git_blob": "3b26a5c5bfdc57b77b5bd55f283be9e55d20cf24"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-grouping/after-final/20261016-121510-25c1f864f45e42bab6b0f459ca3ddd04.jsonl",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-grouping/after-final/20261016-121510-25c1f864f45e42bab6b0f459ca3ddd04.jsonl",
+      "sha256": "801a5c1a3fc9da9ec193b20fd86e2ecfd8c7f2ba2254534c781041a3ae5ed314",
+      "git_sha256": "be5b01f3f57e74aa4c016d6dc8d380cbeb2b229decd32da12d4cdc3dbce02b28",
+      "git_blob": "1c20a2691827bd0634652e015ec75cc7ea457934"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-grouping/after-final/20261016-121731-f29f677223cb4d728a54e2d75d0845f2.jsonl",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-grouping/after-final/20261016-121731-f29f677223cb4d728a54e2d75d0845f2.jsonl",
+      "sha256": "578634ca33235e058ee9f09a342a6b9f267bf0e10f085fec72342e9086524a0b",
+      "git_sha256": "a1736d80976fd8a7a060c48bcca39fe8ef5fcf6b992dcfc02b3b566a5f133d94",
+      "git_blob": "c3a1a9ae84e7ae7e71e173c9d78b7c02aab352d2"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-grouping/before/20261016-114613-cf6a9b60bb8047dead1a4663ec911451.jsonl",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-grouping/before/20261016-114613-cf6a9b60bb8047dead1a4663ec911451.jsonl",
+      "sha256": "1afa38a852a0f365774f067f2066c36cfe24f095e00401829a88b3c8f14e0171",
+      "git_sha256": "025af6a5574e990fee3eb665431aa1110aa54d9c238e1c93cdb1399633754ff3",
+      "git_blob": "e4e0428c4a717255356dfbc74bd96cf502a8eaf6"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-grouping/before/context.py",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-grouping/before/context.py",
+      "sha256": "23792ba559456d3a05316708fa60afc32766b7c8103a9c3162abe4302bd18a9d",
+      "git_sha256": "23792ba559456d3a05316708fa60afc32766b7c8103a9c3162abe4302bd18a9d",
+      "git_blob": "91137f87fabe32a4a135a1d6b93411e7770d5aad"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-grouping/before/contracts.py",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-grouping/before/contracts.py",
+      "sha256": "b0b6cc3a92d80cefae749417694f739643dfdd6fffbccbc288190b36b0da3c15",
+      "git_sha256": "b0b6cc3a92d80cefae749417694f739643dfdd6fffbccbc288190b36b0da3c15",
+      "git_blob": "c6a5ab2d371591e67ab6761f15f7e8a398ed02c9"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-grouping/before/execution.py",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-grouping/before/execution.py",
+      "sha256": "f134b80ce16f9a436fad0dea90a5658a417ca3bf10bbe334f747bdcb15bd4d0b",
+      "git_sha256": "f134b80ce16f9a436fad0dea90a5658a417ca3bf10bbe334f747bdcb15bd4d0b",
+      "git_blob": "5ac49fdce00a770cd154c514ca34a352450b3de9"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-grouping/before/planning.py",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-grouping/before/planning.py",
+      "sha256": "493f7aed0b9a4157f7c50c1032109bfae5a261a747d1194fbe89119d1e85e447",
+      "git_sha256": "493f7aed0b9a4157f7c50c1032109bfae5a261a747d1194fbe89119d1e85e447",
+      "git_blob": "ea9950b8fe3dc9650ce56426201c1d7f4f1134bf"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-grouping/before/preview.py",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-grouping/before/preview.py",
+      "sha256": "05cf93a915ce99609cd46eb6a8771bdc787b65b8afdf5fd624833204b950bddf",
+      "git_sha256": "05cf93a915ce99609cd46eb6a8771bdc787b65b8afdf5fd624833204b950bddf",
+      "git_blob": "7444caf0199dbd498e9ae1bc80a2efae302f6bc5"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-grouping/before/recommendations.py",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-grouping/before/recommendations.py",
+      "sha256": "379408b3aebe34efd8400d916b196b637fc844887fca68f8b31ce669adc37b0a",
+      "git_sha256": "379408b3aebe34efd8400d916b196b637fc844887fca68f8b31ce669adc37b0a",
+      "git_blob": "60e28a67d755b6f7558f675c77a64e3f896d49a7"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-grouping/before/sha256.json",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-grouping/before/sha256.json",
+      "sha256": "6d67ab6acc986df03f3b465974c94390c47bf77d97eeac27e9c0a6f4e18f1c65",
+      "git_sha256": "5c173ab8fa815c64435d47b74f3017f23d809d5e729bdf21b0ad41a73628b3f6",
+      "git_blob": "658dab83b9d1b15de2c04993f45b4fd580e8080d"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-grouping/before/terminal-diagnosis-2026-10-16.json",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-grouping/before/terminal-diagnosis-2026-10-16.json",
+      "sha256": "f18555e6fffa1dbeec8b58bed11b24cf4eab8f10a650c60448da744e48e242de",
+      "git_sha256": "d0d144ed19dae376235ca1f2bdb4aa33f7136b96e4fd2bc821f9e92db6d9b5d2",
+      "git_blob": "52eb0f2bfe406b00ea447732f936453425d6b332"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-grouping/before/tool_services.py",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-grouping/before/tool_services.py",
+      "sha256": "836981e4191d7f3371e6257c9e7e39e2f7435e166c06c0736a42603726b7bc7a",
+      "git_sha256": "836981e4191d7f3371e6257c9e7e39e2f7435e166c06c0736a42603726b7bc7a",
+      "git_blob": "5deebeade461cc3a25ef003ed46a3f4ce2052777"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-grouping/before/workflow.py",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-grouping/before/workflow.py",
+      "sha256": "82153afe838c169fdf3c6d46da5ff76a9ef2498e6932f223e39e0529a6eefb46",
+      "git_sha256": "82153afe838c169fdf3c6d46da5ff76a9ef2498e6932f223e39e0529a6eefb46",
+      "git_blob": "43ad6186a892deb353c158bad56ba4bf287f292b"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-mixed-tea/baseline-observation.json",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-mixed-tea/baseline-observation.json",
+      "sha256": "124e89e6923db4040d58cb58530ff43b92b0c5a908443969b455d349d1242476",
+      "git_sha256": "81bd0e347f6dcec6596a174844d929112a52a08b702446ccdffa87ea61b65236",
+      "git_blob": "a72722880cba27ca5ba028ba7ec2f1a46062118f"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-mixed-tea/candidate-manifest.json",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-mixed-tea/candidate-manifest.json",
+      "sha256": "94eae621319546705014698746c60baad799a10954ea69657a0a7b321fb0fde6",
+      "git_sha256": "2d2d6331603a816936b9671d093d5ed55c77c81d689cac87cb30f5c673790188",
+      "git_blob": "f047f922acf859bc6afc5054e550c592c6ab8ab1"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-mixed-tea/comparison-report.md",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-mixed-tea/comparison-report.md",
+      "sha256": "e388e46093b54fff1944075992f70cd99bdf52abf172ba1468a56ff8b039215a",
+      "git_sha256": "e388e46093b54fff1944075992f70cd99bdf52abf172ba1468a56ff8b039215a",
+      "git_blob": "549c65fd96ab8ece5b8d3ab020a5bab180642bb5"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-mixed-tea/dialogues.md",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-mixed-tea/dialogues.md",
+      "sha256": "44aa50a25967be963b2112c0189ff9dda938582471456ca9d884a7504b583770",
+      "git_sha256": "8d9a9875ab8d24e8d1c5e12346d0c38d37e18bc7a5ef2474f9d45bedf17805ba",
+      "git_blob": "7edbb7b7d64f2d5980829846ca2c260c4ddf94a6"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-mixed-tea/live-replay-run2.json",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-mixed-tea/live-replay-run2.json",
+      "sha256": "fcdb0145463989c4bf43126c06dc226f564d13f8c291bd295086c59477fca232",
+      "git_sha256": "bae9409c60154835ba8433a4203fabbc9577f1b2c8330f4012a5613244b77240",
+      "git_blob": "ee46efb85e34faf7941f32138b9f8d59e9eec6ca"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-mixed-tea/live-replay-verified.json",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-mixed-tea/live-replay-verified.json",
+      "sha256": "23e35f0bd7f4bdd14fdba3a1a1aaec9538e69df9c6d4cbc152551b55eae6b6cc",
+      "git_sha256": "c8d4af6a5835bb4616405eb393324372dd0d0e1fd9a4420891fc96d06e37aadc",
+      "git_blob": "45dfb03b90ce85f9d673815d3f2a41d9eaf73012"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-mixed-tea/live-replay.json",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-mixed-tea/live-replay.json",
+      "sha256": "430bed88206470a49fcb1e94f47c256e9b00de7cfa4adc7cf1ce1933ab260267",
+      "git_sha256": "d9e4f05ed33712f1576b38d9c20b98d56a0304150c986225172ea3f63a564506",
+      "git_blob": "daf0244015964f68ba27c03a8dc40967b239f58a"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-mixed-tea/summary.json",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-mixed-tea/summary.json",
+      "sha256": "99cd43dddad265069f39d57c06bb49f3f5e4d3f01cb3c1e32b1ef9e3205760e6",
+      "git_sha256": "3c7297fbb8cbaf98cb3cda3698f52bad7715ed05fe290d124206d48b436bfc43",
+      "git_blob": "e8259ea93f6ce5de1eb269c01835297e07dc0d0e"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-mixed-tea/unit-tests-final.log",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-mixed-tea/unit-tests-final.log",
+      "sha256": "fe74444ce39b7e8322c6c878d368c33e8b169940ca36f71839ca13d6f5146135",
+      "git_sha256": "fe74444ce39b7e8322c6c878d368c33e8b169940ca36f71839ca13d6f5146135",
+      "git_blob": "2e22f4e52a65991e614cdfa15218acbf67d49676"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-mixed-tea/unit-tests-run2.log",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-mixed-tea/unit-tests-run2.log",
+      "sha256": "934323250d2e7156c52e092b45ff3587883250ebac4affb7394f3ac6fe4f1d70",
+      "git_sha256": "934323250d2e7156c52e092b45ff3587883250ebac4affb7394f3ac6fe4f1d70",
+      "git_blob": "8ee2011eb69fd91b95aa59ac41d91937d02f01f7"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-mixed-tea/unit-tests-verified.log",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-mixed-tea/unit-tests-verified.log",
+      "sha256": "7fb0cdf036eb66f12fee53be371e0c3360a7a5ab6599b20229ef18bf3a3412ce",
+      "git_sha256": "7fb0cdf036eb66f12fee53be371e0c3360a7a5ab6599b20229ef18bf3a3412ce",
+      "git_blob": "9530a3cbcba5b406d6b3440cc62c2b16699b77d3"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-mixed-tea/unit-tests.log",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-mixed-tea/unit-tests.log",
+      "sha256": "8c210a94a94305389fcdd9c9d1ef36d3cdbcdba09a25a4eef5c4996858e5aefa",
+      "git_sha256": "8c210a94a94305389fcdd9c9d1ef36d3cdbcdba09a25a4eef5c4996858e5aefa",
+      "git_blob": "590205358e29f0cfbe5a8dbe583491ba917f22a0"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-mixed-tea/after/20261016-123200-42a46fa463f546a498112064d07a2e70.jsonl",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-mixed-tea/after/20261016-123200-42a46fa463f546a498112064d07a2e70.jsonl",
+      "sha256": "ed5b5154fab132fefebadf574a86352c58c0208ff3fe889c5b59f9e5a62213af",
+      "git_sha256": "5e0d974992c80fbe07edf8c6cd98004ac32d2bd98fe3f1f10a154694205545ca",
+      "git_blob": "ba91a1223e825738ec584e6952cd55984001faed"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-mixed-tea/after/20261016-123319-a2821b9ff1ee4ca8898faf234dd8808a.jsonl",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-mixed-tea/after/20261016-123319-a2821b9ff1ee4ca8898faf234dd8808a.jsonl",
+      "sha256": "1ad3ae79bed3c14a9307c0e7de131e1e519b3e1c17c35f3bb47dbe0691c811cb",
+      "git_sha256": "09c8eeb0e45190a683cf279c2926abcddbe57b546d9281a7d4547464da09e8e9",
+      "git_blob": "06e1755a82322fd71317a3d4c5b13b30e63d3cf1"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-mixed-tea/after/20261016-123544-44ba94f0d2ea4eb99851bf1846bceb2d.jsonl",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-mixed-tea/after/20261016-123544-44ba94f0d2ea4eb99851bf1846bceb2d.jsonl",
+      "sha256": "c3cd0dfa93c84b82f65f42737ec04eeef59d6c5e9d5e01335c3e979d042b19b6",
+      "git_sha256": "582ed039c5ef7243e04cc705f3be7f26df2ca1a3ca56c151fe1a9a0f9f9318fc",
+      "git_blob": "bed2179725130739a6e9f2eece98afe78d1b545f"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-mixed-tea/after/20261016-123607-3dcfbbf8a92f42faab27a9cd158ae176.jsonl",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-mixed-tea/after/20261016-123607-3dcfbbf8a92f42faab27a9cd158ae176.jsonl",
+      "sha256": "ec273d1d675f887550f78b0627c662cd844ae98d689a736874742897bbc10f1e",
+      "git_sha256": "2f6ade68247f63ae634d40db5e1e446b80e1fe5a37f03e268940c00f0c5301cf",
+      "git_blob": "1c3dfdbcf25c6d90cbf0a1d50f4d2a025bdda586"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-mixed-tea/after/20261016-123844-fd30443bbf1c4fa49e3f4c11e1da117e.jsonl",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-mixed-tea/after/20261016-123844-fd30443bbf1c4fa49e3f4c11e1da117e.jsonl",
+      "sha256": "77633b4ca4588b5501a922df78f1441994827ad84d59fa03a1ba1b19e4f2f3d9",
+      "git_sha256": "f18a36e74c9181f43e2c11a8329552740b1ad1446d2377a11b393e64d7808394",
+      "git_blob": "c2353b7dbc5aaf1c68b2965531f0edf0d1191d5c"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-mixed-tea/after/20261016-123905-9e1e24d8bedf4b66ba367d1b5d81e0a6.jsonl",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-mixed-tea/after/20261016-123905-9e1e24d8bedf4b66ba367d1b5d81e0a6.jsonl",
+      "sha256": "2b653a7578dc29c910a4b0ad4667c05494261c4e30f4e25b04dbdd372d7e4dd6",
+      "git_sha256": "03f79ba683a71555e8783989977ed7ef0539cf07142bd35fb4e4cb4b63f1fd9a",
+      "git_blob": "22e45bccf9d5708b8c662690fc81565258d87fbb"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-mixed-tea/before/context.py",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-mixed-tea/before/context.py",
+      "sha256": "c64d846f533a22e1a56f778e52a2e5f9ce8ed14a2056a6a28743a7b3eedae919",
+      "git_sha256": "c64d846f533a22e1a56f778e52a2e5f9ce8ed14a2056a6a28743a7b3eedae919",
+      "git_blob": "d9a216fcf068215016a80e002b20ce7472245f5e"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-mixed-tea/before/planning.py",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-mixed-tea/before/planning.py",
+      "sha256": "6d1c1b559918adeb298e7b436477736a4943d1fafc767efae579c71716edbb7c",
+      "git_sha256": "6d1c1b559918adeb298e7b436477736a4943d1fafc767efae579c71716edbb7c",
+      "git_blob": "cec11c63b3fdb1970e28ce7eb1d364b0b83ff79d"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-mixed-tea/before/preview.py",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-mixed-tea/before/preview.py",
+      "sha256": "5cd3bcfceec8266ef342eb810ab12ac9ee8fc18a76d60ef5c75e5667df598d0f",
+      "git_sha256": "5cd3bcfceec8266ef342eb810ab12ac9ee8fc18a76d60ef5c75e5667df598d0f",
+      "git_blob": "ee4b14cedfc37758b863398f812421f77dda2326"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-mixed-tea/before/recommendations.py",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-mixed-tea/before/recommendations.py",
+      "sha256": "9e45bae8c59f8fde36ab32bbf937edad88bc8d15fda6db4372d0716f835bf407",
+      "git_sha256": "9e45bae8c59f8fde36ab32bbf937edad88bc8d15fda6db4372d0716f835bf407",
+      "git_blob": "6af06ea5dc546bb80eaedace9bd331a59f29b46c"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-mixed-tea/before/recommendation_options.py",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-mixed-tea/before/recommendation_options.py",
+      "sha256": "689c808232e55cff820fa8a1af5caa15b3b6c4fc29843c0decc30b568cdd7512",
+      "git_sha256": "689c808232e55cff820fa8a1af5caa15b3b6c4fc29843c0decc30b568cdd7512",
+      "git_blob": "532a419833805e05e69d205a3e4eb67e306f15e5"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-mixed-tea/before/sha256.json",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-mixed-tea/before/sha256.json",
+      "sha256": "5434079217c7d60eac9b6a0f05c44076354d5d1a3180ef8149f0d28b2e6f987c",
+      "git_sha256": "65ae339ca63fce6b6f1613413ae5d4112f1b96b4388892a6300bf32fd0af2a36",
+      "git_blob": "249cfdbfc517d34a95bc2438e1c6f66359c1ff13"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-mixed-tea/before/tool_services.py",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-mixed-tea/before/tool_services.py",
+      "sha256": "8491e6cc98fe5f4c18189f72b3fee17ffc54666796fc86136ca34a95fe056d36",
+      "git_sha256": "8491e6cc98fe5f4c18189f72b3fee17ffc54666796fc86136ca34a95fe056d36",
+      "git_blob": "a4c76fc4084bd6a480ef84550979a8fa1c431368"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-mixed-tea/before/workflow.py",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-mixed-tea/before/workflow.py",
+      "sha256": "5084449ff321183efe559cbe10645c3371ebaccf0c2279df53bb966392b2e012",
+      "git_sha256": "5084449ff321183efe559cbe10645c3371ebaccf0c2279df53bb966392b2e012",
+      "git_blob": "8f3ce00fce58c85965a435117be1cb808f15ff14"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-planner/baseline-analysis.md",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-planner/baseline-analysis.md",
+      "sha256": "8c9cd4926c067b55efaf5dc51b40fed1aed9817bde0afa4018d43dc6b62b4baa",
+      "git_sha256": "8c9cd4926c067b55efaf5dc51b40fed1aed9817bde0afa4018d43dc6b62b4baa",
+      "git_blob": "e806a33bb3602ae4c93a78d3fbc5d90aa4f30802"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-planner/baseline-manifest.json",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-planner/baseline-manifest.json",
+      "sha256": "e3de0e60a9eb616125bc2d9368a38a35cdf28dbea7e1bbb57ade2eb0f30650c2",
+      "git_sha256": "3f401d34f3ab2d2680e41322f3d16338697c1a062439f5609afabde4da7e5133",
+      "git_blob": "d441d98a6b89298b4ee15f6ce4c879af0cbbe50d"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-planner/cases.json",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-planner/cases.json",
+      "sha256": "ab2230a0c183b0681c29f3637d5ae9dbe0b3b7c300ac006456e0f74a5b531094",
+      "git_sha256": "1b68e91cea1b0381999c756b241435cc4364e0005d134a278a6540b12066ec2a",
+      "git_blob": "389f4d2ca2844ebf624699cad0b8c825d42ff996"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-planner/comparison-report.md",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-planner/comparison-report.md",
+      "sha256": "5fd2cd2533edc9c4f723503a94ebde203cc29ae7c2136a637cc1a677abaaa37c",
+      "git_sha256": "a36f5a23dbcf5370c969078b412bc591249c34445e0552821a0203874017244b",
+      "git_blob": "14b76ead52b8341831b945e7ceedb3f1c86e190b"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-planner/diagnostic-pair.json",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-planner/diagnostic-pair.json",
+      "sha256": "8592c33692b207263f3d46c4f117880a2d8e076630f5a885c7d90b9b72daa5db",
+      "git_sha256": "5919cba8c9835801a9d605a94c29194414f1c43670579b437527380d76f211b5",
+      "git_blob": "7752034fa1dad2e27ca2347e1bfe6067a2261661"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-planner/historical-records.json",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-planner/historical-records.json",
+      "sha256": "7ec7c4372a6c7b9e26133815e3c4d290fb4ce93333b5dc12d727665270805b01",
+      "git_sha256": "c9de634a849ae0f21a1d6e4e687dfe16b0f1f599ac57ef1c954ad8b4ec3c20a2",
+      "git_blob": "037f578b14fd5ea853a008731cb278c0723dfbc4"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-planner/paired-final.json",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-planner/paired-final.json",
+      "sha256": "f62ac4ba76e437340e4c352b904e952c3c1126f34dd2075bba4aebf3c23067c0",
+      "git_sha256": "9d57a5504abfcce974df8440d29e0e4e2ed88c098abc2a68ad97e21ac91628ac",
+      "git_blob": "a7d429a11b56572fa602cd13a9f4116abcf5dcf1"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-planner/paired-run-1.json",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-planner/paired-run-1.json",
+      "sha256": "e79545a8750fc7c3805e1f1f53db0597b12762593e4f6070504a4ad10b777447",
+      "git_sha256": "f385dbbcff44de99e2fd3ad43701003ba0d76b3c85db326a58b1e6ab0a55de26",
+      "git_blob": "09346070d269ab7262183d2a1b1fd44d017d5fee"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-planner/paired-run-2.json",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-planner/paired-run-2.json",
+      "sha256": "1e66937eff0496b97d8f9d6dd49303f0374ab271eb4295f366bea3b9845d17c0",
+      "git_sha256": "51b26705e76bee13b2861c080a9a71209371c97f1c1411e12bff07c1fcbbeb58",
+      "git_blob": "54231450e72f296af620413233cab698aefdb1dd"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-planner/paired-run-3.json",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-planner/paired-run-3.json",
+      "sha256": "7f52e9aecf81cb635238d3a6992e56d3bc375729ffdff2f8319b11d4aaf01d3c",
+      "git_sha256": "56fb347f68702b3e9bc3073266888446dfa3143d16777469ceab83a0d76b8708",
+      "git_blob": "9fb6a6f056904bd31681d62b69ccf9204d633c63"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-planner/summary.json",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-planner/summary.json",
+      "sha256": "8389a6bb7716461988d20a81988dadd25813e29936c15ebdffe2b626b2681328",
+      "git_sha256": "a1a36cd44b2135132feb8b1eff05014f715f9fb22298ab3b22c38087cd52244a",
+      "git_blob": "369d400eaffeb1a84f8f9a0183212e9ca06295bc"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-planner/unit-tests.log",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-planner/unit-tests.log",
+      "sha256": "35c7345d422a71ece08d9656b3875b6d50fa9afa559a37240f6b68ccf72805e5",
+      "git_sha256": "35c7345d422a71ece08d9656b3875b6d50fa9afa559a37240f6b68ccf72805e5",
+      "git_blob": "8e8545b59a7640081f75c06695445357b8377883"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-planner/baseline-source/configuration.py",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-planner/baseline-source/configuration.py",
+      "sha256": "f3d6e2d2e99af8ad98a1fb8531bda0590d32aca53bb6c68502876139be1f2f53",
+      "git_sha256": "f3d6e2d2e99af8ad98a1fb8531bda0590d32aca53bb6c68502876139be1f2f53",
+      "git_blob": "76125256ab496b997aa77db6c44b4c3a9c6a872a"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-planner/baseline-source/context.py",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-planner/baseline-source/context.py",
+      "sha256": "363c2182a8b9c495675c6ef630a7e55c98ecc29c412d2b4135c5077ab8fba4b1",
+      "git_sha256": "363c2182a8b9c495675c6ef630a7e55c98ecc29c412d2b4135c5077ab8fba4b1",
+      "git_blob": "836fcf172bd7c21b387769ca9d8928e7a9f6c742"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-planner/baseline-source/contracts.py",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-planner/baseline-source/contracts.py",
+      "sha256": "b0b6cc3a92d80cefae749417694f739643dfdd6fffbccbc288190b36b0da3c15",
+      "git_sha256": "b0b6cc3a92d80cefae749417694f739643dfdd6fffbccbc288190b36b0da3c15",
+      "git_blob": "c6a5ab2d371591e67ab6761f15f7e8a398ed02c9"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-planner/baseline-source/model_client.py",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-planner/baseline-source/model_client.py",
+      "sha256": "4844fc779243c6d3371fc1f06c9e4c01d61b0279fb49840dfb00da44f879b061",
+      "git_sha256": "4844fc779243c6d3371fc1f06c9e4c01d61b0279fb49840dfb00da44f879b061",
+      "git_blob": "c287948d91448b7fc70fad30443fb50e05076831"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-planner/baseline-source/modules.json",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-planner/baseline-source/modules.json",
+      "sha256": "b48699e9569edf967e652bc6998de3ea9e7f20229e6faeea66cb6ce314bcdb5f",
+      "git_sha256": "19a5b8cc511fdae2863def23903bba3295f8623773b1d41e8834c1388c36e759",
+      "git_blob": "1a9aba8f945bc612f72bd01770daedccb2375598"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-planner/baseline-source/recommendations.py",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-planner/baseline-source/recommendations.py",
+      "sha256": "433269bb08b7ae8678169b8bcfe4dc02806845c4024eb88eca71e37bd36d8a24",
+      "git_sha256": "433269bb08b7ae8678169b8bcfe4dc02806845c4024eb88eca71e37bd36d8a24",
+      "git_blob": "3223c64502c3c94497d0719f963cc750b8a63d1a"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-planner/baseline-source/telemetry.py",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-planner/baseline-source/telemetry.py",
+      "sha256": "563f4f6894940e056fe30fd6fe619cd729b36968519ce835164be0b7ee1b66ad",
+      "git_sha256": "563f4f6894940e056fe30fd6fe619cd729b36968519ce835164be0b7ee1b66ad",
+      "git_blob": "98a9aedd8d55de5f547d6cdcd40879f16473779e"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-planner/baseline-source/tests.py",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-planner/baseline-source/tests.py",
+      "sha256": "1143e46224ca7e281b33e971130d5d058d2a5aee55d98527461561823938c33f",
+      "git_sha256": "1143e46224ca7e281b33e971130d5d058d2a5aee55d98527461561823938c33f",
+      "git_blob": "49b2b2ebb6df41bfbec2192989567c5ebc885e5c"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-planner/baseline-source/views.py",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-planner/baseline-source/views.py",
+      "sha256": "d15e3e3228e360ac372a0f9d6727aceeaea9c55371c123b9be74a4610edcf33a",
+      "git_sha256": "3249816a61c1a4a54c19dca58a05f01d717e40c5f9ca46ea0a44f4a07d340dd9",
+      "git_blob": "beee29323dcb1a9cbe36db84b26dc2f9b0d7b42d"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-planner/baseline-source/workflow.py",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-planner/baseline-source/workflow.py",
+      "sha256": "bc0aa0e901758ad8167aa2c00b9b5fb1f8a5ee09d8d5c4b891b03d3abdd2626a",
+      "git_sha256": "bc0aa0e901758ad8167aa2c00b9b5fb1f8a5ee09d8d5c4b891b03d3abdd2626a",
+      "git_blob": "dc64d8742c5edfd565c2e21e6638b61e2c7beb75"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-rag-rewrite/backend-final.stderr.log",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-rag-rewrite/backend-final.stderr.log",
+      "sha256": "f321dd5c0e27985599f6a5365e9146a4dce7446d3002b0a044aac4c2224988f8",
+      "git_sha256": "2f1c09744f329b334bfb8ddb4af8be4fd1848b45aadc126eaf956ce74666e3a3",
+      "git_blob": "7033adbaf829cd4c519e857d5e062a5c4572f580"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-rag-rewrite/backend-final.stdout.log",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-rag-rewrite/backend-final.stdout.log",
+      "sha256": "281dca9266586092056c66983cc94090e5560e9d29d83b9bbb7124d2c567d147",
+      "git_sha256": "51fe2a2e726da4c92aec22092b0ec3e2601c6b8f54b22fef2aa7e6789fe210b4",
+      "git_blob": "7daced402f13bb87479a15a4bae1a0eba992ad0f"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-rag-rewrite/backend.stderr.log",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-rag-rewrite/backend.stderr.log",
+      "sha256": "a0ff158357eaab747907b056841374a90c68f55ebc271098a5ebcd6ac4c98a91",
+      "git_sha256": "84686c5e925b68735df48d176f948dbd14413e3fafa7c36ac82e4fafc84da34c",
+      "git_blob": "d81c44a20873980c91ec7cfdc447d0b3bdb6a14b"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-rag-rewrite/backend.stdout.log",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-rag-rewrite/backend.stdout.log",
+      "sha256": "20cf3cb7bfab40bc8ca1e7cc6a0e6195fa9350c2f06e15ab97c7b31f9cc8d159",
+      "git_sha256": "e89bb633c09c96ac9eb60ef668a47fbc4eff4d8aefd5bbe11c71f266b9fef81c",
+      "git_blob": "361fac30b2fbea2332e0a7bdc0fa67ded383d870"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-rag-rewrite/implementation.json",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-rag-rewrite/implementation.json",
+      "sha256": "3d193d1484e41d5c03725adc094f6f6214e03d30b63f88f57149d2aecf0b5edd",
+      "git_sha256": "5f4feebd8ee0663826bd509e920cdb7057cd944fb8221e1e68369cc8fd813a76",
+      "git_blob": "70b5d1ae38ceb88690d3aa266c39534c18f022fa"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-rag-rewrite/before/.env.example",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-rag-rewrite/before/.env.example",
+      "sha256": "2feae8a5d5eafab3c3547c8eab333d9961d46a09131091b62f89224a32cadb8e",
+      "git_sha256": "2feae8a5d5eafab3c3547c8eab333d9961d46a09131091b62f89224a32cadb8e",
+      "git_blob": "6dd4c6593764c908ca2d1c87c0b8a07e0172b9a8"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/case14-rank-diagnostic.json",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/case14-rank-diagnostic.json",
+      "sha256": "1d337e748a3fd6e06b88272b39a6eb4e4193e65f4ece6a979e9deaf86e2639b3",
+      "git_sha256": "d39577a8e70dcaabd9d276c27116722f7b6892354127e59a4fd89fe71e300944",
+      "git_blob": "c63b562a1407c44da0c9c32723e4a706d9785e26"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/corpus.json",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/corpus.json",
+      "sha256": "4719f5e2d7db7458e2e2a9bd7a23b2bc6f08f3452422ffe09024a4868bb89aa6",
+      "git_sha256": "75ed26e30125c22aa7f39241d9bd53eb9834a971d153500488bbc4b8d6badfd6",
+      "git_blob": "1078f2252a9bfa1d5a0660c82454a91f6ca286bd"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/dialogues.md",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/dialogues.md",
+      "sha256": "860f8ac73bc647cf5937ac336003b210c95cdff0df5f4c23ae86da0fe884459d",
+      "git_sha256": "9772004b50de6b6bf25e5d0a53067a65c562eaff7c3eb0d4d03e6bd2339f3fcd",
+      "git_blob": "950d07bf8f61224b958225c70e4437dd84ca2a20"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/manifest.json",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/manifest.json",
+      "sha256": "9cba35dba771e2e23bffd650ef1d96f3f9aba67fdaaeb60d8bbca4ecc245d4a1",
+      "git_sha256": "9e2776f39a59daf351d1f846da1810f9c857e83757cd76cb37581f74a3478535",
+      "git_blob": "7df706ae282f76a8a805e8ba88589475f91ef4b3"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/manual-review.json",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/manual-review.json",
+      "sha256": "761e54a89c088b4f00b3dae3a28cbd9e5ae37a3168bdde8429fb05f38d8d9634",
+      "git_sha256": "761e54a89c088b4f00b3dae3a28cbd9e5ae37a3168bdde8429fb05f38d8d9634",
+      "git_blob": "b844d3463d8ea9a9618a96ecc9dffd37bcbe9959"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/report.md",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/report.md",
+      "sha256": "8e2e4adb4ae21e4cc8ef7fcf6c1789c91042535ed29d6974b78a6de55049951a",
+      "git_sha256": "a459717e14600714fee7120a11e8c57d4a9cab6a6483471e1ca46420e00e7a0d",
+      "git_blob": "b8cb533e386776a47958bf92665edee44973c520"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/results.jsonl",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/results.jsonl",
+      "sha256": "b8b69a56b8199f7ab9dc70c1f00949870ebf0a551ceb27cd6c5d059cbffa4bf8",
+      "git_sha256": "ac01c82888e476942f8201b11d72a5777141f6e8cfcafa441b65e7ae87294a7a",
+      "git_blob": "97365b35c162d22fe881040717d20556b4ff80b4"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/run-summary.json",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/run-summary.json",
+      "sha256": "88672d07395935149e3ad8b048b646621cf8e0d6a3415d5e1291550dc684a264",
+      "git_sha256": "b7916a1184f07a5ac9b521ce051b6d962efdd9a0dcd1ebf6787af2ec829a5bd4",
+      "git_blob": "44495146eabcd64e9f03c78ab8e4efc0c8343389"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-rag-rewrite/before/ai_storage/embeddings.py",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-rag-rewrite/before/ai_storage/embeddings.py",
+      "sha256": "b3d9d75bfdd7d34be2c38fd203228090d8e50ed4e2b0290c1f6c802fc455d63f",
+      "git_sha256": "b3d9d75bfdd7d34be2c38fd203228090d8e50ed4e2b0290c1f6c802fc455d63f",
+      "git_blob": "466cfeec323e2ab174533a8cabd855b2f9b7bb85"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-rag-rewrite/before/support_ai/model_client.py",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-rag-rewrite/before/support_ai/model_client.py",
+      "sha256": "4844fc779243c6d3371fc1f06c9e4c01d61b0279fb49840dfb00da44f879b061",
+      "git_sha256": "4844fc779243c6d3371fc1f06c9e4c01d61b0279fb49840dfb00da44f879b061",
+      "git_blob": "c287948d91448b7fc70fad30443fb50e05076831"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-rag-rewrite/before/support_ai/preview.py",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-rag-rewrite/before/support_ai/preview.py",
+      "sha256": "aa4b8c6f5cbaad719159e0a2128eb2fb1b29fcf5ac75b88ec09ffec5f7601fc3",
+      "git_sha256": "aa4b8c6f5cbaad719159e0a2128eb2fb1b29fcf5ac75b88ec09ffec5f7601fc3",
+      "git_blob": "24fa2bbde8d49c39c4fbd69938b256e9ca27d779"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-rag-rewrite/before/support_ai/retrieval.py",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-rag-rewrite/before/support_ai/retrieval.py",
+      "sha256": "31cab5d783a9dbad29c3aa1b0f4a2c3a9c52719b3d4e9c1d8b7259fa67f9b0d4",
+      "git_sha256": "31cab5d783a9dbad29c3aa1b0f4a2c3a9c52719b3d4e9c1d8b7259fa67f9b0d4",
+      "git_blob": "82bfbacdc2a182654a24fae20cc1a99c9524b077"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-rag-rewrite/before/support_ai/telemetry.py",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-rag-rewrite/before/support_ai/telemetry.py",
+      "sha256": "d81f5227388365c0018364cf2b12820160196561b06823bda472629dfdbbca51",
+      "git_sha256": "d81f5227388365c0018364cf2b12820160196561b06823bda472629dfdbbca51",
+      "git_blob": "7d6926293c92db3a8d3738f2b4a9abe50ee10aa3"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-rag-rewrite/before/support_ai/tool_services.py",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-rag-rewrite/before/support_ai/tool_services.py",
+      "sha256": "21836588f1edb438807f5103325f648ece15583ea7df252d49c91717e49baa61",
+      "git_sha256": "21836588f1edb438807f5103325f648ece15583ea7df252d49c91717e49baa61",
+      "git_blob": "344006975a8073994777c96920b0de92eca74cf0"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-rag-rewrite/before/support_ai/views.py",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-rag-rewrite/before/support_ai/views.py",
+      "sha256": "8abd7b6b08320d881953c32d6b3b6639124252e5b2bc41ebeb60a7a44e6d7e35",
+      "git_sha256": "d572dd1d00ad179873e5552d6533dc33653bc0d9fe8ec1f523ccdaa3a06d5a79",
+      "git_blob": "8cd52e27557d47f2a9fea4d5bb102ec8f752a475"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-rag-rewrite/before/tea_saas/settings.py",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-rag-rewrite/before/tea_saas/settings.py",
+      "sha256": "4eb87df22c4d0187f391e08365d724b00abdd73c0cf67dfb96bb37569f27a0af",
+      "git_sha256": "dcb76f31b96981a0e01d63e5a340591b8972bb4e07972764e775693fcf49c973",
+      "git_blob": "21ea25f1cfa08f38bcb7a89fe5ec925519a8b24c"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-rag-rewrite/before/versions/modules.json",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-rag-rewrite/before/versions/modules.json",
+      "sha256": "2edb2beee01afad3ddc318b185f8aa4ab41114e42144473175bbdf6c85acb96b",
+      "git_sha256": "55e15bfc9e797dd7d8a6dea226b22439ad4fbabdd89b4a40505a2ded187c05f3",
+      "git_blob": "c234c608203c0860413b1f2034579443b9f9c78b"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-rag-rewrite/before/versions/README.md",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-rag-rewrite/before/versions/README.md",
+      "sha256": "0f0f27ad2ed50e76e3d119df962f8edb32265d33d19253b8fe6faf57f78b179f",
+      "git_sha256": "0f0f27ad2ed50e76e3d119df962f8edb32265d33d19253b8fe6faf57f78b179f",
+      "git_blob": "1411c46825ff6dec3bf9bad517dc5d2447b6143b"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-rag-rewrite/before/support_ai/management/commands/agent_preview.py",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-rag-rewrite/before/support_ai/management/commands/agent_preview.py",
+      "sha256": "c1e93326fe6e370556b241b40933b73a3c0e46232dd7cfb9aa024633d5c43932",
+      "git_sha256": "c1e93326fe6e370556b241b40933b73a3c0e46232dd7cfb9aa024633d5c43932",
+      "git_blob": "7a61a3523e8b9a54c825b15f4fde44027877627b"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-rag-rewrite/before/versions/changelogs/ai_storage.md",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-rag-rewrite/before/versions/changelogs/ai_storage.md",
+      "sha256": "bc53e28c8ee2bde3092522725c6e8bb95e0acb88fa43f5d29a14b0e9b342be5c",
+      "git_sha256": "8aa560b85c752bb6a5b0f4f96b12a2c9b0a3020d8d63a86982f38f4a0866a321",
+      "git_blob": "7dd6203b9d13ad9ecdf0073a0541ea66ba13d5e7"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-rag-rewrite/before/versions/changelogs/core.md",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-rag-rewrite/before/versions/changelogs/core.md",
+      "sha256": "b2df4137f72fe5ae1eec5df67cdc5d261892e5069a5408cc212a87f5737cc522",
+      "git_sha256": "d6d7e55666b7ad1705f0ee3048e696b5f7fb0993e8d3016f4d978fd80533c79e",
+      "git_blob": "660f7ca923ce24c766d990afaffcaec10a51e4b9"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-rag-rewrite/before/versions/changelogs/support_ai.md",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-rag-rewrite/before/versions/changelogs/support_ai.md",
+      "sha256": "c3dcafa91397a242a07be7c3d6de58b95d5a0d8cc5fc7439d48d77ed5c441f36",
+      "git_sha256": "a336f58f0c4494c69b1ab8c0fe1622f607bd29e37d9d5c897a4db1a01a9cc4df",
+      "git_blob": "e26dba5ce768a3d6db9855ba0f97dce5e65fdbf3"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/sessions/rewrite/20261016-141634-b92f160cb5c849deb7da63a1bc547680.jsonl",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/sessions/rewrite/20261016-141634-b92f160cb5c849deb7da63a1bc547680.jsonl",
+      "sha256": "7589c8b444b876ecec502e0889304d8b5fa797d69ae4122eea9dc30bbfa84dd5",
+      "git_sha256": "d3306e06a39ea34a84aab0e0c9c6c01e2d097cac8cf324a8e719ebaee22ad779",
+      "git_blob": "6eae81f8b3fc2f01639c853c1104d70f6fc05800"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/sessions/rewrite/20261016-141650-36ebc2e8ac104e5598b0b2ceac4794c8.jsonl",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/sessions/rewrite/20261016-141650-36ebc2e8ac104e5598b0b2ceac4794c8.jsonl",
+      "sha256": "13b67e3907dbdac5fd585134e6388037f25b201effa377677f2ce86f62cf5258",
+      "git_sha256": "c76bc840cfadf15fb378c4079af28863a33fe0c0f1522cf147881c2400026fec",
+      "git_blob": "eaea10054bbc627dcdaf0d72da94411ef45d4974"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/sessions/rewrite/20261016-141749-f256366946154fe7b32f059f98fdbeab.jsonl",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/sessions/rewrite/20261016-141749-f256366946154fe7b32f059f98fdbeab.jsonl",
+      "sha256": "250c3495c8fae181014021c9000e01ac3c763800a3e566be864fb34889d5cd34",
+      "git_sha256": "160473e89a5da8c0d19fb89eb6c86b88ffc94bde43a3eee63c6738477309674a",
+      "git_blob": "11b20156ab62d74260835355acf5c8dc935aa274"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/sessions/rewrite/20261016-141810-5a4fa9d4d4834702b1c649325aece44b.jsonl",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/sessions/rewrite/20261016-141810-5a4fa9d4d4834702b1c649325aece44b.jsonl",
+      "sha256": "49c47de2ab682ab93378e2f7dea68c4917ef5b1d2a585d2603833038270bd0aa",
+      "git_sha256": "6e2a24152f2f29178d9eed5848a9664a716c746ec29264948c4d993587e3aac5",
+      "git_blob": "2562a0d9b61366f2f033dbf1095eae6b58a11c03"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/sessions/rewrite/20261016-141922-051f5d3ad85849d4a032d152de3523bc.jsonl",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/sessions/rewrite/20261016-141922-051f5d3ad85849d4a032d152de3523bc.jsonl",
+      "sha256": "848163053bd70c5bb0a27b28731bc70b6e5e358f7920a0c642122b4333aeabbc",
+      "git_sha256": "b23354c8e26e482799bd4953df6e1f07a0bbbe0e084c44ebeb56bd30c980cda6",
+      "git_blob": "c63f3c2bf59b71457af07a3e7b36185817ebcb99"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/sessions/rewrite/20261016-141953-8f874c6ceb9740d991c7a418e27c219f.jsonl",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/sessions/rewrite/20261016-141953-8f874c6ceb9740d991c7a418e27c219f.jsonl",
+      "sha256": "cf7e7a4c621c7e6252cc2784cc521de7b28027bcdf0b8407e3db296308098132",
+      "git_sha256": "c421d4f834625dd30e588a5e6cccd900d5ae5d70427488dbfa0f4908d4b4ba64",
+      "git_blob": "4b1444b3dca13a27ba7277415fe75bc5f800458e"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/sessions/rewrite/20261016-142107-e62b72f300e34a69b8feb74ad1f357a1.jsonl",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/sessions/rewrite/20261016-142107-e62b72f300e34a69b8feb74ad1f357a1.jsonl",
+      "sha256": "dbc012d48ea82db9eb0f84ccd8e9728da41dc3b074c0698982d85f810364b2a6",
+      "git_sha256": "f0cae9125c0d6f92bb0043de7dec55c153f00263f2e1e4c2e9f395753ecbb63e",
+      "git_blob": "f086372926a05ca4285e3f4c93a2e35787859b48"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/sessions/rewrite/20261016-142137-5e1843a9f9644d7c97279ecbc0249d8a.jsonl",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/sessions/rewrite/20261016-142137-5e1843a9f9644d7c97279ecbc0249d8a.jsonl",
+      "sha256": "bbb70cff882a28d35780173f07ac7d172716cac6c1018bb807cea1d4507d3825",
+      "git_sha256": "85dd49aa36d04c1c37cdfb5b5fbe8152b98daa3e8b0bf6c97bbe6b67d3391301",
+      "git_blob": "18649d841a04c74e9fe07903c2b22eeeea86b57b"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/sessions/rewrite/20261016-142242-f1f267a71433459096c6c6bf94277c03.jsonl",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/sessions/rewrite/20261016-142242-f1f267a71433459096c6c6bf94277c03.jsonl",
+      "sha256": "444c6cdc5e51d7d8894446e675e0193e610ff9591f38397080a34a39dab3d765",
+      "git_sha256": "93aa8276b77d8241bcf6693126c38d27a10651f99920bcaf8f8f6d30d622310b",
+      "git_blob": "b11ce2257df8da7153c3f5e7eeebe41fd81c76b5"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/sessions/rewrite/20261016-142314-d66aaf7b28e34a80b86e05c905347f5d.jsonl",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/sessions/rewrite/20261016-142314-d66aaf7b28e34a80b86e05c905347f5d.jsonl",
+      "sha256": "9d5591f47391c6df9d36653dbb13e5ed4b10c2da650a8096d3722c374abd4165",
+      "git_sha256": "5f6463b96c7b76331ad92eed451e4089d5480b6698c2bf21991c1ea7bc884180",
+      "git_blob": "9d00da4c71bef5373a4075cfe109217bb593aab1"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/sessions/rewrite/20261016-142417-5ef201e22386425aa015493efee3a2a6.jsonl",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/sessions/rewrite/20261016-142417-5ef201e22386425aa015493efee3a2a6.jsonl",
+      "sha256": "ec0ab17811849847951f8a2b2319a7607327635c25790c12f9c775c354f434e0",
+      "git_sha256": "e951e83693253dbb78dfc91404f4c1d38f3742d453fd88805427a6c119e55341",
+      "git_blob": "b99b0e6ddff8a8ff5505a417c3d661ee5de76451"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/sessions/rewrite/20261016-142436-48cf3d6cb4894f208ad2505667ae3053.jsonl",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/sessions/rewrite/20261016-142436-48cf3d6cb4894f208ad2505667ae3053.jsonl",
+      "sha256": "00caeb861a33533cc31b467d70e575cda4710269e7fe2f5ab303107ae157f9f9",
+      "git_sha256": "b3e0985ab0eee834712a9214072272c27d03ff2cf62f870317f4ee8fe4e0d03f",
+      "git_blob": "060dd7237204c6550396863991eb47430d2c547d"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/sessions/rewrite/20261016-142536-79760be107054d239a4ef4d23d97f426.jsonl",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/sessions/rewrite/20261016-142536-79760be107054d239a4ef4d23d97f426.jsonl",
+      "sha256": "4d460fbe71d23d13ce698184e8b79b06ad4e967ff58eccc8dec3a6fbc36ca88f",
+      "git_sha256": "cd1c73a09165b55e471961289f7a984b6028cdabadc045e4c8b07949f617201f",
+      "git_blob": "75c24a18c279cea2b9aa5b22370c5fbeba9c2adb"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/sessions/rewrite/20261016-142559-f4ac42731bb24166a32326336ede9141.jsonl",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/sessions/rewrite/20261016-142559-f4ac42731bb24166a32326336ede9141.jsonl",
+      "sha256": "558826314684a44ebb6b5543753a5dad0f21042a78c9a9381842cc2451566509",
+      "git_sha256": "90d214f534293da227727421db31b60ee9956f8ac60797ee63da1302ad1995c9",
+      "git_blob": "0e64f09e40c3ac04e90bd8dfe0b43a249eb76c37"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/sessions/rewrite/20261016-142737-a25a75746d534dfb8db8ef467754b522.jsonl",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/sessions/rewrite/20261016-142737-a25a75746d534dfb8db8ef467754b522.jsonl",
+      "sha256": "ae60c5761ca27f8d4d1e08ef8063c2107780a3b23e89d7ccbb079f72949de120",
+      "git_sha256": "67687af9c8a611c892cac679a820133d46e63a135ef82e4b85dc46cc8aa7b875",
+      "git_blob": "8113b56c8a4896b6db269a80ee5ae4b513028275"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/sessions/single_query/20261016-141614-8dea4242ea8b4fd6a3d2f7b3f0dbb140.jsonl",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/sessions/single_query/20261016-141614-8dea4242ea8b4fd6a3d2f7b3f0dbb140.jsonl",
+      "sha256": "8056d369539023492d797b9021571e6383a5581314b06870c47c7f6daa329b6c",
+      "git_sha256": "b74e4e935194479bf657abeb03c1347ba97ac4e8cb333d3f3947795b26ab4050",
+      "git_blob": "680e07012812a962eb9ca3bc5c794a9fa44448a7"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/sessions/single_query/20261016-141707-84c35edae6e54cb6baae9cccf0779576.jsonl",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/sessions/single_query/20261016-141707-84c35edae6e54cb6baae9cccf0779576.jsonl",
+      "sha256": "4e99fb9a3a508e91e64943f881b2f18363fe63a29dbaf3cf7beda6b5d82ee06d",
+      "git_sha256": "50faa5002ca7e4d14aeac24e8201610caea8e0e8fc312c750aac19658f8001fe",
+      "git_blob": "368add04da00c023c51b9e1a73c9aca232f74a97"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/sessions/single_query/20261016-141725-9db220a6e9954512b2755c93b1fa9e7c.jsonl",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/sessions/single_query/20261016-141725-9db220a6e9954512b2755c93b1fa9e7c.jsonl",
+      "sha256": "fc7260477f70dd8d35f03251d4bdd6d68109dc953988acb219f033f478596f8d",
+      "git_sha256": "1b0bde7d76b698c1c339c6bff90216d854787c2331111332472d4b6835e153b2",
+      "git_blob": "74edafd54aba54fa8d9c097cfc2834c6df10af75"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/sessions/single_query/20261016-141830-86cda7a3fc164953b61b2a5c2a727776.jsonl",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/sessions/single_query/20261016-141830-86cda7a3fc164953b61b2a5c2a727776.jsonl",
+      "sha256": "e95e3fcfb528b4d8ba8fab49569e01a2d9749484d455136744a6e29c2e955be8",
+      "git_sha256": "77b421001fa082cbf78fb644bb1f94cb29f5ce8545da4036b9c51b0bcbbd8e4e",
+      "git_blob": "2b35240f199fdd6d07211c4fc5cd19bf93857c4c"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/sessions/single_query/20261016-141852-549795da0ba54513b095c9e8f8ce8ee5.jsonl",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/sessions/single_query/20261016-141852-549795da0ba54513b095c9e8f8ce8ee5.jsonl",
+      "sha256": "070252ebae367cad1bbffdf04c552723152c01696bf2073882db0fed8be1cf45",
+      "git_sha256": "48ca440fe4463c94a661059ee528bce9d3ea4399823d3892741ef4816850819c",
+      "git_blob": "a6db926469d9bdcb1db4d0da39261579b98c4a52"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/sessions/single_query/20261016-142022-327f14fbf3cb492db88095f67272f080.jsonl",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/sessions/single_query/20261016-142022-327f14fbf3cb492db88095f67272f080.jsonl",
+      "sha256": "3a51db91cfc0bd6249806cafb304e8c0dc38dafd1322b6395e9c11c91604c2ea",
+      "git_sha256": "0baced4337be4545d35005c38201f4722057ade4d61b4006b42b0feb6bc6f8da",
+      "git_blob": "0aa4bb90880b4c2626bc484ae10e056079c428c3"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/sessions/single_query/20261016-142046-cfac6a1517e24ff699f192d7e3291611.jsonl",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/sessions/single_query/20261016-142046-cfac6a1517e24ff699f192d7e3291611.jsonl",
+      "sha256": "ab93d410755fea129b17a3f3c1630c8d54327a96191e195f0c28719cb9e4b164",
+      "git_sha256": "7612f8698bc2abace73d64bdb870414419c997677ccf9be3c944f8b24518d5b9",
+      "git_blob": "03d2684a620eba6407abbca301bb5f9d9f5123e0"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/sessions/single_query/20261016-142156-55ff2c897e8445de85a8be825f801698.jsonl",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/sessions/single_query/20261016-142156-55ff2c897e8445de85a8be825f801698.jsonl",
+      "sha256": "e2b54de3ba52155e605f38f4ee92738193df0bdcc67166fb6f8c1e0d79281576",
+      "git_sha256": "0ef676d3160d35a732220fc052534237bb71cc633df66b0e9ed9607aad17e206",
+      "git_blob": "a37a8d92631c1a8f4510b59fd635115456b5c8d7"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/sessions/single_query/20261016-142218-071b1101a7be4864a144f79969592e3e.jsonl",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/sessions/single_query/20261016-142218-071b1101a7be4864a144f79969592e3e.jsonl",
+      "sha256": "0374c77ee4504f8e7341c6a57288a5e86b9271b1af68f9768efd302b25863c26",
+      "git_sha256": "63c18d0bc3ad54d2a9f3c35a51bf5da9dde9cb42620c6daebc43ccfc527fde8c",
+      "git_blob": "fa3ece1f9ab345d2561a7eca2906bd5ab168a564"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/sessions/single_query/20261016-142334-4447b077fa8c4d8f8586c76bc387df90.jsonl",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/sessions/single_query/20261016-142334-4447b077fa8c4d8f8586c76bc387df90.jsonl",
+      "sha256": "408625074eb4903c714744f558f1e84b550b7183780179baff425bbdd8f9c57a",
+      "git_sha256": "88bac23aafbf059a5b0f09fc17e15cc756771fd448d368ac5153f27c2617176f",
+      "git_blob": "5d6b7573fdc10b2f6e422b0b623eeeed0a367b2c"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/sessions/single_query/20261016-142355-47b1ca8d234f4519a46fbe50740f3a10.jsonl",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/sessions/single_query/20261016-142355-47b1ca8d234f4519a46fbe50740f3a10.jsonl",
+      "sha256": "171667fe74ac8d736b27b7e4d19a2a33525cf241df16acae1edca33c745c1889",
+      "git_sha256": "ed38933250ca71c32f1ae7eedfce0059b5d2b885fdcef82a222b86bf448d4718",
+      "git_blob": "553ef454095a410e8fc4cabd58afd647433007aa"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/sessions/single_query/20261016-142454-156ea840fa1a4b9c976581b64dc428c0.jsonl",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/sessions/single_query/20261016-142454-156ea840fa1a4b9c976581b64dc428c0.jsonl",
+      "sha256": "fece63771c8618e4fc3931bd542765041fdcb3224da81853e229e9a559044cb2",
+      "git_sha256": "869d35fe4b4f2e50466506fd7b000abc5791f6b2d20392840f4577d4fff08679",
+      "git_blob": "3af120f144dc4c03d604735647ae7e2ff64e9e0b"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/sessions/single_query/20261016-142514-90a183a6c2504d7bb480dab6b19cb91d.jsonl",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/sessions/single_query/20261016-142514-90a183a6c2504d7bb480dab6b19cb91d.jsonl",
+      "sha256": "f6607bf119896df452cbcd4f405ff42c563e093b8f6717b37b11a64e3366511b",
+      "git_sha256": "e793c21fbf58a5161f4059bb8939b7cddf7ffa8a5bdf468e872ceeafcf33ffee",
+      "git_blob": "3782c6843bf4e6586c1d81e2552ebc84f7afb090"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/sessions/single_query/20261016-142629-696a697b22b04409be371c8db102c350.jsonl",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/sessions/single_query/20261016-142629-696a697b22b04409be371c8db102c350.jsonl",
+      "sha256": "518e99d11cfa00e535a562a405cc92cf6a4e5b9eb3c5d4cc24bac708daa033e4",
+      "git_sha256": "48a89dea4937d5484f0768f1b71ecb50f1db9c3e8b1518ac371cc460becff99f",
+      "git_blob": "c9fac470ed07382d33539f6395533d4dcb00773d"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/sessions/single_query/20261016-142707-1504930ab57541f8a2fb9a7d9023d4e1.jsonl",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/sessions/single_query/20261016-142707-1504930ab57541f8a2fb9a7d9023d4e1.jsonl",
+      "sha256": "21ce7e843aeaba2453c975914066fdca48f35a3ca2a7a45b1fd90792a206ffa0",
+      "git_sha256": "644b7d7d28a5f1b1fd1af33410c393ddc69b5b52d6aae8253863a852d0d4ec87",
+      "git_blob": "de07d7b0f91116e47197cb2ad7eee10cdd2e70d9"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-scenarios15/dialogues.md",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-scenarios15/dialogues.md",
+      "sha256": "f34fadb55528630ddc5b3974df384be2c473bd225285cf7df570f4b263022a40",
+      "git_sha256": "72e2b2660d6e3f4d0d0dcbdf4d233b394d14550cceeb564cab841343fac364be",
+      "git_blob": "9df1feac24be25db779e1822c51eb8815fc43d34"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-scenarios15/manifest.json",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-scenarios15/manifest.json",
+      "sha256": "e4c98eca6fa7a946a7739d81ca8cef5fe8cd79218cb78e3a6ea8f9bc066c9203",
+      "git_sha256": "6c994f3e23c3b14633843bc08cb2eaae94da393afabc69d462464f7c97989d74",
+      "git_blob": "3475f629555b5a8f6703a26b2d7e257ce1e11ad7"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-scenarios15/report.md",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-scenarios15/report.md",
+      "sha256": "0085dbe3250bec09f72e1302a375e61481b484b3a1b7013c455e6cc3a522580c",
+      "git_sha256": "57280379e4bfc92573eddd872407a97cd614b755917c7171b6b172cca3b80c0c",
+      "git_blob": "8264a1d0c6c73f9d4c827d4fb51360622c9036b9"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-scenarios15/results.jsonl",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-scenarios15/results.jsonl",
+      "sha256": "3bf143645e96230627cd33f1dadba9765d98ebbf385cd99ab01d435735658e16",
+      "git_sha256": "e0f4f17aef6e9c42ac4515c466275ad94f61fc91bcc231b48545be6e25e237f7",
+      "git_blob": "4aef665922bcd23d5b498e2d50f90ecf34a110b2"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-scenarios15/review.json",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-scenarios15/review.json",
+      "sha256": "43fff7d69fdb2e8726b1e68d020fe02e468af48ec1fa04f2d341d2a0e8d4b2b5",
+      "git_sha256": "8fa6ebc5277ee81816390c30f6dfda2fb53515c81260237a183547aff0506222",
+      "git_blob": "cf804274c86cabeae327257b71dc91a3ce6b1460"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-scenarios15/run-summary.json",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-scenarios15/run-summary.json",
+      "sha256": "6022e38d2d2997a9fb9d0327012615d642a757a3c48c10feb56504a9f192664b",
+      "git_sha256": "7dc74e617a6212c20501d704264559421a9f561784fdf0c4088714441a177525",
+      "git_blob": "776a8cd8779a2332bdd936a7554757840a476c54"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-scenarios15/sessions/20261016-133806-0fe3a51a41004fe4878533d51dbbb4d7.jsonl",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-scenarios15/sessions/20261016-133806-0fe3a51a41004fe4878533d51dbbb4d7.jsonl",
+      "sha256": "5ab4e6a1c2f7e6fc912b272c3d9de4c4d9605683320018b33fabc6355d63b3f4",
+      "git_sha256": "28b7756a50db34a942da361e590d9988c70718c35610ae4b559757718dc699bc",
+      "git_blob": "7e08d72d3aead37d0fb4b369ff5a68d846925f63"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-scenarios15/sessions/20261016-133844-2d62494dc9b24f7dac5f0361641cd884.jsonl",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-scenarios15/sessions/20261016-133844-2d62494dc9b24f7dac5f0361641cd884.jsonl",
+      "sha256": "4696c3cfded89b48c314de12d5bc825251c5ba555a94d54bf490214819c92b5a",
+      "git_sha256": "524c40c13b2827b71b5f5d1c92f30e75c4b0f26f0857106f0ab78b8e1c8a7185",
+      "git_blob": "69044f55dbde3ede165766de620adbed3e0b0abe"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-scenarios15/sessions/20261016-133856-6f9a37cdda7640a2b5c755ee2eb767ff.jsonl",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-scenarios15/sessions/20261016-133856-6f9a37cdda7640a2b5c755ee2eb767ff.jsonl",
+      "sha256": "9447e8223cf6ee3c9c9a580f0d229ac059163ed9358bd76cf156ae0e91e0939f",
+      "git_sha256": "ad8c1671969a6be42195760642f029d6c4f6df69ba0740356978d5e21d5e14c9",
+      "git_blob": "509436d7b56a216cf2b7bb559934380c2bd3366d"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-scenarios15/sessions/20261016-133918-7dfa9ad0db9e4a3b9153137e6cb8af92.jsonl",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-scenarios15/sessions/20261016-133918-7dfa9ad0db9e4a3b9153137e6cb8af92.jsonl",
+      "sha256": "714110642f94a3e106aa06e2794790a1b77683de66d7e232f88c23add2443f7d",
+      "git_sha256": "4cd36408d775fb4dd7887988dc0b5e4accb0f661d32043109d926a4518e94efc",
+      "git_blob": "0a822a917715efde6d10928939566d8e7efe1703"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-scenarios15/sessions/20261016-133947-8ff58b0a0012480da4e1485d2cbc780d.jsonl",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-scenarios15/sessions/20261016-133947-8ff58b0a0012480da4e1485d2cbc780d.jsonl",
+      "sha256": "599809d7d811d4152ca7fe36bbbb3be389b19a67b9ee79a6e4a0b3e59952db3c",
+      "git_sha256": "11e8a389cab86073a3634810d0e07759d3a79517550c1cab0ac1afb20be09f4a",
+      "git_blob": "655e0659d547dc4a4abc67d3d81760f9658c0e1b"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-scenarios15/sessions/20261016-134004-d1770572b4d5460f9e39e01eae5cc99a.jsonl",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-scenarios15/sessions/20261016-134004-d1770572b4d5460f9e39e01eae5cc99a.jsonl",
+      "sha256": "2a0ad2584d58f82891855e55f7bbda5d16ac498fbc4d86f52d86c615816c0a1c",
+      "git_sha256": "ef084ca4afb04cbc9e76ef6c0447ed3bf811d4ab95e8c65ee6c5c1acac200be7",
+      "git_blob": "bb148fc56e330dc012a1c95cd4fb5f70d2fae77b"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-scenarios15/sessions/20261016-134007-f0589ca9810046a18c0d3e685e17bfaf.jsonl",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-scenarios15/sessions/20261016-134007-f0589ca9810046a18c0d3e685e17bfaf.jsonl",
+      "sha256": "b98cfbf75c747ba291d6120a64d086b2388315ef64ddb31b931cb7b0d2e9f41e",
+      "git_sha256": "a390de0fca83d0f1b847a776b7e2ac29a735b41e1cb5f8fa7db44514c7ca4658",
+      "git_blob": "db79208b8f1f4560ff21540ca4667cd025e4261f"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-scenarios15/sessions/20261016-134011-7007e0833e4f411cb3dfbd9edd7c79d9.jsonl",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-scenarios15/sessions/20261016-134011-7007e0833e4f411cb3dfbd9edd7c79d9.jsonl",
+      "sha256": "1d1e8f026c3e9a1ad334644cf79a436123b60c3e43c1cac795f483e1b52a76d1",
+      "git_sha256": "14622f9c5bf29df70197c944e8a8e6ff0332f17a2920fc39db6b9e8baae3fe14",
+      "git_blob": "395d94bf1f041f44fef7778c1587b7e81d8e22c7"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-scenarios15/sessions/20261016-134014-2785ce8da5744fcdab90bf74b1188d01.jsonl",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-scenarios15/sessions/20261016-134014-2785ce8da5744fcdab90bf74b1188d01.jsonl",
+      "sha256": "c28ed7892a629b9a343b22b584f09227d0a31576f6d72b80d5c8deb894f30cd3",
+      "git_sha256": "d443a04709ea02f33b3c1cd8ccf53b49bd44e07dff485cd1061c8667c226d552",
+      "git_blob": "af2e2573c5928a3f0135a922c29a46d899eac4cf"
+    },
+    {
+      "original": "reports/agent-evaluation/2026-10-16-scenarios15/sessions/20261016-134032-b00072a545f24aac9b8b68c6f4d90cfc.jsonl",
+      "archived": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-scenarios15/sessions/20261016-134032-b00072a545f24aac9b8b68c6f4d90cfc.jsonl",
+      "sha256": "22ffaa9d08c323113e54de234906ddd8a9d5080473ae6c2f5c86fe08a3aa7a2c",
+      "git_sha256": "bb95cce9c224546393666c88cac931fa205f4494473cfb8875e3be31a6600c51",
+      "git_blob": "c82b98a8e4a679efa78a5cdc255e5cbcc41d6693"
+    },
+    {
+      "original": "reports/agent-preview/20261016-114517-a4743d2f8f9b48b3b20c6fbe27b9331c.jsonl",
+      "archived": "reports/archive/2026-10-16/agent-preview/20261016-114517-a4743d2f8f9b48b3b20c6fbe27b9331c.jsonl",
+      "sha256": "c4421e79fb35219c99fc95867ff60ad2370c81fb11b54406fc30095ea59d6fd4",
+      "git_sha256": "0fdf47ff5e7539d8d03005d7c7538f2b48cdc8e6cfdfa6229e2009f00602a269",
+      "git_blob": "3dba5f5346571810a11db6c673fde31501fa5dfa"
+    },
+    {
+      "original": "reports/agent-preview/20261016-114543-299ff742b3c64f62923c2e144899fbc9.jsonl",
+      "archived": "reports/archive/2026-10-16/agent-preview/20261016-114543-299ff742b3c64f62923c2e144899fbc9.jsonl",
+      "sha256": "f23c31a3f0e4da9490fd6fd5d5c859df7a9d2ccbc3a19057a9e827d845d50da5",
+      "git_sha256": "5c6743708af5a8f30be74bfd7c0298d48ce5c77dc30ac59e0e3f9da694384be8",
+      "git_blob": "e57494259dfa0986e21c5c4197bbf7d2b6019b7b"
+    },
+    {
+      "original": "reports/agent-preview/20261016-114613-cf6a9b60bb8047dead1a4663ec911451.jsonl",
+      "archived": "reports/archive/2026-10-16/agent-preview/20261016-114613-cf6a9b60bb8047dead1a4663ec911451.jsonl",
+      "sha256": "df6b8fb57b1c0e0ac405dece77662fc4a082f6ce952c131259f596660467d1a0",
+      "git_sha256": "4c2c5a16cfa2bb0e315c78a28b2d8204d40414d41aaebd66345dac2bd8788c02",
+      "git_blob": "6d3af6993d0f8da567ff6429546fc825a51095f1"
+    },
+    {
+      "original": "reports/agent-preview/20261016-114700-306efb0c9d6b429080d0c23e685d516e.jsonl",
+      "archived": "reports/archive/2026-10-16/agent-preview/20261016-114700-306efb0c9d6b429080d0c23e685d516e.jsonl",
+      "sha256": "ae3432beb606524a7d1593abe28f4797263fbf086291c0996c742c28ed732750",
+      "git_sha256": "1214d595d3c3a6ba22f9e514751aead5c87ae8d31f6bc2423de94dcacb100578",
+      "git_blob": "67c10b364e3e73c25f6165f3070cf6da7b087f42"
+    },
+    {
+      "original": "reports/agent-preview/20261016-114731-a56c22adb55c4c459c2fb6e6636dd856.jsonl",
+      "archived": "reports/archive/2026-10-16/agent-preview/20261016-114731-a56c22adb55c4c459c2fb6e6636dd856.jsonl",
+      "sha256": "8a6f0693570880175b6c26ca4624477759513bb2e5ec31fca9c15e09e99fb412",
+      "git_sha256": "63b1dd7b09bab9db0e8c69460c8690d04f2dc09bae872a9639a8bcb922b8ff27",
+      "git_blob": "63b430d783dfdd08aff6b0e6a885fbdbd520729a"
+    },
+    {
+      "original": "reports/agent-preview/20261016-114732-6bb57690e47a43bdb073e94de8fce62c.jsonl",
+      "archived": "reports/archive/2026-10-16/agent-preview/20261016-114732-6bb57690e47a43bdb073e94de8fce62c.jsonl",
+      "sha256": "70012a6d5f3521145b8a36ffcba1cd97535bc6d5f4382c770f2b8b95730a83ba",
+      "git_sha256": "a79fc74bb26b546b154c4bad3680d68019a5da3d97ebf79a0cdfc4fd2a302486",
+      "git_blob": "53f7397236424eee5cc8124490b4d04738d7a8d2"
+    },
+    {
+      "original": "reports/agent-preview/20261016-114805-532fda9f9e494f22a8cd424018889640.jsonl",
+      "archived": "reports/archive/2026-10-16/agent-preview/20261016-114805-532fda9f9e494f22a8cd424018889640.jsonl",
+      "sha256": "c239cae7cba2f3b4cae87f27d92b063891121e97232d29f031f48aa8591cf8bd",
+      "git_sha256": "0caa32174333afd11a899f7a0d3def62f0b554ef8e2dab85870cba65a449ef97",
+      "git_blob": "8340bb81efd88aaf6a3d4e4ad261b351bf975beb"
+    },
+    {
+      "original": "reports/agent-preview/20261016-114821-b47541259f2140658b8185d668a0b01a.jsonl",
+      "archived": "reports/archive/2026-10-16/agent-preview/20261016-114821-b47541259f2140658b8185d668a0b01a.jsonl",
+      "sha256": "7d9bdab36a746d22352cc88be36fae1fb080b184002c9ac6978356deb585a8ea",
+      "git_sha256": "1e06d0cd263c89b0260dc68ca120e96969ae49ef3f9f8c0d02d160dcf2a3d84c",
+      "git_blob": "8d54dc866d7cf02ab3a83469e0c2f7a85d586f9f"
+    },
+    {
+      "original": "reports/agent-preview/20261016-115132-305a67de051242ff997103cc88b7b065.jsonl",
+      "archived": "reports/archive/2026-10-16/agent-preview/20261016-115132-305a67de051242ff997103cc88b7b065.jsonl",
+      "sha256": "8d3a51537455a52ee961afbd81c889ecfc9dbb5a3a2e414c6b03131df7a2d59a",
+      "git_sha256": "c3d19e38bfb72727de6192f5117214c5fa5646518462a2aaef860bd32d1f899d",
+      "git_blob": "750ad268b1876078895cc5e2dff3d87a7614f292"
+    },
+    {
+      "original": "reports/agent-preview/20261016-115205-78244a9157094eef90eb62c4bd62c8ef.jsonl",
+      "archived": "reports/archive/2026-10-16/agent-preview/20261016-115205-78244a9157094eef90eb62c4bd62c8ef.jsonl",
+      "sha256": "635311161e3a452fe5349f6c87d792dfb99a75b139383065d378afeaedffdc66",
+      "git_sha256": "cb667c3f0b7c91e4676ef02dac9fba48a93dd8e58f11d767fd5e0bceb47039c1",
+      "git_blob": "f6a69a3dc0f62ded4878845d76d0a0533f43ec32"
+    },
+    {
+      "original": "reports/agent-preview/20261016-122130-3183f3869ad44b4893e84f6fc83fc44f.jsonl",
+      "archived": "reports/archive/2026-10-16/agent-preview/20261016-122130-3183f3869ad44b4893e84f6fc83fc44f.jsonl",
+      "sha256": "ecce286acfe2f843e3146c3bdf46c72d2d93faca1defaa0c7e7cd0277622a9dc",
+      "git_sha256": "ec1b27b7ebf12c3455ad17939eb82298770071f8baa59f7d84048e7d90c237e1",
+      "git_blob": "03d25ac3849458ade6f161c8e864e7dc9fc05f0e"
+    },
+    {
+      "original": "reports/agent-preview/20261016-144159-0cffc084b9e140a0b98f86549509f68b.jsonl",
+      "archived": "reports/archive/2026-10-16/agent-preview/20261016-144159-0cffc084b9e140a0b98f86549509f68b.jsonl",
+      "sha256": "f90bff70d0911bd990d28fb909ac2215f065a7a8590e630b7065cc66f3c82b84",
+      "git_sha256": "4a6aab022febd823607632e56b0cda1a40f9005280a5ae1c6a5ecfd627bebf87",
+      "git_blob": "4a16fd73f92772d380cbcee93fbd6a6867b088c0"
+    },
+    {
+      "original": "reports/agent-preview/terminal-diagnosis-2026-10-16.json",
+      "archived": "reports/archive/2026-10-16/agent-preview/terminal-diagnosis-2026-10-16.json",
+      "sha256": "f18555e6fffa1dbeec8b58bed11b24cf4eab8f10a650c60448da744e48e242de",
+      "git_sha256": "d0d144ed19dae376235ca1f2bdb4aa33f7136b96e4fd2bc821f9e92db6d9b5d2",
+      "git_blob": "52eb0f2bfe406b00ea447732f936453425d6b332"
+    }
+  ],
+  "source_commit": "09516bd6740db34a7f89e6c9e5b4ceb8abb83a95",
+  "hash_semantics": {
+    "sha256": "归档前 Windows 工作副本的原始字节 SHA256；保留原审计值。",
+    "git_sha256": "Git 仓库中原始及归档 blob 内容的 SHA256；工作副本仅允许 CRLF 到 LF 的换行转换。",
+    "git_blob": "source_commit 中原路径对应的 Git blob 对象 ID；归档后必须相同。"
+  }
+}

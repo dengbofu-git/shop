@@ -3,7 +3,7 @@
   "modules": {
     "core": {
       "title": "项目核心",
-      "version": "0.4.3",
+      "version": "0.4.4",
       "paths": [
         "README.md",
         "CONTEXT.md",
@@ -23,6 +23,7 @@
         "tools/",
         "versions/",
         "docs/",
+        "reports/README.md",
         "versions/changelogs/core.md"
       ],
       "dependencies": []
@@ -164,7 +165,7 @@
     },
     "support_ai": {
       "title": "智能客服",
-      "version": "0.12.3",
+      "version": "0.12.4",
       "paths": [
         "support_ai/",
         "docs/客服商品推荐设计.md",
@@ -178,6 +179,7 @@
         "docs/Agent语义规划与任务状态.md",
         "reports/agent-preview/",
         "reports/agent-evaluation/",
+        "reports/archive/2026-10-16/",
         "deploy/observability/",
         "compose.agent-observability.yml",
         "versions/changelogs/support_ai.md"
@@ -224,7 +226,7 @@
     },
     "web": {
       "title": "页面与前端资源",
-      "version": "0.20.1",
+      "version": "0.20.3",
       "paths": [
         "client/",
         "templates/",

@@ -1,0 +1,168 @@
+{
+  "started_at": "2026-10-19T07:59:31.806327+00:00",
+  "dataset_sha256": "ef38520493c79a6d6a503a20d682201341e8540dcec1d838757acd67c4d84b50",
+  "source_sha256": {
+    "support_ai/workflow.py": "cdea440c23886895586d535c01b156e48e9baea161144777ed3ec01bb00dadda",
+    "support_ai/semantic_planning.py": "8ee66d8fdeed80d46e4f0f571d6a735eb7908c3d4291ab31e5228671c32236a6",
+    "support_ai/planning.py": "8df98a1a2ba55675d190ec3a1b8cf5b47febd5e6cb744362ceab937b7e7f410c",
+    "support_ai/context.py": "d2050ddf2fbdcf13ceabbdaf30714b30f15e1a5043cb69dbf9f3997daf0e6e37",
+    "support_ai/contracts.py": "3c8188bc8a098d0d943b28f6f0017097e969c821b07098164467a4bc0dd13fb8",
+    "support_ai/execution.py": "0e97da757349ffacd3b4c7c4ba72fb86845ea03fb03b5fe3c1827acf167a6e1c",
+    "support_ai/tool_services.py": "ce187b8361080fa9e544ce7685304cc6cc36ba03d42146cfd537ff1747bb59aa",
+    "support_ai/recommendations.py": "0c39405767571d9e9fce674a42559c925b37d625b3f3414813e1dfe6b2fee05e",
+    "support_ai/product_details.py": "5c6ab1f46fa3acc7a83401f54fdb0b618cf5bf4e5dfa669b076a44f79aae2750",
+    "support_ai/pii.py": "80bafa3b2b45d485a931a7f44c096cfe7f7d8bbf8362bf56631d4b4a3352d1e4",
+    "support_ai/views.py": "9b9a0bcb8fb85d80c7a98c736bd2433c4da817509fe75a04e367e06735b2f316",
+    "support_ai/model_client.py": "08f4601f749240cfb5812d19d37b9d82e9186938fac6873242c1d07a51e9d7bc",
+    "support_ai/query_rewrite.py": "fd0443c9421977d3277971ee332de6f30452b32c3b537174a5b4dd8dfd04702e",
+    "support_ai/retrieval.py": "7841cad837a94be9236b3d085ed24b54ca1401f4ca2dfdabed5ec02753d346b9"
+  },
+  "model": "deepseek-flash",
+  "thinking": "enabled",
+  "config_revision": 5,
+  "max_parallel_sessions": 4,
+  "request_timeout_seconds": 45,
+  "max_retries": 0,
+  "max_output_tokens": 4096,
+  "scope": "synthetic data only; in-memory SQLite; graph plus HTTP input guards; no production knowledge/users/orders; fixed KB fixtures and injected faults",
+  "limitations": [
+    "not production vector recall evaluation",
+    "not browser E2E",
+    "language/refusal heuristics require manual review",
+    "suite includes expected current capability gaps; failed cases retained"
+  ],
+  "fixture_counts_before": {
+    "sku": 23,
+    "turns": 0,
+    "conversations": 0,
+    "spans": 0
+  },
+  "catalog": {
+    "1": {
+      "name": "100g·密封袋",
+      "product_name": "【合成】青岚雨青绿茶",
+      "price": "10.00",
+      "category": "绿茶"
+    },
+    "2": {
+      "name": "200g·礼盒",
+      "product_name": "【合成】青岚雨青绿茶",
+      "price": "30.00",
+      "category": "绿茶"
+    },
+    "3": {
+      "name": "500g·整箱",
+      "product_name": "【合成】青岚雨青绿茶",
+      "price": "80.00",
+      "category": "绿茶"
+    },
+    "4": {
+      "name": "100g·密封袋",
+      "product_name": "【合成】赤霞桂影红茶",
+      "price": "11.00",
+      "category": "红茶"
+    },
+    "5": {
+      "name": "200g·礼盒",
+      "product_name": "【合成】赤霞桂影红茶",
+      "price": "31.00",
+      "category": "红茶"
+    },
+    "6": {
+      "name": "500g·整箱",
+      "product_name": "【合成】赤霞桂影红茶",
+      "price": "81.00",
+      "category": "红茶"
+    },
+    "7": {
+      "name": "100g·密封袋",
+      "product_name": "【合成】白汀芦汀白茶",
+      "price": "12.00",
+      "category": "白茶"
+    },
+    "8": {
+      "name": "200g·礼盒",
+      "product_name": "【合成】白汀芦汀白茶",
+      "price": "32.00",
+      "category": "白茶"
+    },
+    "9": {
+      "name": "500g·整箱",
+      "product_name": "【合成】白汀芦汀白茶",
+      "price": "82.00",
+      "category": "白茶"
+    },
+    "10": {
+      "name": "100g·密封袋",
+      "product_name": "【合成】岩岚山韵乌龙茶",
+      "price": "13.00",
+      "category": "乌龙茶"
+    },
+    "11": {
+      "name": "200g·礼盒",
+      "product_name": "【合成】岩岚山韵乌龙茶",
+      "price": "33.00",
+      "category": "乌龙茶"
+    },
+    "12": {
+      "name": "500g·整箱",
+      "product_name": "【合成】岩岚山韵乌龙茶",
+      "price": "83.00",
+      "category": "乌龙茶"
+    },
+    "13": {
+      "name": "100g·密封袋",
+      "product_name": "【合成】金芽闷黄黄茶",
+      "price": "14.00",
+      "category": "黄茶"
+    },
+    "14": {
+      "name": "200g·礼盒",
+      "product_name": "【合成】金芽闷黄黄茶",
+      "price": "34.00",
+      "category": "黄茶"
+    },
+    "15": {
+      "name": "500g·整箱",
+      "product_name": "【合成】金芽闷黄黄茶",
+      "price": "84.00",
+      "category": "黄茶"
+    },
+    "16": {
+      "name": "100g·密封袋",
+      "product_name": "【合成】陈仓后酵黑茶",
+      "price": "15.00",
+      "category": "黑茶"
+    },
+    "17": {
+      "name": "200g·礼盒",
+      "product_name": "【合成】陈仓后酵黑茶",
+      "price": "35.00",
+      "category": "黑茶"
+    },
+    "18": {
+      "name": "500g·整箱",
+      "product_name": "【合成】陈仓后酵黑茶",
+      "price": "85.00",
+      "category": "黑茶"
+    },
+    "19": {
+      "name": "100g·密封袋",
+      "product_name": "【合成】青岚雨青绿茶礼盒",
+      "price": "12.00",
+      "category": "绿茶"
+    },
+    "20": {
+      "name": "100g·密封袋",
+      "product_name": "【合成】青岚雨青绿茶Pro",
+      "price": "15.00",
+      "category": "绿茶"
+    },
+    "21": {
+      "name": "100g·密封袋",
+      "product_name": "SYNTH Green Tea No.7",
+      "price": "17.00",
+      "category": "绿茶"
+    }
+  }
+}

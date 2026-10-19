@@ -64,7 +64,7 @@ def evaluate_case(case, response):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--root', default='reports/agent-evaluation/2026-10-16-planner')
+    parser.add_argument('--root', default='reports/archive/2026-10-16/agent-evaluation/2026-10-16-planner')
     parser.add_argument('--output', default='paired-run-1.json')
     parser.add_argument('--case-id', action='append')
     parser.add_argument('--expected-database-name', required=True)

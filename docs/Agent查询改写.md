@@ -100,7 +100,7 @@ RRF公式参考：[Elastic 官方文档](https://www.elastic.co/docs/reference/e
 
 - 已完成代码接入、语法检查、模块版本归属及Django配置检查。
 - 本轮没有新增/运行自动化测试，也没有调用真实模型评测；尚无召回率、准确率或耗时改善的实测结论。
-- 修改前源码保存在 `reports/agent-evaluation/2026-10-16-rag-rewrite/before/`；原15题结果和旧版本说明保留。
+- 修改前源码保存在 `reports/archive/2026-10-16/agent-evaluation/2026-10-16-rag-rewrite/before/`；原15题结果和旧版本说明保留。
 - 商品推荐的“未知的意向证据字段”属于另一条条件抽取链路，本版本没有修复。
 
 ## 后续真实模型评测（2026-10-16）
@@ -122,6 +122,6 @@ RRF公式参考：[Elastic 官方文档](https://www.elastic.co/docs/reference/e
 
 优先修复重排锚点、关键证据与来源上限的冲突，以及通用原则/未知专名的覆盖判定，再评估按需改写和补检。
 
-- [完整对照报告](../reports/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/report.md)
-- [30次完整实际问答](../reports/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/dialogues.md)
-- [第14题排序复算](../reports/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/case14-rank-diagnostic.json)
+- [完整对照报告](../reports/archive/2026-10-16/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/report.md)
+- [30次完整实际问答](../reports/archive/2026-10-16/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/dialogues.md)
+- [第14题排序复算](../reports/archive/2026-10-16/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1/case14-rank-diagnostic.json)

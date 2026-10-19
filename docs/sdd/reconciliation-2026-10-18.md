@@ -38,7 +38,7 @@ CAP-AI-003 的旧历史观察已经过期：当前新增本人咨询列表和 se
 | SaaS 定位调整 | evidence/2026-10-18-tea-saas/verification.md | 不表示租户、订阅计费或真实资金服务已实现 |
 | MCP／公开详情／Skill | evidence/2026-10-18-mcp-skill/verification.md | 对应22项 Django 和9项 MCP定向验证；相邻回归有2项原实现也可复现的失败 |
 | 历史咨询和 Enter | modules/ai-support/conversation-history.md、CAP-AI-003/screen-spec.md | 原增量只有静态／配置检查；尚无完整分页、身份切换及浏览器交互自动化证据 |
-| RAG／多轮质量 | reports/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1、2026-10-16-dialogue-followups/live-run-1 | 0.9.0和0.10.0限定样本；不能当作当前0.11.1效果复测 |
+| RAG／多轮质量 | reports/archive/2026-10-16/agent-evaluation/2026-10-16-rag-rewrite/paired-run-1、2026-10-16-dialogue-followups/live-run-1 | 0.9.0和0.10.0限定样本；不能当作当前0.11.1效果复测 |
 
 ## 保留的问题和后续验收
 

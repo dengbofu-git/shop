@@ -21,6 +21,6 @@
 ## 验证
 
 - `node client/tests/merchant-orders.test.js`：分类计数／筛选、特殊状态、入口参数、空态、发货／删除刷新、取消删除、失败重试、重复请求保护、文本转义及挂载后的 DOM 事件／AJAX 参数。
-- `python client/tests/merchant-orders-contract.py`：使用 `support_ai.test_settings` 的内存 SQLite；创建 15 笔当前商家订单和另一商家订单，验证未登录／非商家拒绝、商家隔离、完整返回、特殊状态、真实发货／删除后重查、模板渲染与静态资源，并将真实响应传入前端测试。
+- `python client/tests/merchant-orders-contract.py`（使用本次项目 Conda 解释器，原始完整路径保留在本机备份）：使用 `support_ai.test_settings` 的内存 SQLite；创建 15 笔当前商家订单和另一商家订单，验证未登录／非商家拒绝、商家隔离、完整返回、特殊状态、真实发货／删除后重查、模板渲染与静态资源，并将真实响应传入前端测试。
 - 两项定向验证已通过。接口认证解码在隔离测试中被替换为测试用户，不使用真实令牌或业务数据；没有连接业务库、运行迁移或调用模型服务。浏览器视觉验收未执行。
 - 版本清单检查及 `git diff --check` 通过。未提交、推送或部署。

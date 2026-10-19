@@ -12,7 +12,7 @@
 - 同一目标连续开发复用分支，分支不随聊天创建。临时 Worktree 只用于并发或现场保护。
 - 本地开发、提交、推送、创建 PR、合入 PR、标签发布和部署分别授权。实现任务不自动授权推送。
 
-写入前运行 `git branch --show-current`、`git status --short`、`git worktree list --porcelain`。保留脏现场，精确暂存授权文件，不批量丢弃、stash 或清理。Worktree 建立时记录 `git config --local branch.<分支>.tea_saasOwnerBranch <回收分支>`；交付前核对其独有提交及未提交工作，收尾只安全清理已完整交付且无人使用的本次对象。
+写入前运行 `git branch --show-current`、`git status --short`、`git worktree list --porcelain`。保留脏现场，精确暂存授权文件，不批量丢弃、stash 或清理。Worktree 建立时记录 `git config --local branch.<分支>.teaSaasOwnerBranch <回收分支>`（Git 配置变量名不能含下划线）；交付前核对其独有提交及未提交工作，收尾只安全清理已完整交付且无人使用的本次对象。
 
 ## 2. 提交信息和版本
 

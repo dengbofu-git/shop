@@ -4,12 +4,12 @@
 
 ## 已确认的旧行为
 
-终端原始日志 `reports/agent-preview/20261016-144159-0cffc084b9e140a0b98f86549509f68b.jsonl`：
+终端原始日志 `reports/archive/2026-10-16/agent-preview/20261016-144159-0cffc084b9e140a0b98f86549509f68b.jsonl`：
 
 1. 用户讨论“白茶”“白茶选购要点”，再输入“推荐商品”，旧规则没有继承知识问答主题，返回绿茶、红茶商品。
 2. 用户明确“推荐白茶”后输入“给出推荐理由”，旧规则把“推荐”识别为新购买请求；条件证据字段校验失败，被错误转成用户条件不足的澄清。
 
-修复前源码及日志副本保存在 `reports/agent-evaluation/2026-10-16-dialogue-followups/before/` 和 `terminal-before.jsonl`。这些是原始证据，不代表新版输出。
+修复前源码及日志副本保存在 `reports/archive/2026-10-16/agent-evaluation/2026-10-16-dialogue-followups/before/` 和 `terminal-before.jsonl`。这些是原始证据，不代表新版输出。
 
 ## 1. 用户主题继承
 
@@ -52,4 +52,4 @@
 
 用户随后要求模拟15组场景对话，已在固定0.10.0和当前真实模型下执行15组、41轮。41轮均返回，37轮满足预设行为检查，11组全程通过；4组发现修饰条件被拆为澄清、原列表序号丢失、分组理由重复命中详情等问题。本次测试没有修改生产Agent逻辑；这些问题仍待修复。
 
-8项字段契约探针和5项独立本地纠错故障注入通过；真实模型样本没有自然触发字段纠错。上文“未运行测试”为实施阶段记录，本节为后续用户授权测试记录。完整输入、回复和指标见 [测试报告](../reports/agent-evaluation/2026-10-16-dialogue-followups/live-run-1/report.md) 与 [全部对话](../reports/agent-evaluation/2026-10-16-dialogue-followups/live-run-1/dialogues.md)。
+8项字段契约探针和5项独立本地纠错故障注入通过；真实模型样本没有自然触发字段纠错。上文“未运行测试”为实施阶段记录，本节为后续用户授权测试记录。完整输入、回复和指标见 [测试报告](../reports/archive/2026-10-16/agent-evaluation/2026-10-16-dialogue-followups/live-run-1/report.md) 与 [全部对话](../reports/archive/2026-10-16/agent-evaluation/2026-10-16-dialogue-followups/live-run-1/dialogues.md)。
