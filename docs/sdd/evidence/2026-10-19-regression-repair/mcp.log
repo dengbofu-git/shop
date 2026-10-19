@@ -1,0 +1,19 @@
+test_cancellation_reaps_backend (tools.tea_saas_mcp.test_server.AdapterTests.test_cancellation_reaps_backend) ... ok
+test_failure_and_malformed_output_do_not_expose_stderr (tools.tea_saas_mcp.test_server.AdapterTests.test_failure_and_malformed_output_do_not_expose_stderr) ... ok
+test_fixed_command_and_structured_success (tools.tea_saas_mcp.test_server.AdapterTests.test_fixed_command_and_structured_success) ... ok
+test_invalid_backend_envelope_is_not_forwarded (tools.tea_saas_mcp.test_server.AdapterTests.test_invalid_backend_envelope_is_not_forwarded) ... ok
+test_invalid_ids_never_spawn_backend (tools.tea_saas_mcp.test_server.AdapterTests.test_invalid_ids_never_spawn_backend) ... ok
+test_protocol_success_no_match_and_unknown_tool (tools.tea_saas_mcp.test_server.AdapterTests.test_protocol_success_no_match_and_unknown_tool) ... Executing <Task pending name='Task-27' coro=<AdapterTests.test_protocol_success_no_match_and_unknown_tool() running at <workspace>\tools\tea_saas_mcp\test_server.py:88> cb=[_run_until_complete_cb() at E:\miniconda\Lib\asyncio\base_events.py:181] created at E:\miniconda\Lib\asyncio\runners.py:100> took 0.188 seconds
+Tool 'execute_sql' not listed, no validation will be performed
+ok
+test_real_stdio_initialize_list_and_error_call (tools.tea_saas_mcp.test_server.AdapterTests.test_real_stdio_initialize_list_and_error_call) ... Executing <Task pending name='Task-32' coro=<AdapterTests.test_real_stdio_initialize_list_and_error_call() running at <workspace>\tools\tea_saas_mcp\test_server.py:140> wait_for=<Future pending cb=[Task.task_wakeup()] created at E:\miniconda\Lib\asyncio\base_events.py:448> cb=[_run_until_complete_cb() at E:\miniconda\Lib\asyncio\base_events.py:181] created at E:\miniconda\Lib\asyncio\runners.py:100> took 0.109 seconds
+ok
+test_stdio_to_real_django_command_with_synthetic_sqlite (tools.tea_saas_mcp.test_server.AdapterTests.test_stdio_to_real_django_command_with_synthetic_sqlite) ... Executing <Task pending name='Task-38' coro=<AdapterTests.test_stdio_to_real_django_command_with_synthetic_sqlite() running at <workspace>\tools\tea_saas_mcp\test_server.py:122> cb=[_run_until_complete_cb() at E:\miniconda\Lib\asyncio\base_events.py:181] created at E:\miniconda\Lib\asyncio\runners.py:100> took 4.953 seconds
+Executing <Task pending name='Task-38' coro=<AdapterTests.test_stdio_to_real_django_command_with_synthetic_sqlite() running at <workspace>\tools\tea_saas_mcp\test_server.py:133> cb=[_run_until_complete_cb() at E:\miniconda\Lib\asyncio\base_events.py:181] created at E:\miniconda\Lib\asyncio\runners.py:100> took 1.172 seconds
+ok
+test_timeout_kills_backend_and_sanitizes_error (tools.tea_saas_mcp.test_server.AdapterTests.test_timeout_kills_backend_and_sanitizes_error) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 13.928s
+
+OK

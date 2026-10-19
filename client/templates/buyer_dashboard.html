@@ -7,11 +7,11 @@
     <link href="../static/css/design-tokens.css" rel="stylesheet">
     <link href="../static/css/rtl.css" rel="stylesheet">
     <link href="../static/css/buyer-workbench.css?v=20261018-trace-disabled" rel="stylesheet">
-    <link rel="icon" href="../static/images/index/py.ico">
     <script src="../static/js/init.js"></script>
     <script src="../static/js/auth-storage.js?v=20261018-session-isolation"></script>
     <script src="../static/js/jquery-3.1.1.min.js"></script>
 {% include "shared/system_theme.html" %}
+    <link href="../static/css/buyer-carousel.css?v=20261019-carousel" rel="stylesheet">
 </head>
 <body class="ds-page-buyer_dashboard ds-theme buyer-workbench" id="buyer-body">
     <div class="buyer-layout">
@@ -23,17 +23,23 @@
 
             <div class="buyer-content">
                 <!-- 轮播 Banner：由 /v1/goods/carousel?stable=1 注入真实商品 -->
-                <section class="banner-section" aria-label="promotions">
-                    <p class="banner-area-msg" id="banner-area-msg" style="display:none;" data-i18n="banner_empty">暂无已上架、有库存的商品作为轮播</p>
-                    <div class="banner-slider" id="buyer-banner-slider">
-                        <div class="banner-item banner-skeleton active" id="buyer-banner-skeleton">
-                            <div class="banner-pattern"></div>
-                            <div class="banner-content">
-                                <h2 data-i18n="banner_loading">正在加载轮播…</h2>
-                                <p class="muted" data-i18n="banner_loading_sub">从数据库读取可售商品</p>
-                            </div>
+                <section class="buyer-carousel" id="buyer-carousel" role="region" aria-label="精选茶品轮播" aria-busy="true" tabindex="0">
+                    <div class="carousel-topline">
+                        <p class="carousel-heading" data-carousel-heading>发现一款好茶</p>
+                        <span class="carousel-counter" data-carousel-counter hidden></span>
+                    </div>
+                    <div class="carousel-viewport" id="buyer-banner-slider" data-carousel-viewport hidden></div>
+                    <p class="carousel-feedback" data-carousel-feedback role="status">正在加载轮播…</p>
+                    <button type="button" class="carousel-retry" data-carousel-retry hidden>重新加载</button>
+                    <div class="carousel-controls" data-carousel-controls hidden>
+                        <div class="carousel-dots" data-carousel-dots role="group" aria-label="选择茶品"></div>
+                        <div class="carousel-actions">
+                            <button type="button" class="carousel-arrow" data-carousel-prev aria-label="上一款">←</button>
+                            <button type="button" data-carousel-playback aria-pressed="false">暂停轮播</button>
+                            <button type="button" class="carousel-arrow" data-carousel-next aria-label="下一款">→</button>
                         </div>
                     </div>
+                    <span class="carousel-status" data-carousel-status aria-live="polite" aria-atomic="true"></span>
                 </section>
 
                 <!-- 商品分类 + 商品卡片 -->
@@ -127,6 +133,7 @@
     </div>
 
     <script src="../static/js/buyer-catalog-preview.js?v=20261018-catalog-pagination"></script>
-    <script src="../static/js/buyer-workbench.js?v=20261018-platform-name"></script>
+    <script src="../static/js/buyer-carousel.js?v=20261019-carousel"></script>
+    <script src="../static/js/buyer-workbench.js?v=20261019-carousel"></script>
 </body>
 </html>

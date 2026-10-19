@@ -4,6 +4,7 @@
 
 ## 有效约定
 
+- 浏览器标签及apple-touch-icon统一使用 `client/static/images/tea_saas/tea_saas-logo.png`，由 `shared/favicon.html`集中声明。业务页面与Django管理后台经共用主题模板引入，独立登录重定向模板直接引入；各页面不再单独声明旧图标，页面内Logo不在此约定的改动范围。
 - 三语产品显示名均为 `tea_saas`。Django 工程包为 `tea_saas`，入口使用 `tea_saas.settings`、`tea_saas.urls`、`tea_saas.wsgi`、`tea_saas.asgi`。
 - 原工程前缀的 Python 常量和环境变量采用 `TEA_SAAS_`；图片响应读取 `settings.TEA_SAAS_MEDIA`。
 - 前端对象、事件命名空间和登录存储统一采用 `tea_saas` 前缀。登录令牌仍仅存放于当前标签页；旧存储键不会自动继承，刷新后需重新登录。
@@ -20,7 +21,9 @@
 
 ## 历史资料
 
-命名实现阶段曾修改 `users/migrations/0006_create_admin_user.py`、`0007_create_customs_user.py` 的两处默认邮箱文本。2026-10-19 交付门禁实际阻止历史迁移修改后，用户明确授权备份并恢复这两份迁移原文，其余改动继续交付。因此历史迁移保留原始默认邮箱，不要求其符合当前产品命名；没有执行数据库操作或绕过 Hook。已有名称扫描回归尚未为此历史边界调整，不能继续沿用此前“全文件旧名称零残留”的结论。
+命名实现阶段曾修改 `users/migrations/0006_create_admin_user.py`、`0007_create_customs_user.py` 的两处默认邮箱文本。2026-10-19 交付门禁实际阻止历史迁移修改后，用户明确授权备份并恢复这两份迁移原文，其余改动继续交付。因此历史迁移保留原始默认邮箱，不要求其符合当前产品命名；没有执行数据库操作或绕过 Hook。
+
+core 0.4.2 为上述两份迁移各自绑定原文 SHA-256（按 UTF-8、LF 规范化），只有原文保持不变时才允许其历史命名。该例外仅限这两份原文；新增迁移、当前源码和文件名继续扫描，历史内容被修改时测试失败。Git 的 Migration 不可变门禁继续独立执行；不能继续沿用此前“全文件旧名称零残留”的结论。
 
 历史报告和源码快照中的旧名称也已规范化。因此历史记录内的原始 SHA／文件摘要只描述当时原件，不能再用于验证规范化后的文本。名称替换前后摘要见[规范化清单](../../evidence/2026-10-19-project-rename/normalization-manifest.json)，后续修订有单独当前摘要；这不是重新执行历史评测的证据。
 

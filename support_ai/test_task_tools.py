@@ -9,6 +9,7 @@ from langchain_core.runnables import Runnable, RunnableLambda
 from .contracts import RecommendationIntent
 from .planning import FiniteIntents
 from .workflow import ComplianceVerdict, DialogueResolution
+from .semantic_planning import SemanticPlan
 
 
 class ToolModel(Runnable):
@@ -18,6 +19,15 @@ class ToolModel(Runnable):
     def with_structured_output(self, schema):
         def structured(prompt):
             text = prompt.to_messages()[-1].content
+            if schema is SemanticPlan:
+                message = text.split('本轮原话：')[1].split('\n')[0]
+                if message == '先介绍绿茶，再推荐一款绿茶':
+                    requests = [{'kind': 'question_answering', 'quote': '先介绍绿茶'},
+                                {'kind': 'recommendation', 'quote': '再推荐一款绿茶', 'limit': 1}]
+                else:
+                    requests = [{'kind': 'recommendation', 'quote': message}]
+                return SemanticPlan(action='new_request', standalone_question=message,
+                                    requests=requests, purchase=self.payload)
             if schema is RecommendationIntent:
                 return RecommendationIntent.model_validate(self.payload)
             if schema is DialogueResolution:
@@ -39,7 +49,7 @@ class TaskToolIntegrationTests(TestCase):
         from users.models import UserProfile
         from goods.models import Catalog, SPU, SKU
         from tea_saas.utils import jwt_encode
-        self.user = UserProfile.objects.create(username='planner-buyer', password='unused', email='planner@test.invalid', phone='', is_active=True)
+        self.user = UserProfile.objects.create(username='plan-buyer', password='unused', email='planner@test.invalid', phone='', is_active=True)
         self.auth = {'HTTP_AUTHORIZATION': 'Bearer ' + jwt_encode({'id': self.user.pk})}
         category = Catalog.objects.create(name='绿茶')
         spu = SPU.objects.create(name='可验证绿茶', catalog=category)
@@ -79,9 +89,13 @@ class TaskToolIntegrationTests(TestCase):
 
     def test_invalid_hard_conditions_commit_only_safe_clarification(self):
         from .models import SupportTurn
-        response = self.chat('推荐测试品牌绿茶', {'action': 'SEARCH', 'required': {'categories': ['绿茶']}})
+        with patch('support_ai.tool_services.match_products') as query:
+            response = self.chat('推荐测试品牌绿茶', {'action': 'SEARCH', 'required': {'categories': ['绿茶']}})
+        query.assert_not_called()
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json()['recommendation_status'], 'CLARIFY')
+        self.assertTrue(response.json()['clarification_required'])
+        self.assertEqual([(t['tool'], t['status']) for t in response.json()['tasks']],
+                         [('ask_clarification', 'needs_clarification')])
         self.assertFalse(response.json()['recommendations'])
         self.assertEqual(SupportTurn.objects.count(), 1)
 
@@ -92,11 +106,15 @@ class TaskToolIntegrationTests(TestCase):
         memory = saved_preferences(self.user)
         payload = {'action': 'SEARCH', 'preferred': {'categories': ['绿茶']}, 'evidence': [
             {'field': 'preferred.categories', 'value': '绿茶', 'quote': 'categories: 绿茶', 'source': 'MEMORY', 'source_id': memory['id']}]}
-        data = self.chat('推荐我偏好的商品', payload).json()
+        question = '请按已保存的偏好推荐一款商品'
+        data = self.chat(question, payload).json()
         self.assertTrue(data['memory_used'])
         self.assertEqual(data['product_intent']['evidence'][0]['quote'], '绿茶')
         payload['evidence'][0]['source_id'] = 'another-owner-preference'
-        self.assertEqual(self.chat('推荐我偏好的商品', payload).json()['recommendation_status'], 'CLARIFY')
+        rejected = self.chat(question, payload).json()
+        self.assertTrue(rejected['clarification_required'])
+        self.assertFalse(rejected['recommendations'])
+        self.assertEqual([t['tool'] for t in rejected['tasks']], ['ask_clarification'])
 
     def test_unknown_category_requests_clarification_instead_of_no_match(self):
         data = self.chat('推荐岩茶', {'action': 'SEARCH', 'required': {'categories': ['岩茶']},
@@ -104,10 +122,29 @@ class TaskToolIntegrationTests(TestCase):
         self.assertEqual(data['recommendation_status'], 'CLARIFY')
         self.assertEqual(data['tasks'][0]['status'], 'needs_clarification')
 
+    def test_exact_preference_request_uses_authenticated_record_without_model_slots(self):
+        from ai_storage.models import BuyerMemory
+        BuyerMemory.objects.create(owner_id=self.user.pk,
+            preferences={'categories': ['绿茶'], 'brands': [], 'keywords': []})
+        data = self.chat('推荐我偏好的商品', {'action': 'not-a-valid-model-action'}).json()
+        self.assertEqual(data['intent_source'], 'rules')
+        self.assertTrue(data['memory_used'])
+        self.assertTrue(data['recommendations'])
+        self.assertEqual(data['product_intent']['preferred']['categories'], ['绿茶'])
+        self.assertEqual(data['product_intent']['required']['categories'], [])
+
+    def test_missing_saved_preference_requests_details_without_product_query(self):
+        with patch('support_ai.tool_services.match_products') as query:
+            data = self.chat('推荐我偏好的商品').json()
+        query.assert_not_called()
+        self.assertTrue(data['clarification_required'])
+        self.assertFalse(data['recommendations'])
+        self.assertEqual([t['tool'] for t in data['tasks']], ['ask_clarification'])
+
     def test_foreign_conversation_is_rejected(self):
         from users.models import UserProfile
         from .models import SupportConversation
-        other = UserProfile.objects.create(username='other-planner', password='unused', email='other@test.invalid', phone='')
+        other = UserProfile.objects.create(username='other-plan', password='unused', email='other@test.invalid', phone='')
         conversation = SupportConversation.objects.create(user=other)
         self.assertEqual(self.chat('推荐茶叶', conversation_id=str(conversation.pk)).status_code, 404)
 

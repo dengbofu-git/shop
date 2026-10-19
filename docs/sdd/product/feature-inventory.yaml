@@ -42,6 +42,7 @@ features:
     observation: observed-code-with-open-scope
   - id: FEAT-004
     name: 商品列表分类搜索与详情
+    carouselSpec: docs/sdd/modules/catalog-content/home-carousel.md
     primaryCapability: CAP-CAT-001
     relatedCapabilities: [CAP-FUL-001]
     perspectives: [buyer]

@@ -127,6 +127,26 @@ def plan_turn(model, message, history, memory):
     if re.fullmatch(r'(?:取消|算了|不用了|取消当前任务|取消推荐)[。！!\s]*', message):
         return SemanticPlan(action='cancel', standalone_question=message,
                             requests=[IntentRequest(kind='clarification', quote=message)]), 'rules', state
+    if re.fullmatch(r'(?:请)?(?:推荐我偏好的商品|按我的偏好推荐商品|根据我的偏好推荐茶叶)[。！!\s]*', message):
+        if memory and any(memory['preferences'].get(field) for field in ('categories', 'brands', 'keywords')):
+            # The tool applies the current authenticated soft preferences; no
+            # model-authored rewrite or hard-filter inference is needed here.
+            return SemanticPlan(action='new_request', standalone_question=message,
+                requests=[IntentRequest(kind='recommendation', quote=message)],
+                purchase=RecommendationIntent(action='SEARCH')), 'rules', state
+        return SemanticPlan(action='clarify', standalone_question=message,
+            requests=[IntentRequest(kind='clarification', quote=message)], needs_clarification=True,
+            clarification_question='目前没有已保存的偏好，请告诉我您喜欢的茶类、品牌或商品关键词。'), 'rules', state
+    # "Six basic types" is a server-owned grouping scope, not six user-quoted
+    # hard filters. Keep this shortcut exact so no budget/brand qualifier is lost.
+    grouped = re.fullmatch(
+        r'(?:请)?(?:按照|按|根据)?(?:六(?:大|种|类)(?:基本)?茶类|不同茶类|各类茶叶)'
+        r'(?:各|每类|分别)(?:推荐)?[一二两三四1-4]款'
+        r'(?:[，,]?(?:并)?(?:给出|说明)?(?:推荐)?理由)?[。！!\s]*', message)
+    if grouped:
+        return SemanticPlan(action='new_request', standalone_question=message,
+            requests=[IntentRequest(kind='recommendation', quote=message)],
+            purchase=RecommendationIntent(action='SEARCH')), 'rules', state
     simple = _simple_purchase(message)
     if simple is not None:
         # An explicit new tea request does not inherit an unrelated old budget.
@@ -173,6 +193,8 @@ def plan_turn(model, message, history, memory):
          'requests按本轮顺序列出，kind限既定枚举；quote必须逐字来自本轮原话。'
          '不得生成工具名、数据库ID、SQL、步骤ID或执行依赖。'
          'standalone_question可补全省略，但改写必须提供已有source_turn_ids；'
+         '不引用历史时standalone_question必须逐字等于本轮原话，不润色或附加长期偏好；'
+         '长期偏好只能放入purchase.preferred，不能改写成独立问句中的硬条件。'
          '多个指代对象不确定时needs_clarification=true并给具体问题，不能猜。'
          '追问历史商品时用result_reference指定已有turn_id，可选position为该轮商品列表的1起始位置；'
          '同时将该turn_id加入source_turn_ids。不要生成SKU ID。无法确定哪轮哪款时先澄清。'

@@ -1,0 +1,9 @@
+Creating test database for alias 'ai_storage'...
+
+System check identified no issues (0 silenced).
+...
+----------------------------------------------------------------------
+Ran 3 tests in 0.090s
+
+OK
+Destroying test database for alias 'ai_storage'...

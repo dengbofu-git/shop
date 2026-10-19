@@ -1,0 +1,91 @@
+{
+  "baseline_sha": "3975fc6617ad9a2f790a8b72e0da38fcc8c8f054",
+  "django": {
+    "labels": [
+      "admin_panel.test_overview",
+      "ai_storage.tests",
+      "goods.test_activity",
+      "goods.test_catalog_pagination",
+      "goods.test_images",
+      "goods.test_mysql_settings",
+      "goods.test_seed_identity",
+      "merchant_ai.tests",
+      "supplier.test_analytics",
+      "support_ai.test_grouped_recommendations",
+      "support_ai.test_mixed_tea",
+      "support_ai.test_planning",
+      "support_ai.test_product_details",
+      "support_ai.test_semantic_planning",
+      "support_ai.test_task_tools",
+      "support_ai.test_telemetry",
+      "support_ai.tests",
+      "tea_saas.test_runtime_logging",
+      "users.tests"
+    ],
+    "command": "python manage.py test <labels> --settings=support_ai.test_settings --noinput",
+    "tests": 210,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 5
+  },
+  "tools": {
+    "command": "python -m unittest discover -s tools/tests -v",
+    "tests": 39,
+    "skipped": 1,
+    "failures": 0
+  },
+  "mcp": {
+    "command": "<mcp-python> -m unittest tools.tea_saas_mcp.test_server -v",
+    "tests": 9,
+    "failures": 0
+  },
+  "page_contract": {
+    "command": "python client/tests/tea-saas-contract.py",
+    "passed": true
+  },
+  "postgres": {
+    "backend": "postgres",
+    "isolated_test_database": true,
+    "keepdb": false,
+    "labels": [
+      "ai_storage.tests.VectorStorageTests"
+    ],
+    "failures": 0,
+    "duration_s": 2.235
+  },
+  "mysql": {
+    "backend": "mysql",
+    "isolated_test_database": true,
+    "keepdb": false,
+    "labels": [
+      "users.tests",
+      "goods.test_activity.BuyerActivityConcurrencyTests",
+      "support_ai.test_task_tools.TaskToolIntegrationTests",
+      "support_ai.tests.RecommendationIntegrationTests",
+      "admin_panel.test_overview"
+    ],
+    "failures": 0,
+    "duration_s": 45.875
+  },
+  "live_model": {
+    "model": "deepseek-flash",
+    "revision": 5,
+    "thinking": "enabled",
+    "turns": 17,
+    "passed": 17,
+    "model_calls": 14,
+    "input_tokens": 28319,
+    "output_tokens": 18218,
+    "scope": "synthetic prompts, in-memory SQLite virtual products, synthetic knowledge; no user history or production rows"
+  },
+  "database_writes": "Only fresh isolated test databases were created, populated and dropped; no business database migration or business row writes",
+  "limits": [
+    "Synthetic checks are not production accuracy",
+    "No production orders or payments",
+    "No complete browser end-to-end validation"
+  ],
+  "migration_check": {
+    "command": "python manage.py makemigrations --check --dry-run --settings=support_ai.test_settings",
+    "result": "No changes detected"
+  }
+}

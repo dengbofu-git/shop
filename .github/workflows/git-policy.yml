@@ -27,6 +27,8 @@ jobs:
           node-version: '22'
       - name: Governance regression tests
         run: python -m unittest discover -s tools/tests -p 'test_git_policy.py' -v
+      - name: Namespace and module ownership regression tests
+        run: python -m unittest tools.tests.test_project_identity tools.tests.test_module_versions -v
       - name: PR policy and exact source checks
         if: github.event_name == 'pull_request'
         env:

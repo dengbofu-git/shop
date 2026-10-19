@@ -192,6 +192,10 @@ class AgentOperationsTests(TestCase):
         self.assertEqual(self.client.get('/v1/admin-panel/agent/monitoring?hours=999', **self.auth).status_code, 400)
 
     def test_platform_page_contains_settings_and_monitoring(self):
-        html = self.client.get('/admin_agents.html').content.decode()
+        self.assertRedirects(self.client.get('/admin_agents.html'),
+                             '/admin_panel.html#agents', fetch_redirect_response=False)
+        response = self.client.get('/admin_agents.html?embedded=1')
+        self.assertEqual(response.status_code, 200)
+        html = response.content.decode()
         for expected in ('agent-settings', 'trace-rows', 'otlp-endpoint', 'agent-model'):
             self.assertIn(expected, html)

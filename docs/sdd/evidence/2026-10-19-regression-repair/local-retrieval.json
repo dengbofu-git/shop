@@ -1,0 +1,24 @@
+{
+  "scope": "synthetic texts only; no production knowledge read or vector DB write",
+  "reranker_health": {
+    "status": "ready",
+    "model": "BAAI/bge-reranker-v2-m3",
+    "revision": "953dc6f6f85a1b2dbfca4c34a2796e7dde08d41e",
+    "device": "cpu"
+  },
+  "queries": [
+    {
+      "query": "绿茶加工",
+      "vector_top_id": 1,
+      "rerank_top_id": 1,
+      "passed": true
+    },
+    {
+      "query": "green tea processing",
+      "vector_top_id": 1,
+      "rerank_top_id": 1,
+      "passed": true
+    }
+  ],
+  "embedding_dimensions": 1024
+}
