@@ -1,0 +1,985 @@
+{"timestamp": "2026-10-19T06:35:06.529+00:00", "level": "WARNING", "service": "tea_saas", "logger": "py.warnings", "event": "runtime.warning"}
+Creating test database for alias 'default'...
+
+Creating test database for alias 'ai_storage'...
+
+System check identified no issues (0 silenced).
+RBAC seeded: 6 roles, 9 permissions, 26 new role-permission mappings.
+{"timestamp": "2026-10-19T06:35:25.983+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "a308a7671e9d48eb826619f5351c97b2", "method": "POST", "route": "v1/admin-panel/users", "http_status": 200, "business_code": 200, "duration_ms": 13.12, "outcome": "success"}
+{"timestamp": "2026-10-19T06:35:25.992+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "2113f840b3a64e42b1983179c1e19dba", "method": "PUT", "route": "v1/admin-panel/users", "http_status": 200, "business_code": 200, "duration_ms": 11.1, "outcome": "success"}
+{"timestamp": "2026-10-19T06:35:26.015+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "e7409095a6a8453dae6024d29cfeba66", "method": "DELETE", "route": "v1/admin-panel/users", "http_status": 200, "business_code": 200, "duration_ms": 17.92, "outcome": "success"}
+.{"timestamp": "2026-10-19T06:35:26.025+00:00", "level": "INFO", "service": "tea_saas", "logger": "users.views", "event": "users.login.succeeded", "http_request_id": "d48e9ea76b6043f5a47fedd7f7abcadb", "method": "POST", "route": "v1/users/login"}
+{"timestamp": "2026-10-19T06:35:26.026+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "d48e9ea76b6043f5a47fedd7f7abcadb", "method": "POST", "route": "v1/users/login", "http_status": 200, "business_code": 200, "duration_ms": 4.76, "outcome": "success"}
+{"timestamp": "2026-10-19T06:35:26.082+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "97d3c6f148414d038314b97d21183dc1", "method": "GET", "route": "v1/admin-panel/overview", "http_status": 200, "business_code": 200, "duration_ms": 55.38, "outcome": "success"}
+{"timestamp": "2026-10-19T06:35:26.083+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "485cf322ca36403bba6190ff14d4ef36", "method": "GET", "route": "v1/admin-panel/users", "http_status": 403, "business_code": 403, "duration_ms": 3.31, "outcome": "client_error"}
+.{"timestamp": "2026-10-19T06:35:26.091+00:00", "level": "INFO", "service": "tea_saas", "logger": "users.views", "event": "users.login.succeeded", "http_request_id": "340e094153514ab09e2192c761800c03", "method": "POST", "route": "v1/users/login"}
+{"timestamp": "2026-10-19T06:35:26.091+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "340e094153514ab09e2192c761800c03", "method": "POST", "route": "v1/users/login", "http_status": 200, "business_code": 200, "duration_ms": 4.05, "outcome": "success"}
+{"timestamp": "2026-10-19T06:35:26.097+00:00", "level": "INFO", "service": "tea_saas", "logger": "users.views", "event": "users.login.succeeded", "http_request_id": "b4d1ebd7cffb4208b45d8df6ad2ac8a8", "method": "POST", "route": "v1/users/login"}
+{"timestamp": "2026-10-19T06:35:26.097+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "b4d1ebd7cffb4208b45d8df6ad2ac8a8", "method": "POST", "route": "v1/users/login", "http_status": 200, "business_code": 200, "duration_ms": 4.58, "outcome": "success"}
+{"timestamp": "2026-10-19T06:35:26.103+00:00", "level": "INFO", "service": "tea_saas", "logger": "users.views", "event": "users.login.succeeded", "http_request_id": "4092e055ab25425d8e1fc2771ab91494", "method": "POST", "route": "v1/users/login"}
+{"timestamp": "2026-10-19T06:35:26.103+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "4092e055ab25425d8e1fc2771ab91494", "method": "POST", "route": "v1/users/login", "http_status": 200, "business_code": 200, "duration_ms": 4.16, "outcome": "success"}
+{"timestamp": "2026-10-19T06:35:26.108+00:00", "level": "INFO", "service": "tea_saas", "logger": "users.views", "event": "users.login.succeeded", "http_request_id": "f839fa841ae34acc8bbb5a2c3082a11c", "method": "POST", "route": "v1/users/login"}
+{"timestamp": "2026-10-19T06:35:26.108+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "f839fa841ae34acc8bbb5a2c3082a11c", "method": "POST", "route": "v1/users/login", "http_status": 200, "business_code": 200, "duration_ms": 4.46, "outcome": "success"}
+.{"timestamp": "2026-10-19T06:35:26.115+00:00", "level": "INFO", "service": "tea_saas", "logger": "users.views", "event": "users.login.succeeded", "http_request_id": "369e6ee94162443da8b4dc5e01917017", "method": "POST", "route": "v1/users/login"}
+{"timestamp": "2026-10-19T06:35:26.115+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "369e6ee94162443da8b4dc5e01917017", "method": "POST", "route": "v1/users/login", "http_status": 200, "business_code": 200, "duration_ms": 3.66, "outcome": "success"}
+{"timestamp": "2026-10-19T06:35:26.121+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "b01d5b0abe2e4eaf956182e39e858db6", "method": "GET", "route": "v1/admin-panel/users", "http_status": 403, "business_code": 403, "duration_ms": 4.51, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:35:26.127+00:00", "level": "INFO", "service": "tea_saas", "logger": "users.views", "event": "users.login.succeeded", "http_request_id": "c748963e13934df3ab7e0169bff3f276", "method": "POST", "route": "v1/users/login"}
+{"timestamp": "2026-10-19T06:35:26.128+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "c748963e13934df3ab7e0169bff3f276", "method": "POST", "route": "v1/users/login", "http_status": 200, "business_code": 200, "duration_ms": 4.78, "outcome": "success"}
+{"timestamp": "2026-10-19T06:35:26.135+00:00", "level": "INFO", "service": "tea_saas", "logger": "users.views", "event": "users.login.succeeded", "http_request_id": "f06b18ae4e4949eb8c7d9b359173188c", "method": "POST", "route": "v1/users/login"}
+{"timestamp": "2026-10-19T06:35:26.136+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "f06b18ae4e4949eb8c7d9b359173188c", "method": "POST", "route": "v1/users/login", "http_status": 200, "business_code": 200, "duration_ms": 5.45, "outcome": "success"}
+.{"timestamp": "2026-10-19T06:35:26.141+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "763e91f1249343c4919a1332dbe6a958", "method": "POST", "route": "v1/users/login", "http_status": 200, "business_code": 10003, "duration_ms": 2.16, "outcome": "business_error"}
+{"timestamp": "2026-10-19T06:35:26.146+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "9610f774c7d243439ef6039d80969b87", "method": "POST", "route": "v1/users/login", "http_status": 200, "business_code": 10004, "duration_ms": 2.17, "outcome": "business_error"}
+.{"timestamp": "2026-10-19T06:35:26.155+00:00", "level": "INFO", "service": "tea_saas", "logger": "users.views", "event": "users.login.succeeded", "http_request_id": "3b015bc45bdb4b23a8d83dca0b639225", "method": "POST", "route": "v1/users/login"}
+{"timestamp": "2026-10-19T06:35:26.155+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "3b015bc45bdb4b23a8d83dca0b639225", "method": "POST", "route": "v1/users/login", "http_status": 200, "business_code": 200, "duration_ms": 5.21, "outcome": "success"}
+.{"timestamp": "2026-10-19T06:35:26.167+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "4d06ed9bbe8647e6b44084abbace0393", "method": "GET", "route": "login.html", "http_status": 200, "duration_ms": 10.15, "outcome": "success"}
+{"timestamp": "2026-10-19T06:35:26.170+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "aee5e0365b02498792173fca4602b2c1", "method": "GET", "route": "terminal_login.html", "http_status": 302, "duration_ms": 3.74, "outcome": "success"}
+{"timestamp": "2026-10-19T06:35:26.174+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "15a01fd0ae3a4f3e8077a7d3d047aff3", "method": "GET", "route": "login.html", "http_status": 200, "duration_ms": 0.77, "outcome": "success"}
+.{"timestamp": "2026-10-19T06:35:26.183+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "ac353ed3c03f4222a69ecb3d97121070", "method": "GET", "route": "v1/admin-panel/users", "http_status": 200, "business_code": 200, "duration_ms": 7.15, "outcome": "success"}
+{"timestamp": "2026-10-19T06:35:26.187+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "7e65b15cc7c14dd99e5da7545a547f03", "method": "GET", "route": "v1/admin-panel/users", "http_status": 403, "business_code": 403, "duration_ms": 4.39, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:35:26.194+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "5894054186bf4dfab032a9e2aa3409d6", "method": "GET", "route": "v1/admin-panel/agent/settings", "http_status": 403, "business_code": 403, "duration_ms": 2.12, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:35:26.196+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "42592576c2ea452796f23a6dfcb574d1", "method": "GET", "route": "v1/users/session", "http_status": 403, "business_code": 403, "duration_ms": 2.26, "outcome": "client_error"}
+.{"timestamp": "2026-10-19T06:35:26.210+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "3075f74a2876414c951c45242b760984", "method": "POST", "route": "v1/users/login", "http_status": 200, "business_code": 10006, "duration_ms": 6.7, "outcome": "business_error"}
+{"timestamp": "2026-10-19T06:35:26.220+00:00", "level": "INFO", "service": "tea_saas", "logger": "users.views", "event": "users.login.succeeded", "http_request_id": "dddb7c39239c4cbfa3167cd59a489da8", "method": "POST", "route": "v1/users/login"}
+{"timestamp": "2026-10-19T06:35:26.220+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "dddb7c39239c4cbfa3167cd59a489da8", "method": "POST", "route": "v1/users/login", "http_status": 200, "business_code": 200, "duration_ms": 4.75, "outcome": "success"}
+.{"timestamp": "2026-10-19T06:35:26.224+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "fb9db1022da04279877b9b5857a3ea5f", "method": "GET", "route": "v1/users/session", "http_status": 401, "business_code": 401, "duration_ms": 0.62, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:35:26.228+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "c4d21d8b7dff441b87473bc36c40b6b6", "method": "GET", "route": "v1/users/session", "http_status": 200, "business_code": 200, "duration_ms": 5.5, "outcome": "success"}
+{"timestamp": "2026-10-19T06:35:26.230+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "b0fe61b761bb4c669ed04d4d0f4a4a78", "method": "POST", "route": "v1/users/session", "http_status": 405, "business_code": 405, "duration_ms": 0.41, "outcome": "client_error"}
+.{"timestamp": "2026-10-19T06:35:26.243+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "e9691b51beee4bceb2210c591c416db8", "method": "GET", "route": "v1/admin-panel/users", "http_status": 403, "business_code": 403, "duration_ms": 4.94, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:35:26.252+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "75bbade0dff445ffa59a905bb7470342", "method": "POST", "route": "v1/admin-panel/users", "http_status": 403, "business_code": 403, "duration_ms": 6.24, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:35:26.260+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "4bea4a9babf146ef8c3f90823177fea7", "method": "PUT", "route": "v1/admin-panel/users", "http_status": 403, "business_code": 403, "duration_ms": 7.09, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:35:26.267+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "0e6e96f1090d4353858df1c5d63a4431", "method": "DELETE", "route": "v1/admin-panel/users", "http_status": 403, "business_code": 403, "duration_ms": 6.51, "outcome": "client_error"}
+.{"timestamp": "2026-10-19T06:35:26.281+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "e00b70cc7baa4d148d64ef60c98aa25f", "method": "GET", "route": "v1/admin-panel/agent/settings", "http_status": 403, "business_code": 403, "duration_ms": 5.91, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:35:26.288+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "7c727202a9bf4c0ab4c073bdfce40005", "method": "GET", "route": "v1/admin-panel/agent/models", "http_status": 403, "business_code": 403, "duration_ms": 5.08, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:35:26.295+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "5c76f57c2abd492abbbd67783d59ccc5", "method": "GET", "route": "v1/admin-panel/agent/retrieval-status", "http_status": 403, "business_code": 403, "duration_ms": 5.84, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:35:26.297+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "cf1be1e3a0e744d8890ced9a86e624ae", "method": "GET", "route": "v1/admin-panel/agent/monitoring", "http_status": 403, "business_code": 403, "duration_ms": 4.28, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:35:26.302+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "41fdfd286e9e446a9a2806c02246baa6", "method": "GET", "route": "v1/admin-panel/agent/traces/<str:trace_id>", "http_status": 403, "business_code": 403, "duration_ms": 4.23, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:35:26.311+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "e3b54dc5773e42c382ec08b8e076d1dc", "method": "PUT", "route": "v1/admin-panel/agent/settings", "http_status": 403, "business_code": 403, "duration_ms": 5.93, "outcome": "client_error"}
+.{"timestamp": "2026-10-19T06:35:26.320+00:00", "level": "INFO", "service": "tea_saas", "logger": "users.views", "event": "users.login.succeeded", "http_request_id": "8b4fe45b5a7449859e3c6f11bbe4372f", "method": "POST", "route": "v1/users/login"}
+{"timestamp": "2026-10-19T06:35:26.321+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "8b4fe45b5a7449859e3c6f11bbe4372f", "method": "POST", "route": "v1/users/login", "http_status": 200, "business_code": 200, "duration_ms": 5.09, "outcome": "success"}
+.{"timestamp": "2026-10-19T06:35:26.329+00:00", "level": "INFO", "service": "tea_saas", "logger": "users.views", "event": "users.login.succeeded", "http_request_id": "88b9885bd0714b0ba219c32bd232eff0", "method": "POST", "route": "v1/users/login"}
+{"timestamp": "2026-10-19T06:35:26.330+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "88b9885bd0714b0ba219c32bd232eff0", "method": "POST", "route": "v1/users/login", "http_status": 200, "business_code": 200, "duration_ms": 4.53, "outcome": "success"}
+{"timestamp": "2026-10-19T06:35:26.333+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "c8756ac3184b4cfebf1ac7d6a20efec7", "method": "GET", "route": "v1/admin-panel/users", "http_status": 403, "business_code": 403, "duration_ms": 4.16, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:35:26.342+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "ea3bf7eb7a3d4d3982bed30ce19271ce", "method": "GET", "route": "v1/admin-panel/agent/settings", "http_status": 200, "duration_ms": 7.18, "outcome": "success"}
+.EEEEEEEEEEE.{"timestamp": "2026-10-19T06:35:26.629+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "b45aac58116641b39b57016c1b1684fe", "trace_id": "d27f66793807c4c601a0d4e1be53b9a9", "span_id": "b6bd1b222c2afa49", "method": "POST", "route": "v1/support/chat/", "http_status": 200, "duration_ms": 70.24, "outcome": "success"}
+{"timestamp": "2026-10-19T06:35:26.634+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "56c105e505c04fcd9b0aae505e97fcb6", "method": "POST", "route": "v1/support/chat/", "http_status": 200, "duration_ms": 3.76, "outcome": "success"}
+.{"timestamp": "2026-10-19T06:35:26.687+00:00", "level": "WARNING", "service": "tea_saas", "logger": "support_ai.workflow", "event": "support.planning.unavailable", "http_request_id": "7a20facd29794bfca0654674b7577d58", "trace_id": "35d54db67330d267af2f588f172db853", "span_id": "3241426345263827", "method": "POST", "route": "v1/support/chat/", "error_type": "ValueError"}
+{"timestamp": "2026-10-19T06:35:26.705+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "7a20facd29794bfca0654674b7577d58", "trace_id": "35d54db67330d267af2f588f172db853", "span_id": "916fd72d9dd1fcc0", "method": "POST", "route": "v1/support/chat/", "http_status": 200, "duration_ms": 42.97, "outcome": "success"}
+{"timestamp": "2026-10-19T06:35:26.717+00:00", "level": "ERROR", "service": "tea_saas", "logger": "support_ai.views", "event": "support.workflow.failed", "http_request_id": "1911b1da1bcd43cbbd638918a94b8c2f", "trace_id": "f1dbe2380bd510702eb71151ded4a1dc", "span_id": "14eafba54dcdebfd", "method": "POST", "route": "v1/support/chat/", "error_type": "TimeoutError", "stack": [{"file": "views.py", "function": "chat", "line": 117}, {"file": "mock.py", "function": "__call__", "line": 1092}, {"file": "mock.py", "function": "_mock_call", "line": 1096}, {"file": "mock.py", "function": "_execute_mock_call", "line": 1151}]}
+{"timestamp": "2026-10-19T06:35:26.717+00:00", "level": "ERROR", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "1911b1da1bcd43cbbd638918a94b8c2f", "trace_id": "f1dbe2380bd510702eb71151ded4a1dc", "span_id": "14eafba54dcdebfd", "method": "POST", "route": "v1/support/chat/", "http_status": 503, "duration_ms": 8.39, "outcome": "server_error"}
+..{"timestamp": "2026-10-19T06:35:26.795+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "48073cb0d4d1449396aad4ee31c81e2a", "method": "POST", "route": "v1/support/chat/", "http_status": 404, "duration_ms": 5.15, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:35:26.799+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "3189f6575e7648a2bb4a68a1aa8b9dcf", "method": "GET", "route": "v1/support/conversations/<uuid:conversation_id>/", "http_status": 404, "duration_ms": 3.84, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:35:26.804+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "eb47aec04f3a48cb987720e712b0b0d8", "method": "GET", "route": "v1/support/preferences/", "http_status": 200, "duration_ms": 3.58, "outcome": "success"}
+.{"timestamp": "2026-10-19T06:35:26.849+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "74b629b9d01e47928de5dec35cad02a9", "method": "PUT", "route": "v1/support/preferences/", "http_status": 400, "duration_ms": 1.85, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:35:26.850+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "bd5de39a06534cdcbe888a2a408d028c", "method": "PUT", "route": "v1/support/preferences/", "http_status": 400, "duration_ms": 2.05, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:35:26.850+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "716a63405aed449c89209fd7ef812bcc", "method": "PUT", "route": "v1/support/preferences/", "http_status": 400, "duration_ms": 1.57, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:35:26.855+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "b515bf01c18642488a1e7112d1a5bc76", "method": "PUT", "route": "v1/support/preferences/", "http_status": 200, "duration_ms": 2.57, "outcome": "success"}
+{"timestamp": "2026-10-19T06:35:26.859+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "32754afee2c34ce2bfbd7bd4ba1b604a", "method": "DELETE", "route": "v1/support/preferences/", "http_status": 200, "duration_ms": 2.5, "outcome": "success"}
+.{"timestamp": "2026-10-19T06:35:26.929+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "e133bf2ba1a74935bbb142a2e23e9695", "trace_id": "83a380234ad6141e1340bc54b85c578f", "span_id": "9af111a9134e6006", "method": "POST", "route": "v1/support/chat/", "http_status": 200, "duration_ms": 44.39, "outcome": "success"}
+{"timestamp": "2026-10-19T06:35:26.934+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "691622c622ad4276bf591ceaa2f5bd03", "method": "POST", "route": "v1/support/chat/", "http_status": 409, "duration_ms": 3.83, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:35:26.939+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "bc6851c6c13a4c6e843f107a04d986f2", "method": "POST", "route": "v1/support/chat/", "http_status": 409, "duration_ms": 4.42, "outcome": "client_error"}
+.{"timestamp": "2026-10-19T06:35:27.020+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "e581396def18491cb087252c5af2e75c", "trace_id": "5fdb9fc8725fd46f6f411bdf84a289e4", "span_id": "4a57eabfbfdddc19", "method": "POST", "route": "v1/support/chat/", "http_status": 200, "duration_ms": 55.06, "outcome": "success"}
+{"timestamp": "2026-10-19T06:35:27.076+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "d0ba2515c09a42a08d3f4aa97792b3f9", "trace_id": "470ecde0df023e7834d69ba0724ba173", "span_id": "ec424a7e0d6fd8ad", "method": "POST", "route": "v1/support/chat/", "http_status": 200, "duration_ms": 51.76, "outcome": "success"}
+.{"timestamp": "2026-10-19T06:35:27.151+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "d7f49f0b134b485aa46d23d21a7995c0", "trace_id": "5c567be2134a3057b23a9f5336e205f4", "span_id": "821b6c47853b92dd", "method": "POST", "route": "v1/support/chat/", "http_status": 200, "duration_ms": 46.85, "outcome": "success"}
+.{"timestamp": "2026-10-19T06:35:27.187+00:00", "level": "ERROR", "service": "tea_saas", "logger": "support_ai.views", "event": "support.storage.failed", "http_request_id": "dc0564675a2c464cb476ad0e652eb5c3", "method": "POST", "route": "v1/support/chat/", "error_type": "OperationalError", "stack": [{"file": "views.py", "function": "guarded", "line": 38}, {"file": "views.py", "function": "chat", "line": 100}, {"file": "mock.py", "function": "__call__", "line": 1092}, {"file": "mock.py", "function": "_mock_call", "line": 1096}, {"file": "mock.py", "function": "_execute_mock_call", "line": 1151}]}
+{"timestamp": "2026-10-19T06:35:27.187+00:00", "level": "ERROR", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "dc0564675a2c464cb476ad0e652eb5c3", "method": "POST", "route": "v1/support/chat/", "http_status": 503, "duration_ms": 4.4, "outcome": "server_error"}
+.{"timestamp": "2026-10-19T06:35:27.225+00:00", "level": "ERROR", "service": "tea_saas", "logger": "support_ai.views", "event": "support.storage.failed", "http_request_id": "a5efb8864b9c4074a8aef1590a2d0b6c", "method": "GET", "route": "v1/support/preferences/", "error_type": "OperationalError", "stack": [{"file": "views.py", "function": "guarded", "line": 38}, {"file": "views.py", "function": "preferences", "line": 160}, {"file": "mock.py", "function": "__call__", "line": 1092}, {"file": "mock.py", "function": "_mock_call", "line": 1096}, {"file": "mock.py", "function": "_execute_mock_call", "line": 1151}]}
+{"timestamp": "2026-10-19T06:35:27.225+00:00", "level": "ERROR", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "a5efb8864b9c4074a8aef1590a2d0b6c", "method": "GET", "route": "v1/support/preferences/", "http_status": 503, "duration_ms": 2.47, "outcome": "server_error"}
+.RBAC seeded: 6 roles, 9 permissions, 26 new role-permission mappings.
+{"timestamp": "2026-10-19T06:35:27.536+00:00", "level": "ERROR", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "04012124a2f646e5b7457aca75e532af", "method": "GET", "route": "v1/admin-panel/overview", "http_status": 503, "business_code": 503, "duration_ms": 9.55, "outcome": "server_error"}
+...{"timestamp": "2026-10-19T06:35:27.593+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "f1f32923ecc14fba8dab1d16234dc1b1", "method": "GET", "route": "admin_panel.html", "http_status": 200, "duration_ms": 2.34, "outcome": "success"}
+{"timestamp": "2026-10-19T06:35:27.596+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "b4ec228246d34269bcbd06b4dd36386a", "method": "GET", "route": "admin_panel.html", "http_status": 200, "duration_ms": 1.18, "outcome": "success"}
+{"timestamp": "2026-10-19T06:35:27.600+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "9badce13982a491e9e1c20bfbac2d705", "method": "GET", "route": "admin_users.html", "http_status": 200, "duration_ms": 2.37, "outcome": "success"}
+{"timestamp": "2026-10-19T06:35:27.602+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "6d349dfe473b4e518faa65a2923a27f2", "method": "GET", "route": "admin_agents.html", "http_status": 200, "duration_ms": 1.41, "outcome": "success"}
+{"timestamp": "2026-10-19T06:35:27.603+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "be20924c49c54a09afca56d3ac346d66", "method": "GET", "route": "admin_users.html", "http_status": 302, "duration_ms": 0.89, "outcome": "success"}
+{"timestamp": "2026-10-19T06:35:27.605+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "7c28a29cdb4c4a849b2227bd69c1c5e0", "method": "GET", "route": "admin_users.html", "http_status": 200, "duration_ms": 0.81, "outcome": "success"}
+{"timestamp": "2026-10-19T06:35:27.606+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "9b009625a472498da246142b77bd26b2", "method": "GET", "route": "admin_agents.html", "http_status": 302, "duration_ms": 0.67, "outcome": "success"}
+{"timestamp": "2026-10-19T06:35:27.608+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "2efe41a3bb3b46769f4363bce3dd55e8", "method": "GET", "route": "admin_agents.html", "http_status": 200, "duration_ms": 0.73, "outcome": "success"}
+.{"timestamp": "2026-10-19T06:35:27.611+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "8bcb8debc0544eb68206b0ef433e8bbd", "method": "GET", "route": "v1/admin-panel/overview", "http_status": 401, "business_code": 401, "duration_ms": 0.59, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:35:27.623+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "2479876d00ee496aa150739fc25376e3", "method": "GET", "route": "v1/admin-panel/overview", "http_status": 403, "business_code": 403, "duration_ms": 9.95, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:35:27.634+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "baac6e3bb06f429ca62f207568f5af4f", "method": "GET", "route": "v1/admin-panel/overview", "http_status": 403, "business_code": 403, "duration_ms": 10.17, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:35:27.653+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "9fdd77fb08f942a6bbe435e946bcf319", "method": "GET", "route": "v1/admin-panel/overview", "http_status": 403, "business_code": 403, "duration_ms": 9.43, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:35:27.687+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "aa970ebb5948445c981e9952777c819e", "method": "GET", "route": "v1/admin-panel/overview", "http_status": 200, "business_code": 200, "duration_ms": 33.06, "outcome": "success"}
+{"timestamp": "2026-10-19T06:35:27.688+00:00", "level": "WARNING", "service": "tea_saas", "logger": "django.request", "event": "application.log", "http_request_id": "58a335e54e9f4b82b0348c8b5193a67e", "method": "POST", "route": "v1/admin-panel/overview"}
+{"timestamp": "2026-10-19T06:35:27.688+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "58a335e54e9f4b82b0348c8b5193a67e", "method": "POST", "route": "v1/admin-panel/overview", "http_status": 405, "duration_ms": 0.79, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:35:27.702+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "e28001276ab543cc95e96ba53beb6760", "method": "GET", "route": "v1/admin-panel/overview", "http_status": 403, "business_code": 403, "duration_ms": 11.17, "outcome": "client_error"}
+....{"timestamp": "2026-10-19T06:35:28.928+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "9b3ff4045b014e1298082a8e9651c253", "method": "PUT", "route": "v1/goods/favorites/<int:sku_id>", "http_status": 200, "business_code": 200, "duration_ms": 24.42, "outcome": "success"}
+{"timestamp": "2026-10-19T06:35:28.935+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "5a34a6941e614a3ebf3d60d0065fbb95", "method": "PUT", "route": "v1/goods/favorites/<int:sku_id>", "http_status": 200, "business_code": 200, "duration_ms": 30.21, "outcome": "success"}
+.{"timestamp": "2026-10-19T06:35:31.552+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "d55d5cbbb8b14b1f9128281238f23622", "method": "POST", "route": "v1/goods/recent/<int:sku_id>", "http_status": 200, "business_code": 200, "duration_ms": 21.33, "outcome": "success"}
+{"timestamp": "2026-10-19T06:35:31.580+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "61b9ac6225794846b858b1bc3021d1e0", "method": "POST", "route": "v1/goods/recent/<int:sku_id>", "http_status": 200, "business_code": 200, "duration_ms": 49.49, "outcome": "success"}
+.
+======================================================================
+ERROR: test_exact_preference_request_uses_authenticated_record_without_model_slots (support_ai.test_task_tools.TaskToolIntegrationTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<business-python>\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "<business-python>\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
+    return self.cursor.execute(query, args)
+  File "<business-python>\lib\site-packages\pymysql\cursors.py", line 148, in execute
+    result = self._query(query)
+  File "<business-python>\lib\site-packages\pymysql\cursors.py", line 310, in _query
+    conn.query(q)
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 548, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 775, in _read_query_result
+    result.read()
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 1156, in read
+    first_packet = self.connection._read_packet()
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 725, in _read_packet
+    packet.raise_for_error()
+  File "<business-python>\lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "<business-python>\lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.DataError: (1406, "Data too long for column 'username' at row 1")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "<workspace>\support_ai\test_task_tools.py", line 52, in setUp
+    self.user = UserProfile.objects.create(username='planner-buyer', password='unused', email='planner@test.invalid', phone='', is_active=True)
+  File "<business-python>\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "<business-python>\lib\site-packages\django\db\models\query.py", line 453, in create
+    obj.save(force_insert=True, using=self.db)
+  File "<business-python>\lib\site-packages\django\db\models\base.py", line 739, in save
+    self.save_base(using=using, force_insert=force_insert,
+  File "<business-python>\lib\site-packages\django\db\models\base.py", line 776, in save_base
+    updated = self._save_table(
+  File "<business-python>\lib\site-packages\django\db\models\base.py", line 881, in _save_table
+    results = self._do_insert(cls._base_manager, using, fields, returning_fields, raw)
+  File "<business-python>\lib\site-packages\django\db\models\base.py", line 919, in _do_insert
+    return manager._insert(
+  File "<business-python>\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "<business-python>\lib\site-packages\django\db\models\query.py", line 1270, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+  File "<business-python>\lib\site-packages\django\db\models\sql\compiler.py", line 1416, in execute_sql
+    cursor.execute(sql, params)
+  File "<business-python>\lib\site-packages\django\db\backends\utils.py", line 66, in execute
+    return self._execute_with_wrappers(sql, params, many=False, executor=self._execute)
+  File "<business-python>\lib\site-packages\django\db\backends\utils.py", line 75, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "<business-python>\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "<business-python>\lib\site-packages\django\db\utils.py", line 90, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "<business-python>\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "<business-python>\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
+    return self.cursor.execute(query, args)
+  File "<business-python>\lib\site-packages\pymysql\cursors.py", line 148, in execute
+    result = self._query(query)
+  File "<business-python>\lib\site-packages\pymysql\cursors.py", line 310, in _query
+    conn.query(q)
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 548, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 775, in _read_query_result
+    result.read()
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 1156, in read
+    first_packet = self.connection._read_packet()
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 725, in _read_packet
+    packet.raise_for_error()
+  File "<business-python>\lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "<business-python>\lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+django.db.utils.DataError: (1406, "Data too long for column 'username' at row 1")
+
+======================================================================
+ERROR: test_foreign_conversation_is_rejected (support_ai.test_task_tools.TaskToolIntegrationTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<business-python>\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "<business-python>\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
+    return self.cursor.execute(query, args)
+  File "<business-python>\lib\site-packages\pymysql\cursors.py", line 148, in execute
+    result = self._query(query)
+  File "<business-python>\lib\site-packages\pymysql\cursors.py", line 310, in _query
+    conn.query(q)
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 548, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 775, in _read_query_result
+    result.read()
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 1156, in read
+    first_packet = self.connection._read_packet()
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 725, in _read_packet
+    packet.raise_for_error()
+  File "<business-python>\lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "<business-python>\lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.DataError: (1406, "Data too long for column 'username' at row 1")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "<workspace>\support_ai\test_task_tools.py", line 52, in setUp
+    self.user = UserProfile.objects.create(username='planner-buyer', password='unused', email='planner@test.invalid', phone='', is_active=True)
+  File "<business-python>\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "<business-python>\lib\site-packages\django\db\models\query.py", line 453, in create
+    obj.save(force_insert=True, using=self.db)
+  File "<business-python>\lib\site-packages\django\db\models\base.py", line 739, in save
+    self.save_base(using=using, force_insert=force_insert,
+  File "<business-python>\lib\site-packages\django\db\models\base.py", line 776, in save_base
+    updated = self._save_table(
+  File "<business-python>\lib\site-packages\django\db\models\base.py", line 881, in _save_table
+    results = self._do_insert(cls._base_manager, using, fields, returning_fields, raw)
+  File "<business-python>\lib\site-packages\django\db\models\base.py", line 919, in _do_insert
+    return manager._insert(
+  File "<business-python>\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "<business-python>\lib\site-packages\django\db\models\query.py", line 1270, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+  File "<business-python>\lib\site-packages\django\db\models\sql\compiler.py", line 1416, in execute_sql
+    cursor.execute(sql, params)
+  File "<business-python>\lib\site-packages\django\db\backends\utils.py", line 66, in execute
+    return self._execute_with_wrappers(sql, params, many=False, executor=self._execute)
+  File "<business-python>\lib\site-packages\django\db\backends\utils.py", line 75, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "<business-python>\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "<business-python>\lib\site-packages\django\db\utils.py", line 90, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "<business-python>\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "<business-python>\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
+    return self.cursor.execute(query, args)
+  File "<business-python>\lib\site-packages\pymysql\cursors.py", line 148, in execute
+    result = self._query(query)
+  File "<business-python>\lib\site-packages\pymysql\cursors.py", line 310, in _query
+    conn.query(q)
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 548, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 775, in _read_query_result
+    result.read()
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 1156, in read
+    first_packet = self.connection._read_packet()
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 725, in _read_packet
+    packet.raise_for_error()
+  File "<business-python>\lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "<business-python>\lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+django.db.utils.DataError: (1406, "Data too long for column 'username' at row 1")
+
+======================================================================
+ERROR: test_generic_category_is_range_not_false_no_match (support_ai.test_task_tools.TaskToolIntegrationTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<business-python>\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "<business-python>\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
+    return self.cursor.execute(query, args)
+  File "<business-python>\lib\site-packages\pymysql\cursors.py", line 148, in execute
+    result = self._query(query)
+  File "<business-python>\lib\site-packages\pymysql\cursors.py", line 310, in _query
+    conn.query(q)
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 548, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 775, in _read_query_result
+    result.read()
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 1156, in read
+    first_packet = self.connection._read_packet()
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 725, in _read_packet
+    packet.raise_for_error()
+  File "<business-python>\lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "<business-python>\lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.DataError: (1406, "Data too long for column 'username' at row 1")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "<workspace>\support_ai\test_task_tools.py", line 52, in setUp
+    self.user = UserProfile.objects.create(username='planner-buyer', password='unused', email='planner@test.invalid', phone='', is_active=True)
+  File "<business-python>\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "<business-python>\lib\site-packages\django\db\models\query.py", line 453, in create
+    obj.save(force_insert=True, using=self.db)
+  File "<business-python>\lib\site-packages\django\db\models\base.py", line 739, in save
+    self.save_base(using=using, force_insert=force_insert,
+  File "<business-python>\lib\site-packages\django\db\models\base.py", line 776, in save_base
+    updated = self._save_table(
+  File "<business-python>\lib\site-packages\django\db\models\base.py", line 881, in _save_table
+    results = self._do_insert(cls._base_manager, using, fields, returning_fields, raw)
+  File "<business-python>\lib\site-packages\django\db\models\base.py", line 919, in _do_insert
+    return manager._insert(
+  File "<business-python>\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "<business-python>\lib\site-packages\django\db\models\query.py", line 1270, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+  File "<business-python>\lib\site-packages\django\db\models\sql\compiler.py", line 1416, in execute_sql
+    cursor.execute(sql, params)
+  File "<business-python>\lib\site-packages\django\db\backends\utils.py", line 66, in execute
+    return self._execute_with_wrappers(sql, params, many=False, executor=self._execute)
+  File "<business-python>\lib\site-packages\django\db\backends\utils.py", line 75, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "<business-python>\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "<business-python>\lib\site-packages\django\db\utils.py", line 90, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "<business-python>\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "<business-python>\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
+    return self.cursor.execute(query, args)
+  File "<business-python>\lib\site-packages\pymysql\cursors.py", line 148, in execute
+    result = self._query(query)
+  File "<business-python>\lib\site-packages\pymysql\cursors.py", line 310, in _query
+    conn.query(q)
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 548, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 775, in _read_query_result
+    result.read()
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 1156, in read
+    first_packet = self.connection._read_packet()
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 725, in _read_packet
+    packet.raise_for_error()
+  File "<business-python>\lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "<business-python>\lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+django.db.utils.DataError: (1406, "Data too long for column 'username' at row 1")
+
+======================================================================
+ERROR: test_invalid_hard_conditions_commit_only_safe_clarification (support_ai.test_task_tools.TaskToolIntegrationTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<business-python>\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "<business-python>\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
+    return self.cursor.execute(query, args)
+  File "<business-python>\lib\site-packages\pymysql\cursors.py", line 148, in execute
+    result = self._query(query)
+  File "<business-python>\lib\site-packages\pymysql\cursors.py", line 310, in _query
+    conn.query(q)
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 548, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 775, in _read_query_result
+    result.read()
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 1156, in read
+    first_packet = self.connection._read_packet()
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 725, in _read_packet
+    packet.raise_for_error()
+  File "<business-python>\lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "<business-python>\lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.DataError: (1406, "Data too long for column 'username' at row 1")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "<workspace>\support_ai\test_task_tools.py", line 52, in setUp
+    self.user = UserProfile.objects.create(username='planner-buyer', password='unused', email='planner@test.invalid', phone='', is_active=True)
+  File "<business-python>\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "<business-python>\lib\site-packages\django\db\models\query.py", line 453, in create
+    obj.save(force_insert=True, using=self.db)
+  File "<business-python>\lib\site-packages\django\db\models\base.py", line 739, in save
+    self.save_base(using=using, force_insert=force_insert,
+  File "<business-python>\lib\site-packages\django\db\models\base.py", line 776, in save_base
+    updated = self._save_table(
+  File "<business-python>\lib\site-packages\django\db\models\base.py", line 881, in _save_table
+    results = self._do_insert(cls._base_manager, using, fields, returning_fields, raw)
+  File "<business-python>\lib\site-packages\django\db\models\base.py", line 919, in _do_insert
+    return manager._insert(
+  File "<business-python>\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "<business-python>\lib\site-packages\django\db\models\query.py", line 1270, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+  File "<business-python>\lib\site-packages\django\db\models\sql\compiler.py", line 1416, in execute_sql
+    cursor.execute(sql, params)
+  File "<business-python>\lib\site-packages\django\db\backends\utils.py", line 66, in execute
+    return self._execute_with_wrappers(sql, params, many=False, executor=self._execute)
+  File "<business-python>\lib\site-packages\django\db\backends\utils.py", line 75, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "<business-python>\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "<business-python>\lib\site-packages\django\db\utils.py", line 90, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "<business-python>\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "<business-python>\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
+    return self.cursor.execute(query, args)
+  File "<business-python>\lib\site-packages\pymysql\cursors.py", line 148, in execute
+    result = self._query(query)
+  File "<business-python>\lib\site-packages\pymysql\cursors.py", line 310, in _query
+    conn.query(q)
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 548, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 775, in _read_query_result
+    result.read()
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 1156, in read
+    first_packet = self.connection._read_packet()
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 725, in _read_packet
+    packet.raise_for_error()
+  File "<business-python>\lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "<business-python>\lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+django.db.utils.DataError: (1406, "Data too long for column 'username' at row 1")
+
+======================================================================
+ERROR: test_knowledge_and_recommendation_both_execute_in_user_order (support_ai.test_task_tools.TaskToolIntegrationTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<business-python>\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "<business-python>\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
+    return self.cursor.execute(query, args)
+  File "<business-python>\lib\site-packages\pymysql\cursors.py", line 148, in execute
+    result = self._query(query)
+  File "<business-python>\lib\site-packages\pymysql\cursors.py", line 310, in _query
+    conn.query(q)
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 548, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 775, in _read_query_result
+    result.read()
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 1156, in read
+    first_packet = self.connection._read_packet()
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 725, in _read_packet
+    packet.raise_for_error()
+  File "<business-python>\lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "<business-python>\lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.DataError: (1406, "Data too long for column 'username' at row 1")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "<workspace>\support_ai\test_task_tools.py", line 52, in setUp
+    self.user = UserProfile.objects.create(username='planner-buyer', password='unused', email='planner@test.invalid', phone='', is_active=True)
+  File "<business-python>\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "<business-python>\lib\site-packages\django\db\models\query.py", line 453, in create
+    obj.save(force_insert=True, using=self.db)
+  File "<business-python>\lib\site-packages\django\db\models\base.py", line 739, in save
+    self.save_base(using=using, force_insert=force_insert,
+  File "<business-python>\lib\site-packages\django\db\models\base.py", line 776, in save_base
+    updated = self._save_table(
+  File "<business-python>\lib\site-packages\django\db\models\base.py", line 881, in _save_table
+    results = self._do_insert(cls._base_manager, using, fields, returning_fields, raw)
+  File "<business-python>\lib\site-packages\django\db\models\base.py", line 919, in _do_insert
+    return manager._insert(
+  File "<business-python>\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "<business-python>\lib\site-packages\django\db\models\query.py", line 1270, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+  File "<business-python>\lib\site-packages\django\db\models\sql\compiler.py", line 1416, in execute_sql
+    cursor.execute(sql, params)
+  File "<business-python>\lib\site-packages\django\db\backends\utils.py", line 66, in execute
+    return self._execute_with_wrappers(sql, params, many=False, executor=self._execute)
+  File "<business-python>\lib\site-packages\django\db\backends\utils.py", line 75, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "<business-python>\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "<business-python>\lib\site-packages\django\db\utils.py", line 90, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "<business-python>\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "<business-python>\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
+    return self.cursor.execute(query, args)
+  File "<business-python>\lib\site-packages\pymysql\cursors.py", line 148, in execute
+    result = self._query(query)
+  File "<business-python>\lib\site-packages\pymysql\cursors.py", line 310, in _query
+    conn.query(q)
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 548, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 775, in _read_query_result
+    result.read()
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 1156, in read
+    first_packet = self.connection._read_packet()
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 725, in _read_packet
+    packet.raise_for_error()
+  File "<business-python>\lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "<business-python>\lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+django.db.utils.DataError: (1406, "Data too long for column 'username' at row 1")
+
+======================================================================
+ERROR: test_missing_saved_preference_requests_details_without_product_query (support_ai.test_task_tools.TaskToolIntegrationTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<business-python>\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "<business-python>\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
+    return self.cursor.execute(query, args)
+  File "<business-python>\lib\site-packages\pymysql\cursors.py", line 148, in execute
+    result = self._query(query)
+  File "<business-python>\lib\site-packages\pymysql\cursors.py", line 310, in _query
+    conn.query(q)
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 548, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 775, in _read_query_result
+    result.read()
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 1156, in read
+    first_packet = self.connection._read_packet()
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 725, in _read_packet
+    packet.raise_for_error()
+  File "<business-python>\lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "<business-python>\lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.DataError: (1406, "Data too long for column 'username' at row 1")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "<workspace>\support_ai\test_task_tools.py", line 52, in setUp
+    self.user = UserProfile.objects.create(username='planner-buyer', password='unused', email='planner@test.invalid', phone='', is_active=True)
+  File "<business-python>\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "<business-python>\lib\site-packages\django\db\models\query.py", line 453, in create
+    obj.save(force_insert=True, using=self.db)
+  File "<business-python>\lib\site-packages\django\db\models\base.py", line 739, in save
+    self.save_base(using=using, force_insert=force_insert,
+  File "<business-python>\lib\site-packages\django\db\models\base.py", line 776, in save_base
+    updated = self._save_table(
+  File "<business-python>\lib\site-packages\django\db\models\base.py", line 881, in _save_table
+    results = self._do_insert(cls._base_manager, using, fields, returning_fields, raw)
+  File "<business-python>\lib\site-packages\django\db\models\base.py", line 919, in _do_insert
+    return manager._insert(
+  File "<business-python>\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "<business-python>\lib\site-packages\django\db\models\query.py", line 1270, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+  File "<business-python>\lib\site-packages\django\db\models\sql\compiler.py", line 1416, in execute_sql
+    cursor.execute(sql, params)
+  File "<business-python>\lib\site-packages\django\db\backends\utils.py", line 66, in execute
+    return self._execute_with_wrappers(sql, params, many=False, executor=self._execute)
+  File "<business-python>\lib\site-packages\django\db\backends\utils.py", line 75, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "<business-python>\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "<business-python>\lib\site-packages\django\db\utils.py", line 90, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "<business-python>\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "<business-python>\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
+    return self.cursor.execute(query, args)
+  File "<business-python>\lib\site-packages\pymysql\cursors.py", line 148, in execute
+    result = self._query(query)
+  File "<business-python>\lib\site-packages\pymysql\cursors.py", line 310, in _query
+    conn.query(q)
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 548, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 775, in _read_query_result
+    result.read()
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 1156, in read
+    first_packet = self.connection._read_packet()
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 725, in _read_packet
+    packet.raise_for_error()
+  File "<business-python>\lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "<business-python>\lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+django.db.utils.DataError: (1406, "Data too long for column 'username' at row 1")
+
+======================================================================
+ERROR: test_one_product_and_dependent_live_details (support_ai.test_task_tools.TaskToolIntegrationTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<business-python>\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "<business-python>\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
+    return self.cursor.execute(query, args)
+  File "<business-python>\lib\site-packages\pymysql\cursors.py", line 148, in execute
+    result = self._query(query)
+  File "<business-python>\lib\site-packages\pymysql\cursors.py", line 310, in _query
+    conn.query(q)
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 548, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 775, in _read_query_result
+    result.read()
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 1156, in read
+    first_packet = self.connection._read_packet()
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 725, in _read_packet
+    packet.raise_for_error()
+  File "<business-python>\lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "<business-python>\lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.DataError: (1406, "Data too long for column 'username' at row 1")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "<workspace>\support_ai\test_task_tools.py", line 52, in setUp
+    self.user = UserProfile.objects.create(username='planner-buyer', password='unused', email='planner@test.invalid', phone='', is_active=True)
+  File "<business-python>\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "<business-python>\lib\site-packages\django\db\models\query.py", line 453, in create
+    obj.save(force_insert=True, using=self.db)
+  File "<business-python>\lib\site-packages\django\db\models\base.py", line 739, in save
+    self.save_base(using=using, force_insert=force_insert,
+  File "<business-python>\lib\site-packages\django\db\models\base.py", line 776, in save_base
+    updated = self._save_table(
+  File "<business-python>\lib\site-packages\django\db\models\base.py", line 881, in _save_table
+    results = self._do_insert(cls._base_manager, using, fields, returning_fields, raw)
+  File "<business-python>\lib\site-packages\django\db\models\base.py", line 919, in _do_insert
+    return manager._insert(
+  File "<business-python>\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "<business-python>\lib\site-packages\django\db\models\query.py", line 1270, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+  File "<business-python>\lib\site-packages\django\db\models\sql\compiler.py", line 1416, in execute_sql
+    cursor.execute(sql, params)
+  File "<business-python>\lib\site-packages\django\db\backends\utils.py", line 66, in execute
+    return self._execute_with_wrappers(sql, params, many=False, executor=self._execute)
+  File "<business-python>\lib\site-packages\django\db\backends\utils.py", line 75, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "<business-python>\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "<business-python>\lib\site-packages\django\db\utils.py", line 90, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "<business-python>\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "<business-python>\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
+    return self.cursor.execute(query, args)
+  File "<business-python>\lib\site-packages\pymysql\cursors.py", line 148, in execute
+    result = self._query(query)
+  File "<business-python>\lib\site-packages\pymysql\cursors.py", line 310, in _query
+    conn.query(q)
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 548, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 775, in _read_query_result
+    result.read()
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 1156, in read
+    first_packet = self.connection._read_packet()
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 725, in _read_packet
+    packet.raise_for_error()
+  File "<business-python>\lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "<business-python>\lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+django.db.utils.DataError: (1406, "Data too long for column 'username' at row 1")
+
+======================================================================
+ERROR: test_order_followup_reloads_status_and_keeps_identity_private (support_ai.test_task_tools.TaskToolIntegrationTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<business-python>\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "<business-python>\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
+    return self.cursor.execute(query, args)
+  File "<business-python>\lib\site-packages\pymysql\cursors.py", line 148, in execute
+    result = self._query(query)
+  File "<business-python>\lib\site-packages\pymysql\cursors.py", line 310, in _query
+    conn.query(q)
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 548, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 775, in _read_query_result
+    result.read()
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 1156, in read
+    first_packet = self.connection._read_packet()
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 725, in _read_packet
+    packet.raise_for_error()
+  File "<business-python>\lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "<business-python>\lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.DataError: (1406, "Data too long for column 'username' at row 1")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "<workspace>\support_ai\test_task_tools.py", line 52, in setUp
+    self.user = UserProfile.objects.create(username='planner-buyer', password='unused', email='planner@test.invalid', phone='', is_active=True)
+  File "<business-python>\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "<business-python>\lib\site-packages\django\db\models\query.py", line 453, in create
+    obj.save(force_insert=True, using=self.db)
+  File "<business-python>\lib\site-packages\django\db\models\base.py", line 739, in save
+    self.save_base(using=using, force_insert=force_insert,
+  File "<business-python>\lib\site-packages\django\db\models\base.py", line 776, in save_base
+    updated = self._save_table(
+  File "<business-python>\lib\site-packages\django\db\models\base.py", line 881, in _save_table
+    results = self._do_insert(cls._base_manager, using, fields, returning_fields, raw)
+  File "<business-python>\lib\site-packages\django\db\models\base.py", line 919, in _do_insert
+    return manager._insert(
+  File "<business-python>\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "<business-python>\lib\site-packages\django\db\models\query.py", line 1270, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+  File "<business-python>\lib\site-packages\django\db\models\sql\compiler.py", line 1416, in execute_sql
+    cursor.execute(sql, params)
+  File "<business-python>\lib\site-packages\django\db\backends\utils.py", line 66, in execute
+    return self._execute_with_wrappers(sql, params, many=False, executor=self._execute)
+  File "<business-python>\lib\site-packages\django\db\backends\utils.py", line 75, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "<business-python>\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "<business-python>\lib\site-packages\django\db\utils.py", line 90, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "<business-python>\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "<business-python>\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
+    return self.cursor.execute(query, args)
+  File "<business-python>\lib\site-packages\pymysql\cursors.py", line 148, in execute
+    result = self._query(query)
+  File "<business-python>\lib\site-packages\pymysql\cursors.py", line 310, in _query
+    conn.query(q)
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 548, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 775, in _read_query_result
+    result.read()
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 1156, in read
+    first_packet = self.connection._read_packet()
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 725, in _read_packet
+    packet.raise_for_error()
+  File "<business-python>\lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "<business-python>\lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+django.db.utils.DataError: (1406, "Data too long for column 'username' at row 1")
+
+======================================================================
+ERROR: test_saved_preference_quote_is_canonicalized_only_after_owner_verification (support_ai.test_task_tools.TaskToolIntegrationTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<business-python>\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "<business-python>\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
+    return self.cursor.execute(query, args)
+  File "<business-python>\lib\site-packages\pymysql\cursors.py", line 148, in execute
+    result = self._query(query)
+  File "<business-python>\lib\site-packages\pymysql\cursors.py", line 310, in _query
+    conn.query(q)
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 548, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 775, in _read_query_result
+    result.read()
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 1156, in read
+    first_packet = self.connection._read_packet()
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 725, in _read_packet
+    packet.raise_for_error()
+  File "<business-python>\lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "<business-python>\lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.DataError: (1406, "Data too long for column 'username' at row 1")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "<workspace>\support_ai\test_task_tools.py", line 52, in setUp
+    self.user = UserProfile.objects.create(username='planner-buyer', password='unused', email='planner@test.invalid', phone='', is_active=True)
+  File "<business-python>\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "<business-python>\lib\site-packages\django\db\models\query.py", line 453, in create
+    obj.save(force_insert=True, using=self.db)
+  File "<business-python>\lib\site-packages\django\db\models\base.py", line 739, in save
+    self.save_base(using=using, force_insert=force_insert,
+  File "<business-python>\lib\site-packages\django\db\models\base.py", line 776, in save_base
+    updated = self._save_table(
+  File "<business-python>\lib\site-packages\django\db\models\base.py", line 881, in _save_table
+    results = self._do_insert(cls._base_manager, using, fields, returning_fields, raw)
+  File "<business-python>\lib\site-packages\django\db\models\base.py", line 919, in _do_insert
+    return manager._insert(
+  File "<business-python>\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "<business-python>\lib\site-packages\django\db\models\query.py", line 1270, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+  File "<business-python>\lib\site-packages\django\db\models\sql\compiler.py", line 1416, in execute_sql
+    cursor.execute(sql, params)
+  File "<business-python>\lib\site-packages\django\db\backends\utils.py", line 66, in execute
+    return self._execute_with_wrappers(sql, params, many=False, executor=self._execute)
+  File "<business-python>\lib\site-packages\django\db\backends\utils.py", line 75, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "<business-python>\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "<business-python>\lib\site-packages\django\db\utils.py", line 90, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "<business-python>\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "<business-python>\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
+    return self.cursor.execute(query, args)
+  File "<business-python>\lib\site-packages\pymysql\cursors.py", line 148, in execute
+    result = self._query(query)
+  File "<business-python>\lib\site-packages\pymysql\cursors.py", line 310, in _query
+    conn.query(q)
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 548, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 775, in _read_query_result
+    result.read()
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 1156, in read
+    first_packet = self.connection._read_packet()
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 725, in _read_packet
+    packet.raise_for_error()
+  File "<business-python>\lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "<business-python>\lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+django.db.utils.DataError: (1406, "Data too long for column 'username' at row 1")
+
+======================================================================
+ERROR: test_simple_slots_do_not_discard_budget_before_recommendation_verb (support_ai.test_task_tools.TaskToolIntegrationTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<business-python>\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "<business-python>\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
+    return self.cursor.execute(query, args)
+  File "<business-python>\lib\site-packages\pymysql\cursors.py", line 148, in execute
+    result = self._query(query)
+  File "<business-python>\lib\site-packages\pymysql\cursors.py", line 310, in _query
+    conn.query(q)
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 548, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 775, in _read_query_result
+    result.read()
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 1156, in read
+    first_packet = self.connection._read_packet()
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 725, in _read_packet
+    packet.raise_for_error()
+  File "<business-python>\lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "<business-python>\lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.DataError: (1406, "Data too long for column 'username' at row 1")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "<workspace>\support_ai\test_task_tools.py", line 52, in setUp
+    self.user = UserProfile.objects.create(username='planner-buyer', password='unused', email='planner@test.invalid', phone='', is_active=True)
+  File "<business-python>\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "<business-python>\lib\site-packages\django\db\models\query.py", line 453, in create
+    obj.save(force_insert=True, using=self.db)
+  File "<business-python>\lib\site-packages\django\db\models\base.py", line 739, in save
+    self.save_base(using=using, force_insert=force_insert,
+  File "<business-python>\lib\site-packages\django\db\models\base.py", line 776, in save_base
+    updated = self._save_table(
+  File "<business-python>\lib\site-packages\django\db\models\base.py", line 881, in _save_table
+    results = self._do_insert(cls._base_manager, using, fields, returning_fields, raw)
+  File "<business-python>\lib\site-packages\django\db\models\base.py", line 919, in _do_insert
+    return manager._insert(
+  File "<business-python>\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "<business-python>\lib\site-packages\django\db\models\query.py", line 1270, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+  File "<business-python>\lib\site-packages\django\db\models\sql\compiler.py", line 1416, in execute_sql
+    cursor.execute(sql, params)
+  File "<business-python>\lib\site-packages\django\db\backends\utils.py", line 66, in execute
+    return self._execute_with_wrappers(sql, params, many=False, executor=self._execute)
+  File "<business-python>\lib\site-packages\django\db\backends\utils.py", line 75, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "<business-python>\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "<business-python>\lib\site-packages\django\db\utils.py", line 90, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "<business-python>\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "<business-python>\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
+    return self.cursor.execute(query, args)
+  File "<business-python>\lib\site-packages\pymysql\cursors.py", line 148, in execute
+    result = self._query(query)
+  File "<business-python>\lib\site-packages\pymysql\cursors.py", line 310, in _query
+    conn.query(q)
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 548, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 775, in _read_query_result
+    result.read()
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 1156, in read
+    first_packet = self.connection._read_packet()
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 725, in _read_packet
+    packet.raise_for_error()
+  File "<business-python>\lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "<business-python>\lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+django.db.utils.DataError: (1406, "Data too long for column 'username' at row 1")
+
+======================================================================
+ERROR: test_unknown_category_requests_clarification_instead_of_no_match (support_ai.test_task_tools.TaskToolIntegrationTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<business-python>\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "<business-python>\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
+    return self.cursor.execute(query, args)
+  File "<business-python>\lib\site-packages\pymysql\cursors.py", line 148, in execute
+    result = self._query(query)
+  File "<business-python>\lib\site-packages\pymysql\cursors.py", line 310, in _query
+    conn.query(q)
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 548, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 775, in _read_query_result
+    result.read()
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 1156, in read
+    first_packet = self.connection._read_packet()
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 725, in _read_packet
+    packet.raise_for_error()
+  File "<business-python>\lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "<business-python>\lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.DataError: (1406, "Data too long for column 'username' at row 1")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "<workspace>\support_ai\test_task_tools.py", line 52, in setUp
+    self.user = UserProfile.objects.create(username='planner-buyer', password='unused', email='planner@test.invalid', phone='', is_active=True)
+  File "<business-python>\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "<business-python>\lib\site-packages\django\db\models\query.py", line 453, in create
+    obj.save(force_insert=True, using=self.db)
+  File "<business-python>\lib\site-packages\django\db\models\base.py", line 739, in save
+    self.save_base(using=using, force_insert=force_insert,
+  File "<business-python>\lib\site-packages\django\db\models\base.py", line 776, in save_base
+    updated = self._save_table(
+  File "<business-python>\lib\site-packages\django\db\models\base.py", line 881, in _save_table
+    results = self._do_insert(cls._base_manager, using, fields, returning_fields, raw)
+  File "<business-python>\lib\site-packages\django\db\models\base.py", line 919, in _do_insert
+    return manager._insert(
+  File "<business-python>\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "<business-python>\lib\site-packages\django\db\models\query.py", line 1270, in _insert
+    return query.get_compiler(using=using).execute_sql(returning_fields)
+  File "<business-python>\lib\site-packages\django\db\models\sql\compiler.py", line 1416, in execute_sql
+    cursor.execute(sql, params)
+  File "<business-python>\lib\site-packages\django\db\backends\utils.py", line 66, in execute
+    return self._execute_with_wrappers(sql, params, many=False, executor=self._execute)
+  File "<business-python>\lib\site-packages\django\db\backends\utils.py", line 75, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "<business-python>\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "<business-python>\lib\site-packages\django\db\utils.py", line 90, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "<business-python>\lib\site-packages\django\db\backends\utils.py", line 84, in _execute
+    return self.cursor.execute(sql, params)
+  File "<business-python>\lib\site-packages\django\db\backends\mysql\base.py", line 73, in execute
+    return self.cursor.execute(query, args)
+  File "<business-python>\lib\site-packages\pymysql\cursors.py", line 148, in execute
+    result = self._query(query)
+  File "<business-python>\lib\site-packages\pymysql\cursors.py", line 310, in _query
+    conn.query(q)
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 548, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 775, in _read_query_result
+    result.read()
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 1156, in read
+    first_packet = self.connection._read_packet()
+  File "<business-python>\lib\site-packages\pymysql\connections.py", line 725, in _read_packet
+    packet.raise_for_error()
+  File "<business-python>\lib\site-packages\pymysql\protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "<business-python>\lib\site-packages\pymysql\err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+django.db.utils.DataError: (1406, "Data too long for column 'username' at row 1")
+
+----------------------------------------------------------------------
+Ran 46 tests in 6.281s
+
+FAILED (errors=11)
+Destroying test database for alias 'default'...
+
+Destroying test database for alias 'ai_storage'...

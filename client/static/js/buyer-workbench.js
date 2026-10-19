@@ -61,6 +61,19 @@
             banner_empty: '暂无已上架、有库存的商品作为轮播',
             banner_loading: '正在加载轮播…',
             banner_loading_sub: '从数据库读取可售商品',
+            carousel_heading: '发现一款好茶',
+            carousel_label: '精选茶品轮播',
+            carousel_role: '轮播图',
+            carousel_slide: '轮播项',
+            carousel_previous: '上一款',
+            carousel_next: '下一款',
+            carousel_select: '选择茶品',
+            carousel_goto: '查看第 {n} 款茶品',
+            carousel_pause: '暂停轮播',
+            carousel_play: '播放轮播',
+            carousel_error: '轮播加载失败，请重新加载。',
+            carousel_price: '参考价格',
+            carousel_image_missing: '暂无商品图片',
             grid_loading: '正在加载精选商品…',
             grid_loading_err: '无法加载茶类商品，请检查网络或重新加载。',
             btn_view_sku: '查看商品',
@@ -172,6 +185,19 @@
             banner_empty: 'No in-stock products for the carousel',
             banner_loading: 'Loading carousel…',
             banner_loading_sub: 'From database',
+            carousel_heading: 'Discover your next tea',
+            carousel_label: 'Featured tea carousel',
+            carousel_role: 'carousel',
+            carousel_slide: 'slide',
+            carousel_previous: 'Previous tea',
+            carousel_next: 'Next tea',
+            carousel_select: 'Choose a tea',
+            carousel_goto: 'View tea {n}',
+            carousel_pause: 'Pause carousel',
+            carousel_play: 'Play carousel',
+            carousel_error: 'Could not load the carousel. Please retry.',
+            carousel_price: 'Reference price',
+            carousel_image_missing: 'Product image unavailable',
             grid_loading: 'Loading featured products…',
             grid_loading_err: 'Could not load products. Check your connection.',
             btn_view_sku: 'View product',
@@ -283,6 +309,19 @@
             banner_empty: 'لا بيانات عرض',
             banner_loading: 'جاري التحميل…',
             banner_loading_sub: 'من قاعدة البيانات',
+            carousel_heading: 'اكتشف شايك القادم',
+            carousel_label: 'عارض منتجات الشاي',
+            carousel_role: 'عارض شرائح',
+            carousel_slide: 'شريحة',
+            carousel_previous: 'الشاي السابق',
+            carousel_next: 'الشاي التالي',
+            carousel_select: 'اختر الشاي',
+            carousel_goto: 'عرض الشاي {n}',
+            carousel_pause: 'إيقاف العرض مؤقتاً',
+            carousel_play: 'تشغيل العرض',
+            carousel_error: 'تعذر تحميل العرض. حاول مجدداً.',
+            carousel_price: 'سعر مرجعي',
+            carousel_image_missing: 'صورة المنتج غير متاحة',
             grid_loading: 'جاري تحميل المنتجات…',
             grid_loading_err: 'تعذر التحميل',
             btn_view_sku: 'عرض',
@@ -352,7 +391,7 @@
         return 'http://127.0.0.1:8000';
     }
 
-    var _bannerTimer = null;
+    var buyerCarousel = null;
     var catalogPreview = null;
 
     function setPriceDataFromCny(el, cny) {
@@ -465,81 +504,20 @@
     }
 
     function loadBuyerDashboard() {
-        var bSlider = document.getElementById('buyer-banner-slider');
-        var bMsg = document.getElementById('banner-area-msg');
+        var carouselRoot = document.getElementById('buyer-carousel');
         var gGrid = document.getElementById('product-grid');
         var gSk = document.getElementById('product-grid-skeleton');
         var gErr = document.getElementById('product-grid-msg');
-        if (!bSlider && !gSk && !gErr) return;
+        if (!carouselRoot && !gSk && !gErr) return;
         if (gErr) gErr.style.display = 'none';
-        if (_bannerTimer) {
-            clearInterval(_bannerTimer);
-            _bannerTimer = null;
-        }
-        $.getJSON(getApiBase() + '/v1/goods/carousel?stable=1&limit=6', function(res) {
-            if (!bSlider) return;
-            var skel = document.getElementById('buyer-banner-skeleton');
-            if (skel) skel.remove();
-            if (!res || res.code !== 200 || !res.data || !res.data.length) {
-                if (bMsg) bMsg.style.display = 'block';
-                return;
-            }
-            if (bMsg) bMsg.style.display = 'none';
-            bSlider.innerHTML = '';
-            res.data.forEach(function(raw, idx) {
-                var it = raw;
-                var priceStr = (it.price != null) ? '¥' + it.price : '';
-                var item = document.createElement('div');
-                item.className = 'banner-item banner-api' + (idx === 0 ? ' active' : '');
-                var cover = it.image_url
-                    ? "linear-gradient(135deg, rgba(10,20,10,0.82) 0%, rgba(26,93,26,0.55) 100%), url('" + it.image_url.replace(/'/g, "%27") + "')"
-                    : 'linear-gradient(135deg, #123d12 0%, #1A5D1A 55%, #0d3d0d 100%)';
-                item.style.background = cover;
-                item.style.backgroundSize = 'cover';
-                item.style.backgroundPosition = 'center';
-                var pat = document.createElement('div');
-                pat.className = 'banner-pattern';
-                var cont = document.createElement('div');
-                cont.className = 'banner-content';
-                var h2 = document.createElement('h2');
-                h2.textContent = it.title || it.name || '';
-                var p = document.createElement('p');
-                p.textContent = (it.intro || it.caption || '').slice(0, 200);
-                cont.appendChild(h2);
-                cont.appendChild(p);
-                if (priceStr) {
-                    var pr = document.createElement('span');
-                    pr.className = 'banner-price';
-                    pr.textContent = priceStr;
-                    cont.appendChild(pr);
-                }
-                if (it.link_url || it.link) {
-                    var a = document.createElement('a');
-                    a.className = 'btn-banner-inquiry btn-view-sku';
-                    a.href = it.link_url || it.link;
-                    a.setAttribute('data-i18n', 'btn_view_sku');
-                    var tt0 = getT(localStorage.getItem('buyer_lang') || 'zh');
-                    a.textContent = tt0.btn_view_sku || '查看商品';
-                    cont.appendChild(a);
-                }
-                item.appendChild(pat);
-                item.appendChild(cont);
-                bSlider.appendChild(item);
+        if (carouselRoot && window.BuyerCarousel) {
+            if (buyerCarousel) buyerCarousel.destroy();
+            buyerCarousel = BuyerCarousel.start({
+                root: carouselRoot, url: getApiBase() + '/v1/goods/carousel?stable=1&limit=6',
+                labels: function() { return getT(localStorage.getItem('buyer_lang') || 'zh'); },
+                formatPrice: formatDisplayPrice
             });
-            var items = bSlider.querySelectorAll('.banner-item');
-            if (items.length > 1) {
-                var bi = 0;
-                _bannerTimer = setInterval(function() {
-                    items[bi].classList.remove('active');
-                    bi = (bi + 1) % items.length;
-                    items[bi].classList.add('active');
-                }, 4000);
-            }
-        }).fail(function() {
-            if (bMsg) bMsg.style.display = 'block';
-            var sk2 = document.getElementById('buyer-banner-skeleton');
-            if (sk2) sk2.remove();
-        });
+        }
 
         if (gGrid && window.BuyerCatalogPreview) {
             catalogPreview = BuyerCatalogPreview.start({
@@ -718,25 +696,21 @@
         }
         updatePrices();
         if (catalogPreview) catalogPreview.setLanguage();
+        if (buyerCarousel) buyerCarousel.setLanguage();
+    }
+
+    function formatDisplayPrice(value) {
+        var amount = parseFloat(value) || 0;
+        var rates = {CNY: 1, USD: 0.14, AED: 0.51, SAR: 0.52, EUR: 0.13};
+        var symbols = {CNY: '¥', USD: '$', AED: 'AED ', SAR: 'SAR ', EUR: '€'};
+        var currency = Object.prototype.hasOwnProperty.call(rates, currentCurrency) ? currentCurrency : 'CNY';
+        return symbols[currency] + (amount * rates[currency]).toFixed(2);
     }
 
     function updatePrices() {
         document.querySelectorAll('.product-price').forEach(function(el) {
             if (el.getAttribute('data-cny') !== null) {
-                var c = parseFloat(el.getAttribute('data-cny') || '0') || 0;
-                if (currentCurrency === 'CNY' || !currentCurrency) {
-                    el.textContent = '¥' + c.toFixed(2);
-                } else if (currentCurrency === 'USD') {
-                    el.textContent = '$' + (c * 0.14).toFixed(2);
-                } else if (currentCurrency === 'AED') {
-                    el.textContent = 'AED ' + (c * 0.51).toFixed(2);
-                } else if (currentCurrency === 'SAR') {
-                    el.textContent = 'SAR ' + (c * 0.52).toFixed(2);
-                } else if (currentCurrency === 'EUR') {
-                    el.textContent = '€' + (c * 0.13).toFixed(2);
-                } else {
-                    el.textContent = '¥' + c.toFixed(2);
-                }
+                el.textContent = formatDisplayPrice(el.getAttribute('data-cny'));
                 return;
             }
             var lower = currentCurrency.toLowerCase();
@@ -750,6 +724,7 @@
             else out = val + ' ' + currentCurrency;
             el.textContent = out;
         });
+        if (buyerCarousel) buyerCarousel.refreshPrices();
     }
 
     function openUserMenu(open) {

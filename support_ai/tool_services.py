@@ -127,16 +127,6 @@ def normalize_recommendation(raw, message, history, memory, request):
         getattr(intent, section).categories = [v for v in values if v not in removed]
         intent.evidence = [e for e in intent.evidence
                            if not (e.field == section + '.categories' and e.value in removed)]
-    # The server owns saved preferences. Canonicalize a verified soft preference
-    # rather than trusting model-added labels such as "categories: 绿茶" as quotes.
-    for evidence in intent.evidence:
-        if evidence.source == 'MEMORY':
-            parts = evidence.field.split('.')
-            if (len(parts) != 2 or parts[0] != 'preferred' or not memory
-                    or evidence.source_id != memory['id']
-                    or evidence.value not in memory['preferences'].get(parts[1], [])):
-                raise ValueError('Unverified saved preference')
-            evidence.quote = evidence.value
     daily = bool(re.search(r'日常|每天|\bdaily\b', request, re.I))
     allowed_missing = {'category', 'details'} | ({'unsupported_attribute'} if daily else set())
     hard = intent.required

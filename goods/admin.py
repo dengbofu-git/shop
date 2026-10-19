@@ -99,7 +99,7 @@ class RecommendedProductAdmin(admin.ModelAdmin):
         }),
         ('推荐设置', {
             'fields': ('is_recommended',),
-            'description': '勾选此项可将该商品设置为推荐商品，推荐商品将在商品列表页面优先展示。',
+            'description': '人工推荐标记，供智能客服匹配条件相同后的排序使用；采购页推荐商品按有库存商品的销量排序，不使用此标记。',
         }),
         ('图片（只读）', {
             'fields': ('default_image_url',),

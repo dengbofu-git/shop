@@ -1,0 +1,94 @@
+{
+  "baseline_sha": "3975fc6617ad9a2f790a8b72e0da38fcc8c8f054",
+  "state": "uncommitted local changes",
+  "python": "3.9.25",
+  "node": "v22.22.3",
+  "files": [
+    {
+      "path": ".github/workflows/git-policy.yml",
+      "sha256": "303923c668a73a892fb25fa71c8e576f4da188235d4cff6852f2664e2a0e8ef1",
+      "shared_metadata": false
+    },
+    {
+      "path": "tools/tests/test_project_identity.py",
+      "sha256": "2dead86433872830788983cceed375bcc754f7ba44445e0d9434facdc7f02a42",
+      "shared_metadata": false
+    },
+    {
+      "path": "support_ai/contracts.py",
+      "sha256": "3c8188bc8a098d0d943b28f6f0017097e969c821b07098164467a4bc0dd13fb8",
+      "shared_metadata": false
+    },
+    {
+      "path": "support_ai/semantic_planning.py",
+      "sha256": "8ee66d8fdeed80d46e4f0f571d6a735eb7908c3d4291ab31e5228671c32236a6",
+      "shared_metadata": false
+    },
+    {
+      "path": "support_ai/tool_services.py",
+      "sha256": "ce187b8361080fa9e544ce7685304cc6cc36ba03d42146cfd537ff1747bb59aa",
+      "shared_metadata": false
+    },
+    {
+      "path": "support_ai/tests.py",
+      "sha256": "cda1f8cfe7826bcb35d61c2b3fd5ee30d4fa76b25f8042beaa5d0d223f190115",
+      "shared_metadata": false
+    },
+    {
+      "path": "support_ai/test_grouped_recommendations.py",
+      "sha256": "7c1ac06b5403b62fc15e461928139b83ec791fd7235aacbd5f465d6d9ecd445c",
+      "shared_metadata": false
+    },
+    {
+      "path": "support_ai/test_mixed_tea.py",
+      "sha256": "0fea1ff4c0adc3fdc63c55e4be9331f82b66f75d01a75bed6c43b0dffbbd6ed3",
+      "shared_metadata": false
+    },
+    {
+      "path": "support_ai/test_task_tools.py",
+      "sha256": "18bb08c3455d28472ad0af0fa83138b4ddfea9783d1be2d4b85b594b8b8e2a98",
+      "shared_metadata": false
+    },
+    {
+      "path": "support_ai/test_telemetry.py",
+      "sha256": "7b5f44f8667cd4b6e4927995178c587fd8cd6fc18dad01e4bbbc4edb0f7faf09",
+      "shared_metadata": false
+    },
+    {
+      "path": "support_ai/test_semantic_planning.py",
+      "sha256": "b59d01576f46ffc364d1e0795e465d9ef061cc45ba3a07bc2fee81a8e8069aa1",
+      "shared_metadata": false
+    },
+    {
+      "path": "versions/changelogs/core.md",
+      "sha256": "f245545f77d5d4dfaf5cb892eff69ec81f7c7f736724cffac3e5ed94c419459e",
+      "shared_metadata": false
+    },
+    {
+      "path": "versions/changelogs/support_ai.md",
+      "sha256": "edd0adc5712a4ecb085847d1324af5f62bcce62fbd2576fd8ae01af6f86f8db2",
+      "shared_metadata": false
+    },
+    {
+      "path": "versions/modules.json",
+      "sha256": "8c5cdfd8362ebea944acf0fab87e44d81b08b5d6a69c2e396acdf9d479a44150",
+      "shared_metadata": true
+    },
+    {
+      "path": "docs/Agent语义规划与任务状态.md",
+      "sha256": "93cfef5fe369bbb2b892eb535d384f875affc49726476a71434d9ad4b6db9771",
+      "shared_metadata": false
+    },
+    {
+      "path": "docs/sdd/modules/platform/project-identity.md",
+      "sha256": "7b66c70d7202b444979a456c874c2ff0f6ce96145050ea72dd2612a4e7f786db",
+      "shared_metadata": false
+    },
+    {
+      "path": "docs/sdd/modules/ai-support/current-agent.md",
+      "sha256": "43ea46c35304f2e4251cf8a0b21af496306a46ec417826872c2338671f8098bf",
+      "shared_metadata": false
+    }
+  ],
+  "notes": "Concurrent goods and homepage changes are outside this repair; shared version registry preserves them."
+}

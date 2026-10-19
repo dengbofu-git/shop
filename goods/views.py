@@ -5,7 +5,8 @@ from pathlib import Path
 from django.http import HttpResponse, JsonResponse
 from .models import Catalog
 from .models import SKU, SPU, SKUImage
-from django.db.models import F
+from django.db.models import F, Q, Sum, Value
+from django.db.models.functions import Coalesce
 from django.conf import settings
 import json
 from django.core import paginator
@@ -75,14 +76,16 @@ def carousel(request):
 
 
 def recommended_products(request):
-    """推荐商品列表（公开API），有可用库存的推荐 SKU（与库存服务一致）。"""
-    qs = SKU.objects.filter(
-        is_recommended=True, is_launched=True
-    ).select_related('spu__catalog').order_by('-updated_time', '-id')[:80]
+    """全平台已上架且有库存的 SKU，按销量优先；不要求人工推荐标记。"""
+    # Preserve this catalog's max(SKU.stock, summed ledger availability) eligibility.
+    # Filter before limiting so sold-out top sellers cannot exhaust a candidate window.
+    qs = SKU.objects.filter(is_launched=True).select_related('spu__catalog').annotate(
+        ledger_available=Coalesce(Sum('inventory__available_quantity'), Value(0)),
+    ).filter(Q(stock__gt=0) | Q(ledger_available__gt=0)).order_by(
+        '-sales', '-updated_time', '-id'
+    )[:20]
     data = []
     for sku in qs:
-        if _get_available_stock(sku) <= 0:
-            continue
         spu = sku.spu
         catname = (spu.catalog.name if (spu and spu.catalog_id) else '') or ''
         row = _sku_public_dict(sku)
@@ -92,8 +95,6 @@ def recommended_products(request):
             'link': f'product_details.html?skuid={sku.id}',
         })
         data.append(row)
-        if len(data) >= 20:
-            break
     return JsonResponse({
         'code': 200,
         'data': data,

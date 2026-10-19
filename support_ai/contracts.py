@@ -140,6 +140,10 @@ def validate_recommendation_intent(intent, message, recent_turns, memory):
             if parts[0] != 'preferred' or not memory or item.source_id != memory['id']:
                 raise ValueError('长期记忆只能提供当前用户的软偏好')
             values = memory['preferences'].get(parts[1], [])
+            # The authenticated server record owns the text. Both semantic
+            # planning and standalone tools use this same provenance boundary.
+            if item.value in values:
+                item.quote = item.value
             text = item.quote if item.quote in values and item.value in values else None
         if text is None or item.quote not in text or not _value_supported(item.field, item.value, item.quote):
             raise ValueError('意向条件无法对应输入证据')

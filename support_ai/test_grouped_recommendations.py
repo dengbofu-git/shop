@@ -90,8 +90,8 @@ class GroupedRecommendationTests(TestCase):
         self.assertEqual(result.status, 'success')
         self.assertEqual([p['category'] for p in result.data['recommendations']], list(BASIC_TEA_TYPES))
         self.assertEqual(result.data['product_intent']['required']['categories'], [])
-        self.assertIn('匹配理由', result.data['answer'])
-        self.assertIn('未配置可验证的风味', result.data['answer'])
+        self.assertIn('推荐依据', result.data['answer'])
+        self.assertIn('尚无可验证的风味', result.data['answer'])
 
     def test_per_group_two_and_total_limit(self):
         result = self.run_tool('按不同茶类每类推荐两款，并给出理由')
@@ -151,16 +151,20 @@ class GroupedRecommendationTests(TestCase):
         self.assertEqual(len(result.data['recommendations']), 5)
         self.assertNotIn('sensitive exception content', str(result.model_dump()))
 
-    def test_bad_model_conditions_clarify_without_unfiltered_query(self):
+    def test_bad_model_conditions_error_without_unfiltered_query(self):
         with patch('support_ai.tool_services.match_products') as query:
             result = self.run_tool('推荐测试品牌绿茶', {'action': 'SEARCH', 'required': {'categories': ['绿茶']}})
         query.assert_not_called()
-        self.assertEqual(result.status, 'needs_clarification')
+        self.assertEqual(result.status, 'error')
+        self.assertEqual(result.data['recommendation_status'], 'ERROR')
+        self.assertFalse(result.data['recommendations'])
         self.assertEqual(result.data['diagnostics'][0]['error_type'], 'ValueError')
 
-    def test_model_schema_failure_clarifies_and_reports_field(self):
+    def test_model_schema_failure_errors_and_reports_field(self):
         result = self.run_tool('推荐测试品牌绿茶', {'action': 'SEARCH', 'required': {'categories': ['茶'] * 13}})
-        self.assertEqual(result.status, 'needs_clarification')
+        self.assertEqual(result.status, 'error')
+        self.assertEqual(result.data['recommendation_status'], 'ERROR')
+        self.assertFalse(result.data['recommendations'])
         self.assertEqual(result.data['diagnostics'][0]['fields'][0]['field'], 'required.categories')
 
     def test_sixth_product_and_second_group_followups_reload_live_rows(self):

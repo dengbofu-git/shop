@@ -3,7 +3,7 @@
   "modules": {
     "core": {
       "title": "项目核心",
-      "version": "0.4.1",
+      "version": "0.4.2",
       "paths": [
         "README.md",
         "CONTEXT.md",
@@ -40,7 +40,7 @@
     },
     "goods": {
       "title": "商品管理",
-      "version": "0.4.2",
+      "version": "0.4.3",
       "paths": [
         "goods/",
         "goods_data.json",
@@ -164,7 +164,7 @@
     },
     "support_ai": {
       "title": "智能客服",
-      "version": "0.12.2",
+      "version": "0.12.3",
       "paths": [
         "support_ai/",
         "docs/客服商品推荐设计.md",
@@ -224,7 +224,7 @@
     },
     "web": {
       "title": "页面与前端资源",
-      "version": "0.17.2",
+      "version": "0.18.1",
       "paths": [
         "client/",
         "templates/",

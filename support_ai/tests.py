@@ -13,6 +13,7 @@ from .planning import FiniteIntents
 from .execution import ToolResult
 from .model_client import configured_model
 from .contracts import RecommendationIntent, validate_recommendation_intent
+from .semantic_planning import SemanticPlan
 
 
 class FakeModel(Runnable):
@@ -25,6 +26,15 @@ class FakeModel(Runnable):
         def structured(prompt):
             content = prompt.to_messages()[-1].content
             self.calls.append(('structured', content))
+            if schema is SemanticPlan:
+                message = content.split('本轮原话：')[1].split('\n')[0]
+                kind = max(self.scores, key=self.scores.get)
+                unclear = self.scores[kind] < .55
+                return SemanticPlan(action='clarify' if unclear else 'new_request',
+                    standalone_question=message,
+                    requests=[{'kind': 'clarification' if unclear else kind, 'quote': message}],
+                    purchase=self.product_intent if kind == 'recommendation' and not unclear else None,
+                    needs_clarification=unclear, clarification_question=FALLBACK if unclear else '')
             if schema is IntentScores:
                 return IntentScores(**self.scores)
             if schema is DialogueResolution:
@@ -301,9 +311,13 @@ class RecommendationIntegrationTests(DatabaseTestCase):
     def test_invalid_conditions_clarify_but_provider_failure_does_not_commit(self):
         from .models import SupportConversation, SupportTurn
         bad = self.model({'action': 'SEARCH', 'required': {'categories': ['绿茶']}})
-        data = self.post_chat(bad, message='推荐测试品牌绿茶')
+        with patch('support_ai.tool_services.match_products') as query:
+            data = self.post_chat(bad, message='推荐测试品牌绿茶')
+        query.assert_not_called()
         self.assertEqual(data.status_code, 200)
-        self.assertEqual(data.json()['recommendation_status'], 'CLARIFY')
+        self.assertTrue(data.json()['clarification_required'])
+        self.assertEqual([(t['tool'], t['status']) for t in data.json()['tasks']],
+                         [('ask_clarification', 'needs_clarification')])
         self.assertFalse(data.json()['recommendations'])
         from .models import AgentSpan
         completed = AgentSpan.objects.get(name='support.chat')
@@ -352,7 +366,8 @@ class RecommendationIntegrationTests(DatabaseTestCase):
         self.assertNotIn('buyer@example.com', context[0]['user_text'])
         self.request_id = str(uuid.uuid4())
         next_model = self.model()
-        response = self.post_chat(next_model, conversation_id=first['conversation_id'], expected_revision=1)
+        response = self.post_chat(next_model, message='结合刚才的要求推荐商品',
+                                  conversation_id=first['conversation_id'], expected_revision=1)
         self.assertEqual(response.status_code, 200)
         self.assertIn('turn-', next_model.calls[-1][1])
         self.assertNotIn('buyer@example.com', next_model.calls[-1][1])

@@ -1,0 +1,11 @@
+{
+  "model": "deepseek-flash",
+  "revision": 5,
+  "thinking": "enabled",
+  "turns": 17,
+  "passed": 17,
+  "model_calls": 14,
+  "input_tokens": 28319,
+  "output_tokens": 18218,
+  "scope": "synthetic prompts, in-memory SQLite virtual products, synthetic knowledge; no user history or production rows"
+}

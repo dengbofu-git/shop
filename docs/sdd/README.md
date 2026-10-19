@@ -1,5 +1,7 @@
 # tea_saas SDD 规划入口
 
+2026-10-19采购推荐更新：[有库存商品按销量优先](modules/catalog-content/sales-recommendations.md)，全平台已上架 SKU 按销量、更新时间、ID 排序，不再要求人工推荐标记；保留既有库存口径并记录当前销量字段的数据限制。
+
 2026-10-19运行日志增量：[统一日志与 HTTP 关联](modules/platform/runtime-logging.md)实现安全字段输出、请求编号、耗时、业务错误码与当前 Agent Trace 关联；业务审计、集中检索、自动保留及告警仍为后续范围。
 
 引用定位：`python tools/sdd_refs.py CAP-AI-003`；默认检索当前 SDD 文本，历史证据需加 `--include-evidence`。详见[命令与退出码](../agents/sdd-refs.md)。本地任务、术语和架构决定分别见[任务约定](../agents/issue-tracker.md)、[CONTEXT](../../CONTEXT.md)与[ADR](../adr/README.md)；这些辅助材料不改变本目录的规格权威和能力阶段。
@@ -31,6 +33,8 @@
 收藏与足迹及本次聊天对账后，当前目录登记25个能力、34项功能。早期24／28及25／29分别属于历史快照，不代表当前完整清单。
 
 ## 从这里阅读
+
+2026-10-19首页轮播：[商品轮播展示与交互](modules/catalog-content/home-carousel.md)，修复主题遮盖图片、补充手动控制、自动播放暂停、图片回退及价格语言同步。
 
 2026-10-18平台定位：[tea_saas](modules/platform/tea-saas-platform.md)，统一三语名称与产品范围，经营看板回归销售与订单履约指标。
 

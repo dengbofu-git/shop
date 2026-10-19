@@ -16,6 +16,7 @@ from .tea_explanation import TeaExplanation
 from . import test_grouped_recommendations as grouped_fixtures
 from .tool_services import create_tool_handlers
 from .workflow import ComplianceVerdict, DialogueResolution, build_graph
+from .semantic_planning import SemanticPlan
 
 
 QUESTION = '说明不同茶种的区别，给出具体说明的茶种的推荐商品'
@@ -29,6 +30,20 @@ class ExplanationModel(Runnable):
     def with_structured_output(self, schema):
         def structured(prompt):
             text = prompt.to_messages()[-1].content
+            if schema is SemanticPlan:
+                message = text.split('本轮原话：')[1].split('\n')[0]
+                introduction, recommendation = message.split('，', 1)
+                purchase = RecommendationIntent(action='SEARCH')
+                match = re.search(r'每盒不超过(\d+)美元', message)
+                if match:
+                    purchase = RecommendationIntent(action='SEARCH',
+                        required={'price_max': match[1], 'currency': 'USD', 'price_basis': 'unit'},
+                        evidence=[{'field': 'required.' + field, 'value': value,
+                                   'source': 'CURRENT', 'quote': match[0]}
+                                  for field, value in [('price_max', match[1]), ('currency', 'USD'), ('price_basis', 'unit')]])
+                return SemanticPlan(action='new_request', standalone_question=message,
+                    requests=[{'kind': 'question_answering', 'quote': introduction},
+                              {'kind': 'recommendation', 'quote': recommendation}], purchase=purchase)
             if schema is TeaExplanation:
                 data = json.loads(text)
                 sections = []

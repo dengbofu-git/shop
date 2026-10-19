@@ -1,0 +1,38 @@
+[
+  {
+    "file": "client/tests/admin-shell.test.js",
+    "returncode": 0
+  },
+  {
+    "file": "client/tests/auth-storage.test.js",
+    "returncode": 0
+  },
+  {
+    "file": "client/tests/buyer-catalog-preview.test.js",
+    "returncode": 0
+  },
+  {
+    "file": "client/tests/buyer-products-pagination.test.js",
+    "returncode": 0
+  },
+  {
+    "file": "client/tests/cart-currency.test.js",
+    "returncode": 0
+  },
+  {
+    "file": "client/tests/checkout.test.js",
+    "returncode": 0
+  },
+  {
+    "file": "client/tests/merchant-product-preview.test.js",
+    "returncode": 0
+  },
+  {
+    "file": "client/tests/tea-saas-brand.test.js",
+    "returncode": 0
+  },
+  {
+    "file": "client/tests/unified-login.test.js",
+    "returncode": 0
+  }
+]

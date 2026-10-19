@@ -1,0 +1,629 @@
+{"timestamp": "2026-10-19T06:06:35.347+00:00", "level": "WARNING", "service": "tea_saas", "logger": "py.warnings", "event": "runtime.warning"}
+Creating test database for alias 'default'...
+
+Creating test database for alias 'ai_storage'...
+
+System check identified no issues (0 silenced).
+RBAC seeded: 6 roles, 9 permissions, 26 new role-permission mappings.
+{"timestamp": "2026-10-19T06:06:39.001+00:00", "level": "ERROR", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "2300a3849f11470facce0396332fb311", "method": "GET", "route": "v1/admin-panel/overview", "http_status": 503, "business_code": 503, "duration_ms": 18.64, "outcome": "server_error"}
+...{"timestamp": "2026-10-19T06:06:39.140+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "7dac6f80af7946bfadd8cc98221af3dd", "method": "GET", "route": "admin_panel.html", "http_status": 200, "duration_ms": 25.83, "outcome": "success"}
+{"timestamp": "2026-10-19T06:06:39.142+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "9c50a6487d1c4fb18951ad63846e6bea", "method": "GET", "route": "admin_panel.html", "http_status": 200, "duration_ms": 1.45, "outcome": "success"}
+{"timestamp": "2026-10-19T06:06:39.144+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "73020bb3ecb5400b8d4f54456a356f52", "method": "GET", "route": "admin_users.html", "http_status": 200, "duration_ms": 1.73, "outcome": "success"}
+{"timestamp": "2026-10-19T06:06:39.147+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "487292555a054f98aa62ebfce6dac66f", "method": "GET", "route": "admin_agents.html", "http_status": 200, "duration_ms": 1.38, "outcome": "success"}
+{"timestamp": "2026-10-19T06:06:39.154+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "647e1d82edab481fbe813742facf8eb9", "method": "GET", "route": "admin_users.html", "http_status": 302, "duration_ms": 6.7, "outcome": "success"}
+{"timestamp": "2026-10-19T06:06:39.155+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "b076895cd36841fca14d72445dcf7be0", "method": "GET", "route": "admin_users.html", "http_status": 200, "duration_ms": 0.73, "outcome": "success"}
+{"timestamp": "2026-10-19T06:06:39.157+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "315726ccc4b64bf682d1576ae317b306", "method": "GET", "route": "admin_agents.html", "http_status": 302, "duration_ms": 0.51, "outcome": "success"}
+{"timestamp": "2026-10-19T06:06:39.160+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "692e59dd2b2141729823dbe3170412dd", "method": "GET", "route": "admin_agents.html", "http_status": 200, "duration_ms": 1.5, "outcome": "success"}
+.{"timestamp": "2026-10-19T06:06:39.162+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "def92ddc3c2e4d4bbd1bae855cf6de15", "method": "GET", "route": "v1/admin-panel/overview", "http_status": 401, "business_code": 401, "duration_ms": 0.47, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:39.165+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "dee5232033e64e71960e9a9de564eed2", "method": "GET", "route": "v1/admin-panel/overview", "http_status": 403, "business_code": 403, "duration_ms": 2.71, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:39.169+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "8ee4f07f896e401a9cff7794a9a989c1", "method": "GET", "route": "v1/admin-panel/overview", "http_status": 403, "business_code": 403, "duration_ms": 3.06, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:39.176+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "24d456db2e6a446da870f037c4bcae90", "method": "GET", "route": "v1/admin-panel/overview", "http_status": 403, "business_code": 403, "duration_ms": 4.87, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:39.194+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "b0a450093d7d4dc2b182df1f3d8a958d", "method": "GET", "route": "v1/admin-panel/overview", "http_status": 200, "business_code": 200, "duration_ms": 16.31, "outcome": "success"}
+{"timestamp": "2026-10-19T06:06:39.195+00:00", "level": "WARNING", "service": "tea_saas", "logger": "django.request", "event": "application.log", "http_request_id": "34efdab3f9fb47e893a15d883dbbbe40", "method": "POST", "route": "v1/admin-panel/overview"}
+{"timestamp": "2026-10-19T06:06:39.195+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "34efdab3f9fb47e893a15d883dbbbe40", "method": "POST", "route": "v1/admin-panel/overview", "http_status": 405, "duration_ms": 0.75, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:39.199+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "542d9b963a824478b4af12b31ac30545", "method": "GET", "route": "v1/admin-panel/overview", "http_status": 403, "business_code": 403, "duration_ms": 2.32, "outcome": "client_error"}
+.....sss{"timestamp": "2026-10-19T06:06:39.286+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "c51e5784805644c4a6334274f4f6dbed", "method": "GET", "route": "v1/goods/favorites", "http_status": 401, "business_code": 401, "duration_ms": 0.8, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:39.287+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "5333ec5079064354bcb4636ed59b0b3e", "method": "GET", "route": "v1/goods/favorites", "http_status": 401, "business_code": 401, "duration_ms": 0.53, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:39.290+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "a0883f5f0199482f8b13aa7d738f3d6c", "method": "GET", "route": "v1/goods/favorites", "http_status": 403, "business_code": 403, "duration_ms": 2.3, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:39.296+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "e29762c7515c447bb3c39d40296330bb", "method": "GET", "route": "v1/goods/favorites", "http_status": 401, "business_code": 401, "duration_ms": 3.52, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:39.298+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "28fa6b567f6041e5bb7dc804959768ff", "method": "GET", "route": "v1/goods/favorites/<int:sku_id>", "http_status": 401, "business_code": 401, "duration_ms": 1.14, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:39.300+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "4cb719037c62422a94b4c7e476d499e4", "method": "GET", "route": "v1/goods/favorites/<int:sku_id>", "http_status": 401, "business_code": 401, "duration_ms": 1.17, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:39.304+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "a3d8ee9e9fe74bd1b381305486303fbc", "method": "GET", "route": "v1/goods/favorites/<int:sku_id>", "http_status": 403, "business_code": 403, "duration_ms": 2.18, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:39.306+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "0c897c8a0de54d59a194e163fa5e71fe", "method": "GET", "route": "v1/goods/favorites/<int:sku_id>", "http_status": 401, "business_code": 401, "duration_ms": 1.99, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:39.308+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "458b4f13a3a142a69fabca48f87a4a3f", "method": "PUT", "route": "v1/goods/favorites/<int:sku_id>", "http_status": 401, "business_code": 401, "duration_ms": 0.71, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:39.310+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "ce4e8405f12644ad8a3dc2fa82751803", "method": "PUT", "route": "v1/goods/favorites/<int:sku_id>", "http_status": 401, "business_code": 401, "duration_ms": 0.75, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:39.315+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "8b5b25ebf2c14f5185cc3a891119bb9b", "method": "PUT", "route": "v1/goods/favorites/<int:sku_id>", "http_status": 403, "business_code": 403, "duration_ms": 2.97, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:39.317+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "39ca3702535648fe906643fad9795eeb", "method": "PUT", "route": "v1/goods/favorites/<int:sku_id>", "http_status": 401, "business_code": 401, "duration_ms": 2.39, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:39.321+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "e684bededc2042278d0f8767b2266923", "method": "DELETE", "route": "v1/goods/favorites/<int:sku_id>", "http_status": 401, "business_code": 401, "duration_ms": 0.84, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:39.323+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "88e8cd9aefbd4dae9825e758f20c681f", "method": "DELETE", "route": "v1/goods/favorites/<int:sku_id>", "http_status": 401, "business_code": 401, "duration_ms": 1.49, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:39.327+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "72fc8394a31443289693d766d5bddf4e", "method": "DELETE", "route": "v1/goods/favorites/<int:sku_id>", "http_status": 403, "business_code": 403, "duration_ms": 3.01, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:39.329+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "30d3ee57970a416baf48d18459230284", "method": "DELETE", "route": "v1/goods/favorites/<int:sku_id>", "http_status": 401, "business_code": 401, "duration_ms": 1.2, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:39.331+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "6f5c1c48fbe74561bca9acc94700c293", "method": "GET", "route": "v1/goods/recent", "http_status": 401, "business_code": 401, "duration_ms": 1.01, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:39.333+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "2d3ef0ab60f642f3bd30684582fb6e7c", "method": "GET", "route": "v1/goods/recent", "http_status": 401, "business_code": 401, "duration_ms": 0.76, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:39.335+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "624bca08f9d24a0a8c9dfb91527e7efa", "method": "GET", "route": "v1/goods/recent", "http_status": 403, "business_code": 403, "duration_ms": 2.13, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:39.337+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "1e1591b8ae6145d089c4e7fd719e3661", "method": "GET", "route": "v1/goods/recent", "http_status": 401, "business_code": 401, "duration_ms": 1.22, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:39.338+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "ccef11eaa22042dea6058bab8f4efeec", "method": "DELETE", "route": "v1/goods/recent", "http_status": 401, "business_code": 401, "duration_ms": 0.41, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:39.339+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "604c5c0481cf488e81de764fcec7b631", "method": "DELETE", "route": "v1/goods/recent", "http_status": 401, "business_code": 401, "duration_ms": 0.64, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:39.341+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "fef761ac5422418cb568727f0cd6f86f", "method": "DELETE", "route": "v1/goods/recent", "http_status": 403, "business_code": 403, "duration_ms": 1.61, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:39.343+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "ed89477827884f6896014d9950ff8803", "method": "DELETE", "route": "v1/goods/recent", "http_status": 401, "business_code": 401, "duration_ms": 1.72, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:39.345+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "69ddeef79c944cbcba9a20258d891399", "method": "POST", "route": "v1/goods/recent/<int:sku_id>", "http_status": 401, "business_code": 401, "duration_ms": 0.84, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:39.347+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "25837943f18c449d9c09e62a1f1e4077", "method": "POST", "route": "v1/goods/recent/<int:sku_id>", "http_status": 401, "business_code": 401, "duration_ms": 1.1, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:39.350+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "e8cfe023082d460da631e67d2f54b5df", "method": "POST", "route": "v1/goods/recent/<int:sku_id>", "http_status": 403, "business_code": 403, "duration_ms": 2.0, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:39.353+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "2cec0b7d7bdc4196a3a169fe3642ee06", "method": "POST", "route": "v1/goods/recent/<int:sku_id>", "http_status": 401, "business_code": 401, "duration_ms": 2.8, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:39.356+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "27d49b6c897543b4a933a09621ea6361", "method": "DELETE", "route": "v1/goods/recent/<int:sku_id>", "http_status": 401, "business_code": 401, "duration_ms": 0.8, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:39.357+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "337b6348a952436599a46c00c5fd1981", "method": "DELETE", "route": "v1/goods/recent/<int:sku_id>", "http_status": 401, "business_code": 401, "duration_ms": 1.83, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:39.364+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "b368cb0324b24a55b084dd4dc3ac324a", "method": "DELETE", "route": "v1/goods/recent/<int:sku_id>", "http_status": 403, "business_code": 403, "duration_ms": 2.65, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:39.366+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "0937d800ae7146a793e6eba1debe0160", "method": "DELETE", "route": "v1/goods/recent/<int:sku_id>", "http_status": 401, "business_code": 401, "duration_ms": 2.19, "outcome": "client_error"}
+.{"timestamp": "2026-10-19T06:06:39.376+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "97afa3dfdcb74683b98429a12b57c473", "method": "PUT", "route": "v1/goods/favorites/<int:sku_id>", "http_status": 200, "business_code": 200, "duration_ms": 5.34, "outcome": "success"}
+{"timestamp": "2026-10-19T06:06:39.382+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "c0f270244fc5499689c5ac6ab99df4e3", "method": "GET", "route": "v1/goods/recent", "http_status": 200, "business_code": 200, "duration_ms": 4.62, "outcome": "success"}
+{"timestamp": "2026-10-19T06:06:39.384+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "d25c89d257f94e32880a7c2f3d0762ca", "method": "DELETE", "route": "v1/goods/favorites/<int:sku_id>", "http_status": 200, "business_code": 200, "duration_ms": 1.84, "outcome": "success"}
+{"timestamp": "2026-10-19T06:06:39.388+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "d7364d59a5f64d1c825ffc5f7fcd5b33", "method": "DELETE", "route": "v1/goods/recent/<int:sku_id>", "http_status": 200, "business_code": 200, "duration_ms": 3.1, "outcome": "success"}
+{"timestamp": "2026-10-19T06:06:39.392+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "42e7b1324af642949b2ab2a510a253da", "method": "DELETE", "route": "v1/goods/recent", "http_status": 200, "business_code": 200, "duration_ms": 3.19, "outcome": "success"}
+{"timestamp": "2026-10-19T06:06:39.397+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "8900cb0d5ce7426091adf67fa9059ca9", "method": "GET", "route": "v1/goods/favorites", "http_status": 200, "business_code": 200, "duration_ms": 3.09, "outcome": "success"}
+.{"timestamp": "2026-10-19T06:06:39.414+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "21a7036aa50f48f2b42e834b736410f7", "method": "GET", "route": "v1/goods/favorites", "http_status": 200, "business_code": 200, "duration_ms": 6.51, "outcome": "success"}
+{"timestamp": "2026-10-19T06:06:39.418+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "e1b2536c82084233aad14acefeef9a32", "method": "GET", "route": "v1/goods/recent", "http_status": 200, "business_code": 200, "duration_ms": 4.2, "outcome": "success"}
+.{"timestamp": "2026-10-19T06:06:39.422+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "7449a1bdf2514201b1f2a5782820ad60", "method": "GET", "route": "v1/goods/favorites/<int:sku_id>", "http_status": 200, "business_code": 200, "duration_ms": 1.79, "outcome": "success"}
+{"timestamp": "2026-10-19T06:06:39.430+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "aea98df991c04c92b30f395b761e0dff", "method": "PUT", "route": "v1/goods/favorites/<int:sku_id>", "http_status": 200, "business_code": 200, "duration_ms": 5.61, "outcome": "success"}
+{"timestamp": "2026-10-19T06:06:39.435+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "6c1f6d5b55a94564b0faca3639ccc82b", "method": "PUT", "route": "v1/goods/favorites/<int:sku_id>", "http_status": 200, "business_code": 200, "duration_ms": 3.09, "outcome": "success"}
+{"timestamp": "2026-10-19T06:06:39.437+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "f0e4fe9367034def954f178162f024df", "method": "GET", "route": "v1/goods/favorites/<int:sku_id>", "http_status": 200, "business_code": 200, "duration_ms": 1.67, "outcome": "success"}
+{"timestamp": "2026-10-19T06:06:39.440+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "9a7c9409931f47e88b4fc4b3ef13c74c", "method": "DELETE", "route": "v1/goods/favorites/<int:sku_id>", "http_status": 200, "business_code": 200, "duration_ms": 1.49, "outcome": "success"}
+{"timestamp": "2026-10-19T06:06:39.443+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "76e02786c36f40ea888a13333365876b", "method": "DELETE", "route": "v1/goods/favorites/<int:sku_id>", "http_status": 200, "business_code": 200, "duration_ms": 1.51, "outcome": "success"}
+{"timestamp": "2026-10-19T06:06:39.444+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "af949d4044034c9ca3e98e8aea206989", "method": "GET", "route": "v1/goods/favorites/<int:sku_id>", "http_status": 200, "business_code": 200, "duration_ms": 1.43, "outcome": "success"}
+.{"timestamp": "2026-10-19T06:06:39.488+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "b5212d3a93ab497298090e7fb741ed14", "method": "POST", "route": "v1/goods/recent/<int:sku_id>", "http_status": 200, "business_code": 200, "duration_ms": 5.41, "outcome": "success"}
+{"timestamp": "2026-10-19T06:06:39.492+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "6c878c99499840e0a5e8c766095dbac0", "method": "DELETE", "route": "v1/goods/recent/<int:sku_id>", "http_status": 200, "business_code": 200, "duration_ms": 2.69, "outcome": "success"}
+{"timestamp": "2026-10-19T06:06:39.496+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "c2c5e8a9f85c4f77a0ad0e9474eecf32", "method": "DELETE", "route": "v1/goods/recent/<int:sku_id>", "http_status": 200, "business_code": 200, "duration_ms": 3.15, "outcome": "success"}
+{"timestamp": "2026-10-19T06:06:39.499+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "e7426b22377e4c55a5595cef6a97855c", "method": "DELETE", "route": "v1/goods/recent", "http_status": 200, "business_code": 200, "duration_ms": 2.11, "outcome": "success"}
+.{"timestamp": "2026-10-19T06:06:39.504+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "ed4a85831a5c488c8711fba458202ce0", "method": "GET", "route": "myCollect.html", "http_status": 200, "duration_ms": 2.56, "outcome": "success"}
+{"timestamp": "2026-10-19T06:06:39.505+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "a998cf5e46f44f9b97ed65b0222ad463", "method": "GET", "route": "recent.html", "http_status": 200, "duration_ms": 0.83, "outcome": "success"}
+{"timestamp": "2026-10-19T06:06:39.505+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "51573cc7169a48bbb229e588fe1ab406", "method": "GET", "route": "product_details.html", "http_status": 200, "duration_ms": 1.16, "outcome": "success"}
+.{"timestamp": "2026-10-19T06:06:39.517+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "72a625adb74d402b8e326315490a79cd", "method": "GET", "route": "v1/goods/favorites", "http_status": 200, "business_code": 200, "duration_ms": 4.44, "outcome": "success"}
+{"timestamp": "2026-10-19T06:06:39.523+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "c1e44c2eaeb747ee90231c4acd1c1273", "method": "GET", "route": "v1/goods/favorites", "http_status": 200, "business_code": 200, "duration_ms": 4.59, "outcome": "success"}
+{"timestamp": "2026-10-19T06:06:39.528+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "bb7ff5972ab24d7d9eb2c833174bcc3b", "method": "GET", "route": "v1/goods/favorites", "http_status": 200, "business_code": 200, "duration_ms": 4.29, "outcome": "success"}
+{"timestamp": "2026-10-19T06:06:39.529+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "b8c878f870244f798d8a5020ea3956cd", "method": "GET", "route": "v1/goods/favorites", "http_status": 400, "business_code": 400, "duration_ms": 0.97, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:39.530+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "3b3029d3539d4967b2d10d724602fc1a", "method": "GET", "route": "v1/goods/favorites", "http_status": 400, "business_code": 400, "duration_ms": 0.8, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:39.532+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "76bb6c3f817d4cb6b61d2a088227cb12", "method": "GET", "route": "v1/goods/favorites", "http_status": 400, "business_code": 400, "duration_ms": 0.85, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:39.533+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "e21069e2878c467abf6c5d0980ccedde", "method": "GET", "route": "v1/goods/favorites", "http_status": 400, "business_code": 400, "duration_ms": 0.7, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:39.537+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "33da81cd3d804cf087cdb2978da194ab", "method": "GET", "route": "v1/goods/recent", "http_status": 200, "business_code": 200, "duration_ms": 3.8, "outcome": "success"}
+{"timestamp": "2026-10-19T06:06:39.540+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "d3e5c8021ebf4a4386f5b8cfc127abff", "method": "GET", "route": "v1/goods/recent", "http_status": 200, "business_code": 200, "duration_ms": 2.87, "outcome": "success"}
+{"timestamp": "2026-10-19T06:06:39.546+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "81bf9ca2e6504b0f9ebb3288b56ee494", "method": "GET", "route": "v1/goods/recent", "http_status": 200, "business_code": 200, "duration_ms": 5.7, "outcome": "success"}
+{"timestamp": "2026-10-19T06:06:39.548+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "03b56d48f8324db2a5d6859a26966f4e", "method": "GET", "route": "v1/goods/recent", "http_status": 400, "business_code": 400, "duration_ms": 1.35, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:39.550+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "bb9a2c0d912e436384284f38762dd15a", "method": "GET", "route": "v1/goods/recent", "http_status": 400, "business_code": 400, "duration_ms": 1.47, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:39.553+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "31bd406fea0b4cd0ac67a8f4c30440ad", "method": "GET", "route": "v1/goods/recent", "http_status": 400, "business_code": 400, "duration_ms": 1.95, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:39.555+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "2513e71a826b484993278ea58a5ed8be", "method": "GET", "route": "v1/goods/recent", "http_status": 400, "business_code": 400, "duration_ms": 1.09, "outcome": "client_error"}
+.{"timestamp": "2026-10-19T06:06:39.561+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "aad46de834944d6e96c4295c6065cb4c", "method": "POST", "route": "v1/goods/recent/<int:sku_id>", "http_status": 200, "business_code": 200, "duration_ms": 4.44, "outcome": "success"}
+{"timestamp": "2026-10-19T06:06:39.566+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "edae035e9887422096e08cec5ac067f1", "method": "POST", "route": "v1/goods/recent/<int:sku_id>", "http_status": 200, "business_code": 200, "duration_ms": 3.65, "outcome": "success"}
+{"timestamp": "2026-10-19T06:06:39.569+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "37266b46a736406e9665668d168189f5", "method": "POST", "route": "v1/goods/recent/<int:sku_id>", "http_status": 200, "business_code": 200, "duration_ms": 4.1, "outcome": "success"}
+{"timestamp": "2026-10-19T06:06:39.575+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "a95f9b7a4ba64d2db3bc9ee899aa81bf", "method": "GET", "route": "v1/goods/recent", "http_status": 200, "business_code": 200, "duration_ms": 4.5, "outcome": "success"}
+.{"timestamp": "2026-10-19T06:06:39.582+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "72cc56dc500e4e3bbeb8b53bac38e6d0", "method": "PUT", "route": "v1/goods/favorites/<int:sku_id>", "http_status": 200, "business_code": 200, "duration_ms": 2.85, "outcome": "success"}
+{"timestamp": "2026-10-19T06:06:39.585+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "ab3912be595e4d979138d851976c3c16", "method": "POST", "route": "v1/goods/recent/<int:sku_id>", "http_status": 200, "business_code": 200, "duration_ms": 3.49, "outcome": "success"}
+{"timestamp": "2026-10-19T06:06:39.592+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "6d20f7e3b5a4404586c029c229e5a690", "method": "GET", "route": "v1/goods/favorites", "http_status": 200, "business_code": 200, "duration_ms": 4.95, "outcome": "success"}
+{"timestamp": "2026-10-19T06:06:39.597+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "b280b8435b9d4839af0102e43efc4207", "method": "GET", "route": "v1/goods/recent", "http_status": 200, "business_code": 200, "duration_ms": 3.7, "outcome": "success"}
+{"timestamp": "2026-10-19T06:06:39.599+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "145768362a244d3d87ca507e036316ea", "method": "PUT", "route": "v1/goods/favorites/<int:sku_id>", "http_status": 404, "business_code": 404, "duration_ms": 1.54, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:39.600+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "e84f6176f1b74bc8881a2bfab2c05eee", "method": "POST", "route": "v1/goods/recent/<int:sku_id>", "http_status": 404, "business_code": 404, "duration_ms": 1.22, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:39.602+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "18674a637fd74f078ce35f2e4cac42fc", "method": "DELETE", "route": "v1/goods/favorites/<int:sku_id>", "http_status": 200, "business_code": 200, "duration_ms": 1.28, "outcome": "success"}
+{"timestamp": "2026-10-19T06:06:39.602+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "c01bd0ccea2d422fa6ba97d3ac53edf2", "method": "DELETE", "route": "v1/goods/recent/<int:sku_id>", "http_status": 200, "business_code": 200, "duration_ms": 1.53, "outcome": "success"}
+{"timestamp": "2026-10-19T06:06:39.602+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "3028c09411524bab8f90f65c301b178b", "method": "PUT", "route": "v1/goods/favorites/<int:sku_id>", "http_status": 404, "business_code": 404, "duration_ms": 1.27, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:39.607+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "d5c56c928ce348d5ae103f01349e7ba1", "method": "POST", "route": "v1/goods/recent/<int:sku_id>", "http_status": 404, "business_code": 404, "duration_ms": 1.14, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:39.607+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "8d6cb0eb6ae249fbb90d6916a6abfbe3", "method": "DELETE", "route": "v1/goods/favorites/<int:sku_id>", "http_status": 200, "business_code": 200, "duration_ms": 1.01, "outcome": "success"}
+{"timestamp": "2026-10-19T06:06:39.610+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "309a842105ea4a2bbb2dd35c11bc1238", "method": "DELETE", "route": "v1/goods/recent/<int:sku_id>", "http_status": 200, "business_code": 200, "duration_ms": 1.5, "outcome": "success"}
+.{"timestamp": "2026-10-19T06:06:39.610+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "2e6037af56c04d97845640c5f25515e2", "method": "POST", "route": "v1/goods/favorites", "http_status": 405, "business_code": 405, "duration_ms": 0.65, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:39.613+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "6e2f8a9efbae42d7948fd37e34bebc44", "method": "POST", "route": "v1/goods/favorites/<int:sku_id>", "http_status": 405, "business_code": 405, "duration_ms": 0.71, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:39.614+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "a62ffbab4f984e87b958465d2a2c1fde", "method": "PUT", "route": "v1/goods/recent", "http_status": 405, "business_code": 405, "duration_ms": 0.79, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:39.615+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "a9e3b91f95934667a8ecbef3c26a58ea", "method": "GET", "route": "v1/goods/recent/<int:sku_id>", "http_status": 405, "business_code": 405, "duration_ms": 0.63, "outcome": "client_error"}
+.{"timestamp": "2026-10-19T06:06:39.624+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "5a1ba1757001491889a6b8353157afad", "method": "GET", "route": "v1/goods/catalogs/<int:id>", "http_status": 200, "business_code": 200, "duration_ms": 2.53, "outcome": "success"}
+.{"timestamp": "2026-10-19T06:06:40.112+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "87e1918eeee742c69cc7e02e5f52dfcc", "method": "GET", "route": "v1/goods/catalogs/<int:id>", "http_status": 200, "business_code": 200, "duration_ms": 487.74, "outcome": "success"}
+{"timestamp": "2026-10-19T06:06:40.764+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "7d9cfbe22f0a422f82408f9fa13c3329", "method": "GET", "route": "v1/goods/catalogs/<int:id>", "http_status": 200, "business_code": 200, "duration_ms": 651.41, "outcome": "success"}
+{"timestamp": "2026-10-19T06:06:41.443+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "8ab137cc433e40d2801a79f8d43d1400", "method": "GET", "route": "v1/goods/catalogs/<int:id>", "http_status": 200, "business_code": 200, "duration_ms": 679.03, "outcome": "success"}
+{"timestamp": "2026-10-19T06:06:42.136+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "7ac1108abda645dbba7da519c465cb18", "method": "GET", "route": "v1/goods/catalogs/<int:id>", "http_status": 200, "business_code": 200, "duration_ms": 690.43, "outcome": "success"}
+{"timestamp": "2026-10-19T06:06:42.889+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "caf40183d940410da0ba3871f930743f", "method": "GET", "route": "v1/goods/catalogs/<int:id>", "http_status": 200, "business_code": 200, "duration_ms": 752.09, "outcome": "success"}
+{"timestamp": "2026-10-19T06:06:43.658+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "449e3957aa5a4e7286298ba6f2aded09", "method": "GET", "route": "v1/goods/catalogs/<int:id>", "http_status": 200, "business_code": 200, "duration_ms": 768.88, "outcome": "success"}
+.{"timestamp": "2026-10-19T06:06:44.152+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "88b781e5f5b84ee2bc0d05fe11102cd5", "method": "GET", "route": "v1/goods/catalogs/<int:id>", "http_status": 200, "business_code": 200, "duration_ms": 494.3, "outcome": "success"}
+{"timestamp": "2026-10-19T06:06:44.606+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "086ef3463aad4983b9dd7cb9a3ef0305", "method": "GET", "route": "v1/goods/catalogs/<int:id>", "http_status": 200, "business_code": 200, "duration_ms": 452.93, "outcome": "success"}
+{"timestamp": "2026-10-19T06:06:45.037+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "b69aa916a51841129c75d12e31486bde", "method": "GET", "route": "v1/goods/catalogs/<int:id>", "http_status": 200, "business_code": 200, "duration_ms": 432.02, "outcome": "success"}
+..{"timestamp": "2026-10-19T06:06:45.055+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "fcce836bd5d64758b554884a0fae6429", "method": "GET", "route": "v1/carts/<str:username>", "http_status": 200, "business_code": 200, "duration_ms": 6.04, "outcome": "success"}
+.{"timestamp": "2026-10-19T06:06:45.313+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "e11efb40e43f4416b27d429a1eaa76ba", "method": "GET", "route": "v1/goods/sku/<int:sku_id>/image", "http_status": 200, "duration_ms": 247.98, "outcome": "success"}
+{"timestamp": "2026-10-19T06:06:45.314+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "1c1d6fa3225748bda207f75a0c609d43", "method": "GET", "route": "v1/goods/sku/<int:sku_id>/image", "http_status": 404, "duration_ms": 1.18, "outcome": "client_error"}
+..{"timestamp": "2026-10-19T06:06:45.326+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "c7712022bd5f45dd8959f105ce4358bc", "method": "POST", "route": "v1/goods/merchant/sku/<int:sku_id>/image", "http_status": 200, "business_code": 200, "duration_ms": 4.0, "outcome": "success"}
+{"timestamp": "2026-10-19T06:06:45.330+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "1ca3dc4abbcc4ae9b45839afbbd34986", "method": "GET", "route": "v1/goods/sku/<int:sku_id>/image", "http_status": 200, "duration_ms": 2.2, "outcome": "success"}
+..{"timestamp": "2026-10-19T06:06:45.368+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "9fe7bde3158d4520b42929847239618f", "method": "GET", "route": "v1/goods/index", "http_status": 200, "business_code": 200, "duration_ms": 3.94, "outcome": "success"}
+{"timestamp": "2026-10-19T06:06:45.372+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "89dda0b2dad84e2a8661d111ee9e9972", "method": "GET", "route": "v1/goods/catalogs/<int:id>", "http_status": 200, "business_code": 200, "duration_ms": 5.09, "outcome": "success"}
+{"timestamp": "2026-10-19T06:06:45.393+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "53b68cde75e34b519f965983b5f53bdf", "method": "GET", "route": "v1/goods/detail/<int:id>", "http_status": 200, "business_code": 200, "duration_ms": 20.14, "outcome": "success"}
+.{"timestamp": "2026-10-19T06:06:45.408+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "5127533c226448a88fc95a57f4013850", "method": "GET", "route": "v1/goods/sku/<int:sku_id>/image", "http_status": 200, "duration_ms": 5.23, "outcome": "success"}
+.{"timestamp": "2026-10-19T06:06:45.435+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "18a8790a352749cfa174ab1cc49d20bb", "method": "GET", "route": "v1/supplier/analytics", "http_status": 200, "business_code": 200, "duration_ms": 26.17, "outcome": "success"}
+........F.F..F......FFFFF.F........{"timestamp": "2026-10-19T06:06:46.229+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "15ffbe6aceb8438cb9e60ca57e1997eb", "method": "POST", "route": "v1/support/chat/", "http_status": 404, "duration_ms": 1.83, "outcome": "client_error"}
+.{"timestamp": "2026-10-19T06:06:46.260+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "d4859cc3473a4f1aabf96a571d92d0f6", "trace_id": "bec1626518dcb970e3f29cb0e9f21b47", "span_id": "61274d6543658c75", "method": "POST", "route": "v1/support/chat/", "http_status": 200, "duration_ms": 27.02, "outcome": "success"}
+.{"timestamp": "2026-10-19T06:06:46.280+00:00", "level": "WARNING", "service": "tea_saas", "logger": "support_ai.workflow", "event": "support.planning.unavailable", "http_request_id": "deb4920b911d4a94bd1244066eb07da4", "trace_id": "7bf6961c97c3919680ea6ca557c59b62", "span_id": "d00f24d80284c19e", "method": "POST", "route": "v1/support/chat/", "error_type": "ValidationError"}
+{"timestamp": "2026-10-19T06:06:46.289+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "deb4920b911d4a94bd1244066eb07da4", "trace_id": "7bf6961c97c3919680ea6ca557c59b62", "span_id": "f8763f14a8a00dc0", "method": "POST", "route": "v1/support/chat/", "http_status": 200, "duration_ms": 25.31, "outcome": "success"}
+E{"timestamp": "2026-10-19T06:06:46.316+00:00", "level": "WARNING", "service": "tea_saas", "logger": "support_ai.workflow", "event": "support.planning.unavailable", "http_request_id": "8ebe70b8e4f34231840154e278fc4fdf", "trace_id": "1f8504389c4eefd2636fae97ee73a462", "span_id": "da8472af02e1009a", "method": "POST", "route": "v1/support/chat/", "error_type": "ValidationError"}
+{"timestamp": "2026-10-19T06:06:46.332+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "8ebe70b8e4f34231840154e278fc4fdf", "trace_id": "1f8504389c4eefd2636fae97ee73a462", "span_id": "43e975210d8af3f9", "method": "POST", "route": "v1/support/chat/", "http_status": 200, "duration_ms": 40.1, "outcome": "success"}
+F{"timestamp": "2026-10-19T06:06:46.381+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "1856bb8201624ab3b6877c0a5444aa46", "trace_id": "99cb20cbbc9e6f2dbf61a86e8c0434d5", "span_id": "f4e82ce1c2b66493", "method": "POST", "route": "v1/support/chat/", "http_status": 200, "duration_ms": 44.55, "outcome": "success"}
+..{"timestamp": "2026-10-19T06:06:46.408+00:00", "level": "WARNING", "service": "tea_saas", "logger": "support_ai.workflow", "event": "support.planning.unavailable", "http_request_id": "e90ca94dd685493580f5f8218bfdf065", "trace_id": "fb68fd7fdcbf0b5d009faa03bd0d4a22", "span_id": "645a7c056b11baf9", "method": "POST", "route": "v1/support/chat/", "error_type": "ValidationError"}
+{"timestamp": "2026-10-19T06:06:46.425+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "e90ca94dd685493580f5f8218bfdf065", "trace_id": "fb68fd7fdcbf0b5d009faa03bd0d4a22", "span_id": "b0ce0b0ed86b123a", "method": "POST", "route": "v1/support/chat/", "http_status": 200, "duration_ms": 34.8, "outcome": "success"}
+F.{"timestamp": "2026-10-19T06:06:46.468+00:00", "level": "WARNING", "service": "tea_saas", "logger": "support_ai.workflow", "event": "support.planning.unavailable", "http_request_id": "cf1a5930dbeb423a864c33b06011067b", "trace_id": "5b3b03f6bc7327b7d3a8350205103969", "span_id": "0c9668769d9c5dcd", "method": "POST", "route": "v1/support/chat/", "error_type": "ValidationError"}
+{"timestamp": "2026-10-19T06:06:46.483+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "cf1a5930dbeb423a864c33b06011067b", "trace_id": "5b3b03f6bc7327b7d3a8350205103969", "span_id": "041b8ebd198e7470", "method": "POST", "route": "v1/support/chat/", "http_status": 200, "duration_ms": 46.0, "outcome": "success"}
+E{"timestamp": "2026-10-19T06:06:46.492+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "8a8f5e3c19ad45e48e00d8ab9aee4bc7", "method": "GET", "route": "v1/admin-panel/agent/settings", "http_status": 403, "business_code": 403, "duration_ms": 3.14, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:46.494+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "1b6dcd30a4174626ac015fc8bbddb1d1", "method": "GET", "route": "v1/admin-panel/agent/settings", "http_status": 401, "business_code": 401, "duration_ms": 0.64, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:46.497+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "5325221584bb43a694fb0d3c472aeffb", "method": "GET", "route": "v1/admin-panel/agent/monitoring", "http_status": 403, "business_code": 403, "duration_ms": 2.89, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:46.498+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "62d4b4c4cb8c4aee8738c837481f00cf", "method": "GET", "route": "v1/admin-panel/agent/monitoring", "http_status": 401, "business_code": 401, "duration_ms": 0.62, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:46.503+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "e3d50b07cf76446d81bc3dbfdadb0176", "method": "GET", "route": "v1/admin-panel/agent/models", "http_status": 403, "business_code": 403, "duration_ms": 3.81, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:46.505+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "6b29d857f5154c9dbd711503eae1c586", "method": "GET", "route": "v1/admin-panel/agent/models", "http_status": 401, "business_code": 401, "duration_ms": 0.86, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:46.509+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "6009017b15b04f1da473f5f3ad83b3ac", "method": "GET", "route": "v1/admin-panel/agent/traces/<str:trace_id>", "http_status": 403, "business_code": 403, "duration_ms": 4.01, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:46.511+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "9e6f197cc5104a4d967830b7b789b3eb", "method": "GET", "route": "v1/admin-panel/agent/traces/<str:trace_id>", "http_status": 401, "business_code": 401, "duration_ms": 0.55, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:46.514+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "5b8d1e2ddfa44522a48257590f9481d7", "method": "PUT", "route": "v1/admin-panel/agent/settings", "http_status": 403, "business_code": 403, "duration_ms": 3.1, "outcome": "client_error"}
+.{"timestamp": "2026-10-19T06:06:46.521+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "bbf696ebc7a44ddeb1c53658c5067911", "method": "GET", "route": "v1/admin-panel/agent/models", "http_status": 200, "duration_ms": 2.95, "outcome": "success"}
+.{"timestamp": "2026-10-19T06:06:46.525+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "0aebfae93d9c4e45adcbd23a76efabd7", "method": "PUT", "route": "v1/admin-panel/agent/settings", "http_status": 403, "business_code": 403, "duration_ms": 1.24, "outcome": "client_error"}
+.{"timestamp": "2026-10-19T06:06:46.531+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "34c6e7cb6dd3421aaf8b4d8c13cf7c18", "method": "PUT", "route": "v1/admin-panel/agent/settings", "http_status": 400, "duration_ms": 3.4, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:46.542+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "6bf633004e5a48d1866ff5d069dd33b2", "method": "PUT", "route": "v1/admin-panel/agent/settings", "http_status": 400, "duration_ms": 9.49, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:46.547+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "0d40f445c44a4dd3807bc811f265d844", "method": "PUT", "route": "v1/admin-panel/agent/settings", "http_status": 400, "duration_ms": 3.9, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:46.552+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "a79758a3c2674785bbb98df5c418ab58", "method": "PUT", "route": "v1/admin-panel/agent/settings", "http_status": 400, "duration_ms": 4.25, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:46.557+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "a282d6cb13c54415801f5eac4a6e6a7c", "method": "PUT", "route": "v1/admin-panel/agent/settings", "http_status": 400, "duration_ms": 4.08, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:46.563+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "4999c5b8c41044618afa502c84fd5cfe", "method": "PUT", "route": "v1/admin-panel/agent/settings", "http_status": 400, "duration_ms": 5.05, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:46.569+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "dd6ef43061b74b9b9311a946876cdb29", "method": "PUT", "route": "v1/admin-panel/agent/settings", "http_status": 400, "duration_ms": 4.94, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:46.577+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "f6a39967db97492d98d274dfcb73289c", "method": "PUT", "route": "v1/admin-panel/agent/settings", "http_status": 400, "duration_ms": 6.0, "outcome": "client_error"}
+.{"timestamp": "2026-10-19T06:06:46.591+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "66a1870653e64c02a61affee0ff35a4a", "method": "GET", "route": "v1/admin-panel/agent/monitoring", "http_status": 200, "duration_ms": 8.36, "outcome": "success"}
+{"timestamp": "2026-10-19T06:06:46.595+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "b97f22c881674d838e72e4b5a51a4cd3", "method": "GET", "route": "v1/admin-panel/agent/traces/<str:trace_id>", "http_status": 200, "duration_ms": 3.12, "outcome": "success"}
+{"timestamp": "2026-10-19T06:06:46.600+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "7fe71cab6ccc46019d969ed57be292dd", "method": "GET", "route": "v1/admin-panel/agent/monitoring", "http_status": 400, "duration_ms": 4.23, "outcome": "client_error"}
+.{"timestamp": "2026-10-19T06:06:46.605+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "ef82879b232446a6b51aa72d125b32c0", "method": "GET", "route": "admin_agents.html", "http_status": 302, "duration_ms": 0.94, "outcome": "success"}
+{"timestamp": "2026-10-19T06:06:46.606+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "06aba04d3556493fb368c06d0c99d974", "method": "GET", "route": "admin_agents.html", "http_status": 200, "duration_ms": 0.6, "outcome": "success"}
+.{"timestamp": "2026-10-19T06:06:46.616+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "ecd1c7987491413d8712ddd3296a0cde", "method": "PUT", "route": "v1/admin-panel/agent/settings", "http_status": 200, "duration_ms": 7.56, "outcome": "success"}
+{"timestamp": "2026-10-19T06:06:46.624+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "a8444a76e1af4f02b991080ff0af0076", "method": "PUT", "route": "v1/admin-panel/agent/settings", "http_status": 409, "duration_ms": 4.84, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:46.634+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "3a8b0381774645aea66f81753d1bcafe", "method": "GET", "route": "v1/admin-panel/agent/settings", "http_status": 200, "duration_ms": 8.19, "outcome": "success"}
+.....{"timestamp": "2026-10-19T06:06:46.647+00:00", "level": "WARNING", "service": "tea_saas", "logger": "support_ai.telemetry", "event": "support.telemetry.persistence_failed", "error_type": "RuntimeError"}
+....{"timestamp": "2026-10-19T06:06:46.714+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "bd26f6b047ab407b81aeb5d97921f522", "trace_id": "bb89100725676ba0977a6696033360a7", "span_id": "556d66c91ef48ac8", "method": "POST", "route": "v1/support/chat/", "http_status": 200, "duration_ms": 35.91, "outcome": "success"}
+{"timestamp": "2026-10-19T06:06:46.718+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "1e392b7e3d5243b5ac916c8942ec98ef", "method": "POST", "route": "v1/support/chat/", "http_status": 200, "duration_ms": 2.75, "outcome": "success"}
+.{"timestamp": "2026-10-19T06:06:46.749+00:00", "level": "WARNING", "service": "tea_saas", "logger": "support_ai.workflow", "event": "support.planning.unavailable", "http_request_id": "bad9f16cf5074d98974a3930a9ce6c57", "trace_id": "56fb50fac8e9cf6ddd226866a21d1720", "span_id": "948ab53bcf40522b", "method": "POST", "route": "v1/support/chat/", "error_type": "ValidationError"}
+{"timestamp": "2026-10-19T06:06:46.757+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "bad9f16cf5074d98974a3930a9ce6c57", "trace_id": "56fb50fac8e9cf6ddd226866a21d1720", "span_id": "97610fd22cce08c0", "method": "POST", "route": "v1/support/chat/", "http_status": 200, "duration_ms": 30.23, "outcome": "success"}
+E.{"timestamp": "2026-10-19T06:06:46.782+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "d5e71b1be8aa4dc0a63faea37212fb29", "method": "POST", "route": "v1/support/chat/", "http_status": 404, "duration_ms": 2.52, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:46.782+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "8ba11d8a0b854877b25e3a618ea33708", "method": "GET", "route": "v1/support/conversations/<uuid:conversation_id>/", "http_status": 404, "duration_ms": 1.2, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:46.784+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "4bb25d2cee6c49bfbd10c52389179702", "method": "GET", "route": "v1/support/preferences/", "http_status": 200, "duration_ms": 0.98, "outcome": "success"}
+.{"timestamp": "2026-10-19T06:06:46.788+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "84218b2173984b8584cfb7283021afca", "method": "PUT", "route": "v1/support/preferences/", "http_status": 400, "duration_ms": 0.89, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:46.791+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "7729d011c1ff434fb85a130de85dc985", "method": "PUT", "route": "v1/support/preferences/", "http_status": 400, "duration_ms": 0.82, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:46.793+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "78f8b9dbfde94e82bff0fa38ba62574f", "method": "PUT", "route": "v1/support/preferences/", "http_status": 400, "duration_ms": 0.93, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:46.795+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "a487a9833c5c47958523fe5702d55cf1", "method": "PUT", "route": "v1/support/preferences/", "http_status": 200, "duration_ms": 1.55, "outcome": "success"}
+{"timestamp": "2026-10-19T06:06:46.796+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "7fbb08eacd8d43c0aab307839af94a39", "method": "DELETE", "route": "v1/support/preferences/", "http_status": 200, "duration_ms": 1.19, "outcome": "success"}
+.{"timestamp": "2026-10-19T06:06:46.837+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "17860af2dfb74dd88ace8e10ada76245", "trace_id": "4e578c3b5fb204d6b3f21ce779717a0b", "span_id": "8e9bd20afcf31704", "method": "POST", "route": "v1/support/chat/", "http_status": 200, "duration_ms": 33.26, "outcome": "success"}
+{"timestamp": "2026-10-19T06:06:46.840+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "11fb28f07aab4a56972244103e62b99d", "method": "POST", "route": "v1/support/chat/", "http_status": 409, "duration_ms": 1.84, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:46.842+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "c33c997741d8488b8bd9e6aa848291f5", "method": "POST", "route": "v1/support/chat/", "http_status": 409, "duration_ms": 1.97, "outcome": "client_error"}
+.{"timestamp": "2026-10-19T06:06:46.869+00:00", "level": "WARNING", "service": "tea_saas", "logger": "support_ai.workflow", "event": "support.planning.unavailable", "http_request_id": "ac4df91dacb94089a16a3df2dd37fc7a", "trace_id": "ec6485cdcefa6fc456053bc369a16223", "span_id": "08e1c0722fdafce5", "method": "POST", "route": "v1/support/chat/", "error_type": "ValidationError"}
+{"timestamp": "2026-10-19T06:06:46.878+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "ac4df91dacb94089a16a3df2dd37fc7a", "trace_id": "ec6485cdcefa6fc456053bc369a16223", "span_id": "54f76e0698b8dd3d", "method": "POST", "route": "v1/support/chat/", "http_status": 200, "duration_ms": 28.23, "outcome": "success"}
+{"timestamp": "2026-10-19T06:06:47.002+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "70b3719e023b4b939e8ee2002dc9b04f", "trace_id": "bdee9eb1c08aaa63eaada5060f00ba10", "span_id": "c5662010a6589212", "method": "POST", "route": "v1/support/chat/", "http_status": 200, "duration_ms": 120.76, "outcome": "success"}
+E{"timestamp": "2026-10-19T06:06:47.046+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "097c1db3f6aa47d08b0d3b455712879c", "trace_id": "c0649144408e4b8f89325b728c58e119", "span_id": "09f5c7fcdfd26e5f", "method": "POST", "route": "v1/support/chat/", "http_status": 200, "duration_ms": 36.76, "outcome": "success"}
+.{"timestamp": "2026-10-19T06:06:47.063+00:00", "level": "ERROR", "service": "tea_saas", "logger": "support_ai.views", "event": "support.storage.failed", "http_request_id": "dd0512f19f73443fb06daad36e4358ad", "method": "POST", "route": "v1/support/chat/", "error_type": "OperationalError", "stack": [{"file": "views.py", "function": "guarded", "line": 38}, {"file": "views.py", "function": "chat", "line": 100}, {"file": "mock.py", "function": "__call__", "line": 1092}, {"file": "mock.py", "function": "_mock_call", "line": 1096}, {"file": "mock.py", "function": "_execute_mock_call", "line": 1151}]}
+{"timestamp": "2026-10-19T06:06:47.063+00:00", "level": "ERROR", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "dd0512f19f73443fb06daad36e4358ad", "method": "POST", "route": "v1/support/chat/", "http_status": 503, "duration_ms": 3.67, "outcome": "server_error"}
+.{"timestamp": "2026-10-19T06:06:47.073+00:00", "level": "ERROR", "service": "tea_saas", "logger": "support_ai.views", "event": "support.storage.failed", "http_request_id": "abd47d73ae784fd69b3ad29e4acddfa2", "method": "GET", "route": "v1/support/preferences/", "error_type": "OperationalError", "stack": [{"file": "views.py", "function": "guarded", "line": 38}, {"file": "views.py", "function": "preferences", "line": 160}, {"file": "mock.py", "function": "__call__", "line": 1092}, {"file": "mock.py", "function": "_mock_call", "line": 1096}, {"file": "mock.py", "function": "_execute_mock_call", "line": 1151}]}
+{"timestamp": "2026-10-19T06:06:47.075+00:00", "level": "ERROR", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "abd47d73ae784fd69b3ad29e4acddfa2", "method": "GET", "route": "v1/support/preferences/", "http_status": 503, "duration_ms": 1.86, "outcome": "server_error"}
+.RBAC seeded: 6 roles, 9 permissions, 26 new role-permission mappings.
+{"timestamp": "2026-10-19T06:06:47.130+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "fbffee89f0ff4b50ba5566531e118878", "method": "POST", "route": "v1/admin-panel/users", "http_status": 200, "business_code": 200, "duration_ms": 3.41, "outcome": "success"}
+{"timestamp": "2026-10-19T06:06:47.135+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "493caa71c234428fa6c54200ee973666", "method": "PUT", "route": "v1/admin-panel/users", "http_status": 200, "business_code": 200, "duration_ms": 4.99, "outcome": "success"}
+{"timestamp": "2026-10-19T06:06:47.149+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "d5a39d225d9e4841987262906d5c12ea", "method": "DELETE", "route": "v1/admin-panel/users", "http_status": 200, "business_code": 200, "duration_ms": 12.82, "outcome": "success"}
+.{"timestamp": "2026-10-19T06:06:47.155+00:00", "level": "INFO", "service": "tea_saas", "logger": "users.views", "event": "users.login.succeeded", "http_request_id": "28374d3663164c9cb61f800ca0601246", "method": "POST", "route": "v1/users/login"}
+{"timestamp": "2026-10-19T06:06:47.155+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "28374d3663164c9cb61f800ca0601246", "method": "POST", "route": "v1/users/login", "http_status": 200, "business_code": 200, "duration_ms": 2.89, "outcome": "success"}
+{"timestamp": "2026-10-19T06:06:47.171+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "56f02394f3074eb196d480e3554de631", "method": "GET", "route": "v1/admin-panel/overview", "http_status": 200, "business_code": 200, "duration_ms": 15.46, "outcome": "success"}
+{"timestamp": "2026-10-19T06:06:47.175+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "86816d4fe93043b7944aaf703ae17f63", "method": "GET", "route": "v1/admin-panel/users", "http_status": 403, "business_code": 403, "duration_ms": 3.53, "outcome": "client_error"}
+.{"timestamp": "2026-10-19T06:06:47.181+00:00", "level": "INFO", "service": "tea_saas", "logger": "users.views", "event": "users.login.succeeded", "http_request_id": "c9d699c902d74d2884c701187ef4855e", "method": "POST", "route": "v1/users/login"}
+{"timestamp": "2026-10-19T06:06:47.182+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "c9d699c902d74d2884c701187ef4855e", "method": "POST", "route": "v1/users/login", "http_status": 200, "business_code": 200, "duration_ms": 3.65, "outcome": "success"}
+{"timestamp": "2026-10-19T06:06:47.187+00:00", "level": "INFO", "service": "tea_saas", "logger": "users.views", "event": "users.login.succeeded", "http_request_id": "4721809641d14b56be04615fd89cd44e", "method": "POST", "route": "v1/users/login"}
+{"timestamp": "2026-10-19T06:06:47.187+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "4721809641d14b56be04615fd89cd44e", "method": "POST", "route": "v1/users/login", "http_status": 200, "business_code": 200, "duration_ms": 4.44, "outcome": "success"}
+{"timestamp": "2026-10-19T06:06:47.191+00:00", "level": "INFO", "service": "tea_saas", "logger": "users.views", "event": "users.login.succeeded", "http_request_id": "d6148b7bf4a742178459f1403a01bb59", "method": "POST", "route": "v1/users/login"}
+{"timestamp": "2026-10-19T06:06:47.192+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "d6148b7bf4a742178459f1403a01bb59", "method": "POST", "route": "v1/users/login", "http_status": 200, "business_code": 200, "duration_ms": 4.11, "outcome": "success"}
+{"timestamp": "2026-10-19T06:06:47.196+00:00", "level": "INFO", "service": "tea_saas", "logger": "users.views", "event": "users.login.succeeded", "http_request_id": "7afb30a090b243528ef9a279212c9a71", "method": "POST", "route": "v1/users/login"}
+{"timestamp": "2026-10-19T06:06:47.196+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "7afb30a090b243528ef9a279212c9a71", "method": "POST", "route": "v1/users/login", "http_status": 200, "business_code": 200, "duration_ms": 3.05, "outcome": "success"}
+.{"timestamp": "2026-10-19T06:06:47.201+00:00", "level": "INFO", "service": "tea_saas", "logger": "users.views", "event": "users.login.succeeded", "http_request_id": "692832dc89b34f1d904c77b34adda6d2", "method": "POST", "route": "v1/users/login"}
+{"timestamp": "2026-10-19T06:06:47.201+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "692832dc89b34f1d904c77b34adda6d2", "method": "POST", "route": "v1/users/login", "http_status": 200, "business_code": 200, "duration_ms": 2.45, "outcome": "success"}
+{"timestamp": "2026-10-19T06:06:47.205+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "e5facc31e2ca4395b1c5edba7ca080d0", "method": "GET", "route": "v1/admin-panel/users", "http_status": 403, "business_code": 403, "duration_ms": 2.86, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:47.210+00:00", "level": "INFO", "service": "tea_saas", "logger": "users.views", "event": "users.login.succeeded", "http_request_id": "f1decbba8af24c0190b56b2b866724d7", "method": "POST", "route": "v1/users/login"}
+{"timestamp": "2026-10-19T06:06:47.210+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "f1decbba8af24c0190b56b2b866724d7", "method": "POST", "route": "v1/users/login", "http_status": 200, "business_code": 200, "duration_ms": 2.9, "outcome": "success"}
+{"timestamp": "2026-10-19T06:06:47.213+00:00", "level": "INFO", "service": "tea_saas", "logger": "users.views", "event": "users.login.succeeded", "http_request_id": "e8e8361f5b6d432e8a8f757c944b122b", "method": "POST", "route": "v1/users/login"}
+{"timestamp": "2026-10-19T06:06:47.213+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "e8e8361f5b6d432e8a8f757c944b122b", "method": "POST", "route": "v1/users/login", "http_status": 200, "business_code": 200, "duration_ms": 2.54, "outcome": "success"}
+.{"timestamp": "2026-10-19T06:06:47.216+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "329d8f07f30649d68c49b3ac980357da", "method": "POST", "route": "v1/users/login", "http_status": 200, "business_code": 10003, "duration_ms": 0.97, "outcome": "business_error"}
+{"timestamp": "2026-10-19T06:06:47.220+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "f367f62dbfac4b9aa9b966cccac4a18a", "method": "POST", "route": "v1/users/login", "http_status": 200, "business_code": 10004, "duration_ms": 1.56, "outcome": "business_error"}
+.{"timestamp": "2026-10-19T06:06:47.226+00:00", "level": "INFO", "service": "tea_saas", "logger": "users.views", "event": "users.login.succeeded", "http_request_id": "cc4ea60057b94aa18814296b97dac1c3", "method": "POST", "route": "v1/users/login"}
+{"timestamp": "2026-10-19T06:06:47.227+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "cc4ea60057b94aa18814296b97dac1c3", "method": "POST", "route": "v1/users/login", "http_status": 200, "business_code": 200, "duration_ms": 3.45, "outcome": "success"}
+.{"timestamp": "2026-10-19T06:06:47.228+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "3de8a040365e48719c39769fae67981c", "method": "GET", "route": "login.html", "http_status": 200, "duration_ms": 1.57, "outcome": "success"}
+{"timestamp": "2026-10-19T06:06:47.230+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "093928a0b56c4ed3be14e7f4691033b2", "method": "GET", "route": "terminal_login.html", "http_status": 302, "duration_ms": 0.34, "outcome": "success"}
+{"timestamp": "2026-10-19T06:06:47.230+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "0563f24f1d3a4d2197eaddff0f85eb22", "method": "GET", "route": "login.html", "http_status": 200, "duration_ms": 0.61, "outcome": "success"}
+.{"timestamp": "2026-10-19T06:06:47.238+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "8ce08f7120584c93bf40958bdf88dcfe", "method": "GET", "route": "v1/admin-panel/users", "http_status": 200, "business_code": 200, "duration_ms": 4.84, "outcome": "success"}
+{"timestamp": "2026-10-19T06:06:47.241+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "7396c6b0495a4dd0ad5a30aa60fa9202", "method": "GET", "route": "v1/admin-panel/users", "http_status": 403, "business_code": 403, "duration_ms": 2.85, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:47.241+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "eec96ab47d074316b57453958c0001d9", "method": "GET", "route": "v1/admin-panel/agent/settings", "http_status": 403, "business_code": 403, "duration_ms": 1.0, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:47.246+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "63d4606a60664fe5a519db8c774e452e", "method": "GET", "route": "v1/users/session", "http_status": 403, "business_code": 403, "duration_ms": 1.25, "outcome": "client_error"}
+.{"timestamp": "2026-10-19T06:06:47.252+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "c0e25750dc1243b5bbde9f82fb161c21", "method": "POST", "route": "v1/users/login", "http_status": 200, "business_code": 10006, "duration_ms": 2.16, "outcome": "business_error"}
+{"timestamp": "2026-10-19T06:06:47.256+00:00", "level": "INFO", "service": "tea_saas", "logger": "users.views", "event": "users.login.succeeded", "http_request_id": "fb0004a8562345f587d216f9bb113e4f", "method": "POST", "route": "v1/users/login"}
+{"timestamp": "2026-10-19T06:06:47.257+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "fb0004a8562345f587d216f9bb113e4f", "method": "POST", "route": "v1/users/login", "http_status": 200, "business_code": 200, "duration_ms": 2.35, "outcome": "success"}
+.{"timestamp": "2026-10-19T06:06:47.258+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "c90c669c665d498f8157740c03103b3a", "method": "GET", "route": "v1/users/session", "http_status": 401, "business_code": 401, "duration_ms": 0.62, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:47.262+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "126a7acf60034c94a4aefe7654bfb506", "method": "GET", "route": "v1/users/session", "http_status": 200, "business_code": 200, "duration_ms": 2.7, "outcome": "success"}
+{"timestamp": "2026-10-19T06:06:47.262+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "c9d110cf6318477da7a5490f73d1ee40", "method": "POST", "route": "v1/users/session", "http_status": 405, "business_code": 405, "duration_ms": 0.36, "outcome": "client_error"}
+.{"timestamp": "2026-10-19T06:06:47.267+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "2843dbc6b88a42bf9145c169bd8182eb", "method": "GET", "route": "v1/admin-panel/users", "http_status": 403, "business_code": 403, "duration_ms": 1.85, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:47.269+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "9a45e801af4b401894206e29756392b8", "method": "POST", "route": "v1/admin-panel/users", "http_status": 403, "business_code": 403, "duration_ms": 1.74, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:47.271+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "9afdbf57aec642fb8c164b64145ee42a", "method": "PUT", "route": "v1/admin-panel/users", "http_status": 403, "business_code": 403, "duration_ms": 1.72, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:47.274+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "a374f7fb608d4f4688cd81460c60da09", "method": "DELETE", "route": "v1/admin-panel/users", "http_status": 403, "business_code": 403, "duration_ms": 1.7, "outcome": "client_error"}
+.{"timestamp": "2026-10-19T06:06:47.278+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "fb17352a7274494ebe7ffd3791e3e813", "method": "GET", "route": "v1/admin-panel/agent/settings", "http_status": 403, "business_code": 403, "duration_ms": 2.15, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:47.280+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "ae04beed602e4836bf2151abf6b91aca", "method": "GET", "route": "v1/admin-panel/agent/models", "http_status": 403, "business_code": 403, "duration_ms": 3.49, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:47.284+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "8ea5bfeac06e4bda81a00b6c1d308560", "method": "GET", "route": "v1/admin-panel/agent/retrieval-status", "http_status": 403, "business_code": 403, "duration_ms": 2.16, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:47.286+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "c3a2c277858c4214ad25859043ecac38", "method": "GET", "route": "v1/admin-panel/agent/monitoring", "http_status": 403, "business_code": 403, "duration_ms": 1.96, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:47.290+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "173b84eadf654b8ca33a88deec90172c", "method": "GET", "route": "v1/admin-panel/agent/traces/<str:trace_id>", "http_status": 403, "business_code": 403, "duration_ms": 2.25, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:47.292+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "220b63732a944224b4aba9940222b329", "method": "PUT", "route": "v1/admin-panel/agent/settings", "http_status": 403, "business_code": 403, "duration_ms": 1.86, "outcome": "client_error"}
+.{"timestamp": "2026-10-19T06:06:47.297+00:00", "level": "INFO", "service": "tea_saas", "logger": "users.views", "event": "users.login.succeeded", "http_request_id": "8d7267cd0b934f2eab2b7a337286edf1", "method": "POST", "route": "v1/users/login"}
+{"timestamp": "2026-10-19T06:06:47.297+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "8d7267cd0b934f2eab2b7a337286edf1", "method": "POST", "route": "v1/users/login", "http_status": 200, "business_code": 200, "duration_ms": 2.31, "outcome": "success"}
+.{"timestamp": "2026-10-19T06:06:47.302+00:00", "level": "INFO", "service": "tea_saas", "logger": "users.views", "event": "users.login.succeeded", "http_request_id": "00a8b81d59ae4f12a4753ba0a026cdb5", "method": "POST", "route": "v1/users/login"}
+{"timestamp": "2026-10-19T06:06:47.302+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "00a8b81d59ae4f12a4753ba0a026cdb5", "method": "POST", "route": "v1/users/login", "http_status": 200, "business_code": 200, "duration_ms": 2.32, "outcome": "success"}
+{"timestamp": "2026-10-19T06:06:47.304+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "45e6c74d4e1a42aaaaa99eca416c6137", "method": "GET", "route": "v1/admin-panel/users", "http_status": 403, "business_code": 403, "duration_ms": 2.77, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:47.308+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "173544d5bc6743a8be9dc12d41068aed", "method": "GET", "route": "v1/admin-panel/agent/settings", "http_status": 200, "duration_ms": 3.48, "outcome": "success"}
+..ss..{"timestamp": "2026-10-19T06:06:47.314+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "e274bc6b64914043a661110e34395595", "method": "GET", "route": "v1/merchant-ai/status/", "http_status": 200, "business_code": 200, "duration_ms": 0.48, "outcome": "success"}
+.{"timestamp": "2026-10-19T06:06:47.315+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "a411bac7b78c48bfb3f0939eeedcab79", "method": "GET", "route": "v1/merchant-ai/status/", "http_status": 403, "business_code": 403, "duration_ms": 0.36, "outcome": "client_error"}
+.{"timestamp": "2026-10-19T06:06:47.316+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "ca3dd9fd76964854afdcabc10c532685", "method": "GET", "route": "v1/merchant-ai/status/", "http_status": 403, "business_code": 403, "duration_ms": 0.43, "outcome": "client_error"}
+.{"timestamp": "2026-10-19T06:06:47.318+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "19bc00abe8a240548a345c45a23edffb", "method": "GET", "route": "v1/merchant-ai/status/", "http_status": 401, "business_code": 401, "duration_ms": 0.32, "outcome": "client_error"}
+.{"timestamp": "2026-10-19T06:06:47.319+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "7c2b4a28a09a46e7856d0c96a6b2c9a7", "method": "GET", "route": "v1/merchant-ai/status/", "http_status": 401, "business_code": 401, "duration_ms": 0.31, "outcome": "client_error"}
+.{"timestamp": "2026-10-19T06:06:47.322+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "a8bec996ebb44f4e95c1f683618b4010", "method": "POST", "route": "<unresolved>", "http_status": 404, "duration_ms": 2.96, "outcome": "client_error"}
+{"timestamp": "2026-10-19T06:06:47.324+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "6498be4798564aa98f3b75d783a6b048", "method": "POST", "route": "<unresolved>", "http_status": 404, "duration_ms": 0.55, "outcome": "client_error"}
+.{"timestamp": "2026-10-19T06:06:47.325+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "ed8fc2f1486444c6b14216455c098ad8", "method": "GET", "route": "merchant_assistant.html", "http_status": 200, "duration_ms": 1.08, "outcome": "success"}
+.{"timestamp": "2026-10-19T06:06:47.325+00:00", "level": "WARNING", "service": "tea_saas", "logger": "django.request", "event": "application.log", "http_request_id": "0ffe61d0856f4f759a565ebab1d3448c", "method": "POST", "route": "v1/merchant-ai/status/"}
+{"timestamp": "2026-10-19T06:06:47.325+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "0ffe61d0856f4f759a565ebab1d3448c", "method": "POST", "route": "v1/merchant-ai/status/", "http_status": 405, "duration_ms": 0.86, "outcome": "client_error"}
+.{"timestamp": "2026-10-19T06:06:47.325+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "3e42d8e18e4f4f25950cea5b1eb7ad15", "method": "GET", "route": "v1/merchant-ai/status/", "http_status": 200, "business_code": 200, "duration_ms": 0.36, "outcome": "success"}
+.{"timestamp": "2026-10-19T06:06:47.329+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "2f3cd4aafde2464e92bb9fc068874f8a", "method": "GET", "route": "merchant_dashboard.html", "http_status": 200, "duration_ms": 0.84, "outcome": "success"}
+......{"timestamp": "2026-10-19T06:06:47.335+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "d2cbc648b915463a91f1771c5b54831d", "method": "GET", "route": "buyer_dashboard.html", "http_status": 200, "duration_ms": 1.03, "outcome": "success"}
+{"timestamp": "2026-10-19T06:06:47.336+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "bfa55c79aaaf4c92bed8c8a378e3142a", "method": "GET", "route": "buyer_products.html", "http_status": 200, "duration_ms": 1.07, "outcome": "success"}
+{"timestamp": "2026-10-19T06:06:47.339+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "64bec959b3594c85b23156b552711958", "method": "GET", "route": "cart.html", "http_status": 200, "duration_ms": 1.4, "outcome": "success"}
+{"timestamp": "2026-10-19T06:06:47.340+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "a1832d817cbb4eeda6fcd3dbbaf63b30", "method": "GET", "route": "buyer_orders.html", "http_status": 200, "duration_ms": 1.29, "outcome": "success"}
+{"timestamp": "2026-10-19T06:06:47.342+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "c4a545958d53443e885a85511935507b", "method": "GET", "route": "buyer_support.html", "http_status": 200, "duration_ms": 1.13, "outcome": "success"}
+.{"timestamp": "2026-10-19T06:06:47.343+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "e22f977ed7d04e449bd71356ffd1e76f", "method": "GET", "route": "buyer_support.html", "http_status": 200, "duration_ms": 0.68, "outcome": "success"}
+.{"timestamp": "2026-10-19T06:06:47.345+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "072bf92b3dd34b05bc717c7f7ffebec5", "method": "POST", "route": "v1/support/chat/", "http_status": 401, "duration_ms": 0.55, "outcome": "client_error"}
+......................................................{"timestamp": "2026-10-19T06:06:47.488+00:00", "level": "WARNING", "service": "tea_saas", "logger": "support_ai.workflow", "event": "support.planning.unavailable", "error_type": "ValidationError"}
+{"timestamp": "2026-10-19T06:06:47.501+00:00", "level": "WARNING", "service": "tea_saas", "logger": "support_ai.workflow", "event": "support.planning.unavailable", "error_type": "ValidationError"}
+F{"timestamp": "2026-10-19T06:06:47.513+00:00", "level": "WARNING", "service": "tea_saas", "logger": "support_ai.workflow", "event": "support.planning.unavailable", "error_type": "ValidationError"}
+.{"timestamp": "2026-10-19T06:06:47.522+00:00", "level": "WARNING", "service": "tea_saas", "logger": "support_ai.workflow", "event": "support.planning.unavailable", "error_type": "ValidationError"}
+F..
+======================================================================
+ERROR: test_invalid_hard_conditions_commit_only_safe_clarification (support_ai.test_task_tools.TaskToolIntegrationTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<workspace>\support_ai\test_task_tools.py", line 84, in test_invalid_hard_conditions_commit_only_safe_clarification
+    self.assertEqual(response.json()['recommendation_status'], 'CLARIFY')
+KeyError: 'recommendation_status'
+
+======================================================================
+ERROR: test_unknown_category_requests_clarification_instead_of_no_match (support_ai.test_task_tools.TaskToolIntegrationTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<workspace>\support_ai\test_task_tools.py", line 104, in test_unknown_category_requests_clarification_instead_of_no_match
+    self.assertEqual(data['recommendation_status'], 'CLARIFY')
+KeyError: 'recommendation_status'
+
+======================================================================
+ERROR: test_invalid_conditions_clarify_but_provider_failure_does_not_commit (support_ai.tests.RecommendationIntegrationTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<workspace>\support_ai\tests.py", line 306, in test_invalid_conditions_clarify_but_provider_failure_does_not_commit
+    self.assertEqual(data.json()['recommendation_status'], 'CLARIFY')
+KeyError: 'recommendation_status'
+
+======================================================================
+ERROR: test_short_context_contains_only_committed_redacted_same_conversation_turns (support_ai.tests.RecommendationIntegrationTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<workspace>\support_ai\tests.py", line 357, in test_short_context_contains_only_committed_redacted_same_conversation_turns
+    self.assertIn('turn-', next_model.calls[-1][1])
+IndexError: list index out of range
+
+======================================================================
+FAIL: test_bad_model_conditions_clarify_without_unfiltered_query (support_ai.test_grouped_recommendations.GroupedRecommendationTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<workspace>\support_ai\test_grouped_recommendations.py", line 158, in test_bad_model_conditions_clarify_without_unfiltered_query
+    self.assertEqual(result.status, 'needs_clarification')
+AssertionError: 'error' != 'needs_clarification'
+- error
++ needs_clarification
+
+
+======================================================================
+FAIL: test_full_question_covers_all_six_types_without_condition_model (support_ai.test_grouped_recommendations.GroupedRecommendationTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<workspace>\support_ai\test_grouped_recommendations.py", line 93, in test_full_question_covers_all_six_types_without_condition_model
+    self.assertIn('匹配理由', result.data['answer'])
+AssertionError: '匹配理由' not found in '以下是本次推荐及依据（USD 单价，价格及库存以下单时为准）：\n\n1. 绿茶测试商品 · 规格0 · $10.00\n原推荐分组：绿茶\n推荐依据：对应原推荐列表的绿茶分组；当前上架且有可用库存；在这份列表中每份售价最低，单份购入成本较低（不代表按克最便宜）。\n尚无可验证的风味或包装等属性，无法据此进一步区分。\n\n2. 红茶测试商品 · 规格0 · $11.00\n原推荐分组：红茶\n推荐依据：对应原推荐列表的红茶分组；当前上架且有可用库存。\n尚无可验证的风味或包装等属性，无法据此进一步区分。\n\n3. 白茶测试商品 · 规格0 · $12.00\n原推荐分组：白茶\n推荐依据：对应原推荐列表的白茶分组；当前上架且有可用库存。\n尚无可验证的风味或包装等属性，无法据此进一步区分。\n\n4. 乌龙茶测试商品 · 规格0 · $13.00\n原推荐分组：乌龙茶\n推荐依据：对应原推荐列表的乌龙茶分组；当前上架且有可用库存。\n尚无可验证的风味或包装等属性，无法据此进一步区分。\n\n5. 黄茶测试商品 · 规格0 · $14.00\n原推荐分组：黄茶\n推荐依据：对应原推荐列表的黄茶分组；当前上架且有可用库存。\n尚无可验证的风味或包装等属性，无法据此进一步区分。\n\n6. 黑茶测试商品 · 规格0 · $15.00\n原推荐分组：黑茶\n推荐依据：对应原推荐列表的黑茶分组；当前上架且有可用库存。\n尚无可验证的风味或包装等属性，无法据此进一步区分。\n这些依据限于已确认条件及商品当前数据；尚不能据此认定某款最适合您的口味。价格及库存以下单时为准。'
+
+======================================================================
+FAIL: test_model_schema_failure_clarifies_and_reports_field (support_ai.test_grouped_recommendations.GroupedRecommendationTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<workspace>\support_ai\test_grouped_recommendations.py", line 163, in test_model_schema_failure_clarifies_and_reports_field
+    self.assertEqual(result.status, 'needs_clarification')
+AssertionError: 'error' != 'needs_clarification'
+- error
++ needs_clarification
+
+
+======================================================================
+FAIL: test_budget_still_applies_to_knowledge_bound_groups (support_ai.test_mixed_tea.MixedTeaIntegrationTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<workspace>\support_ai\test_mixed_tea.py", line 190, in test_budget_still_applies_to_knowledge_bound_groups
+    data = self.run_graph('说明绿茶和红茶的区别，并推荐对应商品，每盒不超过10美元')['response']
+  File "<workspace>\support_ai\test_mixed_tea.py", line 151, in run_graph
+    return build_graph(model, tool_factory=lambda state: create_tool_handlers(
+  File "<business-python>\lib\site-packages\langgraph\pregel\__init__.py", line 2336, in invoke
+    for chunk in self.stream(
+  File "<business-python>\lib\site-packages\langgraph\pregel\__init__.py", line 1993, in stream
+    for _ in runner.tick(
+  File "<business-python>\lib\site-packages\langgraph\pregel\runner.py", line 230, in tick
+    run_with_retry(
+  File "<business-python>\lib\site-packages\langgraph\pregel\retry.py", line 40, in run_with_retry
+    return task.proc.invoke(task.input, config)
+  File "<business-python>\lib\site-packages\langgraph\utils\runnable.py", line 546, in invoke
+    input = step.invoke(input, config, **kwargs)
+  File "<business-python>\lib\site-packages\langgraph\utils\runnable.py", line 310, in invoke
+    ret = context.run(self.func, *args, **kwargs)
+  File "<workspace>\support_ai\workflow.py", line 104, in resolve
+    semantic, source, previous = plan_turn(model, state['safe_message'], history, state.get('memory'))
+  File "<workspace>\support_ai\semantic_planning.py", line 192, in plan_turn
+    value = (prompt | model.with_structured_output(SemanticPlan)).invoke({
+  File "<business-python>\lib\site-packages\langchain_core\runnables\base.py", line 3268, in invoke
+    input_ = context.run(step.invoke, input_, config)
+  File "<business-python>\lib\site-packages\langchain_core\runnables\base.py", line 5048, in invoke
+    return self._call_with_config(
+  File "<business-python>\lib\site-packages\langchain_core\runnables\base.py", line 2106, in _call_with_config
+    context.run(
+  File "<business-python>\lib\site-packages\langchain_core\runnables\config.py", line 430, in call_func_with_variable_args
+    return func(input, **kwargs)  # type: ignore[call-arg]
+  File "<business-python>\lib\site-packages\langchain_core\runnables\base.py", line 4905, in _invoke
+    output = call_func_with_variable_args(
+  File "<business-python>\lib\site-packages\langchain_core\runnables\config.py", line 430, in call_func_with_variable_args
+    return func(input, **kwargs)  # type: ignore[call-arg]
+  File "<workspace>\support_ai\test_mixed_tea.py", line 58, in structured
+    raise AssertionError('Unexpected schema: ' + schema.__name__)
+AssertionError: Unexpected schema: SemanticPlan
+
+======================================================================
+FAIL: test_empty_or_fabricated_evidence_never_unlocks_products (support_ai.test_mixed_tea.MixedTeaIntegrationTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<workspace>\support_ai\test_mixed_tea.py", line 173, in test_empty_or_fabricated_evidence_never_unlocks_products
+    data = self.run_graph(model=model, search=search)['response']
+  File "<workspace>\support_ai\test_mixed_tea.py", line 151, in run_graph
+    return build_graph(model, tool_factory=lambda state: create_tool_handlers(
+  File "<business-python>\lib\site-packages\langgraph\pregel\__init__.py", line 2336, in invoke
+    for chunk in self.stream(
+  File "<business-python>\lib\site-packages\langgraph\pregel\__init__.py", line 1993, in stream
+    for _ in runner.tick(
+  File "<business-python>\lib\site-packages\langgraph\pregel\runner.py", line 230, in tick
+    run_with_retry(
+  File "<business-python>\lib\site-packages\langgraph\pregel\retry.py", line 40, in run_with_retry
+    return task.proc.invoke(task.input, config)
+  File "<business-python>\lib\site-packages\langgraph\utils\runnable.py", line 546, in invoke
+    input = step.invoke(input, config, **kwargs)
+  File "<business-python>\lib\site-packages\langgraph\utils\runnable.py", line 310, in invoke
+    ret = context.run(self.func, *args, **kwargs)
+  File "<workspace>\support_ai\workflow.py", line 104, in resolve
+    semantic, source, previous = plan_turn(model, state['safe_message'], history, state.get('memory'))
+  File "<workspace>\support_ai\semantic_planning.py", line 192, in plan_turn
+    value = (prompt | model.with_structured_output(SemanticPlan)).invoke({
+  File "<business-python>\lib\site-packages\langchain_core\runnables\base.py", line 3268, in invoke
+    input_ = context.run(step.invoke, input_, config)
+  File "<business-python>\lib\site-packages\langchain_core\runnables\base.py", line 5048, in invoke
+    return self._call_with_config(
+  File "<business-python>\lib\site-packages\langchain_core\runnables\base.py", line 2106, in _call_with_config
+    context.run(
+  File "<business-python>\lib\site-packages\langchain_core\runnables\config.py", line 430, in call_func_with_variable_args
+    return func(input, **kwargs)  # type: ignore[call-arg]
+  File "<business-python>\lib\site-packages\langchain_core\runnables\base.py", line 4905, in _invoke
+    output = call_func_with_variable_args(
+  File "<business-python>\lib\site-packages\langchain_core\runnables\config.py", line 430, in call_func_with_variable_args
+    return func(input, **kwargs)  # type: ignore[call-arg]
+  File "<workspace>\support_ai\test_mixed_tea.py", line 58, in structured
+    raise AssertionError('Unexpected schema: ' + schema.__name__)
+AssertionError: Unexpected schema: SemanticPlan
+
+======================================================================
+FAIL: test_explanation_and_six_matching_product_groups_are_both_present (support_ai.test_mixed_tea.MixedTeaIntegrationTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<workspace>\support_ai\test_mixed_tea.py", line 156, in test_explanation_and_six_matching_product_groups_are_both_present
+    data = self.run_graph()['response']
+  File "<workspace>\support_ai\test_mixed_tea.py", line 151, in run_graph
+    return build_graph(model, tool_factory=lambda state: create_tool_handlers(
+  File "<business-python>\lib\site-packages\langgraph\pregel\__init__.py", line 2336, in invoke
+    for chunk in self.stream(
+  File "<business-python>\lib\site-packages\langgraph\pregel\__init__.py", line 1993, in stream
+    for _ in runner.tick(
+  File "<business-python>\lib\site-packages\langgraph\pregel\runner.py", line 230, in tick
+    run_with_retry(
+  File "<business-python>\lib\site-packages\langgraph\pregel\retry.py", line 40, in run_with_retry
+    return task.proc.invoke(task.input, config)
+  File "<business-python>\lib\site-packages\langgraph\utils\runnable.py", line 546, in invoke
+    input = step.invoke(input, config, **kwargs)
+  File "<business-python>\lib\site-packages\langgraph\utils\runnable.py", line 310, in invoke
+    ret = context.run(self.func, *args, **kwargs)
+  File "<workspace>\support_ai\workflow.py", line 104, in resolve
+    semantic, source, previous = plan_turn(model, state['safe_message'], history, state.get('memory'))
+  File "<workspace>\support_ai\semantic_planning.py", line 192, in plan_turn
+    value = (prompt | model.with_structured_output(SemanticPlan)).invoke({
+  File "<business-python>\lib\site-packages\langchain_core\runnables\base.py", line 3268, in invoke
+    input_ = context.run(step.invoke, input_, config)
+  File "<business-python>\lib\site-packages\langchain_core\runnables\base.py", line 5048, in invoke
+    return self._call_with_config(
+  File "<business-python>\lib\site-packages\langchain_core\runnables\base.py", line 2106, in _call_with_config
+    context.run(
+  File "<business-python>\lib\site-packages\langchain_core\runnables\config.py", line 430, in call_func_with_variable_args
+    return func(input, **kwargs)  # type: ignore[call-arg]
+  File "<business-python>\lib\site-packages\langchain_core\runnables\base.py", line 4905, in _invoke
+    output = call_func_with_variable_args(
+  File "<business-python>\lib\site-packages\langchain_core\runnables\config.py", line 430, in call_func_with_variable_args
+    return func(input, **kwargs)  # type: ignore[call-arg]
+  File "<workspace>\support_ai\test_mixed_tea.py", line 58, in structured
+    raise AssertionError('Unexpected schema: ' + schema.__name__)
+AssertionError: Unexpected schema: SemanticPlan
+
+======================================================================
+FAIL: test_explicit_pair_does_not_expand_to_all_six (support_ai.test_mixed_tea.MixedTeaIntegrationTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<workspace>\support_ai\test_mixed_tea.py", line 178, in test_explicit_pair_does_not_expand_to_all_six
+    data = self.run_graph('说明绿茶和红茶的区别，并推荐对应商品')['response']
+  File "<workspace>\support_ai\test_mixed_tea.py", line 151, in run_graph
+    return build_graph(model, tool_factory=lambda state: create_tool_handlers(
+  File "<business-python>\lib\site-packages\langgraph\pregel\__init__.py", line 2336, in invoke
+    for chunk in self.stream(
+  File "<business-python>\lib\site-packages\langgraph\pregel\__init__.py", line 1993, in stream
+    for _ in runner.tick(
+  File "<business-python>\lib\site-packages\langgraph\pregel\runner.py", line 230, in tick
+    run_with_retry(
+  File "<business-python>\lib\site-packages\langgraph\pregel\retry.py", line 40, in run_with_retry
+    return task.proc.invoke(task.input, config)
+  File "<business-python>\lib\site-packages\langgraph\utils\runnable.py", line 546, in invoke
+    input = step.invoke(input, config, **kwargs)
+  File "<business-python>\lib\site-packages\langgraph\utils\runnable.py", line 310, in invoke
+    ret = context.run(self.func, *args, **kwargs)
+  File "<workspace>\support_ai\workflow.py", line 104, in resolve
+    semantic, source, previous = plan_turn(model, state['safe_message'], history, state.get('memory'))
+  File "<workspace>\support_ai\semantic_planning.py", line 192, in plan_turn
+    value = (prompt | model.with_structured_output(SemanticPlan)).invoke({
+  File "<business-python>\lib\site-packages\langchain_core\runnables\base.py", line 3268, in invoke
+    input_ = context.run(step.invoke, input_, config)
+  File "<business-python>\lib\site-packages\langchain_core\runnables\base.py", line 5048, in invoke
+    return self._call_with_config(
+  File "<business-python>\lib\site-packages\langchain_core\runnables\base.py", line 2106, in _call_with_config
+    context.run(
+  File "<business-python>\lib\site-packages\langchain_core\runnables\config.py", line 430, in call_func_with_variable_args
+    return func(input, **kwargs)  # type: ignore[call-arg]
+  File "<business-python>\lib\site-packages\langchain_core\runnables\base.py", line 4905, in _invoke
+    output = call_func_with_variable_args(
+  File "<business-python>\lib\site-packages\langchain_core\runnables\config.py", line 430, in call_func_with_variable_args
+    return func(input, **kwargs)  # type: ignore[call-arg]
+  File "<workspace>\support_ai\test_mixed_tea.py", line 58, in structured
+    raise AssertionError('Unexpected schema: ' + schema.__name__)
+AssertionError: Unexpected schema: SemanticPlan
+
+======================================================================
+FAIL: test_only_described_subset_is_recommended (support_ai.test_mixed_tea.MixedTeaIntegrationTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<workspace>\support_ai\test_mixed_tea.py", line 166, in test_only_described_subset_is_recommended
+    data = self.run_graph(model=ExplanationModel(allowed=['绿茶', '红茶']))['response']
+  File "<workspace>\support_ai\test_mixed_tea.py", line 151, in run_graph
+    return build_graph(model, tool_factory=lambda state: create_tool_handlers(
+  File "<business-python>\lib\site-packages\langgraph\pregel\__init__.py", line 2336, in invoke
+    for chunk in self.stream(
+  File "<business-python>\lib\site-packages\langgraph\pregel\__init__.py", line 1993, in stream
+    for _ in runner.tick(
+  File "<business-python>\lib\site-packages\langgraph\pregel\runner.py", line 230, in tick
+    run_with_retry(
+  File "<business-python>\lib\site-packages\langgraph\pregel\retry.py", line 40, in run_with_retry
+    return task.proc.invoke(task.input, config)
+  File "<business-python>\lib\site-packages\langgraph\utils\runnable.py", line 546, in invoke
+    input = step.invoke(input, config, **kwargs)
+  File "<business-python>\lib\site-packages\langgraph\utils\runnable.py", line 310, in invoke
+    ret = context.run(self.func, *args, **kwargs)
+  File "<workspace>\support_ai\workflow.py", line 104, in resolve
+    semantic, source, previous = plan_turn(model, state['safe_message'], history, state.get('memory'))
+  File "<workspace>\support_ai\semantic_planning.py", line 192, in plan_turn
+    value = (prompt | model.with_structured_output(SemanticPlan)).invoke({
+  File "<business-python>\lib\site-packages\langchain_core\runnables\base.py", line 3268, in invoke
+    input_ = context.run(step.invoke, input_, config)
+  File "<business-python>\lib\site-packages\langchain_core\runnables\base.py", line 5048, in invoke
+    return self._call_with_config(
+  File "<business-python>\lib\site-packages\langchain_core\runnables\base.py", line 2106, in _call_with_config
+    context.run(
+  File "<business-python>\lib\site-packages\langchain_core\runnables\config.py", line 430, in call_func_with_variable_args
+    return func(input, **kwargs)  # type: ignore[call-arg]
+  File "<business-python>\lib\site-packages\langchain_core\runnables\base.py", line 4905, in _invoke
+    output = call_func_with_variable_args(
+  File "<business-python>\lib\site-packages\langchain_core\runnables\config.py", line 430, in call_func_with_variable_args
+    return func(input, **kwargs)  # type: ignore[call-arg]
+  File "<workspace>\support_ai\test_mixed_tea.py", line 58, in structured
+    raise AssertionError('Unexpected schema: ' + schema.__name__)
+AssertionError: Unexpected schema: SemanticPlan
+
+======================================================================
+FAIL: test_verified_explanation_scope_survives_into_history (support_ai.test_mixed_tea.MixedTeaIntegrationTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<workspace>\support_ai\test_mixed_tea.py", line 197, in test_verified_explanation_scope_survives_into_history
+    data = self.run_graph('说明绿茶和红茶的区别，并推荐对应商品')['response']
+  File "<workspace>\support_ai\test_mixed_tea.py", line 151, in run_graph
+    return build_graph(model, tool_factory=lambda state: create_tool_handlers(
+  File "<business-python>\lib\site-packages\langgraph\pregel\__init__.py", line 2336, in invoke
+    for chunk in self.stream(
+  File "<business-python>\lib\site-packages\langgraph\pregel\__init__.py", line 1993, in stream
+    for _ in runner.tick(
+  File "<business-python>\lib\site-packages\langgraph\pregel\runner.py", line 230, in tick
+    run_with_retry(
+  File "<business-python>\lib\site-packages\langgraph\pregel\retry.py", line 40, in run_with_retry
+    return task.proc.invoke(task.input, config)
+  File "<business-python>\lib\site-packages\langgraph\utils\runnable.py", line 546, in invoke
+    input = step.invoke(input, config, **kwargs)
+  File "<business-python>\lib\site-packages\langgraph\utils\runnable.py", line 310, in invoke
+    ret = context.run(self.func, *args, **kwargs)
+  File "<workspace>\support_ai\workflow.py", line 104, in resolve
+    semantic, source, previous = plan_turn(model, state['safe_message'], history, state.get('memory'))
+  File "<workspace>\support_ai\semantic_planning.py", line 192, in plan_turn
+    value = (prompt | model.with_structured_output(SemanticPlan)).invoke({
+  File "<business-python>\lib\site-packages\langchain_core\runnables\base.py", line 3268, in invoke
+    input_ = context.run(step.invoke, input_, config)
+  File "<business-python>\lib\site-packages\langchain_core\runnables\base.py", line 5048, in invoke
+    return self._call_with_config(
+  File "<business-python>\lib\site-packages\langchain_core\runnables\base.py", line 2106, in _call_with_config
+    context.run(
+  File "<business-python>\lib\site-packages\langchain_core\runnables\config.py", line 430, in call_func_with_variable_args
+    return func(input, **kwargs)  # type: ignore[call-arg]
+  File "<business-python>\lib\site-packages\langchain_core\runnables\base.py", line 4905, in _invoke
+    output = call_func_with_variable_args(
+  File "<business-python>\lib\site-packages\langchain_core\runnables\config.py", line 430, in call_func_with_variable_args
+    return func(input, **kwargs)  # type: ignore[call-arg]
+  File "<workspace>\support_ai\test_mixed_tea.py", line 58, in structured
+    raise AssertionError('Unexpected schema: ' + schema.__name__)
+AssertionError: Unexpected schema: SemanticPlan
+
+======================================================================
+FAIL: test_knowledge_and_recommendation_both_execute_in_user_order (support_ai.test_task_tools.TaskToolIntegrationTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<workspace>\support_ai\test_task_tools.py", line 75, in test_knowledge_and_recommendation_both_execute_in_user_order
+    self.assertEqual(data['intents'], ['question_answering', 'recommendation'])
+AssertionError: Lists differ: ['clarification'] != ['question_answering', 'recommendation']
+
+First differing element 0:
+'clarification'
+'question_answering'
+
+Second list contains 1 additional elements.
+First extra element 1:
+'recommendation'
+
+- ['clarification']
++ ['question_answering', 'recommendation']
+
+======================================================================
+FAIL: test_saved_preference_quote_is_canonicalized_only_after_owner_verification (support_ai.test_task_tools.TaskToolIntegrationTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<workspace>\support_ai\test_task_tools.py", line 96, in test_saved_preference_quote_is_canonicalized_only_after_owner_verification
+    self.assertTrue(data['memory_used'])
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_order_context_is_loaded_only_for_after_sales (support_ai.tests.GraphTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<workspace>\support_ai\tests.py", line 105, in test_order_context_is_loaded_only_for_after_sales
+    self.assertTrue(any(context.replace(' ', '') in text.replace(' ', '') for _, text in after_sales.calls))
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_unclear_intent_uses_bounded_clarification (support_ai.tests.GraphTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<workspace>\support_ai\tests.py", line 88, in test_unclear_intent_uses_bounded_clarification
+    self.assertEqual(result['answer'], FALLBACK)
+AssertionError: '暂时无法可靠确认本轮要求，请完整说明要处理的任务和筛选条件。' != '您希望了解茶叶知识、挑选商品，还是查询订单？请补充具体要求。'
+- 暂时无法可靠确认本轮要求，请完整说明要处理的任务和筛选条件。
++ 您希望了解茶叶知识、挑选商品，还是查询订单？请补充具体要求。
+
+
+----------------------------------------------------------------------
+Ran 197 tests in 8.615s
+
+FAILED (failures=13, errors=4, skipped=5)
+Destroying test database for alias 'default'...
+
+Destroying test database for alias 'ai_storage'...

@@ -1,0 +1,60 @@
+{
+  "code": 200,
+  "data": [
+    {
+      "skuid": 8,
+      "title": "Fixture tea product",
+      "intro": "Synthetic fixture only",
+      "image": null,
+      "image_url": "http://testserver/v1/goods/sku/8/image",
+      "link_url": "product_details.html?skuid=8",
+      "price": "66.05"
+    },
+    {
+      "skuid": 7,
+      "title": "Fixture tea product",
+      "intro": "Synthetic fixture only",
+      "image": null,
+      "image_url": "http://testserver/v1/goods/sku/7/image",
+      "link_url": "product_details.html?skuid=7",
+      "price": "66.05"
+    },
+    {
+      "skuid": 6,
+      "title": "Fixture tea product",
+      "intro": "Synthetic fixture only",
+      "image": null,
+      "image_url": "http://testserver/v1/goods/sku/6/image",
+      "link_url": "product_details.html?skuid=6",
+      "price": "66.05"
+    },
+    {
+      "skuid": 5,
+      "title": "Fixture tea product",
+      "intro": "Synthetic fixture only",
+      "image": null,
+      "image_url": "http://testserver/v1/goods/sku/5/image",
+      "link_url": "product_details.html?skuid=5",
+      "price": "66.05"
+    },
+    {
+      "skuid": 4,
+      "title": "Fixture tea product",
+      "intro": "Synthetic fixture only",
+      "image": null,
+      "image_url": "http://testserver/v1/goods/sku/4/image",
+      "link_url": "product_details.html?skuid=4",
+      "price": "66.05"
+    },
+    {
+      "skuid": 3,
+      "title": "Fixture tea product",
+      "intro": "Synthetic fixture only",
+      "image": null,
+      "image_url": "http://testserver/v1/goods/sku/3/image",
+      "link_url": "product_details.html?skuid=3",
+      "price": "66.05"
+    }
+  ],
+  "base_url": "http://127.0.0.1:8000/media/"
+}

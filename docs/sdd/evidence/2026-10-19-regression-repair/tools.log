@@ -1,0 +1,44 @@
+test_chinese_conventional_title (test_git_policy.IdentityChecks) ... ok
+test_dirty_push_is_rejected_before_network (test_git_policy.IdentityChecks) ... ok
+test_english_or_untyped_title_is_rejected (test_git_policy.IdentityChecks) ... ok
+test_generated_merge_allowed_only_for_commit (test_git_policy.IdentityChecks) ... ok
+test_main_push_is_rejected_before_network (test_git_policy.IdentityChecks) ... ok
+test_protected_and_unregistered_branches_are_rejected (test_git_policy.IdentityChecks) ... ok
+test_committed_check_ignores_uncommitted_repair (test_git_policy.SnapshotChecks) ... ok
+test_conflict_marker_is_blocked (test_git_policy.SnapshotChecks) ... ok
+test_deleting_implementation_requires_version (test_git_policy.SnapshotChecks) ... ok
+test_documentation_does_not_require_release (test_git_policy.SnapshotChecks) ... ok
+test_downgrade_is_blocked (test_git_policy.SnapshotChecks) ... ok
+test_duplicate_migration_numbers_are_blocked (test_git_policy.SnapshotChecks) ... ok
+test_environment_example_is_allowed (test_git_policy.SnapshotChecks) ... ok
+test_existing_migration_deletion_is_blocked (test_git_policy.SnapshotChecks) ... ok
+test_existing_migration_edit_is_blocked (test_git_policy.SnapshotChecks) ... ok
+test_implementation_without_changelog_is_blocked (test_git_policy.SnapshotChecks) ... ok
+test_implementation_without_version_is_blocked (test_git_policy.SnapshotChecks) ... ok
+test_install_preserves_existing_hooks_configuration (test_git_policy.SnapshotChecks) ... ok
+test_invalid_staged_python_cannot_be_hidden_by_working_file (test_git_policy.SnapshotChecks) ... ok
+test_new_migration_is_allowed (test_git_policy.SnapshotChecks) ... ok
+test_partial_stage_reads_index_not_working_file (test_git_policy.SnapshotChecks) ... ok
+test_private_environment_path_is_blocked (test_git_policy.SnapshotChecks) ... ok
+test_unowned_file_is_blocked (test_git_policy.SnapshotChecks) ... ok
+test_deleted_only_and_empty_git_output (test_module_versions.WorkingTreeOwnershipTests) ... ok
+test_deleted_paths_are_excluded_and_new_untracked_paths_are_checked (test_module_versions.WorkingTreeOwnershipTests) ... ok
+test_current_file_names_and_utf8_contents_use_current_namespace (test_project_identity.ProjectIdentityTests) ... ok
+test_entrypoints_and_tool_package_exist (test_project_identity.ProjectIdentityTests) ... ok
+test_historical_exception_rejects_any_content_change (test_project_identity.ProjectIdentityTests) ... ok
+test_new_migrations_and_current_source_cannot_use_retired_namespace (test_project_identity.ProjectIdentityTests) ... ok
+test_defaults_keep_separate_databases_without_authentication (test_redis_settings.RedisSettingsTests) ... ok
+test_independent_endpoints_and_empty_shared_password (test_redis_settings.RedisSettingsTests) ... ok
+test_password_reaches_both_clients_without_url_encoding (test_redis_settings.RedisSettingsTests) ... ok
+test_decode_and_read_failures_do_not_report_partial_success (test_sdd_refs.SddReferencesTests) ... ok
+test_identifier_boundaries_unicode_and_line_numbers (test_sdd_refs.SddReferencesTests) ... ok
+test_links_are_not_followed (test_sdd_refs.SddReferencesTests) ... skipped '当前宿主不允许创建测试符号链接：OSError'
+test_missing_directory_is_an_error (test_sdd_refs.SddReferencesTests) ... ok
+test_no_match_and_invalid_arguments_have_distinct_status (test_sdd_refs.SddReferencesTests) ... ok
+test_scope_extensions_and_evidence_opt_in (test_sdd_refs.SddReferencesTests) ... ok
+test_sorted_output_truncation_and_total_lines (test_sdd_refs.SddReferencesTests) ... ok
+
+----------------------------------------------------------------------
+Ran 39 tests in 33.957s
+
+OK (skipped=1)

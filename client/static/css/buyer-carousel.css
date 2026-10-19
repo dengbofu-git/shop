@@ -1,0 +1,50 @@
+/* Homepage only: photos use img elements so shared theme backgrounds cannot erase them. */
+.ds-theme #buyer-carousel { padding: 24px 32px 16px; margin-bottom: 28px; border: 1px solid #d4e3d8; border-radius: 20px; background: #e7f2e9; color: #17352b; }
+#buyer-carousel [hidden] { display: none; }
+#buyer-carousel .carousel-topline { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 16px; }
+#buyer-carousel .carousel-heading { margin: 0; font-size: 13px; color: #486455; letter-spacing: .06em; }
+#buyer-carousel .carousel-counter { font-size: 13px; color: #486455; font-variant-numeric: tabular-nums; direction: ltr; unicode-bidi: isolate; }
+#buyer-carousel .carousel-viewport { min-width: 0; touch-action: pan-y; }
+#buyer-carousel .carousel-slide { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 36px; align-items: center; min-height: 280px; }
+#buyer-carousel .carousel-slide[hidden] { display: none; }
+#buyer-carousel .carousel-copy { min-width: 0; padding: 8px 0; }
+#buyer-carousel .carousel-title { margin: 0 0 16px; color: #17352b; font-size: clamp(22px, 2.2vw, 32px); line-height: 1.45; overflow-wrap: anywhere; }
+#buyer-carousel .carousel-description { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden; margin: 0; color: #486455; font-size: 14px; line-height: 1.85; overflow-wrap: anywhere; }
+#buyer-carousel .carousel-purchase { display: flex; flex-wrap: wrap; align-items: center; gap: 20px 28px; margin-top: 28px; }
+#buyer-carousel .carousel-price-block { display: flex; flex-direction: column; gap: 4px; }
+#buyer-carousel .carousel-price-label { color: #486455; font-size: 12px; }
+#buyer-carousel .carousel-price { color: #185c3b; font-size: 28px; font-weight: 700; line-height: 1.4; font-variant-numeric: tabular-nums; }
+#buyer-carousel .carousel-view { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 12px 24px; margin: 0; font-size: 15px; line-height: 1.5; border-radius: 10px; text-decoration: none; }
+#buyer-carousel .carousel-media { display: flex; align-items: center; justify-content: center; min-width: 0; height: 280px; border-radius: 14px; overflow: hidden; background: #f7f9f5; color: #486455; text-decoration: none; }
+#buyer-carousel .carousel-media img { display: block; width: 100%; height: 100%; object-fit: cover; }
+#buyer-carousel .carousel-media img[hidden] { display: none; }
+#buyer-carousel .carousel-image-fallback { padding: 24px; text-align: center; }
+#buyer-carousel .carousel-controls { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px; margin-top: 20px; padding-top: 12px; border-top: 1px solid #cfe0d4; }
+#buyer-carousel .carousel-controls[hidden] { display: none; }
+#buyer-carousel .carousel-dots, #buyer-carousel .carousel-actions { display: flex; align-items: center; gap: 8px; }
+#buyer-carousel .carousel-dots { flex-wrap: wrap; gap: 0; }
+#buyer-carousel button { display: inline-flex; align-items: center; justify-content: center; min-width: 44px; min-height: 44px; padding: 8px 12px; border: 1px solid #b7cdbf; border-radius: 8px; background: #fff; color: #185c3b; font: inherit; line-height: 1.5; cursor: pointer; }
+#buyer-carousel button:hover { background: #f5faf5; border-color: #7ca38a; }
+#buyer-carousel .carousel-dot { padding: 0; background: transparent; border-color: transparent; }
+#buyer-carousel .carousel-dot::after { content: ''; width: 8px; height: 8px; border-radius: 999px; background: #a8c2af; }
+#buyer-carousel .carousel-dot[aria-current="true"]::after { width: 24px; background: #185c3b; }
+#buyer-carousel .carousel-arrow { font-size: 20px; }
+#buyer-carousel .carousel-feedback { display: flex; align-items: center; justify-content: center; min-height: 280px; margin: 0; color: #486455; text-align: center; line-height: 1.8; }
+#buyer-carousel .carousel-feedback[hidden] { display: none; }
+#buyer-carousel .carousel-retry { margin: 0 auto 20px; }
+#buyer-carousel :is(a, button):focus-visible, #buyer-carousel:focus-visible { outline: 3px solid #9a7a40; outline-offset: 3px; }
+#buyer-carousel .carousel-status { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+@media (max-width: 800px) {
+    .ds-theme #buyer-carousel { padding: 20px; }
+    #buyer-carousel .carousel-slide { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+    #buyer-carousel .carousel-media { grid-row: 1; height: 220px; }
+    #buyer-carousel .carousel-purchase { margin-top: 20px; }
+    #buyer-carousel .carousel-title { font-size: 24px; }
+    #buyer-carousel .carousel-actions { flex-wrap: wrap; }
+}
+@media (max-width: 480px) {
+    .ds-theme #buyer-carousel { padding: 16px; border-radius: 16px; }
+    #buyer-carousel .carousel-media { height: 190px; }
+    #buyer-carousel .carousel-controls { justify-content: center; }
+    #buyer-carousel .carousel-actions { width: 100%; justify-content: center; }
+}
