@@ -3,7 +3,7 @@
   "modules": {
     "core": {
       "title": "项目核心",
-      "version": "0.4.3",
+      "version": "0.4.4",
       "paths": [
         "README.md",
         "CONTEXT.md",

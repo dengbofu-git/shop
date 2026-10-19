@@ -21,7 +21,7 @@
 
 | 模块 | 当前版本 | 当前核对状态 | 完整变更记录 |
 | --- | --- | --- | --- |
-| core · 项目核心 | 0.4.3 | 维护脚本归位、报告索引及合法的 Worktree 回收配置键；保留既有工程支撑 | [core](changelogs/core.md) |
+| core · 项目核心 | 0.4.4 | 维护脚本归位、报告索引及合法的 Worktree 回收配置键；保留既有工程支撑 | [core](changelogs/core.md) |
 | users · 用户与权限 | 0.2.3 | 统一登录与权限分流、平台联合鉴权、会话权限、品牌与旧入口清理 | [users](changelogs/users.md) |
 | goods · 商品管理 | 0.4.1 | 可选分类页长与商品分页验证；保留商品库存及图片既有口径 | [goods](changelogs/goods.md) |
 | carts · 购物车 | 0.1.1 | 保持采购车及商品图片基线；本轮仅web调整币种展示 | [carts](changelogs/carts.md) |
