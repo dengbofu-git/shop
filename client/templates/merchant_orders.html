@@ -66,6 +66,7 @@
         html.embed-mode body.merchant-body { background: #f1f8e9 !important; }
     </style>
 {% include "shared/system_theme.html" %}
+    <link href="../static/css/merchant-orders.css?v=20261019-status-filters" rel="stylesheet" />
 </head>
 <body class="ds-page-merchant_orders ds-theme merchant-body">
     <header class="merchant-header-brand">
@@ -88,127 +89,14 @@
         </nav>
         <div class="merchant-content">
             <h3>我的订单</h3>
-            <div id="order-list"><div class="empty-tip">加载中...</div></div>
+            <div id="order-status-filters" class="order-status-filters" role="group" aria-label="按订单状态筛选"></div>
+            <p id="order-summary" class="order-summary" role="status" aria-live="polite">正在加载订单…</p>
+            <div id="order-list" class="order-table-scroll" tabindex="0" role="region" aria-label="商家订单列表" aria-busy="true"></div>
         </div>
     </div>
 
     <footer class="merchant-footer">tea_saas · 中国地标茶出海中东 © 2026</footer>
 
-    <script>
-        var token = AuthStorage.getToken();
-        if (!token) {
-            alert('请先登录');
-            location.href = 'login.html';
-        } else {
-        $('#btn-logout').click(function(e) {
-            e.preventDefault();
-            AuthStorage.clear();
-            location.href = 'login.html';
-        });
-
-        $.ajax({
-            url: baseUrl + '/v1/supplier/orders',
-            headers: { 'Authorization': token },
-            success: function(r) {
-                if (r.code === 200) {
-                    var list = r.data || [];
-                    if (list.length === 0) $('#order-list').html('<div class="empty-tip">暂无订单</div>');
-                    else {
-                        var html = '<table><tr><th>订单号</th><th>状态</th><th>金额</th><th>数量</th><th>收货人</th><th>电话</th><th>地址</th><th>下单时间</th><th>操作</th></tr>';
-                        list.forEach(function(o) {
-                            var orderId = (o.order_id || '-');
-                            var statusText = (o.status_text || o.status);
-                            var statusVal = o.status;
-                            var opCell = '';
-                            if (statusVal === 2 || statusText === '待发货') {
-                                opCell = '<button type="button" class="btn-ship" data-order-id="' + orderId + '">发货</button>';
-                            }
-                            // 添加删除按钮（仅待付款或已完成订单可删除）
-                            if (statusVal === 1 || statusVal === 4) {
-                                if (opCell) opCell += ' ';
-                                opCell += '<button type="button" class="btn-delete-order" data-order-id="' + orderId + '" style="background:#f44336;color:#fff;border:none;padding:4px 10px;border-radius:4px;cursor:pointer;margin-left:5px;">删除</button>';
-                            }
-                            if (!opCell) opCell = '-';
-                            html += '<tr><td>' + orderId + '</td><td>' + statusText + '</td><td>￥' + (o.total_amount || 0) + '</td><td>' + (o.total_count || 0) + '</td><td>' + (o.receiver || '-') + '</td><td>' + (o.receiver_mobile || '-') + '</td><td>' + (o.address || '-') + '</td><td>' + (o.created_time || '-') + '</td><td>' + opCell + '</td></tr>';
-                        });
-                        html += '</table>';
-                        $('#order-list').html(html);
-                        $(document).off('click', '.btn-ship').on('click', '.btn-ship', function() {
-                            var oid = $(this).data('order-id');
-                            if (!oid) return;
-                            var $btn = $(this);
-                            $btn.prop('disabled', true).text('处理中...');
-                            $.ajax({
-                                url: baseUrl + '/v1/supplier/orders/' + oid + '/ship',
-                                type: 'POST',
-                                headers: { 'Authorization': token },
-                                success: function(r) {
-                                    if (r.code === 200) {
-                                        alert('发货成功');
-                                        $btn.closest('tr').find('td:eq(1)').text('待收货');
-                                        $btn.replaceWith('-');
-                                    } else {
-                                        alert(r.error || '发货失败');
-                                        $btn.prop('disabled', false).text('发货');
-                                    }
-                                },
-                                error: function(xhr) {
-                                    var msg = (xhr.responseJSON && xhr.responseJSON.error) || '发货失败';
-                                    alert(msg);
-                                    $btn.prop('disabled', false).text('发货');
-                                }
-                            });
-                        });
-                        
-                        // 删除订单（使用供应商专用API）
-                        $(document).off('click', '.btn-delete-order').on('click', '.btn-delete-order', function() {
-                            var orderId = $(this).data('order-id');
-                            if (!orderId) return;
-                            if (!confirm('确定要删除订单 ' + orderId + ' 吗？')) return;
-                            
-                            var $btn = $(this);
-                            var $row = $btn.closest('tr');
-                            $btn.prop('disabled', true).text('删除中...');
-                            
-                            $.ajax({
-                                url: baseUrl + '/v1/supplier/orders/delete',
-                                type: 'POST',
-                                headers: { 'Authorization': token, 'Content-Type': 'application/json' },
-                                data: JSON.stringify({ order_id: orderId }),
-                                success: function(r) {
-                                    if (r.code === 200) {
-                                        alert('删除成功');
-                                        $row.fadeOut(300, function() { $(this).remove(); });
-                                    } else {
-                                        alert(r.error || '删除失败');
-                                        $btn.prop('disabled', false).text('删除');
-                                    }
-                                },
-                                error: function(xhr) {
-                                    var msg = '删除失败';
-                                    if (xhr.status === 404) {
-                                        msg = '删除接口不存在，请检查服务器配置（404错误）';
-                                    } else if (xhr.status === 403) {
-                                        msg = '无权限删除此订单';
-                                    } else if (xhr.status === 401) {
-                                        msg = '登录已过期，请重新登录';
-                                    } else if (xhr.responseJSON && xhr.responseJSON.error) {
-                                        msg = xhr.responseJSON.error;
-                                    } else {
-                                        msg = '删除失败，状态码：' + xhr.status;
-                                    }
-                                    console.error('删除订单失败:', xhr.status, xhr.responseText);
-                                    alert(msg);
-                                    $btn.prop('disabled', false).text('删除');
-                                }
-                            });
-                        });
-                    }
-                } else $('#order-list').html('<div class="empty-tip">' + (r.error || '加载失败') + '</div>');
-            },
-            error: function() { $('#order-list').html('<div class="empty-tip">加载失败，请重新登录</div>'); }
-        });
-        }
-    </script>
+    <script src="../static/js/merchant-orders.js?v=20261019-status-filters"></script>
 </body>
 </html>

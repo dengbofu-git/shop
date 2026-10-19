@@ -114,13 +114,13 @@ features:
     codePaths: [logistics/models.py, logistics/services.py, logistics/views.py]
     observation: login-query-with-object-scope-gap-shipping-not-wired-to-merchant-action
   - id: FEAT-012
-    name: 商家订单列表删除及发货协作
+    name: 商家订单状态分类、删除及发货协作
     primaryCapability: CAP-MER-001
     relatedCapabilities: [CAP-TRD-002, CAP-FUL-001, CAP-FUL-002]
     perspectives: [merchant]
     pages: [merchant_orders.html]
     apiPrefixes: [/v1/supplier/orders]
-    codePaths: [supplier/views.py]
+    codePaths: [supplier/views.py, client/templates/merchant_orders.html, client/static/js/merchant-orders.js]
     observation: observed-code
   - id: FEAT-013
     name: 商家与运营经营看板
