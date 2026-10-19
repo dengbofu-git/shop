@@ -1,4 +1,4 @@
-# 跨境茶叶saas平台 渐进式 SDD 路线图
+# tea_saas 渐进式 SDD 路线图
 
 2026-10-16实施增量：用户明确要求补齐收藏与足迹，[CAP-CAT-004](modules/catalog-content/capabilities/CAP-CAT-004/capability.yaml) 已实施并附定向验证、本地迁移结果，阶段IMPLEMENTING待人工审阅。该增量不改变CAP-AI-003的既有SPEC_REVIEW阶段和后续计划。
 

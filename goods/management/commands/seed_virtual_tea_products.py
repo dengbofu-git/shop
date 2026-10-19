@@ -99,6 +99,7 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument('--merchant-id', type=int, required=True)
+        parser.add_argument('--expected-database-name', required=True)
         parser.add_argument('--expected-server-uuid', required=True)
         parser.add_argument('--batch', default='VTEA-20261016')
         parser.add_argument('--as-of', default='2026-10-16')
@@ -115,7 +116,7 @@ class Command(BaseCommand):
         with connections[alias].cursor() as cursor:
             cursor.execute('SELECT DATABASE(), @@server_uuid')
             database, server_uuid = cursor.fetchone()
-        if database != 'dadashop' or server_uuid != options['expected_server_uuid']:
+        if database != options['expected_database_name'] or server_uuid != options['expected_server_uuid']:
             raise CommandError('Unexpected database identity; no rows were written')
         merchant = UserProfile.objects.using(alias).filter(pk=options['merchant_id'], user_type='merchant', is_active=True).first()
         if merchant is None:

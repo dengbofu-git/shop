@@ -4,7 +4,7 @@
 
 ## 自动验证
 
-- `E:/miniconda/envs/dadashop/python.exe manage.py test admin_panel.test_overview users.tests --settings=support_ai.test_settings --noinput`：22项通过，Django系统检查无问题。所有测试使用自动销毁的内存SQLite，合成账号，购物车mock，不连接业务库。
+- `E:/miniconda/envs/tea_saas/python.exe manage.py test admin_panel.test_overview users.tests --settings=support_ai.test_settings --noinput`：22项通过，Django系统检查无问题。所有测试使用自动销毁的内存SQLite，合成账号，购物车mock，不连接业务库。
 - `node client/tests/admin-shell.test.js`：通过。覆盖账号／Agent的iframe内容切换、返回总览卸载iframe、未知及无权限hash回退、缺少总览权限时选择可访问功能、统计失败清空旧值并可重试。
 - `node client/tests/unified-login.test.js`：通过。覆盖登录地址白名单、错误恢复、单项及任一入口权限守卫。
 - Python AST、`node --check client/static/js/admin-overview.js`、`python tools/module_versions.py check`、`git diff --check`：通过。上述静态检查不冒充业务或浏览器验收。

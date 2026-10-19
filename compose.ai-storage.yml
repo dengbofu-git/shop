@@ -1,4 +1,4 @@
-name: dadashop-ai-storage
+name: tea_saas-ai-storage
 
 services:
   ollama:
@@ -18,8 +18,8 @@ services:
     image: pgvector/pgvector:0.8.7-pg16-bookworm
     restart: unless-stopped
     environment:
-      POSTGRES_DB: ${AI_POSTGRES_NAME:-dadashop_ai}
-      POSTGRES_USER: ${AI_POSTGRES_USER:-dadashop_ai}
+      POSTGRES_DB: ${AI_POSTGRES_NAME:-tea_saas_ai}
+      POSTGRES_USER: ${AI_POSTGRES_USER:-tea_saas_ai}
       POSTGRES_PASSWORD: ${AI_POSTGRES_PASSWORD:?Set AI_POSTGRES_PASSWORD in .env.postgres}
     ports:
       - "127.0.0.1:${AI_POSTGRES_PORT:-5433}:5432"
@@ -36,4 +36,6 @@ services:
 
 volumes:
   postgres_data:
+    name: ${AI_POSTGRES_VOLUME_NAME:-tea_saas-ai-storage_postgres_data}
   ollama_models:
+    name: ${AI_OLLAMA_VOLUME_NAME:-tea_saas-ai-storage_ollama_models}

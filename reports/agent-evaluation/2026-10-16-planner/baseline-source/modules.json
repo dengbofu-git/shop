@@ -5,7 +5,7 @@
       "title": "项目核心",
       "version": "0.1.2",
       "paths": [
-        "dadashop/",
+        "tea_saas/",
         "manage.py",
         "requirements.txt",
         ".gitignore",

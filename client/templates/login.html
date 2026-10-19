@@ -4,89 +4,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>跨境茶叶saas平台 - 中台登录</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Sans+Arabic:wght@400;500;700&display=swap" rel="stylesheet">
-    <link href="../static/css/theme.css" rel="stylesheet">
-    <link href="../static/css/login-portal.css?v=20261003-tea-theme" rel="stylesheet">
-    <link rel="icon" href="../static/images/index/py.ico">
-    <script src="../static/js/init.js"></script>
-    <script src="../static/js/auth-storage.js?v=20261018-session-isolation"></script>
-{% include "shared/system_theme.html" %}
+    <title>tea_saas · 茶叶采购与经营协作</title>
+    <meta name="description" id="page-description" content="以茶为媒，连接好生意。在 tea_saas 发现茶品、协作订单，与智能助手一起找到适合的好茶。">
+    <meta name="theme-color" content="#185c3b">
+    <link href="{% static 'css/theme.css' %}" rel="stylesheet">
+    {% include "shared/system_theme.html" %}
+    <link href="{% static 'css/login-portal.css' %}?v=20261019-tea-culture" rel="stylesheet">
+    <link rel="icon" type="image/png" href="{% static 'images/tea_saas/tea_saas-logo.png' %}">
+    <link rel="apple-touch-icon" href="{% static 'images/tea_saas/tea_saas-logo.png' %}">
+    <link rel="preload" as="image" href="{% static 'images/tea_saas/login-tea-hero.png' %}">
+    <script src="{% static 'js/init.js' %}"></script>
+    <script src="{% static 'js/auth-storage.js' %}?v=20261018-session-isolation"></script>
 </head>
-<body class="ds-page-login ds-theme login-portal-page">
+<body class="ds-page-login ds-theme login-portal-page tea-login">
     <div class="portal-layout">
-        <!-- 左侧 60% 品牌形象区 -->
-        <aside class="brand-panel" id="brand-panel">
+        <aside class="brand-panel" id="brand-panel" aria-labelledby="brand-heading">
+            <div class="brand-hero">
+                <img src="{% static 'images/tea_saas/login-tea-hero.png' %}" alt="晨雾茶山间的青瓷盖碗与一盏清茶" data-i18n-alt="hero_alt" class="hero-bg-img" width="1536" height="1024" fetchpriority="high">
+                <div class="brand-shade" aria-hidden="true"></div>
+            </div>
             <div class="brand-content">
                 <div class="brand-slogan-wrap">
-                    <h1 class="brand-slogan" data-i18n="slogan">香茗何须愁遥阻，春风直越万重关</h1>
-                    <p class="brand-slogan-sub" data-i18n="slogan_sub">Fragrant tea knows no distance; spring breeze crosses all barriers</p>
-                    <p class="brand-slogan-ar" data-i18n="slogan_ar" lang="ar" style="display:none;">الشاي العطِر لا يعرف المسافة؛ نسيم الربيع يتجاوز كل الحواجز</p>
+                    <p class="brand-eyebrow" data-i18n="hero_eyebrow">茶有源 · 合作无界</p>
+                    <h1 class="brand-slogan" id="brand-heading" data-i18n="slogan">一叶好茶，连接每一份用心。</h1>
+                    <p class="brand-slogan-sub" data-i18n="slogan_sub">从茶园到茶杯，让采购更从容，让合作更有温度。</p>
                 </div>
-
-                <div class="brand-hero">
-                    <img src="{% static 'images/logo/bg.jpg' %}" alt="" class="hero-bg-img">
-                </div>
-
-                <div class="highlight-cards">
-                    <div class="highlight-card">
-                        <span class="card-icon">📋</span>
-                        <span class="card-text" data-i18n="highlight1">商品采购、订单与经营协同</span>
-                    </div>
-                    <div class="highlight-card">
-                        <span class="card-icon">🍃</span>
-                        <span class="card-text" data-i18n="highlight2">茶叶采购与商家经营工作台</span>
-                    </div>
-                    <div class="highlight-card">
-                        <span class="card-icon">🔗</span>
-                        <span class="card-text" data-i18n="highlight3">智能客服与茶品推荐</span>
+                <div class="brand-bottom">
+                    <p class="scene-caption" data-i18n="scene_caption">山间一叶，杯中万千。</p>
+                    <div class="highlight-cards">
+                        <div class="highlight-card"><span class="card-index" aria-hidden="true">01</span><span class="card-text" data-i18n="highlight1">发现好茶</span></div>
+                        <div class="highlight-card"><span class="card-index" aria-hidden="true">02</span><span class="card-text" data-i18n="highlight2">协同经营</span></div>
+                        <div class="highlight-card"><span class="card-index" aria-hidden="true">03</span><span class="card-text" data-i18n="highlight3">智能选茶</span></div>
                     </div>
                 </div>
             </div>
         </aside>
-
-        <!-- 右侧 40% 登录操作区 -->
         <main class="login-panel" id="login-panel">
             <div class="login-content">
                 <div class="login-header">
-                    <img src="../static/images/logo/1.jpg" alt="跨境茶叶saas平台" class="portal-logo">
-                    <h2 class="portal-title" data-i18n="logo_text">跨境茶叶saas平台</h2>
-                    <div class="lang-switcher">
-                        <button type="button" class="lang-btn active" data-lang="zh">中文</button>
-                        <button type="button" class="lang-btn" data-lang="en">EN</button>
-                        <button type="button" class="lang-btn" data-lang="ar">العربية</button>
+                    <div class="brand-lockup">
+                        <img src="{% static 'images/tea_saas/tea_saas-logo.png' %}" alt="tea_saas 茶芽与茶盏标志" data-i18n-alt="logo_alt" class="portal-logo" width="64" height="64">
+                        <div><p class="portal-title" data-i18n="logo_text">tea_saas</p><p class="brand-tagline" data-i18n="brand_tagline">茶叶采购与经营协作</p></div>
+                    </div>
+                    <div class="lang-switcher" role="group" aria-label="Language">
+                        <button type="button" class="lang-btn active" data-lang="zh" lang="zh" aria-pressed="true">中文</button>
+                        <button type="button" class="lang-btn" data-lang="en" lang="en" aria-pressed="false">EN</button>
+                        <button type="button" class="lang-btn" data-lang="ar" lang="ar" aria-pressed="false">العربية</button>
                     </div>
                 </div>
-
+                <div class="welcome-copy">
+                    <p class="welcome-eyebrow" data-i18n="welcome_eyebrow">从这里，开启茶的旅程</p>
+                    <h2 data-i18n="welcome_title">欢迎回来</h2>
+                    <p data-i18n="welcome_desc">登录你的账号，继续发现好茶与新的合作。</p>
+                </div>
                 <form id="login-form" class="login-form">
                     <div class="input-field">
-                        <input type="text" name="username" id="username" placeholder="" required autocomplete="username">
-                        <label for="username" data-i18n="placeholder_username">请输入账号</label>
+                        <label for="username" data-i18n="placeholder_username">账号</label>
+                        <input type="text" name="username" id="username" required autocomplete="username" autocapitalize="none" spellcheck="false">
                     </div>
                     <div class="input-field">
-                        <input type="password" name="password" id="password" placeholder="" required minlength="6" autocomplete="current-password">
-                        <label for="password" data-i18n="placeholder_password">请输入密码</label>
+                        <div class="password-label"><label for="password" data-i18n="placeholder_password">密码</label></div>
+                        <input type="password" name="password" id="password" required minlength="6" autocomplete="current-password">
                     </div>
                     <div id="showResult" class="error-msg" role="alert" aria-live="polite"></div>
-                    <button type="submit" class="btn-login" data-i18n="btn_login">登录</button>
+                    <button type="submit" class="btn-login" data-i18n="btn_login">进入工作台</button>
+                    <p class="access-note" data-i18n="access_note">登录后，根据账号权限进入对应工作台。</p>
                 </form>
-
                 <div class="login-footer">
-                    <p class="challenge-cup" data-i18n="challenge_cup">第十五届挑战杯参赛项目</p>
-                    <p class="platform-desc" data-i18n="platform_desc">面向买家、茶企与运营的协作平台</p>
-                    <div class="extra-links">
-                        <a href="register_sms.html" data-i18n="register">新用户注册</a>
-                        <span class="sep">|</span>
-                        <a href="findPass.html" data-i18n="forget_pwd">忘记密码</a>
-                    </div>
+                    <p><span data-i18n="register_hint">初次来到这里？</span> <a href="register_sms.html" data-i18n="register">创建账号</a></p>
+                    <p class="platform-desc" data-i18n="platform_desc">让好茶被发现，让合作更简单。</p>
                 </div>
             </div>
         </main>
     </div>
-
-    <script src="../static/js/jquery-3.1.1.min.js"></script>
-    <script src="../static/js/login-portal.js?v=20261018-platform-name"></script>
+    <script src="{% static 'js/jquery-3.1.1.min.js' %}"></script>
+    <script src="{% static 'js/login-portal.js' %}?v=20261019-account-auth"></script>
 </body>
 </html>

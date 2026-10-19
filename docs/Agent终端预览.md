@@ -13,14 +13,14 @@
 在 PowerShell 运行：
 
 ```powershell
-cd E:\django\dadashop
+cd E:\django\tea_saas
 .\support_ai\preview.ps1
 ```
 
 或者直接调用项目 Python：
 
 ```powershell
-& E:\miniconda\envs\dadashop\python.exe -X utf8 -u manage.py agent_preview
+& E:\miniconda\envs\tea_saas\python.exe -X utf8 -u manage.py agent_preview
 ```
 
 出现 `你 >` 后输入问题并回车。无需打开页面，也无需 Django HTTP 服务或 Redis。
@@ -49,7 +49,7 @@ cd E:\django\dadashop
 本地开发者明确选择活跃买家后，才会读取其偏好、私有已发布知识及订单状态：
 
 ```powershell
-& E:\miniconda\envs\dadashop\python.exe -X utf8 -u manage.py agent_preview --user-id <买家ID>
+& E:\miniconda\envs\tea_saas\python.exe -X utf8 -u manage.py agent_preview --user-id <买家ID>
 ```
 
 这是本地开发工具，依赖本机已有的数据库和模型凭据；不能作为公开 HTTP 接口或远程无鉴权终端。
@@ -65,7 +65,7 @@ cd E:\django\dadashop
 重复传入 `--message` 可以在同一个临时会话中连续输入；`--json` 输出完整 JSONL 结果：
 
 ```powershell
-& E:\miniconda\envs\dadashop\python.exe -X utf8 -u manage.py agent_preview --message '推荐两款绿茶' --message '介绍第一款商品' --json
+& E:\miniconda\envs\tea_saas\python.exe -X utf8 -u manage.py agent_preview --message '推荐两款绿茶' --message '介绍第一款商品' --json
 ```
 
 本入口直接调用当前 Agent，便于定位意图、工具和多轮行为；它不经过网页身份验证、HTTP 限流或客户会话提交路径。

@@ -80,7 +80,7 @@ class CartsView(View):
             'data': {
                 'carts_count': carts_count
             },
-            'base_url': settings.DADASHOP_MEDIA
+            'base_url': settings.TEA_SAAS_MEDIA
         }
         return JsonResponse(context)
 
@@ -98,7 +98,7 @@ class CartsView(View):
             context = {
                 'code': 200,
                 'data': [],
-                'base_url': settings.DADASHOP_MEDIA
+                'base_url': settings.TEA_SAAS_MEDIA
             }
             return JsonResponse(context)
         info = self.conn.hgetall(name=cache_key)
@@ -135,7 +135,7 @@ class CartsView(View):
         context = {
             'code': 200,
             'data': skus_list,
-            'base_url': settings.DADASHOP_MEDIA
+            'base_url': settings.TEA_SAAS_MEDIA
         }
         return JsonResponse(context)
 
@@ -165,7 +165,7 @@ class CartsView(View):
             'data': {
                 'carts_count': carts_count,
             },
-            'base_url': settings.DADASHOP_MEDIA
+            'base_url': settings.TEA_SAAS_MEDIA
         }
         return JsonResponse(context)
 
@@ -254,7 +254,7 @@ class CartsView(View):
         context = {
             'code': 200,
             'data': skus_list,
-            'base_url': settings.DADASHOP_MEDIA
+            'base_url': settings.TEA_SAAS_MEDIA
         }
         return JsonResponse(context)
 

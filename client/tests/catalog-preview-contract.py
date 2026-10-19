@@ -1,6 +1,6 @@
 """Generate the real catalog response from disposable SQLite fixtures for Node QA.
 
-Run from the repository root with the 跨境茶叶saas平台 Python environment:
+Run from the repository root with the tea_saas Python environment:
 python client/tests/catalog-preview-contract.py <output-json-path>
 node client/tests/buyer-catalog-preview.test.js <output-json-path>
 """

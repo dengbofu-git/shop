@@ -65,7 +65,7 @@
             pagination.hidden = loading || !!failed || pages <= 1 || !total;
             grid.hidden = loading || !!failed || !total;
             var title = t(recent ? 'recent' : 'favorites');
-            document.title = title + ' · 跨境茶叶saas平台';
+            document.title = title + ' · tea_saas';
             message(document.getElementById('activity-title'), title);
             message(document.getElementById('activity-description'), t(recent ? 'recentNote' : 'note'));
             message(document.getElementById('activity-count'), failed || loading ? '' : total + ' ' + t('count'));

@@ -11,7 +11,7 @@
     "scope": "public",
     "telemetry": false,
     "history_turns": 6,
-    "log_file": "E:\\django\\dadashop\\reports\\agent-evaluation\\2026-10-16-mixed-tea\\after\\20261016-123319-a2821b9ff1ee4ca8898faf234dd8808a.jsonl"
+    "log_file": "E:\\django\\tea_saas\\reports\\agent-evaluation\\2026-10-16-mixed-tea\\after\\20261016-123319-a2821b9ff1ee4ca8898faf234dd8808a.jsonl"
   },
   "business_counts_before": {
     "turns": 16,

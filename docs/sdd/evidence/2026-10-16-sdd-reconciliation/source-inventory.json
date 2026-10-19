@@ -3,406 +3,406 @@
     {
       "path": "/^\\.?well-known/appspecific/com\\.chrome\\.devtools\\.json$",
       "view": "chrome_devtools_json",
-      "source": "dadashop/urls.py",
+      "source": "tea_saas/urls.py",
       "line": 44,
       "kind": "re_path"
     },
     {
       "path": "/",
       "view": "index",
-      "source": "dadashop/urls.py",
+      "source": "tea_saas/urls.py",
       "line": 45,
       "kind": "path"
     },
     {
       "path": "/index.html",
       "view": "index_page",
-      "source": "dadashop/urls.py",
+      "source": "tea_saas/urls.py",
       "line": 46,
       "kind": "path"
     },
     {
       "path": "/login.html",
       "view": "login_page",
-      "source": "dadashop/urls.py",
+      "source": "tea_saas/urls.py",
       "line": 47,
       "kind": "path"
     },
     {
       "path": "/terminal_login.html",
       "view": "template_view('terminal_login.html')",
-      "source": "dadashop/urls.py",
+      "source": "tea_saas/urls.py",
       "line": 48,
       "kind": "path"
     },
     {
       "path": "/header.html",
       "view": "template_view('header.html')",
-      "source": "dadashop/urls.py",
+      "source": "tea_saas/urls.py",
       "line": 49,
       "kind": "path"
     },
     {
       "path": "/footer.html",
       "view": "template_view('footer.html')",
-      "source": "dadashop/urls.py",
+      "source": "tea_saas/urls.py",
       "line": 50,
       "kind": "path"
     },
     {
       "path": "/product_list.html",
       "view": "lambda r: redirect('/buyer_products.html' + ('?' + r.META.get('QUERY_STRING', '') if r.META.get('QUERY_STRING') else ''))",
-      "source": "dadashop/urls.py",
+      "source": "tea_saas/urls.py",
       "line": 51,
       "kind": "path"
     },
     {
       "path": "/product_details.html",
       "view": "template_view('product_details.html')",
-      "source": "dadashop/urls.py",
+      "source": "tea_saas/urls.py",
       "line": 52,
       "kind": "path"
     },
     {
       "path": "/search_list.html",
       "view": "template_view('search_list.html')",
-      "source": "dadashop/urls.py",
+      "source": "tea_saas/urls.py",
       "line": 53,
       "kind": "path"
     },
     {
       "path": "/search.html",
       "view": "lambda r: redirect('/search_list.html')",
-      "source": "dadashop/urls.py",
+      "source": "tea_saas/urls.py",
       "line": 54,
       "kind": "path"
     },
     {
       "path": "/cart.html",
       "view": "template_view('cart.html')",
-      "source": "dadashop/urls.py",
+      "source": "tea_saas/urls.py",
       "line": 55,
       "kind": "path"
     },
     {
       "path": "/addressAdmin.html",
       "view": "lambda r: redirect('/buyer_profile.html#addresses')",
-      "source": "dadashop/urls.py",
+      "source": "tea_saas/urls.py",
       "line": 56,
       "kind": "path"
     },
     {
       "path": "/buyer_profile.html",
       "view": "template_view('buyer_profile.html')",
-      "source": "dadashop/urls.py",
+      "source": "tea_saas/urls.py",
       "line": 57,
       "kind": "path"
     },
     {
       "path": "/buyer_password.html",
       "view": "template_view('buyer_password.html')",
-      "source": "dadashop/urls.py",
+      "source": "tea_saas/urls.py",
       "line": 58,
       "kind": "path"
     },
     {
       "path": "/myOrder.html",
       "view": "lambda r: redirect('/buyer_orders.html')",
-      "source": "dadashop/urls.py",
+      "source": "tea_saas/urls.py",
       "line": 59,
       "kind": "path"
     },
     {
       "path": "/register.html",
       "view": "lambda r: redirect('/register_sms.html')",
-      "source": "dadashop/urls.py",
+      "source": "tea_saas/urls.py",
       "line": 60,
       "kind": "path"
     },
     {
       "path": "/register_sms.html",
       "view": "template_view('register_sms.html')",
-      "source": "dadashop/urls.py",
+      "source": "tea_saas/urls.py",
       "line": 61,
       "kind": "path"
     },
     {
       "path": "/findPass.html",
       "view": "template_view('findPass.html')",
-      "source": "dadashop/urls.py",
+      "source": "tea_saas/urls.py",
       "line": 62,
       "kind": "path"
     },
     {
       "path": "/orderConfirm.html",
       "view": "template_view('orderConfirm.html')",
-      "source": "dadashop/urls.py",
+      "source": "tea_saas/urls.py",
       "line": 63,
       "kind": "path"
     },
     {
       "path": "/payment.html",
       "view": "template_view('payment.html')",
-      "source": "dadashop/urls.py",
+      "source": "tea_saas/urls.py",
       "line": 64,
       "kind": "path"
     },
     {
       "path": "/pay_success.html",
       "view": "template_view('pay_success.html')",
-      "source": "dadashop/urls.py",
+      "source": "tea_saas/urls.py",
       "line": 65,
       "kind": "path"
     },
     {
       "path": "/gopay.html",
       "view": "template_view('gopay.html')",
-      "source": "dadashop/urls.py",
+      "source": "tea_saas/urls.py",
       "line": 66,
       "kind": "path"
     },
     {
       "path": "/personal_password.html",
       "view": "lambda r: redirect('/buyer_password.html')",
-      "source": "dadashop/urls.py",
+      "source": "tea_saas/urls.py",
       "line": 67,
       "kind": "path"
     },
     {
       "path": "/callback.html",
       "view": "template_view('callback.html')",
-      "source": "dadashop/urls.py",
+      "source": "tea_saas/urls.py",
       "line": 68,
       "kind": "path"
     },
     {
       "path": "/active.html",
       "view": "template_view('active.html')",
-      "source": "dadashop/urls.py",
+      "source": "tea_saas/urls.py",
       "line": 69,
       "kind": "path"
     },
     {
       "path": "/lookforward.html",
       "view": "lambda r: redirect('/buyer_dashboard.html')",
-      "source": "dadashop/urls.py",
+      "source": "tea_saas/urls.py",
       "line": 70,
       "kind": "path"
     },
     {
       "path": "/myCollect.html",
       "view": "lambda r: redirect('/buyer_dashboard.html')",
-      "source": "dadashop/urls.py",
+      "source": "tea_saas/urls.py",
       "line": 71,
       "kind": "path"
     },
     {
       "path": "/supplier_profile.html",
       "view": "template_view('supplier_profile.html')",
-      "source": "dadashop/urls.py",
+      "source": "tea_saas/urls.py",
       "line": 72,
       "kind": "path"
     },
     {
       "path": "/supplier_password.html",
       "view": "template_view('supplier_password.html')",
-      "source": "dadashop/urls.py",
+      "source": "tea_saas/urls.py",
       "line": 73,
       "kind": "path"
     },
     {
       "path": "/merchant_dashboard.html",
       "view": "template_view('merchant_dashboard.html')",
-      "source": "dadashop/urls.py",
+      "source": "tea_saas/urls.py",
       "line": 74,
       "kind": "path"
     },
     {
       "path": "/merchant_products.html",
       "view": "template_view('merchant_products.html')",
-      "source": "dadashop/urls.py",
+      "source": "tea_saas/urls.py",
       "line": 75,
       "kind": "path"
     },
     {
       "path": "/merchant_orders.html",
       "view": "template_view('merchant_orders.html')",
-      "source": "dadashop/urls.py",
+      "source": "tea_saas/urls.py",
       "line": 76,
       "kind": "path"
     },
     {
       "path": "/merchant_inventory.html",
       "view": "template_view('merchant_inventory.html')",
-      "source": "dadashop/urls.py",
+      "source": "tea_saas/urls.py",
       "line": 77,
       "kind": "path"
     },
     {
       "path": "/merchant_settlement.html",
       "view": "template_view('merchant_settlement.html')",
-      "source": "dadashop/urls.py",
+      "source": "tea_saas/urls.py",
       "line": 78,
       "kind": "path"
     },
     {
       "path": "/super_terminal.html",
       "view": "lambda r: redirect('/admin_panel.html')",
-      "source": "dadashop/urls.py",
+      "source": "tea_saas/urls.py",
       "line": 79,
       "kind": "path"
     },
     {
       "path": "/operations_dashboard.html",
       "view": "template_view('operations_dashboard.html')",
-      "source": "dadashop/urls.py",
+      "source": "tea_saas/urls.py",
       "line": 80,
       "kind": "path"
     },
     {
       "path": "/admin_panel.html",
       "view": "template_view('admin_panel.html')",
-      "source": "dadashop/urls.py",
+      "source": "tea_saas/urls.py",
       "line": 81,
       "kind": "path"
     },
     {
       "path": "/admin_agents.html",
       "view": "template_view('admin_agents.html')",
-      "source": "dadashop/urls.py",
+      "source": "tea_saas/urls.py",
       "line": 82,
       "kind": "path"
     },
     {
       "path": "/customs_9710.html",
       "view": "template_view('customs_9710.html')",
-      "source": "dadashop/urls.py",
+      "source": "tea_saas/urls.py",
       "line": 83,
       "kind": "path"
     },
     {
       "path": "/buyer_dashboard.html",
       "view": "template_view('buyer_dashboard.html')",
-      "source": "dadashop/urls.py",
+      "source": "tea_saas/urls.py",
       "line": 84,
       "kind": "path"
     },
     {
       "path": "/buyer_products.html",
       "view": "template_view('buyer_products.html')",
-      "source": "dadashop/urls.py",
+      "source": "tea_saas/urls.py",
       "line": 85,
       "kind": "path"
     },
     {
       "path": "/buyer_orders.html",
       "view": "template_view('buyer_orders.html')",
-      "source": "dadashop/urls.py",
+      "source": "tea_saas/urls.py",
       "line": 86,
       "kind": "path"
     },
     {
       "path": "/buyer_support.html",
       "view": "template_view('buyer_support.html')",
-      "source": "dadashop/urls.py",
+      "source": "tea_saas/urls.py",
       "line": 87,
       "kind": "path"
     },
     {
       "path": "/logistics_track.html",
       "view": "template_view('logistics_track.html')",
-      "source": "dadashop/urls.py",
+      "source": "tea_saas/urls.py",
       "line": 88,
       "kind": "path"
     },
     {
       "path": "/trace.html",
       "view": "template_view('trace.html')",
-      "source": "dadashop/urls.py",
+      "source": "tea_saas/urls.py",
       "line": 89,
       "kind": "path"
     },
     {
       "path": "/admin/",
       "view": "admin.site.urls",
-      "source": "dadashop/urls.py",
+      "source": "tea_saas/urls.py",
       "line": 90,
       "kind": "path"
     },
     {
       "path": "/v1/users/",
       "view": "include('users.urls')",
-      "source": "dadashop/urls.py",
+      "source": "tea_saas/urls.py",
       "line": 91,
       "kind": "path"
     },
     {
       "path": "/v1/goods/",
       "view": "include('goods.urls')",
-      "source": "dadashop/urls.py",
+      "source": "tea_saas/urls.py",
       "line": 92,
       "kind": "path"
     },
     {
       "path": "/v1/carts/",
       "view": "include('carts.urls')",
-      "source": "dadashop/urls.py",
+      "source": "tea_saas/urls.py",
       "line": 93,
       "kind": "path"
     },
     {
       "path": "/v1/orders/",
       "view": "include('orders.urls')",
-      "source": "dadashop/urls.py",
+      "source": "tea_saas/urls.py",
       "line": 94,
       "kind": "path"
     },
     {
       "path": "/v1/pays/",
       "view": "include('pays.urls')",
-      "source": "dadashop/urls.py",
+      "source": "tea_saas/urls.py",
       "line": 95,
       "kind": "path"
     },
     {
       "path": "/v1/news/",
       "view": "include('news.urls')",
-      "source": "dadashop/urls.py",
+      "source": "tea_saas/urls.py",
       "line": 96,
       "kind": "path"
     },
     {
       "path": "/v1/inventory/",
       "view": "include('inventory.urls')",
-      "source": "dadashop/urls.py",
+      "source": "tea_saas/urls.py",
       "line": 97,
       "kind": "path"
     },
     {
       "path": "/v1/logistics/",
       "view": "include('logistics.urls')",
-      "source": "dadashop/urls.py",
+      "source": "tea_saas/urls.py",
       "line": 98,
       "kind": "path"
     },
     {
       "path": "/v1/supplier/",
       "view": "include('supplier.urls')",
-      "source": "dadashop/urls.py",
+      "source": "tea_saas/urls.py",
       "line": 99,
       "kind": "path"
     },
     {
       "path": "/v1/admin-panel/",
       "view": "include('admin_panel.urls')",
-      "source": "dadashop/urls.py",
+      "source": "tea_saas/urls.py",
       "line": 100,
       "kind": "path"
     },
     {
       "path": "/v1/support/",
       "view": "include('support_ai.urls')",
-      "source": "dadashop/urls.py",
+      "source": "tea_saas/urls.py",
       "line": 101,
       "kind": "path"
     },
@@ -850,56 +850,56 @@
   ],
   "definitions": [
     {
-      "source": "dadashop/urls.py",
+      "source": "tea_saas/urls.py",
       "line": 23,
       "name": "index",
       "decorators": [],
       "methods": []
     },
     {
-      "source": "dadashop/urls.py",
+      "source": "tea_saas/urls.py",
       "line": 27,
       "name": "login_page",
       "decorators": [],
       "methods": []
     },
     {
-      "source": "dadashop/urls.py",
+      "source": "tea_saas/urls.py",
       "line": 31,
       "name": "index_page",
       "decorators": [],
       "methods": []
     },
     {
-      "source": "dadashop/urls.py",
+      "source": "tea_saas/urls.py",
       "line": 35,
       "name": "template_view",
       "decorators": [],
       "methods": []
     },
     {
-      "source": "dadashop/urls.py",
+      "source": "tea_saas/urls.py",
       "line": 39,
       "name": "chrome_devtools_json",
       "decorators": [],
       "methods": []
     },
     {
-      "source": "dadashop/utils.py",
+      "source": "tea_saas/utils.py",
       "line": 6,
       "name": "md5",
       "decorators": [],
       "methods": []
     },
     {
-      "source": "dadashop/utils.py",
+      "source": "tea_saas/utils.py",
       "line": 12,
       "name": "jwt_encode",
       "decorators": [],
       "methods": []
     },
     {
-      "source": "dadashop/utils.py",
+      "source": "tea_saas/utils.py",
       "line": 18,
       "name": "jwt_decode",
       "decorators": [],

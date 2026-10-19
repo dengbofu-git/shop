@@ -3,11 +3,12 @@
   "modules": {
     "core": {
       "title": "项目核心",
-      "version": "0.2.1",
+      "version": "0.4.1",
       "paths": [
         "README.md",
+        "CONTEXT.md",
         "LICENSE",
-        "dadashop/",
+        "tea_saas/",
         "manage.py",
         "requirements.txt",
         ".gitignore",
@@ -28,7 +29,7 @@
     },
     "users": {
       "title": "用户与权限",
-      "version": "0.2.3",
+      "version": "0.3.0",
       "paths": [
         "users/",
         "versions/changelogs/users.md"
@@ -39,7 +40,7 @@
     },
     "goods": {
       "title": "商品管理",
-      "version": "0.4.1",
+      "version": "0.4.2",
       "paths": [
         "goods/",
         "goods_data.json",
@@ -57,7 +58,7 @@
     },
     "carts": {
       "title": "购物车",
-      "version": "0.1.1",
+      "version": "0.1.2",
       "paths": [
         "carts/",
         "versions/changelogs/carts.md"
@@ -70,7 +71,7 @@
     },
     "orders": {
       "title": "订单管理",
-      "version": "0.1.4",
+      "version": "0.1.6",
       "paths": [
         "orders/",
         "versions/changelogs/orders.md"
@@ -96,7 +97,7 @@
     },
     "news": {
       "title": "内容资讯",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "paths": [
         "news/",
         "versions/changelogs/news.md"
@@ -134,7 +135,7 @@
     },
     "supplier": {
       "title": "商家与结算",
-      "version": "0.2.0",
+      "version": "0.2.1",
       "paths": [
         "supplier/",
         "versions/changelogs/supplier.md"
@@ -149,7 +150,7 @@
     },
     "admin_panel": {
       "title": "平台运营",
-      "version": "0.4.1",
+      "version": "0.4.2",
       "paths": [
         "admin_panel/",
         "versions/changelogs/admin_panel.md"
@@ -163,7 +164,7 @@
     },
     "support_ai": {
       "title": "智能客服",
-      "version": "0.11.2",
+      "version": "0.12.2",
       "paths": [
         "support_ai/",
         "docs/客服商品推荐设计.md",
@@ -174,6 +175,7 @@
         "docs/Agent分类推荐.md",
         "docs/Agent查询改写.md",
         "docs/Agent推荐追问修复.md",
+        "docs/Agent语义规划与任务状态.md",
         "reports/agent-preview/",
         "reports/agent-evaluation/",
         "deploy/observability/",
@@ -203,7 +205,7 @@
     },
     "ai_storage": {
       "title": "AI 记忆与知识存储",
-      "version": "0.3.2",
+      "version": "0.3.3",
       "paths": [
         "ai_storage/",
         "deploy/postgres/",
@@ -222,7 +224,7 @@
     },
     "web": {
       "title": "页面与前端资源",
-      "version": "0.15.1",
+      "version": "0.17.2",
       "paths": [
         "client/",
         "templates/",

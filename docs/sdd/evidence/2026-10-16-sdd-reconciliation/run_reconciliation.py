@@ -35,7 +35,7 @@ def now():
 
 def snapshot():
     paths = [ROOT / 'manage.py', ROOT / 'requirements.txt', ROOT / 'versions/modules.json']
-    for folder in APPS + ['dadashop', 'client', 'templates', 'deploy', 'tools']:
+    for folder in APPS + ['tea_saas', 'client', 'templates', 'deploy', 'tools']:
         paths.extend(p for p in (ROOT / folder).rglob('*') if p.is_file()
                      and p.suffix in {'.py', '.html', '.js', '.css', '.yml', '.yaml'}
                      and '__pycache__' not in p.parts)
@@ -45,7 +45,7 @@ def snapshot():
 
 def source_inventory():
     prefixes = {}
-    root_tree = ast.parse((ROOT / 'dadashop/urls.py').read_text(encoding='utf-8'))
+    root_tree = ast.parse((ROOT / 'tea_saas/urls.py').read_text(encoding='utf-8'))
     for call in ast.walk(root_tree):
         if isinstance(call, ast.Call) and isinstance(call.func, ast.Name) and call.func.id == 'path' and len(call.args) >= 2:
             inc = call.args[1]
@@ -53,7 +53,7 @@ def source_inventory():
                 if isinstance(inc.args[0], ast.Constant) and isinstance(call.args[0], ast.Constant):
                     prefixes[inc.args[0].value] = call.args[0].value
     routes, definitions = [], []
-    for folder in ['dadashop'] + APPS:
+    for folder in ['tea_saas'] + APPS:
         urlfile = ROOT / folder / 'urls.py'
         if urlfile.exists():
             tree = ast.parse(urlfile.read_text(encoding='utf-8'))
@@ -62,7 +62,7 @@ def source_inventory():
                         and call.func.id in {'path', 're_path'} and len(call.args) >= 2
                         and isinstance(call.args[0], ast.Constant)):
                     route = str(call.args[0].value)
-                    prefix = '' if folder == 'dadashop' else prefixes.get(folder + '.urls', '')
+                    prefix = '' if folder == 'tea_saas' else prefixes.get(folder + '.urls', '')
                     routes.append({'path': '/' + prefix + route, 'view': ast.unparse(call.args[1]),
                                    'source': urlfile.relative_to(ROOT).as_posix(), 'line': call.lineno,
                                    'kind': call.func.id})
@@ -135,7 +135,7 @@ with redirect_stdout(log), redirect_stderr(log), patch.object(socket.socket, 'co
         from support_ai.models import SupportConversation, SupportTurn
         from support_ai.context import current_order_context
         from support_ai.tests import FakeModel
-        from dadashop.utils import jwt_encode
+        from tea_saas.utils import jwt_encode
         import uuid
         buyer = UserProfile.objects.create(username='audit-buyer', password='unused', email='buyer@test.invalid', phone='', is_active=True)
         other = UserProfile.objects.create(username='audit-other', password='unused', email='other@test.invalid', phone='', is_active=True)
@@ -179,7 +179,7 @@ changed = sorted(k for k in set(before) | set(after) if before.get(k) != after.g
 manifest = {
     'schemaVersion': '0.1', 'evidenceType': 'sdd-reconciliation', 'startedAt': started, 'finishedAt': now(),
     'head': head, 'workingTree': 'dirty', 'scope': '24 capability source reconciliation; runtime tests limited to listed suites/probes',
-    'command': 'E:/miniconda/envs/dadashop/python.exe docs/sdd/evidence/2026-10-16-sdd-reconciliation/run_reconciliation.py',
+    'command': 'E:/miniconda/envs/tea_saas/python.exe docs/sdd/evidence/2026-10-16-sdd-reconciliation/run_reconciliation.py',
     'labels': LABELS, 'testResults': results, 'probes': probes,
     'environment': 'SQLite default+ai_storage / LocMem / fake models / blocked sockets',
     'blockedNetworkAttempts': len(network), 'sourceHashes': before, 'sourceChangedDuringRun': changed,

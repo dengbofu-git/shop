@@ -38,7 +38,7 @@ class TaskToolIntegrationTests(TestCase):
     def setUp(self):
         from users.models import UserProfile
         from goods.models import Catalog, SPU, SKU
-        from dadashop.utils import jwt_encode
+        from tea_saas.utils import jwt_encode
         self.user = UserProfile.objects.create(username='planner-buyer', password='unused', email='planner@test.invalid', phone='', is_active=True)
         self.auth = {'HTTP_AUTHORIZATION': 'Bearer ' + jwt_encode({'id': self.user.pk})}
         category = Catalog.objects.create(name='绿茶')

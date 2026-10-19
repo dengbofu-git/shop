@@ -4,7 +4,7 @@
 
 ## 需求与规则
 
-- REQ-LOGIN-001：`login.html` 只显示一个账号密码表单及登录按钮，保留中英阿语言切换、注册和找回密码。移除角色选择和没有持久化实现的“记住密码”复选框，交由浏览器标准 autocomplete 处理凭据。
+- REQ-LOGIN-001：`login.html` 只显示一个账号密码表单及登录按钮，保留中英阿语言切换和注册；2026-10-19 按用户要求移除已废弃的邮箱找回密码入口。移除角色选择和没有持久化实现的“记住密码”复选框，交由浏览器标准 autocomplete 处理凭据。
 - RULE-LOGIN-001：校验密码和账号启用状态后，服务端读取数据库中启用的角色及权限，返回允许的工作台；不使用客户端选择的角色、用户名约定或缓存中的权限决定平台访问。
 - RULE-LOGIN-002：平台角色集合为 `super_admin`、`admin`、`customer_service`、`finance`。有其中一个有效角色且有有效 `data_view` 时进入 `/admin_panel.html` 交易总览；否则有 `user_manage` 时进入 `/admin_users.html` 账号管理；否则有 `system_config` 时进入 `/admin_agents.html`。具有平台角色却三项入口权限均无时，返回业务码 `10006`，不返回 Token，不误导进入买家工作台。多角色账号按上述平台规则优先。
 - RULE-LOGIN-003：无有效平台角色时，`user_type=merchant` 或有效 `supplier` 角色进入 `/merchant_dashboard.html`；其他 customer 账号进入 `/buyer_dashboard.html`。停用角色不参与判断，不能授予平台权限；账号本身仍为 customer 时可按客户身份进入买家页。
@@ -45,3 +45,18 @@ Q-009 仅解决统一登录及平台API切片；库存、交易、商家及其�
 验证记录见 [本次证据](../../evidence/2026-10-18-unified-login/verification.md)。没有执行部署、推送或真实业务写操作。
 
 2026-10-18 管理端首页调整：现行分流与统计口径见[平台交易总览](../platform/trading-overview.md)。上述统一登录证据为当时版本记录，本次导航与统计验证单独执行。
+
+## 2026-10-19 废弃认证接口移除
+
+用户要求删除短信、邮箱、微博等废弃认证入口。本次删除以下路由及其处理实现，旧请求按未匹配路由返回 HTTP 404，不保留发送验证码、绑定账号或重置密码的兼容处理：
+
+- `/v1/users/sms/code`
+- `/v1/users/activation`
+- `/v1/users/password/sms`、`/v1/users/password/verification`、`/v1/users/password/new`
+- `/v1/users/weibo/authorization`、`/v1/users/weibo/users`、`/v1/users/weibo/users/binduser`
+
+删除 `active.html`、`findPass.html`、`callback.html` 页面与路由、对应脚本／样式和认证邮件模板；移除容联云 SDK 依赖及 SMTP、短信、微博启动配置。注册页 `register_sms.html` 只是沿用旧文件名，当前为普通账号密码注册，不发送或校验短信。
+
+继续保留 `/v1/users/register`、`/v1/users/login`、`/v1/users/session` 与登录后的本人密码修改接口；账号资料中的邮箱、手机号以及历史 `WeiboProfile` 模型／数据表均保留。不新增 Migration，不清理历史数据，不修改部署环境的凭据文件。当前没有自助找回密码入口。
+
+本次只执行静态语法、模块归属与 Django 配置检查，不运行或新增测试；既有短信日志测试及旧页面检查引用随废弃功能移除。此前验收证据仅代表此前版本，不作为本次业务验收结果。

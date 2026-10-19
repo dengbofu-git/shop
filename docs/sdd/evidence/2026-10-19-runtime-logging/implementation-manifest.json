@@ -1,0 +1,68 @@
+{
+  "date": "2026-10-19",
+  "branch": "codex/core-runtime-logging",
+  "base_head": "566e4709dfd55ddba138eb4a2c41523838352bc7",
+  "scope": "Logging stages 1 and 2 only; pre-existing edits preserved, nothing staged or committed.",
+  "files": [
+    {
+      "path": "tea_saas/settings.py",
+      "previous_working_sha256": "f304415d79bec4a7226e3f1a77437e1a72ba4196da9196a1313181a1cb21474f",
+      "sha256": "5476f89d003ebd4cfaba4855693c1aa128524dd5e339e895190d3da0ffa70ce7"
+    },
+    {
+      "path": "tea_saas/runtime_logging.py",
+      "previous_working_sha256": null,
+      "sha256": "f057fbf00b601c5991e19fe7e34a523c8879f7c38065f6c7a10b8a523a2168bf"
+    },
+    {
+      "path": "tea_saas/request_logging.py",
+      "previous_working_sha256": null,
+      "sha256": "483f3b1671de9d481af41d62156128bc0b0edad65d0e740971733227df6b85ff"
+    },
+    {
+      "path": "tea_saas/test_runtime_logging.py",
+      "previous_working_sha256": null,
+      "sha256": "f4756d57bdaec439122fe88db33db8886e086eb3bbcecd29caa9e12b9ade9045"
+    },
+    {
+      "path": "users/views.py",
+      "previous_working_sha256": "7c1672383e93c7d310f2e2794cd19b60d792257959e7c5a98b8298d1ebf2a427",
+      "sha256": "308a72c2c00bcd09236570a6864d150c5c14969e8256bdda4e5ca607791f26c5"
+    },
+    {
+      "path": "orders/views.py",
+      "previous_working_sha256": "8c342eab4ae181cc6777e7a62006b89bf490aef1c4b1f24f24ff8bdb710fbae1",
+      "sha256": "b82baef7f3ca46cc74f9bcb402ebf01cf82fc028aa3beeee8abff9116865dcb5"
+    },
+    {
+      "path": "support_ai/telemetry.py",
+      "previous_working_sha256": "7e6b7eb1d40589f575e9fc98f9ccf5ac7f5d31a3e11c832ed4efb9108a0e8032",
+      "sha256": "0a85f0c4c1cc5444ebe14d872b7bb62d3e31be541f08fd9b7f489fd41691c5da"
+    },
+    {
+      "path": "support_ai/views.py",
+      "previous_working_sha256": "6e1fbdca0499d00b13effc238d29624a19deebe57e59f0db68938bd540fd11b6",
+      "sha256": "9b9a0bcb8fb85d80c7a98c736bd2433c4da817509fe75a04e367e06735b2f316"
+    },
+    {
+      "path": "support_ai/workflow.py",
+      "previous_working_sha256": "0442d86d17a5eec537fa4434744cca7e2f305150d2ac214d3a3cb834f1a22ebe",
+      "sha256": "cdea440c23886895586d535c01b156e48e9baea161144777ed3ec01bb00dadda"
+    },
+    {
+      "path": "support_ai/retrieval.py",
+      "previous_working_sha256": "c7d106520a70f1707d663186d1e00e2ce5cf10f7df48be133976388cafe2ad3a",
+      "sha256": "7841cad837a94be9236b3d085ed24b54ca1401f4ca2dfdabed5ec02753d346b9"
+    },
+    {
+      "path": ".env.example",
+      "previous_working_sha256": "7bf140a510d618811354261b31ecba231e623c974d4b45e6558b63f2bcb56f9e",
+      "sha256": "402f9f52b8884397ee79163681b7038a6059abfd466ed07d2aca4c6a2a5c5bec"
+    },
+    {
+      "path": ".gitignore",
+      "previous_working_sha256": "ce52d7f66abd41d97b045f4e48983a4a782aabdca002214d76aec58a3e17c9dd",
+      "sha256": "40a9caf8b17a7ccdfd2b77dbe372a134445082b67d4979c29e55f15430190be8"
+    }
+  ]
+}

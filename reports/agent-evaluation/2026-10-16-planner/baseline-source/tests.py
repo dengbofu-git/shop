@@ -204,7 +204,7 @@ class RecommendationIntegrationTests(DatabaseTestCase):
     def setUp(self):
         import uuid
         from decimal import Decimal
-        from dadashop.utils import jwt_encode
+        from tea_saas.utils import jwt_encode
         from goods.models import Brand, Catalog, SKU, SPU
         from users.models import UserProfile
         self.user = UserProfile.objects.create(username='test-buyer', password='test', email='buyer@test.com', phone='', is_active=True)

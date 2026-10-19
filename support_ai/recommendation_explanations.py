@@ -91,7 +91,8 @@ def format_product_reasons(cards, basis, heading='以下解释上一份商品列
 
 def explain_existing_products(step, completed, history):
     source = completed[step.product_from].data if step.product_from else next(
-        (t for t in reversed(history) if t.get('product_references') or t.get('recommendation_groups')), {})
+        (t for t in reversed(history) if (t['turn_id'] == step.reference_turn_id if step.reference_turn_id
+         else t.get('product_references') or t.get('recommendation_groups'))), {})
     references = list(source.get('recommendations') or source.get('product_references') or [])[:12]
     basis = _basis(source.get('recommendation_basis') or source.get('product_intent'))
 
@@ -101,15 +102,17 @@ def explain_existing_products(step, completed, history):
 
     if not references:
         return response('needs_clarification', '当前会话中没有可定位的推荐商品。请先推荐商品，或明确您要解释的商品名称。')
-    group = re.search(r'第' + ORDINAL + r'类', step.request)
-    index = re.search(r'第' + ORDINAL + r'款', step.request)
+    if step.reference_position is not None:
+        references = references[step.reference_position - 1:step.reference_position]
+    group = re.search(r'第' + ORDINAL + r'类', step.request) if step.reference_position is None else None
+    index = re.search(r'第' + ORDINAL + r'款', step.request) if step.reference_position is None else None
     if group:
         references = [p for p in references if p.get('group_position') == number(group[1])]
     if index:
         # Within a named group use its order; otherwise use the original list order.
         position = number(index[1]) - 1
         references = references[position:position + 1] if position >= 0 else []
-    if not group and not index:
+    if not group and not index and step.reference_position is None:
         named = [p for p in references if p.get('product_name') and p['product_name'] in step.request]
         if named:
             references = named

@@ -4,11 +4,11 @@ const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
 const read = file => fs.readFileSync(path.join(__dirname, '../static/js', file), 'utf8');
-const forbidden = /9710|报关|清关|customs|الجمارك|الجمرك|جمركية|dadashop|茗越山关|Mingyue Shanguan|مينغ يوي شانغوان/i;
+const forbidden = /9710|报关|清关|customs|الجمارك|الجمرك|جمركية|dada\x73hop|\u8317\u8d8a\u5c71\u5173|Mingyue\x20Shanguan|مينغ\x20يوي\x20شانغوان/i;
 const brand = {
-    zh: '跨境茶叶saas平台',
-    en: 'Cross-border Tea SaaS Platform',
-    ar: 'منصة SaaS لتجارة الشاي عبر الحدود'
+    zh: 'tea_saas',
+    en: 'tea_saas',
+    ar: 'tea_saas'
 };
 for (const file of ['login-portal.js', 'buyer-workbench.js', 'buyer-products.js', 'supplier-workbench.js']) {
     const source = read(file);

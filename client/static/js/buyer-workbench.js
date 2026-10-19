@@ -1,5 +1,5 @@
 /**
- * 中东买家工作台 - 采购+订单追踪（系统：跨境茶叶saas平台）
+ * 中东买家工作台 - 采购+订单追踪（系统：tea_saas）
  * 三语、RTL、多币种、场景+茶类筛选
  */
 (function() {
@@ -9,7 +9,7 @@
 
     var i18n = {
         zh: {
-            brand_name: '跨境茶叶saas平台',
+            brand_name: 'tea_saas',
             buyer_title: '买家工作台',
             nav_home: '首页',
             nav_procure: '商品采购',
@@ -37,7 +37,7 @@
             grid_next: '下一页',
             grid_pagination: '商品分页',
             grid_retry: '重新加载',
-            brand_short: '跨境茶叶saas平台',
+            brand_short: 'tea_saas',
             banner1_title: '开斋节礼盒促销',
             banner1_desc: '英德红茶礼盒 · 清真认证',
             banner1_price: '$68 起',
@@ -115,12 +115,12 @@
             ft_contact: '联系',
             ft_follow: '关注我们',
             ft_ig: 'Instagram',
-            ft_copy: '© 2026 跨境茶叶saas平台 · 中国地标茶出海中东',
+            ft_copy: '© 2026 tea_saas · 中国地标茶出海中东',
             add_cart_msg: '已加入采购车：',
             inquiry_msg_prefix: '询价：'
         },
         en: {
-            brand_name: 'Cross-border Tea SaaS Platform',
+            brand_name: 'tea_saas',
             buyer_title: 'Buyer Portal',
             nav_home: 'Home',
             nav_procure: 'Procurement',
@@ -148,7 +148,7 @@
             grid_next: 'Next',
             grid_pagination: 'Product pages',
             grid_retry: 'Retry',
-            brand_short: 'Cross-border Tea SaaS Platform',
+            brand_short: 'tea_saas',
             banner1_title: 'Eid Gift Box',
             banner1_desc: 'Yingde black tea gift box · Halal certified',
             banner1_price: 'From $68',
@@ -226,12 +226,12 @@
             ft_contact: 'Contact',
             ft_follow: 'Follow',
             ft_ig: 'Instagram',
-            ft_copy: '© 2026 Cross-border Tea SaaS Platform — China origin tea to MENA',
+            ft_copy: '© 2026 tea_saas — China origin tea to MENA',
             add_cart_msg: 'Added: ',
             inquiry_msg_prefix: 'Inquiry: '
         },
         ar: {
-            brand_name: 'منصة SaaS لتجارة الشاي عبر الحدود',
+            brand_name: 'tea_saas',
             buyer_title: 'بوابة المشتري',
             nav_home: 'الرئيسية',
             nav_procure: 'المشتريات',
@@ -259,7 +259,7 @@
             grid_next: 'التالي',
             grid_pagination: 'صفحات المنتجات',
             grid_retry: 'إعادة المحاولة',
-            brand_short: 'منصة SaaS لتجارة الشاي عبر الحدود',
+            brand_short: 'tea_saas',
             banner1_title: 'صندوق هدايا العيد',
             banner1_desc: 'شاي ينغدي · معتمد حلال',
             banner1_price: 'من 68$',
@@ -337,7 +337,7 @@
             ft_contact: 'اتصال',
             ft_follow: 'تابعنا',
             ft_ig: 'إنستغرام',
-            ft_copy: '© 2026 منصة SaaS لتجارة الشاي عبر الحدود',
+            ft_copy: '© 2026 tea_saas',
             add_cart_msg: 'تمت الإضافة: ',
             inquiry_msg_prefix: 'استفسار: '
         }
@@ -436,7 +436,7 @@
             window.localStorage.setItem('cart', JSON.stringify(list));
             var total = 0;
             for (var k = 0; k < list.length; k++) total += parseInt(list[k].count, 10) || 0;
-            window.localStorage.setItem('dashop_count', String(total));
+            window.localStorage.setItem('tea_saas_count', String(total));
             if (AuthStorage && AuthStorage.setCount) AuthStorage.setCount(String(total));
             if ($('#cart-count').length) $('#cart-count').text(total);
             alert((tt.add_cart_msg || '') + name);

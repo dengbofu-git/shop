@@ -15,7 +15,7 @@ from unittest.mock import patch
 
 
 def main():
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'dadashop.settings')
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'tea_saas.settings')
     import django
     django.setup()
     from django.conf import settings

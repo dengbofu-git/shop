@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from .views import AddressView, UserProfileView, WeiboUsers
+from .views import AddressView, UserProfileView
 
 urlpatterns = [
     path('register', views.register),
@@ -11,12 +11,4 @@ urlpatterns = [
     path('<str:username>/address/<int:id>', AddressView.as_view()),
     path('<str:username>/address/default', views.default),
     path('<str:username>/password', views.password_change),
-    path('activation', views.activate),
-    path('password/sms', views.find_password),
-    path('password/verification', views.verification),
-    path('password/new', views.new_password),
-    path('sms/code', views.code),
-    path('weibo/authorization', views.weibo_authorization),
-    path('weibo/users', WeiboUsers.as_view()),
-    path('weibo/users/binduser', views.bind_user),
 ]

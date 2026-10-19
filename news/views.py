@@ -223,7 +223,7 @@ def news_list(request):
                 'view_count': news.view_count,
                 'is_top': news.is_top,
                 'published_time': news.published_time.strftime('%Y-%m-%d %H:%M:%S') if news.published_time else None,
-                'cover_image': settings.DADASHOP_MEDIA + str(news.cover_image) if news.cover_image else None
+                'cover_image': settings.TEA_SAAS_MEDIA + str(news.cover_image) if news.cover_image else None
             })
         
         return JsonResponse({
@@ -275,7 +275,7 @@ def news_detail(request, news_id):
                 'view_count': news.view_count,
                 'is_top': news.is_top,
                 'published_time': news.published_time.strftime('%Y-%m-%d %H:%M:%S') if news.published_time else None,
-                'cover_image': settings.DADASHOP_MEDIA + str(news.cover_image) if news.cover_image else None
+                'cover_image': settings.TEA_SAAS_MEDIA + str(news.cover_image) if news.cover_image else None
             }
         })
         

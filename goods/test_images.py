@@ -11,7 +11,7 @@ from django.core.management import call_command
 from django.core.management.base import CommandError
 from django.test import TestCase, override_settings
 
-from dadashop.utils import jwt_encode
+from tea_saas.utils import jwt_encode
 from orders.views import build_single_data
 from users.models import UserProfile
 from .images import resolve_sku_image, sku_image_name

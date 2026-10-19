@@ -1,5 +1,5 @@
 /**
- * 中台登录页 - 三语切换、RTL、服务端权限跳转
+ * tea_saas 登录入口：茶文化品牌、三语切换及服务端权限跳转
  */
 
 (function() {
@@ -7,58 +7,82 @@
 
     var i18n = {
         zh: {
-            slogan: '香茗何须愁遥阻，春风直越万重关',
-            slogan_sub: 'Fragrant tea knows no distance; spring breeze crosses all barriers',
-            slogan_ar: 'الشاي العطِر لا يعرف المسافة؛ نسيم الربيع يتجاوز كل الحواجز',
-            hero_desc: '大湾区港口 · 海上丝路 · 迪拜',
-            highlight1: '商品采购、订单与经营协同',
-            highlight2: '茶叶采购与商家经营工作台',
-            highlight3: '智能客服与茶品推荐',
-            logo_text: '跨境茶叶saas平台',
-            placeholder_username: '请输入账号',
-            placeholder_password: '请输入密码',
-            btn_login: '登录',
+            hero_eyebrow: '茶有源 · 合作无界',
+            slogan: '一叶好茶，连接每一份用心。',
+            slogan_sub: '从茶园到茶杯，让采购更从容，让合作更有温度。',
+            scene_caption: '山间一叶，杯中万千。',
+            highlight1: '发现好茶',
+            highlight2: '协同经营',
+            highlight3: '智能选茶',
+            logo_text: 'tea_saas',
+            brand_tagline: '茶叶采购与经营协作',
+            welcome_eyebrow: '从这里，开启茶的旅程',
+            welcome_title: '欢迎回来',
+            welcome_desc: '登录你的账号，继续发现好茶与新的合作。',
+            placeholder_username: '账号',
+            placeholder_password: '密码',
+            btn_login: '进入工作台',
+            access_note: '登录后，根据账号权限进入对应工作台。',
             backend_mismatch: '登录服务尚未更新，请重启后端服务后刷新页面重试',
-            challenge_cup: '第十五届挑战杯参赛项目',
-            platform_desc: '面向买家、茶企与运营的协作平台',
-            register: '新用户注册',
-            forget_pwd: '忘记密码'
+            platform_desc: '让好茶被发现，让合作更简单。',
+            register_hint: '初次来到这里？',
+            register: '创建账号',
+            page_title: 'tea_saas · 茶叶采购与经营协作',
+            page_description: '以茶为媒，连接好生意。在 tea_saas 发现茶品、协作订单，与智能助手一起找到适合的好茶。',
+            hero_alt: '晨雾茶山间的青瓷盖碗与一盏清茶',
+            logo_alt: 'tea_saas 茶芽与茶盏标志'
         },
         en: {
-            slogan: 'Fragrant tea knows no distance; spring breeze crosses all barriers',
-            slogan_sub: '香茗何须愁遥阻，春风直越万重关',
-            slogan_ar: 'الشاي العطِر لا يعرف المسافة؛ نسيم الربيع يتجاوز كل الحواجز',
-            hero_desc: 'Greater Bay Port · Maritime Silk Road · Dubai',
-            highlight1: 'Connected Tea Procurement, Orders and Operations',
-            highlight2: 'Tea Procurement and Merchant Workspaces',
-            highlight3: 'AI Support and Tea Recommendations',
-            logo_text: 'Cross-border Tea SaaS Platform',
-            placeholder_username: 'Username',
+            hero_eyebrow: 'ROOTED IN TEA · OPEN TO THE WORLD',
+            slogan: 'Good tea. Meaningful connections.',
+            slogan_sub: 'From the garden to the cup, bring care to every purchase and every partnership.',
+            scene_caption: 'A small leaf. A world of possibilities.',
+            highlight1: 'Discover tea',
+            highlight2: 'Work together',
+            highlight3: 'Find your tea',
+            logo_text: 'tea_saas',
+            brand_tagline: 'Tea trade, connected',
+            welcome_eyebrow: 'YOUR TEA JOURNEY STARTS HERE',
+            welcome_title: 'Welcome back',
+            welcome_desc: 'Sign in to discover fine tea and your next collaboration.',
+            placeholder_username: 'Account',
             placeholder_password: 'Password',
-            btn_login: 'Login',
+            btn_login: 'Enter workspace',
+            access_note: 'Your account permissions determine your workspace.',
             backend_mismatch: 'The login service is out of date. Restart the backend and reload this page.',
-            challenge_cup: '15th Challenge Cup Project',
-            platform_desc: 'A Shared Platform for Buyers, Tea Merchants and Operators',
-            register: 'Register',
-            forget_pwd: 'Forgot password'
+            platform_desc: 'Good tea, discovered. Partnerships, simplified.',
+            register_hint: 'New to tea_saas?',
+            register: 'Create an account',
+            page_title: 'tea_saas · Tea Trade Workspace',
+            page_description: 'Discover tea, coordinate orders and find your next tea with an intelligent assistant on tea_saas.',
+            hero_alt: 'Celadon tea ware overlooking misty tea terraces at dawn',
+            logo_alt: 'tea_saas tea leaf and tea bowl symbol'
         },
         ar: {
-            slogan: 'الشاي العطِر لا يعرف المسافة؛ نسيم الربيع يتجاوز كل الحواجز',
-            slogan_sub: 'Fragrant tea knows no distance',
-            slogan_ar: '香茗何须愁遥阻，春风直越万重关',
-            hero_desc: 'ميناء الخليج · طريق الحرير البحري · دبي',
-            highlight1: 'إدارة مشتريات الشاي والطلبات والأعمال',
-            highlight2: 'مساحات عمل لمشتريات الشاي والتجار',
-            highlight3: 'دعم ذكي وتوصيات الشاي',
-            logo_text: 'منصة SaaS لتجارة الشاي عبر الحدود',
-            placeholder_username: 'اسم المستخدم',
+            hero_eyebrow: 'جذور في الشاي · آفاق بلا حدود',
+            slogan: 'شاي أصيل، وشراكات بعناية.',
+            slogan_sub: 'من المزرعة إلى الفنجان، نجعل شراء الشاي والتعاون أكثر سهولة ودفئاً.',
+            scene_caption: 'ورقة صغيرة، وعالم من الإمكانات.',
+            highlight1: 'اكتشف الشاي',
+            highlight2: 'تعاون في أعمالك',
+            highlight3: 'اختر شايك بذكاء',
+            logo_text: 'tea_saas',
+            brand_tagline: 'تجارة الشاي والتعاون',
+            welcome_eyebrow: 'تبدأ رحلة الشاي من هنا',
+            welcome_title: 'مرحباً بعودتك',
+            welcome_desc: 'سجّل الدخول لاكتشاف الشاي المميز ومتابعة شراكاتك.',
+            placeholder_username: 'الحساب',
             placeholder_password: 'كلمة المرور',
-            btn_login: 'تسجيل الدخول',
+            btn_login: 'الدخول إلى مساحة العمل',
+            access_note: 'تُحدَّد مساحة عملك وفق صلاحيات حسابك.',
             backend_mismatch: 'خدمة تسجيل الدخول غير محدثة. يرجى إعادة تشغيل الخادم وتحديث الصفحة.',
-            challenge_cup: 'مشروع كأس التحدي الخامس عشر',
-            platform_desc: 'منصة مشتركة للمشترين وتجار الشاي والمشغلين',
-            register: 'التسجيل',
-            forget_pwd: 'نسيت كلمة المرور'
+            platform_desc: 'نقرّب الشاي الجيد، ونجعل الشراكات أسهل.',
+            register_hint: 'هل أنت جديد هنا؟',
+            register: 'إنشاء حساب',
+            page_title: 'tea_saas · مساحة تجارة الشاي',
+            page_description: 'اكتشف الشاي وتابع الطلبات وتعاون مع الشركاء بمساعدة ذكية عبر tea_saas.',
+            hero_alt: 'أواني شاي خزفية أمام مدرجات الشاي في ضباب الصباح',
+            logo_alt: 'رمز ورقة الشاي وفنجان tea_saas'
         }
     };
 
@@ -82,15 +106,15 @@
             if (t[key]) el.textContent = t[key];
         });
 
-        var sub = document.querySelector('.brand-slogan-sub');
-        var arEl = document.querySelector('.brand-slogan-ar');
-        if (lang === 'ar') {
-            if (sub) sub.style.display = 'none';
-            if (arEl) { arEl.style.display = 'block'; arEl.lang = 'ar'; }
-        } else {
-            if (sub) sub.style.display = 'block';
-            if (arEl) arEl.style.display = 'none';
-        }
+        document.title = t.page_title;
+        var description = document.getElementById('page-description');
+        if (description) description.setAttribute('content', t.page_description);
+        document.querySelectorAll('[data-i18n-alt]').forEach(function(el) {
+            el.alt = t[el.getAttribute('data-i18n-alt')];
+        });
+        document.querySelectorAll('.lang-btn').forEach(function(btn) {
+            btn.setAttribute('aria-pressed', String(btn.dataset.lang === lang));
+        });
     }
 
     var destinations = ['/admin_panel.html', '/admin_users.html', '/admin_agents.html', '/merchant_dashboard.html', '/buyer_dashboard.html'];

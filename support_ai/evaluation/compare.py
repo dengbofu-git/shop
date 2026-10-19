@@ -67,6 +67,7 @@ def main():
     parser.add_argument('--root', default='reports/agent-evaluation/2026-10-16-planner')
     parser.add_argument('--output', default='paired-run-1.json')
     parser.add_argument('--case-id', action='append')
+    parser.add_argument('--expected-database-name', required=True)
     args = parser.parse_args()
     root = Path(args.root)
     manifest = json.loads((root / 'baseline-manifest.json').read_text(encoding='utf-8'))
@@ -85,7 +86,7 @@ def main():
     from support_ai.models import SupportTurn, SupportConversation
     with connection.cursor() as cursor:
         cursor.execute('SELECT DATABASE(), @@server_uuid')
-        if cursor.fetchone() != ('dadashop', '6b35ae3b-0afa-11f1-808b-2632d3201c4a'):
+        if cursor.fetchone() != (args.expected_database_name, '6b35ae3b-0afa-11f1-808b-2632d3201c4a'):
             raise RuntimeError('Wrong MySQL target')
     legacy = load_snapshot('workflow_050', root / 'baseline-source/workflow.py')
     legacy_products = load_snapshot('recommendations_050', root / 'baseline-source/recommendations.py')

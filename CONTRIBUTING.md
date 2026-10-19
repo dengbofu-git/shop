@@ -1,4 +1,4 @@
-# 参与 跨境茶叶saas平台 开发
+# 参与 tea_saas 开发
 
 仓库：[dengbofu-git/shop](https://github.com/dengbofu-git/shop)。先阅读 [AGENTS.md](AGENTS.md)、[Git 协作规范](docs/Git协作规范.md) 和 [模块版本管理](docs/模块版本管理.md)。
 

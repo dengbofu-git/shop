@@ -99,7 +99,7 @@ def main():
             dialogue += ['']
     (root/'dialogues.md').write_text('\n'.join(dialogue),encoding='utf-8')
 
-    report = ['# 跨境茶叶saas平台 Agent 0.8.1：15题应用场景评测','',
+    report = ['# tea_saas Agent 0.8.1：15题应用场景评测','',
               '## 测试范围与方式','',
               '- 2026-10-16 13:38—13:40（Asia/Shanghai）；当前真实商品库、向量知识库、本地重排序及 DeepSeek。',
               '- 15题、10个会话，其中5题承接前文；每题运行一次，不修复生产代码、不替换失败结果。',

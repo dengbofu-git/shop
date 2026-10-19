@@ -24,11 +24,11 @@ login(merchant.auth, 'merchant001', 'merchant');
 login(buyer.auth, 'buyer001', 'customer');
 assert.equal(merchant.auth.getUser(), 'merchant001');
 assert.equal(buyer.auth.getUser(), 'buyer001');
-assert.equal(shared.getItem('dashop_token'), null);
+assert.equal(shared.getItem('tea_saas_token'), null);
 // Simulate an old, cached tab still writing the former global auth keys.
-shared.setItem('dashop_token', 'buyer001-synthetic-token');
-shared.setItem('dashop_user', 'buyer001');
-shared.setItem('dashop_user_type', 'customer');
+shared.setItem('tea_saas_token', 'buyer001-synthetic-token');
+shared.setItem('tea_saas_user', 'buyer001');
+shared.setItem('tea_saas_user_type', 'customer');
 assert.equal(merchant.auth.getUser(), 'merchant001');
 const newTab = tab();
 assert.equal(newTab.auth.getToken(), null);
@@ -41,9 +41,9 @@ merchant.auth.clear();
 assert.equal(iframe.auth.getToken(), null);
 assert.equal(merchant.auth.getUser(), null);
 assert.equal(buyer.auth.getToken(), 'buyer001-synthetic-token');
-assert.equal(shared.getItem('dashop_token'), 'buyer001-synthetic-token');
+assert.equal(shared.getItem('tea_saas_token'), 'buyer001-synthetic-token');
 buyer.auth.clear();
-assert.equal(shared.getItem('dashop_token'), null);
+assert.equal(shared.getItem('tea_saas_token'), null);
 assert.equal(buyer.auth.getUser(), null);
 assert.equal(newTab.auth.getToken(), null); // logout never resurrects a shared login
 console.log('PASS: two-account isolation, blank tabs, refresh, iframe session and independent logout');

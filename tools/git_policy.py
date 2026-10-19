@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""跨境茶叶saas平台 Git checks. Uses only the Python standard library and Git."""
+"""tea_saas Git checks. Uses only the Python standard library and Git."""
 import argparse
 import ast
 import json
@@ -146,7 +146,7 @@ def check(base='HEAD', revision='', syntax=False):
             checked += 1
         elif path.endswith('.js'):
             # Validate the exact index/commit bytes, including partially staged files.
-            with tempfile.TemporaryDirectory(prefix='dadashop-js-') as directory:
+            with tempfile.TemporaryDirectory(prefix='tea_saas-js-') as directory:
                 target = Path(directory) / 'check.js'
                 target.write_bytes(content)
                 subprocess.run(['node', '--check', str(target)], check=True, capture_output=True)

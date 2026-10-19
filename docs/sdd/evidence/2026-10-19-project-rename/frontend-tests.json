@@ -1,0 +1,38 @@
+[
+  {
+    "test": "client/tests/admin-shell.test.js",
+    "exit_code": 0
+  },
+  {
+    "test": "client/tests/auth-storage.test.js",
+    "exit_code": 0
+  },
+  {
+    "test": "client/tests/buyer-catalog-preview.test.js",
+    "exit_code": 0
+  },
+  {
+    "test": "client/tests/buyer-products-pagination.test.js",
+    "exit_code": 0
+  },
+  {
+    "test": "client/tests/cart-currency.test.js",
+    "exit_code": 0
+  },
+  {
+    "test": "client/tests/checkout.test.js",
+    "exit_code": 0
+  },
+  {
+    "test": "client/tests/merchant-product-preview.test.js",
+    "exit_code": 0
+  },
+  {
+    "test": "client/tests/tea-saas-brand.test.js",
+    "exit_code": 0
+  },
+  {
+    "test": "client/tests/unified-login.test.js",
+    "exit_code": 0
+  }
+]

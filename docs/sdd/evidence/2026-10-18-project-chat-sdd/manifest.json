@@ -72,17 +72,17 @@
     },
     {
       "id": "01a142c3-c6de-7411-b620-777821594b92",
-      "title": "参考E:\\实习\\store-ai-tp，对dadashop项目进行sdd规划",
+      "title": "参考E:\\实习\\store-ai-tp，对tea_saas项目进行sdd规划",
       "usage": "relevant recent and historical turns; cross-checked with source"
     },
     {
       "id": "01a14df1-01fb-7f40-b69e-8afdfb656fe9",
-      "title": "针对当前的dadashop项目，分析是否可以在MCP和Skill方面进行深化设计？",
+      "title": "针对当前的tea_saas项目，分析是否可以在MCP和Skill方面进行深化设计？",
       "usage": "relevant recent and historical turns; cross-checked with source"
     }
   ],
   "sourceHashes": {
-    ".agents/skills/dadashop-change-delivery/SKILL.md": "7b77b1b7d1cd0086ec33fb8c8b4e558559b9037b55a863587b50fc6cb15e099d",
+    ".agents/skills/tea-saas-change-delivery/SKILL.md": "7b77b1b7d1cd0086ec33fb8c8b4e558559b9037b55a863587b50fc6cb15e099d",
     "admin_panel/agent_views.py": "a1539d3dc5415d17ede073322598d94ae57aea907f095014240207f4bcb0640a",
     "admin_panel/analytics.py": "b63df69cd8925fa89bcc285c4ca2e8c74288f90f3a5a08ce2d1ecbe03a31bbb7",
     "admin_panel/urls.py": "2fc04eff0280b28bf36e2d72e57a50e64459243f75d26409e5eb696ac4d8878f",
@@ -109,8 +109,8 @@
     "client/templates/admin_agents.html": "3523c2cd417f1b40f901e6a18af0c511452a235d9ffe2c20f8fedb2a28099642",
     "client/templates/buyer_activity.html": "a5f414ac54e3a470776b60e787da6f021a08575684355f582f321a8efccc4307",
     "client/templates/login.html": "e09991fc49cbd6e7aa9566c391c5b96b67911b4e48cb8838c4777606cf7285cc",
-    "dadashop/settings.py": "d61398683149e21f5152c83aa1ac625d7df68e7e354cb20c06f8754c349aa324",
-    "dadashop/urls.py": "99676ebc1a4b6a5a04175f1f636632ab748f2e7da762c669ec5cda952099df71",
+    "tea_saas/settings.py": "d61398683149e21f5152c83aa1ac625d7df68e7e354cb20c06f8754c349aa324",
+    "tea_saas/urls.py": "99676ebc1a4b6a5a04175f1f636632ab748f2e7da762c669ec5cda952099df71",
     "docs/虚拟商品数据.md": "bc2668e54e7ccc8a0c92130beb3c7676a6ab8548ccda0527c99bb1ed29d5c24a",
     "goods/activity_views.py": "c74532bd2cc7a5f9ec95dd83d1509cc80420d518e676a0fb62bfcf1d3f33f5f6",
     "goods/images.py": "f2f0650b0a6a280e5157c54ca48757de2469b4781e1dc92eb47f274731f44d19",
@@ -171,7 +171,7 @@
     "support_ai/urls.py": "55a02ac621aa06e5d4cb58ea259fb96fb1a829d770f51aa817439c8ce8c8d7a0",
     "support_ai/views.py": "49fdd3e0571ae81806c8e87d8b2c776d5d870daa605c25771b4bd7abc90e1bc2",
     "support_ai/workflow.py": "2896cb4d6dd4332ce1e10d76cd6cb4fa96cda648813f13d8b366073e12d1c89b",
-    "tools/dadashop_mcp/server.py": "464a01628ef4def7990fa61a7bf4b15b95ea5cfa151e552a943ea7ec749b4f92",
+    "tools/tea_saas_mcp/server.py": "464a01628ef4def7990fa61a7bf4b15b95ea5cfa151e552a943ea7ec749b4f92",
     "tools/git_policy.py": "906f7485024806ea1ccbf3012eafa5503983dcb4913a2ee7a10e3c657b35ffd9",
     "tools/module_versions.py": "c45c60f2ec8ea8dac3c26d0961340f171122f4b9a65a2fe165e25a7b54de9e9b",
     "users/access.py": "0c5da8ea7b1f1e951c680ce2e631a6ca7ab2b67599405a9693a426c91225983b",

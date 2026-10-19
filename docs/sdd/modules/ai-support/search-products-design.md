@@ -1,4 +1,4 @@
-# 跨境茶叶saas平台 商品搜索 MCP 详细设计草案
+# tea_saas 商品搜索 MCP 详细设计草案
 
 日期：2026-10-18。状态：设计草案，尚未实现或进入生产验收。本轮实施范围为 `get_product_details` 与开发交付 Skill，`search_products` 是后续独立增量。归属建议为 `support_ai` 的商品查询应用服务和 `core` 的 MCP 适配器，前端不因新增 MCP 自动变更。
 
@@ -18,7 +18,7 @@
 | `support_ai/recommendations.py` | 可售范围、分类别名、硬条件／排除筛选和固定排序 | 将纯查询和回复文字分离，返回有效条件及匹配依据 |
 | `support_ai/tool_services.py` | 用户原话证据验证、历史主题、显式偏好来源验证 | 保留在站内推荐适配层，验证后调用搜索服务 |
 | `support_ai/product_details.py` | 公开字段、属性白名单、库存和币种说明 | 提取共用公开摘要序列化，避免逐条详情 N+1 查询 |
-| `tools/dadashop_mcp/server.py` | 官方 SDK、stdio、固定命令、错误和超时 | 新注册工具及固定搜索命令；用户参数仍不能控制命令路径 |
+| `tools/tea_saas_mcp/server.py` | 官方 SDK、stdio、固定命令、错误和超时 | 新注册工具及固定搜索命令；用户参数仍不能控制命令路径 |
 
 MCP 的结构化输入是本次查询条件，不是“用户原话已核验”的证据。站内 Agent 的原文 evidence 校验继续生效。外部客户端若需要自然语言理解，自行完成澄清和抽取，服务端仍对金额、类型、别名、范围和冲突做确定性验证。不能把客户端传来的 `source=MEMORY` 当作用户授权或本人记忆。
 

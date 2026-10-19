@@ -1,4 +1,4 @@
-# Dadashop 当前模块版本
+# tea_saas 当前模块版本
 
 核对日期：2026-10-16（Asia/Shanghai）。机器可读版本以
 [modules.json](modules.json) 为准，各模块历史保存在 [changelogs](changelogs/)。

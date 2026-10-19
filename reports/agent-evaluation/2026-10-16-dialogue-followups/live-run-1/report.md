@@ -97,7 +97,7 @@
 ## 复现与文件
 
 ```powershell
-& E:\miniconda\envs\dadashop\python.exe -X utf8 -u -m support_ai.evaluation.replay_dialogue_followups --output-dir reports/agent-evaluation/2026-10-16-dialogue-followups/live-run-2
+& E:\miniconda\envs\tea_saas\python.exe -X utf8 -u -m support_ai.evaluation.replay_dialogue_followups --output-dir reports/agent-evaluation/2026-10-16-dialogue-followups/live-run-2
 ```
 
 使用新输出目录保留原结果。真实模型重跑会产生调用费用及输出波动。

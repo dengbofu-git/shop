@@ -107,7 +107,7 @@ class Runtime:
                        'trace_export_at': None, 'metric_export_at': None}
         if not config.telemetry_enabled:
             return
-        resource = Resource.create({'service.name': 'dadashop-support-agent', 'service.version': '0.4.0'})
+        resource = Resource.create({'service.name': 'tea_saas-support-agent', 'service.version': '0.4.0'})
         self.provider = TracerProvider(resource=resource, shutdown_on_exit=False)
         self.provider.add_span_processor(SimpleSpanProcessor(DatabaseSpanExporter()))
         readers = []
@@ -121,7 +121,7 @@ class Runtime:
                 export_interval_millis=5000, export_timeout_millis=4000,
             ))
         self.meters = MeterProvider(resource=resource, metric_readers=readers, shutdown_on_exit=False)
-        meter = self.meters.get_meter('dadashop.support_ai')
+        meter = self.meters.get_meter('tea_saas.support_ai')
         self.requests = meter.create_counter('agent.requests', unit='{request}')
         self.duration = meter.create_histogram('agent.request.duration', unit='s')
         self.tokens = meter.create_counter('agent.tokens', unit='{token}')
@@ -129,7 +129,7 @@ class Runtime:
         self.rerank_calls = meter.create_counter('agent.rerank.requests', unit='{request}')
         self.rerank_duration = meter.create_histogram('agent.rerank.duration', unit='s')
         self.rerank_candidates = meter.create_histogram('agent.rerank.candidate_count', unit='{chunk}')
-        self.tracer = self.provider.get_tracer('dadashop.support_ai')
+        self.tracer = self.provider.get_tracer('tea_saas.support_ai')
 
     def shutdown(self):
         with self.shutdown_lock:

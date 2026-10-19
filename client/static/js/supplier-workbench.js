@@ -1,5 +1,5 @@
 /**
- * 供应商工作台（茶企端）- 品控溯源管理 · 跨境茶叶saas平台
+ * 供应商工作台（茶企端）- 品控溯源管理 · tea_saas
  * 三语切换、编辑品控弹窗
  */
 (function() {
@@ -116,7 +116,7 @@
             var key = el.getAttribute('data-i18n');
             if (t[key]) el.textContent = t[key];
         });
-        document.title = (lang === 'zh' ? '供应商工作台' : (lang === 'ar' ? 'بوابة المورد' : 'Supplier Portal')) + ' - 跨境茶叶saas平台';
+        document.title = (lang === 'zh' ? '供应商工作台' : (lang === 'ar' ? 'بوابة المورد' : 'Supplier Portal')) + ' - tea_saas';
     }
 
     $(function() {

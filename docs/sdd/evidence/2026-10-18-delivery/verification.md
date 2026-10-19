@@ -14,11 +14,11 @@
 
 | 范围 | 命令与结果 |
 | --- | --- |
-| Django定向回归 | `E:/miniconda/envs/dadashop/python.exe -X utf8 manage.py test users.tests admin_panel.test_overview supplier.test_analytics goods.test_catalog_pagination support_ai.test_product_details support_ai.test_planning support_ai.test_telemetry merchant_ai.tests support_ai.test_task_tools.TaskToolIntegrationTests.test_one_product_and_dependent_live_details --settings=support_ai.test_settings --noinput`：79项，78通过、1失败；系统检查无问题 |
+| Django定向回归 | `E:/miniconda/envs/tea_saas/python.exe -X utf8 manage.py test users.tests admin_panel.test_overview supplier.test_analytics goods.test_catalog_pagination support_ai.test_product_details support_ai.test_planning support_ai.test_telemetry merchant_ai.tests support_ai.test_task_tools.TaskToolIntegrationTests.test_one_product_and_dependent_live_details --settings=support_ai.test_settings --noinput`：79项，78通过、1失败；系统检查无问题 |
 | 前端行为 | `node client/tests/<文件>.test.js`，覆盖admin-shell、auth-storage、buyer-catalog-preview、buyer-products-pagination、cart-currency、merchant-product-preview、tea-saas-brand、unified-login：8个脚本通过 |
-| 页面外壳 | `E:/miniconda/envs/dadashop/python.exe -X utf8 client/tests/tea-saas-contract.py`：25页面、退役入口／资源、当前SDD映射检查通过 |
-| 商品接口和分页 | `E:/miniconda/envs/dadashop/python.exe -X utf8 client/tests/catalog-preview-contract.py docs/sdd/evidence/2026-10-18-delivery/catalog-contract.json`，再运行`node client/tests/buyer-catalog-preview.test.js`并传该文件：合成目录30件接口契约和分页通过 |
-| MCP | 设置`DADASHOP_TEST_PYTHON`为业务解释器，使用独立环境运行`python -m unittest tools.dadashop_mcp.test_server -v`：9项通过，含stdio→Django→临时SQLite完整链路、取消和超时回收 |
+| 页面外壳 | `E:/miniconda/envs/tea_saas/python.exe -X utf8 client/tests/tea-saas-contract.py`：25页面、退役入口／资源、当前SDD映射检查通过 |
+| 商品接口和分页 | `E:/miniconda/envs/tea_saas/python.exe -X utf8 client/tests/catalog-preview-contract.py docs/sdd/evidence/2026-10-18-delivery/catalog-contract.json`，再运行`node client/tests/buyer-catalog-preview.test.js`并传该文件：合成目录30件接口契约和分页通过 |
+| MCP | 设置`TEA_SAAS_TEST_PYTHON`为业务解释器，使用独立环境运行`python -m unittest tools.tea_saas_mcp.test_server -v`：9项通过，含stdio→Django→临时SQLite完整链路、取消和超时回收 |
 | 文档和模块 | 12份SDD YAML、能力／功能双向引用、模块与版本表、文件和文档链接静态核对；`python tools/module_versions.py check`、Diff与Git policy检查按交付对象执行并在PR记录最终命令结果 |
 
 完整本轮输出分别保存于 [Django](django-tests.json)、[前端](frontend-tests.json)、[MCP](mcp-tests.json)。Django与目录测试使用隔离SQLite／LocMem及合成账号，不连接业务库、Redis或真实模型。MCP因Windows沙箱asyncio限制在获准的本地沙箱外运行，仍只使用临时合成库。首次目录验证因沙箱临时目录权限失败，改在工作区证据目录输出同一合成数据后通过；没有修改业务查询。

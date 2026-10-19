@@ -200,7 +200,7 @@ def create_tool_handlers(model, knowledge_search, message, resolved_question, hi
         if options and options.clarification:
             return result(step, 'needs_clarification', {'answer': options.clarification,
                           'recommendations': [], 'recommendation_status': 'CLARIFY'})
-        topic = purchase_topic(message, step.request, history) if linked_scope is None and not (
+        topic = purchase_topic(message, step.request, history) if step.purchase_intent is None and linked_scope is None and not (
             options and options.mode == 'by_category') else {'state': 'none'}
         if topic['state'] == 'multiple':
             return result(step, 'needs_clarification', {
@@ -208,10 +208,23 @@ def create_tool_handlers(model, knowledge_search, message, resolved_question, hi
                 'recommendations': [], 'recommendation_status': 'CLARIFY'})
         diagnostics, extraction_attempts, extraction_source = [], 0, 'rules'
         try:
-            raw = simple_grouped_intent(message, step.request, history, memory) if options and options.mode == 'by_category' else None
+            raw = step.purchase_intent
+            if raw is None:
+                raw = simple_grouped_intent(message, step.request, history, memory) if options and options.mode == 'by_category' else None
             raw = raw if raw is not None else simple_purchase_intent(message, step.request, history, memory)
-            extraction_source = 'rules' if raw is not None else 'model'
+            extraction_source = 'semantic_plan' if step.purchase_intent is not None else ('rules' if raw is not None else 'model')
             if raw is not None:
+                if step.purchase_intent is not None and memory:
+                    # The current authenticated preference record remains the
+                    # source of soft preferences, including on the rules path.
+                    from .contracts import IntentEvidence
+                    raw = raw.model_copy(deep=True)
+                    for field in ('categories', 'brands', 'keywords'):
+                        values = list(memory['preferences'].get(field, []))
+                        setattr(raw.preferred, field, values)
+                        raw.evidence = [e for e in raw.evidence if e.field != 'preferred.' + field]
+                        raw.evidence.extend(IntentEvidence(field='preferred.' + field, value=value,
+                            source='MEMORY', source_id=memory['id'], quote=value) for value in values)
                 intent, unmet = normalize_recommendation(apply_purchase_topic(raw, topic), message, history, memory, step.request)
             else:
                 for attempt in range(2):
@@ -284,10 +297,13 @@ def create_tool_handlers(model, knowledge_search, message, resolved_question, hi
 
     def product_details(step, completed):
         source = completed[step.product_from].data if step.product_from else next(
-            (t for t in reversed(history) if t.get('product_references') or t.get('recommendation_groups')), {})
+            (t for t in reversed(history) if (t['turn_id'] == step.reference_turn_id if step.reference_turn_id
+             else t.get('product_references') or t.get('recommendation_groups'))), {})
         selected = list(source.get('recommendations', source.get('product_references', [])))
-        group_match = re.search(r'第' + ORDINAL + r'类', step.request)
-        index_match = re.search(r'第' + ORDINAL + r'款', step.request)
+        if step.reference_position is not None:
+            selected = selected[step.reference_position - 1:step.reference_position]
+        group_match = re.search(r'第' + ORDINAL + r'类', step.request) if step.reference_position is None else None
+        index_match = re.search(r'第' + ORDINAL + r'款', step.request) if step.reference_position is None else None
         if group_match:
             group_index = number(group_match[1])
             selected = [p for p in selected if p.get('group_position') == group_index]

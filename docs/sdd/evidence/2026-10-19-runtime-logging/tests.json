@@ -1,0 +1,36 @@
+[
+  {
+    "name": "django-targeted",
+    "command": [
+      "<business-python>",
+      "-X",
+      "utf8",
+      "manage.py",
+      "test",
+      "tea_saas.test_runtime_logging",
+      "users",
+      "orders",
+      "support_ai.test_telemetry.AgentTelemetryTests",
+      "support_ai.test_product_details",
+      "--settings=support_ai.test_settings",
+      "--noinput"
+    ],
+    "exit_code": 0,
+    "summary": "Ran 53 tests in 0.659s"
+  },
+  {
+    "name": "settings-and-identity",
+    "command": [
+      "<business-python>",
+      "-X",
+      "utf8",
+      "-m",
+      "unittest",
+      "tools.tests.test_redis_settings",
+      "tools.tests.test_project_identity",
+      "-v"
+    ],
+    "exit_code": 0,
+    "summary": "Ran 5 tests in 0.538s"
+  }
+]

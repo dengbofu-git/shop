@@ -65,7 +65,7 @@
   },
   {
     "command": [
-      "E:/miniconda/envs/dadashop/python.exe",
+      "E:/miniconda/envs/tea_saas/python.exe",
       "-X",
       "utf8",
       "client/tests/tea-saas-contract.py"
@@ -75,7 +75,7 @@
   },
   {
     "command": [
-      "E:/miniconda/envs/dadashop/python.exe",
+      "E:/miniconda/envs/tea_saas/python.exe",
       "-X",
       "utf8",
       "client/tests/catalog-preview-contract.py",

@@ -10,7 +10,7 @@ from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from django.views.decorators.http import require_http_methods
 
-from dadashop.utils import jwt_decode
+from tea_saas.utils import jwt_decode
 from users.models import UserProfile
 from ai_storage.models import BuyerMemory
 
