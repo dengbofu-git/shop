@@ -23,7 +23,7 @@
 
 | 模块 | 当前版本 | 当前核对状态 | 完整变更记录 |
 | --- | --- | --- | --- |
-| core · 项目核心 | 0.5.0 | 增加店铺管理页面与公开店铺路由 | [core](changelogs/core.md) |
+| core · 项目核心 | 0.5.1 | 增加店铺管理页面与公开店铺路由 | [core](changelogs/core.md) |
 | users · 用户与权限 | 0.2.3 | 统一登录与权限分流、平台联合鉴权、会话权限、品牌与旧入口清理 | [users](changelogs/users.md) |
 | goods · 商品管理 | 0.5.0 | 公开商品投影增加店铺摘要；保留多商家聚合 | [goods](changelogs/goods.md) |
 | carts · 购物车 | 0.1.1 | 保持采购车及商品图片基线；本轮仅web调整币种展示 | [carts](changelogs/carts.md) |
