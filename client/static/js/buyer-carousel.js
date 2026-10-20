@@ -10,14 +10,12 @@
             var counter = root.querySelector('[data-carousel-counter]');
             var feedback = root.querySelector('[data-carousel-feedback]');
             var retry = root.querySelector('[data-carousel-retry]');
-            var previous = root.querySelector('[data-carousel-prev]');
-            var next = root.querySelector('[data-carousel-next]');
-            var playback = root.querySelector('[data-carousel-playback]');
             var announcement = root.querySelector('[data-carousel-status]');
             var heading = root.querySelector('[data-carousel-heading]');
+            var hint = root.querySelector('[data-carousel-hint]');
             var media = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
             var paused = !!(media && media.matches), hovered = false, focused = false, suspended = false;
-            var index = 0, rows = [], slides = [], indicators = [], prices = [], links = [];
+            var index = 0, rows = [], slides = [], indicators = [], prices = [], images = [];
             var timer = null, requestId = 0, destroyed = false, state = 'loading', pointer = null, suppressClick = false;
             var listeners = [], slideListeners = [];
             function text(key) { return options.labels()[key] || key; }
@@ -29,14 +27,19 @@
             function clearSlides() {
                 slideListeners.forEach(function (remove) { remove(); }); slideListeners = [];
                 viewport.replaceChildren(); dots.replaceChildren();
-                slides = []; indicators = []; prices = []; links = [];
+                slides = []; indicators = []; prices = []; images = [];
             }
             function stop() {
                 if (timer !== null) { window.clearTimeout(timer); timer = null; }
+                root.setAttribute('data-carousel-running', 'false');
             }
             function schedule() {
                 stop();
                 if (destroyed || state !== 'ready' || rows.length < 2 || paused || hovered || focused || suspended || document.hidden) return;
+                root.setAttribute('data-carousel-running', 'true');
+                // Recreate the decorative fill so its six-second animation follows the actual timer.
+                indicators[index].replaceChildren();
+                indicators[index].appendChild(node('span', 'carousel-progress-fill'));
                 timer = window.setTimeout(function () { go(index + 1, false); }, 6000);
             }
             function refreshPrices() {
@@ -48,12 +51,7 @@
                 root.setAttribute('aria-label', text('carousel_label'));
                 root.setAttribute('aria-roledescription', text('carousel_role'));
                 heading.textContent = text('carousel_heading');
-                previous.setAttribute('aria-label', text('carousel_previous'));
-                next.setAttribute('aria-label', text('carousel_next'));
-                previous.textContent = rtl() ? '→' : '←';
-                next.textContent = rtl() ? '←' : '→';
-                playback.textContent = text(paused ? 'carousel_play' : 'carousel_pause');
-                playback.setAttribute('aria-pressed', String(paused));
+                if (hint) hint.textContent = text('carousel_hint');
                 retry.textContent = text('grid_retry');
                 controls.hidden = state !== 'ready' || rows.length < 2;
                 counter.hidden = state !== 'ready';
@@ -62,15 +60,13 @@
                 retry.hidden = state !== 'error';
                 feedback.textContent = text(state === 'error' ? 'carousel_error' : state === 'empty' ? 'banner_empty' : 'banner_loading');
                 root.setAttribute('aria-busy', String(state === 'loading'));
-                dots.setAttribute('aria-label', text('carousel_select'));
                 if (state === 'ready') counter.textContent = (index + 1) + ' / ' + rows.length;
                 slides.forEach(function (slide, i) {
                     slide.hidden = i !== index;
                     slide.setAttribute('aria-roledescription', text('carousel_slide'));
                     slide.setAttribute('aria-label', (i + 1) + ' / ' + rows.length + ': ' + rows[i].title);
-                    indicators[i].setAttribute('aria-label', text('carousel_goto').replace('{n}', i + 1) + ': ' + rows[i].title);
                     indicators[i].setAttribute('aria-current', String(i === index));
-                    links[i].textContent = text('btn_view_sku');
+                    images[i].loading = i === index || i === (index + 1) % rows.length ? 'eager' : 'lazy';
                 });
                 root.querySelectorAll('[data-carousel-price-label]').forEach(function (node) { node.textContent = text('carousel_price'); });
                 root.querySelectorAll('[data-carousel-image-fallback]').forEach(function (node) { node.textContent = text('carousel_image_missing'); });
@@ -79,7 +75,6 @@
             function go(target, manual) {
                 if (!rows.length || state !== 'ready') return;
                 index = (target % rows.length + rows.length) % rows.length;
-                if (manual) paused = true;
                 refresh();
                 if (manual) announcement.textContent = (index + 1) + ' / ' + rows.length + ': ' + rows[index].title;
                 schedule();
@@ -99,8 +94,8 @@
             function render() {
                 clearSlides();
                 rows.forEach(function (row, i) {
-                    var slide = node('article', 'carousel-slide');
-                    slide.setAttribute('role', 'group');
+                    var slide = node('a', 'carousel-slide');
+                    slide.href = 'product_details.html?skuid=' + row.skuid;
                     var copy = node('div', 'carousel-copy');
                     copy.appendChild(node('h2', 'carousel-title', row.title));
                     copy.appendChild(node('p', 'carousel-description', row.intro));
@@ -112,10 +107,8 @@
                         price = node('strong', 'carousel-price');
                         priceBlock.appendChild(priceLabel); priceBlock.appendChild(price); purchase.appendChild(priceBlock);
                     }
-                    var details = 'product_details.html?skuid=' + row.skuid;
-                    var link = node('a', 'carousel-view btn-view-sku'); link.href = details;
-                    purchase.appendChild(link); copy.appendChild(purchase); slide.appendChild(copy);
-                    var picture = node('a', 'carousel-media'); picture.href = details; picture.setAttribute('aria-label', row.title);
+                    copy.appendChild(purchase); slide.appendChild(copy);
+                    var picture = node('div', 'carousel-media');
                     var image = node('img'); image.src = imageSource(row.image_url); image.alt = row.title;
                     image.loading = i === 0 ? 'eager' : 'lazy'; image.decoding = 'async';
                     var fallback = node('span', 'carousel-image-fallback'); fallback.hidden = true;
@@ -126,10 +119,8 @@
                         else { image.hidden = true; fallback.hidden = false; }
                     }, true);
                     picture.appendChild(image); picture.appendChild(fallback); slide.appendChild(picture);
-                    viewport.appendChild(slide); slides.push(slide); prices.push(price); links.push(link);
-                    var dot = node('button', 'carousel-dot'); dot.type = 'button';
-                    dot.setAttribute('aria-controls', viewport.id);
-                    on(dot, 'click', function () { go(i, true); }, true);
+                    viewport.appendChild(slide); slides.push(slide); prices.push(price); images.push(image);
+                    var dot = node('span', 'carousel-dot');
                     dots.appendChild(dot); indicators.push(dot);
                 });
                 refresh(); schedule();
@@ -160,10 +151,7 @@
                     rows = []; state = 'error'; viewport.replaceChildren(); refresh(); stop();
                 });
             }
-            on(previous, 'click', function () { go(index - 1, true); });
-            on(next, 'click', function () { go(index + 1, true); });
-            on(playback, 'click', function () { paused = !paused; if (!paused) focused = false; refresh(); schedule(); });
-            on(retry, 'click', load);
+            on(retry, 'click', function (event) { event.preventDefault(); load(); });
             on(root, 'mouseenter', function () { hovered = true; schedule(); });
             on(root, 'mouseleave', function () { hovered = false; schedule(); });
             on(root, 'focusin', function () { focused = true; schedule(); });
@@ -191,7 +179,7 @@
             on(document, 'visibilitychange', schedule);
             on(window, 'pagehide', function () { suspended = true; stop(); });
             on(window, 'pageshow', function () { suspended = false; schedule(); });
-            if (media && media.addEventListener) on(media, 'change', function () { if (media.matches) paused = true; refresh(); schedule(); });
+            if (media && media.addEventListener) on(media, 'change', function () { paused = media.matches; refresh(); schedule(); });
             var ready = load();
             return {ready: ready, reload: load, refreshPrices: refreshPrices,
                 setLanguage: function () { refresh(); },

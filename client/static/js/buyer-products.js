@@ -106,6 +106,7 @@
         var skuid = el.skuid || el.id;
         var title = productTitle(el);
         var spec = productSpec(el);
+        var storeHtml = typeof Storefront === 'undefined' ? '' : Storefront.merchantLink(el.merchant).outerHTML;
         var imgUrl = el.image && baseUrlMedia
             ? (baseUrlMedia.replace(/\/$/, '') + (String(el.image).indexOf('/') === 0 ? '' : '/') + el.image)
             : '';
@@ -118,9 +119,8 @@
             '<h3 class="product-name"><a href="product_details.html?skuid=' + skuid + '">' + title.replace(/</g, '&lt;') + '</a></h3>' +
             '<p class="product-spec">' + spec.replace(/</g, '&lt;') + '</p>' +
             '<div class="product-price" data-usd="' + (el.price || 0) + '" data-aed="' + ((el.price || 0) * 3.67).toFixed(0) + '" data-sar="' + ((el.price || 0) * 3.75).toFixed(0) + '">' + formatPrice(el.price) + '</div>' +
+            storeHtml +
             '<div class="product-actions-row"><button type="button" class="btn-add-cart">' + t('add_cart') + '</button></div>' +
-            '<div class="product-secondary-actions"><button type="button" class="btn-quick-preview" data-i18n="quick_preview">' + t('quick_preview') + '</button>' +
-            '<button type="button" class="btn-trace-link" data-i18n="trace_btn" disabled aria-disabled="true">溯源</button></div>' +
             '</div>';
     }
 

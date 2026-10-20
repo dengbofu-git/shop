@@ -1,0 +1,86 @@
+{
+  "type": "local-deployment-verification",
+  "timestamp": "2026-10-20T15:12:46.041503+08:00",
+  "checks": [
+    {
+      "path": "/merchant_dashboard.html",
+      "http_status": 200,
+      "frame_options": "SAMEORIGIN"
+    },
+    {
+      "path": "/merchant_store.html?embed=1",
+      "http_status": 200,
+      "frame_options": "SAMEORIGIN"
+    },
+    {
+      "path": "/store.html?merchant_id=1",
+      "http_status": 200,
+      "frame_options": "SAMEORIGIN"
+    },
+    {
+      "path": "/static/js/storefront.js?v=1",
+      "http_status": 200,
+      "frame_options": null
+    },
+    {
+      "path": "/static/js/store-page.js?v=1",
+      "http_status": 200,
+      "frame_options": null
+    },
+    {
+      "path": "/static/js/merchant-store.js?v=1",
+      "http_status": 200,
+      "frame_options": null
+    },
+    {
+      "path": "/static/css/store-pages.css?v=1",
+      "http_status": 200,
+      "frame_options": null
+    },
+    {
+      "path": "/v1/supplier/store-page",
+      "http_status": 401,
+      "frame_options": "SAMEORIGIN"
+    },
+    {
+      "path": "/v1/goods/index",
+      "http_status": 200,
+      "frame_options": "SAMEORIGIN"
+    },
+    {
+      "path": "/v1/goods/recommended-products",
+      "http_status": 200,
+      "frame_options": "SAMEORIGIN"
+    },
+    {
+      "path": "/v1/goods/detail/22",
+      "http_status": 200,
+      "frame_options": "SAMEORIGIN"
+    },
+    {
+      "path": "/v1/supplier/store-page",
+      "http_status": 200,
+      "frame_options": "SAMEORIGIN"
+    },
+    {
+      "path": "/v1/stores/6",
+      "http_status": 404,
+      "frame_options": "SAMEORIGIN"
+    }
+  ],
+  "catalog_sku_count": 103,
+  "merchant_count_in_catalog": 1,
+  "store_rows_unchanged": true,
+  "real_store_content_published": false,
+  "migration": "supplier.0002_storepage applied",
+  "other_pending_migrations": [
+    [
+      "ai_storage",
+      "0001_initial"
+    ],
+    [
+      "ai_storage",
+      "0002_embedding_validation"
+    ]
+  ]
+}

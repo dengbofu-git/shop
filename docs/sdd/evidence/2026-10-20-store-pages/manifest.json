@@ -1,0 +1,61 @@
+{
+  "type": "verification",
+  "date": "2026-10-20T15:06:39.636029+08:00",
+  "capability": "CAP-MER-005",
+  "specification": "docs/sdd/modules/merchant-operations/store-pages.md",
+  "baseline_head": "f382e8e366279a7e2bbc66747ed84f0c7f44cbe6",
+  "branch": "codex/supplier-store-pages",
+  "uncommitted": true,
+  "python": "3.9.25",
+  "modules": {
+    "core": "0.5.0",
+    "goods": "0.5.0",
+    "supplier": "0.3.0",
+    "web": "0.23.0"
+  },
+  "sha256": {
+    "supplier/models.py": "00cdfba73464961274f4be667291f3ed307e1bb4f7f934577abdc7a62e2304ba",
+    "supplier/urls.py": "9ca0e4b6ec1310d55c3d5b9e6b9a1c8490e9d373fd86e17777ae2bc6e081a1c2",
+    "supplier/store_views.py": "e3a2aa512306a4ca914387a58ee3632a12bbe1c4366580fbe14e896e64e1d72b",
+    "supplier/storefront.py": "3eea08637598cacbe2cfe502a4fa698d236f38927cdd2ebfef51bf05cc329c42",
+    "supplier/test_store_pages.py": "617889dd09e2bf0e9f6d5307a767505f09fa5b5b5382f0f39ef73875f3350c3b",
+    "supplier/migrations/0002_storepage.py": "0eb6084f300470a16f0534de8f42b2cefec608f51f4e5f3aa235c30810ecf75f",
+    "goods/views.py": "6e207e3efccdce1a809986595c485a30dda865e84a6f5e308378970e0f8e7cbf",
+    "tea_saas/urls.py": "36fc483ed786e13af1969601372db99059f05c6c914e7e223a85562d082d27de",
+    "client/templates/store.html": "477f7393ecca5cc363e1ad96bc4ac049bb1ca80ef38f0d5124c55ea229fe9d57",
+    "client/templates/merchant_store.html": "b7764b399a0752a26c318c72a463a985474efa51bf6a1eefc3f333d825ed0e42",
+    "client/templates/merchant_dashboard.html": "8d75aecf838674fe6d87c5e11f0712ab5c7b2c382ee575e321597b93bdee2e9e",
+    "client/templates/product_details.html": "e4cb4334447bee64905bd7ad76089de3dfd07aaf72ef7d0bb0fba904792efc99",
+    "client/templates/buyer_dashboard.html": "9e37107b0d750a0e3994eee16dc0d88f8a4a8e731d664aa15e1af77e38ff3ca1",
+    "client/templates/buyer_products.html": "d0ba4380edae303f30eeaa2281ab5414c74eaed7a9d8ff906f23aec5c396bc74",
+    "client/static/js/storefront.js": "949d8d3f7489630f8705f404b2c2a1f2ec16fae389fbcc98d2e82f0825f4446b",
+    "client/static/js/store-page.js": "6c3b9724c931fb2c846172db4a9ea845db05aaf8460a572c202944784c046b27",
+    "client/static/js/merchant-store.js": "59c88cf53c9662e9be8b88db80faf4e3ed4f4f68d10c36534e89c7a7c602ed7f",
+    "client/static/js/supplier-workbench.js": "7fa2af6f15ad978ea84201155dfe963b4fc5fc4e18075a9b37a4d25a2c5445ff",
+    "client/static/js/buyer-products.js": "6ee408ed064991dd4cf86e7b9953c70b6fb7a8c549c18ff4348a8101ee9fdea8",
+    "client/static/js/buyer-workbench.js": "5d5e0b3490420e3c8f069308e042117aad87dae58f5b90d10f745a19e117b574",
+    "client/static/css/store-pages.css": "40899e6cdf6ef6d77564a61b8b4a8a57077ecb4a94e580a36563925d29dc11c6",
+    "client/tests/storefront.test.js": "27c8a9ccbfdcc47f668e482aaddc011896b52a4a259dc10543d6bbefdefa6790"
+  },
+  "database_migration": {
+    "isolated_mysql": "passed",
+    "business_database": "not_applied"
+  },
+  "browser": {
+    "environment": "local synthetic SQLite and media, port 8766",
+    "public_mobile": {
+      "clientWidth": 375,
+      "scrollWidth": 375
+    },
+    "manager_mobile": {
+      "clientWidth": 375,
+      "scrollWidth": 375
+    }
+  },
+  "git_delivery": {
+    "commit": false,
+    "push": false,
+    "pr": false,
+    "deploy": false
+  }
+}

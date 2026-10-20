@@ -40,9 +40,12 @@ def main(output):
         Path(output).write_text(json.dumps(body, indent=2), encoding='utf-8')
         page = client.get('/buyer_dashboard.html').content.decode()
         assert 'id="buyer-carousel"' in page
-        assert 'data-carousel-playback' in page and 'data-carousel-retry' in page
+        assert 'data-carousel-playback' not in page and 'data-carousel-retry' in page
+        carousel = page.split('id="buyer-carousel"', 1)[1].split('</section>', 1)[0]
+        assert '<button' not in carousel
+        assert 'data-carousel-prev' not in carousel and 'data-carousel-next' not in carousel
         assert page.index('buyer-carousel.js') < page.index('buyer-workbench.js')
-        assert 'buyer-carousel.css?v=20261019-carousel' in page
+        assert 'buyer-carousel.css?v=20261020-immersive' in page
         SKU.objects.all().update(is_launched=False)
         assert client.get('/v1/goods/carousel?stable=1&limit=6').json()['data'] == []
         print('PASS: actual carousel fields, stable selection, stock/launch filtering, empty result and homepage template')

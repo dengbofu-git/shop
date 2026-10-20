@@ -65,12 +65,7 @@
             carousel_label: '精选茶品轮播',
             carousel_role: '轮播图',
             carousel_slide: '轮播项',
-            carousel_previous: '上一款',
-            carousel_next: '下一款',
-            carousel_select: '选择茶品',
-            carousel_goto: '查看第 {n} 款茶品',
-            carousel_pause: '暂停轮播',
-            carousel_play: '播放轮播',
+            carousel_hint: '自动展示精选茶品，悬停或聚焦暂停，可用左右方向键或横滑切换。',
             carousel_error: '轮播加载失败，请重新加载。',
             carousel_price: '参考价格',
             carousel_image_missing: '暂无商品图片',
@@ -120,6 +115,9 @@
             hover_p7: '产地：浙江杭州',
             hover_p8: '冲泡：80–85℃',
             ft_about: '关于',
+            ft_tagline: '跨境茶叶 SaaS 平台',
+            ft_description: '从发现一款好茶，到开启下一次采购，让选茶与经营更从容。',
+            ft_bottom_note: '为跨境茶叶采购与经营而设计',
             ft_intro: '公司介绍',
             ft_news: '新闻动态',
             ft_help: '帮助',
@@ -189,12 +187,7 @@
             carousel_label: 'Featured tea carousel',
             carousel_role: 'carousel',
             carousel_slide: 'slide',
-            carousel_previous: 'Previous tea',
-            carousel_next: 'Next tea',
-            carousel_select: 'Choose a tea',
-            carousel_goto: 'View tea {n}',
-            carousel_pause: 'Pause carousel',
-            carousel_play: 'Play carousel',
+            carousel_hint: 'Tea rotates automatically. Hover or focus to pause; use arrow keys or swipe to browse.',
             carousel_error: 'Could not load the carousel. Please retry.',
             carousel_price: 'Reference price',
             carousel_image_missing: 'Product image unavailable',
@@ -244,6 +237,9 @@
             hover_p7: 'Origin: Hangzhou, Zhejiang',
             hover_p8: 'Brew: 80–85°C',
             ft_about: 'About',
+            ft_tagline: 'A SaaS platform for cross-border tea trade',
+            ft_description: 'From finding your next tea to placing your next order, make sourcing and business feel simpler.',
+            ft_bottom_note: 'Built for tea sourcing and cross-border business',
             ft_intro: 'Company',
             ft_news: 'News',
             ft_help: 'Help',
@@ -313,12 +309,7 @@
             carousel_label: 'عارض منتجات الشاي',
             carousel_role: 'عارض شرائح',
             carousel_slide: 'شريحة',
-            carousel_previous: 'الشاي السابق',
-            carousel_next: 'الشاي التالي',
-            carousel_select: 'اختر الشاي',
-            carousel_goto: 'عرض الشاي {n}',
-            carousel_pause: 'إيقاف العرض مؤقتاً',
-            carousel_play: 'تشغيل العرض',
+            carousel_hint: 'يتبدل الشاي تلقائياً. مرّر المؤشر أو ركّز للإيقاف المؤقت، واستخدم الأسهم أو السحب للتصفح.',
             carousel_error: 'تعذر تحميل العرض. حاول مجدداً.',
             carousel_price: 'سعر مرجعي',
             carousel_image_missing: 'صورة المنتج غير متاحة',
@@ -368,6 +359,9 @@
             hover_p7: 'الأصل: هانغتشو',
             hover_p8: '80–85°م',
             ft_about: 'عن',
+            ft_tagline: 'منصة SaaS لتجارة الشاي عبر الحدود',
+            ft_description: 'من اكتشاف شاي جديد إلى طلبك التالي، نجعل التوريد وإدارة الأعمال أكثر سهولة.',
+            ft_bottom_note: 'مصممة لتوريد الشاي والتجارة عبر الحدود',
             ft_intro: 'عن الشركة',
             ft_news: 'الأخبار',
             ft_help: 'المساعدة',
@@ -527,7 +521,6 @@
                 retry: document.getElementById('featured-retry'),
                 empty: document.getElementById('product-grid-empty'),
                 pager: document.getElementById('featured-pagination'), section: document.getElementById('buyer-featured'),
-                viewAll: document.getElementById('featured-view-all'),
                 labels: function() { return getT(localStorage.getItem('buyer_lang') || 'zh'); },
                 render: function(rows) { buildProductGrid(rows, gGrid, gSk, gErr); }
             });
@@ -589,18 +582,6 @@
                 }
             };
             wrap.appendChild(img);
-            var bPrev = document.createElement('button');
-            bPrev.type = 'button';
-            bPrev.className = 'btn-quick-preview';
-            bPrev.setAttribute('data-i18n', 'quick_preview');
-            bPrev.textContent = ttx.quick_preview;
-            var aTrace = document.createElement('button');
-            aTrace.className = 'btn-trace-link';
-            aTrace.type = 'button';
-            aTrace.disabled = true;
-            aTrace.setAttribute('aria-disabled', 'true');
-            aTrace.setAttribute('data-i18n', 'trace_btn');
-            aTrace.textContent = ttx.trace_btn;
             var h3 = document.createElement('h3');
             h3.className = 'product-name';
             var titleLink = document.createElement('a');
@@ -621,17 +602,13 @@
             bAdd.setAttribute('data-i18n', 'add_cart');
             bAdd.textContent = ttx.add_cart;
             act.appendChild(bAdd);
-            var secondary = document.createElement('div');
-            secondary.className = 'product-secondary-actions';
-            secondary.appendChild(bPrev);
-            secondary.appendChild(aTrace);
             if (badges) card.appendChild(badges);
             card.appendChild(wrap);
             card.appendChild(h3);
             card.appendChild(spec);
             card.appendChild(price);
+            if (typeof Storefront !== 'undefined') card.appendChild(Storefront.merchantLink(it.merchant));
             card.appendChild(act);
-            card.appendChild(secondary);
             gGrid.appendChild(card);
         });
         var langNow = localStorage.getItem('buyer_lang') || 'zh';
@@ -762,7 +739,7 @@
             modal.style.display = 'none';
             if (previewTrigger) previewTrigger.focus();
         }
-        if (pg) {
+        document.querySelectorAll('#product-grid, [data-product-grid]').forEach(function(pg) {
             pg.addEventListener('click', function(e) {
                 if (e.target.closest('.btn-quick-preview')) {
                     e.stopPropagation();
@@ -791,7 +768,7 @@
                     addToCartFromCard(c);
                 }
             });
-        }
+        });
         if (modal) {
             modal.querySelectorAll('[data-close]').forEach(function(b) {
                 b.addEventListener('click', function() {

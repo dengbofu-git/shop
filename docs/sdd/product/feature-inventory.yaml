@@ -312,3 +312,13 @@ features:
     codePaths: [admin_panel/analytics.py, admin_panel/views.py, orders/analytics.py, client/static/js/admin-overview.js, client/static/js/admin-panel.js]
     specification: docs/sdd/modules/platform/trading-overview.md
     observation: platform-role-and-data-view-required-order-aggregation-not-payment-ledger
+  - id: FEAT-036
+    name: 多商家平台商品与店铺页面管理
+    primaryCapability: CAP-MER-005
+    relatedCapabilities: [CAP-CAT-001, CAP-CAT-002, CAP-IAM-003, CAP-PLAT-002]
+    perspectives: [buyer, merchant]
+    pages: [buyer_dashboard.html, buyer_products.html, product_details.html, store.html, merchant_store.html, merchant_dashboard.html]
+    apiPrefixes: [/v1/stores/, /v1/supplier/store-page]
+    codePaths: [supplier/store_views.py, supplier/storefront.py, supplier/models.py, goods/views.py]
+    specification: docs/sdd/modules/merchant-operations/store-pages.md
+    observation: initial-implementation-local-migration-and-service-activation-verified-no-real-store-content-published

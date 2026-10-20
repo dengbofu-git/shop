@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>店铺页面管理 · tea_saas</title>
+    <link rel="stylesheet" href="/static/css/design-tokens.css">
+    <link rel="stylesheet" href="/static/css/store-pages.css?v=20261020-product-search">
+    <script src="/static/js/auth-storage.js?v=20261018-session-isolation"></script>
+    {% include 'shared/system_theme.html' %}
+</head>
+<body class="ds-theme ds-page-merchant-store">
+    <main class="store-manager">
+        <header class="store-manager-head"><div><p class="store-eyebrow">MY STOREFRONT</p><h1>店铺页面管理</h1><p class="store-muted">让买家认识你的店铺。保存草稿后，发布才会更新公开主页。</p></div><a href="/merchant_dashboard.html" class="store-manager-back">返回商家工作台</a></header>
+        <div class="store-actionbar"><div><span class="store-state" id="sm-state">正在加载…</span><span class="store-muted" id="sm-published-at"></span></div><div class="store-actions"><button type="button" id="sm-reload">重新加载</button><button type="button" id="sm-save" disabled>保存草稿</button><button type="button" id="sm-preview" disabled>预览</button><button type="button" id="sm-publish" class="store-primary" disabled>发布更新</button><button type="button" id="sm-unpublish" disabled>下线主页</button><a id="sm-public" hidden>查看公开主页 ↗</a></div></div>
+        <p class="store-manager-message" id="sm-message" role="status" aria-live="polite"></p>
+        <div class="store-editor-layout">
+            <form id="sm-form" class="store-editor" aria-label="店铺内容" hidden>
+                <section class="store-section"><p class="store-eyebrow">01 · IDENTITY</p><h2>基础信息</h2>
+                    <label>店铺名称 <span class="store-muted">发布时必填</span><input id="sm-name" maxlength="50" autocomplete="organization" placeholder="填写你的店铺名称"></label>
+                    <label>店铺简介<textarea id="sm-summary" maxlength="200" rows="3" placeholder="用一两句话介绍主营茶品与特色"></textarea><small>最多 200 字</small></label>
+                    <div class="store-upload"><label>店铺 Logo<input type="file" id="sm-logo" accept="image/png,image/jpeg,image/webp"></label><button type="button" data-clear-image="logo_url">移除 Logo</button><small>PNG / JPG / WebP，最大 4MB；建议正方形</small></div>
+                </section>
+                <section class="store-section"><p class="store-eyebrow">02 · FIRST IMPRESSION</p><h2>首页展示</h2>
+                    <label>欢迎语<input id="sm-welcome" maxlength="100" placeholder="从一杯好茶，认识一家好店"></label>
+                    <div class="store-upload"><label>店铺横幅<input type="file" id="sm-banner" accept="image/png,image/jpeg,image/webp"></label><button type="button" data-clear-image="banner_url">移除横幅</button><small>PNG / JPG / WebP，最大 8MB；建议 3:1 横图</small></div>
+                </section>
+                <section class="store-section"><p class="store-eyebrow">03 · OWNER'S PICKS</p><h2>推荐商品</h2><p class="store-muted">最多 8 件，仅可选择本店商品；下架或无库存商品不会公开展示。</p><div id="sm-selected"></div>
+                    <label for="sm-product-search">搜索本店商品</label><input type="search" id="sm-product-search" maxlength="100" placeholder="输入商品名称或规格" autocomplete="off" aria-describedby="sm-search-message" aria-controls="sm-product-results">
+                    <p class="store-muted" id="sm-search-message" role="status" aria-live="polite">输入商品名称或规格，搜索后点击“添加”即可推荐。</p><div id="sm-product-results" class="store-search-results" role="region" aria-label="本店商品搜索结果" hidden></div>
+                    <p class="store-muted" id="sm-products-message"></p><button type="button" id="sm-products-retry" hidden>重新加载商品</button></section>
+                <section class="store-section"><p class="store-eyebrow">04 · OUR STORY</p><h2>店铺介绍</h2><label>品牌故事与产地介绍<textarea id="sm-story" maxlength="5000" rows="7" placeholder="介绍你的茶园、品牌故事或选茶理念"></textarea><small>最多 5000 字，按纯文本展示</small></label></section>
+            </form>
+            <aside class="store-editor-preview"><div class="store-preview-toolbar"><strong>页面预览</strong><div><button type="button" data-preview-size="desktop" aria-pressed="true">桌面</button><button type="button" data-preview-size="mobile" aria-pressed="false">手机</button></div></div><p class="store-muted">预览包含当前未保存内容，采购操作禁用。</p><div class="store-preview-window" id="sm-preview-window"><div id="sm-preview-hero" class="store-hero"></div><section class="store-section"><h2>店主推荐</h2><div id="sm-preview-products" class="store-product-grid"></div></section><section class="store-section"><h2>店铺介绍</h2><p id="sm-preview-story" class="store-story"></p></section></div></aside>
+        </div>
+        <dialog class="store-preview-dialog" id="sm-dialog"><div class="store-dialog-head"><strong>店铺预览 · 未发布</strong><button type="button" id="sm-close-preview">关闭预览</button></div><div id="sm-dialog-content"></div></dialog>
+    </main>
+    <script src="/static/js/storefront.js?v=1"></script>
+    <script src="/static/js/merchant-store.js?v=20261020-product-search"></script>
+</body>
+</html>

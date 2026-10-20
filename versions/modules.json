@@ -3,7 +3,7 @@
   "modules": {
     "core": {
       "title": "项目核心",
-      "version": "0.4.4",
+      "version": "0.5.1",
       "paths": [
         "README.md",
         "CONTEXT.md",
@@ -41,7 +41,7 @@
     },
     "goods": {
       "title": "商品管理",
-      "version": "0.4.3",
+      "version": "0.5.0",
       "paths": [
         "goods/",
         "goods_data.json",
@@ -54,7 +54,8 @@
       "dependencies": [
         "core",
         "users",
-        "inventory"
+        "inventory",
+        "supplier"
       ]
     },
     "carts": {
@@ -72,7 +73,7 @@
     },
     "orders": {
       "title": "订单管理",
-      "version": "0.1.6",
+      "version": "0.1.7",
       "paths": [
         "orders/",
         "versions/changelogs/orders.md"
@@ -136,7 +137,7 @@
     },
     "supplier": {
       "title": "商家与结算",
-      "version": "0.2.1",
+      "version": "0.3.0",
       "paths": [
         "supplier/",
         "versions/changelogs/supplier.md"
@@ -226,7 +227,7 @@
     },
     "web": {
       "title": "页面与前端资源",
-      "version": "0.20.3",
+      "version": "0.23.2",
       "paths": [
         "client/",
         "templates/",

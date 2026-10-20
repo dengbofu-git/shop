@@ -1,7 +1,10 @@
 from django.urls import path
 from . import views
+from . import store_views
 
 urlpatterns = [
+    path('store-page', store_views.manage, name='merchant_store_config'),
+    path('store-page/image', store_views.upload, name='merchant_store_image'),
     path('analytics', views.SupplierAnalyticsView.as_view(), name='supplier_analytics'),
     path('orders/delete', views.SupplierOrderDeleteView.as_view(), name='supplier_order_delete'),
     path('orders/<str:order_id>/ship', views.SupplierOrderShipView.as_view(), name='supplier_order_ship'),

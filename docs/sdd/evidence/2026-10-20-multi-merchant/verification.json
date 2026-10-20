@@ -1,0 +1,386 @@
+{
+  "total": 75,
+  "passed": 70,
+  "failed": 5,
+  "checks": [
+    {
+      "name": "simshop1 login routing",
+      "passed": true,
+      "redirect": "/merchant_dashboard.html"
+    },
+    {
+      "name": "simshop2 login routing",
+      "passed": true,
+      "redirect": "/merchant_dashboard.html"
+    },
+    {
+      "name": "simbuyer login routing",
+      "passed": true,
+      "redirect": "/buyer_dashboard.html"
+    },
+    {
+      "name": "simshop1 product isolation",
+      "passed": true,
+      "count": 8
+    },
+    {
+      "name": "simshop1 inventory isolation",
+      "passed": true,
+      "count": 7
+    },
+    {
+      "name": "simshop1 order list and cross-store line amounts",
+      "passed": true,
+      "count": 13
+    },
+    {
+      "name": "simshop1 sales isolation and subtype eligibility",
+      "passed": true,
+      "total_sales": 641.0,
+      "order_count": 13,
+      "paid_order_count": 8
+    },
+    {
+      "name": "simshop1 settlement isolation",
+      "passed": true,
+      "count": 2
+    },
+    {
+      "name": "simshop1 config identity ignores foreign query parameter",
+      "passed": true
+    },
+    {
+      "name": "simshop1 published config and no private draft",
+      "passed": true
+    },
+    {
+      "name": "simshop1 storefront newest",
+      "passed": true
+    },
+    {
+      "name": "simshop1 storefront sales",
+      "passed": true
+    },
+    {
+      "name": "simshop1 storefront price_asc",
+      "passed": true
+    },
+    {
+      "name": "simshop1 storefront price_desc",
+      "passed": true
+    },
+    {
+      "name": "simshop1 foreign shop search returns no products",
+      "passed": true
+    },
+    {
+      "name": "simshop1 platform overview denied",
+      "passed": true
+    },
+    {
+      "name": "simshop1 platform users denied",
+      "passed": true
+    },
+    {
+      "name": "simshop1 platform agent/settings denied",
+      "passed": true
+    },
+    {
+      "name": "simshop1 cannot impersonate buyer order list",
+      "passed": true
+    },
+    {
+      "name": "simshop2 product isolation",
+      "passed": true,
+      "count": 8
+    },
+    {
+      "name": "simshop2 inventory isolation",
+      "passed": true,
+      "count": 7
+    },
+    {
+      "name": "simshop2 order list and cross-store line amounts",
+      "passed": true,
+      "count": 13
+    },
+    {
+      "name": "simshop2 sales isolation and subtype eligibility",
+      "passed": true,
+      "total_sales": 840.0,
+      "order_count": 13,
+      "paid_order_count": 8
+    },
+    {
+      "name": "simshop2 settlement isolation",
+      "passed": true,
+      "count": 2
+    },
+    {
+      "name": "simshop2 config identity ignores foreign query parameter",
+      "passed": true
+    },
+    {
+      "name": "simshop2 published config and no private draft",
+      "passed": true
+    },
+    {
+      "name": "simshop2 storefront newest",
+      "passed": true
+    },
+    {
+      "name": "simshop2 storefront sales",
+      "passed": true
+    },
+    {
+      "name": "simshop2 storefront price_asc",
+      "passed": true
+    },
+    {
+      "name": "simshop2 storefront price_desc",
+      "passed": true
+    },
+    {
+      "name": "simshop2 foreign shop search returns no products",
+      "passed": true
+    },
+    {
+      "name": "simshop2 platform overview denied",
+      "passed": true
+    },
+    {
+      "name": "simshop2 platform users denied",
+      "passed": true
+    },
+    {
+      "name": "simshop2 platform agent/settings denied",
+      "passed": true
+    },
+    {
+      "name": "simshop2 cannot impersonate buyer order list",
+      "passed": true
+    },
+    {
+      "name": "platform aggregates both shops with correct ownership",
+      "passed": true
+    },
+    {
+      "name": "sales recommendations include both shops and exclude sold-out/unlisted",
+      "passed": true
+    },
+    {
+      "name": "simshop1 SKU 125 category fallback image",
+      "passed": true
+    },
+    {
+      "name": "simshop1 SKU 126 category fallback image",
+      "passed": true
+    },
+    {
+      "name": "simshop1 SKU 127 category fallback image",
+      "passed": true
+    },
+    {
+      "name": "simshop1 SKU 128 category fallback image",
+      "passed": true
+    },
+    {
+      "name": "simshop1 SKU 129 category fallback image",
+      "passed": true
+    },
+    {
+      "name": "simshop1 SKU 130 category fallback image",
+      "passed": true
+    },
+    {
+      "name": "simshop2 SKU 133 category fallback image",
+      "passed": true
+    },
+    {
+      "name": "simshop2 SKU 134 category fallback image",
+      "passed": true
+    },
+    {
+      "name": "simshop2 SKU 135 category fallback image",
+      "passed": true
+    },
+    {
+      "name": "simshop2 SKU 136 category fallback image",
+      "passed": true
+    },
+    {
+      "name": "simshop2 SKU 137 category fallback image",
+      "passed": true
+    },
+    {
+      "name": "simshop2 SKU 138 category fallback image",
+      "passed": true
+    },
+    {
+      "name": "None config access denied",
+      "passed": true
+    },
+    {
+      "name": "simbuyer config access denied",
+      "passed": true
+    },
+    {
+      "name": "None merchant products access denied",
+      "passed": true
+    },
+    {
+      "name": "simbuyer merchant products access denied",
+      "passed": true
+    },
+    {
+      "name": "dedicated buyer sees all 26 single-merchant demo orders",
+      "passed": true,
+      "count": 26
+    },
+    {
+      "name": "anonymous buyer order list denied",
+      "passed": true
+    },
+    {
+      "name": "foreign SKU edit denied",
+      "passed": true,
+      "http": 200,
+      "code": 403
+    },
+    {
+      "name": "foreign SKU delete denied",
+      "passed": true,
+      "http": 200,
+      "code": 403
+    },
+    {
+      "name": "foreign SPU edit denied",
+      "passed": true,
+      "http": 200,
+      "code": 404
+    },
+    {
+      "name": "foreign SPU used in SKU creation denied",
+      "passed": true,
+      "http": 200,
+      "code": 404
+    },
+    {
+      "name": "foreign inventory update denied",
+      "passed": true,
+      "http": 403,
+      "code": 403
+    },
+    {
+      "name": "foreign inventory delete denied",
+      "passed": true,
+      "http": 403,
+      "code": 403
+    },
+    {
+      "name": "foreign single-merchant order shipping denied",
+      "passed": true,
+      "http": 403,
+      "code": 403
+    },
+    {
+      "name": "foreign single-merchant order deletion denied",
+      "passed": true,
+      "http": 403,
+      "code": 403
+    },
+    {
+      "name": "foreign featured SKU denied",
+      "passed": true,
+      "http": 400,
+      "code": 400
+    },
+    {
+      "name": "foreign logo asset denied",
+      "passed": true,
+      "http": 400,
+      "code": 400
+    },
+    {
+      "name": "stale store revision denied",
+      "passed": true,
+      "http": 409,
+      "code": 409
+    },
+    {
+      "name": "own draft save-publish-unpublish lifecycle",
+      "passed": true,
+      "draft_private": true,
+      "publish_updated": true,
+      "unpublished": true
+    },
+    {
+      "name": "own single-merchant order shipping changes only own inventory",
+      "passed": true,
+      "http": 200,
+      "code": 200,
+      "own_stock_delta": -2
+    },
+    {
+      "name": "cart checkout splits selected products into independent merchant orders",
+      "passed": false,
+      "severity": "high",
+      "http": 200,
+      "code": 200,
+      "created_order_count": 1,
+      "distinct_merchants_per_order": [
+        2
+      ],
+      "issue": "Cart checkout writes selected SKUs from both shops into one OrderInfo without merchant splitting.",
+      "isolation": "Deterministic in-memory cart and stubbed payment URL generator; no Redis mutation, gateway or real payment."
+    },
+    {
+      "name": "cross-store order supports independent merchant shipment",
+      "passed": false,
+      "severity": "high",
+      "first_http": 200,
+      "first_code": 200,
+      "shared_status_after_first": 3,
+      "second_http": 400,
+      "second_code": 400,
+      "first_stock_delta": -1,
+      "second_stock_delta": 0,
+      "issue": "A shared order header advances before every merchant has shipped; other merchant cannot ship."
+    },
+    {
+      "name": "cross-store order deletion preserves other merchant records",
+      "passed": false,
+      "severity": "high",
+      "http": 200,
+      "code": 200,
+      "other_merchant_lines_before": 1,
+      "other_merchant_lines_after": 0,
+      "issue": "One merchant deletes the shared order and the other merchant lines by cascade."
+    },
+    {
+      "name": "trial waiting-shipment order can ship",
+      "passed": false,
+      "severity": "medium",
+      "http": 400,
+      "code": 400,
+      "issue": "Trial status is not handled by standard-order shipping endpoint."
+    },
+    {
+      "name": "fully paid presale waiting-shipment order can ship",
+      "passed": false,
+      "severity": "medium",
+      "http": 400,
+      "code": 400,
+      "issue": "Presale status is not handled by standard-order shipping endpoint."
+    },
+    {
+      "name": "write probes rolled back: all 26 persistent orders remain single-merchant",
+      "passed": true
+    },
+    {
+      "name": "write probes rolled back: store revision and publication intact",
+      "passed": true
+    }
+  ],
+  "scope": "Real local HTTP reads/login; authenticated write probes invoke current routed views inside rolled-back MySQL transactions; simulated batch only; no external payment or model calls."
+}

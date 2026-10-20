@@ -1,0 +1,12 @@
+{
+  "existing_rows_checked": 1590,
+  "existing_rows_unchanged": true,
+  "all_created_records_present": true,
+  "inventory_and_logs_balanced": true,
+  "write_probes_rolled_back": true,
+  "total_orders": 26,
+  "order_lines": 26,
+  "stores": 2,
+  "skus": 16,
+  "persistent_cross_store_orders_in_batch": 0
+}

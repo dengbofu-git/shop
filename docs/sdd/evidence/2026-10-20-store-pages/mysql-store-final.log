@@ -1,0 +1,156 @@
+Skipping setup of unused database(s): ai_storage.
+Creating test database for alias 'default' ('test_store_pages_a0b93263a601')...
+
+Operations to perform:
+  Synchronize unmigrated apps: admin_panel, corsheaders, merchant_ai, messages, staticfiles
+  Apply all migrations: admin, ai_storage, auth, contenttypes, goods, inventory, logistics, news, orders, sessions, supplier, support_ai, users
+Synchronizing apps without migrations:
+  Creating tables...
+    Running deferred SQL...
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying auth.0001_initial... OK
+  Applying admin.0001_initial... OK
+  Applying admin.0002_logentry_remove_auto_add... OK
+  Applying admin.0003_logentry_add_action_flag_choices... OK
+  Applying ai_storage.0001_initial... OK
+  Applying ai_storage.0002_embedding_validation... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying auth.0012_alter_user_first_name_max_length... OK
+  Applying users.0001_initial... OK
+  Applying users.0002_address... OK
+  Applying users.0003_weiboprofile... OK
+  Applying users.0004_auto_20260218_0108... OK
+  Applying users.0005_permission_role_rolepermission_userrole... OK
+  Applying users.0006_create_admin_user... OK
+  Applying users.0007_create_customs_user... OK
+  Applying goods.0001_initial... OK
+  Applying goods.0002_spu_merchant... OK
+  Applying goods.0003_auto_20260218_0147... OK
+  Applying goods.0004_add_carousel_slide... OK
+  Applying goods.0005_brand_logo_optional... OK
+  Applying goods.0006_sku_is_recommended... OK
+  Applying goods.0007_spu_brand_optional... OK
+  Applying goods.0008_auto_20261002_2159... OK
+  Applying goods.0009_browsinghistory_favorite... OK
+  Applying goods.0010_catalog_fallback_image... OK
+  Applying inventory.0001_initial... OK
+  Applying orders.0001_initial... OK
+  Applying orders.0002_auto_20260218_0147... OK
+  Applying logistics.0001_initial... OK
+  Applying news.0001_initial... OK
+  Applying sessions.0001_initial... OK
+  Applying supplier.0001_initial... OK
+  Applying supplier.0002_storepage... OK
+  Applying support_ai.0001_initial... OK
+  Applying support_ai.0002_agent_observability... OK
+  Applying support_ai.0003_agent_reranking... OK
+  Applying support_ai.0004_conversation_order_context... OK
+System check identified no issues (0 silenced).
+test_anonymous_buyer_and_inactive_cannot_manage (supplier.test_store_pages.StorePageTests) ... {"timestamp": "2026-10-20T07:01:05.545+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "9b995db9678a4b409198f04890a36c6b", "method": "GET", "route": "v1/supplier/store-page", "http_status": 401, "business_code": 401, "duration_ms": 6.35, "outcome": "client_error"}
+{"timestamp": "2026-10-20T07:01:05.590+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "4fef8f5ae4cc4947b0ca925dbb5d8f52", "method": "GET", "route": "v1/supplier/store-page", "http_status": 403, "business_code": 403, "duration_ms": 3.86, "outcome": "client_error"}
+{"timestamp": "2026-10-20T07:01:05.594+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "1252b3ae08e946228cc87bfb077a9ff0", "method": "GET", "route": "v1/supplier/store-page", "http_status": 403, "business_code": 403, "duration_ms": 1.97, "outcome": "client_error"}
+ok
+test_conflict_keeps_newer_saved_content (supplier.test_store_pages.StorePageTests) ... {"timestamp": "2026-10-20T07:01:05.611+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "8bc3f3484f67411499689bca83c11aa6", "method": "PUT", "route": "v1/supplier/store-page", "http_status": 200, "business_code": 200, "duration_ms": 12.32, "outcome": "success"}
+{"timestamp": "2026-10-20T07:01:05.619+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "b9a1a4601eed4849b38e2d306ce0fbc3", "method": "PUT", "route": "v1/supplier/store-page", "http_status": 409, "business_code": 409, "duration_ms": 7.43, "outcome": "client_error"}
+{"timestamp": "2026-10-20T07:01:05.627+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "0fa4efd2ca4d4b678693fd551f252fc1", "method": "POST", "route": "v1/supplier/store-page", "http_status": 409, "business_code": 409, "duration_ms": 6.71, "outcome": "client_error"}
+ok
+test_draft_is_private_until_explicit_publish (supplier.test_store_pages.StorePageTests) ... {"timestamp": "2026-10-20T07:01:05.642+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "b03fca1c04cc42be91b5e0d292a75a73", "method": "PUT", "route": "v1/supplier/store-page", "http_status": 200, "business_code": 200, "duration_ms": 11.14, "outcome": "success"}
+{"timestamp": "2026-10-20T07:01:05.645+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "f626c4c3f3714ec3ae62cf32c1f398b2", "method": "GET", "route": "v1/stores/<int:merchant_id>", "http_status": 404, "business_code": 404, "duration_ms": 3.72, "outcome": "client_error"}
+{"timestamp": "2026-10-20T07:01:05.651+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "a815fa081c2d46b6a73a1a6325c12ad9", "method": "GET", "route": "v1/stores/<int:merchant_id>/products", "http_status": 404, "business_code": 404, "duration_ms": 4.56, "outcome": "client_error"}
+{"timestamp": "2026-10-20T07:01:05.661+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "57448f2424f14cdb912f2083fafe546a", "method": "POST", "route": "v1/supplier/store-page", "http_status": 200, "business_code": 200, "duration_ms": 9.77, "outcome": "success"}
+{"timestamp": "2026-10-20T07:01:05.680+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "05573fb2e26540c3b9daa37e068dbda6", "method": "GET", "route": "v1/stores/<int:merchant_id>", "http_status": 200, "business_code": 200, "duration_ms": 17.7, "outcome": "success"}
+ok
+test_foreign_recommendation_and_asset_are_rejected (supplier.test_store_pages.StorePageTests) ... {"timestamp": "2026-10-20T07:01:05.696+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "a28fe8a09b7441a4ac004f072fa4e63b", "method": "PUT", "route": "v1/supplier/store-page", "http_status": 400, "business_code": 400, "duration_ms": 11.68, "outcome": "client_error"}
+{"timestamp": "2026-10-20T07:01:05.709+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "f0f07ccd773d4cd580bd539e566375c9", "method": "PUT", "route": "v1/supplier/store-page", "http_status": 400, "business_code": 400, "duration_ms": 12.48, "outcome": "client_error"}
+ok
+test_inactive_or_demoted_merchant_is_not_public (supplier.test_store_pages.StorePageTests) ... {"timestamp": "2026-10-20T07:01:05.721+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "df84b66a728f42cbb8420191dfcd49ef", "method": "GET", "route": "v1/stores/<int:merchant_id>", "http_status": 404, "business_code": 404, "duration_ms": 3.71, "outcome": "client_error"}
+{"timestamp": "2026-10-20T07:01:05.731+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "b123271efc924f16be86245c3cb2e6ff", "method": "GET", "route": "v1/stores/<int:merchant_id>/products", "http_status": 404, "business_code": 404, "duration_ms": 4.32, "outcome": "client_error"}
+{"timestamp": "2026-10-20T07:01:05.752+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "6a7b39c26bf94c069c517b689cbe3313", "method": "GET", "route": "v1/goods/index", "http_status": 200, "business_code": 200, "duration_ms": 21.15, "outcome": "success"}
+ok
+test_initial_get_has_no_write_and_uses_existing_shop_data (supplier.test_store_pages.StorePageTests) ... {"timestamp": "2026-10-20T07:01:05.761+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "743498561b7342a2b09afed735c19394", "method": "GET", "route": "v1/supplier/store-page", "http_status": 200, "business_code": 200, "duration_ms": 5.43, "outcome": "success"}
+ok
+test_missing_name_cannot_publish (supplier.test_store_pages.StorePageTests) ... {"timestamp": "2026-10-20T07:01:05.779+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "436b9882cfc14a70a7c09487d4188e61", "method": "PUT", "route": "v1/supplier/store-page", "http_status": 200, "business_code": 200, "duration_ms": 13.49, "outcome": "success"}
+{"timestamp": "2026-10-20T07:01:05.787+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "82a6ee436bbb4b7291bac137f3313f55", "method": "POST", "route": "v1/supplier/store-page", "http_status": 400, "business_code": 400, "duration_ms": 8.04, "outcome": "client_error"}
+ok
+test_other_merchant_cannot_read_or_overwrite_owner_draft (supplier.test_store_pages.StorePageTests) ... {"timestamp": "2026-10-20T07:01:05.797+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "63c1ec288125444e9182db5540972ce2", "method": "GET", "route": "v1/supplier/store-page", "http_status": 200, "business_code": 200, "duration_ms": 3.49, "outcome": "success"}
+{"timestamp": "2026-10-20T07:01:05.800+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "72f2fbf423be4b06ac570b9844dc92c0", "method": "PUT", "route": "v1/supplier/store-page", "http_status": 400, "business_code": 400, "duration_ms": 2.6, "outcome": "client_error"}
+ok
+test_pages_render_with_entry_and_disabled_preview_actions (supplier.test_store_pages.StorePageTests) ... {"timestamp": "2026-10-20T07:01:05.817+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "cc7ebd7a1fb04c69b1b2ab9037cba947", "method": "GET", "route": "merchant_dashboard.html", "http_status": 200, "duration_ms": 12.29, "outcome": "success"}
+{"timestamp": "2026-10-20T07:01:05.819+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "d049734726c24ac88d3d27215131f719", "method": "GET", "route": "merchant_store.html", "http_status": 200, "duration_ms": 1.19, "outcome": "success"}
+{"timestamp": "2026-10-20T07:01:05.822+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "222f43d38a0a4dfeb1d408e209b08493", "method": "GET", "route": "store.html", "http_status": 200, "duration_ms": 2.58, "outcome": "success"}
+{"timestamp": "2026-10-20T07:01:05.862+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "dfa3182b54fb40e58f07456596077dae", "method": "GET", "route": "buyer_dashboard.html", "http_status": 200, "duration_ms": 39.19, "outcome": "success"}
+ok
+test_platform_keeps_multiple_merchants_and_detail_has_store_link (supplier.test_store_pages.StorePageTests) ... {"timestamp": "2026-10-20T07:01:05.887+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "3cb3ac9edb8d4a539c9364356d6e6408", "method": "GET", "route": "v1/goods/index", "http_status": 200, "business_code": 200, "duration_ms": 17.63, "outcome": "success"}
+{"timestamp": "2026-10-20T07:01:05.927+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "09ba97be8cb746588527d386c50e091e", "method": "GET", "route": "v1/goods/detail/<int:id>", "http_status": 200, "business_code": 200, "duration_ms": 39.86, "outcome": "success"}
+{"timestamp": "2026-10-20T07:01:05.945+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "7ee1c38ec995401a90a13804f2d1cb11", "method": "GET", "route": "v1/goods/recommended-products", "http_status": 200, "business_code": 200, "duration_ms": 17.5, "outcome": "success"}
+ok
+test_public_endpoints_are_read_only (supplier.test_store_pages.StorePageTests) ... {"timestamp": "2026-10-20T07:01:05.951+00:00", "level": "WARNING", "service": "tea_saas", "logger": "django.request", "event": "application.log", "http_request_id": "ad7594e5694e4e779ca01a0bbdaeb36e", "method": "POST", "route": "v1/stores/<int:merchant_id>"}
+{"timestamp": "2026-10-20T07:01:05.951+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "ad7594e5694e4e779ca01a0bbdaeb36e", "method": "POST", "route": "v1/stores/<int:merchant_id>", "http_status": 405, "duration_ms": 0.61, "outcome": "client_error"}
+{"timestamp": "2026-10-20T07:01:05.952+00:00", "level": "WARNING", "service": "tea_saas", "logger": "django.request", "event": "application.log", "http_request_id": "5d7578b787874f0cb3d5efb37e11778d", "method": "POST", "route": "v1/stores/<int:merchant_id>/products"}
+{"timestamp": "2026-10-20T07:01:05.952+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "5d7578b787874f0cb3d5efb37e11778d", "method": "POST", "route": "v1/stores/<int:merchant_id>/products", "http_status": 405, "duration_ms": 0.58, "outcome": "client_error"}
+{"timestamp": "2026-10-20T07:01:05.952+00:00", "level": "WARNING", "service": "tea_saas", "logger": "django.request", "event": "application.log", "http_request_id": "dd7dcfc08acf48d79aefbecc794c9f2d", "method": "DELETE", "route": "v1/supplier/store-page"}
+{"timestamp": "2026-10-20T07:01:05.954+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "dd7dcfc08acf48d79aefbecc794c9f2d", "method": "DELETE", "route": "v1/supplier/store-page", "http_status": 405, "duration_ms": 0.47, "outcome": "client_error"}
+ok
+test_public_products_are_only_current_store_and_live_stock (supplier.test_store_pages.StorePageTests) ... {"timestamp": "2026-10-20T07:01:05.973+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "9452551939fc456c8256b44030dbd181", "method": "GET", "route": "v1/stores/<int:merchant_id>/products", "http_status": 200, "business_code": 200, "duration_ms": 14.53, "outcome": "success"}
+{"timestamp": "2026-10-20T07:01:05.985+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "89740e54f66f49a8b61f6320c7444072", "method": "GET", "route": "v1/stores/<int:merchant_id>", "http_status": 200, "business_code": 200, "duration_ms": 9.69, "outcome": "success"}
+ok
+test_publish_updates_existing_shop_identity (supplier.test_store_pages.StorePageTests) ... {"timestamp": "2026-10-20T07:01:06.000+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "5a6afa8ea2d947ee8ad4cfd7a8622e7a", "method": "PUT", "route": "v1/supplier/store-page", "http_status": 200, "business_code": 200, "duration_ms": 12.15, "outcome": "success"}
+{"timestamp": "2026-10-20T07:01:06.013+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "e4e51d93c3d04a6fac209582a734965a", "method": "POST", "route": "v1/supplier/store-page", "http_status": 200, "business_code": 200, "duration_ms": 11.48, "outcome": "success"}
+ok
+test_saved_edits_do_not_change_published_snapshot_or_card_name (supplier.test_store_pages.StorePageTests) ... {"timestamp": "2026-10-20T07:01:06.037+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "80c03452b44642a694ad2442580b4382", "method": "PUT", "route": "v1/supplier/store-page", "http_status": 200, "business_code": 200, "duration_ms": 15.3, "outcome": "success"}
+{"timestamp": "2026-10-20T07:01:06.056+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "358158d261264d9dae0d62c8ad96b504", "method": "GET", "route": "v1/stores/<int:merchant_id>", "http_status": 200, "business_code": 200, "duration_ms": 18.69, "outcome": "success"}
+{"timestamp": "2026-10-20T07:01:06.075+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "7bf53c52ced4450dae7104e0e2b92a8d", "method": "GET", "route": "v1/goods/index", "http_status": 200, "business_code": 200, "duration_ms": 19.06, "outcome": "success"}
+ok
+test_store_search_category_sort_and_pagination (supplier.test_store_pages.StorePageTests) ... {"timestamp": "2026-10-20T07:01:06.682+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "11b7ee6931ac4683a19e6361216d257e", "method": "GET", "route": "v1/stores/<int:merchant_id>/products", "http_status": 200, "business_code": 200, "duration_ms": 576.6, "outcome": "success"}
+{"timestamp": "2026-10-20T07:01:06.940+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "abbac1674a4a4e95ba92684386fb797e", "method": "GET", "route": "v1/stores/<int:merchant_id>/products", "http_status": 200, "business_code": 200, "duration_ms": 257.48, "outcome": "success"}
+{"timestamp": "2026-10-20T07:01:07.570+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "e73ea8daa25246a185be07b2fe9abd9b", "method": "GET", "route": "v1/stores/<int:merchant_id>/products", "http_status": 200, "business_code": 200, "duration_ms": 628.73, "outcome": "success"}
+{"timestamp": "2026-10-20T07:01:07.579+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "af4994c60f9345ccb28882539ac1b891", "method": "GET", "route": "v1/stores/<int:merchant_id>/products", "http_status": 200, "business_code": 200, "duration_ms": 8.87, "outcome": "success"}
+{"timestamp": "2026-10-20T07:01:07.589+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "c427a37170ff4674a483e1eac2661e26", "method": "GET", "route": "v1/stores/<int:merchant_id>/products", "http_status": 200, "business_code": 200, "duration_ms": 10.13, "outcome": "success"}
+{"timestamp": "2026-10-20T07:01:07.597+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "df8fbb6231454d1bbce00bdd2e1d6f01", "method": "GET", "route": "v1/stores/<int:merchant_id>/products", "http_status": 400, "business_code": 400, "duration_ms": 6.8, "outcome": "client_error"}
+{"timestamp": "2026-10-20T07:01:07.603+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "01f00cc9591b43b5b5428484c945b986", "method": "GET", "route": "v1/stores/<int:merchant_id>/products", "http_status": 400, "business_code": 400, "duration_ms": 5.46, "outcome": "client_error"}
+ok
+test_supplier_role_is_supported (supplier.test_store_pages.StorePageTests) ... {"timestamp": "2026-10-20T07:01:07.620+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "232654d740204e1cacf46db399097b2a", "method": "GET", "route": "v1/supplier/store-page", "http_status": 200, "business_code": 200, "duration_ms": 6.07, "outcome": "success"}
+ok
+test_unassigned_historical_product_has_no_invented_store (supplier.test_store_pages.StorePageTests) ... {"timestamp": "2026-10-20T07:01:07.639+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "30dc65755c26475a91ff961f9612b044", "method": "GET", "route": "v1/goods/index", "http_status": 200, "business_code": 200, "duration_ms": 13.78, "outcome": "success"}
+ok
+test_unlaunched_or_deleted_recommendations_disappear_live (supplier.test_store_pages.StorePageTests) ... {"timestamp": "2026-10-20T07:01:07.654+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "1cbb7408f15141dd99ee09fefe14feb0", "method": "GET", "route": "v1/stores/<int:merchant_id>", "http_status": 200, "business_code": 200, "duration_ms": 9.73, "outcome": "success"}
+{"timestamp": "2026-10-20T07:01:07.677+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "4a6f2dceb46d42c99af79f09cf17261c", "method": "GET", "route": "v1/stores/<int:merchant_id>", "http_status": 200, "business_code": 200, "duration_ms": 11.04, "outcome": "success"}
+{"timestamp": "2026-10-20T07:01:07.686+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "bd00824d3911417f8174b702d3609b12", "method": "POST", "route": "v1/supplier/store-page", "http_status": 400, "business_code": 400, "duration_ms": 8.17, "outcome": "client_error"}
+ok
+test_unpublish_only_closes_homepage_not_goods (supplier.test_store_pages.StorePageTests) ... {"timestamp": "2026-10-20T07:01:07.698+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "2d73e577a34d416786d4aa1e25b8824e", "method": "POST", "route": "v1/supplier/store-page", "http_status": 200, "business_code": 200, "duration_ms": 8.14, "outcome": "success"}
+{"timestamp": "2026-10-20T07:01:07.704+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "96bd9ab03b284952a9e6fb553e159ccb", "method": "GET", "route": "v1/stores/<int:merchant_id>", "http_status": 404, "business_code": 404, "duration_ms": 4.42, "outcome": "client_error"}
+{"timestamp": "2026-10-20T07:01:07.721+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "5091ac6b39734a31a64d7401ef273ee4", "method": "GET", "route": "v1/goods/index", "http_status": 200, "business_code": 200, "duration_ms": 15.69, "outcome": "success"}
+ok
+test_upload_auth_validation_and_reencoding (supplier.test_store_pages.StorePageTests) ... {"timestamp": "2026-10-20T07:01:07.725+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "17a008519bee4f57adcb7499181ac954", "method": "POST", "route": "v1/supplier/store-page/image", "http_status": 401, "business_code": 401, "duration_ms": 0.78, "outcome": "client_error"}
+{"timestamp": "2026-10-20T07:01:07.729+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "11581d961aeb49c3b04d5756e77d2de5", "method": "POST", "route": "v1/supplier/store-page/image", "http_status": 403, "business_code": 403, "duration_ms": 3.9, "outcome": "client_error"}
+{"timestamp": "2026-10-20T07:01:07.862+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "02da6268ecf24c7fa048753d428abc8c", "method": "POST", "route": "v1/supplier/store-page/image", "http_status": 200, "business_code": 200, "duration_ms": 109.7, "outcome": "success"}
+{"timestamp": "2026-10-20T07:01:07.866+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "254a313ec56a46a1867a726a135b0619", "method": "POST", "route": "v1/supplier/store-page/image", "http_status": 400, "business_code": 400, "duration_ms": 3.1, "outcome": "client_error"}
+ok
+test_validation_rejects_bad_payloads (supplier.test_store_pages.StorePageTests) ... {"timestamp": "2026-10-20T07:01:07.882+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "7eb8b31b5caf47ceb152e194ba0818dc", "method": "PUT", "route": "v1/supplier/store-page", "http_status": 400, "business_code": 400, "duration_ms": 11.36, "outcome": "client_error"}
+{"timestamp": "2026-10-20T07:01:07.895+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "640b1bc865fa4c5b99aba8876bf7d12e", "method": "PUT", "route": "v1/supplier/store-page", "http_status": 400, "business_code": 400, "duration_ms": 12.93, "outcome": "client_error"}
+{"timestamp": "2026-10-20T07:01:07.910+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "7d171857c2784d16b0452c67ed5af1a2", "method": "PUT", "route": "v1/supplier/store-page", "http_status": 400, "business_code": 400, "duration_ms": 13.73, "outcome": "client_error"}
+{"timestamp": "2026-10-20T07:01:07.921+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "712057fb09c34228acac2cef5e3615f7", "method": "PUT", "route": "v1/supplier/store-page", "http_status": 400, "business_code": 400, "duration_ms": 10.39, "outcome": "client_error"}
+{"timestamp": "2026-10-20T07:01:07.930+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "a9bba03385444674a74cdf80092a9c94", "method": "PUT", "route": "v1/supplier/store-page", "http_status": 400, "business_code": 400, "duration_ms": 8.64, "outcome": "client_error"}
+{"timestamp": "2026-10-20T07:01:07.943+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "507e22eb277e454597d9bf0fd7bd9ab7", "method": "PUT", "route": "v1/supplier/store-page", "http_status": 400, "business_code": 400, "duration_ms": 12.22, "outcome": "client_error"}
+{"timestamp": "2026-10-20T07:01:07.947+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "4ff25e41a5884c5a87d5b8ea5513c78a", "method": "PUT", "route": "v1/supplier/store-page", "http_status": 400, "business_code": 400, "duration_ms": 2.59, "outcome": "client_error"}
+{"timestamp": "2026-10-20T07:01:07.950+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "82e8113ef0d947938b5c560cbf6af7e6", "method": "PUT", "route": "v1/supplier/store-page", "http_status": 400, "business_code": 400, "duration_ms": 3.62, "outcome": "client_error"}
+{"timestamp": "2026-10-20T07:01:07.955+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "f74fe0b0c2aa436dbe5b4101d8dc5623", "method": "POST", "route": "v1/supplier/store-page", "http_status": 400, "business_code": 400, "duration_ms": 3.69, "outcome": "client_error"}
+{"timestamp": "2026-10-20T07:01:07.958+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "0b92a58dfcb4444ea80d6064308c1065", "method": "POST", "route": "v1/supplier/store-page", "http_status": 400, "business_code": 400, "duration_ms": 2.6, "outcome": "client_error"}
+ok
+
+----------------------------------------------------------------------
+Ran 21 tests in 2.442s
+
+OK
+Destroying test database for alias 'default' ('test_store_pages_a0b93263a601')...

@@ -15,6 +15,8 @@
     <script src="/static/js/auth-storage.js?v=20261018-session-isolation"></script>
 {% include "shared/system_theme.html" %}
     <link rel="stylesheet" href="/static/css/product-detail-content.css?v=20261018-detail-theme">
+    <link rel="stylesheet" href="/static/css/store-pages.css?v=1">
+    <script src="/static/js/storefront.js?v=1"></script>
 </head>
 
 <body class="ds-page-product_details ds-theme buyer-workbench product-detail-page storefront-page" id="buyer-body">
@@ -62,6 +64,7 @@
                     <span>*72小时发货</span>
                 </div>
             </div>
+            <div class="detail-store-info" id="detail-store-info"></div>
             <!-- 参数部分 客服-->
             <p class="parameter">
                 <b>客服：</b>
@@ -165,7 +168,7 @@
         </div>
     </div>
     <script src="/static/js/jquery-3.1.1.min.js"></script>
-    <script src="/static/js/buyer-workbench.js?v=20261018-platform-name"></script>
+    <script src="/static/js/buyer-workbench.js?v=20261020-store-pages"></script>
     <script src="/static/js/lozad.js"></script>
     <script src="/static/js/buyer-activity.js?v=20261018-platform-name"></script>
     <script>
@@ -194,6 +197,7 @@
                     }
                     if (result.data.is_launched) window.BuyerActivity.initDetail(skuid);
                     else $('#favorite-message').text('商品已下架');
+                    document.getElementById('detail-store-info').replaceChildren(Storefront.merchantLink(result.data.merchant));
                     var IMG_URL = result.base_url
                     var breadcrumbName = result.data.product_name || result.data.spu_name || result.data.name;
                     $('#nav_detail').html(

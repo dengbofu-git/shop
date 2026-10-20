@@ -6,12 +6,14 @@
     <title>tea_saas · 中东买家工作台</title>
     <link href="../static/css/design-tokens.css" rel="stylesheet">
     <link href="../static/css/rtl.css" rel="stylesheet">
-    <link href="../static/css/buyer-workbench.css?v=20261018-trace-disabled" rel="stylesheet">
+    <link href="../static/css/buyer-workbench.css?v=20261020-footer-leaves" rel="stylesheet">
     <script src="../static/js/init.js"></script>
     <script src="../static/js/auth-storage.js?v=20261018-session-isolation"></script>
     <script src="../static/js/jquery-3.1.1.min.js"></script>
 {% include "shared/system_theme.html" %}
-    <link href="../static/css/buyer-carousel.css?v=20261019-carousel" rel="stylesheet">
+    <link href="../static/css/buyer-carousel.css?v=20261020-immersive" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/store-pages.css?v=1">
+    <script src="/static/js/storefront.js?v=1"></script>
 </head>
 <body class="ds-page-buyer_dashboard ds-theme buyer-workbench" id="buyer-body">
     <div class="buyer-layout">
@@ -23,30 +25,25 @@
 
             <div class="buyer-content">
                 <!-- 轮播 Banner：由 /v1/goods/carousel?stable=1 注入真实商品 -->
-                <section class="buyer-carousel" id="buyer-carousel" role="region" aria-label="精选茶品轮播" aria-busy="true" tabindex="0">
+                <section class="buyer-carousel" id="buyer-carousel" role="region" aria-label="精选茶品轮播" aria-describedby="buyer-carousel-hint" aria-busy="true" tabindex="0">
                     <div class="carousel-topline">
                         <p class="carousel-heading" data-carousel-heading>发现一款好茶</p>
                         <span class="carousel-counter" data-carousel-counter hidden></span>
                     </div>
                     <div class="carousel-viewport" id="buyer-banner-slider" data-carousel-viewport hidden></div>
                     <p class="carousel-feedback" data-carousel-feedback role="status">正在加载轮播…</p>
-                    <button type="button" class="carousel-retry" data-carousel-retry hidden>重新加载</button>
+                    <a href="#" class="carousel-retry" data-carousel-retry hidden>重新加载</a>
                     <div class="carousel-controls" data-carousel-controls hidden>
-                        <div class="carousel-dots" data-carousel-dots role="group" aria-label="选择茶品"></div>
-                        <div class="carousel-actions">
-                            <button type="button" class="carousel-arrow" data-carousel-prev aria-label="上一款">←</button>
-                            <button type="button" data-carousel-playback aria-pressed="false">暂停轮播</button>
-                            <button type="button" class="carousel-arrow" data-carousel-next aria-label="下一款">→</button>
-                        </div>
+                        <div class="carousel-dots" data-carousel-dots aria-hidden="true"></div>
                     </div>
                     <span class="carousel-status" data-carousel-status aria-live="polite" aria-atomic="true"></span>
+                    <span class="carousel-hint" id="buyer-carousel-hint" data-carousel-hint>自动展示精选茶品，悬停或聚焦暂停，可用左右方向键或横滑切换。</span>
                 </section>
 
                 <!-- 商品分类 + 商品卡片 -->
                 <section class="products-section" id="buyer-featured">
                     <div class="section-head">
                         <h2 class="section-title-inline" data-i18n="section_featured">精选商品</h2>
-                        <a class="view-all" id="featured-view-all" href="buyer_products.html" data-i18n="view_all">查看全部</a>
                     </div>
                     <p class="section-lead muted" data-i18n="section_featured_sub">按茶类浏览在售商品，每页10件，可翻页查看全部商品。</p>
                     <div class="tea-type-row" id="featured-tea-tabs" role="group" aria-label="tea categories"></div>
@@ -62,62 +59,22 @@
                     <nav class="featured-pagination" id="featured-pagination" aria-label="商品分页" hidden></nav>
                 </section>
 
-                <section class="advantages-section" id="advantages" aria-label="platform advantages">
-                    <h2 class="section-title" data-i18n="adv_title">平台核心优势</h2>
-                    <div class="advantages-grid">
-                        <div class="adv-card"><span class="adv-ico" aria-hidden="true">✅</span><h3 data-i18n="adv_1t">正品溯源</h3><p data-i18n="adv_1d">从茶园到餐桌全流程可追溯</p></div>
-                        <div class="adv-card"><span class="adv-ico" aria-hidden="true">🕌</span><h3 data-i18n="adv_2t">清真认证</h3><p data-i18n="adv_2d">合作供应商具备合规 Halal 资质</p></div>
-                        <div class="adv-card"><span class="adv-ico" aria-hidden="true">🚢</span><h3 data-i18n="adv_3t">国际履约</h3><p data-i18n="adv_3d">采购、订单与国际运输协同</p></div>
-                        <div class="adv-card"><span class="adv-ico" aria-hidden="true">💲</span><h3 data-i18n="adv_4t">大宗优惠</h3><p data-i18n="adv_4d">量大可阶梯议价</p></div>
-                    </div>
-                </section>
-
-                <section class="quick-svc-section" id="quick-svc" aria-label="quick services">
-                    <h2 class="section-title" data-i18n="quick_title">快速服务</h2>
-                    <div class="quick-svc-grid">
-                        <a href="logistics_track.html" class="quick-svc-item"><span>🚚</span><span data-i18n="q_logistics">物流追踪</span></a>
-                        <a href="merchant_settlement.html" class="quick-svc-item"><span>📑</span><span data-i18n="q_settlement">对账结算</span></a>
-                        <span class="quick-svc-item nav-item-disabled" aria-disabled="true" title="coming soon"><span>🛡️</span><span data-i18n="q_after">申请售后</span></span>
-                        <span class="quick-svc-item nav-item-disabled" title="coming soon"><span>☪️</span><span data-i18n="nav_halal">清真资质库</span></span>
-                        <a href="buyer_support.html" class="quick-svc-item"><span>❓</span><span data-i18n="nav_help">帮助中心</span></a>
-                        <a href="https://wa.me/8613800138000" class="quick-svc-item" target="_blank" rel="noopener"><span>📞</span><span data-i18n="q_contact">联系我们</span></a>
-                    </div>
-                </section>
-
-                <section class="origin-section" id="origins" aria-label="origins">
-                    <h2 class="section-title" data-i18n="origin_title">热门产地</h2>
-                    <div class="origin-grid">
-                        <a class="origin-card" href="search_list.html?origin=anxi" data-i18n="o_anxi">福建安溪 · 铁观音</a>
-                        <a class="origin-card" href="search_list.html?origin=puer" data-i18n="o_puer">云南普洱</a>
-                        <a class="origin-card" href="search_list.html?origin=longjing" data-i18n="o_hz">浙江杭州 · 龙井</a>
-                        <a class="origin-card" href="search_list.html?origin=yingde" data-i18n="o_yd">广东英德 · 英德红茶</a>
-                        <a class="origin-card" href="search_list.html?origin=wuyi" data-i18n="o_wy">福建武夷山 · 大红袍</a>
-                        <a class="origin-card" href="search_list.html?origin=huangshan" data-i18n="o_hs">安徽黄山 · 毛峰</a>
-                    </div>
-                </section>
-
-                <footer class="buyer-footer" role="contentinfo">
-                    <div class="footer-cols">
-                        <div>
-                            <div class="footer-col-title" data-i18n="ft_about">关于</div>
-                            <a href="#" data-i18n="ft_intro">公司介绍</a>
-                            <a href="#" data-i18n="ft_news">新闻动态</a>
-                        </div>
-                        <div>
-                            <div class="footer-col-title" data-i18n="ft_help">帮助</div>
-                            <a href="buyer_products.html" data-i18n="ft_guide">采购指南</a>
-                            <a href="logistics_track.html" data-i18n="ft_ship">物流说明</a>
-                        </div>
-                        <div>
-                            <div class="footer-col-title" data-i18n="ft_contact">联系</div>
-                            <span>WhatsApp · <a href="https://wa.me/8613800138000" target="_blank" rel="noopener">wa.me</a></span>
-                        </div>
-                        <div>
-                            <div class="footer-col-title" data-i18n="ft_follow">关注我们</div>
-                            <a href="#" data-i18n="ft_ig">Instagram</a>
+                <footer class="buyer-footer" id="buyer-home-footer" role="contentinfo">
+                    <span class="footer-leaf" aria-hidden="true"></span>
+                    <div class="footer-main">
+                        <div class="footer-brand">
+                            <div class="footer-brand-lockup">
+                                <img src="../static/images/tea_saas/tea_saas-logo.png" width="64" height="64" alt="" loading="lazy">
+                                <strong>tea_saas</strong>
+                                <span class="footer-tagline" data-i18n="ft_tagline">跨境茶叶 SaaS 平台</span>
+                            </div>
+                            <p class="footer-description" data-i18n="ft_description">从发现一款好茶，到开启下一次采购，让选茶与经营更从容。</p>
                         </div>
                     </div>
-                    <div class="footer-bottom muted" data-i18n="ft_copy">© 2026 tea_saas · 中国地标茶出海中东</div>
+                    <div class="footer-meta">
+                        <span>© {% now "Y" %} tea_saas</span>
+                        <span data-i18n="ft_bottom_note">为跨境茶叶采购与经营而设计</span>
+                    </div>
                 </footer>
             </div>
         </main>
@@ -132,8 +89,8 @@
         </div>
     </div>
 
-    <script src="../static/js/buyer-catalog-preview.js?v=20261018-catalog-pagination"></script>
-    <script src="../static/js/buyer-carousel.js?v=20261019-carousel"></script>
-    <script src="../static/js/buyer-workbench.js?v=20261019-carousel"></script>
+    <script src="../static/js/buyer-catalog-preview.js?v=20261020-no-view-all"></script>
+    <script src="../static/js/buyer-carousel.js?v=20261020-immersive"></script>
+    <script src="../static/js/buyer-workbench.js?v=20261020-store-pages"></script>
 </body>
 </html>

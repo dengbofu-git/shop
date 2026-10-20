@@ -786,7 +786,53 @@
     margin-bottom: 32px;
 }
 
-/* 页脚 */
+/* A compact tea-inspired signature; all styling stays within the homepage footer. */
+.ds-theme #buyer-home-footer {
+    position: relative; isolation: isolate; overflow: hidden;
+    margin-top: 28px; padding: 32px clamp(24px, 4vw, 56px) 20px;
+    border: 1px solid #dce5d7; border-radius: 20px;
+}
+/* Decorative surface stays visible even though the shared theme resets footer backgrounds. */
+#buyer-home-footer::before {
+    content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+    background: radial-gradient(ellipse at 12% 0, #e4eddacc, transparent 58%), linear-gradient(110deg, #f5f7ef, #f8faf5 60%, #edf3e8);
+}
+#buyer-home-footer::after, #buyer-home-footer .footer-leaf {
+    content: ''; position: absolute; z-index: 0;
+    width: 180px; height: 110px; border: 1px solid #b4c7aa70;
+    background: #d5e5c7; border-radius: 0 90% 0 90%; pointer-events: none;
+}
+#buyer-home-footer::after { inset-block-start: -18px; inset-inline-end: -28px; transform: rotate(-18deg); }
+#buyer-home-footer .footer-leaf { inset-block-end: -18px; inset-inline-start: -28px; transform: rotate(162deg); }
+#buyer-home-footer .footer-main, #buyer-home-footer .footer-meta { position: relative; z-index: 1; max-width: 1440px; margin-inline: auto; }
+#buyer-home-footer .footer-brand { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 20px 36px; }
+#buyer-home-footer .footer-brand-lockup { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px; }
+#buyer-home-footer .footer-brand-lockup img { display: block; width: 64px; height: 64px; padding: 6px; border-radius: 16px; background: #ffffffa6; object-fit: contain; }
+#buyer-home-footer .footer-brand-lockup strong { font-family: Georgia, 'Times New Roman', serif; font-size: 36px; font-weight: 700; letter-spacing: -1.2px; line-height: 1.15; color: #214b35; }
+#buyer-home-footer .footer-tagline { margin: 0; padding-inline-start: 16px; border-inline-start: 1px solid #c4d1bd; font-size: 16px; font-weight: 500; line-height: 1.6; color: #4d6d53; }
+#buyer-home-footer .footer-description {
+    margin: 0; max-width: 100%;
+    font-family: Georgia, 'Noto Serif SC', 'Songti SC', 'STSong', 'SimSun', serif;
+    color: #31583f; font-size: clamp(18px, 1.3vw, 22px); font-weight: 500; line-height: 1.8;
+    white-space: nowrap;
+}
+#buyer-home-footer .footer-description::before { content: ''; display: inline-block; width: 24px; height: 2px; margin-inline-end: 14px; background: #ab995f; vertical-align: middle; }
+#buyer-home-footer .footer-meta { display: flex; justify-content: space-between; gap: 8px 24px; margin-top: 24px; padding-top: 16px; border-top: 1px solid #d9e3d4; color: #60745f; font-size: 16px; line-height: 1.8; }
+@media (max-width: 1200px) {
+    #buyer-home-footer .footer-description { white-space: normal; overflow-wrap: anywhere; }
+}
+@media (max-width: 760px) {
+    .ds-theme #buyer-home-footer { padding: 28px 24px 20px; }
+    #buyer-home-footer .footer-brand { display: block; }
+    #buyer-home-footer .footer-brand-lockup strong { font-size: 32px; }
+    #buyer-home-footer .footer-description { margin-top: 20px; font-size: 20px; }
+    #buyer-home-footer .footer-meta { margin-top: 22px; }
+}
+@media (max-width: 460px) {
+    #buyer-home-footer .footer-meta { flex-direction: column; gap: 4px; }
+}
+
+/* Shared legacy footers on other buyer pages. */
 .buyer-footer {
     margin-top: auto;
     padding: 32px 0 20px;
