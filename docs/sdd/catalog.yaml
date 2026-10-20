@@ -52,7 +52,7 @@ modules:
     name: 商家经营
     stage: REGISTERED
     owner: null
-    capabilityIds: [CAP-MER-001, CAP-MER-002, CAP-MER-003, CAP-MER-004]
+    capabilityIds: [CAP-MER-001, CAP-MER-002, CAP-MER-003, CAP-MER-004, CAP-MER-005]
     boundary: 商家履约协作、经营指标和结算展示；订单状态及库存规则引用 TRD/FUL。
   - id: MOD-AI
     slug: ai-support
@@ -118,6 +118,7 @@ capabilities:
   - {id: CAP-MER-002, moduleId: MOD-MER, name: 经营指标与看板, status: candidate, priority: P3, sourceFeatureIds: [FEAT-013]}
   - {id: CAP-MER-003, moduleId: MOD-MER, name: 商家结算展示与对账, status: candidate, priority: P3, sourceFeatureIds: [FEAT-014]}
   - {id: CAP-MER-004, moduleId: MOD-MER, name: 商家智能助手入口与受控经营能力, status: candidate, priority: P2, sourceFeatureIds: [FEAT-032], implementationState: entry-only, specification: docs/sdd/modules/merchant-operations/assistant-entry.md}
+  - {id: CAP-MER-005, moduleId: MOD-MER, name: 商家店铺主页与页面管理, status: candidate, priority: P2, sourceFeatureIds: [FEAT-036], specification: docs/sdd/modules/merchant-operations/store-pages.md}
   - {id: CAP-AI-001, moduleId: MOD-AI, name: 商品推荐与指代详情, status: candidate, priority: P2, sourceFeatureIds: [FEAT-016, FEAT-025, FEAT-031, FEAT-033]}
   - {id: CAP-AI-002, moduleId: MOD-AI, name: 有证据的茶叶知识问答, status: candidate, priority: P2, sourceFeatureIds: [FEAT-017, FEAT-026]}
   - id: CAP-AI-003

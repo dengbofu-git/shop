@@ -3,6 +3,22 @@ from users.models import UserProfile
 from orders.models import OrderInfo
 
 
+class StorePage(models.Model):
+    """One merchant, one storefront; only the explicit published snapshot is public."""
+    merchant = models.OneToOneField(UserProfile, on_delete=models.CASCADE, related_name='store_page')
+    draft = models.JSONField(default=dict)
+    published = models.JSONField(null=True, blank=True)
+    is_published = models.BooleanField(default=False)
+    revision = models.PositiveIntegerField(default=0)
+    published_at = models.DateTimeField(null=True, blank=True)
+    updated_time = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = 'supplier_store_page'
+        verbose_name = '店铺页面'
+        verbose_name_plural = verbose_name
+
+
 class SupplierSettlement(models.Model):
     """供应商结算表"""
     supplier = models.ForeignKey(UserProfile, on_delete=models.CASCADE, verbose_name='供应商')

@@ -28,7 +28,7 @@ const data = [1, 2, 3].map(id => ({skuid: id, title: 'Tea ' + id, intro: 'Spec '
 const response = rows => ({ok: true, json: async () => ({code: 200, data: rows})});
 function setup(fetcher = () => Promise.resolve(response(data)), reduced = false) {
     const root = new Element('section'), elements = {};
-    for (const name of ['viewport','controls','dots','counter','feedback','retry','prev','next','playback','status','heading']) {
+    for (const name of ['viewport','controls','dots','counter','feedback','retry','status','heading','hint']) {
         elements[name] = root.appendChild(new Element()); elements[name].setAttribute('data-carousel-' + name, '');
     }
     elements.viewport.id = 'buyer-banner-slider';
@@ -61,20 +61,26 @@ async function main() {
     assert.equal(app.slides.length, 3); assert.equal(app.index, 0); assert.equal(app.timers.size, 1);
     assert.equal(app.slides.filter(slide => !slide.hidden).length, 1);
     const [copy, picture] = app.slides[0].children;
-    assert.equal(picture.tag, 'a'); assert.equal(picture.href, 'product_details.html?skuid=1');
+    assert.equal(picture.tag, 'div');
+    assert.equal(app.slides[0].tag, 'a'); assert.equal(app.slides[0].href, 'product_details.html?skuid=1');
     assert.equal(picture.children[0].tag, 'img'); assert.equal(picture.children[0].src, 'http://fixture/v1/goods/sku/1/image');
+    assert.equal(app.slides[1].children[1].children[0].loading, 'eager', 'preload the next photo');
+    assert.equal(app.slides[2].children[1].children[0].loading, 'lazy');
     const price = copy.children[2].children[0].children[1]; assert.equal(price.textContent, '$14.00');
     app.pricing.currentCurrency = 'CNY'; app.controller.refreshPrices(); assert.equal(price.textContent, '\u00a5100.00');
     app.pricing.currentCurrency = 'AED'; app.controller.refreshPrices(); assert.equal(price.textContent, 'AED 51.00');
-    app.elements.next.event('click'); assert.equal(app.index, 1); assert.equal(app.timers.size, 0);
-    app.elements.prev.event('click'); app.elements.prev.event('click'); assert.equal(app.index, 2);
-    app.elements.dots.children[0].event('click'); assert.equal(app.index, 0);
+    app.fire(); assert.equal(app.index, 1); assert.equal(app.timers.size, 1);
+    app.root.event('keydown', {key: 'ArrowLeft'}); app.root.event('keydown', {key: 'ArrowLeft'}); assert.equal(app.index, 2);
+    app.root.event('keydown', {key: 'ArrowRight'}); assert.equal(app.index, 0);
     assert.equal(app.elements.dots.children[0].attrs['aria-current'], 'true');
-    app.labels.btn_view_sku = 'Translated details'; app.labels.carousel_goto = 'Select {n}';
-    app.controller.setLanguage(); assert.equal(copy.children[2].children[1].textContent, 'Translated details');
-    assert(app.elements.dots.children[0].attrs['aria-label'].startsWith('Select 1'));
-    app.elements.playback.event('click'); assert.equal(app.timers.size, 1);
+    assert(app.elements.dots.children.every(dot => dot.tag === 'span' && !dot.events.click));
+    assert.equal(copy.children[2].children.length, 1, 'price only; no product CTA button');
+    app.labels.carousel_heading = 'Translated heading';
+    app.controller.setLanguage(); assert.equal(app.elements.heading.textContent, 'Translated heading');
+    assert.equal(app.timers.size, 1);
+    assert.equal(app.root.attrs['data-carousel-running'], 'true');
     app.root.event('mouseenter'); assert.equal(app.timers.size, 0);
+    assert.equal(app.root.attrs['data-carousel-running'], 'false');
     app.root.event('mouseleave'); assert.equal(app.timers.size, 1);
     app.root.event('focusin'); assert.equal(app.timers.size, 0);
     app.root.event('focusout', {relatedTarget: copy}); assert.equal(app.timers.size, 0);
@@ -98,12 +104,14 @@ async function main() {
     assert(!app.elements.viewport.event('click').prevented, 'vertical scrolling does not block normal taps');
     picture.children[0].event('error'); assert.equal(picture.children[0].src, '/static/images/cart/product_normal.png');
     picture.children[0].event('error'); assert(picture.children[0].hidden); assert(!picture.children[1].hidden);
-    await app.controller.reload(); assert.equal(app.slides.length, 3); assert.equal(app.timers.size, 0, 'manual pause survives reload');
+    await app.controller.reload(); assert.equal(app.slides.length, 3); assert.equal(app.timers.size, 1, 'manual switching does not require a play button to resume');
     assert.equal(picture.children[0].events.error.size, 0, 'reload releases detached slide listeners');
     app.controller.destroy(); app.root.event('mouseleave'); assert.equal(app.timers.size, 0);
 
     const reduced = setup(undefined, true); await reduced.controller.ready;
-    assert.equal(reduced.timers.size, 0); reduced.elements.next.event('click'); assert.equal(reduced.index, 1);
+    assert.equal(reduced.timers.size, 0); reduced.root.event('keydown', {key: 'ArrowRight'}); assert.equal(reduced.index, 1);
+    reduced.media.matches = true; reduced.media.event('change'); assert.equal(reduced.timers.size, 0);
+    reduced.media.matches = false; reduced.media.event('change'); assert.equal(reduced.timers.size, 1);
     reduced.media.matches = true; reduced.media.event('change'); assert.equal(reduced.timers.size, 0);
     const single = setup(() => Promise.resolve(response(data.slice(0, 1)))); await single.controller.ready;
     assert(single.elements.controls.hidden); assert.equal(single.timers.size, 0);
@@ -126,7 +134,7 @@ async function main() {
     const noImage = setup(() => Promise.resolve(response([{...data[0], image_url: 'javascript:invalid', price: null}])));
     await noImage.controller.ready;
     assert.equal(noImage.slides[0].children[1].children[0].src, '/static/images/cart/product_normal.png');
-    assert.equal(noImage.slides[0].children[0].children[2].children.length, 1, 'unknown price is omitted instead of invented');
+    assert.equal(noImage.slides[0].children[0].children[2].children.length, 0, 'unknown price is omitted instead of invented');
     noImage.controller.destroy();
     let resolveOld;
     const race = setup(() => new Promise(resolve => {resolveOld = resolve;}));
@@ -139,10 +147,10 @@ async function main() {
         const actualBody = JSON.parse(fs.readFileSync(process.argv[2], 'utf8'));
         const actual = setup(() => Promise.resolve({ok: true, json: async () => actualBody}));
         await actual.controller.ready; assert.equal(actual.slides.length, 6);
-        actual.slides.forEach(slide => assert(slide.children[1].href.includes('product_details.html?skuid=')));
+        actual.slides.forEach(slide => assert(slide.href.includes('product_details.html?skuid=')));
         actual.controller.destroy();
     }
     [reduced, single, empty, retry, race].forEach(item => item.controller.destroy());
-    console.log('PASS: image/CTA/price rendering, timer lifecycle, manual/dot/RTL/swipe controls, reduced motion, empty/error/retry, stale requests and cleanup');
+    console.log('PASS: full-slide links, no button controls, price/progress, autoplay resumption, keyboard/RTL/swipe, reduced motion, empty/error/retry, stale requests and cleanup');
 }
 main().catch(error => {console.error(error); process.exitCode = 1;});

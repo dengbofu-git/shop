@@ -1,0 +1,12 @@
+{
+  "capability": "CAP-MER-005",
+  "web_version": "0.23.1",
+  "scope": "recommendation product selector to keyword search",
+  "database_changes": false,
+  "live_service": "8000 template and script verified without restart",
+  "sha256": {
+    "client/static/js/merchant-store.js": "ac906ebda950c5c1d6134a1860bd0491d9e5ad7fda7b1d3e9cb454e2526ad906",
+    "client/templates/merchant_store.html": "2f6486ee28dd07d22660876682c0b5d90ba3fcd9219c7b1a548ca8e92c10bc5c",
+    "client/static/css/store-pages.css": "6c874663a371fa942917c4b8808b08c74e3847ecce5fd51c574c4d9a456b7018"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "date": "2026-10-20",
+  "scope": "web 0.23.2 local chart library loading",
+  "files": {
+    "client/static/js/operations-dashboard.js": "72a09c90894c3868dac53982de98535cd82658d29fd7aa3c9c6fa805ca03f9db",
+    "client/templates/operations_dashboard.html": "afb85ae7f630d1c260f2b184eef8a08ccea29c71cf0f34f425b35e4779ce44ae",
+    "client/tests/operations-dashboard.test.js": "8ea555467212572610d9bb0d7fe7d059de6b6e47f693be5f2fa5b3f42bf5ab58",
+    "versions/modules.json": "d606e2805ee5c265ccb088e1f4d062b861fa29b56e4fb101885ac6e56125c67f",
+    "versions/changelogs/web.md": "6d077fc13d4f72f0d6824ccc0583fb921ec75fafb83f84f19c8d19a336d6115f",
+    "docs/sdd/modules/merchant-operations/data-center-loading.md": "74d07ffdd12f2f64972399830b82d4ea0249dea1ed35f776579533ad9e7a21ca",
+    "client/static/vendor/echarts/5.4.3/echarts.min.js": "1156429a16a38cb8604dcc6518c19406d4226142d908f8edd2e3531443c54d19",
+    "client/static/vendor/echarts/5.4.3/LICENSE": "9ef11df57e751e8c6d10d54e1855c64d316627bbe89e73326de7e3ccdb8184aa",
+    "client/static/vendor/echarts/5.4.3/NOTICE": "7129cc3d8db9a2e10b820ad6f5f69ffcde16c110d48c2e41917a2d8e81ab57fb",
+    "client/static/vendor/echarts/5.4.3/source.json": "a0748d8ebf9605b51b19f2ac1d66255281185de3d72ef0c9cae2bf2924892e4a",
+    "client/static/vendor/echarts/5.4.3/licenses/LICENSE-d3": "73937be9a025412ce65c08f1ff5449dee4f678434382968b8fa2bf5cc79a79cf",
+    "docs/sdd/evidence/2026-10-20-data-center-charts/charts-restored.png": "02d105fa939fce12c35d47a545cca89f5595c2d5a0a90b3371d260dbd865ad17",
+    "docs/sdd/evidence/2026-10-20-data-center-charts/verification.md": "d17f3e1d676acf42d3f2fc45210f25a8c0c969db6bdf172501b7898cdbcfd79f"
+  }
+}

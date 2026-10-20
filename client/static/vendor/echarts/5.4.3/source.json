@@ -1,0 +1,13 @@
+{
+  "name": "echarts",
+  "version": "5.4.3",
+  "metadata_url": "https://registry.npmjs.org/echarts/5.4.3",
+  "tarball_url": "https://registry.npmjs.org/echarts/-/echarts-5.4.3.tgz",
+  "tarball_integrity": "sha512-mYKxLxhzy6zyTi/FaEbJMOZU1ULGEQHaeIeuMR5L+JnJTpz+YR03mnnpBhbR4+UYJAgiXgpyTVLffPAjOTLkZA==",
+  "files": {
+    "echarts.min.js": "1156429a16a38cb8604dcc6518c19406d4226142d908f8edd2e3531443c54d19",
+    "LICENSE": "9ef11df57e751e8c6d10d54e1855c64d316627bbe89e73326de7e3ccdb8184aa",
+    "NOTICE": "7129cc3d8db9a2e10b820ad6f5f69ffcde16c110d48c2e41917a2d8e81ab57fb",
+    "licenses/LICENSE-d3": "73937be9a025412ce65c08f1ff5449dee4f678434382968b8fa2bf5cc79a79cf"
+  }
+}

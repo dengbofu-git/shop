@@ -29,6 +29,7 @@
 .bo-goods { display: grid; gap: 0; }
 .bo-good { display: flex; align-items: center; gap: 14px; padding: 14px 16px; border-top: 1px solid #eff2ec; }
 .bo-good img { width: 60px; height: 60px; flex: none; object-fit: cover; border-radius: 8px; background: #f2f5f0; }
+.bo-good-info { flex: 1; min-width: 0; overflow-wrap: anywhere; }
 .bo-good-name { color: #153e19; font-size: 14px; font-weight: 700; text-decoration: none; }
 .bo-good-name:hover { text-decoration: underline; }
 .bo-good-meta { margin: 5px 0 0; color: #738076; font-size: 12px; }

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>商家主页 · tea_saas</title>
+    <link rel="stylesheet" href="/static/css/design-tokens.css">
+    <link rel="stylesheet" href="/static/css/rtl.css">
+    <link rel="stylesheet" href="/static/css/buyer-workbench.css?v=20261020-store-pages">
+    <link rel="stylesheet" href="/static/css/store-pages.css?v=1">
+    <script src="/static/js/init.js"></script>
+    <script src="/static/js/auth-storage.js?v=20261018-session-isolation"></script>
+    <script src="/static/js/jquery-3.1.1.min.js"></script>
+    {% include 'shared/system_theme.html' %}
+</head>
+<body class="ds-theme buyer-workbench ds-page-store" id="buyer-body">
+    <div class="buyer-layout">
+        {% include 'buyer_sidebar.html' with active='products' %}
+        <main class="buyer-main">
+            {% include 'buyer_header.html' %}
+            <div class="buyer-content store-main" id="store-main">
+                <div class="store-breadcrumb"><a href="/buyer_dashboard.html">平台首页</a><span>/ 商家主页</span><a href="/buyer_products.html">浏览平台全部商品 →</a></div>
+                <div class="store-feedback"><p id="store-feedback" role="status">正在打开店铺…</p><button type="button" id="store-retry">重新加载</button></div>
+                <div id="store-content" hidden>
+                    <section class="store-hero" id="store-hero" aria-label="店铺信息"></section>
+                    <nav class="store-tabs" aria-label="店铺导航">
+                        <button type="button" data-store-tab="home" aria-pressed="true">店铺首页</button>
+                        <button type="button" data-store-tab="products" aria-pressed="false">全部商品</button>
+                        <button type="button" data-store-tab="about" aria-pressed="false">店铺介绍</button>
+                    </nav>
+                    <section class="store-section" id="store-featured" hidden><div class="store-section-heading"><div><p class="store-eyebrow">OWNER'S PICKS</p><h2>店主推荐</h2></div><span class="store-muted">来自这家店的精选茶品</span></div><div class="store-product-grid" id="store-featured-grid" data-product-grid></div></section>
+                    <section class="store-section" id="store-products">
+                        <div class="store-section-heading"><h2>本店全部商品</h2><span class="store-muted">参考价格 USD · 以结算页为准</span></div>
+                        <form class="store-filter" id="store-filter">
+                            <label>店内搜索<input type="search" id="store-search" maxlength="100" placeholder="搜索本店茶品"></label>
+                            <label>茶类<select id="store-catalog"><option value="">全部茶类</option></select></label>
+                            <label>排序<select id="store-sort"><option value="newest">最新上架</option><option value="sales">销量优先</option><option value="price_asc">价格从低到高</option><option value="price_desc">价格从高到低</option></select></label>
+                            <button type="submit" class="store-primary">搜索</button>
+                        </form>
+                        <p class="store-muted" id="store-product-message" role="status"></p>
+                        <div class="store-product-grid" id="product-grid" aria-busy="false"></div>
+                        <nav class="store-pagination" aria-label="本店商品分页"><button type="button" id="store-prev" disabled>上一页</button><span id="store-page-number"></span><button type="button" id="store-next" disabled>下一页</button></nav>
+                    </section>
+                    <section class="store-section" id="store-about" hidden><p class="store-eyebrow">OUR STORY</p><h2>店铺介绍</h2><p class="store-story" id="store-story"></p></section>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="/static/js/storefront.js?v=1"></script>
+    <script src="/static/js/buyer-workbench.js?v=20261020-store-pages"></script>
+    <script src="/static/js/store-page.js?v=1"></script>
+</body>
+</html>

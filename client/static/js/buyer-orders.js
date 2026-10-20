@@ -43,11 +43,14 @@
         if (!goods.length) return '<div class="bo-good"><span class="bo-good-meta">暂无商品明细</span></div>';
         return goods.map(function (good) {
             var skuId = encodeURIComponent(good.sku || '');
+            var productName = good.product_name || good.spu_name || '商品';
+            var specification = good.sku_name || good.name || '';
             var price = Number(good.price) || 0;
             var count = Number(good.count) || 0;
             return '<div class="bo-good">'
-                + '<img src="' + escapeHtml(imageUrl(good.default_image_url)) + '" alt="商品图片">'
-                + '<div><a class="bo-good-name" href="product_details.html?skuid=' + skuId + '">' + escapeHtml(good.name || '商品') + '</a>'
+                + '<img src="' + escapeHtml(imageUrl(good.default_image_url)) + '" alt="' + escapeHtml(productName) + '">'
+                + '<div class="bo-good-info"><a class="bo-good-name" href="product_details.html?skuid=' + skuId + '">' + escapeHtml(productName) + '</a>'
+                + (specification && specification !== productName ? '<p class="bo-good-meta">规格：' + escapeHtml(specification) + '</p>' : '')
                 + '<p class="bo-good-meta">单价 ' + money(price) + ' × ' + count + '</p></div>'
                 + '<div class="bo-good-price">' + money(price * count) + '<small>USD</small></div>'
                 + '</div>';
@@ -67,7 +70,9 @@
         var filtered = orders.filter(function (order) {
             if (currentStatus !== 'all' && String(order.status) !== currentStatus) return false;
             if (!query) return true;
-            var names = (order.order_sku || []).map(function (good) { return good.name || ''; }).join(' ');
+            var names = (order.order_sku || []).map(function (good) {
+                return [good.product_name, good.spu_name, good.sku_name, good.name].filter(Boolean).join(' ');
+            }).join(' ');
             return (String(order.order_id) + ' ' + names).toLowerCase().indexOf(query) >= 0;
         });
         $('#bo-count').text('共 ' + filtered.length + ' 笔订单');

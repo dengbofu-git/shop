@@ -1,0 +1,30 @@
+{
+  "date": "2026-10-20",
+  "head": "f382e8e366279a7e2bbc66747ed84f0c7f44cbe6",
+  "branch": "codex/supplier-store-pages",
+  "source_sha256": {
+    "orders/views.py": "3b0086b77b84429a69381278668b5a1eb0012acaf53cea88f45bd9a746de11dd",
+    "supplier/views.py": "636967b0c9ef6c6cd91116177b638f2c22a3d14dc76ba1ea11dc38e2619566e8",
+    "goods/merchant_views.py": "dde4fc2bb869c8930ed8698643bfce0eb2d996a503d4fba5b72de4b5752b7ef8",
+    "supplier/store_views.py": "e3a2aa512306a4ca914387a58ee3632a12bbe1c4366580fbe14e896e64e1d72b",
+    "supplier/storefront.py": "3eea08637598cacbe2cfe502a4fa698d236f38927cdd2ebfef51bf05cc329c42"
+  },
+  "module_versions": {
+    "core": "0.5.0",
+    "users": "0.3.0",
+    "goods": "0.5.0",
+    "carts": "0.1.2",
+    "orders": "0.1.7",
+    "pays": "0.1.0",
+    "news": "0.1.1",
+    "inventory": "0.1.0",
+    "logistics": "0.1.0",
+    "supplier": "0.3.0",
+    "admin_panel": "0.4.2",
+    "support_ai": "0.12.4",
+    "merchant_ai": "0.1.0",
+    "ai_storage": "0.3.3",
+    "web": "0.23.2"
+  },
+  "scope": "Current dirty workspace; fingerprints identify the observed sources; no commit or release implied."
+}

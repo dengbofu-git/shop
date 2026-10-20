@@ -54,13 +54,15 @@ function setup() {
 }
 async function main() {
     let app = setup();
-    assert.equal(app.requests.length, 1, 'API starts while CDN is still unresolved');
+    assert.equal(app.requests.length, 1, 'API starts while the local chart library is still unresolved');
     assert.equal(app.head.children[0].async, true);
+    assert.equal(app.head.children[0].src, '/static/vendor/echarts/5.4.3/echarts.min.js', 'use same-origin library before any CDN');
     app.requests[0].resolve(response(fixture('¥35.00'))); await flush();
     assert.equal(app.el('m-total-sales').textContent, '¥35.00', 'metrics render before chart library');
     assert.equal(app.el('core').attrs['aria-busy'], 'false');
     assert.equal(app.charts.length, 0);
     app.library(); await flush();
+    assert.equal(app.head.children.length, 1, 'local success must not request any external CDN');
     assert.equal(app.idle.length, 5);
     await app.runIdle(); assert.equal(app.charts.length, 5);
     assert.equal(app.el('retry-dashboard').hidden, true);
@@ -100,16 +102,28 @@ async function main() {
     assert.equal(app.el('m-total-sales').textContent, 'retry ok');
 
     app = setup();
-    app.requests[0].resolve(response(fixture('CDN offline'))); await flush();
-    await app.timer(5000); // Primary times out, secondary is attempted independently of statistics.
+    app.requests[0].resolve(response(fixture('library offline'))); await flush();
+    await app.timer(5000); // Local timeout falls back without blocking statistics.
     assert.equal(app.head.children.length, 2);
+    assert(app.head.children.at(-1).src.includes('cdn.bootcdn.net'));
     app.head.children.at(-1).onerror(); await flush();
-    assert.equal(app.el('m-total-sales').textContent, 'CDN offline');
+    assert.equal(app.head.children.length, 3);
+    assert(app.head.children.at(-1).src.includes('cdn.jsdelivr.net'));
+    app.head.children.at(-1).onerror(); await flush();
+    assert.equal(app.el('m-total-sales').textContent, 'library offline');
     assert.equal(app.el('retry-dashboard').hidden, false);
     app.el('retry-dashboard').event('click');
     app.library(); await flush(); await app.runIdle();
-    assert.equal(app.requests.length, 1, 'CDN retry must not repeat the analytics request');
+    assert.equal(app.requests.length, 1, 'library retry must not repeat the analytics request');
     assert.equal(app.charts.length, 5);
+
+    app = setup();
+    app.head.children[0].onerror(); await flush();
+    assert.equal(app.head.children.length, 2);
+    app.library();
+    app.requests[0].resolve(response(fixture('fallback works'))); await flush(); await app.runIdle();
+    assert.equal(app.charts.length, 5, 'CDN still recovers when the local asset is missing');
+    assert.equal(app.head.children.length, 2, 'successful fallback does not request further sources');
 
     app = setup(); app.library(); await flush();
     await app.timer(12000);
@@ -118,6 +132,6 @@ async function main() {
     assert(app.el('dashboard-load-status').textContent.includes('超时'));
     app.requests[0].resolve(response(fixture('too late'))); await flush();
     assert.notEqual(app.el('m-total-sales').textContent, 'too late');
-    console.log('PASS: parallel API/CDN, early metrics, five deferred charts, API/CDN timeout and retry, partial failure, stale-period/idle guards, abort/disposal and bfcache restore');
+    console.log('PASS: local-first charts without CDN on success; fallback/retry, parallel API, early metrics, five deferred charts, stale-period/idle guards, abort/disposal and bfcache restore');
 }
 main().catch(error => { console.error(error); process.exitCode = 1; });

@@ -27,7 +27,7 @@ const tick = () => new Promise(resolve => setImmediate(resolve));
 function setup(response) {
     const context = { window: {}, document: {createElement: tag => new Element(tag)}, fetch: async () => response() };
     vm.runInNewContext(script, context);
-    const elements = Object.fromEntries(['tabs', 'grid', 'summary', 'error', 'retry', 'empty', 'viewAll', 'pager', 'section'].map(name => [name, new Element('div')]));
+    const elements = Object.fromEntries(['tabs', 'grid', 'summary', 'error', 'retry', 'empty', 'pager', 'section'].map(name => [name, new Element('div')]));
     const lang = {tea_all: '全部', tea_black: '红茶', tea_green: '绿茶', grid_summary: '{start}-{end}/{total}',
         grid_retry: '重试', grid_loading: '加载', grid_prev: '上一页', grid_next: '下一页', grid_pagination: '商品分页'};
     let rows = [];
@@ -87,7 +87,6 @@ async function main() {
     assert.equal(page.elements.summary.textContent, '1-10/14');
     assert.ok(page.rows.every(row => row.catalog_id === 19));
     assert.equal(page.rows[0].skuid, 1914);
-    assert.equal(page.elements.viewAll.href, 'buyer_products.html?catalog_id=19');
     assert.equal(page.elements.tabs.children[2].attrs['aria-pressed'], 'true');
     assert.equal(page.elements.tabs.children[0].attrs['aria-pressed'], 'false');
     control(page, 'next').click();
@@ -100,7 +99,6 @@ async function main() {
     assert.equal(control(page, 'number', 2).attrs['aria-current'], 'page');
     assert.ok(page.rows.every(row => row.catalog_id === 19));
     page.elements.tabs.children[0].click();
-    assert.equal(page.elements.viewAll.href, 'buyer_products.html');
     assert.deepEqual(Array.from(page.rows, row => row.skuid), Array.from(initialIds));
 
     // Match the reported 103-product catalog: every item must be reachable exactly once.
@@ -158,7 +156,6 @@ async function main() {
             assert.ok(contract.rows.every(row => String(row.catalog_id) === String(cat.catalog_id)));
             const ids = new Set(cat.sku.map(row => row.skuid));
             assert.ok(contract.rows.every(row => ids.has(row.skuid)));
-            assert.equal(contract.elements.viewAll.href, 'buyer_products.html?catalog_id=' + cat.catalog_id);
             const traversedCategory = collectPages(contract);
             assert.equal(traversedCategory.ids.length, ids.size);
             assert.equal(new Set(traversedCategory.ids).size, ids.size);

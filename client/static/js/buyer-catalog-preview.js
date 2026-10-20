@@ -5,7 +5,7 @@
         start: function (options) {
             var categories = [], allRows = [], selected = 'all', currentPage = 1, revision = 0, ready = false;
             var tabs = options.tabs, grid = options.grid, summary = options.summary;
-            var error = options.error, retry = options.retry, viewAll = options.viewAll;
+            var error = options.error, retry = options.retry;
             var pager = options.pager, pageSize = 10;
             var teaKeys = {'红茶': 'tea_black', '绿茶': 'tea_green', '乌龙茶': 'tea_oolong',
                 '黑茶': 'tea_dark', '普洱茶': 'tea_puer', '白茶': 'tea_white', '黄茶': 'tea_yellow', '花茶': 'tea_scented'};
@@ -97,7 +97,6 @@
             }
             function renderSelection() {
                 options.render(pageResult().rows);
-                viewAll.href = 'buyer_products.html' + (selected === 'all' ? '' : '?catalog_id=' + encodeURIComponent(selected));
                 updateLabels();
             }
             function renderTabs() {

@@ -19,6 +19,7 @@ def _sku_public_dict(sku):
     spu_name = (spu.name if spu else '') or ''
     sku_name = sku.name or ''
     caption = (sku.caption or '')[:120]
+    from supplier.storefront import public_merchant
     return {
         'skuid': sku.id,
         'name': sku_name,
@@ -29,6 +30,7 @@ def _sku_public_dict(sku):
         'image': sku_image_name(sku) or None,
         'image_url': f'/v1/goods/sku/{sku.id}/image',
         'image_text': spu_name or sku_name or caption or '商品图',
+        'merchant': public_merchant(spu),
     }
 
 
@@ -79,7 +81,7 @@ def recommended_products(request):
     """全平台已上架且有库存的 SKU，按销量优先；不要求人工推荐标记。"""
     # Preserve this catalog's max(SKU.stock, summed ledger availability) eligibility.
     # Filter before limiting so sold-out top sellers cannot exhaust a candidate window.
-    qs = SKU.objects.filter(is_launched=True).select_related('spu__catalog').annotate(
+    qs = SKU.objects.filter(is_launched=True).select_related('spu__catalog', 'spu__merchant__store_page').annotate(
         ledger_available=Coalesce(Sum('inventory__available_quantity'), Value(0)),
     ).filter(Q(stock__gt=0) | Q(ledger_available__gt=0)).order_by(
         '-sales', '-updated_time', '-id'
@@ -109,7 +111,7 @@ def index(request):
     for category in categories:
         sku_qs = SKU.objects.filter(
             spu__in=category.spu_set.all(), is_launched=True, stock__gt=0
-        ).select_related('spu__catalog')
+        ).select_related('spu__catalog', 'spu__merchant__store_page')
         sku_list = [_sku_public_dict(sku) for sku in sku_qs]
         if sku_list:  # 只返回有商品的分类
             data.append({
@@ -136,7 +138,7 @@ def catalogs(request, id):
     goods = Catalog.objects.get(id=id)
     sku_qs = SKU.objects.filter(
         spu__in=goods.spu_set.all(), is_launched=True, stock__gt=0
-    ).select_related('spu__catalog').order_by('-id')
+    ).select_related('spu__catalog', 'spu__merchant__store_page').order_by('-id')
     data = [_sku_public_dict(sku) for sku in sku_qs]
     paginator_object = paginator.Paginator(data, page_size)
     page_object = paginator_object.get_page(page)
@@ -279,7 +281,7 @@ def _get_available_stock(sku):
 
 def detail(request, id):
     try:
-        sku = SKU.objects.get(id=id)
+        sku = SKU.objects.select_related('spu__catalog', 'spu__merchant__store_page').get(id=id)
     except SKU.DoesNotExist:
         context = {
             "code": 404,
@@ -315,7 +317,7 @@ def detail(request, id):
         spu__catalog=sku.spu.catalog,
         is_launched=True,
         stock__gt=0
-    ).exclude(id=sku.id).select_related('spu__catalog')[:8]
+    ).exclude(id=sku.id).select_related('spu__catalog', 'spu__merchant__store_page')[:8]
     rec_list = [_sku_public_dict(item) for item in rec_skus]
     for r in rec_list:
         r['image_text'] = r.get('name') or '商品图'
@@ -330,6 +332,7 @@ def detail(request, id):
     context = {
         "code": 200,
         "data": {
+            "merchant": _sku_public_dict(sku)['merchant'],
             "catalog_id": sku.spu.catalog_id,
             "is_launched": sku.is_launched,
             "catalog_name": sku.spu.catalog.name,

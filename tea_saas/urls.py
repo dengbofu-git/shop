@@ -19,6 +19,7 @@ from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from django.conf.urls.static import static
 from django.conf import settings
+from supplier import store_views
 
 def index(request):
     """首页视图，重定向到登录页"""
@@ -80,6 +81,8 @@ urlpatterns = [
                   path('supplier_password.html', template_view('supplier_password.html')),
                   path('merchant_dashboard.html', template_view('merchant_dashboard.html')),
                   path('merchant_assistant.html', template_view('merchant_assistant.html')),
+                  path('merchant_store.html', template_view('merchant_store.html'), name='merchant_store_page'),
+                  path('store.html', template_view('store.html'), name='store_page'),
                   path('merchant_products.html', template_view('merchant_products.html')),
                   path('merchant_orders.html', template_view('merchant_orders.html')),
                   path('merchant_inventory.html', template_view('merchant_inventory.html')),
@@ -104,6 +107,8 @@ urlpatterns = [
                   path('v1/inventory/', include('inventory.urls')),
                   path('v1/logistics/', include('logistics.urls')),
                   path('v1/supplier/', include('supplier.urls')),
+                  path('v1/stores/<int:merchant_id>', store_views.storefront, name='storefront'),
+                  path('v1/stores/<int:merchant_id>/products', store_views.products, name='storefront_products'),
                   path('v1/admin-panel/', include('admin_panel.urls')),
                   path('v1/support/', include('support_ai.urls')),
                   path('v1/merchant-ai/', include('merchant_ai.urls')),

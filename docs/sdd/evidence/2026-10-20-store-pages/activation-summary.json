@@ -1,0 +1,35 @@
+{
+  "type": "local-deployment",
+  "authorized_by": "user confirmation in current chat",
+  "timestamp": "2026-10-20T15:11:21.939724+08:00",
+  "database": "dadashop",
+  "server_uuid": "6b35ae3b-0afa-11f1-808b-2632d3201c4a",
+  "backup_bytes": 876972,
+  "backup_sha256": "ffc23de4abc28066c494b0b70baa8d60b15e264edc878ec33a25c81b7c2d0218",
+  "before_counts": {
+    "users_user_profile": 10,
+    "goods_sku": 104,
+    "goods_spu": 119,
+    "orders_order_info": 112,
+    "orders_order_goods": 111
+  },
+  "migration": "supplier.0002_storepage",
+  "status": "migration-applied",
+  "after_counts": {
+    "users_user_profile": 10,
+    "goods_sku": 104,
+    "goods_spu": 119,
+    "orders_order_info": 112,
+    "orders_order_goods": 111
+  },
+  "counts_unchanged": true,
+  "store_page_rows": 0,
+  "backup_relative_path": ".scratch/store-pages/backups/dadashop-before-store-20261020-151121.sql",
+  "service": {
+    "bind": "127.0.0.1:8000",
+    "old_pid": 30336,
+    "new_pid": 35192,
+    "mode": "runserver --noreload",
+    "root": "E:/django/dadashop"
+  }
+}

@@ -31,6 +31,8 @@ def build_single_data(sku_object, number, status):
     sku_object_dict = {
         'id': sku_object.id,
         'name': sku_object.name,
+        'product_name': sku_object.spu.name,
+        'sku_name': sku_object.name,
         'price': sku_object.price,
         'default_image_url': sku_image_name(sku_object),
         'count': number,
@@ -306,6 +308,8 @@ class OrdersView(View):
                 'price',
                 'sku',
                 name=F('sku__name'),
+                product_name=F('sku__spu__name'),
+                sku_name=F('sku__name'),
                 default_image_url=F('sku__default_image_url'),
                 total_amount=F('count') * F('price'),
             ))

@@ -276,11 +276,12 @@
         });
     }
 
-    // The CDN is deliberately outside the document's defer chain: statistics never wait for it.
+    // Prefer the pinned same-origin bundle. Statistics never wait for library loading.
     function loadEcharts() {
         if (window.echarts) return Promise.resolve();
         if (_libraryPromise) return _libraryPromise;
-        var sources = ['https://cdn.bootcdn.net/ajax/libs/echarts/5.4.3/echarts.min.js',
+        var sources = ['/static/vendor/echarts/5.4.3/echarts.min.js',
+            'https://cdn.bootcdn.net/ajax/libs/echarts/5.4.3/echarts.min.js',
             'https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js'];
         function attempt(index) {
             if (_destroyed || index >= sources.length) return Promise.reject(new Error('图表库加载失败'));
@@ -388,7 +389,7 @@
         document.getElementById('refresh-data').disabled = true;
         chartIds.forEach(function(id) { chartPlaceholder(id, '图表加载中…', true); });
         notify('正在加载统计数据，图表将陆续显示…', false);
-        // Consume failures immediately, even when the statistics request is slower than both CDNs.
+        // Consume failures immediately, even when statistics are slower than library fallback.
         var libraryReady = loadEcharts().then(function() { return true; }, function() { return false; });
         try {
             var data = await fetchAnalytics(_currentPeriod);

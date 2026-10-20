@@ -15,27 +15,29 @@
 
 智能客服 0.10.0 修复知识问答到商品推荐的主题继承，新增已有商品理由解释工具，收紧条件抽取字段契约并增加一次受控重试；页面脚本升级至 0.6.1。旧版原始日志与评测记录继续保留。
 
+2026-10-20 店铺页面首版：本轮更新 core、supplier、goods、web 四行；其他行保留原核对语境，最新机器可读版本以 `modules.json` 为准。后续经用户单独授权，新增店铺表已迁移到本地业务库并重启8000服务，见[本地启用记录](../docs/sdd/evidence/2026-10-20-store-pages/local-activation.md)；未发布真实店铺内容、未远端部署或创建Git发布标签。
+
 ## 当前版本清单
 
 当前工作区核对日期：2026-10-18（Asia/Shanghai）。以下按 `modules.json` 生成；版本登记不代表已创建标签、已部署或完整验收。
 
 | 模块 | 当前版本 | 当前核对状态 | 完整变更记录 |
 | --- | --- | --- | --- |
-| core · 项目核心 | 0.4.4 | 维护脚本归位、报告索引及合法的 Worktree 回收配置键；保留既有工程支撑 | [core](changelogs/core.md) |
+| core · 项目核心 | 0.5.0 | 增加店铺管理页面与公开店铺路由 | [core](changelogs/core.md) |
 | users · 用户与权限 | 0.2.3 | 统一登录与权限分流、平台联合鉴权、会话权限、品牌与旧入口清理 | [users](changelogs/users.md) |
-| goods · 商品管理 | 0.4.1 | 可选分类页长与商品分页验证；保留商品库存及图片既有口径 | [goods](changelogs/goods.md) |
+| goods · 商品管理 | 0.5.0 | 公开商品投影增加店铺摘要；保留多商家聚合 | [goods](changelogs/goods.md) |
 | carts · 购物车 | 0.1.1 | 保持采购车及商品图片基线；本轮仅web调整币种展示 | [carts](changelogs/carts.md) |
 | orders · 订单管理 | 0.1.4 | 共用已付销售条件、支付主题品牌；不新增可信支付闭环 | [orders](changelogs/orders.md) |
 | pays · 支付 | 0.1.0 | 保持已有支付基线；验签、金额与回调幂等仍待专项完善 | [pays](changelogs/pays.md) |
 | news · 内容资讯 | 0.1.0 | 保持内容与登录态资讯基线 | [news](changelogs/news.md) |
 | inventory · 库存管理 | 0.1.0 | 保持仓库库存与流水基线；全站库存口径仍待统一 | [inventory](changelogs/inventory.md) |
 | logistics · 物流 | 0.1.0 | 保持物流基线；对象范围与完整履约仍待核查 | [logistics](changelogs/logistics.md) |
-| supplier · 商家与结算 | 0.2.0 | 已付本店销售口径、自然月趋势、订单履约统计及旧推算字段移除 | [supplier](changelogs/supplier.md) |
+| supplier · 商家与结算 | 0.3.0 | 店铺草稿、发布、素材上传与本店商品公开查询 | [supplier](changelogs/supplier.md) |
 | admin_panel · 平台运营 | 0.4.1 | 平台交易总览、角色与权限联合控制、共用销售条件 | [admin_panel](changelogs/admin_panel.md) |
 | support_ai · 智能客服 | 0.12.4 | 旧评测原字节归档及当前评测入口调整；保留现有语义规划与会话能力 | [support_ai](changelogs/support_ai.md) |
 | merchant_ai · 商家智能助手 | 0.1.0 | 入口与初始化状态，聊天／模型／上传／经营工具未接入 | [merchant_ai](changelogs/merchant_ai.md) |
 | ai_storage · AI 记忆与知识存储 | 0.3.2 | 保持查询改写所用知识／向量与短Embedding超时基线 | [ai_storage](changelogs/ai_storage.md) |
-| web · 页面与前端资源 | 0.20.3 | 重复图片合并、旧组件清理及支付页单实例 jQuery；保留现有订单与数据中心增量 | [web](changelogs/web.md) |
+| web · 页面与前端资源 | 0.23.2 | 数据中心本地图表库与 CDN 回退；保留店铺推荐商品搜索及页面管理 | [web](changelogs/web.md) |
 
 ## 历史实现演进和既有证据
 
