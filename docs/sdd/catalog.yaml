@@ -1,6 +1,6 @@
 schemaVersion: "0.1"
 project: tea_saas
-updatedAt: "2026-10-18"
+updatedAt: "2026-10-21"
 documentStatus: proposed
 mappingStatus: initial-source-map
 mappingComplete: false
@@ -31,7 +31,7 @@ modules:
     name: 商品与内容
     stage: REGISTERED
     owner: null
-    capabilityIds: [CAP-CAT-001, CAP-CAT-002, CAP-CAT-003, CAP-CAT-004]
+    capabilityIds: [CAP-CAT-001, CAP-CAT-002, CAP-CAT-003, CAP-CAT-004, CAP-CAT-005]
     boundary: 商品可售事实、商家商品维护、已发布资讯的登录态阅读；库存变动归 FUL，现有库存读口径尚不统一。
   - id: MOD-TRD
     slug: trade
@@ -52,7 +52,7 @@ modules:
     name: 商家经营
     stage: REGISTERED
     owner: null
-    capabilityIds: [CAP-MER-001, CAP-MER-002, CAP-MER-003, CAP-MER-004, CAP-MER-005]
+    capabilityIds: [CAP-MER-001, CAP-MER-002, CAP-MER-003, CAP-MER-004, CAP-MER-005, CAP-MER-006]
     boundary: 商家履约协作、经营指标和结算展示；订单状态及库存规则引用 TRD/FUL。
   - id: MOD-AI
     slug: ai-support
@@ -78,6 +78,7 @@ modules:
 
 # primaryBusinessModule 是本次规划归属，不修改实现版本登记的 paths。
 implementationModuleMapping:
+  - {implementationModule: engagement, primaryBusinessModule: MOD-MER, relatedBusinessModules: [MOD-CAT, MOD-TRD, MOD-IAM, MOD-PLAT]}
   - {implementationModule: core, primaryBusinessModule: MOD-PLAT}
   - {implementationModule: users, primaryBusinessModule: MOD-IAM}
   - {implementationModule: goods, primaryBusinessModule: MOD-CAT}
@@ -96,6 +97,8 @@ implementationModuleMapping:
 
 # candidate 不表示业务已确认或交付承诺。活动能力的状态需与 manifest 一致。
 capabilities:
+  - {id: CAP-MER-006, moduleId: MOD-MER, name: 买卖双方站内咨询, status: candidate, implementationState: implemented-local-not-deployed, priority: P2, sourceFeatureIds: [FEAT-037], specification: docs/sdd/modules/merchant-operations/buyer-merchant-conversations.md}
+  - {id: CAP-CAT-005, moduleId: MOD-CAT, name: 购买后商品评价与评分, status: candidate, implementationState: implemented-local-not-deployed, priority: P2, sourceFeatureIds: [FEAT-038], specification: docs/sdd/modules/catalog-content/purchase-reviews.md}
   - {id: CAP-IAM-001, moduleId: MOD-IAM, name: 注册登录与凭据恢复, status: candidate, priority: P2, sourceFeatureIds: [FEAT-001]}
   - {id: CAP-IAM-002, moduleId: MOD-IAM, name: 本人资料与收货地址, status: candidate, priority: P2, sourceFeatureIds: [FEAT-002]}
   - {id: CAP-IAM-003, moduleId: MOD-IAM, name: 角色权限与对象访问范围, status: candidate, priority: P0, sourceFeatureIds: [FEAT-003]}

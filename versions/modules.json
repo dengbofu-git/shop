@@ -3,7 +3,7 @@
   "modules": {
     "core": {
       "title": "项目核心",
-      "version": "0.5.0",
+      "version": "0.6.0",
       "paths": [
         "README.md",
         "CONTEXT.md",
@@ -41,7 +41,7 @@
     },
     "goods": {
       "title": "商品管理",
-      "version": "0.5.0",
+      "version": "0.5.3",
       "paths": [
         "goods/",
         "goods_data.json",
@@ -73,7 +73,7 @@
     },
     "orders": {
       "title": "订单管理",
-      "version": "0.1.7",
+      "version": "0.2.0",
       "paths": [
         "orders/",
         "versions/changelogs/orders.md"
@@ -81,7 +81,8 @@
       "dependencies": [
         "core",
         "users",
-        "goods"
+        "goods",
+        "engagement"
       ]
     },
     "pays": {
@@ -137,7 +138,7 @@
     },
     "supplier": {
       "title": "商家与结算",
-      "version": "0.3.0",
+      "version": "0.3.1",
       "paths": [
         "supplier/",
         "versions/changelogs/supplier.md"
@@ -227,7 +228,7 @@
     },
     "web": {
       "title": "页面与前端资源",
-      "version": "0.23.2",
+      "version": "0.25.0",
       "paths": [
         "client/",
         "templates/",
@@ -247,7 +248,22 @@
         "supplier",
         "admin_panel",
         "support_ai",
-        "merchant_ai"
+        "merchant_ai",
+        "engagement"
+      ]
+    },
+    "engagement": {
+      "title": "站内咨询与商品评价",
+      "version": "0.1.0",
+      "paths": [
+        "engagement/",
+        "versions/changelogs/engagement.md"
+      ],
+      "dependencies": [
+        "core",
+        "users",
+        "goods",
+        "orders"
       ]
     }
   }

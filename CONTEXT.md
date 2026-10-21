@@ -8,6 +8,8 @@
 | 商家／茶企 | 维护商品并使用商家经营入口的产品角色；文档统一称“商家”，代码保留既有 `supplier`、`merchant_ai` 标识 | [平台定位](docs/sdd/modules/platform/tea-saas-platform.md) |
 | 平台运营 | 使用运营管理和 Agent 配置入口的产品角色；权限以当前认证与权限契约为准 | [系统边界](docs/sdd/architecture/context.md) |
 | SPU／商品系列 | 商品系列，关联品牌、分类及商家；任务涉及具体售价、规格或库存时，应明确到 SKU | [SPU 模型](goods/models.py) |
+| 站内咨询 | 买家与商家的人际会话；独立于AI客服，默认不进入模型上下文 | [站内咨询](docs/sdd/modules/merchant-operations/buyer-merchant-conversations.md) |
+| 购买后评价 | 绑定一个已完成订单商品项，按购买时商家与SPU公开汇总；不由旧计数或自动好评生成 | [评价规则](docs/sdd/modules/catalog-content/purchase-reviews.md) |
 | SKU／商品规格项 | 具体商品项，关联 SPU，具有售价、库存及上架状态；公开详情工具以 `sku_id` 定位 | [SKU 模型](goods/models.py)、[公开详情](support_ai/product_details.py) |
 | 采购车／购物车 | 买家待结算的商品选择；产品文案用“采购车”，既有代码和接口保留 `carts` 等标识 | [架构与展示约定](docs/sdd/architecture/context.md) |
 | 可用库存 | 必须说明使用入口及来源。当前 AI 公开商品读取有账本时使用账本可用量，无账本时回退 SKU 库存；其他入口存在口径差异 | [公开商品范围](support_ai/recommendations.py)、[已知差异](docs/sdd/architecture/context.md) |

@@ -258,11 +258,14 @@ def _update_spu(request, spu_id):
 
 
 def _delete_spu(request, spu_id):
+    from django.db.models.deletion import ProtectedError
     try:
         merchant = request.user_profile
         spu = SPU.objects.get(id=spu_id, merchant=merchant)
         spu.delete()
         return JsonResponse({'code': 200, 'msg': '删除成功'})
+    except ProtectedError:
+        return JsonResponse({'code': 409, 'error': '商品已有交易或评价记录，请使用下架保留历史'}, status=409)
     except SPU.DoesNotExist:
         return JsonResponse({'code': 404, 'error': '商品不存在或无权操作'})
     except Exception as e:
@@ -305,6 +308,7 @@ def _update_sku(request, sku_id):
 
 
 def _delete_sku(request, sku_id):
+    from django.db.models.deletion import ProtectedError
     try:
         merchant = request.user_profile
         sku = SKU.objects.select_related('spu').get(id=sku_id)
@@ -312,6 +316,8 @@ def _delete_sku(request, sku_id):
             return JsonResponse({'code': 403, 'error': '无权操作'})
         sku.delete()
         return JsonResponse({'code': 200, 'msg': '删除成功'})
+    except ProtectedError:
+        return JsonResponse({'code': 409, 'error': '商品已有交易或评价记录，请使用下架保留历史'}, status=409)
     except SKU.DoesNotExist:
         return JsonResponse({'code': 404, 'error': '商品不存在'})
     except Exception as e:

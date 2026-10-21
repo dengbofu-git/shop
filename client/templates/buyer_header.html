@@ -1,5 +1,6 @@
 <link rel="stylesheet" href="/static/css/buyer-favorites.css?v=20261018-procurement-grid5">
 <script defer src="/static/js/buyer-favorites.js?v=20261018-trace-disabled"></script>
+{% include 'shared/engagement_assets.html' %}
 <header class="buyer-topbar" id="buyer-topbar">
     <div class="topbar-row topbar-row-main">
         <a class="topbar-brand" href="buyer_dashboard.html" title="tea_saas">
@@ -12,6 +13,7 @@
             <button type="button" class="btn-search" id="btn-search" aria-label="搜索">🔍</button>
         </div>
         <div class="topbar-tools">
+            <a href="buyer_messages.html" class="topbar-link"><span data-eng-text="messages">消息中心</span><span class="eng-badge" data-eng-unread></span></a>
             <div class="lang-switch" id="lang-switch" role="group" aria-label="语言">
                 <button type="button" class="lang-btn" data-lang="en">EN</button>
                 <button type="button" class="lang-btn active" data-lang="zh">中文</button>

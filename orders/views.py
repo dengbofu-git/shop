@@ -273,9 +273,11 @@ class OrdersView(View):
                 }
             }
             return JsonResponse(context)
+        orderinfo = orderinfo.filter(buyer_hidden=False)
         orders_list = orderinfo.values(
             'order_id',
             'status',
+            'order_type',
             'receiver',
             'tag',
             'address',
@@ -302,6 +304,7 @@ class OrdersView(View):
                 'order_time': order_time,
             })
         for order in orderinfo:
+            from engagement.services import completed, review_state, verified_item
             order_good = list(OrderGoods.objects.filter(order_info=order).values(
                 'id',
                 'count',
@@ -315,6 +318,10 @@ class OrdersView(View):
             ))
             for dict1 in order_good:
                 sku = SKU.objects.get(id=dict1.get('sku'))
+                item = OrderGoods.objects.select_related('sku__spu', 'review').get(pk=dict1['id'])
+                item.order_info = order
+                dict1.update(review_state(item))
+                dict1['can_contact'] = verified_item(item)
                 # 确保空图片路径不导致前端请求 /media/
                 dict1['default_image_url'] = sku_image_name(sku) or None
                 dict1.update({
@@ -325,6 +332,8 @@ class OrdersView(View):
                 if order.order_id == dict1.get('order_id'):
                     dict1.update({
                         'order_sku': order_good,
+                        'status_text': order.get_status_display_text(),
+                        'is_completed': completed(order),
                     })
 
         data = {'orders_list': list(orders_list)}
@@ -407,7 +416,7 @@ def confirm_receipt(request, username):
 
 
 def delete_order(request, username):
-    """删除订单（仅支持待付款状态）"""
+    """从买家列表隐藏订单，保留交易、咨询和评价依据。"""
     if request.method != 'POST':
         return JsonResponse({'code': 405, 'error': '请使用 POST 方法'}, status=405)
     auth_header = request.headers.get('Authorization', '')
@@ -432,12 +441,18 @@ def delete_order(request, username):
         order = OrderInfo.objects.get(order_id=order_id, user_profile=user)
     except OrderInfo.DoesNotExist:
         return JsonResponse({'code': 404, 'error': '订单不存在'}, status=404)
-    if order.status not in (1, 4):
+    from engagement.services import completed
+    unpaid = order.order_type == 'standard' and order.status == 1
+    if not (unpaid or completed(order)):
         return JsonResponse({'code': 400, 'error': '仅待付款或已完成订单可删除'}, status=400)
     try:
         with transaction.atomic():
-            order.delete()
+            order = OrderInfo.objects.select_for_update().get(pk=order.pk, user_profile=user)
+            if not ((order.order_type == 'standard' and order.status == 1) or completed(order)):
+                return JsonResponse({'code': 409, 'error': '订单状态已改变，请刷新'}, status=409)
+            order.buyer_hidden = True
+            order.save(update_fields=['buyer_hidden', 'updated_time'])
     except Exception as e:
         logger.exception('orders.delete.failed')
         return JsonResponse({'code': 500, 'error': f'删除失败: {str(e)}'}, status=500)
-    return JsonResponse({'code': 200, 'msg': '订单已删除'})
+    return JsonResponse({'code': 200, 'msg': '订单已从列表隐藏，交易与评价记录已保留'})

@@ -1,0 +1,16 @@
+<div class="eng-heading"><div><h1 data-eng-text="messages">消息中心</h1><p class="eng-muted" data-eng-text="draft">发送第一条消息后保存会话</p></div><div class="eng-languages"><button type="button" data-eng-lang="zh">中文</button><button type="button" data-eng-lang="en">EN</button><button type="button" data-eng-lang="ar">العربية</button><button type="button" id="eng-refresh" data-eng-text="refresh">刷新</button></div></div>
+<p class="eng-status" id="eng-status" role="status" aria-live="polite"></p>
+<div class="eng-layout" id="eng-layout">
+    <aside class="eng-conversations"><div id="eng-conversations"></div><nav class="eng-pager" id="eng-list-pager" aria-label="会话分页"></nav></aside>
+    <section class="eng-chat" aria-labelledby="eng-chat-title">
+        <div><button type="button" id="eng-back-list" class="eng-back-list" data-eng-text="backList">返回会话列表</button></div>
+        <h2 id="eng-chat-title" data-eng-text="choose">请选择一个会话</h2>
+        <button type="button" id="eng-older" data-eng-text="older" hidden>更早消息</button>
+        <div class="eng-messages" id="eng-messages" role="log" aria-live="polite" aria-relevant="additions" tabindex="0"></div>
+        <form class="eng-compose" id="eng-compose" hidden>
+            <textarea id="eng-message-text" rows="3" required maxlength="2000" data-eng-placeholder="placeholder" aria-label="Message"></textarea>
+            <footer><button type="submit" id="eng-send" class="eng-primary" data-eng-text="send">发送</button></footer>
+        </form>
+    </section>
+    <aside class="eng-context" id="eng-context"></aside>
+</div>

@@ -57,6 +57,7 @@ class OrderInfo(models.Model):
     freight = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="运费")
     # 订单状态（标准订单使用）
     status = models.SmallIntegerField(verbose_name="订单状态", choices=STATUS_CHOICES, null=True, blank=True)
+    buyer_hidden = models.BooleanField(default=False, verbose_name='买家隐藏订单')
 
     # 冗余地址字段
     receiver = models.CharField(verbose_name="收件人", max_length=10)
@@ -135,7 +136,10 @@ class OrderGoods(models.Model):
     SKU表:订单商品表 ---> 1:n
     """
     order_info = models.ForeignKey(OrderInfo, on_delete=models.CASCADE)
-    sku = models.ForeignKey(SKU, on_delete=models.CASCADE)
+    sku = models.ForeignKey(SKU, on_delete=models.PROTECT)
+    merchant_snapshot = models.ForeignKey(UserProfile, on_delete=models.PROTECT, null=True, blank=True,
+                                          related_name='sold_order_items')
+    purchase_snapshot = models.JSONField(default=dict, blank=True)
 
     # 数量、单价
     count = models.IntegerField(default=1, verbose_name="数量")
@@ -146,3 +150,16 @@ class OrderGoods(models.Model):
 
     class Meta:
         db_table = "orders_order_goods"
+
+    def save(self, *args, **kwargs):
+        # Only new purchases establish historical ownership. Existing rows are not guessed/backfilled.
+        if self._state.adding and self.sku_id:
+            sku = self.sku
+            self.merchant_snapshot_id = sku.spu.merchant_id
+            self.purchase_snapshot = {
+                'origin': 'purchase', 'spu_id': sku.spu_id, 'sku_id': sku.pk,
+                'product_name': sku.spu.name, 'specification': sku.name,
+                'merchant_id': sku.spu.merchant_id,
+                'merchant_name': sku.spu.merchant.shop_name if sku.spu.merchant_id else '',
+            }
+        super().save(*args, **kwargs)

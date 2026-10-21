@@ -34,7 +34,7 @@
         if (status === 1) actions.push('<a class="bo-action bo-action-primary" href="gopay.html?order_id=' + encodeURIComponent(order.order_id) + '">去付款</a>');
         if (status === 3) actions.push('<button type="button" class="bo-action bo-action-primary" data-action="receive" data-order-id="' + id + '">确认收货</button>');
         if (status === 3) actions.push('<a class="bo-action" href="logistics_track.html?order=' + encodeURIComponent(order.order_id) + '">查看物流</a>');
-        if (status === 1 || status === 4) actions.push('<button type="button" class="bo-action bo-action-danger" data-action="delete" data-order-id="' + id + '">删除订单</button>');
+        if ((order.order_type === 'standard' && status === 1) || order.is_completed) actions.push('<button type="button" class="bo-action bo-action-danger" data-action="delete" data-order-id="' + id + '">隐藏订单</button>');
         return actions.join('');
     }
 
@@ -52,6 +52,11 @@
                 + '<div class="bo-good-info"><a class="bo-good-name" href="product_details.html?skuid=' + skuId + '">' + escapeHtml(productName) + '</a>'
                 + (specification && specification !== productName ? '<p class="bo-good-meta">规格：' + escapeHtml(specification) + '</p>' : '')
                 + '<p class="bo-good-meta">单价 ' + money(price) + ' × ' + count + '</p></div>'
+                + '<div class="bo-actions">'
+                + (good.can_contact ? '<a class="bo-action" href="buyer_messages.html?order_item_id=' + encodeURIComponent(good.id) + '" data-eng-text="contact">联系商家</a>' : '<a class="bo-action" href="buyer_messages.html" data-eng-text="messages">消息中心</a>')
+                + (good.can_review ? '<a class="bo-action" href="buyer_reviews.html?order_item_id=' + encodeURIComponent(good.id) + '" data-eng-text="review">评价商品</a>' : '')
+                + (good.review_id ? '<a class="bo-action" href="buyer_reviews.html?order_item_id=' + encodeURIComponent(good.id) + '" data-eng-text="viewReview">查看评价</a>' : '')
+                + '</div>'
                 + '<div class="bo-good-price">' + money(price * count) + '<small>USD</small></div>'
                 + '</div>';
         }).join('');
@@ -68,7 +73,11 @@
     function render() {
         var query = ($('#bo-search').val() || '').trim().toLowerCase();
         var filtered = orders.filter(function (order) {
-            if (currentStatus !== 'all' && String(order.status) !== currentStatus) return false;
+            if (currentStatus === 'review') {
+                if (!(order.order_sku || []).some(function (good) { return good.can_review; })) return false;
+            } else if (currentStatus === '4') {
+                if (!order.is_completed) return false;
+            } else if (currentStatus !== 'all' && String(order.status) !== currentStatus) return false;
             if (!query) return true;
             var names = (order.order_sku || []).map(function (good) {
                 return [good.product_name, good.spu_name, good.sku_name, good.name].filter(Boolean).join(' ');
@@ -85,7 +94,7 @@
             return '<article class="bo-order">'
                 + '<div class="bo-order-head"><div><span class="bo-order-id">订单号 ' + escapeHtml(order.order_id) + '</span>'
                 + '<span class="bo-order-time">' + escapeHtml(order.order_time || '') + '</span></div>'
-                + '<span class="bo-status" data-status="' + status + '">' + (statusNames[status] || '处理中') + '</span></div>'
+                + '<span class="bo-status" data-status="' + status + '">' + escapeHtml(order.status_text || statusNames[status] || '处理中') + '</span></div>'
                 + '<div class="bo-goods">' + goodsMarkup(order) + '</div>'
                 + '<div class="bo-order-foot"><div class="bo-order-total">共 ' + escapeHtml(order.order_total_count || 0)
                 + ' 件商品　运费 ' + money(order.order_freight) + '　实付 <strong>' + money(order.order_total_amount) + '</strong></div>'
@@ -94,6 +103,7 @@
                 + '</article>';
         }).join('');
         $('#bo-list').html(markup);
+        if (window.Engagement) window.Engagement.translate(document.getElementById('bo-list'));
     }
 
     function showError(message) {
@@ -128,7 +138,7 @@
 
     function changeOrder(action, id) {
         var deleting = action === 'delete';
-        if (!confirm(deleting ? '确定删除这个订单吗？此操作不可恢复。' : '确认已经收到这个订单的商品吗？')) return;
+        if (!confirm(deleting ? '确定从列表隐藏这个订单吗？交易与评价记录将保留。' : '确认已经收到这个订单的商品吗？')) return;
         $.ajax({
             url: apiBase + '/v1/orders/' + encodeURIComponent(username) + (deleting ? '/delete' : '/confirm-receipt'),
             type: 'POST',

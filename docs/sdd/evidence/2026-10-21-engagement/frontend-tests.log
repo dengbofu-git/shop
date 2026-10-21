@@ -1,0 +1,41 @@
+TAP version 13
+# PASS: two-account isolation, blank tabs, refresh, iframe session and independent logout
+# Subtest: client\\tests\\auth-storage.test.js
+ok 1 - client\\tests\\auth-storage.test.js
+  ---
+  duration_ms: 97.3649
+  type: 'test'
+  ...
+# Subtest: same-origin transport uses current tab token and stable request id
+ok 2 - same-origin transport uses current tab token and stable request id
+  ---
+  duration_ms: 3.6357
+  type: 'test'
+  ...
+# Subtest: authentication failures remain actionable without resetting other accounts
+ok 3 - authentication failures remain actionable without resetting other accounts
+  ---
+  duration_ms: 3.0443
+  type: 'test'
+  ...
+# Subtest: review and seller reply payloads are rendered exclusively as text
+ok 4 - review and seller reply payloads are rendered exclusively as text
+  ---
+  duration_ms: 23.4819
+  type: 'test'
+  ...
+# Subtest: Arabic and merchant language preferences are selected independently
+ok 5 - Arabic and merchant language preferences are selected independently
+  ---
+  duration_ms: 1.7237
+  type: 'test'
+  ...
+1..5
+# tests 5
+# suites 0
+# pass 5
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 164.545

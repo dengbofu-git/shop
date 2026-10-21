@@ -1,0 +1,23 @@
+{
+  "environment": "loopback isolated SQLite, synthetic fixtures only",
+  "flows": {
+    "buyer_message": "passed",
+    "merchant_reply_and_unread": "passed",
+    "buyer_review_submission": "passed",
+    "merchant_review_reply": "passed",
+    "product_rating_summary_4_3_of_4": "passed",
+    "sku_filter_and_rating_sort": "passed",
+    "moderation_hide_restore": "passed",
+    "zh_en_ar_controls": "passed",
+    "mobile_rtl_no_horizontal_overflow": "passed"
+  },
+  "mobile_viewport": {
+    "width": 390,
+    "height": 844,
+    "clientWidth": 375,
+    "scrollWidth": 375,
+    "dir": "rtl"
+  },
+  "business_database_modified": false,
+  "viewport_restored": true
+}

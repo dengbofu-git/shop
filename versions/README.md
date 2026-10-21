@@ -1,5 +1,7 @@
 # tea_saas当前模块版本
 
+2026-10-21交付更新：[站内咨询与购买后评价版本说明](../docs/版本说明-2026-10-21.md)，新增engagement 0.1.0；业务库未迁移，历史订单缺快照时不自动开放评价。
+
 2026-10-18交付更新：当前清单已同步15个实现模块，关联[SDD增量对账](../docs/sdd/reconciliation-2026-10-18.md)及[本轮交付记录](../docs/sdd/evidence/2026-10-18-delivery/verification.md)。下列2026-10-16叙述和历史测试保留当日语境，不是本次新验证。
 
 核对日期：2026-10-16（Asia/Shanghai）。机器可读版本以
@@ -23,21 +25,23 @@
 
 | 模块 | 当前版本 | 当前核对状态 | 完整变更记录 |
 | --- | --- | --- | --- |
-| core · 项目核心 | 0.5.0 | 增加店铺管理页面与公开店铺路由 | [core](changelogs/core.md) |
+| core · 项目核心 | 0.6.0 | 装配独立 engagement 模块及双端咨询／评价／运营治理页面和 API；不复用 AI 私有会话。 | [core](changelogs/core.md) |
 | users · 用户与权限 | 0.2.3 | 统一登录与权限分流、平台联合鉴权、会话权限、品牌与旧入口清理 | [users](changelogs/users.md) |
-| goods · 商品管理 | 0.5.0 | 公开商品投影增加店铺摘要；保留多商家聚合 | [goods](changelogs/goods.md) |
+| goods · 商品管理 | 0.5.3 | 有购买／评价记录的商品或商品系列删除返回409并提示下架，配合订单历史保护。 | [goods](changelogs/goods.md) |
 | carts · 购物车 | 0.1.1 | 保持采购车及商品图片基线；本轮仅web调整币种展示 | [carts](changelogs/carts.md) |
-| orders · 订单管理 | 0.1.4 | 共用已付销售条件、支付主题品牌；不新增可信支付闭环 | [orders](changelogs/orders.md) |
+| orders · 订单管理 | 0.2.0 | 新购买项保存商家与规格快照；订单列表返回评价资格和咨询入口；买家删除改为隐藏，保留交易和评价依据。新增迁移，不推断旧订单归属。 | [orders](changelogs/orders.md) |
 | pays · 支付 | 0.1.0 | 保持已有支付基线；验签、金额与回调幂等仍待专项完善 | [pays](changelogs/pays.md) |
 | news · 内容资讯 | 0.1.0 | 保持内容与登录态资讯基线 | [news](changelogs/news.md) |
 | inventory · 库存管理 | 0.1.0 | 保持仓库库存与流水基线；全站库存口径仍待统一 | [inventory](changelogs/inventory.md) |
 | logistics · 物流 | 0.1.0 | 保持物流基线；对象范围与完整履约仍待核查 | [logistics](changelogs/logistics.md) |
-| supplier · 商家与结算 | 0.3.0 | 店铺草稿、发布、素材上传与本店商品公开查询 | [supplier](changelogs/supplier.md) |
+| supplier · 商家与结算 | 0.3.1 | 禁止物理删除已完成订单，保留买家评价依据；咨询／评价管理导航由web提供。 | [supplier](changelogs/supplier.md) |
 | admin_panel · 平台运营 | 0.4.1 | 平台交易总览、角色与权限联合控制、共用销售条件 | [admin_panel](changelogs/admin_panel.md) |
 | support_ai · 智能客服 | 0.12.4 | 旧评测原字节归档及当前评测入口调整；保留现有语义规划与会话能力 | [support_ai](changelogs/support_ai.md) |
 | merchant_ai · 商家智能助手 | 0.1.0 | 入口与初始化状态，聊天／模型／上传／经营工具未接入 | [merchant_ai](changelogs/merchant_ai.md) |
 | ai_storage · AI 记忆与知识存储 | 0.3.2 | 保持查询改写所用知识／向量与短Embedding超时基线 | [ai_storage](changelogs/ai_storage.md) |
-| web · 页面与前端资源 | 0.23.2 | 数据中心本地图表库与 CDN 回退；保留店铺推荐商品搜索及页面管理 | [web](changelogs/web.md) |
+| web · 页面与前端资源 | 0.25.0 | 新增买家／商家消息中心、未读和关联卡片、评价提交、商家回复及运营举报治理；详情页同页评价与评分分布，支持三语、RTL和响应式。 | [web](changelogs/web.md) |
+
+| engagement · 站内咨询与商品评价 | 0.1.0 | 咨询、购买后评价、商家回复与治理；业务库未迁移 | [engagement](changelogs/engagement.md) |
 
 ## 历史实现演进和既有证据
 
