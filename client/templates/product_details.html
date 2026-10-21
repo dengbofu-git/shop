@@ -91,6 +91,7 @@
                 <a href="#" class="shop lf" id="add_cart">加入购物车</a>
             </div>
             <div class="detail-favorite">
+                <a id="eng-contact" class="eng-card" href="buyer_messages.html" data-eng-text="contact">联系商家</a>
                 <button type="button" id="favorite-toggle" aria-pressed="false" disabled>收藏商品</button>
                 <span id="favorite-message" role="status" aria-live="polite"></span>
             </div>
@@ -104,7 +105,7 @@
     <section id="iteminfo" aria-label="商品详细信息">
         <nav class="detail-tabs" aria-label="商品详情导航">
             <a class="detail-tab active" href="#specification_parameter" aria-current="location">商品详情</a>
-            <a class="detail-tab" href="lookforward.html">商品评价</a>
+            <a class="detail-tab" href="#eng-product-reviews" data-eng-text="reviews">商品评价</a>
             <a class="detail-back-top" href="#buyer-body">返回顶部 ↑</a>
         </nav>
         <div class="detail-content-layout">
@@ -117,6 +118,7 @@
                     <h2 id="introduction-title">商品介绍</h2>
                     <div id="product_intro_content"><!-- 由接口数据动态填充 --></div>
                 </section>
+                {% include 'shared/product_reviews.html' %}
                 <section id="sale_protection" class="detail-section" aria-labelledby="protection-title">
                     <h2 id="protection-title">售后保障</h2>
                     <div class="detail-service">
@@ -502,5 +504,6 @@
     </script>
 
 
+<script defer src="/static/js/engagement-product-reviews.js?v=20261021"></script>
 </body>
 </html>

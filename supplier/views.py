@@ -148,6 +148,9 @@ class SupplierOrderDeleteView(View):
                 return JsonResponse({'code': 403, 'error': '无权操作此订单'}, status=403)
             
             # 仅待付款(1)或已完成(4)订单可删除
+            from engagement.services import completed
+            if completed(order):
+                return JsonResponse({'code': 409, 'error': '已完成订单须保留交易和评价依据，不能物理删除'}, status=409)
             if order.status not in (1, 4):
                 return JsonResponse({'code': 400, 'error': '仅待付款或已完成订单可删除'}, status=400)
             

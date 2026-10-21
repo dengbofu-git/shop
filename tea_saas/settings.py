@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'users',
     'carts',
     'orders',
+    'engagement.apps.EngagementConfig',
     'pays',
     'news',
     'inventory',

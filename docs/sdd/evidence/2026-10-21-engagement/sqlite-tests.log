@@ -1,0 +1,13 @@
+Creating test database for alias 'default'...
+
+System check identified no issues (0 silenced).
+.......................................................................{"timestamp": "2026-10-21T08:07:02.792+00:00", "level": "WARNING", "service": "tea_saas", "logger": "django.request", "event": "application.log", "http_request_id": "7c194a36975c4c77a62a53723777fd57", "method": "POST", "route": "v1/stores/<int:merchant_id>"}
+{"timestamp": "2026-10-21T08:07:02.871+00:00", "level": "WARNING", "service": "tea_saas", "logger": "django.request", "event": "application.log", "http_request_id": "934bf68f6cb94e1183ffa3ba301d2c25", "method": "POST", "route": "v1/stores/<int:merchant_id>/products"}
+{"timestamp": "2026-10-21T08:07:02.873+00:00", "level": "WARNING", "service": "tea_saas", "logger": "django.request", "event": "application.log", "http_request_id": "2cc8d07325f3435ca01cc31be124ddc1", "method": "DELETE", "route": "v1/supplier/store-page"}
+RBAC seeded: 6 roles, 9 permissions, 26 new role-permission mappings.
+.........................sssss
+----------------------------------------------------------------------
+Ran 101 tests in 26.893s
+
+OK (skipped=5)
+Destroying test database for alias 'default'...

@@ -3,10 +3,30 @@ status: initial-source-map
 complete: false
 sourceType: current-working-tree-static-inspection
 note: 按主要入口归并的初步盘点，不是逐菜单逐操作或全部 API 清单；observed 不等于验收通过。
-updatedAt: "2026-10-18"
+updatedAt: "2026-10-21"
 reconciliationReport: docs/sdd/reconciliation-2026-10-18.md
 reconciliationEvidence: docs/sdd/evidence/2026-10-18-project-chat-sdd/manifest.json
 features:
+  - id: FEAT-037
+    name: 买卖双方站内咨询与消息中心
+    primaryCapability: CAP-MER-006
+    relatedCapabilities: [CAP-IAM-003, CAP-CAT-001, CAP-TRD-002]
+    perspectives: [buyer, merchant]
+    pages: [buyer_messages.html, merchant_messages.html, product_details.html, buyer_orders.html]
+    apiPrefixes: [/v1/engagement/conversations]
+    codePaths: [engagement/, orders/models.py, client/static/js/engagement-messages.js]
+    specification: docs/sdd/modules/merchant-operations/buyer-merchant-conversations.md
+    observation: local-implementation-and-isolated-tests-business-migration-not-applied
+  - id: FEAT-038
+    name: 购买后评论评分与商家回复
+    primaryCapability: CAP-CAT-005
+    relatedCapabilities: [CAP-TRD-002, CAP-MER-001, CAP-IAM-003]
+    perspectives: [buyer, merchant, operations]
+    pages: [buyer_reviews.html, merchant_reviews.html, admin_reviews.html, product_details.html, buyer_orders.html]
+    apiPrefixes: [/v1/engagement/reviews, /v1/engagement/products, /v1/engagement/moderation]
+    codePaths: [engagement/, orders/models.py, orders/views.py, client/static/js/engagement-reviews.js, client/static/js/engagement-product-reviews.js]
+    specification: docs/sdd/modules/catalog-content/purchase-reviews.md
+    observation: verified-purchase-snapshot-required-no-synthetic-business-reviews
   - id: FEAT-029
     name: 买家收藏与最近浏览足迹
     primaryCapability: CAP-CAT-004

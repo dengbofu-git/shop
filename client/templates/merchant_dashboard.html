@@ -13,7 +13,7 @@
     <script src="../static/js/jquery-3.1.1.min.js"></script>
 {% include "shared/system_theme.html" %}
 </head>
-<body class="ds-page-merchant_dashboard ds-theme merchant-body supplier-workbench">
+<body class="ds-page-merchant_dashboard ds-theme merchant-body supplier-workbench" data-eng-role="merchant">
     <div class="supplier-layout">
         <!-- 左侧固定导航栏 -->
         <aside class="supplier-sidebar" id="sidebar">
@@ -47,6 +47,8 @@
                     </a>
                 </div>
 
+                <div class="nav-group"><a href="merchant_messages.html" class="nav-item" data-panel="merchant_messages.html"><span class="nav-icon">✉</span><span data-eng-text="consultations">买家咨询</span><span class="eng-badge" data-eng-unread></span></a></div>
+                <div class="nav-group"><a href="merchant_reviews.html" class="nav-item" data-panel="merchant_reviews.html"><span class="nav-icon">☆</span><span data-eng-text="reviews">商品评价</span></a></div>
                 <div class="nav-group">
                     <a href="merchant_assistant.html" class="nav-item" data-panel="merchant_assistant.html">
                         <span class="nav-icon" aria-hidden="true">💬</span>
@@ -84,7 +86,7 @@
                 </form>
                 <div class="topbar-actions">
                     <button type="button" class="topbar-btn" title="通知">🔔</button>
-                    <button type="button" class="topbar-btn" title="消息">✉️</button>
+                    <a href="merchant_messages.html" class="topbar-btn nav-panel-link" data-panel="merchant_messages.html" title="消息">✉<span class="eng-badge" data-eng-unread></span></a>
                     <div class="lang-switch">
                         <button type="button" class="lang-btn active" data-lang="zh">中文</button>
                         <button type="button" class="lang-btn" data-lang="en">EN</button>
@@ -337,5 +339,6 @@
     </div>
 
     <script src="../static/js/supplier-workbench.js?v=20261020-store-pages"></script>
+{% include 'shared/engagement_assets.html' %}
 </body>
 </html>
