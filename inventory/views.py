@@ -2,7 +2,6 @@ from django.http import JsonResponse
 from django.views import View
 from django.utils.decorators import method_decorator
 from users.decorators import login_required, permission_required
-from .services import InventoryService
 from .models import Warehouse, Inventory
 import json
 
