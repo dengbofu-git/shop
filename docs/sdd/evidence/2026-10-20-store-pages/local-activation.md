@@ -4,9 +4,9 @@
 
 ## 目标与备份
 
-- 目标：本机 `127.0.0.1:3306/dadashop`，MySQL8.0.27；已核对服务器UUID及迁移计划。
+- 目标：本机 `127.0.0.1:3306/<local-environment>`，MySQL8.0.27；已核对服务器UUID及迁移计划。
 - 执行前使用匹配容器内的 mysqldump 做完整SQL备份，采用single-transaction、quick、no-tablespaces、set-gtid-purged=OFF、routines、events、triggers、hex-blob、utf8mb4；密码只传入子进程环境，不写入命令、文件或日志。
-- 本机备份：`.scratch/store-pages/backups/dadashop-before-store-20261020-151121.sql`，876972字节，SHA256 `ffc23de4abc28066c494b0b70baa8d60b15e264edc878ec33a25c81b7c2d0218`。已检查成功退出、建表内容及完整结束标记；未执行恢复演练或自动回退。
+- 本机备份：`.scratch/store-pages/backups/<local-environment>-before-store-20261020-151121.sql`，876972字节，SHA256 `ffc23de4abc28066c494b0b70baa8d60b15e264edc878ec33a25c81b7c2d0218`。已检查成功退出、建表内容及完整结束标记；未执行恢复演练或自动回退。
 - SQL包含真实业务数据，仅保存在Git忽略的本机目录，未复制到共享证据或提交。脱敏操作摘要见 [activation-summary.json](activation-summary.json)。
 
 ## 实际执行
@@ -33,3 +33,5 @@
 原有 `ai_storage.0001_initial`、`ai_storage.0002_embedding_validation` 在default连接的迁移记录中仍被提示未应用，本次未执行。它们不属于本次店铺迁移范围，不能因启动提示自动迁移到业务MySQL。
 
 本地功能启用已完成；没有提交、推送、PR、标签或远端部署。用户可刷新原商家工作台，在“商品管理”下方进入“店铺页面管理”。
+
+共享记录中的物理库名、备份和工作区路径已使用别名；原始记录保留于本机，未改名数据库或移动备份。
