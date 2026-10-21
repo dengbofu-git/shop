@@ -1,5 +1,7 @@
 # 订单内评价入口验证 — 2026-10-21
 
+文中`python`指实际执行所用的项目Python 3.9环境，命令以仓库相对路径记录；本机解释器绝对路径仅留本机。
+
 本次为基于 c3a899b76db8150a96024241c73943715c32ce7c 的未提交增量。版本：web 0.25.1、engagement 0.1.1。未提交、推送或更新PR，未操作业务数据库或8000服务。
 
 ## 改动
@@ -8,7 +10,7 @@
 
 ## 验证
 
-- `E:/miniconda/envs/dadashop/python.exe -X utf8 .scratch/engagement-publish-20261021/run_checks.py sqlite`：102项，97通过、5项既有后端限制跳过，仅内存SQLite。新增回归覆盖同SKU不同订单、他人买家和他店商家隔离。此轮未重复MySQL验证，不涉及结构变化。
+- `python -X utf8 .scratch/engagement-publish-20261021/run_checks.py sqlite`：102项，97通过、5项既有后端限制跳过，仅内存SQLite。新增回归覆盖同SKU不同订单、他人买家和他店商家隔离。此轮未重复MySQL验证，不涉及结构变化。
 - 交付工作区运行 `E:/New Folder/node.exe --test client/tests/engagement.test.js`：4项通过。
 - `node --check client/static/js/engagement-reviews.js`、`git diff --check`：通过，语法结果不代替页面验收。
 - 浏览器使用8871隔离预览、合成SQLite和Redis替身；相关JS、模板和后端文件与交付工作区逐文件核对一致，未连接业务MySQL、真实Redis或AI。预览脚本及合成数据不交付。
