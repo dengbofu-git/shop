@@ -3,7 +3,6 @@ from django.views import View
 from django.utils.decorators import method_decorator
 from users.decorators import login_required
 from .models import ShippingOrder, ShippingTrack
-from .services import LogisticsService
 
 
 @method_decorator(login_required, name='dispatch')

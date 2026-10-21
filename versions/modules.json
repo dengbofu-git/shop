@@ -41,15 +41,15 @@
     },
     "goods": {
       "title": "商品管理",
-      "version": "0.5.0",
+      "version": "0.5.1",
       "paths": [
         "goods/",
-        "goods_data.json",
         "media/",
         "docs/虚拟商品数据.md",
         "reports/virtual-products/",
         "reports/tea-images/",
-        "versions/changelogs/goods.md"
+        "versions/changelogs/goods.md",
+        "reports/archive/legacy-catalog/"
       ],
       "dependencies": [
         "core",
@@ -99,7 +99,7 @@
     },
     "news": {
       "title": "内容资讯",
-      "version": "0.1.1",
+      "version": "0.1.2",
       "paths": [
         "news/",
         "versions/changelogs/news.md"
@@ -111,7 +111,7 @@
     },
     "inventory": {
       "title": "库存管理",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "paths": [
         "inventory/",
         "versions/changelogs/inventory.md"
@@ -124,7 +124,7 @@
     },
     "logistics": {
       "title": "物流",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "paths": [
         "logistics/",
         "versions/changelogs/logistics.md"
@@ -227,7 +227,7 @@
     },
     "web": {
       "title": "页面与前端资源",
-      "version": "0.23.2",
+      "version": "0.23.3",
       "paths": [
         "client/",
         "templates/",
