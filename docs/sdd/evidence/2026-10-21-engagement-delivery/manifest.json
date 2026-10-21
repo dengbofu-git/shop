@@ -1,0 +1,67 @@
+{
+  "tested_head": "d71373c44bc3dc1152bc20e9dce385f03c552eb1",
+  "main_sha": "b9fa6c1218b586ec1e708a11487c21ccb59c24a5",
+  "branch": "codex/engagement-delivery",
+  "business_database_migrated": false,
+  "source_hashes": {
+    "client/static/css/engagement.css": "8d20b27c2c71fc3c97a0a31053f4149d254cd864ddd4c9e2011f8a902117a448",
+    "client/static/js/buyer-orders.js": "ac2f7fb7994fe9c76c9befd5752e7067424b3521f498cd2717b3af4ea1132e0d",
+    "client/static/js/engagement-messages.js": "cc5ede608dbdb8cec84bb276d557e5fd9ee26549324d88f15568b857c1d04085",
+    "client/static/js/engagement-product-reviews.js": "59d686574ccea86012c3cc7c75e47253ccafea49cad3a4c0ee20f9637377c67f",
+    "client/static/js/engagement-reviews.js": "b7f1055ac5e1fcf54f138ad2d5a321a1ed7564d076db08cafb51e8a5aa4cc4f8",
+    "client/static/js/engagement-shell.js": "771dd6de606bdabcdb7799b674cd2903c99bccd157f40035f384e32746901683",
+    "client/static/js/engagement.js": "c0d533d006279ad38bed668b11a7c1285254adb8ac6ab31a907fc493a76b816d",
+    "client/templates/admin_reviews.html": "44cb512c5d736c708f1d2ebf81b867a50469da36a609d489d0a1dae2f6e0d7a7",
+    "client/templates/buyer_header.html": "056880dbfb26cd00bf2cc99bb901156765ffb54449aaedb8264ece74cc8499b5",
+    "client/templates/buyer_messages.html": "3b868484d0f26f1eec17bd49e7911e71d48d7c50f79e60aaddfcde1c64489768",
+    "client/templates/buyer_orders.html": "cb6abfc2daf81e6ef7fdb7e1c521c40f8305a689371e9a3ece76716aea2394a6",
+    "client/templates/buyer_reviews.html": "82795908f014686233d38aa3beca9fcf3be195a3f0896d7cdd34c6f61373629d",
+    "client/templates/buyer_sidebar.html": "d5f48a6b5a5a3649b88f51d978c294381d51edb288aafc71a2dcdff419eac3c2",
+    "client/templates/merchant_dashboard.html": "f037adda19bbf0d872d9095c8d16d5d0257c2e3b90da56b64650c5df79171824",
+    "client/templates/merchant_messages.html": "0b15294a34374f1cf74fee21e30a27113ded8118203584487ef82d1062c7c6d5",
+    "client/templates/merchant_reviews.html": "b7dc108c553de5717ae9168287aac128b729113dc707708e6231434e6e05cd4a",
+    "client/templates/product_details.html": "9a260ec3f3ebd7033e485d061baa02c854162dbea0dd9ad030269d772db1440a",
+    "client/templates/shared/engagement_assets.html": "9b98d4742ead47dcedb5dc1463d10ae3d5a7f442cb9002135bf9978edc983d87",
+    "client/templates/shared/engagement_messages.html": "f358deef5a76b641e9df8ef9c419ff359d71dc02e3cb8d13f3e4903da1253e88",
+    "client/templates/shared/engagement_review_list.html": "9200d989496450f5db4b1c520dfa1d98d9454cb9d5e1453e069c7a5af081bcef",
+    "client/templates/shared/platform_nav.html": "afa3b2a3c0367251598a30997f3e41cf4ee6eb01227670da6ae9ce65998b9881",
+    "client/templates/shared/product_reviews.html": "d8a227c508ceec1f435e3c0a260b718a7d12baf78027b83532d051182e050726",
+    "client/tests/engagement.test.js": "80c06e20547a34c8c6aae35a21dc3b1a7e4cb31420a4930d4501f5eab74be2e9",
+    "engagement/__init__.py": "bb0077d4058feae3dccaa9d75869c2efa7f7050d7402390b8d8248c6cf8da347",
+    "engagement/apps.py": "987f1f77bcabb31298176e40bc337cbb74163a73644ff1696bfad517e82c61ae",
+    "engagement/migrations/0001_initial.py": "cff39a9b793568678c1304e295b3ff51dabdefc7a6053df1fcd05328182bd571",
+    "engagement/migrations/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "engagement/models.py": "18f45e6aedc776ae7ac98baea988487bd703e2ff5b9bc5f706d89fb19b1b65dc",
+    "engagement/services.py": "192fd876a3882e266113fc66c5d9b9034bbf0d009dc00e647cdcf15bab263277",
+    "engagement/test_concurrency.py": "0798cdc55a613d8dc1a18f8187df4627874d082a62e4a7f2d15cca97ab2e7d3d",
+    "engagement/test_mysql_settings.py": "9988fd4eeb19711db15bbb7cf65b29c07ae1cc819e6b5c6976dd447846f14764",
+    "engagement/tests.py": "85160da6acfdb447b20947730dc285e913c4beb8c4f96a57bc03508522434174",
+    "engagement/urls.py": "475a32b19793b1dfa2c000189c72823fea25105958dc6872588d8b7c8b0467da",
+    "engagement/views.py": "5307821593b16129783defef94bc21f2ce0b099c67ee6dd1a6b70a33b952977f",
+    "goods/merchant_views.py": "a13330ac7f92a9e53ed63e5a52d90fb715ada84be4582a8605b78271df1fbf60",
+    "orders/migrations/0003_auto_20261021_1530.py": "e752e692029f0335f2589511aabffaf941c812e59489f04e7b350558769d0b43",
+    "orders/models.py": "6bf37ffcc2c34a173cf761062be97404b5323e7853b0808aafe217272064605e",
+    "orders/views.py": "9ef06b6b6fb103ded8c2d8509428102056a4c068233021593a0b799f58358af1",
+    "supplier/views.py": "2a22a31f51bd9bc8fa7dfd76e8bd4daf84454c6f764767a4fb63cd167d3670fb",
+    "tea_saas/settings.py": "6da48ee25ed15840eb2e2e74233b85bef95985a88fa2032fd4779e327c0239b3",
+    "tea_saas/urls.py": "3519f0b5ea5c2a33673ba9f2ca4f1936d327429751a7d845d79c63196ccfeaa6"
+  },
+  "forward_upgrade_evidence_reused": "implementation phase, identical models and migration hashes",
+  "counts": {
+    "sqlite": {
+      "total": 101,
+      "passed": 96,
+      "skipped": 5
+    },
+    "mysql": {
+      "passed": 36,
+      "skipped": 0
+    },
+    "frontend": {
+      "passed": 5
+    },
+    "governance": {
+      "passed": 29
+    }
+  }
+}

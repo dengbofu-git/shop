@@ -2,6 +2,8 @@
 
 日期：2026-10-21。能力 CAP-CAT-005，功能 FEAT-038；业务归 MOD-CAT，交易完成事实引用 MOD-TRD，商家回复引用 MOD-MER，治理身份引用 MOD-IAM。实现模块 engagement／orders，页面归 web；goods／supplier 配套保护历史删除。依据本轮用户确认的方案实施。
 
+交付更新：已在独立分支同步main并重新验证，当前[版本说明](../../../版本说明-2026-10-21.md)与[交付证据](../../evidence/2026-10-21-engagement-delivery/verification.md)为本次推送依据；业务库未迁移，能力阶段不因创建PR而自动提升。
+
 ## 可评价规则
 
 | 类型 | 完成判据 |
