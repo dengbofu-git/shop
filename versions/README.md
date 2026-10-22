@@ -43,7 +43,7 @@
 | support_ai · 智能客服 | 0.15.1 | 问候和功能咨询在模型配置与长期偏好读取前程序匹配并返回固定回复；未执行自动化或真实模型验收 | [support_ai](changelogs/support_ai.md) |
 | merchant_ai · 商家智能助手 | 0.1.0 | 入口与初始化状态，聊天／模型／上传／经营工具未接入 | [merchant_ai](changelogs/merchant_ai.md) |
 | ai_storage · AI 记忆与知识存储 | 0.3.3 | 保持查询改写所用知识／向量与短Embedding超时基线 | [ai_storage](changelogs/ai_storage.md) |
-| web · 页面与前端资源 | 0.29.1 | 新增买家／商家消息中心、未读和关联卡片、评价提交、商家回复及运营举报治理；详情页同页评价与评分分布，支持三语、RTL和响应式。 | [web](changelogs/web.md) |
+| web · 页面与前端资源 | 0.29.5 | 新增买家／商家消息中心、未读和关联卡片、评价提交、商家回复及运营举报治理；详情页同页评价与评分分布，支持三语、RTL和响应式。 | [web](changelogs/web.md) |
 | engagement · 站内咨询与商品评价 | 0.1.1 | 本地咨询与评价已启用；已完成历史商品按日志核验归属后补齐快照，保留角色隔离。 | [engagement](changelogs/engagement.md) |
 
 ## 历史实现演进和既有证据
