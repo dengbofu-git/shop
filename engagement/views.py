@@ -81,7 +81,7 @@ def resolve(request):
 def conversation_name(conv, user):
     if user.pk == conv.buyer_id:
         return conv.merchant.shop_name or '商家店铺'
-    return conv.buyer.username[:1] + '***'
+    return conv.buyer.nickname or conv.buyer.username[:1] + '***'
 
 
 def conversation_row(conv, user):
