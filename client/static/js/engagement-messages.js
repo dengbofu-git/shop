@@ -32,14 +32,21 @@
         return {merchant_id:target.merchant_id};
     }
     function card(value) {
-        var el = E.node('div', null, 'eng-card');
+        var skuId = String(value.sku_id || '');
+        var hasProduct = /^[1-9]\d*$/.test(skuId) && Number.isSafeInteger(Number(skuId));
+        var el = E.node(hasProduct ? 'a' : 'div', null, 'eng-card');
+        if (hasProduct) {
+            el.href = '/product_details.html?skuid=' + encodeURIComponent(skuId);
+            // Merchant conversations can run inside the workbench iframe.
+            el.target = '_top';
+        }
         el.append(E.node('strong', value.product_name || E.t('shop')));
         if (value.specification) el.append(E.node('small', value.specification));
         if (value.type === 'order') el.append(E.node('small', E.t('order') + ': ' + value.order_id));
-        if (value.sku_id) {
-            var link = E.node('a', E.t('gotoProduct'));
-            link.href = '/product_details.html?skuid=' + encodeURIComponent(value.sku_id);
-            if (role === 'buyer') el.append(link);
+        if (hasProduct) {
+            var action = E.node('span', E.t('gotoProduct'), 'eng-card-action');
+            action.dataset.engText = 'gotoProduct';
+            el.append(action);
         }
         return el;
     }
