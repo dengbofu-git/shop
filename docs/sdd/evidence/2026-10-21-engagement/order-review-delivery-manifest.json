@@ -1,0 +1,19 @@
+{
+  "tested_implementation_sha": "96d034224d4e5e19e7f07dc72dad155a10d96963",
+  "main_sha": "dc9665971c35a2750e1b37328e3697f0afc0e800",
+  "implementation_sha256": {
+    "client/static/js/buyer-orders.js": "4bb8a435700b7ea7b42aab9dbaef17d8fd38ba2f6e41311c8a004961787a2ec9",
+    "client/static/js/engagement-reviews.js": "96540856fff340c1660bfdc4684b0a2d46b4d8896a4cb4133408ffb20a7efbd6",
+    "client/static/js/engagement.js": "8b3fea263cede0dd4dc217a569edaadd10496d11c24bc233e078590abebd79bd",
+    "client/templates/buyer_orders.html": "6b93580956926a1089eb20cac1e1ff622ad2cb23e37a02d90e1026f33b530d7b",
+    "client/templates/buyer_reviews.html": "9785a6bd4e7b8d6f8b3d8a5c11f0070b105d2306e55561b3c7f15e69a4982337",
+    "client/templates/buyer_sidebar.html": "fd343d88aab5ec95835ef8c4e06d41a565fe0903111887719226f170b6a3050d",
+    "client/templates/shared/engagement_review_list.html": "4fd07166ae60332af6fb2371de09426dcf524169fb5352c92e5f99507f0b2dae",
+    "engagement/tests.py": "3b8cc65bf7b4f8a114f9d5a514c9e20b5b4cc45caef5708d9bd1ae98d5d139f3",
+    "engagement/views.py": "7c6b28b9595a974405dd125e747dfdb737fa2e9cacae85b83ce08e7638a76754"
+  },
+  "versions": {
+    "web": "0.25.2",
+    "engagement": "0.1.1"
+  }
+}

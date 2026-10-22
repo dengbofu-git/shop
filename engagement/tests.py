@@ -231,6 +231,20 @@ class EngagementTests(TestCase):
         self.spu.refresh_from_db(); self.sku.refresh_from_db()
         self.assertEqual(self.spu.comments, 2); self.assertEqual(self.sku.comments, 1)
 
+    def test_order_item_review_scope_excludes_other_orders_and_buyers(self):
+        first, second, foreign = self.order(), self.order(), self.order(user=self.other)
+        first_id = self.review(first).json()['data']['id']
+        self.review(second)
+        self.review(foreign, user=self.other)
+        path = 'reviews/mine?order_item_id=%s' % first.pk
+        data = self.call(path, self.buyer).json()['data']
+        self.assertEqual(data['total'], 1)
+        self.assertEqual(data['items'][0]['id'], first_id)
+        self.assertEqual(self.call(path, self.other).json()['data']['total'], 0)
+        self.assertEqual(self.call(path, self.shop2).json()['data']['total'], 0)
+        self.assertEqual(self.call('reviews/mine?order_item_id=%s' % foreign.pk, self.buyer).json()['data']['total'], 0)
+        self.assertEqual(self.call('reviewable-items?order_item_id=%s' % first.pk, self.other).json()['data']['total'], 0)
+
     def test_public_projection_masks_identity_and_plain_text(self):
         self.review(text='<script>alert(1)</script>')
         row = self.public().json()['data']['items'][0]

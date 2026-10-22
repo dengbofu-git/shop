@@ -53,7 +53,7 @@
                 + (specification && specification !== productName ? '<p class="bo-good-meta">规格：' + escapeHtml(specification) + '</p>' : '')
                 + '<p class="bo-good-meta">单价 ' + money(price) + ' × ' + count + '</p></div>'
                 + '<div class="bo-actions">'
-                + (good.can_contact ? '<a class="bo-action" href="buyer_messages.html?order_item_id=' + encodeURIComponent(good.id) + '" data-eng-text="contact">联系商家</a>' : '<a class="bo-action" href="buyer_messages.html" data-eng-text="messages">消息中心</a>')
+                + (good.can_contact ? '<a class="bo-action" href="buyer_messages.html?order_item_id=' + encodeURIComponent(good.id) + '" data-eng-text="contact">联系商家</a>' : '')
                 + (good.can_review ? '<a class="bo-action" href="buyer_reviews.html?order_item_id=' + encodeURIComponent(good.id) + '" data-eng-text="review">评价商品</a>' : '')
                 + (good.review_id ? '<a class="bo-action" href="buyer_reviews.html?order_item_id=' + encodeURIComponent(good.id) + '" data-eng-text="viewReview">查看评价</a>' : '')
                 + '</div>'

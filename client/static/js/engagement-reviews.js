@@ -1,6 +1,8 @@
 (function () {
     'use strict';
-    var E = window.Engagement, role = document.body.dataset.engRole, page = 1, mode = role === 'buyer' ? 'pending' : 'mine', opened = false, generation = 0;
+    var E = window.Engagement, role = document.body.dataset.engRole, page = 1, opened = false, generation = 0;
+    var itemId = new URLSearchParams(location.search).get('order_item_id');
+    if (role === 'buyer' && !/^[1-9]\d*$/.test(itemId || '')) { location.replace('/buyer_orders.html'); return; }
     var host = document.getElementById('eng-review-list'), status = document.getElementById('eng-status');
     function notify(error) { status.textContent = error.message; }
     function reviewDialog(item) {
@@ -56,7 +58,21 @@
     async function load() {
         var current = ++generation, params = new URLSearchParams({page:page}), path;
         status.textContent = E.t('loading');
-        if (role === 'buyer' && mode === 'pending') { path = 'reviewable-items'; params.set('pending','1'); }
+        if (role === 'buyer') {
+            var itemData = await E.api('reviewable-items?order_item_id=' + encodeURIComponent(itemId));
+            var item = itemData.items[0], reviews = item && item.review_id
+                ? await E.api('reviews/mine?order_item_id=' + encodeURIComponent(itemId)) : {items:[]};
+            if (current !== generation) return;
+            host.replaceChildren();
+            if (item) {
+                host.append(itemCard(item));
+                reviews.items.forEach(function (row) { host.append(reviewCard(row)); });
+            } else host.append(E.node('p', E.t('empty'), 'eng-muted'));
+            document.getElementById('eng-pager').replaceChildren();
+            status.textContent = '';
+            if (item && item.can_review && !opened) { opened = true; reviewDialog(item); }
+            return;
+        }
         else {
             path = role === 'platform' ? 'moderation' : 'reviews/mine';
             var rating = document.getElementById('eng-rating').value, query = document.getElementById('eng-query').value.trim();
@@ -69,29 +85,17 @@
         if (current !== generation) return;
         host.replaceChildren();
         if (!data.items.length) host.append(E.node('p', E.t('empty'), 'eng-muted'));
-        data.items.forEach(function (row) { host.append(role === 'buyer' && mode === 'pending' ? itemCard(row) : reviewCard(row)); });
+        data.items.forEach(function (row) { host.append(reviewCard(row)); });
         E.pager(document.getElementById('eng-pager'), data.page, data.pages, function (value) { page = value; load().catch(notify); });
         status.textContent = '';
-        var itemId = new URLSearchParams(location.search).get('order_item_id');
-        if (role === 'buyer' && itemId && !opened) {
-            opened = true;
-            var itemData = await E.api('reviewable-items?order_item_id=' + encodeURIComponent(itemId));
-            if (itemData.items[0] && itemData.items[0].can_review) reviewDialog(itemData.items[0]);
-            else { mode = 'mine'; await load(); }
-        }
     }
-    document.querySelectorAll('[data-eng-mode]').forEach(function (el) { el.onclick = function () {
-        mode = el.dataset.engMode; page = 1;
-        document.querySelectorAll('[data-eng-mode]').forEach(function (button) { button.setAttribute('aria-pressed', String(button.dataset.engMode === mode)); });
-        document.getElementById('eng-filters').hidden = mode === 'pending'; load().catch(notify);
-    }; });
     document.getElementById('eng-filters').addEventListener('submit', function (event) { event.preventDefault(); page = 1; load().catch(notify); });
     document.getElementById('eng-refresh').onclick = function () { load().catch(notify); };
     document.addEventListener('eng:language', function () { load().catch(notify); });
     (async function () {
         E.updateLanguage(E.language(), true);
         if (role === 'platform') { if (!await PlatformAccess.requirePermission('goods_manage')) return; }
-        else { var me = await E.api('identity'); if (me.portal !== role) { location.replace('/' + me.portal + '_reviews.html'); return; } }
+        else { var me = await E.api('identity'); if (me.portal !== role) { location.replace(me.portal === 'buyer' ? '/buyer_orders.html' : '/' + me.portal + '_reviews.html'); return; } }
         document.getElementById('eng-filters').hidden = role === 'buyer';
         await load();
     })().catch(notify);

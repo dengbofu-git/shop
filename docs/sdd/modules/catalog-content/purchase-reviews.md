@@ -16,12 +16,13 @@
 
 每个 OrderGoods 一条主评价，数量不增加评价次数；再次购买产生新订单商品，可再评价。星级1～5整数，文字去除首尾空白后5～1000字，均必填。无自动好评、空白评论或按金额加权；不提供编辑、追评及晒图。重复完全相同提交重放200；已评价后换内容返回409。
 
-新订单商品保存 merchant_snapshot 与 purchase_snapshot（origin=purchase、商品系列／规格ID、购买时商品名／规格名／商家名和ID），在当前创建订单商品路径调用 save 时写入。历史迁移不批量推断旧商家；旧记录缺少快照返回 HISTORY_NOT_VERIFIED，待人工以可信购买依据解决。未来 bulk_create 新订单商品必须显式提供等价快照，不能绕过归属记录。
+新订单商品保存 merchant_snapshot 与 purchase_snapshot（origin=purchase、商品系列／规格ID、购买时商品名／规格名／商家名和ID），在当前创建订单商品路径调用 save 时写入。历史迁移不批量推断旧商家；旧记录缺少快照返回 HISTORY_NOT_VERIFIED。经明确授权，可用连续完整行日志还原订单商品写入时的SKU／SPU／商家，并与结算等记录核对后定向补齐；必须先备份并在隔离恢复库验证，附带可追溯核验元数据，禁止仅按当前商家猜测。2026-10-21本地已核验并补齐31笔已完成订单的35个商品项，非买家角色限制保留；1笔缺商品行的早期订单未补造，见[核验与启用记录](../../evidence/2026-10-21-engagement/historical-review-activation.md)。未来 bulk_create 新订单商品必须显式提供等价快照，不能绕过归属记录。
 
 ## 页面
 
-- 买家订单页每个商品显示 can_review、review_id 与 can_contact 对应入口；新增“待评价”筛选。订单完成后可以立即评价，也可到“我的评价”待评价列表稍后填写。
-- buyer_reviews.html 提供待评价／我的评价、评分筛选、商品／内容搜索、分页和原评价状态。历史缺快照的已完成商品明确提示暂不可评价。
+- 订单商品仅在 can_contact=true 时显示关联本单的“联系商家”；历史缺快照时不提供跳转总消息中心的兜底按钮。咨询与评价是独立操作，待付款订单不显示评价入口。
+- 买家评价入口归属“我的订单”：每个订单商品通过 can_review、review_id 显示“评价商品”或“查看评价”；保留订单页“待评价”筛选，不设独立“我的评价”导航。
+- buyer_reviews.html 是订单商品评价明细，必须携带 order_item_id；未指定有效商品项时返回我的订单。只展示本人选定订单商品及其评价、星级、商家回复与公开状态，不展示其他订单评价或全局评价切换／搜索。提交后在当前明细显示已保存评价，可返回我的订单。历史缺快照的已完成商品明确提示暂不可评价。
 - 商品详情页评价标签为同页锚点。下方显示一位小数平均分、评价条数、1～5星分布，每条脱敏昵称、星级、购买规格、日期、正文和商家回复。
 - 默认同一 merchant+SPU 汇总各规格，可筛选当前SKU；默认最新，也可按评分升／降序，ID作稳定次序。不同商家同名商品不合并，商品转移归属不会把原商家评价带给新商家。无评价时均值为null，显示“暂无评价”。平均分按十进制四舍五入到一位。
 - 商家工作台“商品评价”查看本店评价，按星级／商品／内容／未回复筛选，每条公开评价可回复一次，1～1000字纯文本。重复同文重放，不允许改评分、改买家正文或自行隐藏。
@@ -39,7 +40,7 @@ Review 一对一关联订单商品，保护买家、购买快照商家、SKU、S
 | GET reviewable-items | 本人订单商品，每页20条；pending=1、order_id、order_item_id可筛选；输出can_review、review_reason、review_id和快照 |
 | POST reviews | order_item_id、rating、text；本人完成状态与可信快照校验，首次201、相同重放200 |
 | GET products/{sku}/reviews | 公开；scope=all／sku，sort=latest／rating_asc／rating_desc，page；items、summary（total／average／distribution）与分页 |
-| GET reviews/mine | 买家本人或商家本店，rating、sku_id、q、unreplied=1、page；包含is_visible |
+| GET reviews/mine | 买家本人或商家本店，order_item_id、rating、sku_id、q、unreplied=1、page；先限定买家本人／商家本店，再按订单商品筛选；包含is_visible |
 | POST reviews/{id}/reply | 所属商家，一条回复；隐藏评价拒绝409 |
 | POST reviews/{id}/report | 活跃买家或评价所属商家，reason；首次201、重复200 |
 | GET moderation | 平台+goods_manage；reported=1、rating、q、page；举报和最近处理记录 |
@@ -53,7 +54,7 @@ Review 一对一关联订单商品，保护买家、购买快照商家、SKU、S
 - 商家不再物理删除已完成订单，返回409说明需要保留交易和评价依据。该配套限制防止买家评价前交易凭据被删除；不涉及其他分支中的拆单／发货修复。
 - 订单商品到SKU改为PROTECT；有交易或评价的商品／系列删除返回409，提示下架。Review到订单商品等引用也为PROTECT。已有业务数据不批量修改、不生成模拟评价。
 - 新迁移 orders/0003_auto_20261021_1530.py、engagement/0001_initial.py；历史Migration不修改。
-- 业务环境须先备份、单独授权执行迁移，再更新服务；本次仅在隔离SQLite和随机命名MySQL测试库执行。不得在无迁移情况下宣称端口8000已可用。
+- 业务环境须先备份、单独授权执行迁移，再更新服务。2026-10-21经用户单独授权，当前本地MySQL已备份并应用两份新迁移，8000服务已重启，25项只读检查通过；见[本地启用记录](../../evidence/2026-10-21-engagement/local-activation.md)。未远端部署；历史订单快照不自动补写。
 
 ## 验收
 

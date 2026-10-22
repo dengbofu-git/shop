@@ -240,6 +240,8 @@ def product_reviews(request, sku_id):
 def own_reviews(request):
     user = request.user_profile
     rows = Review.objects.filter(**{portal(user): user}).select_related('buyer', 'reply')
+    if request.GET.get('order_item_id'):
+        rows = rows.filter(order_item_id=integer(request.GET['order_item_id']))
     if request.GET.get('rating'):
         rows = rows.filter(rating=integer(request.GET['rating'], 'rating'))
     if request.GET.get('sku_id'):
