@@ -1,18 +1,12 @@
 (function (root, factory) {
-    var api = factory();
+    var api = factory(typeof module === 'object' && module.exports ? require('./currency.js') : root.TeaMoney);
     if (typeof module === 'object' && module.exports) module.exports = api;
     else root.CheckoutUtils = api;
-})(typeof window === 'undefined' ? this : window, function () {
+})(typeof window === 'undefined' ? this : window, function (money) {
     'use strict';
-    var rates = { USD: 100, AED: 367, SAR: 375 };
-    function currency(value) { return Object.prototype.hasOwnProperty.call(rates, value) ? value : 'USD'; }
+    function currency(value) { return money.currency(value); }
     function cents(value) {
-        var match = /^(\d+)(?:\.(\d+))?$/.exec(String(value));
-        if (!match) throw new Error('商品价格无效');
-        var fraction = (match[2] || '') + '000';
-        var result = Number(match[1]) * 100 + Number(fraction.slice(0, 2)) + (Number(fraction[2]) >= 5 ? 1 : 0);
-        if (!Number.isSafeInteger(result)) throw new Error('商品价格超出范围');
-        return result;
+        return money.cents(value);
     }
     function quantity(value) {
         var count = Number(value);
@@ -21,12 +15,10 @@
     }
     function line(item, code) {
         var amount = cents(item.price) * quantity(item.count);
-        var converted = amount * rates[currency(code)];
-        if (!Number.isSafeInteger(converted)) throw new Error('商品金额超出范围');
-        return Math.round(converted / 100);
+        return money.convertCents(amount, code);
     }
     function format(amount, code) {
-        return (currency(code) === 'USD' ? '$' : currency(code) + ' ') + (amount / 100).toFixed(2);
+        return money.formatCents(amount, code);
     }
     function summary(items, code) {
         return items.reduce(function (total, item) {

@@ -5,8 +5,7 @@
 (function() {
     'use strict';
 
-    var RATES = { USD: 1, AED: 3.67, SAR: 3.75 };
-    var currentCurrency = 'USD';
+    var currentCurrency = 'CNY';
     var catalogs = [];
     var currentCatalogId = 'all';
     var currentPage = 1;
@@ -74,14 +73,8 @@
         return r ? r[2] : null;
     }
 
-    function getSymbol() {
-        return currentCurrency === 'USD' ? '$' : (currentCurrency === 'AED' ? 'AED ' : 'SAR ');
-    }
-
     function formatPrice(price) {
-        var p = parseFloat(price) || 0;
-        var rate = RATES[currentCurrency] || 1;
-        return getSymbol() + (p * rate).toFixed(2);
+        return TeaMoney.format(parseFloat(price) || 0, currentCurrency);
     }
 
     /** 卡片标题用 SPU 商品名，规格放在 product-spec */
@@ -118,7 +111,7 @@
             '<a class="product-img-wrap" href="product_details.html?skuid=' + skuid + '" aria-label="' + title.replace(/&/g, '&amp;').replace(/"/g, '&quot;') + '">' + imgHtml + '</a>' +
             '<h3 class="product-name"><a href="product_details.html?skuid=' + skuid + '">' + title.replace(/</g, '&lt;') + '</a></h3>' +
             '<p class="product-spec">' + spec.replace(/</g, '&lt;') + '</p>' +
-            '<div class="product-price" data-usd="' + (el.price || 0) + '" data-aed="' + ((el.price || 0) * 3.67).toFixed(0) + '" data-sar="' + ((el.price || 0) * 3.75).toFixed(0) + '">' + formatPrice(el.price) + '</div>' +
+            '<div class="product-price" data-cny="' + (el.price || 0) + '">' + formatPrice(el.price) + '</div>' +
             storeHtml +
             '<div class="product-actions-row"><button type="button" class="btn-add-cart">' + t('add_cart') + '</button></div>' +
             '</div>';
@@ -241,7 +234,7 @@
                     html += '<a href="product_details.html?skuid=' + (el.skuid || el.id) + '" class="recommend-item">' +
                         '<div class="rec-img">' + imgHtml + '</div>' +
                         '<div class="rec-name">' + title.replace(/</g, '&lt;') + '</div>' +
-                        '<div class="rec-price" data-usd="' + price + '">' + formatPrice(price) + '</div>' +
+                        '<div class="rec-price" data-cny="' + price + '">' + formatPrice(price) + '</div>' +
                         '</a>';
                 });
                 $('#recommend-grid').html(html);
@@ -276,14 +269,14 @@
         loadRecommended();
 
         $('#currency-select').on('change', function() {
-            currentCurrency = this.value;
+            currentCurrency = TeaMoney.currency(this.value);
             $('.product-price').each(function() {
-                var usd = $(this).data('usd');
-                if (usd != null) $(this).text(formatPrice(usd));
+                var cny = $(this).data('cny');
+                if (cny != null) $(this).text(formatPrice(cny));
             });
             $('#recommend-grid .rec-price').each(function() {
-                var usd = $(this).data('usd');
-                if (usd != null) $(this).text(formatPrice(usd));
+                var cny = $(this).data('cny');
+                if (cny != null) $(this).text(formatPrice(cny));
             });
         });
 

@@ -6,6 +6,7 @@
     var orders = [];
     var mediaBase = apiBase + '/media/';
     var currentStatus = 'all';
+    var currentCurrency = 'CNY';
     var statusNames = { 1: '待付款', 2: '待发货', 3: '待收货', 4: '已完成' };
 
     function escapeHtml(value) {
@@ -16,7 +17,7 @@
 
     function money(value) {
         var amount = Number(value);
-        return '$' + (isFinite(amount) ? amount : 0).toFixed(2);
+        return TeaMoney.format(isFinite(amount) && amount >= 0 ? amount : 0, currentCurrency);
     }
 
     function imageUrl(path) {
@@ -57,7 +58,7 @@
                 + (good.can_review ? '<a class="bo-action" href="buyer_reviews.html?order_item_id=' + encodeURIComponent(good.id) + '" data-eng-text="review">评价商品</a>' : '')
                 + (good.review_id ? '<a class="bo-action" href="buyer_reviews.html?order_item_id=' + encodeURIComponent(good.id) + '" data-eng-text="viewReview">查看评价</a>' : '')
                 + '</div>'
-                + '<div class="bo-good-price">' + money(price * count) + '<small>USD</small></div>'
+                + '<div class="bo-good-price">' + money(price * count) + '<small>' + currentCurrency + '</small></div>'
                 + '</div>';
         }).join('');
     }
@@ -155,6 +156,10 @@
     }
 
     $(function () {
+        $('#currency-select').on('change', function () {
+            currentCurrency = TeaMoney.currency(this.value);
+            render();
+        });
         $('#bo-refresh').on('click', loadOrders);
         $('#bo-list').on('click', '#bo-retry', loadOrders);
         $('.bo-tab').on('click', function () {

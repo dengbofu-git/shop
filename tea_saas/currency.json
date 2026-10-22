@@ -1,0 +1,7 @@
+{
+  "base_currency": "CNY",
+  "rates": {"CNY": "1.00", "USD": "0.14", "AED": "0.51", "SAR": "0.52", "EUR": "0.13"},
+  "symbols": {"CNY": "¥", "USD": "$", "AED": "AED ", "SAR": "SAR ", "EUR": "€"},
+  "rate_kind": "reference",
+  "revision": "20261022-cny"
+}
