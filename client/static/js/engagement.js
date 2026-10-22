@@ -39,6 +39,14 @@
         return words[value] ? value : 'zh';
     }
     function t(key) {
+        var chats = {
+            buyerChats:{zh:'按商家分别沟通，消息自动保存，可随时继续咨询。', en:'Separate conversations with each seller. Messages are saved so you can return anytime.', ar:'محادثة مستقلة مع كل بائع. تُحفظ الرسائل للمتابعة في أي وقت.'},
+            merchantChats:{zh:'按客户分别沟通，消息自动保存，选择会话即可回复。', en:'Separate conversations with each customer. Messages are saved; select a conversation to reply.', ar:'محادثة مستقلة مع كل عميل. تُحفظ الرسائل؛ اختر محادثة للرد.'},
+            emptyBuyerChats:{zh:'暂无会话。从商品详情或订单中的“联系商家”开始咨询，发送后会保存在这里。', en:'No conversations yet. Contact a seller from a product or order to start a saved conversation.', ar:'لا توجد محادثات بعد. تواصل مع البائع من صفحة المنتج أو الطلب لبدء محادثة محفوظة.'},
+            emptyMerchantChats:{zh:'暂无客户咨询。客户发送消息后，会按客户分别显示在这里。', en:'No inquiries yet. Each customer conversation appears here when they send a message.', ar:'لا توجد استفسارات بعد. تظهر محادثة مستقلة لكل عميل عند إرسال رسالة.'},
+            conversation:{zh:'会话', en:'Conversation', ar:'المحادثة'}
+        };
+        if (chats[key]) return chats[key][language()];
         if (key === 'noContext') return {zh:'暂无关联商品或订单', en:'No linked product or order', ar:'لا يوجد منتج أو طلب مرتبط'}[language()];
         if (key === 'save') return {zh:'提交', en:'Submit', ar:'إرسال'}[language()];
         if (key === 'completed') return {zh:'订单完成', en:'Order complete', ar:'اكتمل الطلب'}[language()];

@@ -228,7 +228,7 @@
     },
     "web": {
       "title": "页面与前端资源",
-      "version": "0.25.2",
+      "version": "0.27.3",
       "paths": [
         "client/",
         "templates/",
@@ -254,7 +254,7 @@
     },
     "engagement": {
       "title": "站内咨询与商品评价",
-      "version": "0.1.1",
+      "version": "0.1.2",
       "paths": [
         "engagement/",
         "versions/changelogs/engagement.md"
