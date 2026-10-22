@@ -97,6 +97,15 @@ def chat(request):
         if expected is not None and expected != revision:
             raise ConversationConflict('会话已更新，请重新读取后再提交')
         history = recent_context(conversation)
+        # Keep authentication, ownership, revision and idempotency checks, while
+        # skipping model configuration, PostgreSQL memory and business tools.
+        from .workflow import fixed_result
+        fixed = fixed_result(message, history)
+        if fixed is not None:
+            response = dict(fixed['response'], pii_redacted=fixed.get('pii_redacted', False))
+            response = commit_turn(user, conversation, revision, request_id, request_hash,
+                                   fixed['safe_message'], response)
+            return _response(response, 200)
         memory = saved_preferences(user)
     except ConversationConflict as exc:
         return _response({'error': str(exc)}, 409)

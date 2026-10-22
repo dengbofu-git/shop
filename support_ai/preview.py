@@ -21,7 +21,7 @@ from .retrieval import KnowledgeRetriever
 from .query_rewrite import QueryPolicy
 from .telemetry import observe_agent
 from .tool_services import create_tool_handlers
-from .workflow import build_graph
+from .workflow import build_graph, fixed_result
 
 PREVIEW_RUNTIME_VERSION = '0.10.0'
 
@@ -63,8 +63,7 @@ class PreviewSession:
         self.telemetry = telemetry
         self.log_dir = Path(log_dir or settings.BASE_DIR / 'reports' / 'agent-preview').resolve()
         self.log_dir.mkdir(parents=True, exist_ok=True)
-        # Fail before showing readiness if the current runtime is not configured.
-        configured_model(self.configuration())
+        # Model configuration is validated when a request actually needs it.
         self.new()
 
     def configuration(self):
@@ -113,37 +112,41 @@ class PreviewSession:
         self.last_error = None
         try:
             config = self.configuration()
-            memory, orders = None, '[]'
-            if self.user:
-                memory = saved_preferences(self.user)
-                safe_message, orders, selected_order = current_order_context(self.user, self.order_binding, message)
-            with observe_agent(config) as observation:
-                model = configured_model(config)
-                retriever = KnowledgeRetriever(self.user.pk if self.user else None, config)
+            result = fixed_result(safe_message, history)
+            if result is None:
+                memory, orders = None, '[]'
+                if self.user:
+                    memory = saved_preferences(self.user)
+                    safe_message, orders, selected_order = current_order_context(self.user, self.order_binding, message)
+                with observe_agent(config) as observation:
+                    model = configured_model(config)
+                    retriever = KnowledgeRetriever(self.user.pk if self.user else None, config)
 
-                def tool_factory(state):
-                    handlers = create_tool_handlers(
-                        model, retriever.search,
-                        state['safe_message'], state['resolved_question'], state.get('recent_turns', []), memory, orders,
-                        knowledge_context_chars=config.retrieval_context_chars,
-                        scoped_knowledge_search=retriever.scoped_search, knowledge_notes=retriever.notes)
-                    if self.user is None:
-                        handlers['get_order_status'] = lambda step, completed: ToolResult(
-                            step_id=step.id, tool=step.tool, status='needs_clarification',
-                            data={'answer': '公开预览未绑定买家，无法查询订单。订单测试请使用 --user-id 指定买家后重新启动。'})
-                    return handlers
+                    def tool_factory(state):
+                        handlers = create_tool_handlers(
+                            model, retriever.search,
+                            state['safe_message'], state['resolved_question'], state.get('recent_turns', []), memory, orders,
+                            knowledge_context_chars=config.retrieval_context_chars,
+                            scoped_knowledge_search=retriever.scoped_search, knowledge_notes=retriever.notes)
+                        if self.user is None:
+                            handlers['get_order_status'] = lambda step, completed: ToolResult(
+                                step_id=step.id, tool=step.tool, status='needs_clarification',
+                                data={'answer': '公开预览未绑定买家，无法查询订单。订单测试请使用 --user-id 指定买家后重新启动。'})
+                        return handlers
 
-                graph = build_graph(model, tool_factory=tool_factory)
-                callbacks = [usage] + ([observation.callback] if observation.callback else [])
-                result = graph.invoke({'message': safe_message, 'recent_turns': history, 'memory': memory,
-                                       'order_context': orders, 'owner_id': self.user.pk if self.user else None},
-                                      config={'callbacks': callbacks})
-                observation.finish(result)
-                if result['tool_results'] and all(r['status'] in ('error', 'skipped') for r in result['tool_results']):
-                    raise RuntimeError('All Agent tools failed')
+                    graph = build_graph(model, tool_factory=tool_factory)
+                    callbacks = [usage] + ([observation.callback] if observation.callback else [])
+                    result = graph.invoke({'message': safe_message, 'recent_turns': history, 'memory': memory,
+                                           'order_context': orders, 'owner_id': self.user.pk if self.user else None},
+                                          config={'callbacks': callbacks})
+                    observation.finish(result)
+                    if result['tool_results'] and all(r['status'] in ('error', 'skipped') for r in result['tool_results']):
+                        raise RuntimeError('All Agent tools failed')
+                    response = dict(result['response'], pii_redacted=safe_message != message.strip())
+                    if observation.trace_id:
+                        response['trace_id'] = observation.trace_id
+            else:
                 response = dict(result['response'], pii_redacted=safe_message != message.strip())
-                if observation.trace_id:
-                    response['trace_id'] = observation.trace_id
             self.sequence += 1
             record = safe_record({'event': 'turn', 'session_id': self.session_id, 'sequence': self.sequence,
                                   'created_at': timezone.now().isoformat(), 'message': safe_message,
@@ -153,7 +156,7 @@ class PreviewSession:
                                   'elapsed_seconds': round(time.perf_counter() - started, 3),
                                   'model_calls': usage.calls, 'input_tokens': usage.input_tokens,
                                   'output_tokens': usage.output_tokens, 'response': response,
-                                  'retrieval': retriever.audit})
+                                  'retrieval': retriever.audit if retriever else []})
             # Persist before advancing session memory. Never call commit_turn().
             self._append(record)
             self.turns.append(SimpleNamespace(pk='preview-' + str(self.sequence), user_text=safe_message,
