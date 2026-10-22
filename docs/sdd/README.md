@@ -1,5 +1,7 @@
 # tea_saas SDD 规划入口
 
+2026-10-22身份增量：[用户昵称与咨询展示](modules/identity/user-nicknames.md)，个人信息独立编辑昵称，商家会话列表／标题显示买家昵称，同名保留会话编号、清空恢复脱敏名；登录身份与店名保持原规则。[隔离验证与已授权本地启用](evidence/2026-10-22-user-nickname/verification.md)。
+
 2026-10-21新增：[买卖双方站内咨询](modules/merchant-operations/buyer-merchant-conversations.md)与[购买后商品评价](modules/catalog-content/purchase-reviews.md)，包括双端消息、未读、订单完成资格、星级／评论、商家回复和举报治理；[验证与启用边界](evidence/2026-10-21-engagement/verification.md)。业务库尚未迁移。
 
 2026-10-19数据中心：[异步渐进展示](modules/merchant-operations/data-center-loading.md)，统计请求与图表库并行，指标先显示、图表独立绘制，失败可局部重试；替代整页等待遮罩。

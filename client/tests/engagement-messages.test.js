@@ -203,3 +203,14 @@ test('read receipts stop at fetched history rather than jumping over unseen mess
     assert.equal(receipts[receipts.length-1].payload.message_id,11);
     assert.equal(receipts.some(call=>call.payload.message_id===99),false);
 });
+
+
+test('nickname change refreshes active list and title while duplicate names retain distinct IDs',async()=>{
+    const items=[1,2].map(id=>({id,name:'同名茶友',unread:0,other_read_id:0,last_text:'message',updated_at:'2026-10-22'}));
+    const app=await setup({role:'merchant',items,intercept:url=>url==='conversations/1/messages' ? {...history(1),name:items[0].name}:undefined});
+    items[0].name='<img src=x onerror=alert(1)>';
+    await app.timers[app.timers.length-1]();await flush();
+    assert.equal(app.nodes['eng-chat-title'].textContent,items[0].name+' · #1');
+    assert(app.nodes['eng-conversations'].textContent.includes(items[0].name));
+    assert(app.nodes['eng-conversations'].textContent.includes('conversation #2'));
+});

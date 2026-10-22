@@ -105,6 +105,7 @@ class UserProfile(models.Model):
     
     # 用户名、密码、邮箱、手机号、是否激活、创建时间、更新时间
     username = models.CharField(max_length=11, verbose_name="用户名", unique=True)
+    nickname = models.CharField(max_length=30, blank=True, default='', verbose_name='昵称')
     password = models.CharField(max_length=32)
     email = models.EmailField()
     phone = models.CharField(max_length=11)
