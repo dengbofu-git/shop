@@ -17,6 +17,8 @@ from .planning import explicit_requests
 from .conversation_tasks import (purchase_topic, apply_purchase_topic, without_reason_modifier,
                                  REASON_PATTERN)
 from .recommendation_explanations import explain_existing_products, format_product_reasons
+from .bundle_recommendations import recommend_bundle
+from .total_budget_intent import CURRENCY
 
 
 GENERIC_CATEGORIES = {'茶', '茶叶', '茶类', '商品', '茶品', 'tea', 'teas', 'products', 'tea products'}
@@ -35,14 +37,20 @@ def simple_grouped_intent(message, request, history, memory):
     def evidence(field, value, quote):
         data['evidence'].append({'field': field, 'value': value, 'source': 'CURRENT', 'quote': quote})
     budget_pattern = (r'(?:每(?:盒|包|份|罐)(?:商品)?(?:的)?(?:单价)?|单价)\s*'
-                      r'(?:不超过|不高于|最多|上限(?:为)?|≤)\s*(\d{1,8}(?:\.\d{1,2})?)\s*(美元|美金|USD|usd)')
+                      r'(?:不超过|不高于|最多|上限(?:为)?|≤)\s*(\d{1,8}(?:\.\d{1,2})?)\s*(' + CURRENCY + r')?')
     budgets = list(re.finditer(budget_pattern, working))
     if len(budgets) > 1:
         return None
     if budgets:
         match = budgets[0]
-        data['required'].update(price_max=match[1], currency='USD', price_basis='unit')
-        for field, value in [('price_max', match[1]), ('currency', 'USD'), ('price_basis', 'unit')]:
+        data['required'].update(price_max=match[1], price_basis='unit')
+        currency_aliases = {'美元':'USD', '美金':'USD', '$':'USD', '人民币':'CNY', '元':'CNY', '¥':'CNY', '￥':'CNY',
+                            'RMB':'CNY', '迪拉姆':'AED', '里亚尔':'SAR', '欧元':'EUR', '€':'EUR'}
+        if match[2]:
+            code = currency_aliases.get(match[2], currency_aliases.get(match[2].upper(), match[2].upper()))
+            data['required']['currency'] = code
+            evidence('required.currency', code, match[0])
+        for field, value in [('price_max', match[1]), ('price_basis', 'unit')]:
             evidence('required.' + field, value, match[0])
         working = working[:match.start()] + working[match.end():]
     exclusion_pattern = r'(?:不要|排除)\s*(?:(?:' + CATEGORY_PATTERN + r')\s*(?:[、和及,，]\s*)?)+'
@@ -130,7 +138,8 @@ def normalize_recommendation(raw, message, history, memory, request):
     daily = bool(re.search(r'日常|每天|\bdaily\b', request, re.I))
     allowed_missing = {'category', 'details'} | ({'unsupported_attribute'} if daily else set())
     hard = intent.required
-    if (set(intent.missing_fields) <= allowed_missing and hard.price_min is None
+    if (set(intent.missing_fields) <= allowed_missing and hard.budget_min is None and hard.budget_max is None
+            and hard.price_basis != 'total' and hard.price_min is None
             and hard.price_max is None and not re.search(r'不超过|预算|以内|\d.*(?:美元|元|usd)', request, re.I)):
         intent.missing_fields = []
         intent.action = 'SEARCH'
@@ -171,15 +180,25 @@ def create_tool_handlers(model, knowledge_search, message, resolved_question, hi
              'CURRENT引用本轮原话，source_id为空；CONTEXT只引用历史用户原话的turn_id；'
              'MEMORY只能用于preferred，quote/value来自所给偏好，source_id使用偏好id。'
              '不能把助手回答或商品列表伪装成用户证据。分类品牌保留原文；茶叶/商品是范围词，不是硬分类。'
-             'evidence.field仅允许required.categories/brands/keywords/price_min/price_max/currency/price_basis、'
+             'evidence.field仅允许required.categories/brands/keywords/price_min/price_max/currency/price_basis/'
+             'budget_min/budget_max/quantity_per_product/distinct_count、'
              'preferred.categories/brands/keywords、excluded.categories/brands/keywords。'
              '每个数组元素独立给证据，路径必须是required.categories，不能带[0]、.0等索引；'
-             '数量、limit、推荐理由、action、missing_fields都不是筛选字段，不得为它们生成evidence。'
+             '总价搭配明确的每款数量quantity_per_product和款数distinct_count须给证据；'
+             'limit、推荐理由、action、missing_fields不得生成evidence。'
              '例如用户说推荐白茶，证据为field=required.categories,value=白茶,source=CURRENT,quote=白茶,source_id=null。'
-             '宽泛推荐可以SEARCH，不必先问预算或品类。价格须十进制字符串，币种须原文确认，'
+             '宽泛推荐可以SEARCH，不必先问预算或品类。价格须十进制字符串；基础币种为人民币CNY，'
+             '未注明币种时currency留空由程序默认CNY，不编造币种证据或追问币种；'
+             '明确外币时原样提取币种和金额，程序换算，禁止模型自行换算汇率。'
              '按不同茶类推荐属于程序负责的分组，不要从助手的介绍中填入六类硬条件；'
              '只有用户原话明确列出的具体分类才可成为required.categories。'
-             '每盒/包/份/单价才是unit；总预算或不明单位用CLARIFY。'
+             '每盒/包/份/单价用price_basis=unit及price_min/price_max；'
+             '整笔采购/总价/总预算用price_basis=total及budget_min/budget_max，总价200用budget_max=200。'
+             '总预算已明确时不要再追问单价还是总价；缺上限填budget_amount。'
+             '总价范围100至200用budget_min=100,budget_max=200；恰好200用两者均200。'
+             '总价约200默认不超200；不支持自动超支、差异数量、指定保留/替换商品及超过4款，'
+             '此类要求填bundle_constraints且不得忽略。每款数量仅显式给出时填quantity_per_product；'
+             '总价搭配明确款数用distinct_count，默认均留空。不明预算类型用budget_scope。'
              '口感功效认证等无属性证据时标unsupported_attribute，不编造。'
              '日常饮用只是尚待验证的用途，可以先按明确茶类搜索，不虚构适用性。'),
             ('human', '购买子任务：{request}\n本轮原话：{message}\n指代补全（不作为原文证据）：{resolved}\n安全历史：{history}\n长期偏好：{memory}\n契约修正要求：{repair}'),
@@ -241,7 +260,29 @@ def create_tool_handlers(model, knowledge_search, message, resolved_question, hi
                 'extraction_attempts': extraction_attempts, 'diagnostics': diagnostics})
         if options and options.mode == 'by_category':
             options = options.model_copy(update={'category_scope': 'requested' if linked_scope is not None or intent.required.categories else 'basic_tea_types'})
-        data = match_product_groups(intent, options, category_scope=linked_scope) if options and options.mode == 'by_category' else match_products(intent, limit=step.limit)
+        if intent.required.price_basis == 'total':
+            if step.tool != 'recommend_bundle':
+                raise ValueError('Total budget requires a server-owned bundle plan')
+            scope = linked_scope
+            if scope is None and options and options.mode == 'by_category' and options.category_scope == 'basic_tea_types':
+                scope = [c for c in BASIC_TEA_TYPES if c not in intent.excluded.categories]
+            unsupported_bundle = (
+                re.search(r'(?:每类|每种|各类|各)\s*(?:推荐|选|买)?\s*[一二两三四\d]+\s*款', step.request)
+                or re.search(r'第[一二两三四\d]+款|(?:这款|那款|商品).{0,12}(?:替换|换掉|换成|保留)|'
+                             r'(?:替换|换掉|保留).{0,12}(?:这款|那款|商品|方案)|'
+                             r'(?<!不)(?:允许|可以|能)超|上下浮动', step.request)
+            )
+            if unsupported_bundle:
+                intent.action = 'CLARIFY'
+                intent.missing_fields = list(dict.fromkeys(intent.missing_fields + ['bundle_constraints']))
+            data = recommend_bundle(intent, category_scope=scope)
+            if data.get('bundle_missing_fields'):
+                intent.missing_fields = list(dict.fromkeys(intent.missing_fields + data['bundle_missing_fields']))
+                intent.action = 'CLARIFY'
+        elif step.tool == 'recommend_bundle':
+            raise ValueError('Total budget tool received unit-price conditions')
+        else:
+            data = match_product_groups(intent, options, category_scope=linked_scope) if options and options.mode == 'by_category' else match_products(intent, limit=step.limit)
         unmet += data.get('unmet_requirements', [])
         data['product_intent'] = intent.model_dump()
         data['condition_source'] = extraction_source
@@ -252,9 +293,9 @@ def create_tool_handlers(model, knowledge_search, message, resolved_question, hi
         data['memory_used'] = any(e.source == 'MEMORY' and e.value in getattr(intent.preferred, e.field.split('.')[-1], [])
                                   for e in intent.evidence)
         data['selected_product'] = data['recommendations'][0] if len(data['recommendations']) == 1 else None
-        if data['recommendations'] and REASON_PATTERN.search(step.request):
+        if data['recommendations'] and intent.required.price_basis != 'total' and REASON_PATTERN.search(step.request):
             data['answer'] = format_product_reasons(data['recommendations'], intent.model_dump(),
-                                                  heading='以下是本次推荐及依据（USD 单价，价格及库存以下单时为准）：')
+                                                  heading='以下是本次推荐及依据（人民币 CNY 单价，价格及库存以下单时为准）：')
         if unmet:
             data['answer'] += '\n' + ' '.join(unmet)
         status = {'MATCHED': 'success', 'PARTIAL': 'success', 'ERROR': 'error', 'NO_MATCH': 'no_match', 'CLARIFY': 'needs_clarification'}[data['recommendation_status']]
@@ -326,5 +367,6 @@ def create_tool_handlers(model, knowledge_search, message, resolved_question, hi
     def clarify(step, completed):
         return result(step, 'needs_clarification', {'answer': '您希望了解茶叶知识、挑选商品，还是查询订单？请补充具体对象或要求。'})
 
-    return {'recommend_products': recommend, 'explain_recommendations': explain_recommendations, 'introduce_tea': introduce,
+    return {'recommend_products': recommend, 'recommend_bundle': recommend,
+            'explain_recommendations': explain_recommendations, 'introduce_tea': introduce,
             'get_product_details': product_details, 'get_order_status': orders, 'ask_clarification': clarify}

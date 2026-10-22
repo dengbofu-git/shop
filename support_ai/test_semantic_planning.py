@@ -47,8 +47,8 @@ class SemanticPlanningTests(TestCase):
                 {'field': 'required.currency', 'value': 'USD', 'source': 'CURRENT', 'quote': '美元'}]}}
         model = PlanModel(payload)
         plan, source, previous = plan_turn(model, '美元', self.history(), None)
-        self.assertEqual(source, 'model')
-        self.assertEqual(len(model.calls), 1)
+        self.assertEqual(source, 'rules')
+        self.assertEqual(len(model.calls), 0)
         self.assertEqual(plan.purchase.required.categories, ['绿茶'])
         self.assertEqual(plan.purchase.required.price_max, '50.00')
         self.assertEqual(plan.purchase.required.currency, 'USD')

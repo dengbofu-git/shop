@@ -182,7 +182,16 @@
                     info.appendChild(specification);
                 }
                 var price = document.createElement('p');
-                price.textContent = 'USD $' + product.price + ' · ' + product.category;
+                if (historicalAt && !product.currency) {
+                    price.textContent = '原记录金额 ' + product.price + '（币种未记录） · ' + product.category;
+                } else if (!product.currency || product.currency === 'CNY') {
+                    price.dataset.basePrice = product.price;
+                    price.dataset.category = product.category || '';
+                    price.textContent = TeaMoney.format(product.price, document.getElementById('currency-select').value) + ' · ' + product.category;
+                } else {
+                    // Old snapshots keep the currency recorded at that time.
+                    price.textContent = product.currency + ' ' + product.price + ' · ' + product.category;
+                }
                 info.appendChild(price);
                 var reason = document.createElement('p');
                 reason.textContent = (product.reasons || []).join('、');
@@ -458,5 +467,11 @@
         api('preferences/').then(function (result) { fillPreferences(result.preferences); })
             .catch(function (error) { preferenceStatus.textContent = error.message; });
     }
+    document.getElementById('currency-select').addEventListener('change', function () {
+        var code = this.value;
+        messages.querySelectorAll('[data-base-price]').forEach(function (node) {
+            node.textContent = TeaMoney.format(node.dataset.basePrice, code) + ' · ' + node.dataset.category;
+        });
+    });
     updateSession();
 })();

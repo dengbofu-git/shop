@@ -42,7 +42,7 @@ ATTRIBUTES = [
     ('season', '模拟采摘季节', 'select'), ('production', '模拟生产日期', 'date'),
     ('shelf_life', '模拟保质期（月）', 'number'), ('temperature', '模拟冲泡水温（℃）', 'number'),
     ('brew_time', '模拟冲泡时长（秒）', 'number'), ('storage', '储存说明', 'text'),
-    ('currency', '计价币种', 'select'), ('unit_price', '每100克单价（USD）', 'number'),
+    ('currency', '计价币种', 'select'), ('unit_price', '每100克单价（CNY）', 'number'),
     ('vessel', '模拟冲泡器具', 'select'), ('traceability', '虚拟追溯说明', 'text'),
     ('roast', '模拟焙火程度', 'select'), ('lot', '虚拟批号', 'text'),
     ('minimum_order', '最小采购数量', 'number'),
@@ -81,7 +81,7 @@ def build_products(batch, as_of):
                 'aroma': aromas[(position + 1) % 5], 'usage': item['usage'],
                 'season': ['春季', '夏季', '秋季'][position % 3], 'production': production,
                 'shelf_life': shelf, 'temperature': temperature, 'brew_time': 60 + position % 4 * 30,
-                'storage': '模拟储存要求：密封、干燥、避光，远离异味。', 'currency': 'USD',
+                'storage': '模拟储存要求：密封、干燥、避光，远离异味。', 'currency': 'CNY',
                 'unit_price': (price / weight * 100).quantize(Decimal('.01')),
                 'vessel': ['玻璃杯', '盖碗', '茶壶'][position % 3],
                 'traceability': '仅供本地功能演示，批次{}，不代表真实产地、检测或认证。'.format(batch),
@@ -201,7 +201,7 @@ class Command(BaseCommand):
                 if sku.stock != ledger.available_quantity or sku.sale_attr_value.count() != 3:
                     raise CommandError('Unbalanced inventory or incomplete sale attributes')
                 rows.append({'sku_id': sku.pk, 'spu_id': spu.pk, 'name': spu.name, 'category': category.name,
-                             'specification': sku.name, 'price_usd': str(sku.price), 'stock': sku.stock, 'usage': item['usage']})
+                             'specification': sku.name, 'price_cny': str(sku.price), 'stock': sku.stock, 'usage': item['usage']})
                 if len(rows) % 20 == 0:
                     self.stdout.write('Prepared {}/100 products within transaction'.format(len(rows)))
                     self.stdout.flush()
@@ -221,9 +221,9 @@ class Command(BaseCommand):
                     'backup': backup.name, 'attribute_count_per_sku': len(ATTRIBUTES), 'images_generated': False}
         (directory / (batch + '-manifest.json')).write_text(json.dumps(manifest, ensure_ascii=False, indent=2), encoding='utf-8')
         lines = ['# 100 种虚拟茶商品', '', '批次：{}。每种独立 SPU 配一个 SKU；所有商品及属性为虚拟测试数据。'.format(batch), '',
-                 '| SKU | 商品 | 茶类 | 规格 | USD 单价 | 可用库存 | 模拟场景 |', '|---:|---|---|---|---:|---:|---|']
+                 '| SKU | 商品 | 茶类 | 规格 | CNY 单价 | 可用库存 | 模拟场景 |', '|---:|---|---|---|---:|---:|---|']
         for row in rows:
-            lines.append('| {sku_id} | {name} | {category} | {specification} | {price_usd} | {stock} | {usage} |'.format(**row))
+            lines.append('| {sku_id} | {name} | {category} | {specification} | {price_cny} | {stock} | {usage} |'.format(**row))
         lines += ['', '完整字段与外键、时间戳、规格关联、类型属性和库存记录见同目录 fixture.json；类型不适用的属性值列保留 NULL，图片字段留空。',
                   '销售与评价计数初始化为 0。批次重复执行不会追加商品。原有商品未修改。', '']
         (directory / 'catalog.md').write_text('\n'.join(lines), encoding='utf-8')

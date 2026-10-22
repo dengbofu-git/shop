@@ -281,7 +281,7 @@
           brand: brand,
           nameZh: spuName || (sku && sku.name ? String(sku.name) : ''),
           cat1: catalog,
-          priceUsd: parseFloat(sku && sku.price ? sku.price : '0') || 0,
+          priceCny: parseFloat(sku && sku.price ? sku.price : '0') || 0,
           stock: parseInt(sku && sku.stock != null ? sku.stock : 0, 10) || 0,
           safe: 100,
           createdAt: '-',
@@ -349,7 +349,7 @@
         + '</td>'
         + '<td><div style="color:#1b5e20;font-weight:700;">' + escapeHtml(p.cat1) + '</div></td>'
         + '<td class="' + stockClass + '">' + p.stock + '<div class="muted">' + (p.stock === 0 ? '库存无（=0）' : (p.stock <= 100 ? '库存紧张（<=100）' : '库存充足（>100）')) + '</div></td>'
-        + '<td>USD ' + (p.priceUsd || 0).toFixed(2) + '</td>'
+        + '<td>CNY ' + (p.priceCny || 0).toFixed(2) + '</td>'
         + '<td><span class="tag ' + st.cls + '">' + st.text + '</span></td>'
         + '<td><span class="tag ' + lt.cls + '">' + lt.text + '</span></td>'
         + '<td class="muted">' + p.createdAt + '</td>'
@@ -633,7 +633,7 @@
     if (byId('f-brand')) byId('f-brand').value = p.brand || '';
     if (byId('f-catalog')) byId('f-catalog').value = p.cat1 || '';
     if (byId('f-introduction')) byId('f-introduction').value = p.caption || '';
-    if (byId('f-price')) byId('f-price').value = p.priceUsd || 0;
+    if (byId('f-price')) byId('f-price').value = p.priceCny || 0;
     if (byId('f-stock')) byId('f-stock').value = p.stock || 0;
     if (byId('f-launched')) byId('f-launched').value = p.is_launched ? 'true' : 'false';
     if (byId('f-cur-img')) byId('f-cur-img').setAttribute('src', p.image || '/static/images/cart/product_normal.png');

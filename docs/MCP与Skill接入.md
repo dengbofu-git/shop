@@ -73,21 +73,21 @@ TEA_SAAS_PYTHON = "E:/miniconda/envs/tea_saas/python.exe"
     "specification": "50克装",
     "category": "绿茶",
     "price": "12.30",
-    "currency": "USD",
+    "currency": "CNY",
     "price_basis": "unit",
-    "currency_source": "legacy_buyer_agent_convention",
+    "currency_source": "configured_base_currency",
     "available_stock": 10,
     "stock_source": "sku_stock_fallback",
     "attributes": []
   },
   "observed_at": "2026-10-18T12:00:00+08:00",
-  "limitations": ["USD 沿用既有展示约定；价格与库存以下单校验为准。"]
+  "limitations": ["基础价格为人民币CNY；外币为参考显示，价格与库存以下单校验为准。"]
 }
 ```
 
 库存存在账本时读取账本 `available_quantity` 合计，仅无账本时回退 `SKU.stock`。库存为零／负数、未上架和不存在统一返回 `status=no_match, data=null`；无匹配是正常结果，MCP `isError=false`。不披露隐藏商品存在性，也不替换成其他商品。
 
-`price` 为两位小数字符串。数据库价格缺少币种字段，USD 只延续既有买家 Agent 约定，不证明真实支付币种。`observed_at` 是本次读取时间，不是价格有效期、库存预留或跨查询快照承诺。
+`price` 为两位小数字符串，自2026-10-22按人民币CNY基础价解释，原数值不批量换算。外币仅为参考显示，详见[金额规格](sdd/architecture/currency.md)。`observed_at` 是本次读取时间，不是价格有效期、库存预留或跨查询快照承诺。
 
 公开属性白名单在 `support_ai/product_details.py`，只返回配料、口感、香气、产地、净含量、包装以及明确命名的模拟字段，每次最多 50 条。SPU 与 SKU 层记录均保留，按记录 ID 排序；当前不推断属性覆盖关系。属性值按既有脱敏规则处理。成本价、内部属性、商家身份、仓库明细和客户数据不返回。公开商家文本仍属于不可信数据，不能当成执行指令或已核验认证。
 

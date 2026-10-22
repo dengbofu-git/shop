@@ -20,12 +20,13 @@
     </nav>
     <div class="sidebar-currency">
         <label for="currency-select" data-i18n="currency">币种</label>
-        <select id="currency-select" aria-label="币种"{% if fixed_currency %} disabled title="订单以 USD 结算"{% endif %}>
-            <option value="USD" selected>USD</option>
+        <select id="currency-select" aria-label="币种"{% if fixed_currency %} disabled title="人民币（CNY）基础金额"{% endif %}>
+            <option value="CNY" selected>CNY 人民币</option>
             {% if not fixed_currency %}
+            <option value="USD">USD</option>
             <option value="AED">AED</option>
             <option value="SAR">SAR</option>
-            {% if active == 'home' %}<option value="CNY">CNY 人民币</option><option value="EUR">EUR</option>{% endif %}
+            <option value="EUR">EUR</option>
             {% endif %}
         </select>
     </div>

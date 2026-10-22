@@ -2,7 +2,7 @@
     'use strict';
     var utils = CheckoutUtils;
     var apiBase = typeof baseUrl === 'string' ? baseUrl.replace(/\/$/, '') : '';
-    var state = { items: [], addresses: [], addressId: null, type: '0', count: null, sku: null, media: '', currency: 'USD', ready: false };
+    var state = { items: [], addresses: [], addressId: null, type: '0', count: null, sku: null, media: '', currency: 'CNY', ready: false };
     var token = AuthStorage.getToken(), user = AuthStorage.getUser();
     function byId(id) { return document.getElementById(id); }
     function node(tag, text, cls) {
@@ -66,7 +66,7 @@
         byId('checkout-total').textContent = utils.format(total.cents, state.currency);
         byId('checkout-lines-count').textContent = state.items.length + ' 款商品';
         byId('products-empty').hidden = state.items.length > 0;
-        byId('currency-note').textContent = (state.currency === 'USD' ? '商品按 USD 基准价展示。' : '参考换算：1 USD ≈ ' + (state.currency === 'AED' ? '3.67 AED' : '3.75 SAR') + '，非实时汇率。') + '商品合计不含尚未确认的费用，最终结算金额、运费及实际扣款币种以支付页为准。';
+        byId('currency-note').textContent = (state.currency === 'CNY' ? '商品按人民币（CNY）基础价展示。' : '外币仅按人民币基础价参考换算，非实时汇率。') + '商品合计不含尚未确认的费用，订单金额以人民币记录，实际扣款以支付页为准。';
     }
     async function api(path, options) {
         var response = await fetch(apiBase + path, Object.assign({ headers: { Authorization: token, 'Content-Type': 'application/json' }, cache: 'no-store' }, options));

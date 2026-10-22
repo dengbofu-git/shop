@@ -31,7 +31,7 @@ window.MerchantProductPreview = {
         info.appendChild(node('h3', product.nameZh));
         var fields = node('dl');
         [['商品编号', product.sku_id], ['茶类', product.cat1], ['品牌', product.brand || '未设置'],
-         ['售价', 'USD ' + Number(product.priceUsd || 0).toFixed(2)], ['库存', product.stock],
+         ['售价', 'CNY ' + Number(product.priceCny || 0).toFixed(2)], ['库存', product.stock],
          ['状态', product.is_launched ? '上架' : '下架']].forEach(function (pair) {
             fields.append(node('dt', pair[0]), node('dd', String(pair[1])));
         });
