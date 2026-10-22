@@ -104,11 +104,11 @@ class GroupedRecommendationTests(TestCase):
     def test_explicit_subset_and_budget_and_exclusion_are_retained(self):
         subset = self.run_tool('绿茶和红茶各推荐一款，并给出理由')
         self.assertEqual([p['category'] for p in subset.data['recommendations']], ['绿茶', '红茶'])
-        message = '按不同茶类推荐，每盒不超过12美元，不要红茶'
+        message = '按不同茶类推荐，每盒不超过12元，不要红茶'
         evidence = lambda field, value: {'field': field, 'value': value, 'source': 'CURRENT', 'quote': message}
-        payload = {'action': 'SEARCH', 'required': {'price_max': '12', 'currency': 'USD', 'price_basis': 'unit'},
+        payload = {'action': 'SEARCH', 'required': {'price_max': '12', 'currency': 'CNY', 'price_basis': 'unit'},
                    'excluded': {'categories': ['红茶']}, 'evidence': [evidence('required.price_max', '12'),
-                       evidence('required.currency', 'USD'), evidence('required.price_basis', 'unit'),
+                       evidence('required.currency', 'CNY'), evidence('required.price_basis', 'unit'),
                        evidence('excluded.categories', '红茶')]}
         result = self.run_tool(message, payload)
         self.assertEqual([p['category'] for p in result.data['recommendations']], ['绿茶', '白茶'])

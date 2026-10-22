@@ -1,0 +1,233 @@
+{
+  "main_sha": "a5e978836e9e3316d24c4204fd7dbe1178c03a4e",
+  "files": [
+    {
+      "path": "client/static/js/buyer-activity.js",
+      "sha256_lf": "c6748c7844e79d9c8ba67b5f42d2eb5af03f89cea9128ddbaaecb8054bfc0e25"
+    },
+    {
+      "path": "client/static/js/buyer-orders.js",
+      "sha256_lf": "3eba3c09a8e84bd0ca12303d5e1dc52898c4d3c4d7cc049fe6630dab190b4637"
+    },
+    {
+      "path": "client/static/js/buyer-products.js",
+      "sha256_lf": "04dbdfe73ab999cead021b835935f35456d62efb119c35114784db3f12ab675d"
+    },
+    {
+      "path": "client/static/js/buyer-support.js",
+      "sha256_lf": "5d97b0dc54ee0d0bdd885c6337cf16c06ca9f22ad416d9821de8adb9fb6a95b3"
+    },
+    {
+      "path": "client/static/js/buyer-workbench.js",
+      "sha256_lf": "f03a7912ca5435a7db3a2c39257d8048adc75ec25be14f3a29e1898fa39b4c4e"
+    },
+    {
+      "path": "client/static/js/cart.js",
+      "sha256_lf": "2ea2d5f8a1ef1fea6eb38d81766ec2427f507847a5fa39cb7b83e689882343d8"
+    },
+    {
+      "path": "client/static/js/checkout-utils.js",
+      "sha256_lf": "8942ad96ca28624247245bab72b2ff1019cf9f65ad5031359bb1fd693c52252f"
+    },
+    {
+      "path": "client/static/js/currency.js",
+      "sha256_lf": "dfad02de6caa36e331892447597582c863ccedc2e0036368aa4dbfc4f55a6a40"
+    },
+    {
+      "path": "client/static/js/merchant-product-preview.js",
+      "sha256_lf": "5db6fe593f1152606b410d1f2c3b70bf17782bc83fba07d114b12cee84c855bd"
+    },
+    {
+      "path": "client/static/js/merchant_products.js",
+      "sha256_lf": "7af13513d8ba060df01944ded56660610b885c8217ec28eb1ff16dbb07948000"
+    },
+    {
+      "path": "client/static/js/orderconfirm.js",
+      "sha256_lf": "c56284b1842c7f2088c4a73c0018b07e193866ae535ecd680be06f4d3fddaf75"
+    },
+    {
+      "path": "client/static/js/product-detail-summary.js",
+      "sha256_lf": "f8f748eaab47f68b196263ef0010ee18cc2e9f38c8dfa1f59081ef0c5f861496"
+    },
+    {
+      "path": "client/static/js/storefront.js",
+      "sha256_lf": "ffa67d856e6935ff3d21ac29a3e33e642583464bdde5612e9f1a91c26266f5fa"
+    },
+    {
+      "path": "client/templates/buyer_activity.html",
+      "sha256_lf": "357cd4810f991547b1da4816125d665c10fec598d9dd52a17c3a803a275b6620"
+    },
+    {
+      "path": "client/templates/buyer_dashboard.html",
+      "sha256_lf": "37eccd4c7f1e0e320c31bf74ee2df36b01078ad2c46d9b50f6f08647323c7bad"
+    },
+    {
+      "path": "client/templates/buyer_orders.html",
+      "sha256_lf": "539e651feebd38c5da6859ec7bbfac75ad3e3b529c4d1ec93305e9364591e4b6"
+    },
+    {
+      "path": "client/templates/buyer_password.html",
+      "sha256_lf": "8a5151ad96f798bfca86c6755410d7956f3a603bacfa31e7240916ce5ffac612"
+    },
+    {
+      "path": "client/templates/buyer_products.html",
+      "sha256_lf": "2b9fef7c3f9ec9b2e5d4af21f5aad801dcdee512909dc5a0bc1df0748eacdb75"
+    },
+    {
+      "path": "client/templates/buyer_profile.html",
+      "sha256_lf": "0d8f7321d38b7f3e8b0d78f3b29eb64e5b306d570156d6f7c1dd4c42c6946e07"
+    },
+    {
+      "path": "client/templates/buyer_reviews.html",
+      "sha256_lf": "7667041aa53d6e4ce973937b4c89006cbc7b6246bf0c7d08e8e0673477cfeb71"
+    },
+    {
+      "path": "client/templates/buyer_sidebar.html",
+      "sha256_lf": "632cce528db59ff0adc2e4d5c682d87be1790c122fb2d2ea0993bbf1659a9923"
+    },
+    {
+      "path": "client/templates/buyer_support.html",
+      "sha256_lf": "a2a4c42482d51f441bf801a44a7ced8515e9ef46f01c1815c3c8affbba19794a"
+    },
+    {
+      "path": "client/templates/cart.html",
+      "sha256_lf": "4f2a163bd7ac416e458d0be630169c7c2f3df2c24164a63730fb927bddbd1339"
+    },
+    {
+      "path": "client/templates/merchant_products.html",
+      "sha256_lf": "4cc773652dd0bd5c7d08891da87fd9a42b23d81a8245ecbe39e15ac60700f19e"
+    },
+    {
+      "path": "client/templates/merchant_store.html",
+      "sha256_lf": "ea6840492f875d0b19b7ed3c629e140d2fbfd1cd961bd45fc75929bea4e329f2"
+    },
+    {
+      "path": "client/templates/orderConfirm.html",
+      "sha256_lf": "fbadef8a7dad4e340869592cbd8418116721ad61067629e7fa7a64b400d75d7a"
+    },
+    {
+      "path": "client/templates/pay_success.html",
+      "sha256_lf": "a14ac87298ac8b300ee63369d25189ba62e728311bee4ef0fc36feeb0177c7a3"
+    },
+    {
+      "path": "client/templates/payment.html",
+      "sha256_lf": "b9dc5399d99ae4d319c1f893efeb110398b61eadd22879dfde2606d10db5a83f"
+    },
+    {
+      "path": "client/templates/product_details.html",
+      "sha256_lf": "227e815ad7173e02e3e42ed8de005f327b9bd3e06ad080d79dc3bae0d2b4fe44"
+    },
+    {
+      "path": "client/templates/shared/system_theme.html",
+      "sha256_lf": "3fc3d560561fcfdfa5dff7c6446d8d082afe8c1c5802a0073eec7a17f33af151"
+    },
+    {
+      "path": "client/templates/store.html",
+      "sha256_lf": "25146a1245ba87665fe403e5b25374e3a32ca8cc7ff61ae6f18d4351f2adff78"
+    },
+    {
+      "path": "client/tests/checkout.test.js",
+      "sha256_lf": "9da352b21109dcd9fa02b8b6805f3df4ead841f6d840f6fed16810aaa59b120e"
+    },
+    {
+      "path": "client/tests/product-detail-summary.test.js",
+      "sha256_lf": "cd924d733a7f03e64a055f9e55b240ff42007044844047e86c252f192a3a0ff4"
+    },
+    {
+      "path": "client/tests/storefront.test.js",
+      "sha256_lf": "0a0575d1527de0b4c7ce857840f53ec58c8cd98d32359d7a18970968e88580f5"
+    },
+    {
+      "path": "goods/management/commands/seed_virtual_tea_products.py",
+      "sha256_lf": "366c490619c8ad75278ef3f9145b4ae9a1d480de1f41cb7488864759bf4b49b5"
+    },
+    {
+      "path": "support_ai/budget_combinations.py",
+      "sha256_lf": "8bb97621707e98e76e04e336496eb986219fd12b1d13efdc017080f14a2ab1b6"
+    },
+    {
+      "path": "support_ai/bundle_recommendations.py",
+      "sha256_lf": "61883c0f5e320b545c11d3c8a51061c545a1771a31390a92e332b1f329408c86"
+    },
+    {
+      "path": "support_ai/contracts.py",
+      "sha256_lf": "b399c63b4aeb9bd70d34b1ebfc4fff8fcca350abdd2ca5e8e3fee45471291a0b"
+    },
+    {
+      "path": "support_ai/diagnostics.py",
+      "sha256_lf": "d978514144e3a855aba9d575d721fb86f96184215c46acc28da9f70a1170ca43"
+    },
+    {
+      "path": "support_ai/planning.py",
+      "sha256_lf": "0f70d9faaf29e77e917d1c55f09c746060d9252657443468315a412aa9160329"
+    },
+    {
+      "path": "support_ai/product_details.py",
+      "sha256_lf": "87e106568b5f10fae02a8035c8f2ca3edf28eb8cfb608b934526d198d3af2b31"
+    },
+    {
+      "path": "support_ai/recommendation_explanations.py",
+      "sha256_lf": "d3d484b7ab46de0a56a1f4da148f18b275e93f2b8d6ac39574383108254a5154"
+    },
+    {
+      "path": "support_ai/recommendations.py",
+      "sha256_lf": "dbd342af1d73dfd6289b82767f302d26fd64204c97ffacff6cdba19e8f17b838"
+    },
+    {
+      "path": "support_ai/semantic_planning.py",
+      "sha256_lf": "922c05a0f82e5b869a80feea17b35c6bd4df7cecbff45574ebe1cd863b979afa"
+    },
+    {
+      "path": "support_ai/test_budget_combinations.py",
+      "sha256_lf": "508cf04160121c96e120445c8227a224d25b9a1919d89807f7e1dedccec3f4c8"
+    },
+    {
+      "path": "support_ai/test_grouped_recommendations.py",
+      "sha256_lf": "aae762742a463e3e59601566b2d05cd28f22dcf81648ead058418e2900c61dd8"
+    },
+    {
+      "path": "support_ai/test_mixed_tea.py",
+      "sha256_lf": "a938e4e821e07a9a384863f55e679772881f843e787262481858b355fb4d2316"
+    },
+    {
+      "path": "support_ai/test_semantic_planning.py",
+      "sha256_lf": "c0fc66db2e9e0c78de31cc52c8787fa403f3f2410f3a9eb3d586fabc0b7c2e8c"
+    },
+    {
+      "path": "support_ai/tests.py",
+      "sha256_lf": "27e20c12ae4b85b2c1d2540aa2286fcb803707fd280f668a0e137a99a082d492"
+    },
+    {
+      "path": "support_ai/tool_services.py",
+      "sha256_lf": "ae6000c3a3bd4e5df57dab0dc9ac323d74913003ddc5382ab8cbb7d8d81a06f4"
+    },
+    {
+      "path": "support_ai/total_budget_intent.py",
+      "sha256_lf": "fac05f4f1ff04df17048607c31cc18f34dcb072eeb801d0f4c4b4c601e50623e"
+    },
+    {
+      "path": "support_ai/workflow.py",
+      "sha256_lf": "996aeecd89e3397f09272c19de5f6429bafefef0bb5cc562554d0882d13fc362"
+    },
+    {
+      "path": "tea_saas/currency.json",
+      "sha256_lf": "f1d1eb416f5f3d015a6fa45ca90173505ad3e3e2b7d4bea62e555eba882bde8a"
+    },
+    {
+      "path": "tea_saas/currency.py",
+      "sha256_lf": "582ee1bffda4654dbe38d67c8e705be1253103e30bfecc9f421c1cebb3f5b34c"
+    },
+    {
+      "path": "tea_saas/settings.py",
+      "sha256_lf": "097725f6abe0c184915e151990a8ef194f9dac677ece545201f0f5dc928ca0e2"
+    },
+    {
+      "path": "tools/tea_saas_mcp/server.py",
+      "sha256_lf": "f30ac743b4a148b5e5165753d99dda8bbdf262e9063ac3de4d668857ce5d2233"
+    },
+    {
+      "path": "versions/modules.json",
+      "sha256_lf": "4c50ad72cd41a8a2114bbddbeb2dad03f20bf9319ca4b55b837923efb9d0c818"
+    }
+  ]
+}

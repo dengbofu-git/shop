@@ -5,7 +5,7 @@
 (function() {
     'use strict';
 
-    var currentCurrency = 'USD';
+    var currentCurrency = 'CNY';
 
     var i18n = {
         zh: {
@@ -40,10 +40,10 @@
             brand_short: 'tea_saas',
             banner1_title: '开斋节礼盒促销',
             banner1_desc: '英德红茶礼盒 · 清真认证',
-            banner1_price: '$68 起',
+            banner1_price: '¥68 起',
             banner2_title: '2024 明前龙井新茶',
             banner2_desc: '地理标志 · 产地可溯',
-            banner2_price: '$45 起',
+            banner2_price: '¥45 起',
             banner3_title: '大宗采购阶梯优惠',
             banner3_desc: '100件以上 15% off · 500件以上 25% off',
             banner3_price: '询盘报价',
@@ -162,10 +162,10 @@
             brand_short: 'tea_saas',
             banner1_title: 'Eid Gift Box',
             banner1_desc: 'Yingde black tea gift box · Halal certified',
-            banner1_price: 'From $68',
+            banner1_price: 'From ¥68',
             banner2_title: '2024 Pre-Qingming Longjing',
             banner2_desc: 'Geographic indication · traceable origin',
-            banner2_price: 'From $45',
+            banner2_price: 'From ¥45',
             banner3_title: 'Bulk tier discount',
             banner3_desc: '100+ units: 15% off · 500+ units: 25% off',
             banner3_price: 'Request quote',
@@ -284,10 +284,10 @@
             brand_short: 'tea_saas',
             banner1_title: 'صندوق هدايا العيد',
             banner1_desc: 'شاي ينغدي · معتمد حلال',
-            banner1_price: 'من 68$',
+            banner1_price: 'من 68¥',
             banner2_title: 'لونججينغ 2024',
             banner2_desc: 'علامة جغرافية · أصل قابل للتتبع',
-            banner2_price: 'من 45$',
+            banner2_price: 'من 45¥',
             banner3_title: 'خصم بالجملة',
             banner3_desc: '100+ وحدة: 15% · 500+ وحدة: 25%',
             banner3_price: 'طلب عرض سعر',
@@ -392,10 +392,9 @@
         var c = parseFloat(cny);
         if (isNaN(c)) c = 0;
         el.setAttribute('data-cny', c.toFixed(2));
-        el.setAttribute('data-usd', (c * 0.14).toFixed(0));
-        el.setAttribute('data-aed', (c * 0.51).toFixed(0));
-        el.setAttribute('data-sar', (c * 0.52).toFixed(0));
-        el.setAttribute('data-eur', (c * 0.13).toFixed(0));
+        Object.keys(TeaMoney.rates).forEach(function (code) {
+            el.setAttribute('data-' + code.toLowerCase(), TeaMoney.amount(c, code).toFixed(2));
+        });
     }
 
     function addToCartFromCard(card) {
@@ -678,14 +677,11 @@
 
     function formatDisplayPrice(value) {
         var amount = parseFloat(value) || 0;
-        var rates = {CNY: 1, USD: 0.14, AED: 0.51, SAR: 0.52, EUR: 0.13};
-        var symbols = {CNY: '¥', USD: '$', AED: 'AED ', SAR: 'SAR ', EUR: '€'};
-        var currency = Object.prototype.hasOwnProperty.call(rates, currentCurrency) ? currentCurrency : 'CNY';
-        return symbols[currency] + (amount * rates[currency]).toFixed(2);
+        return TeaMoney.format(amount, currentCurrency);
     }
 
     function updatePrices() {
-        document.querySelectorAll('.product-price').forEach(function(el) {
+        document.querySelectorAll('.product-price,[data-currency-price]').forEach(function(el) {
             if (el.getAttribute('data-cny') !== null) {
                 el.textContent = formatDisplayPrice(el.getAttribute('data-cny'));
                 return;

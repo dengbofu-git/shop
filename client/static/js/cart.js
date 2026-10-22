@@ -7,8 +7,8 @@
     var mediaBase = typeof imgUrl === 'string' ? imgUrl : apiBase + '/media/';
     var pendingDeleteId = null;
     // 与商品采购页保持相同的展示比例，不改变服务端价格或结算数据。
-    var rates = { USD: 1, AED: 3.67, SAR: 3.75 };
-    var currentCurrency = 'USD';
+    var rates = TeaMoney.rates;
+    var currentCurrency = TeaMoney.base;
 
     function escapeHtml(value) {
         return String(value == null ? '' : value).replace(/[&<>"']/g, function (char) {
@@ -18,8 +18,7 @@
 
     function money(value) {
         var amount = Number(value);
-        var symbol = currentCurrency === 'USD' ? '$' : currentCurrency + ' ';
-        return symbol + ((isFinite(amount) ? amount : 0) * rates[currentCurrency]).toFixed(2);
+        return TeaMoney.format(isFinite(amount) && amount >= 0 ? amount : 0, currentCurrency);
     }
 
     function unitPrice(item) {
@@ -42,10 +41,10 @@
     function updateSummary() {
         var chosen = items.filter(selected);
         var total = chosen.reduce(function (sum, item) {
-            return sum + unitPrice(item) * (Number(item.count) || 1);
+            return sum + TeaMoney.convertCents(TeaMoney.cents(unitPrice(item)) * (Number(item.count) || 1), currentCurrency);
         }, 0);
         $('.total,.totalOne').text(chosen.length);
-        $('.susum,.susumOne').text(money(total));
+        $('.susum,.susumOne').text(TeaMoney.formatCents(total, currentCurrency));
         $('#allcheck').prop('checked', items.length > 0 && chosen.length === items.length);
         $('#go-buy').prop('disabled', chosen.length === 0);
         $('.my_cart_count').text(items.length);
@@ -152,7 +151,7 @@
             if (Object.prototype.hasOwnProperty.call(rates, savedCurrency)) currentCurrency = savedCurrency;
         } catch (_) {}
         $('#currency-select').val(currentCurrency).on('change', function () {
-            currentCurrency = Object.prototype.hasOwnProperty.call(rates, this.value) ? this.value : 'USD';
+            currentCurrency = TeaMoney.currency(this.value);
             $(this).val(currentCurrency);
             try { localStorage.setItem('buyer_cart_currency', currentCurrency); } catch (_) {}
             render();

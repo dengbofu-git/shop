@@ -206,13 +206,13 @@ class RecommendationContractTests(SimpleTestCase):
         self.assertEqual(result.required.categories, ['绿茶'])
         self.assertEqual(result.preferred.categories, [])
 
-    def test_unknown_currency_or_total_budget_clarifies_instead_of_becoming_unit_price(self):
+    def test_total_budget_without_currency_uses_base_currency(self):
         payload = {'action': 'SEARCH', 'required': {'price_max': '50', 'price_basis': 'total'},
                    'evidence': [evidence('required.price_max', '50', '总预算50'),
                                 evidence('required.price_basis', 'total', '总预算50')]}
         result = validate_recommendation_intent(payload, '总预算50', [], None)
-        self.assertEqual(result.action, 'CLARIFY')
-        self.assertEqual(set(result.missing_fields), {'currency', 'budget_scope'})
+        self.assertEqual(result.action, 'SEARCH')
+        self.assertEqual(set(result.missing_fields), set())
 
     def test_only_known_recent_user_turns_can_supply_continuation(self):
         payload = {'action': 'SEARCH', 'required': {'categories': ['红茶']},
@@ -267,7 +267,7 @@ class RecommendationIntegrationTests(DatabaseTestCase):
     def test_matching_enforces_budget_launch_and_inventory_without_popular_fallback(self):
         from .recommendations import match_products
         intent = RecommendationIntent(action='SEARCH', required={'categories': ['绿茶'], 'price_max': '50',
-                                                                'currency': 'USD', 'price_basis': 'unit'})
+                                                                'currency': 'CNY', 'price_basis': 'unit'})
         result = match_products(intent)
         self.assertEqual([card['sku_id'] for card in result['recommendations']], [self.skus[1].pk])
         self.assertEqual(result['recommendations'][0]['price'], '40.00')

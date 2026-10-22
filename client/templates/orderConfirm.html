@@ -38,14 +38,14 @@
                     <section class="checkout-panel" aria-labelledby="products-heading">
                         <div class="checkout-section-head"><h2 id="products-heading">商品明细</h2><span id="checkout-lines-count" class="checkout-muted"></span></div>
                         <div class="checkout-table-wrap">
-                            <table class="checkout-table"><thead><tr><th scope="col">商品信息</th><th scope="col">单价 <span data-checkout-currency>USD</span></th><th scope="col">数量</th><th scope="col">小计 <span data-checkout-currency>USD</span></th></tr></thead><tbody id="checkout-items"></tbody></table>
+                            <table class="checkout-table"><thead><tr><th scope="col">商品信息</th><th scope="col">单价 <span data-checkout-currency>CNY</span></th><th scope="col">数量</th><th scope="col">小计 <span data-checkout-currency>CNY</span></th></tr></thead><tbody id="checkout-items"></tbody></table>
                         </div>
                         <p id="products-empty" class="checkout-empty" hidden>没有待结算商品，<a href="cart.html">返回采购车重新选择</a>。</p>
                     </section>
                 </div>
                 <aside class="checkout-panel checkout-summary" aria-labelledby="summary-heading">
                     <h2 id="summary-heading">订单摘要</h2>
-                    <dl><div><dt>商品数量</dt><dd><span id="count">0</span> 件</dd></div><div><dt>展示币种</dt><dd data-checkout-currency>USD</dd></div><div class="checkout-total"><dt>商品合计</dt><dd class="zj" id="checkout-total">$0.00</dd></div></dl>
+                    <dl><div><dt>商品数量</dt><dd><span id="count">0</span> 件</dd></div><div><dt>展示币种</dt><dd data-checkout-currency>CNY</dd></div><div class="checkout-total"><dt>商品合计</dt><dd class="zj" id="checkout-total">¥0.00</dd></div></dl>
                     <p id="currency-note" class="checkout-note">金额为商品参考合计。最终结算金额、运费及实际扣款币种以支付页为准。</p>
                     <div class="checkout-delivery"><span>配送至</span><p id="checkout-delivery">请选择收货地址</p></div>
                     <button type="button" class="checkout-primary" id="go_pay" disabled>确认并付款 <span aria-hidden="true">→</span></button>
@@ -74,7 +74,7 @@
 <script src="/static/js/buyer-workbench.js?v=20261022-account-menu"></script>
 <script src="/static/js/distpicker.data.js"></script>
 <script src="/static/js/distpicker.js"></script>
-<script src="/static/js/checkout-utils.js?v=20261018-checkout-layout"></script>
-<script src="/static/js/orderconfirm.js?v=20261018-checkout-layout"></script>
+<script src="/static/js/checkout-utils.js?v=20261022-cny"></script>
+<script src="/static/js/orderconfirm.js?v=20261022-cny"></script>
 </body>
 </html>

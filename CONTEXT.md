@@ -13,7 +13,7 @@
 | SKU／商品规格项 | 具体商品项，关联 SPU，具有售价、库存及上架状态；公开详情工具以 `sku_id` 定位 | [SKU 模型](goods/models.py)、[公开详情](support_ai/product_details.py) |
 | 采购车／购物车 | 买家待结算的商品选择；产品文案用“采购车”，既有代码和接口保留 `carts` 等标识 | [架构与展示约定](docs/sdd/architecture/context.md) |
 | 可用库存 | 必须说明使用入口及来源。当前 AI 公开商品读取有账本时使用账本可用量，无账本时回退 SKU 库存；其他入口存在口径差异 | [公开商品范围](support_ai/recommendations.py)、[已知差异](docs/sdd/architecture/context.md) |
-| 展示币种／参考换算 | 当前公开商品工具沿用 USD 展示约定，部分页面提供参考换算；不能据此推断支付或结算币种 | [商品详情限制](support_ai/product_details.py)、[未决问题](docs/sdd/product/open-questions.yaml) |
+| 基础币种／参考换算 | 2026-10-22起基础价格与计算统一人民币CNY，USD／AED／SAR／EUR仅按共用参考比例显示；未标币种预算默认CNY，页面选择不改变订单金额或实际渠道扣款 | [金额规格](docs/sdd/architecture/currency.md)、[决定](docs/adr/0003-cny-base-currency.md) |
 | 实现模块 | `versions/modules.json` 中有独立版本的代码资产归属，如 `goods`、`support_ai` | [模块清单](versions/modules.json) |
 | 业务域／能力切片 | SDD 中的 `MOD-*`／`CAP-*`；业务归属和能力阶段不等于 Django App 划分或实现模块版本 | [SDD 工作约定](docs/sdd/governance/workflow.md) |
 | SaaS 定位 | 当前产品定位；不代表已实现租户隔离、订阅计费或完整交易闭环 | [当前状态](docs/sdd/product/current-state.md) |

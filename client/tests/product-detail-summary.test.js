@@ -4,7 +4,9 @@ const fs = require('node:fs');
 const summary = require('../static/js/product-detail-summary.js');
 const workbench = fs.readFileSync('client/static/js/buyer-workbench.js','utf8');
 const formatter = workbench.slice(workbench.indexOf('    function formatDisplayPrice('),workbench.indexOf('    function updatePrices('));
-const catalogPrice = new Function('currentCurrency','value',formatter + '\nreturn formatDisplayPrice(value);');
+const money = require('../static/js/currency.js');
+const formatterFn = new Function('TeaMoney','currentCurrency','value',formatter + '\nreturn formatDisplayPrice(value);');
+const catalogPrice = (code,value) => formatterFn(money,code,value);
 
 class Element {
     constructor(tag) {this.tag=tag;this.children=[];this.attrs={};this.events={};this.textContent='';}
@@ -41,7 +43,7 @@ test('currency chosen before the API response is respected; unavailable price is
     app.ui.render(fixture);assert.equal(app.nodes['detail-price-value'].textContent,'SAR 34.58');
     for(const bad of [null,undefined,'', 'invalid',-1]) assert.equal(summary.price(bad,'USD'),'—');
     assert.equal(summary.price(0,'USD'),'USD 0.00');
-    assert.equal(summary.price(66,'__proto__'),'USD 9.24');
+    assert.equal(summary.price(66,'__proto__'),'CNY 66.00');
 });
 
 test('net content displays only the selected value as text, while other specifications remain buttons',()=>{

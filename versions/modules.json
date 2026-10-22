@@ -3,7 +3,7 @@
   "modules": {
     "core": {
       "title": "项目核心",
-      "version": "0.6.2",
+      "version": "0.7.1",
       "paths": [
         "README.md",
         "CONTEXT.md",
@@ -41,7 +41,7 @@
     },
     "goods": {
       "title": "商品管理",
-      "version": "0.5.3",
+      "version": "0.6.1",
       "paths": [
         "goods/",
         "media/",
@@ -167,10 +167,11 @@
     },
     "support_ai": {
       "title": "智能客服",
-      "version": "0.15.0",
+      "version": "0.15.1",
       "paths": [
         "support_ai/",
         "docs/客服商品推荐设计.md",
+        "docs/sdd/modules/ai-support/total-budget-recommendation.md",
         "docs/Agent监控与模型设置.md",
         "docs/Agent多轮对话.md",
         "docs/Agent任务模板与对照评测.md",
@@ -228,7 +229,7 @@
     },
     "web": {
       "title": "页面与前端资源",
-      "version": "0.29.4",
+      "version": "0.29.5",
       "paths": [
         "client/",
         "templates/",

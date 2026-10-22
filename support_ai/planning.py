@@ -20,6 +20,12 @@ TOOL_FOR_INTENT = {
 MAX_STEPS = 5
 
 
+def recommendation_tool(purchase):
+    """The server chooses a fixed tool from validated purchase slots."""
+    return ('recommend_bundle' if purchase is not None and purchase.required.price_basis == 'total'
+            else 'recommend_products')
+
+
 class IntentRequest(BaseModel):
     model_config = ConfigDict(extra='forbid')
     kind: Intent
@@ -249,7 +255,9 @@ def validate_plan(plan):
     if len(set(ids)) != len(ids) or set(plan.output_order) != set(ids) or len(plan.output_order) != len(ids):
         raise ValueError('Invalid task identities or output order')
     for step in plan.steps:
-        if step.tool != TOOL_FOR_INTENT[step.intent]:
+        expected_tool = (recommendation_tool(step.purchase_intent) if step.intent == 'recommendation'
+                         else TOOL_FOR_INTENT[step.intent])
+        if step.tool != expected_tool:
             raise ValueError('Tool does not match its fixed template')
         if step.purchase_intent is not None and step.intent != 'recommendation':
             raise ValueError('Purchase conditions require a recommendation task')

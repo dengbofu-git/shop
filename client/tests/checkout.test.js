@@ -7,20 +7,20 @@ const utils = require('../static/js/checkout-utils.js');
 const items = ['75.00', '28.11', '60.00', '24.40'].map((price, i) => ({
     id: i + 1, name: 'Tea ' + i, price, count: 1, sku_sale_attr_name: [], sku_sale_attr_val: []
 }));
-assert.deepEqual(utils.summary(items, 'USD'), {count: 4, cents: 18751});
-assert.equal(utils.format(18751, 'USD'), '$187.51');
+assert.deepEqual(utils.summary(items, 'CNY'), {count: 4, cents: 18751});
+assert.equal(utils.format(18751, 'CNY'), '¥187.51');
 assert.equal(utils.cents('1.005'), 101);
 for (const invalid of ['NaN', 'Infinity', '-1', '<script>', '']) assert.throws(() => utils.cents(invalid));
 for (const invalid of [0, -1, 0.5, NaN, Infinity]) assert.throws(() => utils.quantity(invalid));
 const original = JSON.stringify(items);
-for (const currency of ['USD', 'AED', 'SAR', 'USD']) {
+for (const currency of ['CNY', 'USD', 'AED', 'SAR', 'EUR', 'CNY']) {
     const sum = utils.summary(items, currency);
     assert.equal(sum.cents, items.reduce((total, item) => total + utils.line(item, currency), 0));
     assert.equal(sum.count, 4);
 }
 assert.equal(JSON.stringify(items), original);
-assert.equal(utils.currency('__proto__'), 'USD');
-assert.equal(utils.summary([{price: '0.01', count: 3}, {price: '0.01', count: 3}], 'AED').cents, 22);
+assert.equal(utils.currency('__proto__'), 'CNY');
+assert.equal(utils.summary([{price: '0.01', count: 3}, {price: '0.01', count: 3}], 'AED').cents, 4);
 assert.equal(utils.summary([{price: '1', count: 3}], 'USD').count, 3);
 assert.equal(utils.request('').get('settlement_type'), '0');
 assert.equal(utils.request('?currency=AED').get('settlement_type'), '0');

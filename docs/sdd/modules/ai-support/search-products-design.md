@@ -1,5 +1,7 @@
 # tea_saas 商品搜索 MCP 详细设计草案
 
+2026-10-22币种增量：当前商品基础价已统一CNY，明确外币预算由程序参考换算，见[金额规格](../../architecture/currency.md)。下述首版USD限定保留为原草案记录，后续实现需按人民币规格修订契约；本文仍不代表search_products已实现。
+
 日期：2026-10-18。状态：设计草案，尚未实现或进入生产验收。本轮实施范围为 `get_product_details` 与开发交付 Skill，`search_products` 是后续独立增量。归属建议为 `support_ai` 的商品查询应用服务和 `core` 的 MCP 适配器，前端不因新增 MCP 自动变更。
 
 ## 目标和范围

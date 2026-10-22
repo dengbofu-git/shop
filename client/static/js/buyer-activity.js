@@ -91,7 +91,9 @@
                 var body = element('div', 'activity-card-body');
                 body.appendChild(element('h2', '', row.product_name || row.name));
                 body.appendChild(element('p', '', row.name));
-                body.appendChild(element('p', 'activity-price', '¥ ' + row.price));
+                var price = element('p', 'activity-price', TeaMoney.format(row.price, document.getElementById('currency-select').value));
+                price.dataset.cny = row.price; price.setAttribute('data-currency-price', '');
+                body.appendChild(price);
                 body.appendChild(element('p', 'activity-meta', t('recorded') + new Date(row.recorded_at).toLocaleString(document.documentElement.lang)));
                 var actions = element('div', 'activity-actions');
                 if (row.is_launched) {

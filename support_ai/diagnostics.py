@@ -12,7 +12,8 @@ def error_diagnostic(exc, stage):
         for item in exc.errors(include_input=False)[:8]:
             parts = [str(p) for p in item['loc']]
             allowed = {'required', 'preferred', 'excluded', 'categories', 'brands', 'keywords', 'price_min',
-                       'price_max', 'currency', 'price_basis', 'evidence', 'field', 'value', 'source',
+                       'price_max', 'budget_min', 'budget_max', 'quantity_per_product', 'distinct_count',
+                       'currency', 'price_basis', 'evidence', 'field', 'value', 'source',
                        'source_id', 'quote', 'action', 'missing_fields'}
             field = '.'.join(p if p in allowed or re.fullmatch(r'\d{1,2}', p) else 'unknown' for p in parts)
             fields.append({'field': field, 'code': item['type'],

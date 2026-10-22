@@ -1,5 +1,7 @@
 # 当前买家 Agent 能力与数据边界
 
+2026-10-22金额增量：support_ai 0.14.0统一以CNY为基础价和计算单位，未标币种默认人民币；明确外币预算由程序参考换算，显示不改变商品和订单原值。[金额规格](../../architecture/currency.md)替代下述历史USD展示约定；历史记录保留原币种。
+
 2026-10-19 语义规划增量对账；实现模块为 support_ai 0.12.0、ai_storage 0.3.2。本次没有页面改动。版本表示当前工作区登记，不代表发布。本文记录已实现行为与待验收点；CAP-AI-003 的规格0.2.0和 SPEC_REVIEW 状态保持不变。
 
 ## 任务和工具
@@ -9,6 +11,7 @@
 | 意图 | 固定工具 | 行为与边界 |
 | --- | --- | --- |
 | recommendation | recommend_products | 校验原话／历史／显式软偏好证据后筛选商品；单组1—4款，分组最多6类、每类最多4款、总计最多12款 |
+| recommendation（已确认总价） | recommend_bundle | 服务端按total条件选择；最多40个候选，默认2—4款、每款1件，整数分组合并复核，最多3套方案，单价条件不混用；见[总价增量](total-budget-recommendation.md) |
 | recommendation_explanation | explain_recommendations | 解释原列表中明确选定商品，重读当前事实，不自动换成新商品；歧义或不可售时明确说明 |
 | question_answering | introduce_tea | 基于已发布且用户可见的知识作答；茶类说明仅在有验证证据的范围内关联推荐 |
 | product_details | get_product_details | 先解析当前结果或历史商品指代，再经共用公开详情服务重查；缺货／下架不补其他商品 |

@@ -7,7 +7,9 @@ from typing import List, Literal, Optional
 from langchain_core.prompts import ChatPromptTemplate
 from pydantic import Field
 
-from .contracts import Contract, EvidenceField, RecommendationIntent, RecommendationOptions, validate_recommendation_intent
+from .contracts import (Contract, EvidenceField, RecommendationIntent, RecommendationOptions,
+                        validate_recommendation_intent, canonicalize_total_budget)
+from .total_budget_intent import simple_total_intent
 from .planning import Intent, IntentRequest, explicit_requests, build_plan
 from .pii import redact
 from .conversation_tasks import purchase_topic, apply_purchase_topic, without_reason_modifier
@@ -96,14 +98,34 @@ def _simple_purchase(message):
 
 def merge_purchase(previous, current, clear_fields, message, history, memory):
     """Merge verified task slots; current values replace the same field, never guesses."""
-    current = RecommendationIntent.model_validate(current).model_copy(deep=True)
+    current = canonicalize_total_budget(current)
     if previous is None:
         if clear_fields:
             raise ValueError('No active fields to clear')
         return validate_recommendation_intent(current, message, history, memory)
-    old = RecommendationIntent.model_validate(previous).model_copy(deep=True)
+    old = canonicalize_total_budget(previous)
     # Expired provenance must not silently turn a constrained request into a broad query.
-    validate_recommendation_intent(old, '', history, memory)
+    old = validate_recommendation_intent(old, '', history, memory)
+    if current.required.price_basis == 'unit' and old.required.price_basis == 'total':
+        # "I meant per item" reinterprets the confirmed amount. Explicit new
+        # amounts start a new range instead of inheriting a conflicting floor.
+        replace_range = current.required.price_min is not None or current.required.price_max is not None
+        for budget, price in (('budget_min', 'price_min'), ('budget_max', 'price_max')):
+            setattr(old.required, price, None if replace_range else getattr(old.required, budget))
+            setattr(old.required, budget, None)
+            if replace_range:
+                old.evidence = [e for e in old.evidence if e.field not in ('required.' + budget, 'required.' + price)]
+            else:
+                for item in old.evidence:
+                    if item.field == 'required.' + budget:
+                        item.field = 'required.' + price
+        old.required.quantity_per_product = old.required.distinct_count = None
+        old.evidence = [e for e in old.evidence if e.field not in (
+            'required.quantity_per_product', 'required.distinct_count')]
+    elif (current.required.price_basis == 'total' and old.required.price_basis != 'total'
+          and (current.required.budget_min is not None or current.required.budget_max is not None)):
+        old.required.price_min = old.required.price_max = None
+        old.evidence = [e for e in old.evidence if e.field not in ('required.price_min', 'required.price_max')]
     for section in ('required', 'preferred', 'excluded'):
         for field, value in getattr(current, section).model_dump().items():
             path = section + '.' + field
@@ -120,7 +142,7 @@ def merge_purchase(previous, current, clear_fields, message, history, memory):
     if current.required.price_basis:
         supplied.add('budget_scope')
     old.missing_fields = list(dict.fromkeys(
-        [f for f in old.missing_fields if f not in supplied and f not in ('currency', 'budget_scope')]
+        [f for f in old.missing_fields if f not in supplied and f not in ('currency', 'budget_scope', 'budget_amount')]
         + current.missing_fields))
     old.action = 'CLARIFY' if old.missing_fields else 'SEARCH'
     return validate_recommendation_intent(old, message, history, memory)
@@ -135,6 +157,20 @@ def plan_turn(model, message, history, memory):
     if re.fullmatch(r'(?:取消|算了|不用了|取消当前任务|取消推荐)[。！!\s]*', message):
         return SemanticPlan(action='cancel', standalone_question=message,
                             requests=[IntentRequest(kind='clarification', quote=message)]), 'rules', state
+    active_purchase = state.task == 'recommendation' and state.purchase is not None
+    active_budget = active_purchase and (
+        state.purchase.required.price_basis == 'total' or state.purchase.required.price_min is not None
+        or state.purchase.required.price_max is not None or state.purchase.required.currency is not None)
+    total = simple_total_intent(message, allow_supplement=active_budget)
+    if total is not None:
+        continuation = active_purchase and not re.search(r'推荐|搭配|帮我选|给我选', message)
+        action = ('supplement' if state.status == 'pending' else 'modify') if continuation else 'new_request'
+        topic = purchase_topic(message, message, history) if not continuation else {'state': 'none'}
+        if topic['state'] not in ('multiple', 'complex'):
+            total = apply_purchase_topic(total, topic)
+            total = merge_purchase(state.purchase if continuation else None, total, [], message, history, memory)
+            return SemanticPlan(action=action, standalone_question=message,
+                requests=[IntentRequest(kind='recommendation', quote=message)], purchase=total), 'rules', state
     if re.fullmatch(r'(?:请)?(?:推荐我偏好的商品|按我的偏好推荐商品|根据我的偏好推荐茶叶)[。！!\s]*', message):
         if memory and any(memory['preferences'].get(field) for field in ('categories', 'brands', 'keywords')):
             # The tool applies the current authenticated soft preferences; no
@@ -211,11 +247,19 @@ def plan_turn(model, message, history, memory):
          'supplement/modify只提取本轮新增或替换字段，程序合并已有条件。'
          '每个购买条件必须有evidence，CURRENT逐字引用本轮，CONTEXT引用历史用户原话的turn_id，'
          'MEMORY仅能用于preferred且使用提供的记忆ID；助手文字不是筛选事实。'
-         '金额用十进制字符串，currency需原文确认，每盒/包/单价用price_basis=unit；'
-         '币种或预算范围不明时missing_fields填currency或budget_scope。'
+         '金额用十进制字符串；基础币种人民币CNY，未注明币种时currency留空由程序默认CNY，不能伪造币种证据。'
+         '明确外币原样提取币种和金额，由程序按参考比例换算，不自行计算汇率。'
+         '每盒/包/单价用price_basis=unit和price_min/price_max；'
+         '总价/总预算/整笔采购用price_basis=total和budget_min/budget_max，总价200用budget_max=200，'
+         '100至200总价用budget_min=100,budget_max=200，恰好200用两者均200。'
+         '总价已明确不能再问单价还是总价；未注明币种默认CNY，不追问币种，缺总预算上限填budget_amount；预算类型不明填budget_scope。'
+         '总价默认2至4款、每款1件、不超预算，仅明确数量才填quantity_per_product，每款数量必须相同；'
+         '明确款数填distinct_count，1至4款；二者都需required对应路径的evidence，value用数字字符串。'
+         '不支持差异数量、各类指定不同款数、超过4款、指定商品保留/替换及自动超支，填bundle_constraints，不能忽略。'
          '未支持的口感功效认证属性填unsupported_attribute，不凭空生成可筛选属性。'
          'clear_fields仅用于本轮明确取消的条件路径；清空品牌/茶类用对应字段路径，'
-         '取消预算须同时清除price_min、price_max、currency、price_basis。'
+         '取消预算须同时清除price_min、price_max、budget_min、budget_max、currency、price_basis；'
+         '取消款数或每款数量分别清除distinct_count、quantity_per_product。'
          '同种任务合并，最多5项。取消和无法识别时用clarification任务。'),
         ('human', '本轮原话：{message}\n安全历史：{history}\n当前结构化状态：{state}\n长期软偏好：{memory}'),
     ])
@@ -259,7 +303,9 @@ def plan_turn(model, message, history, memory):
         field = path.split('.')[-1]
         scope = {'categories': r'茶类|品类|种类|分类', 'brands': r'品牌', 'keywords': r'关键词',
                  'price_min': r'预算|价格|金额', 'price_max': r'预算|价格|金额',
-                 'currency': r'预算|价格|金额', 'price_basis': r'预算|价格|金额'}[field]
+                 'currency': r'预算|价格|金额|总价', 'price_basis': r'预算|价格|金额|总价',
+                 'budget_min': r'预算|价格|金额|总价', 'budget_max': r'预算|价格|金额|总价',
+                 'quantity_per_product': r'数量|每款', 'distinct_count': r'款数|种数|数量'}[field]
         if not re.search(r'(?:不限|不限制|不限定|取消|去掉|不设|不要).{0,6}(?:' + scope + r')', message):
             raise ValueError('Cleared field lacks an explicit scope')
     if value.needs_clarification and not value.clarification_question.strip():
@@ -302,7 +348,7 @@ def response_state(semantic, response, previous):
                 if previous.recommendation:
                     step['recommendation'] = previous.recommendation.model_dump()
         pending = intent.action == 'CLARIFY' or semantic.needs_clarification or any(
-            t['tool'] == 'recommend_products' and t['status'] == 'needs_clarification' for t in response.get('tasks', []))
+            t['tool'] in ('recommend_products', 'recommend_bundle') and t['status'] == 'needs_clarification' for t in response.get('tasks', []))
         return DialogueState(status='pending' if pending else 'completed', task='recommendation',
                              request=(previous.request if semantic.action in ('supplement', 'modify') and previous.request
                                       else step['request']), purchase=intent, limit=step['limit'],

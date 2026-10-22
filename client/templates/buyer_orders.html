@@ -15,7 +15,7 @@
 </head>
 <body class="ds-page-buyer_orders ds-theme buyer-workbench buyer-orders-page" id="buyer-body">
     <div class="buyer-layout">
-        {% include 'buyer_sidebar.html' with active='orders' fixed_currency=True %}
+        {% include 'buyer_sidebar.html' with active='orders' %}
         <main class="buyer-main">
             {% include 'buyer_header.html' %}
             <div class="buyer-content bo-content">
@@ -23,7 +23,7 @@
                     <div>
                         <span class="bo-eyebrow">BUYER WORKBENCH</span>
                         <h1>我的订单</h1>
-                        <p>查看采购进度、订单商品和收货信息。</p>
+                        <p>查看采购进度、订单商品和收货信息。金额以人民币记录，外币显示仅供参考。</p>
                     </div>
                     <a class="bo-primary-link" href="buyer_products.html">继续采购</a>
                 </div>
@@ -47,6 +47,6 @@
         </main>
     </div>
     <script src="/static/js/buyer-workbench.js?v=20261022-account-menu"></script>
-    <script src="/static/js/buyer-orders.js?v=20261021-order-actions"></script>
+    <script src="/static/js/buyer-orders.js?v=20261022-cny"></script>
 </body>
 </html>

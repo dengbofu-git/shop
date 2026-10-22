@@ -29,9 +29,9 @@
 
 | 模块 | 当前版本 | 当前核对状态 | 完整变更记录 |
 | --- | --- | --- | --- |
-| core · 项目核心 | 0.6.1 | 装配独立 engagement 模块及双端咨询／评价／运营治理页面和 API；不复用 AI 私有会话。 | [core](changelogs/core.md) |
+| core · 项目核心 | 0.7.1 | 装配独立 engagement 模块及双端咨询／评价／运营治理页面和 API；不复用 AI 私有会话。 | [core](changelogs/core.md) |
 | users · 用户与权限 | 0.4.1 | 统一登录与权限分流、平台联合鉴权、会话权限、品牌与旧入口清理 | [users](changelogs/users.md) |
-| goods · 商品管理 | 0.5.3 | 有购买／评价记录的商品或商品系列删除返回409并提示下架，配合订单历史保护。 | [goods](changelogs/goods.md) |
+| goods · 商品管理 | 0.6.1 | 有购买／评价记录的商品或商品系列删除返回409并提示下架，配合订单历史保护。 | [goods](changelogs/goods.md) |
 | carts · 购物车 | 0.1.2 | 保持采购车及商品图片基线；本轮仅web调整币种展示 | [carts](changelogs/carts.md) |
 | orders · 订单管理 | 0.2.0 | 新购买项保存商家与规格快照；订单列表返回评价资格和咨询入口；买家删除改为隐藏，保留交易和评价依据。新增迁移，不推断旧订单归属。 | [orders](changelogs/orders.md) |
 | pays · 支付 | 0.1.0 | 保持已有支付基线；验签、金额与回调幂等仍待专项完善 | [pays](changelogs/pays.md) |
@@ -40,10 +40,10 @@
 | logistics · 物流 | 0.1.1 | 移除无效导入；物流查询和服务保持原有规则 | [logistics](changelogs/logistics.md) |
 | supplier · 商家与结算 | 0.3.3 | 禁止物理删除已完成订单，保留买家评价依据；咨询／评价管理导航由web提供。 | [supplier](changelogs/supplier.md) |
 | admin_panel · 平台运营 | 0.4.2 | 平台交易总览、角色与权限联合控制、共用销售条件 | [admin_panel](changelogs/admin_panel.md) |
-| support_ai · 智能客服 | 0.15.0 | 问候和功能咨询在模型配置与长期偏好读取前程序匹配并返回固定回复；未执行自动化或真实模型验收 | [support_ai](changelogs/support_ai.md) |
+| support_ai · 智能客服 | 0.15.1 | 问候和功能咨询在模型配置与长期偏好读取前程序匹配并返回固定回复；未执行自动化或真实模型验收 | [support_ai](changelogs/support_ai.md) |
 | merchant_ai · 商家智能助手 | 0.1.0 | 入口与初始化状态，聊天／模型／上传／经营工具未接入 | [merchant_ai](changelogs/merchant_ai.md) |
 | ai_storage · AI 记忆与知识存储 | 0.3.3 | 保持查询改写所用知识／向量与短Embedding超时基线 | [ai_storage](changelogs/ai_storage.md) |
-| web · 页面与前端资源 | 0.29.4 | 新增买家／商家消息中心、未读和关联卡片、评价提交、商家回复及运营举报治理；详情页同页评价与评分分布，支持三语、RTL和响应式。 | [web](changelogs/web.md) |
+| web · 页面与前端资源 | 0.29.5 | 新增买家／商家消息中心、未读和关联卡片、评价提交、商家回复及运营举报治理；详情页同页评价与评分分布，支持三语、RTL和响应式。 | [web](changelogs/web.md) |
 | engagement · 站内咨询与商品评价 | 0.1.4 | 本地咨询与评价已启用；已完成历史商品按日志核验归属后补齐快照，保留角色隔离。 | [engagement](changelogs/engagement.md) |
 
 ## 历史实现演进和既有证据
@@ -76,4 +76,6 @@
 
 买家评价仅从“我的订单”的对应商品进入，查看／提交绑定该订单商品；不提供独立“我的评价”导航和跨订单评价列表。
 
-2026-10-22交互交付：web0.29.4／users0.4.1／supplier0.3.3；消息布局与回车、数量编辑、账户菜单、Agent指标提示、店铺身份及价格分布。其他任务的人民币计价、AI推荐、资源清理与商家首页其他分区未纳入。验证见[本轮交付](../docs/sdd/evidence/2026-10-22-ui-delivery/verification.md)。
+2026-10-22人民币及总价推荐交付：core0.7.1／support_ai0.15.1／web0.29.1／goods0.6.1；保留主干问候快路、昵称及既有版本说明。当前金额规则见[金额规格](../docs/sdd/architecture/currency.md)，验证见[交付验证](../docs/sdd/evidence/2026-10-22-cny-bundles/verification.md)。
+
+2026-10-22交互交付：web0.29.5／users0.4.1／supplier0.3.3／engagement0.1.4；消息、数量、账户菜单、指标提示、店铺身份及价格分布。保留主干人民币与推荐实现。验证见[本轮交付](../docs/sdd/evidence/2026-10-22-ui-delivery/verification.md)。

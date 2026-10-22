@@ -1,0 +1,83 @@
+[
+  {
+    "name": "template-static-check",
+    "command": [
+      "python",
+      ".scratch/cny-bundle-delivery-20261022/verify_templates.py"
+    ],
+    "exit_code": 0,
+    "seconds": 2.41
+  },
+  {
+    "name": "django-check",
+    "command": [
+      "python",
+      "manage.py",
+      "check",
+      "--settings=support_ai.test_settings"
+    ],
+    "exit_code": 0,
+    "seconds": 2.0
+  },
+  {
+    "name": "agent-tests",
+    "command": [
+      "python",
+      "manage.py",
+      "test",
+      "support_ai.tests.RecommendationContractTests",
+      "support_ai.tests.RecommendationIntegrationTests",
+      "support_ai.tests.RecommendationGraphTests",
+      "support_ai.test_semantic_planning",
+      "support_ai.test_planning",
+      "support_ai.test_grouped_recommendations",
+      "support_ai.test_product_details",
+      "support_ai.test_task_tools",
+      "support_ai.test_mixed_tea",
+      "support_ai.test_budget_combinations",
+      "--settings=support_ai.test_settings",
+      "--noinput"
+    ],
+    "exit_code": 0,
+    "seconds": 9.72
+  },
+  {
+    "name": "checkout-tests",
+    "command": [
+      "node",
+      "--test",
+      "client/tests/checkout.test.js"
+    ],
+    "exit_code": 0,
+    "seconds": 0.23
+  },
+  {
+    "name": "product-detail-tests",
+    "command": [
+      "node",
+      "--test",
+      "client/tests/product-detail-summary.test.js"
+    ],
+    "exit_code": 0,
+    "seconds": 0.25
+  },
+  {
+    "name": "storefront-tests",
+    "command": [
+      "node",
+      "--test",
+      "client/tests/storefront.test.js"
+    ],
+    "exit_code": 0,
+    "seconds": 0.19
+  },
+  {
+    "name": "delivery-live-catalog",
+    "command": [
+      "python",
+      ".scratch/cny-bundle-delivery-20261022/verify_live_delivery.py"
+    ],
+    "exit_code": 0,
+    "seconds": 4.49
+  }
+]
