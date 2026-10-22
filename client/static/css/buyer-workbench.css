@@ -264,13 +264,6 @@
     font-weight: 600;
 }
 
-.buyer-account-page .user-item[href="buyer_profile.html"],
-.buyer-account-page .user-item[href="buyer_password.html"] {
-    background: rgba(26, 93, 26, 0.08);
-    color: var(--buyer-primary);
-    font-weight: 600;
-}
-
 .topbar-ico {
     display: inline-flex;
     align-items: center;

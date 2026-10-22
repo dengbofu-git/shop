@@ -41,6 +41,7 @@ class ConversationNicknameTests(TestCase):
         self.buyer.nickname='<img src=x onerror=alert(1)>';self.buyer.save()
         conv=self.send(request='nickname-html').json()['data']['conversation_id']
         self.assertEqual(self.call('conversations/%s/messages'%conv,self.buyer).json()['data']['name'],self.shop.shop_name)
+        self.assertEqual(self.call('conversations',self.buyer).json()['data']['items'][0]['name'],self.shop.shop_name)
         row=self.call('conversations',self.shop).json()['data']['items'][0]
         self.assertEqual(row['name'],self.buyer.nickname)
         self.assertNotIn('username',row)

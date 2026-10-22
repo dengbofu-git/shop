@@ -16,7 +16,7 @@
 {% include "shared/system_theme.html" %}
     <link rel="stylesheet" href="/static/css/product-detail-content.css?v=20261018-detail-theme">
     <link rel="stylesheet" href="/static/css/store-pages.css?v=1">
-    <link rel="stylesheet" href="/static/css/product-detail-summary.css?v=20261022">
+    <link rel="stylesheet" href="/static/css/product-detail-summary.css?v=20261022-quantity">
     <script src="/static/js/storefront.js?v=20261022-cny"></script>
 </head>
 
@@ -79,13 +79,15 @@
             <!-- 未选择规格，颜色时状态-->
             <div class="message"></div>
             <!-- 数量-->
-            <p class="accountChose">
-                <s>数量：</s>
-                <button type="button" class="numberMinus">-</button>
-                <input type="text" value="1" class="number" id="buy-num" readonly>
-                <button type="button" class="numberAdd">+</button>
+            <div class="accountChose">
+                <label for="buy-num" id="detail-quantity-label">数量：</label>
+                <div class="detail-quantity" role="group" aria-labelledby="detail-quantity-label">
+                    <button type="button" class="numberMinus" id="detail-quantity-minus" aria-label="减少数量" disabled>−</button>
+                    <input type="text" value="1" class="number" id="buy-num" inputmode="numeric" pattern="[0-9]*" maxlength="12" autocomplete="off" role="spinbutton" aria-label="购买数量" aria-valuemin="1" aria-describedby="stock-info" disabled>
+                    <button type="button" class="numberAdd" id="detail-quantity-plus" aria-label="增加数量" disabled>+</button>
+                </div>
                 <span id="stock-info" class="stock-info"></span>
-            </p>
+            </div>
             <!-- 购买部分-->
             <div class="shops">
                 <a href="#" class="buy lf" id="buy_now">立即购买</a>
@@ -171,10 +173,10 @@
         </div>
     </div>
     <script src="/static/js/jquery-3.1.1.min.js"></script>
-    <script src="/static/js/buyer-workbench.js?v=20261022-cny"></script>
+    <script src="/static/js/buyer-workbench.js?v=20261022-account-menu"></script>
     <script src="/static/js/lozad.js"></script>
     <script src="/static/js/buyer-activity.js?v=20261022-cny"></script>
-    <script src="/static/js/product-detail-summary.js?v=20261022-cny"></script>
+    <script src="/static/js/product-detail-summary.js?v=20261022-quantity"></script>
     <script>
         $(function() {
           (function ($) {
@@ -315,33 +317,10 @@
                     })
                 })
             });
-        $(document).on('click', '.numberMinus', function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-            var $input = $(".accountChose input.number, #buy-num").first();
-            var n = parseInt($input.val(), 10);
-            if (isNaN(n) || n < 1) n = 1;
-            var minQty = 1;
-            if (typeof window._detailStock !== 'undefined' && window._detailStock === 0) minQty = 0;
-            if (n > minQty) $input.val(n - 1);
-        });
-        $(document).on('click', '.numberAdd', function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-            var $input = $(".accountChose input.number, #buy-num").first();
-            var n = parseInt($input.val(), 10);
-            if (isNaN(n) || n < 0) n = 0;
-            var maxStock = 999;
-            if (typeof window._detailStock !== 'undefined' && window._detailStock != null) maxStock = window._detailStock;
-            if (maxStock === 0) maxStock = 1;
-            if (n < maxStock) $input.val(n + 1);
-        });
-
-
         $(document).on('click', '#add_cart', function (e) {
             e.preventDefault();
             e.stopPropagation();
-            var buyNum = parseInt($(".accountChose input.number, #buy-num").first().val(), 10) || 0;
+            var buyNum = window.ProductDetailSummary.quantity();
             if (buyNum < 1) {
                 alert('请至少选择 1 件商品');
                 return;
@@ -467,7 +446,7 @@
         $(document).on('click', '#buy_now', function(e){
             e.preventDefault();
             e.stopPropagation();
-            var buyNum = parseInt($(".accountChose input.number, #buy-num").first().val(), 10) || 0;
+            var buyNum = window.ProductDetailSummary.quantity();
             if (buyNum < 1) {
                 alert('请至少选择 1 件商品');
                 return;

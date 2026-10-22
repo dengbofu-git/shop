@@ -331,7 +331,7 @@ def password_change(request, username):
 
 
 class UserProfileView(View):
-    """本人账户资料；昵称独立保存，不修改登录身份或店铺名称。"""
+    """本人账户资料；买家昵称独立保存，商家身份使用店铺名称。"""
 
     def get(self, request, username):
         payload = check(request)
@@ -348,6 +348,7 @@ class UserProfileView(View):
             'data': {
                 'username': user.username,
                 'nickname': user.nickname,
+                'shop_name': user.shop_name or '',
                 'email': user.email,
                 'phone': user.phone,
                 'user_type': user.user_type,
@@ -389,6 +390,8 @@ class UserProfileView(View):
             return JsonResponse({'code': 401, 'error': '请先登录有效账号'}, status=401)
         if user.username != username:
             return JsonResponse({'code': 403, 'error': '只能修改本人的昵称'}, status=403)
+        if account_access(user)['redirect_url'] != '/buyer_dashboard.html':
+            return JsonResponse({'code': 403, 'error': '仅买家可设置昵称，商家使用店铺名称'}, status=403)
         try:
             data = json.loads(request.body)
         except (ValueError, UnicodeDecodeError):

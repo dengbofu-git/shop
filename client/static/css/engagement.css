@@ -23,7 +23,8 @@
 .eng-messages{height:370px;overflow:auto;display:flex;flex-direction:column;gap:12px;padding:12px 2px;scroll-behavior:smooth}
 .eng-message{align-self:flex-start;max-width:85%;background:#f0f4f1;padding:12px;border-radius:12px;overflow-wrap:anywhere}
 .eng-message.mine{align-self:flex-end;background:#e1f0e6}.eng-message p{margin:0 0 8px;white-space:pre-wrap}.eng-message small{font-size:11px;color:#63766b}
-.eng-compose textarea{resize:vertical;min-height:85px}.eng-compose footer{display:flex;align-items:center;gap:12px;justify-content:flex-end;margin-block-start:10px}
+.eng-compose textarea{resize:vertical;min-height:85px}.eng-compose footer{display:flex;align-items:center;flex-wrap:wrap;gap:12px;justify-content:flex-end;margin-block-start:10px}
+.eng-compose .eng-send-hint{margin-inline-end:auto;font-size:12px;line-height:1.5}
 .eng-context{background:#f6f8f3;padding:18px;border-inline-start:1px solid #e1e8e3;overflow-wrap:anywhere}
 .eng-card{border:1px solid #d9e2db;border-radius:9px;padding:10px;margin-block:10px;display:block;background:#fff;color:#19583d;text-decoration:none;overflow-wrap:anywhere}
 .eng-card small{display:block;margin-block-start:8px}.eng-message .eng-card{font-size:13px}

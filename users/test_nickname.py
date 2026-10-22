@@ -2,7 +2,7 @@
 import json
 from django.test import TestCase
 from tea_saas.utils import jwt_encode
-from users.models import UserProfile
+from users.models import UserProfile, Role, UserRole
 
 
 class NicknameTests(TestCase):
@@ -64,11 +64,22 @@ class NicknameTests(TestCase):
             self.assertEqual(response.status_code,400)
         self.buyer.refresh_from_db();self.assertEqual(self.buyer.nickname,'')
 
-    def test_merchant_nickname_does_not_rename_store(self):
-        self.assertEqual(self.save(self.merchant,'商家个人昵称').status_code,200)
+    def test_merchant_cannot_edit_nickname_and_profile_returns_current_store_name(self):
+        self.merchant.nickname='历史商家昵称'
+        self.merchant.save()
+        self.assertEqual(self.save(self.merchant,'商家个人昵称').status_code,403)
         self.merchant.refresh_from_db()
-        self.assertEqual(self.merchant.nickname,'商家个人昵称')
+        self.assertEqual(self.merchant.nickname,'历史商家昵称')
         self.assertEqual(self.merchant.shop_name,'店铺名称')
+        data=self.client.get('/v1/users/%s/profile'%self.merchant.username,**self.headers(self.merchant,bearer=False)).json()['data']
+        self.assertEqual(data['shop_name'],'店铺名称')
+
+    def test_supplier_role_cannot_use_buyer_nickname_endpoint(self):
+        supplier=Role.objects.create(code='supplier',name='商家',is_active=True)
+        UserRole.objects.create(user_profile=self.other,role=supplier)
+        self.assertEqual(self.save(self.other,'绕过角色的昵称').status_code,403)
+        self.other.refresh_from_db()
+        self.assertEqual(self.other.nickname,'')
 
     def test_legacy_contact_info_save_preserves_nickname(self):
         self.save(self.buyer,'昵称')

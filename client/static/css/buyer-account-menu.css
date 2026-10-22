@@ -1,0 +1,58 @@
+/* Buyer header only: keep merchant menus and page forms independent. */
+#buyer-topbar .user-menu { position: relative; }
+#buyer-topbar .user-dropdown {
+    display: block;
+    position: absolute;
+    top: calc(100% + 20px);
+    inset-inline-end: 0;
+    inset-inline-start: auto;
+    width: 208px;
+    min-width: 0;
+    max-width: calc(100vw - 24px);
+    padding: 7px;
+    border: 1px solid #e1e9e3;
+    border-radius: 14px;
+    background: #fff;
+    box-shadow: 0 12px 32px #17352b14;
+    z-index: 320;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(-7px) scale(.98);
+    transform-origin: top;
+    transition: opacity 160ms ease, transform 180ms ease, visibility 180ms;
+}
+#buyer-topbar .user-dropdown.is-open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0) scale(1);
+}
+#buyer-topbar .user-item {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    margin: 0;
+    padding: 10px 14px;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    color: #284c3d;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.5;
+    text-decoration: none;
+    transition: background-color 180ms ease, color 180ms ease, transform 180ms ease;
+}
+#buyer-topbar .user-item + .user-item { margin-top: 3px; }
+#buyer-topbar .user-item[aria-current="page"] { background: #f0f5f1; color: #185c3b; font-weight: 600; }
+#buyer-topbar .user-item:hover,
+#buyer-topbar .user-item:focus-visible { background: #e7f2e9; color: #185c3b; transform: translateX(3px); }
+[dir="rtl"] #buyer-topbar .user-item:hover,
+[dir="rtl"] #buyer-topbar .user-item:focus-visible { transform: translateX(-3px); }
+#buyer-topbar .user-item.user-item-danger { margin-top: 7px; border-top: 1px solid #edf1ed; color: #a44646; }
+#buyer-topbar .user-item-danger:hover,
+#buyer-topbar .user-item-danger:focus-visible { background: #fcf0ed; color: #a03232; }
+@media (prefers-reduced-motion: reduce) {
+    #buyer-topbar .user-dropdown, #buyer-topbar .user-item { transition: none; transform: none !important; }
+}

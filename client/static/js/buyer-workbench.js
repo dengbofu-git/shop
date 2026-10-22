@@ -703,7 +703,11 @@
     function openUserMenu(open) {
         var d = document.getElementById('user-dropdown');
         var tr = document.getElementById('user-trigger');
-        if (d) d.style.display = open ? 'block' : 'none';
+        if (d) {
+            d.classList.toggle('is-open', open);
+            d.setAttribute('aria-hidden', open ? 'false' : 'true');
+            d.inert = !open;
+        }
         if (tr) tr.setAttribute('aria-expanded', open ? 'true' : 'false');
     }
 
@@ -808,14 +812,37 @@
         var userTrigger = document.getElementById('user-trigger');
         var userDropdown = document.getElementById('user-dropdown');
         if (userTrigger && userDropdown) {
+            var userItems = Array.from(userDropdown.querySelectorAll('[role="menuitem"]'));
+            userItems.forEach(function(item) {
+                if (new URL(item.href, location.href).pathname === location.pathname && item.id !== 'buyer-btn-logout') item.setAttribute('aria-current', 'page');
+                else item.removeAttribute('aria-current');
+            });
+            openUserMenu(false);
             userTrigger.addEventListener('click', function(e) {
                 e.stopPropagation();
-                var hidden = userDropdown.style.display === 'none' ||
-                    window.getComputedStyle(userDropdown).display === 'none';
-                openUserMenu(hidden);
+                openUserMenu(userTrigger.getAttribute('aria-expanded') !== 'true');
             });
-            document.addEventListener('click', function() {
-                openUserMenu(false);
+            userTrigger.addEventListener('keydown', function(e) {
+                if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+                    e.preventDefault(); openUserMenu(true);
+                    userItems[e.key === 'ArrowDown' ? 0 : userItems.length - 1].focus();
+                }
+            });
+            document.addEventListener('click', function(e) { if (!e.target.closest('#user-menu')) openUserMenu(false); });
+            document.addEventListener('focusin', function(e) { if (!e.target.closest('#user-menu')) openUserMenu(false); });
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && userTrigger.getAttribute('aria-expanded') === 'true') {
+                    e.preventDefault(); openUserMenu(false); userTrigger.focus();
+                }
+            });
+            userDropdown.addEventListener('keydown', function(e) {
+                var index = userItems.indexOf(document.activeElement), next;
+                if (e.key === 'ArrowDown') next = (index + 1) % userItems.length;
+                else if (e.key === 'ArrowUp') next = (index - 1 + userItems.length) % userItems.length;
+                else if (e.key === 'Home') next = 0;
+                else if (e.key === 'End') next = userItems.length - 1;
+                else return;
+                e.preventDefault(); userItems[next].focus();
             });
             userDropdown.addEventListener('click', function(e) {
                 e.stopPropagation();

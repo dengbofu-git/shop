@@ -24,7 +24,11 @@ class Element {
     replaceChildren(...items) {this._text=''; this.children=[]; this.append(...items);}
     setAttribute(key,value) {this.attrs[key]=value;}
     addEventListener(key,action) {(this.events[key] ||= []).push(action);}
-    async emit(key) {for (const action of this.events[key] || []) await action({preventDefault(){}});}
+    async emit(key, init={}) {
+        const event={defaultPrevented:false,preventDefault(){this.defaultPrevented=true;},...init};
+        for (const action of this.events[key] || []) await action(event);
+        return event;
+    }
     querySelectorAll(selector) {
         const result=[];
         for (const child of this.children) {
@@ -42,6 +46,8 @@ async function setup({search='',role='buyer',intercept,items}={}) {
     const ids=['eng-conversations','eng-messages','eng-compose','eng-message-text','eng-status','eng-layout','eng-send','eng-older',
         'eng-chat-title','eng-context','eng-list-pager','eng-back-list','eng-refresh','eng-inbox-hint','eng-page-title'];
     const nodes=Object.fromEntries(ids.map(id=>[id,new Element()])); nodes['eng-compose'].hidden=true;
+    const submissions=[];
+    nodes['eng-compose'].requestSubmit=submitter=>{submissions.push(submitter);nodes['eng-compose'].emit('submit');};
     const calls=[], storage=new Map(), timers=[], listeners={}, rows=items || [1,2].map(id=>({id,name:'Shop ' + id,unread:0,other_read_id:0,last_text:'Preview ' + id,updated_at:'2026-10-22'}));
     const document={body:{dataset:{engRole:role}},documentElement:{lang:'zh'},hidden:false,hasFocus:()=>true,
         getElementById:id=>nodes[id],querySelectorAll:()=>[],createDocumentFragment:()=>new Element('fragment'),
@@ -72,7 +78,7 @@ async function setup({search='',role='buyer',intercept,items}={}) {
     vm.createContext(context);
     vm.runInContext(fs.readFileSync(path.join(__dirname,'../static/js/engagement-messages.js'),'utf8'),context);
     await flush();
-    return {nodes,calls,storage,location,timers,listeners,select:async id=>{
+    return {nodes,calls,storage,location,timers,listeners,submissions,select:async id=>{
         const button=nodes['eng-conversations'].children.find(el=>Number(el.dataset.conversationId)===id);
         assert(button,'conversation button missing'); await button.emit('click'); await flush();
     }};
@@ -204,6 +210,70 @@ test('read receipts stop at fetched history rather than jumping over unseen mess
     assert.equal(receipts.some(call=>call.payload.message_id===99),false);
 });
 
+test('Enter submits through the existing send form for both buyer and merchant',async()=>{
+    for(const role of ['buyer','merchant']) {
+        const app=await setup({role,intercept:(url,payload)=>payload && payload.text ?
+            {conversation_id:1,message:{...row(11,payload.text),is_mine:true}} : undefined});
+        const area=app.nodes['eng-message-text'];area.value='  键盘发送  ';
+        const event=await area.emit('keydown',{key:'Enter'});await flush();
+        assert.equal(event.defaultPrevented,true);
+        assert.equal(app.submissions.length,1);assert.equal(app.submissions[0],app.nodes['eng-send']);
+        const sent=app.calls.filter(call=>call.payload && call.payload.text);
+        assert.equal(sent.length,1);assert.equal(sent[0].url,'conversations/1/messages');
+        assert.equal(sent[0].payload.text,'键盘发送');assert.equal(area.value,'');
+        assert(app.nodes['eng-messages'].textContent.includes('键盘发送'));
+    }
+});
+
+test('Enter can send the first product inquiry and persist its conversation selection',async()=>{
+    const app=await setup({items:[],search:'?sku_id=130',intercept:(url,payload)=>url==='conversations' && payload ?
+        {conversation_id:2,message:{...row(20,payload.text),is_mine:true}} : undefined});
+    app.nodes['eng-message-text'].value='第一条消息';
+    await app.nodes['eng-message-text'].emit('keydown',{key:'Enter'});await flush();
+    const sent=app.calls.find(call=>call.url==='conversations' && call.payload);
+    assert(sent);assert.equal(sent.payload.sku_id,'130');assert.equal(sent.payload.text,'第一条消息');
+    assert.equal(app.location.search,'?conversation_id=2');assert.equal(app.storage.size,0);
+});
+
+test('Shift+Enter retains native newlines and IME confirmation never sends a message',async()=>{
+    const app=await setup(),area=app.nodes['eng-message-text'];area.value='正在输入';
+    assert.equal((await area.emit('keydown',{key:'Enter',shiftKey:true})).defaultPrevented,false);
+    await area.emit('compositionstart');
+    assert.equal((await area.emit('keydown',{key:'Enter'})).defaultPrevented,false);
+    await area.emit('compositionend');
+    assert.equal((await area.emit('keydown',{key:'Enter',isComposing:true})).defaultPrevented,false);
+    assert.equal((await area.emit('keydown',{key:'Enter',keyCode:229})).defaultPrevented,false);
+    await flush();assert.equal(app.submissions.length,0);
+    assert.equal(app.calls.some(call=>call.payload && call.payload.text),false);
+    assert.equal(area.value,'正在输入');
+});
+
+test('held Enter and repeated key presses during an in-flight send do not duplicate the message',async()=>{
+    const sending=deferred();
+    const app=await setup({intercept:(url,payload)=>payload && payload.text ? sending.promise : undefined});
+    const area=app.nodes['eng-message-text'];area.value='发送一次';
+    await area.emit('keydown',{key:'Enter'});
+    await area.emit('keydown',{key:'Enter',repeat:true});
+    await area.emit('keydown',{key:'Enter'});
+    assert.equal(app.submissions.length,1);
+    assert.equal(app.calls.filter(call=>call.payload && call.payload.text).length,1);
+    sending.resolve({conversation_id:1,message:{...row(11,'发送一次'),is_mine:true}});await flush();
+    area.value='长按结束前的新草稿';
+    assert.equal((await area.emit('keydown',{key:'Enter',repeat:true})).defaultPrevented,true);
+    assert.equal(app.submissions.length,1);assert.equal(area.value,'长按结束前的新草稿');
+});
+
+test('Enter does not send whitespace, hidden composers or conversations still loading history',async()=>{
+    const app=await setup(),area=app.nodes['eng-message-text'];
+    for(const text of ['', '  \n  ']) {area.value=text;await area.emit('keydown',{key:'Enter'});}
+    app.nodes['eng-compose'].hidden=true;area.value='hidden';await area.emit('keydown',{key:'Enter'});
+    assert.equal(app.submissions.length,0);
+    const waiting=deferred(),loading=await setup({intercept:url=>url==='conversations/1/messages' ? waiting.promise : undefined});
+    loading.nodes['eng-message-text'].value='history pending';
+    await loading.nodes['eng-message-text'].emit('keydown',{key:'Enter'});
+    assert.equal(loading.submissions.length,0);
+    waiting.resolve(history(1));await flush();
+});
 
 test('nickname change refreshes active list and title while duplicate names retain distinct IDs',async()=>{
     const items=[1,2].map(id=>({id,name:'同名茶友',unread:0,other_read_id:0,last_text:'message',updated_at:'2026-10-22'}));
