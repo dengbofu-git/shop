@@ -1,6 +1,7 @@
 """One bounded semantic decision per turn; application code owns tools and state."""
 import json
 import re
+import unicodedata
 from typing import List, Literal, Optional
 
 from langchain_core.prompts import ChatPromptTemplate
@@ -51,11 +52,18 @@ CAPABILITIES = ('我可以帮您：介绍茶叶知识；按茶类、品牌和预
 
 
 def fixed_reply(message):
-    text = message.strip().strip('。！!？?～~ ')
-    if re.fullmatch(r'你好|您好|嗨|哈喽|早上好|下午好|晚上好|hello|hi', text, re.I):
+    # Whole-message matching only: never discard a purchase request, negation
+    # or instruction merely because it contains a greeting/help keyword.
+    text = unicodedata.normalize('NFKC', message).strip().casefold()
+    text = text.strip('。！!？?～~，,、. \t\r\n')
+    text = re.sub(r'\s+', ' ', text)
+    if re.fullmatch(r'你好|您好|嗨|哈喽|哈啰|早上好|早安|中午好|下午好|晚上好|hello|hi|hey', text):
         return 'greeting', GREETING
     if re.fullmatch(r'(?:请)?(?:介绍(?:一下)?(?:系统|平台|你)(?:的)?功能|'
-                    r'你(?:能|可以)做什么|你有什么功能|有什么功能|帮助|功能介绍)', text):
+                    r'你(?:能|可以)做什么|你(?:能|可以)帮我做什么|'
+                    r'(?:你|你们|系统|平台)?(?:都)?有(?:什么|哪些)功能|'
+                    r'你(?:能|可以)提供什么帮助|帮助|功能介绍)(?:呢|吗)?|'
+                    r'help|what can you do|what are your features', text):
         return 'system_help', CAPABILITIES
     return None
 

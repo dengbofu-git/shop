@@ -94,7 +94,7 @@
             if (row.unread) item.append(E.node('span', row.unread, 'eng-badge'));
             item.append(E.node('small', row.last_text), E.node('small', E.date(row.updated_at)));
             list.append(item);
-            if (row.id === conversation) { otherRead = Math.max(otherRead, row.other_read_id); markDelivery(); }
+            if (row.id === conversation) { chatTitle(row.name, row.id); otherRead = Math.max(otherRead, row.other_read_id); markDelivery(); }
         });
         var pager = document.getElementById('eng-list-pager'); pager.hidden = data.pages <= 1;
         E.pager(pager, data.page, data.pages, function (page) { listPage = page; loadList().catch(showError); });

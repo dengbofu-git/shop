@@ -103,6 +103,7 @@ DATABASES = {
         'HOST': os.environ['DB_HOST'],
         'PORT': int(os.environ['DB_PORT']),
         'NAME': os.environ['DB_NAME'],
+        'OPTIONS': {'charset': 'utf8mb4'},
     }
 }
 DATABASES['ai_storage'] = {

@@ -1,0 +1,75 @@
+{
+  "runtime_revision": "20261022-cny",
+  "cases": [
+    {
+      "message": "总价200，推荐绿茶和白茶",
+      "tool": "recommend_bundle",
+      "status": "MATCHED",
+      "base_currency": "CNY",
+      "cap": "200.00",
+      "subtotals": [
+        "198.95",
+        "197.70",
+        "197.70"
+      ],
+      "quantity_per_product": 1,
+      "model_calls": 0
+    },
+    {
+      "message": "总价200元，推荐绿茶和白茶，每款两件",
+      "tool": "recommend_bundle",
+      "status": "MATCHED",
+      "base_currency": "CNY",
+      "cap": "200.00",
+      "subtotals": [
+        "198.98",
+        "196.50",
+        "196.36"
+      ],
+      "quantity_per_product": 2,
+      "model_calls": 0
+    },
+    {
+      "message": "总价200美元，推荐绿茶和白茶",
+      "tool": "recommend_bundle",
+      "status": "MATCHED",
+      "base_currency": "CNY",
+      "cap": "1428.57",
+      "subtotals": [
+        "161.20",
+        "149.15",
+        "145.00"
+      ],
+      "quantity_per_product": 1,
+      "model_calls": 0
+    },
+    {
+      "message": "总价30元，推荐1款绿茶",
+      "tool": "recommend_bundle",
+      "status": "MATCHED",
+      "base_currency": "CNY",
+      "cap": "30.00",
+      "subtotals": [
+        "27.50",
+        "23.60",
+        "23.60"
+      ],
+      "quantity_per_product": 1,
+      "model_calls": 0
+    },
+    {
+      "message": "总价0.01元，推荐绿茶和白茶",
+      "tool": "recommend_bundle",
+      "status": "NO_MATCH",
+      "base_currency": "CNY",
+      "cap": "0.01",
+      "subtotals": [],
+      "quantity_per_product": 1,
+      "model_calls": 0
+    }
+  ],
+  "record_counts_unchanged": true,
+  "database_writes": false,
+  "model_calls": 0,
+  "payment_calls": 0
+}

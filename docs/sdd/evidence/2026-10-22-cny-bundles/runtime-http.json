@@ -1,0 +1,44 @@
+[
+  {
+    "path": "/login.html",
+    "status": 200,
+    "base_currency": "CNY",
+    "revision": "20261022-cny",
+    "shared_script": true
+  },
+  {
+    "path": "/buyer_products.html",
+    "status": 200,
+    "base_currency": "CNY",
+    "revision": "20261022-cny",
+    "shared_script": true
+  },
+  {
+    "path": "/buyer_support.html",
+    "status": 200,
+    "base_currency": "CNY",
+    "revision": "20261022-cny",
+    "shared_script": true
+  },
+  {
+    "path": "/cart.html",
+    "status": 200,
+    "base_currency": "CNY",
+    "revision": "20261022-cny",
+    "shared_script": true
+  },
+  {
+    "path": "/orderConfirm.html",
+    "status": 200,
+    "base_currency": "CNY",
+    "revision": "20261022-cny",
+    "shared_script": true
+  },
+  {
+    "path": "/buyer_orders.html",
+    "status": 200,
+    "base_currency": "CNY",
+    "revision": "20261022-cny",
+    "shared_script": true
+  }
+]
