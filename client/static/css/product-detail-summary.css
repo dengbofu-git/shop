@@ -1,0 +1,43 @@
+/* Reset legacy floats/fixed heights only inside the product purchase summary. */
+.buyer-workbench.product-detail-page #nav_detail {height:auto;min-height:20px;overflow:visible}
+.buyer-workbench.product-detail-page #nav_detail h5 {margin:0;line-height:1.8;overflow-wrap:anywhere}
+.buyer-workbench.product-detail-page #shop_detail {display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);gap:32px;align-items:start;overflow:visible;margin-top:20px}
+.buyer-workbench.product-detail-page #shop_detail::after {display:none}
+.buyer-workbench.product-detail-page #preview,.buyer-workbench.product-detail-page .right_detail {float:none;width:100%;max-width:none;min-width:0;height:auto;margin:0}
+.buyer-workbench.product-detail-page #mediumDiv {float:none;width:100%;min-height:0;margin:0;aspect-ratio:1;overflow:hidden;border-radius:14px;background:#f6f8f5}
+.buyer-workbench.product-detail-page #mediumDiv #mImg {width:100%!important;height:100%!important;object-fit:contain}
+.buyer-workbench.product-detail-page .right_detail {display:flex;flex-direction:column;gap:16px}
+.buyer-workbench.product-detail-page .right_detail h1 {margin:0;font-family:inherit;font-size:clamp(22px,2vw,28px);font-weight:700;line-height:1.4;overflow-wrap:anywhere}
+.buyer-workbench.product-detail-page .right_detail h3 {margin:0;font-size:14px;font-weight:400;line-height:1.8;color:#667b70;overflow-wrap:anywhere}
+.buyer-workbench.product-detail-page .right_detail .price {width:100%;height:auto;min-height:0;margin:0;padding:18px;box-sizing:border-box}
+.buyer-workbench.product-detail-page .right_detail .price > div {height:auto;font:inherit;line-height:1.7}
+.buyer-workbench.product-detail-page .right_detail #pro_price {display:flex;align-items:baseline;flex-wrap:wrap;gap:8px;margin:0 0 12px}
+.buyer-workbench.product-detail-page .right_detail #pro_price span {font-family:inherit;font-size:28px;font-weight:700;line-height:1.3;white-space:nowrap;font-variant-numeric:tabular-nums}
+.buyer-workbench.product-detail-page .right_detail .promise {display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 12px;font-size:12px;color:#667b70}
+.buyer-workbench.product-detail-page .right_detail .promise b {flex-basis:100%;font-weight:500}
+.buyer-workbench.product-detail-page .right_detail .promise span {white-space:normal;overflow-wrap:anywhere}
+.buyer-workbench.product-detail-page .detail-store-info {padding:12px 0;margin:0;line-height:1.7}
+.buyer-workbench.product-detail-page .right_detail .parameter {margin:0;line-height:1.7}
+.buyer-workbench.product-detail-page .right_detail .parameter b {margin:0;font:inherit}
+.buyer-workbench.product-detail-page #sku {display:flex;flex-direction:column;gap:12px}
+.buyer-workbench.product-detail-page .detail-attribute {display:grid;grid-template-columns:80px minmax(0,1fr);gap:10px;align-items:center;line-height:1.6}
+.buyer-workbench.product-detail-page .detail-attribute-values {display:flex;flex-wrap:wrap;gap:8px;min-width:0}
+.buyer-workbench.product-detail-page #sku button.spu_value {font:inherit;font-size:14px;min-height:40px;padding:8px 14px;border:1px solid #dbe5de;border-radius:8px;background:white;color:#19583d;cursor:pointer}
+.buyer-workbench.product-detail-page #sku button.spu_check {background:#eaf4ee}
+.buyer-workbench.product-detail-page #sku .detail-readonly-value {display:inline-block;padding:4px 0;border:0!important;background:transparent;color:#183d32!important;font-weight:600;overflow-wrap:anywhere;cursor:default}
+.buyer-workbench.product-detail-page .right_detail .message:empty {display:none}
+.buyer-workbench.product-detail-page .right_detail .accountChose {display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin:0;line-height:1.7}
+.buyer-workbench.product-detail-page .right_detail .accountChose s {margin:0 4px 0 0;text-decoration:none}
+.buyer-workbench.product-detail-page .right_detail .accountChose > .number,.buyer-workbench.product-detail-page .right_detail .accountChose > button {width:40px;min-height:40px;padding:8px 0;border-radius:8px;margin:0}
+.buyer-workbench.product-detail-page .right_detail .stock-info {font-size:13px;color:#667b70;margin-inline-start:8px}
+.buyer-workbench.product-detail-page .right_detail > .shops {display:flex;flex-wrap:wrap;gap:12px;position:static;width:100%;height:auto;margin:4px 0 0}
+.buyer-workbench.product-detail-page .right_detail > .shops > a {display:inline-flex;align-items:center;justify-content:center;flex:1 1 160px;width:auto;min-height:46px;height:auto;line-height:1.5;margin:0;padding:12px 16px;text-decoration:none}
+.buyer-workbench.product-detail-page .detail-favorite {display:flex;align-items:center;flex-wrap:wrap;gap:10px;padding:0;clear:none}
+.buyer-workbench.product-detail-page .detail-favorite .eng-card {display:inline-flex;align-items:center;min-height:40px;margin:0;padding:9px 14px;border-radius:8px;font-size:14px}
+.buyer-workbench.product-detail-page #favorite-toggle {min-height:40px;font-size:14px}
+.buyer-workbench.product-detail-page #favorite-message {flex-basis:100%;margin:0;font-size:13px}
+.buyer-workbench.product-detail-page #favorite-message:empty {display:none}
+.buyer-workbench.product-detail-page #shop_detail :is(a,button):focus-visible {outline:3px solid #c79a45;outline-offset:3px}
+@media(max-width:1000px){.buyer-workbench.product-detail-page #shop_detail{grid-template-columns:minmax(0,1fr);gap:24px}.buyer-workbench.product-detail-page #preview{max-width:520px;justify-self:center}}
+@media(max-width:640px){.buyer-workbench.product-detail-page .storefront-product-wrap{padding:16px}.buyer-workbench.product-detail-page #shop_detail{gap:20px}.buyer-workbench.product-detail-page .right_detail{gap:14px}.buyer-workbench.product-detail-page .right_detail .price{padding:14px}.buyer-workbench.product-detail-page .right_detail #pro_price span{font-size:25px}.buyer-workbench.product-detail-page .detail-attribute{grid-template-columns:70px minmax(0,1fr)}.buyer-workbench.product-detail-page .right_detail > .shops > a{flex-basis:120px}}
+@media(max-width:640px){.buyer-workbench.product-detail-page .topbar-search{flex:1 1 100%;min-width:0}.buyer-workbench.product-detail-page .topbar-search input{width:100%;min-width:0}.buyer-workbench.product-detail-page .topbar-tools{min-width:0;max-width:100%;margin-inline:0;gap:8px}}

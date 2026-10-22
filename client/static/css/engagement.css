@@ -13,6 +13,11 @@
 .eng-conversations{border-inline-end:1px solid #e1e8e3;padding:12px;max-height:660px;overflow:auto}
 .eng-conversations button{display:block;width:100%;text-align:start;margin-block-end:8px;overflow-wrap:anywhere}
 .eng-conversations button[aria-current=true]{background:#e8f3ec;border-color:#19583d}
+.eng-conversations .eng-pager{gap:6px;flex-wrap:nowrap}
+.eng-conversations .eng-pager button{width:auto;flex:1;min-width:0;margin:0;padding:8px 5px;font-size:12px;white-space:nowrap}
+.eng-conversations .eng-pager span{font-size:12px;white-space:nowrap}
+.eng-conversations .eng-conversation-ref{font-size:11px;color:#65816e}
+.eng-conversations .eng-muted{line-height:1.8;padding:8px}
 .eng-conversations small{display:block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-block-start:5px;color:#66776e}
 .eng-chat{display:flex;flex-direction:column;min-width:0;padding:18px}.eng-chat h2{margin:0 0 12px}
 .eng-messages{height:370px;overflow:auto;display:flex;flex-direction:column;gap:12px;padding:12px 2px;scroll-behavior:smooth}

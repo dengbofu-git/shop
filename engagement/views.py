@@ -78,11 +78,16 @@ def resolve(request):
                'merchant_id': merchant.pk, 'merchant_name': merchant.shop_name or '商家店铺', 'context': card})
 
 
+def conversation_name(conv, user):
+    if user.pk == conv.buyer_id:
+        return conv.merchant.shop_name or '商家店铺'
+    return conv.buyer.username[:1] + '***'
+
+
 def conversation_row(conv, user):
     side = 'buyer' if user.pk == conv.buyer_id else 'merchant'
-    other = conv.merchant if side == 'buyer' else conv.buyer
     last = conv.messages.order_by('-id').first()
-    return {'id': conv.pk, 'name': (other.shop_name or '商家店铺') if side == 'buyer' else other.username[:1] + '***',
+    return {'id': conv.pk, 'name': conversation_name(conv, user),
             'last_text': last.text if last else '', 'updated_at': conv.updated_at.isoformat(),
             'unread': conv.messages.filter(id__gt=getattr(conv, side + '_read_id')).exclude(sender=user).count(),
             'other_read_id': conv.merchant_read_id if side == 'buyer' else conv.buyer_read_id}
@@ -139,7 +144,7 @@ def messages(request, conversation_id):
             UserProfile.objects.select_for_update().get(pk=user.pk)
             conv = find(participants(user).select_for_update(), pk=conversation_id)
             return send_message(request, conv)
-    conv = find(participants(user), pk=conversation_id)
+    conv = find(participants(user).select_related('buyer', 'merchant'), pk=conversation_id)
     after, before = request.GET.get('after'), request.GET.get('before')
     if after is not None and before is not None:
         raise APIError('INVALID_CURSOR', '不能同时指定前后游标')
@@ -154,7 +159,8 @@ def messages(request, conversation_id):
     batch = batch[:30]
     if after is None:
         batch.reverse()
-    return ok({'items': [message_row(m, user) for m in batch], 'has_more': more,
+    return ok({'conversation_id': conv.pk, 'name': conversation_name(conv, user),
+               'items': [message_row(m, user) for m in batch], 'has_more': more,
                'other_read_id': conv.merchant_read_id if user.pk == conv.buyer_id else conv.buyer_read_id})
 
 
