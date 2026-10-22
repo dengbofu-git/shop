@@ -45,18 +45,16 @@
             success: function (res) {
                 if (handleAuthError(res.code)) return;
                 if (res.code !== 200) {
-                    if (window.NicknameEditor) NicknameEditor.unavailable();
                     setMsg('#profile-msg', res.error || '加载失败', false);
                     return;
                 }
                 $('#pf-username').val(res.data.username || '');
-                if (window.NicknameEditor) NicknameEditor.load(res.data.nickname);
+                if (typeof res.data.shop_name === 'string') $('#pf-shop').val(res.data.shop_name || '—');
                 $('#pf-email').val(res.data.email || '');
                 $('#pf-phone').val(res.data.phone || '');
             },
             error: function () {
                 setMsg('#profile-msg', '无法加载账户信息', false);
-                if (window.NicknameEditor) NicknameEditor.unavailable();
             }
         });
     }

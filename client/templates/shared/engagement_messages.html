@@ -8,8 +8,8 @@
         <button type="button" id="eng-older" data-eng-text="older" hidden>更早消息</button>
         <div class="eng-messages" id="eng-messages" role="log" aria-live="polite" aria-relevant="additions" tabindex="0"></div>
         <form class="eng-compose" id="eng-compose" hidden>
-            <textarea id="eng-message-text" rows="3" required maxlength="2000" data-eng-placeholder="placeholder" aria-label="Message"></textarea>
-            <footer><button type="submit" id="eng-send" class="eng-primary" data-eng-text="send">发送</button></footer>
+            <textarea id="eng-message-text" rows="3" required maxlength="2000" data-eng-placeholder="placeholder" aria-label="Message" aria-describedby="eng-send-hint"></textarea>
+            <footer><small id="eng-send-hint" class="eng-muted eng-send-hint" data-eng-text="sendHint">Enter 发送 · Shift+Enter 换行</small><button type="submit" id="eng-send" class="eng-primary" data-eng-text="send">发送</button></footer>
         </form>
     </section>
     <aside class="eng-context" id="eng-context"></aside>

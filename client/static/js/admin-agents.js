@@ -64,7 +64,29 @@ PlatformAccess.requirePermission('system_config').then(function (allowed) {
         } catch (error) { $('model-status').textContent = error.message; }
         finally { $('refresh-models').disabled = false; }
     }
-    function metric(label, value, caption) { var box = element('div', undefined, 'metric'); box.appendChild(element('small', label)); box.appendChild(element('strong', value)); box.appendChild(element('span', caption)); return box; }
+    var metricNoteId = 0;
+    function metric(label, value, caption) {
+        var box = element('div', undefined, 'metric metric-help');
+        var note = element('span', caption, 'metric-tooltip'); note.id = 'agent-metric-note-' + (++metricNoteId); note.setAttribute('role', 'tooltip');
+        var help = element('button', 'i', 'metric-info'); help.type = 'button';
+        help.setAttribute('aria-label', label + '说明'); help.setAttribute('aria-describedby', note.id);
+        box.append(element('small', label), element('strong', value), help, note);
+        help.addEventListener('click', function () {
+            var open = !box.classList.contains('is-tooltip-open');
+            box.classList.toggle('is-tooltip-open', open); box.classList.toggle('is-tooltip-dismissed', !open);
+        });
+        help.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape') { event.preventDefault(); box.classList.remove('is-tooltip-open'); box.classList.add('is-tooltip-dismissed'); }
+        });
+        help.addEventListener('blur', function () { box.classList.remove('is-tooltip-open', 'is-tooltip-dismissed'); });
+        box.addEventListener('mouseleave', function () { box.classList.remove('is-tooltip-dismissed'); });
+        return box;
+    }
+    document.addEventListener('click', function (event) {
+        $('metrics').querySelectorAll('.metric-help').forEach(function (box) {
+            if (!box.contains(event.target)) box.classList.remove('is-tooltip-open', 'is-tooltip-dismissed');
+        });
+    });
     async function loadMonitoring() {
         if (loading) return;
         loading = true; $('refresh-monitor').disabled = true;

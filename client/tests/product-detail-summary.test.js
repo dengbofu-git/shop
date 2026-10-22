@@ -9,6 +9,7 @@ const catalogPrice = new Function('currentCurrency','value',formatter + '\nretur
 class Element {
     constructor(tag) {this.tag=tag;this.children=[];this.attrs={};this.events={};this.textContent='';}
     setAttribute(k,v) {this.attrs[k]=String(v);}
+    removeAttribute(k) {delete this.attrs[k];}
     addEventListener(k,fn) {this.events[k]=fn;}
     append(...items) {this.children.push(...items);}
     replaceChildren() {this.children=[];}
@@ -70,4 +71,51 @@ test('the real template binds price/attributes and guest cart uses the raw decim
     assert(html.includes("$(this).attr('data-value') || $(this).val()"));
     assert(html.includes('unit_price:window.ProductDetailSummary.basePrice()'));
     assert(!html.includes("parseInt($('#pro_price')"));
+});
+
+function quantitySetup(stock=143) {
+    const nodes=Object.fromEntries(['buy-num','detail-quantity-minus','detail-quantity-plus'].map(id=>[id,new Element('div')]));
+    const input=nodes['buy-num']; input.value='1';
+    const control=summary.quantityControl({getElementById:id=>nodes[id]});control.setStock(stock);
+    return {control,input,minus:nodes['detail-quantity-minus'],plus:nodes['detail-quantity-plus'],
+        type(text) {input.value=text;input.events.input();},blur() {input.events.blur();}};
+}
+
+test('quantity supports direct typing and the integrated buttons each step once',()=>{
+    const app=quantitySetup();assert.equal(app.input.value,'1');assert.equal(app.minus.disabled,true);
+    app.type('5');app.blur();assert.equal(app.input.value,'5');assert.equal(app.input.attrs['aria-valuenow'],'5');
+    app.plus.events.click();assert.equal(app.input.value,'6');
+    app.minus.events.click();assert.equal(app.input.value,'5');
+    app.type('');assert.equal(app.input.value,'','allow replacing an existing value');
+    app.blur();assert.equal(app.input.value,'5','empty input restores the previous valid quantity');
+});
+
+test('quantity cannot exceed stock, drop below one or accept partial/fractional numbers',()=>{
+    const app=quantitySetup();app.type('5');app.blur();
+    for(const invalid of ['2.5','3abc','1e2']) {app.type(invalid);assert.equal(app.input.attrs['aria-invalid'],'true');app.blur();assert.equal(app.input.value,'5');}
+    for(const below of ['0','-8']) {app.type(below);app.blur();assert.equal(app.input.value,'1');}
+    app.type('999');assert.equal(app.control.commit(),143);assert.equal(app.input.value,'143');
+    assert.equal(app.plus.disabled,true);assert.equal(app.input.attrs['aria-valuemax'],'143');
+});
+
+test('quantity keyboard steps, stock updates and zero-stock disabling use the same committed value',()=>{
+    const app=quantitySetup();let prevented=0;
+    const key=key=>app.input.events.keydown({key,preventDefault(){prevented++;}});
+    app.type('10');key('ArrowUp');assert.equal(app.input.value,'11');
+    key('ArrowDown');assert.equal(app.input.value,'10');
+    app.type('999');key('Enter');assert.equal(app.input.value,'143');assert.equal(prevented,3);
+    app.control.setStock(8);assert.equal(app.control.commit(),8);
+    app.control.setStock(0);assert.equal(app.control.commit(),0);assert.equal(app.input.disabled,true);
+    assert.equal(app.minus.disabled,true);assert.equal(app.plus.disabled,true);
+    app.control.setStock(1);assert.equal(app.input.value,'1');assert.equal(app.input.disabled,false);
+    assert.equal(app.minus.disabled,true);assert.equal(app.plus.disabled,true);
+});
+
+test('purchase handlers normalize direct quantity input and do not keep the old delegated step handlers',()=>{
+    const html=fs.readFileSync('client/templates/product_details.html','utf8');
+    assert(html.includes('class="detail-quantity" role="group"'));
+    const input=html.match(/<input[^>]+id="buy-num"[^>]*>/)[0];
+    assert(input.includes('inputmode="numeric"'));assert(!input.includes('readonly'));
+    assert.equal((html.match(/var buyNum = window\.ProductDetailSummary\.quantity\(\)/g)||[]).length,2);
+    assert(!html.includes("on('click', '.numberMinus'"));assert(!html.includes("on('click', '.numberAdd'"));
 });

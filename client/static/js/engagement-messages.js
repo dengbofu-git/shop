@@ -3,7 +3,7 @@
     var E = window.Engagement, role = document.body.dataset.engRole;
     var conversation = null, target = null, ids = new Set(), newest = 0, oldest = 0, synced = 0, listPage = 1;
     var generation = 0, busy = false, pending = null, timer = null, failures = 0, otherRead = 0;
-    var shownContext = null, chatName = '', listGeneration = 0, loading = false, polling = false;
+    var shownContext = null, chatName = '', listGeneration = 0, loading = false, polling = false, composing = false;
     var list = document.getElementById('eng-conversations'), feed = document.getElementById('eng-messages');
     var form = document.getElementById('eng-compose'), area = document.getElementById('eng-message-text');
     var status = document.getElementById('eng-status'), layout = document.getElementById('eng-layout');
@@ -83,7 +83,14 @@
         E.updateLanguage(E.language(), true);
         document.querySelectorAll('[data-eng-unread]').forEach(function (el) { el.textContent = data.unread_total || ''; });
         list.replaceChildren();
-        if (!data.items.length) list.append(E.node('p', E.t(role === 'buyer' ? 'emptyBuyerChats' : 'emptyMerchantChats'), 'eng-muted'));
+        if (!data.items.length) {
+            if (role === 'buyer') {
+                var welcome = E.node('div', null, 'eng-chat-welcome');
+                var tea = E.node('span', '🍵', 'eng-chat-welcome-icon'); tea.setAttribute('aria-hidden', 'true');
+                welcome.append(tea, E.node('strong', E.t('buyerChatWelcome')), E.node('p', E.t('emptyBuyerChats')));
+                list.append(welcome);
+            } else list.append(E.node('p', E.t('emptyMerchantChats'), 'eng-muted'));
+        }
         data.items.forEach(function (row) {
             var item = E.button('', function () { target = null; open(row.id, row.name).catch(showError); });
             delete item.dataset.engText;
@@ -173,6 +180,15 @@
         finally { busy = false; syncComposer(); }
     });
     area.addEventListener('input', function () { try { sessionStorage.setItem(draftKey(), area.value); } catch (_) { /* Draft is optional. */ } });
+    area.addEventListener('compositionstart', function () { composing = true; });
+    area.addEventListener('compositionend', function () { composing = false; });
+    area.addEventListener('keydown', function (event) {
+        if (event.key !== 'Enter' || event.shiftKey || event.isComposing || composing || event.keyCode === 229) return;
+        event.preventDefault();
+        if (event.repeat || busy || loading || area.disabled || form.hidden || !area.value.trim()) return;
+        // Use the same validated form submission as the Send button.
+        form.requestSubmit(send);
+    });
     older.addEventListener('click', async function () {
         var current = generation; older.disabled = true;
         try {
