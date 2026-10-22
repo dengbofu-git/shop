@@ -2,8 +2,8 @@
   {
     "name": "template-static-check",
     "command": [
-      "E:\\miniconda\\envs\\dadashop\\python.exe",
-      "E:\\django\\dadashop\\.scratch\\cny-bundle-delivery-20261022\\verify_templates.py"
+      "python",
+      ".scratch/cny-bundle-delivery-20261022/verify_templates.py"
     ],
     "exit_code": 0,
     "seconds": 2.41
@@ -11,7 +11,7 @@
   {
     "name": "django-check",
     "command": [
-      "E:\\miniconda\\envs\\dadashop\\python.exe",
+      "python",
       "manage.py",
       "check",
       "--settings=support_ai.test_settings"
@@ -22,7 +22,7 @@
   {
     "name": "agent-tests",
     "command": [
-      "E:\\miniconda\\envs\\dadashop\\python.exe",
+      "python",
       "manage.py",
       "test",
       "support_ai.tests.RecommendationContractTests",
@@ -44,7 +44,7 @@
   {
     "name": "checkout-tests",
     "command": [
-      "E:\\New Folder\\node.exe",
+      "node",
       "--test",
       "client/tests/checkout.test.js"
     ],
@@ -54,7 +54,7 @@
   {
     "name": "product-detail-tests",
     "command": [
-      "E:\\New Folder\\node.exe",
+      "node",
       "--test",
       "client/tests/product-detail-summary.test.js"
     ],
@@ -64,7 +64,7 @@
   {
     "name": "storefront-tests",
     "command": [
-      "E:\\New Folder\\node.exe",
+      "node",
       "--test",
       "client/tests/storefront.test.js"
     ],
@@ -74,8 +74,8 @@
   {
     "name": "delivery-live-catalog",
     "command": [
-      "E:\\miniconda\\envs\\dadashop\\python.exe",
-      "E:\\django\\dadashop\\.scratch\\cny-bundle-delivery-20261022\\verify_live_delivery.py"
+      "python",
+      ".scratch/cny-bundle-delivery-20261022/verify_live_delivery.py"
     ],
     "exit_code": 0,
     "seconds": 4.49
