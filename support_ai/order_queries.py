@@ -1,17 +1,26 @@
 """Application-owned, read-only order tool. Private identity never enters plans."""
 from dataclasses import dataclass, field
-from datetime import timedelta
+from datetime import date, datetime, time, timedelta
 from typing import Optional
 
 from django.utils import timezone
+from django.utils.dateparse import parse_datetime
+from django.utils.crypto import salted_hmac, constant_time_compare
+from django.core import signing
 from pydantic import ValidationError
+import pytz
 
 from orders.models import OrderInfo, STATUS_CHOICES, TRIAL_STATUS_CHOICES, PRESALE_STATUS_CHOICES
 from users.models import UserProfile
 
 from .context import HISTORY_HOURS
-from .models import SupportConversation
-from .order_contracts import REFERENCES, OrderQueryResult, validate_order_query
+from .models import SupportConversation, SupportTurn
+from .order_contracts import REFERENCES, OrderQuery, OrderQueryResult, validate_order_query
+
+
+PAGE_SIZE = 20
+CURSOR_SALT = 'support-order-results-v1'
+ORDER_TIMEZONE = pytz.timezone('Asia/Shanghai')
 
 
 @dataclass
@@ -25,11 +34,40 @@ class OrderQueryContext:
     selected_order_id: str = field(default='', init=False, repr=False)
     not_queryable: bool = field(default=False, init=False)
     conversation_missing: bool = field(default=False, init=False)
+    previous_page: dict = field(default_factory=dict, repr=False)
 
 
-def _result(status, answer, orders=None, queried_at=None):
+def _result(status, answer, orders=None, queried_at=None, **pagination):
     return OrderQueryResult.model_validate({'status': status,
-        'data': {'answer': answer, 'orders': orders or [], 'queried_at': queried_at}}).model_dump()
+        'data': {'answer': answer, 'orders': orders or [], 'queried_at': queried_at,
+                 'returned_count': len(orders or []), **pagination}}).model_dump()
+
+
+def _cursor_owner(owner_id):
+    return salted_hmac(CURSOR_SALT, str(owner_id), algorithm='sha256').hexdigest()
+
+
+def _next_page(context, query):
+    previous = context.previous_page
+    if context.conversation_id:
+        stored = SupportTurn.objects.filter(conversation_id=context.conversation_id,
+            user_id=context.owner_id, created_at__gte=timezone.now() - timedelta(hours=HISTORY_HOURS),
+            response__has_key='order_result').order_by('-sequence').values_list('response', flat=True).first()
+        previous = stored.get('order_result', {}) if stored else {}
+    if not previous.get('has_more') or not previous.get('next_cursor'):
+        raise ValueError('没有可继续的订单分页，请重新查询全部订单或指定日期范围。')
+    try:
+        data = signing.loads(previous['next_cursor'], salt=CURSOR_SALT, max_age=86400)
+        base = query.model_copy(update={'page': 'first'}).model_dump()
+        snapshot = parse_datetime(data['snapshot_at'])
+        offset = data['offset']
+        if (not constant_time_compare(data['owner'], _cursor_owner(context.owner_id))
+                or data['query'] != base or type(offset) is not int or offset < PAGE_SIZE
+                or snapshot is None or not timezone.is_aware(snapshot)):
+            raise ValueError('Invalid cursor binding')
+    except (signing.BadSignature, KeyError, TypeError, ValueError):
+        raise ValueError('订单分页已失效或查询条件已改变，请重新查询。') from None
+    return offset, snapshot
 
 
 def binding_for_commit(owner_id, order_id):
@@ -59,7 +97,7 @@ def _project(row, label):
                 'shipped' if status in shipped.get(kind, ()) else 'unknown')
     return {'reference': label, 'order_status': status_text,
             'payment_status': payment, 'shipping_status': shipping,
-            'created_date': row['created_time'].date().isoformat()}
+            'created_date': timezone.localtime(row['created_time'], ORDER_TIMEZONE).date().isoformat()}
 
 
 def query_orders(query, context, request):
@@ -92,28 +130,51 @@ def query_orders(query, context, request):
             return _result('needs_clarification', '订单引用已失效，请重新提供订单号。')
     elif selector.type == 'selected':
         if not bound_id or bound_at is None or bound_at < timezone.now() - timedelta(hours=HISTORY_HOURS):
-            return _result('needs_clarification', '当前没有有效的所选订单，请提供订单号，或说“查询最近一笔订单”。')
+            return _result('needs_clarification', '当前没有有效的所选订单，请提供订单号，或说“查询最近订单”。')
         selected_id = bound_id
     orders = OrderInfo.objects.filter(user_profile_id=user.pk, buyer_hidden=False)
     if selected_id:
         orders = orders.filter(pk=selected_id)
-    limit = 3 if selector.type == 'recent' else 1
+    period = query.filters.created_date
+    if period:
+        start = ORDER_TIMEZONE.localize(datetime.combine(date.fromisoformat(period.start), time.min))
+        end = ORDER_TIMEZONE.localize(datetime.combine(date.fromisoformat(period.end) + timedelta(days=1), time.min))
+        orders = orders.filter(created_time__gte=start, created_time__lt=end)
+    offset, snapshot = 0, timezone.now()
+    if query.page == 'next':
+        try:
+            offset, snapshot = _next_page(context, query)
+        except ValueError as exc:
+            return _result('needs_clarification', str(exc))
+    pagination = {'query': query.model_dump()}
+    if selector.type == 'all':
+        orders = orders.filter(created_time__lte=snapshot)
+        pagination.update(total_count=orders.count(), page_offset=offset, snapshot_at=snapshot.isoformat())
+    limit = PAGE_SIZE if selector.type == 'all' else 3 if selector.type == 'recent' else 1
     # SQL projection excludes recipient, address, phone, payment identifiers and
     # child-order private text. Subtype states are read without N+1 lookups.
     rows = list(orders.order_by('-created_time', '-order_id').values(
         'order_id', 'order_type', 'status', 'created_time',
-        'trialorder__status', 'presaleorder__status')[:limit])
+        'trialorder__status', 'presaleorder__status')[offset:offset + limit + (selector.type == 'all')])
+    has_more = selector.type == 'all' and len(rows) > limit
+    rows = rows[:limit]
+    if has_more:
+        pagination.update(has_more=True, next_cursor=signing.dumps({
+            'owner': _cursor_owner(context.owner_id),
+            'query': query.model_copy(update={'page': 'first'}).model_dump(),
+            'offset': offset + limit, 'snapshot_at': snapshot.isoformat()}, salt=CURSOR_SALT, compress=True))
     queried_at = timezone.now().isoformat()
     if not rows:
         context.not_queryable = selector.type == 'explicit'
-        result = _result('no_match', '未找到您可访问的匹配订单，请在“我的订单”中核对。', queried_at=queried_at)
+        result = _result('no_match', '未找到您可访问的匹配订单，请在“我的订单”中核对。', queried_at=queried_at, **pagination)
         context.binding_changed, context.selected_order_id = True, ''
         return result
-    data = [_project(row, '近期订单{}'.format(i + 1) if selector.type == 'recent' else '当前所选订单')
+    data = [_project(row, '匹配订单{}'.format(offset + i + 1) if selector.type == 'all' else
+                     '近期订单{}'.format(i + 1) if selector.type == 'recent' else '当前所选订单')
             for i, row in enumerate(rows)]
     labels = {'paid': '已付款', 'unpaid': '待付款', 'deposit_paid': '已付定金', 'balance_due': '待付尾款',
               'not_shipped': '尚未发货', 'shipped': '已发货', 'unknown': '暂无法确认'}
-    lines = []
+    lines = ['创建日期：{} 至 {}（北京时间，含首尾日期）。'.format(period.start, period.end)] if period else []
     for order in data:
         detail = order['order_status']
         if query.topic != 'order_status':
@@ -121,10 +182,15 @@ def query_orders(query, context, request):
         lines.append('{}（{}）：{}。'.format(order['reference'], order['created_date'], detail))
     if selector.type == 'recent':
         lines.append('以上最多显示近期三笔订单；查询其中一笔的后续状态，请提供该订单号。')
+    elif selector.type == 'all':
+        lines.append('共匹配{}笔订单，本页显示第{}至{}笔，每页最多{}笔。'.format(
+            pagination['total_count'], offset + 1, offset + len(data), PAGE_SIZE))
+        if has_more:
+            lines.append('回复“下一页”继续查看。隐藏或删除订单后，分页结果可能变化。')
     if query.topic == 'payment_status':
         lines.append('付款状态依据订单业务状态解释，不代表独立的支付到账核验。')
     lines.append('查询时间：{}。订单状态可能随后变化，请以订单详情为准。'.format(queried_at))
-    result = _result('success', '\n'.join(lines), data, queried_at)
+    result = _result('success', '\n'.join(lines), data, queried_at, **pagination)
     context.binding_changed = True
-    context.selected_order_id = rows[0]['order_id'] if selector.type != 'recent' else ''
+    context.selected_order_id = rows[0]['order_id'] if selector.type not in ('recent', 'all') else ''
     return result

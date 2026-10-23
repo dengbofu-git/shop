@@ -153,7 +153,27 @@ components:
         revision: {type: integer}
         pii_redacted: {type: boolean}
         intents: {type: array, items: {type: string}}
-        order_result: {type: object, description: 仅订单任务返回status、最多三笔匿名orders与queried_at，无真实订单号。}
+        order_result:
+          type: object
+          description: 仅订单任务返回；all每页最多20笔，recent最多3笔，其他最多1笔，无真实订单号；历史响应可能仍为旧shape。
+          properties:
+            status: {type: string, enum: [success, no_match, needs_clarification, error]}
+            orders: {type: array, maxItems: 20, items: {type: object}}
+            queried_at: {type: string, nullable: true, format: date-time}
+            query:
+              type: object
+              nullable: true
+              properties:
+                selector: {type: object, description: type为recent/selected/explicit/all；移除latest，最近订单统一最多3笔，reference仅explicit使用本轮匿名引用。}
+                topic: {type: string, enum: [order_status, payment_status, shipping_status]}
+                filters: {type: object, description: created_date为空或包含start/end的YYYY-MM-DD对象，按北京时间创建日期含首尾日筛选。}
+                page: {type: string, enum: [first, next]}
+            total_count: {type: integer, minimum: 0, nullable: true, description: all本次查询时可见匹配数量，其他选择器为空。}
+            returned_count: {type: integer, minimum: 0, maximum: 20}
+            has_more: {type: boolean}
+            next_cursor: {type: string, nullable: true, description: 服务端保存并校验的本人绑定签名游标，不进入模型；客户端不能提交游标或构造查询。}
+            page_offset: {type: integer, minimum: 0}
+            snapshot_at: {type: string, nullable: true, format: date-time, description: all首次查询的创建时间上界，不代表订单状态或可见性的事务快照。}
         task_plan: {type: object, additionalProperties: true}
         tasks: {type: array, items: {type: object}}
         recommendation_groups: {type: array, items: {type: object}}

@@ -189,7 +189,8 @@ def build_graph(model, knowledge_search=None, tool_factory=None):
     def text_inputs(state):
         return {'message': state['safe_message'], 'resolved': state['resolved_question'],
                 'history': json.dumps(state.get('recent_turns', []), ensure_ascii=False),
-                'results': json.dumps(state['tool_results'], ensure_ascii=False)}
+                'results': json.dumps([{**result, 'data': {key: value for key, value in result['data'].items()
+                    if key != 'next_cursor'}} for result in state['tool_results']], ensure_ascii=False)}
 
     def compose(state):
         results = state['tool_results']
@@ -240,9 +241,9 @@ def build_graph(model, knowledge_search=None, tool_factory=None):
         response['explained_categories'] = list(dict.fromkeys(c for r in results for c in r['data'].get('explained_categories', [])))
         order_result = next((r for r in results if r['tool'] == 'get_order_status'), None)
         if order_result:
-            response['order_result'] = {'status': order_result['status'],
-                                       'orders': order_result['data'].get('orders', []),
-                                       'queried_at': order_result['data'].get('queried_at')}
+            response['order_result'] = {'status': order_result['status'], **{
+                key: order_result['data'].get(key) for key in ('orders', 'queried_at', 'query',
+                    'total_count', 'returned_count', 'has_more', 'next_cursor', 'page_offset', 'snapshot_at')}}
         recommendation = next((r for r in results if r['tool'] in ('recommend_products', 'recommend_bundle')), None)
         if recommendation:
             for key in ('recommendation_status', 'product_intent', 'recommendation_groups', 'recommendation_options',

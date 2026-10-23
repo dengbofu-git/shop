@@ -91,7 +91,7 @@ def explicit_requests(message):
     patterns = [
         ('recommendation', r'推荐|帮我(?:选|挑|找)|给我(?:选|挑)|我(?:要|想)买|可以买|在售|\brecommend\b|\bsuggest\b'),
         ('question_answering', r'介绍|说明|讲解|阐述|解释|讲讲|科普|比较|对比|怎么泡|如何冲泡|冲泡方法|什么是|有什么区别|有何区别|多少度|泡多久|\bdescribe\b|\bexplain\b|\bintroduce\b|\bcompare\b'),
-        ('after_sales', r'我的订单|这个订单|该订单|订单引用 ORDER_REF_[a-p]{8}_[1-9]|订单.{0,12}(?:状态|到哪|在哪|付款|发货|退款)|(?:物流|售后|退款).{0,8}(?:状态|进度)|\bmy order\b'),
+        ('after_sales', r'我的订单|这个订单|该订单|(?:查|看|列出|显示).{0,24}订单|(?:全部|所有)订单|订单引用 ORDER_REF_[a-p]{8}_[1-9]|订单.{0,12}(?:状态|到哪|在哪|付款|发货|退款)|(?:物流|售后|退款).{0,8}(?:状态|进度)|\bmy order\b'),
     ]
     for kind, pattern in patterns:
         for match in re.finditer(pattern, message, re.I):
