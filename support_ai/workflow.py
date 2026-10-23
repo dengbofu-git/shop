@@ -44,7 +44,6 @@ class SupportState(TypedDict, total=False):
     recent_turns: list
     memory: dict
     owner_id: int
-    order_context: str
     resolved_question: str
     clarification_required: bool
     clarification_question: str
@@ -194,9 +193,9 @@ def build_graph(model, knowledge_search=None, tool_factory=None):
 
     def compose(state):
         results = state['tool_results']
-        if any(r['tool'] == 'recommend_bundle' for r in results):
-            # Keep computed quantities and totals verbatim, including in mixed
-            # tasks. Only evidence/order tasks without an answer need wording.
+        if any(r['tool'] in ('recommend_bundle', 'get_order_status') for r in results):
+            # Preserve computed totals and server-owned order replies verbatim,
+            # including mixed tasks. Only unanswered evidence needs wording.
             parts = []
             for result in results:
                 answer = result['data'].get('answer')
@@ -209,7 +208,7 @@ def build_graph(model, knowledge_search=None, tool_factory=None):
         if len(results) == 2 and any(s.get('knowledge_from') for s in state['plan']['steps']):
             return {'answer': '\n\n'.join(redact(r['data'].get('answer', FALLBACK)) for r in results),
                     'deterministic_composition': True}
-        if len(results) == 1 and results[0]['tool'] in ('recommend_products', 'recommend_bundle', 'explain_recommendations', 'ask_clarification', 'greet_user', 'describe_capabilities'):
+        if len(results) == 1 and results[0]['tool'] in ('recommend_products', 'recommend_bundle', 'get_order_status', 'explain_recommendations', 'ask_clarification', 'greet_user', 'describe_capabilities'):
             return {'answer': redact(results[0]['data'].get('answer', FALLBACK))}
         return {'answer': _text(composer.invoke(text_inputs(state)))}
 
@@ -239,6 +238,11 @@ def build_graph(model, knowledge_search=None, tool_factory=None):
         response['diagnostics'] = [d for r in results for d in r['data'].get('diagnostics', [])]
         response['compliance_blocked'] = state.get('compliance_blocked', False)
         response['explained_categories'] = list(dict.fromkeys(c for r in results for c in r['data'].get('explained_categories', [])))
+        order_result = next((r for r in results if r['tool'] == 'get_order_status'), None)
+        if order_result:
+            response['order_result'] = {'status': order_result['status'],
+                                       'orders': order_result['data'].get('orders', []),
+                                       'queried_at': order_result['data'].get('queried_at')}
         recommendation = next((r for r in results if r['tool'] in ('recommend_products', 'recommend_bundle')), None)
         if recommendation:
             for key in ('recommendation_status', 'product_intent', 'recommendation_groups', 'recommendation_options',
@@ -275,7 +279,7 @@ def build_graph(model, knowledge_search=None, tool_factory=None):
     for left, right in [('pii', 'context'), ('context', 'plan_tasks'), ('plan_tasks', 'execute'), ('execute', 'compose')]:
         graph.add_edge(left, right)
     graph.add_conditional_edges('compose', lambda state: 'finalize' if len(state['tool_results']) == 1
-                               and state['tool_results'][0]['tool'] in ('recommend_products', 'recommend_bundle', 'explain_recommendations', 'ask_clarification', 'greet_user', 'describe_capabilities') else 'compliance',
+                               and state['tool_results'][0]['tool'] in ('recommend_products', 'recommend_bundle', 'get_order_status', 'explain_recommendations', 'ask_clarification', 'greet_user', 'describe_capabilities') else 'compliance',
                                {'finalize': 'finalize', 'compliance': 'compliance'})
     graph.add_edge('compliance', 'finalize')
     graph.add_edge('finalize', END)

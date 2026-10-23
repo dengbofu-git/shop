@@ -1,0 +1,2 @@
+PASS: category counts, subtype labels, filter links, ship/delete refresh, errors/retry, concurrent guards, escaping and mounted AJAX/events
+PASS: isolated merchant scope, 15 orders, subtype fields, API ship/delete refresh, rendered template and static assets

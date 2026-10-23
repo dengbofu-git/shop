@@ -4,7 +4,8 @@
 
 ## 有效约定
 
-- 浏览器标签及apple-touch-icon统一使用 `client/static/images/tea_saas/tea_saas-logo.png`，由 `shared/favicon.html`集中声明。业务页面与Django管理后台经共用主题模板引入，独立登录重定向模板直接引入；各页面不再单独声明旧图标，页面内Logo不在此约定的改动范围。
+- 浏览器标签及apple-touch-icon统一使用 `client/static/images/tea_saas/tea_saas-logo.png`，由 `shared/favicon.html`集中声明。业务页面与Django管理后台经共用主题模板引入，独立登录重定向模板直接引入；各页面不再单独声明旧图标。
+- 2026-10-20：买家公共顶部 `buyer_header.html` 同样使用该茶芽茶盏 Logo，替换旧红色印章；保持 36×36 显示区域并按完整比例适配，覆盖所有引用该公共头部的页面。
 - 三语产品显示名均为 `tea_saas`。Django 工程包为 `tea_saas`，入口使用 `tea_saas.settings`、`tea_saas.urls`、`tea_saas.wsgi`、`tea_saas.asgi`。
 - 原工程前缀的 Python 常量和环境变量采用 `TEA_SAAS_`；图片响应读取 `settings.TEA_SAAS_MEDIA`。
 - 前端对象、事件命名空间和登录存储统一采用 `tea_saas` 前缀。登录令牌仍仅存放于当前标签页；旧存储键不会自动继承，刷新后需重新登录。

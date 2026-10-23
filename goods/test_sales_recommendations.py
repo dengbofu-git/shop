@@ -62,16 +62,17 @@ class SalesRecommendationTests(TestCase):
         SKU.objects.filter(pk__in=[newer.pk, newest_id.pk]).update(updated_time=now)
         self.assertEqual([row['skuid'] for row in self.recommendations()], [newest_id.pk, newer.pk, older.pk])
 
-    def test_stock_eligibility_preserves_both_existing_sources_and_does_not_duplicate_rows(self):
+    def test_ledger_is_authoritative_and_legacy_fallback_requires_no_ledger(self):
         ledger_only = self.sku(sales=30, stock=0)
         legacy_only = self.sku(sales=20, stock=5)
         unavailable = self.sku(sales=100, stock=0)
+        no_ledger = self.sku(sales=10, stock=5)
         for number, available in enumerate((3, 4)):
             warehouse = Warehouse.objects.create(name='Synthetic warehouse', code='sales-' + str(number), address='synthetic')
             Inventory.objects.create(sku=ledger_only, warehouse=warehouse, quantity=available, available_quantity=available)
             Inventory.objects.create(sku=legacy_only, warehouse=warehouse, quantity=0, available_quantity=0)
             Inventory.objects.create(sku=unavailable, warehouse=warehouse, quantity=5, reserved_quantity=5)
-        self.assertEqual([row['skuid'] for row in self.recommendations()], [ledger_only.pk, legacy_only.pk])
+        self.assertEqual([row['skuid'] for row in self.recommendations()], [ledger_only.pk, no_ledger.pk])
 
     def test_returns_top_twenty_with_no_duplicate_skus(self):
         skus = [self.sku(merchant=number % 2, sales=number) for number in range(25)]

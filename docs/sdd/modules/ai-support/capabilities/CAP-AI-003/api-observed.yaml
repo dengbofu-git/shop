@@ -1,25 +1,25 @@
 openapi: 3.0.3
 info:
   title: tea_saas 客服HTTP当前实现观察
-  version: "0.11.1-observed.20261018"
-  description: 当前工作区源码及隔离探针观察，不是生产验收；业务目标仍以api-contract.yaml和规格0.2.0为准。
-x-status: observed-current-source-with-historical-probes
+  version: "0.17.0-observed.20261023"
+  description: 2026-10-23订单工具增量仅观察源码；下列历史探针属于2026-10-18，不是本次运行证据或生产验收。业务目标仍以api-contract.yaml和规格0.2.0为准。
+x-status: source-observed-not-order-runtime-verified
 x-evidence: docs/sdd/evidence/2026-10-18-project-chat-sdd/manifest.json
 x-historical-evidence: docs/sdd/evidence/2026-10-16-sdd-reconciliation/manifest.json
 x-target-contract: api-contract.yaml
 x-observed-differences:
-  - 当前JSON错误只有error和可能的trace_id，没有error_code。
-  - 明确他人或不存在订单得到空DTO后仍进入模型；探针均HTTP200并各提交一个成功轮次。
-  - 英文原始编号可能留在safe_message和mock模型输入中。
+  - 明确不可访问订单新增error_code=ORDER_NOT_QUERYABLE；其他错误仍未统一错误码。
+  - 明确他人或不存在订单由工具判定后HTTP404且不保存轮次；历史探针的200不代表当前增量结果。复杂意图仍可能先调用模型，不符合旧草案模型前404的时序。
+  - 本轮带明确标签的中英文编号由随机ORDER_REF替换；未识别格式、历史存量及完整响应树的过滤不能据此宣称已全部完成。
   - 历史列表和详情GET已按既有模式再脱敏；成功重放仍直接返回保存内容。英文编号完整过滤目标仍未完成。
   - 模型上下文使用turn-数据库主键，没有临时ctx映射。
-  - 未见纯订单empty/clarification的应用级模型前模板短路。
+  - 单订单结果用工具固定模板，不调用组合或合规模型；意图识别仍可能用模型，未实现全链路模型前短路。
 x-request-notes:
-  - Bearer身份必须是customer类型；chat和preferences的共享认证未额外检查is_active，列表和详情GET已单独拒绝停用账号。
+  - Bearer身份必须是活跃customer类型；共享认证、历史GET/DELETE及订单工具均拒绝停用账号。
   - request_id省略时生成；expected_revision省略或null时跳过客户端revision比较，最终提交仍校验读到的revision。
   - conversation_id通过truthiness判断，旧入口除省略/null外也将空字符串等假值视作无会话；目标客户端只发送规范UUID或省略。
   - 同用户/同request_id的已有成功重放优先于会话加载、偏好读取和订单查询；不重新读取状态。
-  - 订单上下文在规划意图之前组装；当前既不根据本切片目标返回订单404，也不因混合任务含不可见编号就整次短路。
+  - 订单号本地解析不查库；仅after_sales执行get_order_status时查询本人订单。混合任务中明确编号不可见也返回404，不提交轮次。
 security:
   - BuyerBearer: []
 paths:
@@ -41,7 +41,7 @@ paths:
                 expected_revision: {type: integer, minimum: 0, nullable: true}
       responses:
         '200':
-          description: 已有成功重放或新成功轮次；当前不可见明确订单也可能走此分支。
+          description: 已有成功重放或新成功轮次；未指定编号且本人无订单可返回正常no_match。
           content:
             application/json:
               schema: {$ref: '#/components/schemas/ObservedSuccess'}
@@ -49,7 +49,7 @@ paths:
         '401': {$ref: '#/components/responses/ObservedError'}
         '403': {$ref: '#/components/responses/ObservedError'}
         '404':
-          description: 当前仅本人会话查询失败的应用分支，尚无ORDER_NOT_QUERYABLE分支。
+          description: 会话不可见，或明确订单编号在本人可见范围内不可访问；后者error_code为ORDER_NOT_QUERYABLE。
           content:
             application/json:
               schema: {$ref: '#/components/schemas/ObservedError'}
@@ -140,6 +140,7 @@ components:
       properties:
         error: {type: string}
         trace_id: {type: string}
+        error_code: {type: string}
     ObservedSuccess:
       type: object
       additionalProperties: true
@@ -152,6 +153,7 @@ components:
         revision: {type: integer}
         pii_redacted: {type: boolean}
         intents: {type: array, items: {type: string}}
+        order_result: {type: object, description: 仅订单任务返回status、最多三笔匿名orders与queried_at，无真实订单号。}
         task_plan: {type: object, additionalProperties: true}
         tasks: {type: array, items: {type: object}}
         recommendation_groups: {type: array, items: {type: object}}

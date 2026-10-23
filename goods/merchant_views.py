@@ -282,11 +282,12 @@ def sku_detail(request, sku_id):
     return JsonResponse({'code': 405, 'error': '方法不允许'}, status=405)
 
 
+@transaction.atomic
 def _update_sku(request, sku_id):
     try:
         merchant = request.user_profile
         data = json.loads(request.body)
-        sku = SKU.objects.select_related('spu').get(id=sku_id)
+        sku = SKU.objects.select_for_update().select_related('spu').get(id=sku_id)
         if sku.spu.merchant != merchant:
             return JsonResponse({'code': 403, 'error': '无权操作'})
     except SKU.DoesNotExist:
@@ -300,10 +301,12 @@ def _update_sku(request, sku_id):
     if 'is_launched' in data:
         sku.is_launched = data['is_launched']
     if 'stock' in data:
-        sku.stock = int(data['stock'])
+        from inventory.services import InventoryService
+        try:sku.stock = InventoryService.adjust_stock(sku.pk,int(data['stock']))
+        except (ValueError,TypeError):return JsonResponse({'code':409,'error':'库存调整失败：不能低于已预留数量，多仓库存请按仓库调整'},status=409)
     if 'price' in data:
         sku.price = data['price']
-    sku.save()
+    sku.save(update_fields=[k for k in ('name','caption','is_launched','price') if k in data]+['updated_time'])
     return JsonResponse({'code': 200, 'msg': '修改成功', 'data': {'sku_id': sku.id, 'name': sku.name, 'price': str(sku.price), 'stock': sku.stock}})
 
 
@@ -342,7 +345,7 @@ def upload_sku_image(request, sku_id):
     if not image_file:
         return JsonResponse({'code': 400, 'error': '请选择商品图片'})
     sku.default_image_url = image_file
-    sku.save()
+    sku.save(update_fields=['default_image_url','updated_time'])
     return JsonResponse({
         'code': 200,
         'msg': '图片上传成功',
@@ -352,6 +355,7 @@ def upload_sku_image(request, sku_id):
 
 @merchant_required
 @require_http_methods(["PUT"])
+@transaction.atomic
 def update_sku_status(request, sku_id):
     """
     更新SKU上架状态
@@ -362,7 +366,7 @@ def update_sku_status(request, sku_id):
         
         # 获取SKU并验证所有权
         try:
-            sku = SKU.objects.select_related('spu').get(id=sku_id)
+            sku = SKU.objects.select_for_update().select_related('spu').get(id=sku_id)
             if sku.spu.merchant != merchant:
                 return JsonResponse({
                     'code': 403,
@@ -382,11 +386,13 @@ def update_sku_status(request, sku_id):
         if 'is_launched' in data:
             sku.is_launched = data['is_launched']
         if 'stock' in data:
-            sku.stock = int(data['stock'])
+            from inventory.services import InventoryService
+            try:sku.stock = InventoryService.adjust_stock(sku.pk,int(data['stock']))
+            except (ValueError,TypeError):return JsonResponse({'code':409,'error':'库存调整失败，请检查已预留库存及仓库'},status=409)
         if 'price' in data:
             sku.price = data['price']
         
-        sku.save()
+        sku.save(update_fields=[k for k in ('name','caption','is_launched','price') if k in data]+['updated_time'])
         
         return JsonResponse({
             'code': 200,
@@ -400,6 +406,7 @@ def update_sku_status(request, sku_id):
         })
         
     except Exception as e:
+        transaction.set_rollback(True)
         return JsonResponse({
             'code': 500,
             'error': f'更新失败: {str(e)}'

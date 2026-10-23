@@ -1,0 +1,38 @@
+[
+  {
+    "path": "docs/sdd/evidence/2026-10-22-reports-baseline/verification.md",
+    "raw_sha256": "17fa1b477f08b7f1ef937e2db60726e1665aea83daa62016d677f7b43e2242d5",
+    "published_sha256": "ec7c4a08b67781f0a5eddf1013dca9a9e549c514a231fdf8f28266bde8cbbc96",
+    "scope": "machine_paths_and_line_endings_only; result_status_unchanged"
+  },
+  {
+    "path": "docs/sdd/modules/identity/user-nicknames.md",
+    "raw_sha256": "6d813170094379f394418583d858a475d893df5d746bfbd2d86ff235d68a621c",
+    "published_sha256": "e8b21e8fde504ae60122648be4a2cc060de3afa27ca9dce75cf65a88a22619d8",
+    "scope": "machine_paths_and_line_endings_only; result_status_unchanged"
+  },
+  {
+    "path": "reports/agent-evaluation/2026-10-22-reports-baseline/checks.json",
+    "raw_sha256": "d92257fc8e43a2e19cd2850759646a195ab8fae784da01d67dfceff7b0100289",
+    "published_sha256": "90e914680edd0a41c3d77ca07de2c7e4b82fd2efbf6d425b10160ddb74fa1161",
+    "scope": "machine_paths_and_line_endings_only; result_status_unchanged"
+  },
+  {
+    "path": "reports/agent-evaluation/2026-10-22-reports-baseline/preview-command/20261022-171258-3f252587c6b841aca2cc0c3de5e004b8.jsonl",
+    "raw_sha256": "38b047269bd0af263b2ee4f66b1c3a18e004f869f30d62db0cdc06b03587af29",
+    "published_sha256": "33c98b6d5cede27f77e279f69ef6ba00e9d57748c5a687fff160eb0084c45573",
+    "scope": "machine_paths_and_line_endings_only; result_status_unchanged"
+  },
+  {
+    "path": "reports/agent-evaluation/2026-10-22-reports-baseline/related-regression-local-temp.log",
+    "raw_sha256": "0479f5d700060d756eee53ee76a2711a0cd6bd066b2fb685cb90947a344fec49",
+    "published_sha256": "ee651096d13a9dd2359e7b842c2ce44771569db810016de3b477936e99c65d47",
+    "scope": "machine_paths_and_line_endings_only; result_status_unchanged"
+  },
+  {
+    "path": "reports/agent-evaluation/2026-10-22-reports-baseline/related-regression.log",
+    "raw_sha256": "e8051cbc514beec499aa3138956cf7e0059f1784448ca3ed96c805fe2ed2a263",
+    "published_sha256": "8bce40325c372244f0e90274a961529936eeabbb7c87acba117031da98edebce",
+    "scope": "machine_paths_and_line_endings_only; result_status_unchanged"
+  }
+]

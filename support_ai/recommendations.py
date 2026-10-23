@@ -45,7 +45,7 @@ def _keyword(term):
 def available_products():
     return SKU.objects.filter(is_launched=True).select_related('spu__catalog', 'spu__brand').annotate(
         ledger_count=Count('inventory'),
-        ledger_available=Coalesce(Sum('inventory__available_quantity'), Value(0)),
+        ledger_available=Coalesce(Sum('inventory__available_quantity',filter=Q(inventory__warehouse__is_active=True)), Value(0)),
     ).annotate(available_stock=Case(
         When(ledger_count=0, then=F('stock')), default=F('ledger_available'), output_field=IntegerField(),
     )).filter(available_stock__gt=0)

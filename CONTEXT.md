@@ -12,7 +12,7 @@
 | 购买后评价 | 绑定一个已完成订单商品项，按购买时商家与SPU公开汇总；不由旧计数或自动好评生成 | [评价规则](docs/sdd/modules/catalog-content/purchase-reviews.md) |
 | SKU／商品规格项 | 具体商品项，关联 SPU，具有售价、库存及上架状态；公开详情工具以 `sku_id` 定位 | [SKU 模型](goods/models.py)、[公开详情](support_ai/product_details.py) |
 | 采购车／购物车 | 买家待结算的商品选择；产品文案用“采购车”，既有代码和接口保留 `carts` 等标识 | [架构与展示约定](docs/sdd/architecture/context.md) |
-| 可用库存 | 必须说明使用入口及来源。当前 AI 公开商品读取有账本时使用账本可用量，无账本时回退 SKU 库存；其他入口存在口径差异 | [公开商品范围](support_ai/recommendations.py)、[已知差异](docs/sdd/architecture/context.md) |
+| 可用库存 | 有账本时只计启用仓的可售量，无账本时回退SKU库存；订单预留减少可售量，SKU.stock为实物投影。实现及隔离验证已完成，业务库启用单独授权 | [库存预留](docs/sdd/modules/trade/stock-reservations.md)、[公开商品范围](support_ai/recommendations.py) |
 | 基础币种／参考换算 | 2026-10-22起基础价格与计算统一人民币CNY，USD／AED／SAR／EUR仅按共用参考比例显示；未标币种预算默认CNY，页面选择不改变订单金额或实际渠道扣款 | [金额规格](docs/sdd/architecture/currency.md)、[决定](docs/adr/0003-cny-base-currency.md) |
 | 实现模块 | `versions/modules.json` 中有独立版本的代码资产归属，如 `goods`、`support_ai` | [模块清单](versions/modules.json) |
 | 业务域／能力切片 | SDD 中的 `MOD-*`／`CAP-*`；业务归属和能力阶段不等于 Django App 划分或实现模块版本 | [SDD 工作约定](docs/sdd/governance/workflow.md) |

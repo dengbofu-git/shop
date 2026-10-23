@@ -4,7 +4,7 @@ from functools import wraps
 
 from django.core.paginator import Paginator
 from django.db import transaction
-from django.db.models import Count, F, Q
+from django.db.models import Case, Count, F, IntegerField, Q, Value, When
 from django.http import JsonResponse
 from django.utils import timezone
 
@@ -15,7 +15,7 @@ from users.models import UserProfile
 from .models import Conversation, Message, Review, ReviewModeration, ReviewReply, ReviewReport
 from .services import (APIError, completed, content, find, fingerprint, integer, item_row,
                        message_row, participants, portal, public_review, review_state,
-                       summary, sync_counts, target_context)
+                       summary, sync_counts, target_context, visible_conversations)
 
 
 def api(methods, roles=()):
@@ -97,7 +97,19 @@ def conversation_row(conv, user):
 def conversations(request):
     user = request.user_profile
     if request.method == 'GET':
-        rows = participants(user).select_related('buyer', 'merchant')
+        rows = visible_conversations(user).select_related('buyer', 'merchant')
+        # Browser-local preferences affect ordering only; the participant filter
+        # remains authoritative and is applied before pagination.
+        order = request.GET.get('order')
+        if order:
+            values = order.split(',')
+            if len(values) > 200:
+                raise APIError('INVALID_PARAMETER', '排序最多包含200个会话')
+            ids = [integer(value, 'order') for value in values]
+            if len(set(ids)) != len(ids):
+                raise APIError('INVALID_PARAMETER', '排序会话不能重复')
+            rows = rows.order_by(Case(*[When(pk=value, then=Value(index)) for index, value in enumerate(ids)],
+                                      default=Value(len(ids)), output_field=IntegerField()), '-updated_at', '-id')
         result = page_rows(request, rows, lambda row: conversation_row(row, user))
         read_field = 'conversation__' + portal(user) + '_read_id'
         result['unread_total'] = Message.objects.filter(conversation__in=rows, id__gt=F(read_field)).exclude(sender=user).count()
@@ -109,6 +121,7 @@ def conversations(request):
         UserProfile.objects.select_for_update().get(pk=user.pk)
         merchant, _ = target_context(user, request.data)
         conv, _ = Conversation.objects.get_or_create(buyer=user, merchant=merchant)
+        conv = Conversation.objects.select_for_update().get(pk=conv.pk)
         return send_message(request, conv)
 
 
@@ -132,7 +145,9 @@ def send_message(request, conv):
         raise APIError('RATE_LIMITED', '发送过于频繁，请稍后重试', 429)
     message = Message.objects.create(conversation=conv, sender=user, text=text, context=card,
                                      request_id=request_id, fingerprint=digest)
-    Conversation.objects.filter(pk=conv.pk).update(updated_at=message.created_at)
+    # Only a new persisted message resurfaces the pair; retries must not undo hiding.
+    Conversation.objects.filter(pk=conv.pk).update(updated_at=message.created_at,
+                                                 buyer_hidden=False, merchant_hidden=False)
     return ok({'conversation_id': conv.pk, 'message': message_row(message, user)}, 201)
 
 
@@ -145,6 +160,8 @@ def messages(request, conversation_id):
             conv = find(participants(user).select_for_update(), pk=conversation_id)
             return send_message(request, conv)
     conv = find(participants(user).select_related('buyer', 'merchant'), pk=conversation_id)
+    if getattr(conv, portal(user) + '_hidden'):
+        raise APIError('CONVERSATION_HIDDEN', '此会话已对你隐藏，消息记录仍保留', 404)
     after, before = request.GET.get('after'), request.GET.get('before')
     if after is not None and before is not None:
         raise APIError('INVALID_CURSOR', '不能同时指定前后游标')
@@ -162,6 +179,24 @@ def messages(request, conversation_id):
     return ok({'conversation_id': conv.pk, 'name': conversation_name(conv, user),
                'items': [message_row(m, user) for m in batch], 'has_more': more,
                'other_read_id': conv.merchant_read_id if user.pk == conv.buyer_id else conv.buyer_read_id})
+
+
+@api(['POST'], ['buyer', 'merchant'])
+def hide_conversation(request, conversation_id):
+    with transaction.atomic():
+        conv = find(participants(request.user_profile).select_for_update(), pk=conversation_id)
+        field = portal(request.user_profile) + '_hidden'
+        Conversation.objects.filter(pk=conv.pk).update(**{field: True})
+    return ok({})
+
+
+@api(['POST'], ['buyer', 'merchant'])
+def restore_conversation(request, conversation_id):
+    with transaction.atomic():
+        conv = find(participants(request.user_profile).select_for_update(), pk=conversation_id)
+        field = portal(request.user_profile) + '_hidden'
+        Conversation.objects.filter(pk=conv.pk).update(**{field: False})
+    return ok({})
 
 
 @api(['POST'], ['buyer', 'merchant'])

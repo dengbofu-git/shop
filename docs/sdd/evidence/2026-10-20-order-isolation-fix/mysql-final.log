@@ -1,0 +1,26 @@
+Creating test database for alias 'default'...
+
+
+System check identified no issues (0 silenced).
+
+............{"timestamp": "2026-10-20T08:59:56.752+00:00", "level": "ERROR", "service": "tea_saas", "logger": "orders.views", "event": "application.log", "http_request_id": "2ad39ee7c0fa483091e9dc22c4310ba1", "method": "POST", "route": "v1/orders/<str:username>", "error_type": "RuntimeError", "stack": [{"file": "views.py", "function": "post", "line": 141}, {"file": "checkout.py", "function": "create_orders", "line": 99}, {"file": "views.py", "function": "unknown", "line": 141}, {"file": "views.py", "function": "payment_for_order", "line": 42}, {"file": "mock.py", "function": "__call__", "line": 1092}, {"file": "mock.py", "function": "_mock_call", "line": 1096}, {"file": "mock.py", "function": "_execute_mock_call", "line": 1155}]}
+
+{"timestamp": "2026-10-20T08:59:56.798+00:00", "level": "ERROR", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "2ad39ee7c0fa483091e9dc22c4310ba1", "method": "POST", "route": "v1/orders/<str:username>", "http_status": 503, "business_code": 503, "duration_ms": 69.57, "outcome": "server_error"}
+
+.............................RBAC seeded: 6 roles, 9 permissions, 26 new role-permission mappings.
+
+{"timestamp": "2026-10-20T08:59:59.773+00:00", "level": "ERROR", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "9d8e0491329e45c28c9539121261b015", "method": "GET", "route": "v1/admin-panel/overview", "http_status": 503, "business_code": 503, "duration_ms": 10.51, "outcome": "server_error"}
+
+....{"timestamp": "2026-10-20T08:59:59.939+00:00", "level": "WARNING", "service": "tea_saas", "logger": "django.request", "event": "application.log", "http_request_id": "7f18f50af18b479591c4fd4c9c21fdd3", "method": "POST", "route": "v1/admin-panel/overview"}
+
+.....
+
+----------------------------------------------------------------------
+
+Ran 50 tests in 4.889s
+
+
+
+OK
+
+Destroying test database for alias 'default'...

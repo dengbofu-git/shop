@@ -47,14 +47,25 @@ def main(output):
         assert {cat['catalog_id'] for cat in body['data']} == set(expected)
         for cat in body['data']:
             assert {row['skuid'] for row in cat['sku']} == expected[cat['catalog_id']]
+            assert all(row['stock'] == 10 for row in cat['sku'])
         page = Client().get('/buyer_dashboard.html')
         assert page.status_code == 200
         html = page.content.decode('utf-8')
         assert 'id="featured-tea-tabs"' in html
-        assert 'id="featured-pagination"' in html
+        assert 'id="featured-pagination"' not in html
+        assert 'id="featured-summary"' not in html
         assert 'data-cat="bulk"' not in html and 'data-cat="gift"' not in html
         assert 'data-cat="daily"' not in html and 'data-cat="portable"' not in html
         assert html.index('buyer-catalog-preview.js') < html.index('buyer-workbench.js')
+        assert html.index('buyer-catalog-model.js') < html.index('buyer-catalog-preview.js')
+        procurement = Client().get('/buyer_products.html')
+        assert procurement.status_code == 200
+        procurement_html = procurement.content.decode('utf-8')
+        assert 'id="procurement-filters"' in procurement_html
+        assert 'id="procurement-pagination"' in procurement_html
+        assert 'buyer-products-banner' not in procurement_html
+        assert 'id="recommend-section"' not in procurement_html
+        assert 'id="buyer-carousel"' in html and 'id="buyer-carousel"' not in procurement_html
         Path(output).write_text(json.dumps(body, indent=2) + '\n', encoding='utf-8')
         print('PASS: real Django index contract has 2 categories and 30 saleable fixture SKUs; '
               'unlisted/out-of-stock rows excluded; homepage renders HTTP 200 without scenario buttons')

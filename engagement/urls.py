@@ -7,6 +7,8 @@ urlpatterns = [
     path('conversations', views.conversations),
     path('conversations/<int:conversation_id>/messages', views.messages),
     path('conversations/<int:conversation_id>/read', views.read_messages),
+    path('conversations/<int:conversation_id>/hide', views.hide_conversation),
+    path('conversations/<int:conversation_id>/restore', views.restore_conversation),
     path('reviewable-items', views.reviewable_items),
     path('reviews', views.create_review),
     path('reviews/mine', views.own_reviews),

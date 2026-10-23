@@ -29,7 +29,7 @@
         info.append(E.node('h3', item.product_name), E.node('p', item.specification, 'eng-muted'), E.node('small', item.order_id + ' · ' + E.t('completed')));
         article.append(image, info);
         if (item.can_review) article.append(E.button('review', function () { reviewDialog(item); }));
-        else article.append(E.node('p', E.t(item.review_reason === 'HISTORY_NOT_VERIFIED' ? 'history' : item.review_id ? 'rated' : 'notComplete'), 'eng-muted'));
+        else article.append(E.node('p', E.t(item.review_reason === 'HISTORY_NOT_VERIFIED' ? 'reviewHistory' : item.review_id ? 'rated' : 'notComplete'), 'eng-muted'));
         return article;
     }
     function reviewCard(row) {

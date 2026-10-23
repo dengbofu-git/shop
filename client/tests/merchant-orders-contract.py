@@ -24,9 +24,9 @@ def main():
     assert settings.DATABASES['default']['NAME'] == ':memory:'
     databases = setup_databases(verbosity=0, interactive=False, aliases={'default'})
     try:
-        merchant = UserProfile.objects.create(username='fixture-merchant', user_type='merchant')
-        other = UserProfile.objects.create(username='fixture-other', user_type='merchant')
-        buyer = UserProfile.objects.create(username='fixture-buyer', user_type='customer')
+        merchant = UserProfile.objects.create(username='fixture-merchant', user_type='merchant', is_active=True)
+        other = UserProfile.objects.create(username='fixture-other', user_type='merchant', is_active=True)
+        buyer = UserProfile.objects.create(username='fixture-buyer', user_type='customer', is_active=True)
         catalog = Catalog.objects.create(name='Fixture')
         def sku_for(owner):
             spu = SPU.objects.create(name='Fixture tea', catalog=catalog, merchant=owner)
@@ -66,7 +66,10 @@ def main():
             assert refreshed['status'] == 3
             assert client.post('/v1/supplier/orders/delete', data=json.dumps({'order_id': '0'}),
                                content_type='application/json', HTTP_AUTHORIZATION='fixture').json()['code'] == 200
-            assert len(orders()['data']) == 14
+            assert len(orders()['data']) == 15
+            cancelled = next(row for row in orders()['data'] if row['order_id'] == '0')
+            assert cancelled['status'] == 0 and not cancelled['can_delete']
+            assert OrderInfo.objects.filter(pk='0').exists()
         page = client.get('/merchant_orders.html?embed=1&filter=unshipped')
         assert page.status_code == 200
         html = page.content.decode()

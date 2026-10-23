@@ -6,6 +6,8 @@ from . import activity_views
 urlpatterns = [
     path('favorites', activity_views.favorites),
     path('favorites/<int:sku_id>', activity_views.favorite),
+    path('merchant-favorites', activity_views.merchant_favorites),
+    path('merchant-favorites/<int:merchant_id>', activity_views.merchant_favorite),
     path('recent', activity_views.recent),
     path('recent/<int:sku_id>', activity_views.recent_item),
     # 客户商品查看

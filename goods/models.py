@@ -12,6 +12,21 @@ class Favorite(models.Model):
         ordering = ['-created_time', '-id']
 
 
+class MerchantFavorite(models.Model):
+    user = models.ForeignKey('users.UserProfile', on_delete=models.CASCADE,
+                             related_name='merchant_favorites')
+    merchant = models.ForeignKey('users.UserProfile', on_delete=models.CASCADE,
+                                 related_name='favorited_by_buyers')
+    name = models.CharField(max_length=50)
+    logo_url = models.CharField(max_length=300, blank=True, default='')
+    created_time = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = 'goods_merchant_favorite'
+        unique_together = ('user', 'merchant')
+        ordering = ['-created_time', '-id']
+
+
 class BrowsingHistory(models.Model):
     user = models.ForeignKey('users.UserProfile', on_delete=models.CASCADE)
     sku = models.ForeignKey('SKU', on_delete=models.CASCADE)

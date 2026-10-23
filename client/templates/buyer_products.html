@@ -12,6 +12,7 @@
     <script src="../static/js/jquery-3.1.1.min.js"></script>
 {% include "shared/system_theme.html" %}
     <link rel="stylesheet" href="/static/css/store-pages.css?v=1">
+    <link rel="stylesheet" href="/static/css/buyer-discovery.css?v=20261021-filters">
     <script src="/static/js/storefront.js?v=20261022-cny"></script>
 </head>
 <body class="ds-page-buyer_products ds-theme buyer-workbench" id="buyer-body">
@@ -22,39 +23,38 @@
             {% include 'buyer_header.html' %}
 
             <div class="buyer-content">
-                <!-- 采购横幅 -->
-                <section class="banner-section buyer-products-banner">
-                    <div class="banner-item active" style="background: linear-gradient(135deg, #1b4332 0%, #2d6a4f 100%);">
-                        <div class="banner-pattern"></div>
-                        <div class="banner-content">
-                            <h2 data-i18n="banner3_title">Bulk Purchase Discount</h2>
-                            <p data-i18n="banner3_desc">100+ units: 15% off · 500+ units: 25% off</p>
-                            <span class="banner-price">Contact for quote</span>
-                        </div>
-                    </div>
-                </section>
+                <div class="procurement-heading">
+                    <p class="procurement-eyebrow">TEA COLLECTION</p>
+                    <h1 data-procure="title">商品采购</h1>
+                    <p data-procure="intro">按茶类、价格与店铺查找商品，核对规格后加入采购车。</p>
+                </div>
 
                 <!-- 分类标签 + 商品列表 -->
                 <section class="products-section">
                     <div class="category-tabs" id="category-tabs">
                         <span class="cat-loading" data-i18n="loading">Loading...</span>
                     </div>
+                    <form id="procurement-filters" class="procurement-filters">
+                        <fieldset id="procurement-fields" disabled>
+                            <legend class="sr-only" data-procure="apply">应用筛选</legend>
+                            <label class="procurement-keyword"><span data-procure="keyword">商品关键词</span><input id="filter-q" name="q" type="search" maxlength="200" placeholder="商品名、规格或店铺名" aria-label="商品关键词"></label>
+                            <label><span><span data-procure="min_price">最低价格</span> (<span data-price-currency>CNY</span>)</span><input id="filter-min_price" name="min_price" type="number" min="0" step="0.01" inputmode="decimal" placeholder="最低价格 (CNY)" aria-label="最低价格 (CNY)"></label>
+                            <label><span><span data-procure="max_price">最高价格</span> (<span data-price-currency>CNY</span>)</span><input id="filter-max_price" name="max_price" type="number" min="0" step="0.01" inputmode="decimal" placeholder="最高价格 (CNY)" aria-label="最高价格 (CNY)"></label>
+                            <label class="procurement-store"><span data-procure="merchant">店铺名称</span><input id="filter-store_q" name="store_q" type="search" maxlength="200" placeholder="搜索店铺名称" aria-label="搜索店铺名称"></label>
+                            <label><span data-procure="sort">排序</span><select id="filter-sort" name="sort" aria-label="排序"><option value="default" data-procure="default_sort">茶类均衡</option><option value="price_asc" data-procure="price_asc">价格从低到高</option><option value="price_desc" data-procure="price_desc">价格从高到低</option></select></label>
+                            <div class="procurement-filter-actions"><button type="submit" class="btn-add-cart" data-procure="apply">应用筛选</button><button id="procurement-reset" type="button" class="catalog-tab" data-procure="reset">重置</button></div>
+                        </fieldset>
+                    </form>
+                    <p class="procurement-note" data-procure="note">仅展示可售商品；价格为参考换算，最终金额以结算页为准。</p>
+                    <div id="procurement-results">
                     <p class="featured-summary" id="procurement-summary" aria-live="polite"></p>
+                    <p id="procurement-error" role="alert" data-procure="error" hidden>商品目录加载失败，请重试。</p>
+                    <button id="procurement-retry" type="button" class="catalog-tab" data-procure="retry" hidden>重新加载</button>
+                    <p id="procurement-empty" role="status" data-procure="empty" hidden>没有符合条件的商品，请调整筛选。</p>
                     <div class="product-grid" id="product-grid">
                         <div class="product-loading" data-i18n="loading">Loading...</div>
                     </div>
-                    <div class="pager-wrap buyer-pager" id="pager-wrap" style="display:none;">
-                        <a href="javascript:;" class="pager-prev" id="pager-prev" data-i18n="prev_page">Previous</a>
-                        <div class="pager-nums" id="pager-nums"></div>
-                        <a href="javascript:;" class="pager-next" id="pager-next" data-i18n="next_page">Next</a>
-                    </div>
-                </section>
-
-                <!-- 推荐商品 -->
-                <section class="recommend-section" id="recommend-section">
-                    <h2 class="section-title" data-i18n="recommend_title">Recommended</h2>
-                    <div class="recommend-grid" id="recommend-grid">
-                        <span class="recommend-loading" data-i18n="loading">Loading...</span>
+                    <nav class="procurement-pagination" id="procurement-pagination" aria-label="商品分页" hidden></nav>
                     </div>
                 </section>
             </div>
@@ -69,6 +69,7 @@
             <p class="modal-body" id="modal-preview-body"></p>
         </div>
     </div>
+    <script src="../static/js/buyer-catalog-model.js?v=20261022-cny"></script>
     <script src="../static/js/buyer-workbench.js?v=20261022-account-menu"></script>
     <script src="../static/js/buyer-products.js?v=20261022-cny"></script>
 </body>

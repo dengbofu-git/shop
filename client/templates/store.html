@@ -6,7 +6,8 @@
     <link rel="stylesheet" href="/static/css/design-tokens.css">
     <link rel="stylesheet" href="/static/css/rtl.css">
     <link rel="stylesheet" href="/static/css/buyer-workbench.css?v=20261020-store-pages">
-    <link rel="stylesheet" href="/static/css/store-pages.css?v=1">
+    <link rel="stylesheet" href="/static/css/store-pages.css?v=20261022-favorite-card">
+    <link rel="stylesheet" href="/static/css/buyer-activity.css?v=20261021-merchant-favorites">
     <script src="/static/js/init.js"></script>
     <script src="/static/js/auth-storage.js?v=20261018-session-isolation"></script>
     <script src="/static/js/jquery-3.1.1.min.js"></script>
@@ -21,7 +22,12 @@
                 <div class="store-breadcrumb"><a href="/buyer_dashboard.html">平台首页</a><span>/ 商家主页</span><a href="/buyer_products.html">浏览平台全部商品 →</a></div>
                 <div class="store-feedback"><p id="store-feedback" role="status">正在打开店铺…</p><button type="button" id="store-retry">重新加载</button></div>
                 <div id="store-content" hidden>
-                    <section class="store-hero" id="store-hero" aria-label="店铺信息"></section>
+                    <section class="store-hero" id="store-hero" aria-label="店铺信息">
+                        <div class="store-favorite-actions" id="store-favorite-actions">
+                            <button type="button" id="merchant-favorite-toggle" class="store-favorite-button" aria-pressed="false">收藏商家</button>
+                            <span id="merchant-favorite-message" class="store-muted" role="status" aria-live="polite"></span>
+                        </div>
+                    </section>
                     <nav class="store-tabs" aria-label="店铺导航">
                         <button type="button" data-store-tab="home" aria-pressed="true">店铺首页</button>
                         <button type="button" data-store-tab="products" aria-pressed="false">全部商品</button>
@@ -47,6 +53,7 @@
     </div>
     <script src="/static/js/storefront.js?v=20261022-cny"></script>
     <script src="/static/js/buyer-workbench.js?v=20261022-account-menu"></script>
-    <script src="/static/js/store-page.js?v=1"></script>
+    <script src="/static/js/buyer-activity.js?v=20261022-cny"></script>
+    <script src="/static/js/store-page.js?v=20261022-favorite-card"></script>
 </body>
 </html>

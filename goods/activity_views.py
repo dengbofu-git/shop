@@ -1,14 +1,16 @@
 """Private buyer favorites and browsing history; identity comes only from JWT."""
 from functools import wraps
 
+from django.core.exceptions import ObjectDoesNotExist
 from django.core.paginator import Paginator
 from django.db import transaction
 from django.http import JsonResponse
 from django.utils import timezone
+from django.views.decorators.cache import never_cache
 
 from users.decorators import get_user_from_request
 from users.models import UserProfile
-from .models import BrowsingHistory, Favorite, SKU
+from .models import BrowsingHistory, Favorite, MerchantFavorite, SKU
 
 HISTORY_LIMIT = 100
 PAGE_SIZE = 12
@@ -87,6 +89,71 @@ def favorite(request, sku_id):
     if not SKU.objects.filter(id=sku_id, is_launched=True).exists():
         return JsonResponse({'code': 404, 'error': '商品不存在或已下架'}, status=404)
     Favorite.objects.get_or_create(user=request.user_profile, sku_id=sku_id)
+    return JsonResponse({'code': 200, 'data': {'is_favorite': True}})
+
+
+@never_cache
+@buyer_only
+def merchant_favorites(request):
+    if request.method != 'GET':
+        return method_error(['GET'])
+    try:
+        page_number = int(request.GET.get('page', '1'))
+        if page_number < 1:
+            raise ValueError
+    except (ValueError, TypeError):
+        return JsonResponse({'code': 400, 'error': 'page 必须是正整数'}, status=400)
+    from supplier.storefront import active_merchants
+    records = MerchantFavorite.objects.filter(user=request.user_profile).select_related('merchant__store_page')
+    pages = Paginator(records, PAGE_SIZE)
+    page = pages.get_page(page_number)
+    active_ids = set(active_merchants().filter(pk__in=[row.merchant_id for row in page]).values_list('pk', flat=True))
+    data = []
+    for row in page:
+        try:
+            store = row.merchant.store_page
+        except ObjectDoesNotExist:
+            store = None
+        available = bool(row.merchant_id in active_ids and store and store.is_published and store.published)
+        content = store.published if available else {}
+        data.append({
+            'merchant_id': row.merchant_id,
+            'name': content.get('name') or row.name,
+            'summary': content.get('summary', ''),
+            'logo_url': content.get('logo_url', '') if available else row.logo_url,
+            'is_available': available,
+            'url': f'/store.html?merchant_id={row.merchant_id}' if available else None,
+            'recorded_at': row.created_time.isoformat(),
+        })
+    return JsonResponse({'code': 200, 'data': data, 'paginator': {
+        'page': page.number, 'pages': pages.num_pages, 'pagesize': PAGE_SIZE, 'total': pages.count,
+    }})
+
+
+@never_cache
+@buyer_only
+def merchant_favorite(request, merchant_id):
+    if request.method not in ('GET', 'PUT', 'DELETE'):
+        return method_error(['GET', 'PUT', 'DELETE'])
+    own = MerchantFavorite.objects.filter(user=request.user_profile, merchant_id=merchant_id)
+    if request.method == 'DELETE':
+        own.delete()
+        return JsonResponse({'code': 200, 'data': {'is_favorite': False}})
+    if request.method == 'GET':
+        return JsonResponse({'code': 200, 'data': {'is_favorite': own.exists()}})
+    from supplier.models import StorePage
+    from supplier.storefront import active_merchants
+    # Keep a public name/logo snapshot so an unpublished shop stays identifiable
+    # without exposing a later private draft or account profile.
+    with transaction.atomic():
+        store = StorePage.objects.select_for_update().filter(
+            merchant_id=merchant_id, merchant_id__in=active_merchants().values('pk'), is_published=True,
+        ).first()
+        if not store or not store.published:
+            return JsonResponse({'code': 404, 'error': '店铺不存在或已下线'}, status=404)
+        MerchantFavorite.objects.get_or_create(user=request.user_profile, merchant_id=merchant_id, defaults={
+            'name': store.published['name'], 'logo_url': store.published.get('logo_url', ''),
+        })
     return JsonResponse({'code': 200, 'data': {'is_favorite': True}})
 
 

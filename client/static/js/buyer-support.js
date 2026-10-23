@@ -26,6 +26,9 @@
     var historyRefresh = document.getElementById('bs-history-refresh');
     var historyMore = document.getElementById('bs-history-more');
     var historyOlder = document.getElementById('bs-history-older');
+    var historyMenu = document.getElementById('bs-history-menu');
+    var historyDelete = document.getElementById('bs-history-delete');
+    var menuConversation = null;
     var currentLabel = document.getElementById('bs-current-conversation');
     var conversationStatus = document.getElementById('bs-conversation-status');
     var identityToken = AuthStorage.getToken();
@@ -37,6 +40,12 @@
     var restoreBlocked = false;
     var sessionTitle = '';
     var drafts = Object.create(null);
+    var hiddenHistoryKey = 'support-hidden-history:' + (identityUser || '');
+    var hiddenHistory = new Set();
+    try {
+        var savedHidden = JSON.parse(localStorage.getItem(hiddenHistoryKey) || '[]');
+        if (Array.isArray(savedHidden)) savedHidden.forEach(function (id) { if (typeof id === 'string') hiddenHistory.add(id); });
+    } catch (_) { /* An unavailable browser store must not affect server history. */ }
 
     function sameIdentity() {
         return identityToken === AuthStorage.getToken() && identityUser === AuthStorage.getUser();
@@ -90,6 +99,7 @@
         if (!response.ok) {
             var error = new Error(result.error || '暂时无法回答，请稍后重试。');
             error.status = response.status;
+            error.errorCode = result.error_code || '';
             throw error;
         }
         return result;
@@ -106,6 +116,7 @@
 
     function setBusy(value) {
         busy = value || !sameIdentity();
+        if (busy) closeHistoryMenu(false);
         send.disabled = busy || restoreBlocked;
         newConversation.disabled = busy;
         historyToggle.disabled = busy;
@@ -209,9 +220,88 @@
     }
 
     function closeHistory() {
+        closeHistoryMenu(false);
         historyPanel.hidden = true;
         historyToggle.setAttribute('aria-expanded', 'false');
     }
+
+    function closeHistoryMenu(restoreFocus) {
+        var target = menuConversation;
+        menuConversation = null;
+        historyMenu.hidden = true;
+        if (target) {
+            target.button.setAttribute('aria-expanded', 'false');
+            if (restoreFocus && target.button.isConnected) target.button.focus();
+        }
+    }
+
+    function openHistoryMenu(event, item, button, keyboard) {
+        if (busy || !ensureIdentity()) return;
+        event.preventDefault();
+        closeHistoryMenu(false);
+        menuConversation = { id: item.conversation_id, title: item.title, button: button };
+        button.setAttribute('aria-expanded', 'true');
+        historyMenu.hidden = false;
+        var rect = button.getBoundingClientRect();
+        var x = keyboard ? rect.left : event.clientX;
+        var y = keyboard ? rect.bottom : event.clientY;
+        historyMenu.style.left = Math.max(8, Math.min(x, window.innerWidth - historyMenu.offsetWidth - 8)) + 'px';
+        historyMenu.style.top = Math.max(8, Math.min(y, window.innerHeight - historyMenu.offsetHeight - 8)) + 'px';
+        historyDelete.focus();
+    }
+
+    historyDelete.addEventListener('click', async function () {
+        var target = menuConversation;
+        if (!target || busy || !ensureIdentity()) return;
+        closeHistoryMenu(true);
+        setBusy(true);
+        historyStatus.textContent = '正在删除咨询…';
+        try {
+            var nextHidden = new Set(hiddenHistory); nextHidden.add(target.id);
+            localStorage.setItem(hiddenHistoryKey, JSON.stringify(Array.from(nextHidden)));
+            hiddenHistory = nextHidden;
+            delete drafts[target.id];
+            var deletingCurrent = conversation && conversation.conversation_id === target.id;
+            if (!conversation) {
+                try {
+                    var saved = JSON.parse(sessionStorage.getItem(storageKey) || 'null');
+                    deletingCurrent = saved && saved.conversation_id === target.id;
+                } catch (error) { /* An invalid saved reference is not an active conversation. */ }
+            }
+            if (deletingCurrent) {
+                conversation = pending = null;
+                restoreBlocked = false;
+                olderCursor = null;
+                sessionTitle = '';
+                input.value = '';
+                messages.innerHTML = initialMessage;
+                sessionStorage.removeItem(storageKey);
+                conversationStatus.textContent = '可开始新咨询。';
+            }
+            historyList.querySelectorAll('[data-conversation-id]').forEach(function (row) {
+                if (row.dataset.conversationId === target.id) row.remove();
+            });
+            updateSession();
+            historyStatus.textContent = historyList.children.length ? '对话已移出列表。' :
+                (historyCursor ? '本页咨询已删除，可加载更多咨询。' : '还没有已保存的咨询。');
+        } catch (error) {
+            if (sameIdentity()) historyStatus.textContent = error.message || '删除失败，请稍后重试。';
+        } finally {
+            setBusy(false);
+            if (sameIdentity()) historyRefresh.focus();
+        }
+    });
+    historyMenu.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape' || event.key === 'Tab') {
+            if (event.key === 'Escape') event.preventDefault();
+            closeHistoryMenu(true);
+        }
+    });
+    document.addEventListener('pointerdown', function (event) {
+        if (!historyMenu.contains(event.target)) closeHistoryMenu(false);
+    });
+    window.addEventListener('resize', function () { closeHistoryMenu(false); });
+    document.addEventListener('scroll', function () { closeHistoryMenu(false); }, true);
 
     function updateSession() {
         currentLabel.textContent = conversation ? '当前咨询：' + (sessionTitle || '历史咨询') : '当前：新咨询';
@@ -278,11 +368,15 @@
             var result = await api(path);
             if (reset) historyList.textContent = '';
             result.conversations.forEach(function (item) {
+                if (hiddenHistory.has(item.conversation_id)) return;
                 if (Array.from(historyList.children).some(function (row) { return row.dataset.conversationId === item.conversation_id; })) return;
                 var button = document.createElement('button');
                 button.type = 'button';
                 button.className = 'bs-history-item';
                 button.dataset.conversationId = item.conversation_id;
+                button.setAttribute('aria-haspopup', 'menu');
+                button.setAttribute('aria-controls', 'bs-history-menu');
+                button.setAttribute('aria-expanded', 'false');
                 var title = document.createElement('strong');
                 title.textContent = item.title;
                 var detail = document.createElement('small');
@@ -290,6 +384,12 @@
                 button.appendChild(title);
                 button.appendChild(detail);
                 button.addEventListener('click', function () { switchConversation(item.conversation_id); });
+                button.addEventListener('contextmenu', function (event) { openHistoryMenu(event, item, button, false); });
+                button.addEventListener('keydown', function (event) {
+                    if (event.key === 'ContextMenu' || (event.shiftKey && event.key === 'F10')) {
+                        openHistoryMenu(event, item, button, true);
+                    }
+                });
                 historyList.appendChild(button);
             });
             historyCursor = result.next_cursor || null;
@@ -330,6 +430,7 @@
         try { saved = JSON.parse(sessionStorage.getItem(storageKey) || 'null'); }
         catch (error) { sessionStorage.removeItem(storageKey); return; }
         if (!saved || !saved.conversation_id) return;
+        if (hiddenHistory.has(saved.conversation_id)) { sessionStorage.removeItem(storageKey); return; }
         try {
             await loadConversation(saved.conversation_id);
         } catch (error) {
@@ -386,6 +487,12 @@
             if (!sameIdentity()) return;
             waiting.textContent = error.message || '网络连接失败，请稍后重试。';
             input.value = question;
+            conversationStatus.textContent = (error.errorCode || '').indexOf('MEMORY_STORAGE_') === 0 ?
+                '长期偏好服务异常；恢复后可继续当前咨询，无须新建对话。' :
+                '本轮未收到成功回复，可重试原问题或输入新问题。';
+            // Keep the ID only for uncertain network/5xx outcomes, so a retry
+            // can replay a possibly committed response without adding a turn.
+            if (error.status && error.status < 500) pending = null;
             if (error.status === 409) {
                 pending = null;
                 try { await restoreConversation(); addMessage('会话已刷新，请重新发送问题。', 'assistant'); }

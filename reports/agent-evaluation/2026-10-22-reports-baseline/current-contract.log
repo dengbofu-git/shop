@@ -1,0 +1,132 @@
+Creating test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
+Operations to perform:
+  Synchronize unmigrated apps: admin_panel, corsheaders, merchant_ai, messages, staticfiles
+  Apply all migrations: admin, ai_storage, auth, contenttypes, engagement, goods, inventory, logistics, news, orders, sessions, supplier, support_ai, users
+Synchronizing apps without migrations:
+  Creating tables...
+    Running deferred SQL...
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying auth.0001_initial... OK
+  Applying admin.0001_initial... OK
+  Applying admin.0002_logentry_remove_auto_add... OK
+  Applying admin.0003_logentry_add_action_flag_choices... OK
+  Applying ai_storage.0001_initial... OK
+  Applying ai_storage.0002_embedding_validation... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying auth.0012_alter_user_first_name_max_length... OK
+  Applying users.0001_initial... OK
+  Applying users.0002_address... OK
+  Applying users.0003_weiboprofile... OK
+  Applying users.0004_auto_20260218_0108... OK
+  Applying users.0005_permission_role_rolepermission_userrole... OK
+  Applying users.0006_create_admin_user... OK
+  Applying users.0007_create_customs_user... OK
+  Applying goods.0001_initial... OK
+  Applying orders.0001_initial... OK
+  Applying orders.0002_auto_20260218_0147... OK
+  Applying goods.0002_spu_merchant... OK
+  Applying goods.0003_auto_20260218_0147... OK
+  Applying goods.0004_add_carousel_slide... OK
+  Applying goods.0005_brand_logo_optional... OK
+  Applying goods.0006_sku_is_recommended... OK
+  Applying goods.0007_spu_brand_optional... OK
+  Applying goods.0008_auto_20261002_2159... OK
+  Applying goods.0009_browsinghistory_favorite... OK
+  Applying goods.0010_catalog_fallback_image... OK
+  Applying orders.0003_auto_20261021_1530... OK
+  Applying engagement.0001_initial... OK
+  Applying goods.0011_merchantfavorite... OK
+  Applying inventory.0001_initial... OK
+  Applying logistics.0001_initial... OK
+  Applying news.0001_initial... OK
+  Applying sessions.0001_initial... OK
+  Applying supplier.0001_initial... OK
+  Applying supplier.0002_storepage... OK
+  Applying support_ai.0001_initial... OK
+  Applying support_ai.0002_agent_observability... OK
+  Applying support_ai.0003_agent_reranking... OK
+  Applying support_ai.0004_conversation_order_context... OK
+  Applying users.0008_userprofile_nickname... OK
+Creating test database for alias 'ai_storage' ('file:memorydb_ai_storage?mode=memory&cache=shared')...
+Operations to perform:
+  Synchronize unmigrated apps: admin_panel, corsheaders, merchant_ai, messages, staticfiles
+  Apply all migrations: admin, ai_storage, auth, contenttypes, engagement, goods, inventory, logistics, news, orders, sessions, supplier, support_ai, users
+Synchronizing apps without migrations:
+  Creating tables...
+    Running deferred SQL...
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying auth.0001_initial... OK
+  Applying admin.0001_initial... OK
+  Applying admin.0002_logentry_remove_auto_add... OK
+  Applying admin.0003_logentry_add_action_flag_choices... OK
+  Applying ai_storage.0001_initial... OK
+  Applying ai_storage.0002_embedding_validation... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying auth.0012_alter_user_first_name_max_length... OK
+  Applying users.0001_initial... OK
+  Applying users.0002_address... OK
+  Applying users.0003_weiboprofile... OK
+  Applying users.0004_auto_20260218_0108... OK
+  Applying users.0005_permission_role_rolepermission_userrole... OK
+  Applying users.0006_create_admin_user... OK
+  Applying users.0007_create_customs_user... OK
+  Applying goods.0001_initial... OK
+  Applying orders.0001_initial... OK
+  Applying orders.0002_auto_20260218_0147... OK
+  Applying goods.0002_spu_merchant... OK
+  Applying goods.0003_auto_20260218_0147... OK
+  Applying goods.0004_add_carousel_slide... OK
+  Applying goods.0005_brand_logo_optional... OK
+  Applying goods.0006_sku_is_recommended... OK
+  Applying goods.0007_spu_brand_optional... OK
+  Applying goods.0008_auto_20261002_2159... OK
+  Applying goods.0009_browsinghistory_favorite... OK
+  Applying goods.0010_catalog_fallback_image... OK
+  Applying orders.0003_auto_20261021_1530... OK
+  Applying engagement.0001_initial... OK
+  Applying goods.0011_merchantfavorite... OK
+  Applying inventory.0001_initial... OK
+  Applying logistics.0001_initial... OK
+  Applying news.0001_initial... OK
+  Applying sessions.0001_initial... OK
+  Applying supplier.0001_initial... OK
+  Applying supplier.0002_storepage... OK
+  Applying support_ai.0001_initial... OK
+  Applying support_ai.0002_agent_observability... OK
+  Applying support_ai.0003_agent_reranking... OK
+  Applying support_ai.0004_conversation_order_context... OK
+  Applying users.0008_userprofile_nickname... OK
+System check identified no issues (0 silenced).
+test_current_contract (__main__.CurrentGrouping) ... ok
+test_current_contract (__main__.CurrentMixed) ... ok
+test_current_contract (__main__.CurrentMatching) ... ok
+test_current_contract (__main__.CurrentSemantic) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.137s
+
+OK
+Destroying test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
+Destroying test database for alias 'ai_storage' ('file:memorydb_ai_storage?mode=memory&cache=shared')...

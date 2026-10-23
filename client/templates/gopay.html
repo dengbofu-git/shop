@@ -20,9 +20,10 @@ A ny individuals and organizations and not for commercial use, professiona websi
     	}
     </style>
 {% include "shared/system_theme.html" %}
+<link rel="stylesheet" href="/static/css/reservation-checkout.css?v=20261022-stock">
 </head>
 
-<body class="ds-page-gopay ds-theme">
+<body data-reservation-mode="pay" class="ds-page-gopay ds-theme">
     <!-- 页面顶部-->
     <header id="header"></header>
     <div id="navlist">
@@ -43,7 +44,7 @@ A ny individuals and organizations and not for commercial use, professiona websi
         <div id="container" class="clearfix">
             <!-- 支付订单信息-->
             <div class="pay_info">
-                <b>订单金额：<i id="total_amount"></i></b><input type="hidden" name="payment" value="0.01" />
+                <b>订单金额：<i id="total_amount"></i></b>
                 <span id="order_id"></span> <span id="saller"></span> <input type="hidden" name="orderId" />
             </div>
             <!--支付方式-->
@@ -94,133 +95,6 @@ A ny individuals and organizations and not for commercial use, professiona websi
     <footer id="footer"></footer>
     <script src="../static/js/jquery-3.1.1.min.js"></script>
     <script src="../static/js/index.js"></script>
-    <script>
-    </script>
-    <script>
-        var canvas = document.getElementById("canvas_gray");
-        var cxt = canvas.getContext("2d");
-        var gray = cxt.createLinearGradient(10, 0, 10, 38);
-        gray.addColorStop(0, '#f5f4f5');
-        gray.addColorStop(1, '#e6e6e5');
-        cxt.beginPath();
-        cxt.fillStyle = gray;
-        cxt.moveTo(20, 19);
-        cxt.lineTo(0, 38);
-        cxt.lineTo(0, 0);
-        cxt.fill();
-        cxt.closePath();
-        var canvas = document.getElementById("canvas_blue");
-        var cxt = canvas.getContext("2d");
-        var blue = cxt.createLinearGradient(10, 0, 10, 38);
-        blue.addColorStop(0, '#997679');
-        blue.addColorStop(1, '#997679');
-        cxt.beginPath();
-        cxt.fillStyle = blue;
-        cxt.moveTo(20, 19);
-        cxt.lineTo(0, 38);
-        cxt.lineTo(0, 0);
-        cxt.fill();
-        cxt.closePath();
-    </script>
-    <script>
-    </script>
-    <script src="../static/js/jquery.cookie.js"></script>
-    <script>
-        function orders() {
-                (function ($) {
-                            $.getUrlParam = function (name) {
-                                var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
-                                var r = window.location.search.substr(1).match(reg);
-                                if (r != null) return r;
-                                return null;
-                            }
-                        })(jQuery);
-                        var order_id = $.getUrlParam('order_id')[2]
-                        console.log(order_id)
-                        var token=AuthStorage.getToken();
-                        var username = AuthStorage.getUser();
-
-                    $.ajax({
-                        type: 'get',
-                        beforeSend:function(request){
-                            request.setRequestHeader("authorization",token)
-                        },
-                        url: baseUrl+'/v1/orders/'+username,
-                        data:{
-                            "type":5,
-                            "order_id":order_id
-                        },
-                        datatype: 'json',
-                        async: false,
-                        success: function (response) {
-                            var result = JSON.stringify(response)
-                            var results = JSON.parse(result)
-                            console.log(results)
-                            console.log(results.data.order_id)
-                            if(results.code == 403){
-                                alert('用户认证已过期，请重新登录');
-                                AuthStorage.clear();
-                                location.href = 'login.html'
-                            }
-                            AuthStorage.setCount(results.data.carts_count);
-                            $('.my_cart_count').html(results.data.carts_count)
-                            $("#total_amount").html(results.data.total_amount-10+"元")
-                            $("#order_id").html("支付订单:"+results.data.order_id)
-                            $("#saller").html("收款方:"+results.data.saller+"&nbsp&nbsp")
-                            $(".pay_leftTime").html("总金额(含运费):"+results.data.total_amount)
-                            var pay_url = results.data.pay_url
-			    console.log(pay_url)
-                            $(function(){
-                                console.log("测试１")
-                                $("#pay_now").click(function () {
-                                    console.log("测试2")
-                                    window.location = pay_url
-                })
-        })
-                    }
-                }
-            )
-// {#            console.log("测试１００")#}
-// {#            console.log($.cookie("csrf_token"))#}
-// {#            $.ajax({#}
-// {#                    headers: { "X-CSRFtoken":$.cookie("csrftoken")},#}
-// {#                    type: 'POST',#}
-// {#                    url: 'http://114.116.244.115:8888/order/commit/',#}
-// {#                    data:{#}
-// {#                        "addressid" : {{ address_id }},#}
-// {#                        'csrfmiddlewaretoken' : $.cookie("csrf_token")#}
-// {#                    },#}
-// {#                    datatype: 'json',#}
-// {#                    async: false,#}
-// {#                    success: function (response) {#}
-// {#                        var result = JSON.stringify(response)#}
-// {#                        var results = JSON.parse(result)#}
-// {#                        console.log(results)#}
-// {#                        console.log(results.data.order_id)#}
-// {#                        $("#total_amount").html(results.data.total_amount-10+"元")#}
-// {#                        $("#order_id").html("支付订单:"+results.data.order_id)#}
-// {#                        $("#saller").html("收款方:"+results.data.saller+"&nbsp&nbsp")#}
-// {#                        $(".pay_leftTime").html("总金额(含运费):"+results.data.total_amount)#}
-// {#                        var pay_url = results.data.pay_url#}
-// {#                        $(function(){#}
-// {#                            console.log("测试１")#}
-// {#                            $("#pay_now").click(function () {#}
-// {#                                console.log("测试2")#}
-// {#                                window.location = pay_url#}
-// {#            })#}
-// {#        })#}
-// {#                    }#}
-// {#                }#}
-// {#            )#}
-//             return false
-        }
-
-
-
-window.onload = function () {
-    orders()
-}
-    </script>
+    <script src="/static/js/reservation-checkout.js?v=20261022-stock"></script>
 </body>
-
 </html>

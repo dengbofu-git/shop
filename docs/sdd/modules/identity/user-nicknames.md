@@ -23,7 +23,7 @@
 
 按用户后续要求，昵称仅对买家开放；商家统一使用店铺名。移除商家资料页昵称编辑器、提示、保存按钮与专用资源，店铺名保持只读；接口成功加载后以数据库当前`shop_name`覆盖登录缓存。商家历史昵称列值继续保留，不清理数据；咨询列表和历史本来就使用店铺名，本轮增加回归断言，不修改会话业务实现。
 
-验证：`python -X utf8 manage.py test users.test_nickname engagement.test_nickname --settings=support_ai.test_settings --noinput`在隔离内存SQLite中12项通过，覆盖merchant及supplier角色不能编辑昵称、店铺名读取和咨询显示、买家昵称及联系方式兼容。`node --test client/tests/profile-nickname.test.js`的5项测试通过；商家资料脚本语法、买卖双方模板渲染、只读店铺字段与静态资源查找通过，模块归属和`git diff --check`通过。
+验证：`<PYTHON_ENV>/python.exe -X utf8 manage.py test users.test_nickname engagement.test_nickname --settings=support_ai.test_settings --noinput`在隔离内存SQLite中12项通过，覆盖merchant及supplier角色不能编辑昵称、店铺名读取和咨询显示、买家昵称及联系方式兼容。`node --test client/tests/profile-nickname.test.js`的5项测试通过；商家资料脚本语法、买卖双方模板渲染、只读店铺字段与静态资源查找通过，模块归属和`git diff --check`通过。
 
 浏览器使用实际商家模板及资料脚本配合独立示例API，旧缓存店名被响应“云间茶铺”覆盖，昵称控件不存在，店铺字段只读。截图`.scratch/store-name-20261022/profile.png`为示例资料，未读取／修改真实资料；预览页及临时服务已关闭。未新增Migration，未执行MySQL回归、业务库迁移、后端重启、提交、推送或部署。
 

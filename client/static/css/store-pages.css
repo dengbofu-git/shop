@@ -22,6 +22,18 @@
 .store-logo { width: 80px; height: 80px; flex: 0 0 80px; display: grid; place-items: center; color: var(--store-green); background: #edf3ea; border: 1px solid var(--store-border); border-radius: 16px; font-size: 36px; overflow: hidden; }
 .store-logo img { width: 100%; height: 100%; object-fit: cover; }
 .store-identity-copy { min-width: 0; }
+.ds-page-store .store-identity { display: grid; grid-template-columns: 80px minmax(0, 1fr) auto; align-items: center; }
+.store-main .store-favorite-actions { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; margin: 0; max-width: 280px; }
+.store-main #merchant-favorite-toggle { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 46px; padding: 11px 20px; border: 1px solid var(--store-green); border-radius: 999px; background: var(--store-green); color: #fff; font-size: 14px; font-weight: 600; line-height: 1.5; transition: background .18s, border-color .18s, box-shadow .18s, transform .18s; }
+.store-main #merchant-favorite-toggle::before { content: '\2661'; flex: 0 0 auto; font-size: 22px; line-height: 1; }
+.store-main #merchant-favorite-toggle[aria-pressed="true"] { background: #edf5ef; border-color: #b6d2be; color: var(--store-green); }
+.store-main #merchant-favorite-toggle[aria-pressed="true"]::before { content: '\2665'; }
+.store-main #merchant-favorite-toggle:hover:not(:disabled) { background: #12482e; border-color: #12482e; box-shadow: 0 4px 12px #185c3b18; transform: translateY(-1px); }
+.store-main #merchant-favorite-toggle[aria-pressed="true"]:hover:not(:disabled) { background: #dfede3; border-color: #83ab90; }
+.store-main #merchant-favorite-toggle:disabled { cursor: progress; transform: none; box-shadow: none; }
+.store-main #merchant-favorite-toggle:focus-visible { outline: 3px solid #9bc9a8; outline-offset: 4px; }
+.store-main #merchant-favorite-message { max-width: 280px; text-align: end; overflow-wrap: anywhere; }
+.store-main #merchant-favorite-message:empty { display: none; }
 .store-identity h1 { margin: 0 0 8px; overflow-wrap: anywhere; font-size: clamp(23px, 2.5vw, 32px); }
 .store-summary, .store-welcome { white-space: pre-wrap; overflow-wrap: anywhere; margin: 4px 0; color: var(--color-text-secondary); }
 .store-tabs { display: flex; gap: 24px; border-bottom: 1px solid var(--store-border); margin: 12px 0 24px; }
@@ -98,8 +110,14 @@
 .detail-store-info { padding: 12px 0; border-top: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border); margin: 12px 0; }
 @media (max-width: 1250px) { .store-product-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } .store-editor-layout { grid-template-columns: minmax(300px, 40%) minmax(0, 1fr); } }
 @media (max-width: 900px) { .store-editor-layout { grid-template-columns: 1fr; } .store-editor-preview { position: static; } .store-preview-window { max-height: none; } .store-manager { padding: 18px; } .store-manager-head { align-items: flex-start; } .store-section-heading { flex-wrap: wrap; } }
+@media (max-width: 900px) { .store-main .store-identity { grid-template-columns: 80px minmax(0, 1fr); } .store-main .store-favorite-actions { grid-column: 2; align-items: flex-start; max-width: 100%; } .store-main #merchant-favorite-message { text-align: start; } }
 @media (max-width: 600px) { .store-product-grid { grid-template-columns: 1fr; } .store-identity { padding: 20px; gap: 14px; } .store-logo { width: 58px; height: 58px; flex-basis: 58px; font-size: 28px; } .store-banner { padding: 22px; min-height: 150px; } .store-banner p { max-width: 100%; } .store-section { padding: 16px; } .store-manager-head { flex-wrap: wrap; } .store-manager { padding: 14px; } .store-actions { width: 100%; } .store-filter label { flex: 1; } .store-tabs { gap: 12px; } .store-breadcrumb > a:last-child { margin-inline-start: 0; } }
 @media (max-width: 600px) {
+    .store-main .store-identity { grid-template-columns: 58px minmax(0, 1fr); }
+    .store-main .store-favorite-actions { grid-column: 1 / -1; align-items: stretch; padding-top: 16px; border-top: 1px solid var(--store-border); }
+    .store-main #merchant-favorite-toggle { width: 100%; }
+    .store-main #merchant-favorite-message { max-width: none; }
     .ds-page-store .buyer-topbar .topbar-search { flex: 1 1 100%; width: 100%; order: 3; }
     .ds-page-store .buyer-topbar .topbar-tools { order: 4; }
 }
+@media (prefers-reduced-motion: reduce) { .store-main #merchant-favorite-toggle { transition: none; } .store-main #merchant-favorite-toggle:hover:not(:disabled) { transform: none; } }

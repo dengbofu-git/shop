@@ -13,6 +13,7 @@ from .total_budget_intent import simple_total_intent
 from .planning import Intent, IntentRequest, explicit_requests, build_plan
 from .pii import redact
 from .conversation_tasks import purchase_topic, apply_purchase_topic, without_reason_modifier
+from .order_contracts import FOLLOW_UP, rule_order_query
 
 
 TurnAction = Literal['new_request', 'supplement', 'modify', 'follow_up', 'cancel', 'clarify']
@@ -154,6 +155,10 @@ def plan_turn(model, message, history, memory):
     if fixed:
         return SemanticPlan(action='new_request', standalone_question=message,
                             requests=[IntentRequest(kind=fixed[0], quote=message)]), 'rules', state
+    if state.task == 'after_sales' and FOLLOW_UP.fullmatch(message.strip()):
+        return SemanticPlan(action='follow_up', standalone_question=message,
+            requests=[IntentRequest(kind='after_sales', quote=message,
+                                    order_query=rule_order_query(message))]), 'rules', state
     if re.fullmatch(r'(?:取消|算了|不用了|取消当前任务|取消推荐)[。！!\s]*', message):
         return SemanticPlan(action='cancel', standalone_question=message,
                             requests=[IntentRequest(kind='clarification', quote=message)]), 'rules', state
@@ -244,6 +249,11 @@ def plan_turn(model, message, history, memory):
          '同时将该turn_id加入source_turn_ids。不要生成SKU ID。无法确定哪轮哪款时先澄清。'
          '推荐茶叶可宽泛搜索，不要求先提供预算；介绍知识不等于推荐。'
          '涉及recommendation必须提供purchase，仍用RecommendationIntent契约；'
+         '涉及after_sales时在对应request.order_query中提取selector和topic；其他任务不能填写order_query。'
+         'selector.type限latest最近一笔、recent近期三笔、selected当前所选、explicit本轮明确引用。'
+         'explicit.reference只能逐字使用本轮已有ORDER_REF引用，不得生成真实订单号。'
+         'topic限order_status、payment_status、shipping_status；不能查询指定商品、日期、金额或执行取消退款。'
+         '多个订单引用、范围超出支持能力或对象不明确时先澄清，不丢弃约束查询近期订单。'
          'supplement/modify只提取本轮新增或替换字段，程序合并已有条件。'
          '每个购买条件必须有evidence，CURRENT逐字引用本轮，CONTEXT引用历史用户原话的turn_id，'
          'MEMORY仅能用于preferred且使用提供的记忆ID；助手文字不是筛选事实。'
@@ -271,6 +281,9 @@ def plan_turn(model, message, history, memory):
     value = SemanticPlan.model_validate(value)
     if any(r.quote not in message for r in value.requests):
         raise ValueError('Ungrounded current task')
+    for request in value.requests:
+        if request.order_query is not None and request.kind != 'after_sales':
+            raise ValueError('Unexpected order slots')
     if value.action == 'cancel' and any(r.kind != 'clarification' for r in value.requests):
         raise ValueError('Cancellation cannot silently discard other tasks')
     if value.action == 'clarify' and not value.needs_clarification:
@@ -356,6 +369,12 @@ def response_state(semantic, response, previous):
     if semantic.needs_clarification:
         return DialogueState(status='pending', task=semantic.requests[0].kind,
                              request=semantic.requests[0].quote, missing_fields=['reference']).model_dump()
-    if semantic.action == 'follow_up':
+    if semantic.action == 'follow_up' and not any(r.kind == 'after_sales' for r in semantic.requests):
         return previous.model_dump()
+    if any(r.kind == 'after_sales' for r in semantic.requests):
+        pending = any(t['tool'] == 'get_order_status' and t['status'] == 'needs_clarification'
+                      for t in response.get('tasks', []))
+        return DialogueState(status='pending' if pending else 'completed', task='after_sales',
+                             request=next(r.quote for r in semantic.requests if r.kind == 'after_sales'),
+                             missing_fields=['reference'] if pending else []).model_dump()
     return DialogueState().model_dump()

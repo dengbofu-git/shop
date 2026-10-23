@@ -3,6 +3,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const api = require('../static/js/merchant-orders.js');
 const fixture = [1, 2, 3, 4].map(status => ({order_id: String(status), status, total_amount: '35',
+    order_type: 'standard', can_ship: status === 2, can_delete: status === 1,
     status_text: ['', '待付款', '待发货', '待收货', '订单完成'][status]}));
 fixture.push({order_id: 'trial', status: 4, status_text: '试用中'},
     {order_id: 'presale', status: 1, status_text: '待付定金'});
@@ -22,6 +23,15 @@ async function main() {
     assert(html.includes('￥35.00') && html.includes('scope="col"'));
     assert(!api.rowsHtml([fixture[2]]).includes('data-action='));
     assert(api.rowsHtml([fixture[1]]).includes('data-action="ship"'));
+    assert(api.rowsHtml([{order_id:'trial-ship',status:null,status_text:'待发货',can_ship:true,can_delete:false}]).includes('data-action="ship"'));
+    assert(!api.rowsHtml([{order_id:'mixed',status:2,can_ship:false,can_delete:false,requires_merchant_split:true}]).includes('data-action='));
+    let subtypeCalls=[];
+    const subtypeController=api.createController({render:()=>{},confirm:()=>true,notify:()=>{},
+        request:async function(action,id) { subtypeCalls.push([action,id]);return {code:200,data:[
+            {order_id:'trial-ship',status:null,status_text:'待发货',can_ship:true,can_delete:false}]}; }});
+    await subtypeController.load();
+    await subtypeController.act('ship','trial-ship');
+    assert(subtypeCalls.some(call=>call[0]==='ship'),'Subtype action follows authenticated API flag, not null base status');
 
     let state, server = structuredClone(fixture), calls = [], failList = false, failAction = false, allowDelete = true;
     const controller = api.createController({initial: '待发货', render: value => state = value,
@@ -33,7 +43,7 @@ async function main() {
             }
             if (failAction) return {code: 400, error: '库存不足'};
             if (action === 'ship') Object.assign(server.find(o => o.order_id === id), {status: 3, status_text: '待收货'});
-            else server = server.filter(o => o.order_id !== id);
+            else Object.assign(server.find(o => o.order_id === id), {status: 0, status_text: '已关闭', can_delete: false});
             return {code: 200};
         }});
     await controller.load();
@@ -54,9 +64,9 @@ async function main() {
     assert.equal(calls.length, before);
     allowDelete = true;
     await controller.act('delete', '4');
-    assert.equal(state.orders.length, 0);
-    assert.equal(count(state, '已完成'), 0);
-    assert.equal(count(state, '全部'), 5);
+    assert.equal(state.orders.length, 1);
+    assert.equal(count(state, '已完成'), 1);
+    assert.equal(count(state, '全部'), 6);
     await controller.act('delete', '3'); // Unavailable action never sent.
     assert.equal(calls.at(-1)[0], 'list');
     controller.select('待付款');
@@ -73,7 +83,12 @@ async function main() {
     controller.select('试用中');
     await controller.act('delete', 'trial');
     assert.equal(state.active, '试用中');
-    assert.equal(count(state, '试用中'), 0);
+    assert.equal(count(state, '试用中'), 1); // Subtypes cannot be cancelled through the standard route.
+    controller.select('待付款');
+    await controller.act('delete', '1');
+    assert.equal(count(state, '已关闭'), 1);
+    assert.equal(count(state, '全部'), 6);
+    assert.equal(count(state, '待付款'), 0);
     server = []; await controller.load(); controller.select('全部');
     assert.equal(state.orders.length, 0);
     assert.equal(state.total, 0);

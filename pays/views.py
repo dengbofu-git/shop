@@ -1,13 +1,24 @@
-from django.conf import settings
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
-from orders.models import OrderInfo
+from django.shortcuts import redirect
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.cache import never_cache
+from django.db import IntegrityError, OperationalError
+from orders.reservations import ReservationError
+from .service import accept_notification
 
+
+@csrf_exempt
+@never_cache
 def notify(request):
-    """支付成功回调：更新订单状态并跳转到我的订单页"""
-    out_trade_no = request.GET.get('out_trade_no')
-    if out_trade_no:
-        OrderInfo.objects.filter(order_id=out_trade_no).update(status=2)
-    # 使用当前请求的 origin 确保跳转到正确的页面（与用户访问的域名/端口一致）
-    base_url = request.build_absolute_uri('/').rstrip('/')
-    return redirect(base_url + '/myOrder.html')
+    """Only a verified asynchronous provider POST may confirm payment."""
+    if request.method == 'GET':
+        return redirect('/myOrder.html?payment=checking')
+    if request.method != 'POST':return HttpResponse('failure',status=405)
+    if len(request.body)>20000 or any(len(values)!=1 for _,values in request.POST.lists()):
+        return HttpResponse('failure',status=400)
+    try:
+        accept_notification(request.POST.dict())
+        return HttpResponse('success')
+    except ReservationError as exc:return HttpResponse('failure',status=exc.status)
+    except (IntegrityError,ValueError,TypeError):return HttpResponse('failure',status=400)
+    except OperationalError:return HttpResponse('failure',status=503)

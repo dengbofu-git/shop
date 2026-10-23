@@ -69,6 +69,13 @@ body.ds-theme {
     border-inline-end: 1px solid var(--border); box-shadow: none;
 }
 .ds-theme :is(.buyer-sidebar, .supplier-sidebar, .sidebar) :is(.nav-item, .nav-text, .sidebar-title, .brand-name, .sidebar-brand, .sidebar-section-title) { color: var(--muted); }
+.ds-theme :is(.buyer-sidebar, .supplier-sidebar) .sidebar-nav .nav-item { display: flex; align-items: center; column-gap: 12px; }
+.ds-theme :is(.buyer-sidebar, .supplier-sidebar) .sidebar-nav .nav-icon { display: inline-flex; flex: 0 0 24px; width: 24px; height: 24px; align-items: center; justify-content: center; margin: 0; line-height: 1; }
+.ds-theme :is(.buyer-sidebar, .supplier-sidebar) .sidebar-nav .nav-text { flex: 1 1 auto; min-width: 0; margin: 0; font-size: 14px; text-align: start; }
+.ds-theme :is(.buyer-sidebar, .supplier-sidebar) .sidebar-nav .eng-badge { flex: 0 0 auto; }
+.ds-theme .supplier-sidebar.collapsed .sidebar-nav .nav-item { column-gap: 0; }
+.ds-theme .supplier-sidebar.collapsed .sidebar-nav .nav-text,
+.ds-theme .supplier-sidebar.collapsed .sidebar-nav .eng-badge { display: none; }
 .ds-theme :is(.buyer-sidebar, .supplier-sidebar, .sidebar) .nav-item.active,
 .ds-theme :is(.buyer-sidebar, .supplier-sidebar, .sidebar) .nav-item:hover {
     background: #e7f2e9; color: var(--green); border-color: var(--green); box-shadow: none;

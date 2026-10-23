@@ -6,6 +6,7 @@
     var state = {page: 1, pages: 1}, sequence = 0, hasFeatured = false;
     var feedback = document.getElementById('store-feedback');
     var content = document.getElementById('store-content');
+    var favoriteActions = document.getElementById('store-favorite-actions');
     async function api(path) {
         var response = await fetch('/v1/stores/' + id + path, {cache: 'no-store'});
         var result;
@@ -44,7 +45,7 @@
         if (!id || !/^\d+$/.test(id)) { fail('请选择一家店铺，或返回平台浏览商品。'); return; }
         try {
             var result = await api(''), data = result.data;
-            Storefront.hero(document.getElementById('store-hero'), data.content);
+            Storefront.hero(document.getElementById('store-hero'), data.content, favoriteActions);
             document.title = data.content.name + ' · tea_saas';
             Storefront.cards(document.getElementById('store-featured-grid'), data.featured, false);
             hasFeatured = data.featured.length > 0;
@@ -55,7 +56,9 @@
                 var option = document.createElement('option'); option.value = row.spu__catalog_id;
                 option.textContent = row.spu__catalog__name; select.appendChild(option);
             });
-            content.hidden = false; feedback.hidden = true; await products();
+            content.hidden = false; feedback.hidden = true;
+            if (window.BuyerActivity) BuyerActivity.initMerchant(data.merchant_id);
+            await products();
         } catch (error) { fail(error.message); }
     }
     document.getElementById('store-retry').addEventListener('click', load);

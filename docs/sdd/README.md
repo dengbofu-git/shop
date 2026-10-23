@@ -1,6 +1,12 @@
 # tea_saas SDD 规划入口
 
+2026-10-22交易增量：[库存预留、防超卖与防恶意占用](modules/trade/stock-reservations.md)，统一可售库存、订单原子预留、累计额度／时间预算、冷却及可信支付状态；商家配置阈值、到期清理和固定截止页面已实现。[隔离验证与业务库启用边界](evidence/2026-10-22-stock-reservations/verification.md)。
+
 2026-10-22身份增量：[用户昵称与咨询展示](modules/identity/user-nicknames.md)，个人信息独立编辑昵称，商家会话列表／标题显示买家昵称，同名保留会话编号、清空恢复脱敏名；登录身份与店名保持原规则。[隔离验证与已授权本地启用](evidence/2026-10-22-user-nickname/verification.md)。
+
+2026-10-22商家销售洞察：[真实商品榜、成交价格分布与月度销售](modules/merchant-operations/sales-insights.md)。仅统计本店已付商品，不再包装成中东市场；缺少可靠来源的口感、地域与行业项目保留注释占位。[验证记录](evidence/2026-10-22-merchant-sales-insights/verification.md)。
+
+2026-10-22商家首页：[待办与消息](modules/merchant-operations/workbench-tasks-messages.md)接入本店待发货、待结算、未读咨询及真实订单／运单／咨询记录；商品审核和售后暂无模型，保留注释占位。[定向验证](evidence/2026-10-22-merchant-workbench-feed/verification.md)。
 
 2026-10-21新增：[买卖双方站内咨询](modules/merchant-operations/buyer-merchant-conversations.md)与[购买后商品评价](modules/catalog-content/purchase-reviews.md)，包括双端消息、未读、订单完成资格、星级／评论、商家回复和举报治理；[验证与启用边界](evidence/2026-10-21-engagement/verification.md)。业务库尚未迁移。
 
