@@ -44,7 +44,7 @@ function setup(fetcher = () => Promise.resolve(response(data)), reduced = false)
         carousel_play: 'Play', carousel_pause: 'Pause', carousel_price: 'Reference price'};
     const workbench = fs.readFileSync(path.join(__dirname, '../static/js/buyer-workbench.js'), 'utf8');
     const formatter = workbench.slice(workbench.indexOf('    function formatDisplayPrice('), workbench.indexOf('    function updatePrices('));
-    const pricing = {currentCurrency: 'USD'}; vm.runInNewContext(formatter, pricing);
+    const pricing = {currentCurrency: 'USD', TeaMoney:require('../static/js/currency.js')}; vm.runInNewContext(formatter, pricing);
     const context = {window, document, URL}; vm.runInNewContext(source, context);
     const controller = window.BuyerCarousel.start({root, url: '/v1/goods/carousel?stable=1&limit=6',
         fetch: fetcher, labels: () => labels, formatPrice: value => pricing.formatDisplayPrice(value)});

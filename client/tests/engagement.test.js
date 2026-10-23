@@ -61,3 +61,13 @@ test('Arabic and merchant language preferences are selected independently', () =
     context.document.body.dataset.engRole = 'merchant';
     assert.equal(E.t('send'),'Send');
 });
+
+test('buyer chat guidance starts from products; review notices contain no private-chat guidance', () => {
+    const {E, values} = setup();
+    for (const [lang, product, order, chat] of [['zh','商品详情','订单','咨询'],['en','product detail','order','chat'],['ar','تفاصيل المنتج','الطلب','المحادثة']]) {
+        values.set('buyer_lang',lang);
+        assert(E.t('emptyBuyerChats').includes(product));
+        assert(!E.t('emptyBuyerChats').includes(order));
+        assert(!E.t('reviewHistory').includes(chat));
+    }
+});

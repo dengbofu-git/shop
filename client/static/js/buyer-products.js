@@ -1,310 +1,191 @@
-/**
- * 买家商品采购页 - 集成在工作台内
- * 分类切换、分页、推荐商品、i18n
- */
-(function() {
+/* Complete procurement catalog; homepage discovery lives in buyer-catalog-preview.js. */
+(function () {
     'use strict';
-
-    var currentCurrency = 'CNY';
-    var catalogs = [];
-    var currentCatalogId = 'all';
-    var currentPage = 1;
-    var pageMax = 1;
-    var PAGE_SIZE = 10;
-    var baseUrlMedia = '';
-
+    var model = window.BuyerCatalogModel;
+    var state = model.read(window.location.search), categories = [], ready = false;
     var i18n = {
-        zh: {
-            procure_title: '商品采购 - tea_saas',
-            all_products: '全部产品',
-            page_summary: '当前显示 {start}–{end} 件，共 {total} 件商品',
-            loading: '加载中...',
-            no_products: '暂无商品',
-            prev_page: '上一页',
-            next_page: '下一页',
-            recommend_title: '推荐商品',
-            recommend_empty: '暂无推荐',
-            add_cart: '加入采购车',
-            trace_btn: '溯源',
-            quick_preview: '快速预览'
-        },
-        en: {
-            procure_title: 'Product Procurement - tea_saas',
-            all_products: 'All Products',
-            page_summary: 'Showing {start}–{end} of {total} products',
-            loading: 'Loading...',
-            no_products: 'No products',
-            prev_page: 'Previous',
-            next_page: 'Next',
-            recommend_title: 'Recommended',
-            recommend_empty: 'No recommendations',
-            add_cart: 'Add to Cart',
-            trace_btn: 'Traceability',
-            quick_preview: 'Quick preview'
-        },
-        ar: {
-            procure_title: 'المشتريات - tea_saas',
-            all_products: 'جميع المنتجات',
-            page_summary: 'عرض {start}–{end} من أصل {total} منتجاً',
-            loading: 'جاري التحميل...',
-            no_products: 'لا توجد منتجات',
-            prev_page: 'السابق',
-            next_page: 'التالي',
-            recommend_title: 'موصى به',
-            recommend_empty: 'لا توجد توصيات',
-            add_cart: 'أضف للسلة',
-            trace_btn: 'التتبع',
-            quick_preview: 'معاينة سريعة'
-        }
+        zh: {title: '商品采购', intro: '按茶类、价格与店铺查找商品，核对规格后加入采购车。',
+            all: '全部产品', keyword: '商品关键词', keyword_hint: '商品名、规格或店铺名', min_price: '最低价格', max_price: '最高价格',
+            merchant: '店铺名称', store_hint: '搜索店铺名称', sort: '排序', default_sort: '茶类均衡',
+            price_asc: '价格从低到高', price_desc: '价格从高到低', apply: '应用筛选', reset: '重置',
+            note: '仅展示可售商品；价格为参考换算，最终金额以结算页为准。',
+            loading: '正在加载商品目录…', error: '商品目录加载失败，请重试。', retry: '重新加载', empty: '没有符合条件的商品，请调整筛选。',
+            summary: '当前显示 {start}–{end} 件，共 {total} 件商品', prev: '上一页', next: '下一页',
+            add: '加入采购车', invalid: '最高价格不能低于最低价格', pages: '商品分页'},
+        en: {title: 'Product procurement', intro: 'Find tea by category, price and store. Check specifications before adding to your cart.',
+            all: 'All products', keyword: 'Keywords', keyword_hint: 'Product, specification or store', min_price: 'Minimum price', max_price: 'Maximum price',
+            merchant: 'Store name', store_hint: 'Search store name', sort: 'Sort', default_sort: 'Balanced categories',
+            price_asc: 'Price: low to high', price_desc: 'Price: high to low', apply: 'Apply filters', reset: 'Reset',
+            note: 'Available products only. Converted prices are estimates; checkout determines the final amount.',
+            loading: 'Loading product catalog…', error: 'Could not load the catalog. Please retry.', retry: 'Retry', empty: 'No matching products. Adjust your filters.',
+            summary: 'Showing {start}–{end} of {total} products', prev: 'Previous', next: 'Next',
+            add: 'Add to cart', invalid: 'Maximum price must be at least the minimum price', pages: 'Product pages'},
+        ar: {title: 'شراء المنتجات', intro: 'ابحث حسب فئة الشاي والسعر والمتجر، وتحقق من المواصفات قبل الإضافة للسلة.',
+            all: 'جميع المنتجات', keyword: 'كلمات البحث', keyword_hint: 'المنتج أو المواصفات أو المتجر', min_price: 'أقل سعر', max_price: 'أعلى سعر',
+            merchant: 'اسم المتجر', store_hint: 'ابحث باسم المتجر', sort: 'الترتيب', default_sort: 'توازن الفئات',
+            price_asc: 'السعر من الأقل للأعلى', price_desc: 'السعر من الأعلى للأقل', apply: 'تطبيق', reset: 'إعادة ضبط',
+            note: 'منتجات معروضة ومتوفرة فقط. الأسعار المحولة تقديرية؛ المبلغ النهائي عند الدفع.',
+            loading: 'جار تحميل المنتجات…', error: 'تعذر تحميل المنتجات. أعد المحاولة.', retry: 'إعادة المحاولة', empty: 'لا توجد نتائج مطابقة. عدّل المرشحات.',
+            summary: 'عرض {start}–{end} من أصل {total} منتجاً', prev: 'السابق', next: 'التالي',
+            add: 'أضف للسلة', invalid: 'يجب ألا يقل أعلى سعر عن أقل سعر', pages: 'صفحات المنتجات'}
     };
-
-    function getLang() {
-        return localStorage.getItem('buyer_lang') || 'en';
+    function t(key) { return (i18n[localStorage.getItem('buyer_lang')] || i18n.zh)[key] || key; }
+    function node(id) { return document.getElementById(id); }
+    function element(tag, className, text) {
+        var item = document.createElement(tag); item.className = className || '';
+        if (text !== undefined) item.textContent = text;
+        return item;
     }
-
-    function t(key) {
-        var lang = getLang();
-        return (i18n[lang] || i18n.en)[key] || key;
+    function button(text, action, disabled) {
+        var item = element('button', 'catalog-tab', text); item.type = 'button'; item.disabled = !!disabled;
+        item.addEventListener('click', action); return item;
     }
-
-    function getUrlParam(name) {
-        var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)');
-        var r = window.location.search.substr(1).match(reg);
-        return r ? r[2] : null;
+    function url() { return 'buyer_products.html?' + model.search(state); }
+    function saveScroll() {
+        history.replaceState(Object.assign({}, history.state, {procurementScrollY: window.scrollY}), '', window.location.href);
     }
-
-    function formatPrice(price) {
-        return TeaMoney.format(parseFloat(price) || 0, currentCurrency);
+    function restoreScroll() {
+        var y = history.state && history.state.procurementScrollY;
+        if (Number.isFinite(y)) window.requestAnimationFrame(function () { window.scrollTo(0, y); });
     }
-
-    /** 卡片标题用 SPU 商品名，规格放在 product-spec */
-    function productTitle(el) {
-        var spu = (el.spu_name || el.title || el.product_name || '').trim();
-        return spu || String(el.name || '-').trim();
-    }
-
-    function productSpec(el) {
-        var title = productTitle(el);
-        if (el.caption && String(el.caption).trim()) {
-            return String(el.caption).trim();
+    function commit(next, scroll) {
+        saveScroll(); state = next;
+        history.pushState({procurementScrollY: window.scrollY}, '', url());
+        if (!ready) { syncForm(); return; }
+        render();
+        if (scroll) {
+            var current = node('procurement-pagination').querySelector('[aria-current="page"]');
+            if (current) current.focus({preventScroll: true});
+            node('procurement-results').scrollIntoView({block: 'start'});
         }
-        var sku = String(el.name || '').trim();
-        if (sku && sku !== title) {
-            return sku;
-        }
-        return '';
     }
-
-    function renderProductCard(el) {
-        var skuid = el.skuid || el.id;
-        var title = productTitle(el);
-        var spec = productSpec(el);
-        var storeHtml = typeof Storefront === 'undefined' ? '' : Storefront.merchantLink(el.merchant).outerHTML;
-        var imgUrl = el.image && baseUrlMedia
-            ? (baseUrlMedia.replace(/\/$/, '') + (String(el.image).indexOf('/') === 0 ? '' : '/') + el.image)
-            : '';
-        var imgHtml = imgUrl
-            ? '<img src="' + imgUrl + '" alt="' + (el.name || '').replace(/"/g, '&quot;') + '" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\';">' +
-              '<div class="product-img" style="display:none;">' + (el.image_text || el.name || '') + '</div>'
-            : '<div class="product-img">' + (el.image_text || el.name || '') + '</div>';
-        return '<div class="product-card" data-skuid="' + skuid + '" data-cny="' + (Number(el.price) || 0) + '" data-pimg="' + String(el.image || '').replace(/"/g, '&quot;') + '">' +
-            '<a class="product-img-wrap" href="product_details.html?skuid=' + skuid + '" aria-label="' + title.replace(/&/g, '&amp;').replace(/"/g, '&quot;') + '">' + imgHtml + '</a>' +
-            '<h3 class="product-name"><a href="product_details.html?skuid=' + skuid + '">' + title.replace(/</g, '&lt;') + '</a></h3>' +
-            '<p class="product-spec">' + spec.replace(/</g, '&lt;') + '</p>' +
-            '<div class="product-price" data-cny="' + (el.price || 0) + '">' + formatPrice(el.price) + '</div>' +
-            storeHtml +
-            '<div class="product-actions-row"><button type="button" class="btn-add-cart">' + t('add_cart') + '</button></div>' +
-            '</div>';
-    }
-
-    function rowsForSelection() {
-        var groups = catalogs.filter(function(cat) {
-            return currentCatalogId === 'all' || Number(cat.catalog_id) === currentCatalogId;
-        }).map(function(cat) {
-            return (cat.sku || []).slice().sort(function(a, b) { return Number(b.skuid) - Number(a.skuid); });
+    function syncForm() {
+        ['q', 'min_price', 'max_price', 'store_q', 'sort'].forEach(function (key) { node('filter-' + key).value = state[key]; });
+        node('currency-select').value = state.currency;
+        node('search-input').value = state.q;
+        document.querySelectorAll('[data-price-currency]').forEach(function (item) { item.textContent = state.currency; });
+        ['min_price', 'max_price'].forEach(function (key) {
+            var label = t(key) + ' (' + state.currency + ')';
+            node('filter-' + key).placeholder = label;
+            node('filter-' + key).setAttribute('aria-label', label);
         });
-        // 全部分类轮流展示各茶类，先保留全部SKU，再按10件分页。
-        var rows = [], seen = new Set(), index = 0;
-        while (groups.some(function(group) { return index < group.length; })) {
-            groups.forEach(function(group) {
-                var row = group[index];
-                if (row && !seen.has(String(row.skuid))) {
-                    seen.add(String(row.skuid));
-                    rows.push(row);
-                }
+    }
+    function translate() {
+        document.querySelectorAll('[data-procure]').forEach(function (item) { item.textContent = t(item.dataset.procure); });
+        node('filter-q').placeholder = t('keyword_hint');
+        node('filter-q').setAttribute('aria-label', t('keyword'));
+        node('filter-store_q').placeholder = t('store_hint');
+        node('filter-store_q').setAttribute('aria-label', t('store_hint'));
+        node('filter-sort').setAttribute('aria-label', t('sort'));
+        node('procurement-pagination').setAttribute('aria-label', t('pages'));
+        node('filter-max_price').setCustomValidity('');
+    }
+    function renderCategories() {
+        var tabs = node('category-tabs'); tabs.replaceChildren();
+        [{id: 'all', name: t('all'), rows: model.interleave(categories)}].concat(categories).forEach(function (cat) {
+            var tab = button(cat.name + ' (' + cat.rows.length + ')', function () {
+                commit(Object.assign({}, state, {catalog_id: cat.id, page: 1}), false);
             });
-            index++;
+            tab.setAttribute('aria-pressed', String(cat.id === state.catalog_id));
+            tab.classList.toggle('active', cat.id === state.catalog_id); tabs.appendChild(tab);
+        });
+    }
+    function renderCard(row) {
+        var title = String(row.spu_name || row.product_name || row.name || '');
+        var card = element('div', 'product-card'); card.dataset.skuid = row.skuid;
+        card.dataset.cny = row.price; card.dataset.pimg = row.image || ''; card.dataset.pname = title;
+        var href = 'product_details.html?skuid=' + encodeURIComponent(row.skuid);
+        var picture = element('a', 'product-img-wrap'); picture.href = href; picture.setAttribute('aria-label', title);
+        var img = element('img'); img.alt = ''; img.loading = 'lazy';
+        img.src = row.image_url || (baseUrl + '/v1/goods/sku/' + row.skuid + '/image');
+        img.onerror = function () { this.onerror = null; this.src = '/static/images/cart/product_normal.png'; };
+        picture.appendChild(img); card.appendChild(picture);
+        var heading = element('h3', 'product-name'), link = element('a', '', title); link.href = href;
+        heading.appendChild(link); card.appendChild(heading);
+        var skuName = String(row.name || '');
+        var spec = [skuName !== title ? skuName : '', row.caption || ''].filter(Boolean).join(' · ');
+        card.appendChild(element('p', 'product-spec', spec));
+        var price = element('div', 'product-price', TeaMoney.format(row.price, state.currency));
+        price.dataset.cny = row.price; card.appendChild(price);
+        if (window.Storefront) card.appendChild(Storefront.merchantLink(row.merchant));
+        var actions = element('div', 'product-actions-row');
+        var add = element('button', 'btn-add-cart', t('add')); add.type = 'button'; actions.appendChild(add); card.appendChild(actions);
+        return card;
+    }
+    function renderPager(result) {
+        var pager = node('procurement-pagination'); pager.replaceChildren(); pager.hidden = result.pages <= 1;
+        if (pager.hidden) return;
+        function pageButton(label, page, disabled) {
+            var item = button(label, function () { commit(Object.assign({}, state, {page: page}), true); }, disabled);
+            if (page === result.page && !disabled) item.setAttribute('aria-current', 'page');
+            pager.appendChild(item);
         }
-        return rows;
+        pageButton(t('prev'), result.page - 1, result.page === 1);
+        var pages = new Set([1, result.pages]);
+        for (var i = Math.max(1, result.page - 2); i <= Math.min(result.pages, result.page + 2); i++) pages.add(i);
+        var previous = 0;
+        Array.from(pages).sort(function (a, b) { return a - b; }).forEach(function (page) {
+            if (previous && page > previous + 1) pager.appendChild(element('span', '', '…'));
+            pageButton(String(page), page, false); previous = page;
+        });
+        pageButton(t('next'), result.page + 1, result.page === result.pages);
     }
-
-    function loadCatalogs() {
-        $.get(baseUrl + '/v1/goods/index', function(r) {
-            if (r.code === 200 && Array.isArray(r.data)) {
-                catalogs = r.data;
-                baseUrlMedia = (r.base_url || '').replace(/\/$/, '');
-                var catalogId = Number(getUrlParam('catalog_id') || getUrlParam('typeid'));
-                currentCatalogId = catalogs.some(function(cat) { return Number(cat.catalog_id) === catalogId; }) ? catalogId : 'all';
-                renderCategoryTabs();
-                loadProducts(1);
-            } else {
-                $('#category-tabs').html('<p class="cat-loading">' + t('no_products') + '</p>');
-                $('#product-grid').html('<div class="product-loading">' + t('no_products') + '</div>');
-            }
-        }).fail(function() {
-            $('#category-tabs').html('<p class="cat-loading">' + t('loading') + '</p>');
-            $('#product-grid').html('<div class="product-loading">' + t('no_products') + '</div>');
-        });
+    function render() {
+        translate(); syncForm(); renderCategories();
+        var result = model.query(categories, state); state.page = result.page;
+        history.replaceState(history.state, '', url());
+        var grid = node('product-grid'); grid.replaceChildren();
+        result.rows.forEach(function (row) { grid.appendChild(renderCard(row)); });
+        node('procurement-empty').hidden = result.total > 0;
+        node('procurement-summary').textContent = t('summary').replace('{start}', result.start).replace('{end}', result.end).replace('{total}', result.total);
+        renderPager(result);
     }
-
-    function renderCategoryTabs() {
-        var total = catalogs.reduce(function(sum, cat) { return sum + (cat.sku || []).length; }, 0);
-        var allActive = currentCatalogId === 'all';
-        var html = '<button type="button" class="catalog-tab' + (allActive ? ' active' : '') + '" data-catalog-id="all" aria-pressed="' + allActive + '">' + t('all_products') + ' (' + total + ')</button>';
-        catalogs.forEach(function(cat) {
-            var active = currentCatalogId === Number(cat.catalog_id);
-            html += '<button type="button" class="catalog-tab' + (active ? ' active' : '') + '" data-catalog-id="' + cat.catalog_id + '" aria-pressed="' + active + '">' + String(cat.catalog_name || '').replace(/&/g, '&amp;').replace(/</g, '&lt;') + ' (' + (cat.sku || []).length + ')</button>';
-        });
-        $('#category-tabs').html(html || '<span class="cat-loading">' + t('all_products') + '</span>');
-
-        $('#category-tabs').off('click.catalogTab').on('click.catalogTab', '.catalog-tab', function() {
-            var value = $(this).data('catalog-id');
-            currentCatalogId = value === 'all' ? 'all' : Number(value);
-            history.replaceState(null, '', 'buyer_products.html' + (currentCatalogId === 'all' ? '' : '?catalog_id=' + currentCatalogId));
-            renderCategoryTabs();
-            loadProducts(1);
-        });
-    }
-
-    function loadProducts(page) {
-        var rows = rowsForSelection();
-        pageMax = Math.max(1, Math.ceil(rows.length / PAGE_SIZE));
-        currentPage = Math.max(1, Math.min(Number(page) || 1, pageMax));
-        var offset = (currentPage - 1) * PAGE_SIZE;
-        var data = rows.slice(offset, offset + PAGE_SIZE);
-        $('#product-grid').html(data.length ? data.map(renderProductCard).join('') : '<div class="product-loading">' + t('no_products') + '</div>');
-        $('#procurement-summary').text(t('page_summary')
-            .replace('{start}', rows.length ? offset + 1 : 0)
-            .replace('{end}', Math.min(offset + PAGE_SIZE, rows.length))
-            .replace('{total}', rows.length));
-        renderPager();
-    }
-
-    function renderPager() {
-        if (pageMax <= 1) {
-            $('#pager-wrap').hide();
-            return;
-        }
-        $('#pager-wrap').show();
-        var html = '';
-        for (var i = 1; i <= pageMax; i++) {
-            var cls = (i === currentPage) ? ' current' : '';
-            html += '<a href="javascript:;" class="pager-num' + cls + '" data-page="' + i + '">' + i + '</a>';
-        }
-        $('#pager-nums').html(html);
-
-        $('#pager-prev').toggleClass('disabled', currentPage <= 1);
-        $('#pager-next').toggleClass('disabled', currentPage >= pageMax);
-
-        $('#pager-nums .pager-num').on('click', function() {
-            var p = parseInt($(this).data('page'), 10);
-            if (p && p !== currentPage) loadProducts(p);
-        });
-        $('#pager-prev').off('click').on('click', function() {
-            if (currentPage > 1) loadProducts(currentPage - 1);
-        });
-        $('#pager-next').off('click').on('click', function() {
-            if (currentPage < pageMax) loadProducts(currentPage + 1);
-        });
-    }
-
-    function loadRecommended() {
-        $.get(baseUrl + '/v1/goods/recommended-products', function(r) {
-            if (r.code === 200 && r.data && r.data.length) {
-                var data = r.data.slice(0, 6);
-                var IMG = (r.base_url || baseUrlMedia || '').replace(/\/$/, '');
-                var html = '';
-                data.forEach(function(el) {
-                    var title = productTitle(el);
-                    var imgUrl = el.image && IMG ? (IMG + (String(el.image).indexOf('/') === 0 ? '' : '/') + el.image) : '';
-                    var imgHtml = imgUrl
-                        ? '<img src="' + imgUrl + '" alt="' + title.replace(/"/g, '&quot;') + '">'
-                        : '<div style="height:100%;display:flex;align-items:center;justify-content:center;color:#2e7d32;">' + (el.image_text || title || '') + '</div>';
-                    var price = el.price || 0;
-                    html += '<a href="product_details.html?skuid=' + (el.skuid || el.id) + '" class="recommend-item">' +
-                        '<div class="rec-img">' + imgHtml + '</div>' +
-                        '<div class="rec-name">' + title.replace(/</g, '&lt;') + '</div>' +
-                        '<div class="rec-price" data-cny="' + price + '">' + formatPrice(price) + '</div>' +
-                        '</a>';
-                });
-                $('#recommend-grid').html(html);
-            } else {
-                $('#recommend-grid').html('<span class="recommend-loading">' + t('recommend_empty') + '</span>');
-            }
-        }).fail(function() {
-            $('#recommend-grid').html('<span class="recommend-loading">' + t('recommend_empty') + '</span>');
-        });
-    }
-
-    function applyI18nProducts() {
-        document.querySelectorAll('[data-i18n]').forEach(function(el) {
-            var key = el.getAttribute('data-i18n');
-            if (i18n[getLang()] && i18n[getLang()][key]) {
-                el.textContent = i18n[getLang()][key];
-            }
-        });
-        $("#pager-prev").text(i18n[getLang()].prev_page || 'Previous');
-        $("#pager-next").text(i18n[getLang()].next_page || 'Next');
-        $('.btn-add-cart').each(function() {
-            var tAdd = (i18n[getLang()] && i18n[getLang()].add_cart) ? i18n[getLang()].add_cart : 'Add to Cart';
-            if ($(this).closest('.product-card').length) $(this).text(tAdd);
-        });
-        var traceT = (i18n[getLang()] && i18n[getLang()].trace_btn) ? i18n[getLang()].trace_btn : 'Traceability';
-        $('.btn-trace-link').text(traceT);
-    }
-
-    $(function() {
-        applyI18nProducts();
-        loadCatalogs();
-        loadRecommended();
-
-        $('#currency-select').on('change', function() {
-            currentCurrency = TeaMoney.currency(this.value);
-            $('.product-price').each(function() {
-                var cny = $(this).data('cny');
-                if (cny != null) $(this).text(formatPrice(cny));
-            });
-            $('#recommend-grid .rec-price').each(function() {
-                var cny = $(this).data('cny');
-                if (cny != null) $(this).text(formatPrice(cny));
-            });
-        });
-
-        $('#lang-switch .lang-btn').on('click', function() {
-            var lang = $(this).data('lang');
-            localStorage.setItem('buyer_lang', lang);
-            applyI18nProducts();
-            renderCategoryTabs();
-            loadProducts(currentPage);
-        });
-
-        $('#btn-search').on('click', function() {
-            var q = $('#search-input').val().trim();
-            if (q) location.href = 'search_list.html?keyword=' + encodeURIComponent(q);
-        });
-        $('#search-input').on('keypress', function(e) {
-            if (e.key === 'Enter') {
-                var q = $(this).val().trim();
-                if (q) location.href = 'search_list.html?keyword=' + encodeURIComponent(q);
-            }
-        });
-
-        var cartCount = 0;
+    async function load() {
+        ready = false; node('procurement-fields').disabled = true;
+        node('procurement-error').hidden = true; node('procurement-retry').hidden = true;
+        node('procurement-empty').hidden = true; node('product-grid').setAttribute('aria-busy', 'true');
+        node('product-grid').replaceChildren(element('p', 'product-loading', t('loading')));
+        node('procurement-pagination').hidden = true;
         try {
-            if (typeof AuthStorage !== 'undefined' && AuthStorage && AuthStorage.getCount) {
-                cartCount = AuthStorage.getCount();
-            }
-        } catch (e) {}
-        $('#cart-count').text(cartCount || 0);
+            var response = await fetch(baseUrl + '/v1/goods/index', {cache: 'no-store'});
+            if (!response.ok) throw new Error('catalog-request-failed');
+            var body = await response.json();
+            if (body.code !== 200 || !Array.isArray(body.data)) throw new Error('invalid-catalog-response');
+            categories = model.normalize(body.data);
+            if (!categories.some(function (cat) { return cat.id === state.catalog_id; })) state.catalog_id = 'all';
+            ready = true; node('procurement-fields').disabled = false; render(); restoreScroll();
+        } catch (error) {
+            node('product-grid').replaceChildren(); node('procurement-summary').textContent = '';
+            node('procurement-error').hidden = false; node('procurement-retry').hidden = false;
+        } finally { node('product-grid').setAttribute('aria-busy', 'false'); }
+    }
+    // Set before the shared workbench ready handler reads the sidebar currency.
+    node('currency-select').value = state.currency;
+    $(function () {
+        translate(); syncForm(); load();
+        node('procurement-filters').addEventListener('submit', function (event) {
+            event.preventDefault();
+            var max = node('filter-max_price'), min = node('filter-min_price');
+            max.setCustomValidity(max.value !== '' && min.value !== '' && Number(max.value) < Number(min.value) ? t('invalid') : '');
+            if (!this.reportValidity()) return;
+            var params = new URLSearchParams(model.search(state));
+            ['q', 'min_price', 'max_price', 'store_q', 'sort'].forEach(function (key) { params.set(key, node('filter-' + key).value); });
+            params.set('page', '1'); commit(model.read(params.toString()), false);
+        });
+        ['filter-min_price', 'filter-max_price'].forEach(function (id) { node(id).addEventListener('input', function () { node('filter-max_price').setCustomValidity(''); }); });
+        node('procurement-reset').addEventListener('click', function () { commit(model.read('?currency=' + state.currency), false); });
+        node('procurement-retry').addEventListener('click', load);
+        node('currency-select').addEventListener('change', function () {
+            commit(Object.assign({}, state, {currency: this.value, min_price: '', max_price: '', page: 1}), false);
+        });
+        node('lang-switch').addEventListener('click', function (event) {
+            if (event.target.closest('.lang-btn')) { if (ready) render(); else translate(); }
+        });
+        document.addEventListener('buyer:catalog-search', function (event) {
+            commit(Object.assign({}, state, {q: event.detail.trim().slice(0, 200), page: 1}), false);
+        });
+        node('product-grid').addEventListener('click', function (event) { if (event.target.closest('a')) saveScroll(); });
+        window.addEventListener('pagehide', saveScroll);
+        window.addEventListener('popstate', function () { state = model.read(window.location.search); if (ready) { render(); restoreScroll(); } });
     });
 })();

@@ -7,7 +7,7 @@
     var mediaBase = apiBase + '/media/';
     var currentStatus = 'all';
     var currentCurrency = 'CNY';
-    var statusNames = { 1: '待付款', 2: '待发货', 3: '待收货', 4: '已完成' };
+    var statusNames = { 0: '已关闭', 1: '待付款', 2: '待发货', 3: '待收货', 4: '已完成' };
 
     function escapeHtml(value) {
         return String(value == null ? '' : value).replace(/[&<>"']/g, function (char) {
@@ -29,13 +29,16 @@
     }
 
     function actionButtons(order) {
-        var status = Number(order.status);
+        var status = order.status == null ? -1 : Number(order.status);
         var id = escapeHtml(order.order_id);
         var actions = [];
-        if (status === 1) actions.push('<a class="bo-action bo-action-primary" href="gopay.html?order_id=' + encodeURIComponent(order.order_id) + '">去付款</a>');
+        if (status === 1 && !order.payment_exception) actions.push('<a class="bo-action bo-action-primary" href="gopay.html?order_id=' + encodeURIComponent(order.order_id) + '">去付款</a>');
+        if (status === 1 && order.order_type === 'standard' && !order.payment_exception) actions.push('<button type="button" class="bo-action" data-action="cancel" data-order-id="' + id + '">' + (order.reservation_managed ? '取消并释放库存' : '取消订单') + '</button>');
         if (status === 3) actions.push('<button type="button" class="bo-action bo-action-primary" data-action="receive" data-order-id="' + id + '">确认收货</button>');
         if (status === 3) actions.push('<a class="bo-action" href="logistics_track.html?order=' + encodeURIComponent(order.order_id) + '">查看物流</a>');
-        if ((order.order_type === 'standard' && status === 1) || order.is_completed) actions.push('<button type="button" class="bo-action bo-action-danger" data-action="delete" data-order-id="' + id + '">隐藏订单</button>');
+        if ((order.order_type === 'standard' && (status === 0 || status === 1)) || order.is_completed) actions.push('<button type="button" class="bo-action bo-action-danger" data-action="delete" data-order-id="' + id + '">隐藏订单</button>');
+        if (order.payment_exception) actions.push('<span class="bo-good-meta">支付需人工核验，请联系商家或平台；请勿重复付款。</span>');
+        if (order.status === 1 && order.expires_at) actions.push('<span class="bo-good-meta">付款截止：' + escapeHtml(new Date(order.expires_at).toLocaleString()) + '</span>');
         return actions.join('');
     }
 
@@ -54,7 +57,6 @@
                 + (specification && specification !== productName ? '<p class="bo-good-meta">规格：' + escapeHtml(specification) + '</p>' : '')
                 + '<p class="bo-good-meta">单价 ' + money(price) + ' × ' + count + '</p></div>'
                 + '<div class="bo-actions">'
-                + (good.can_contact ? '<a class="bo-action" href="buyer_messages.html?order_item_id=' + encodeURIComponent(good.id) + '" data-eng-text="contact">联系商家</a>' : '')
                 + (good.can_review ? '<a class="bo-action" href="buyer_reviews.html?order_item_id=' + encodeURIComponent(good.id) + '" data-eng-text="review">评价商品</a>' : '')
                 + (good.review_id ? '<a class="bo-action" href="buyer_reviews.html?order_item_id=' + encodeURIComponent(good.id) + '" data-eng-text="viewReview">查看评价</a>' : '')
                 + '</div>'
@@ -91,14 +93,14 @@
             return;
         }
         var markup = filtered.map(function (order) {
-            var status = Number(order.status);
+            var status = order.status == null ? -1 : Number(order.status);
             return '<article class="bo-order">'
                 + '<div class="bo-order-head"><div><span class="bo-order-id">订单号 ' + escapeHtml(order.order_id) + '</span>'
                 + '<span class="bo-order-time">' + escapeHtml(order.order_time || '') + '</span></div>'
                 + '<span class="bo-status" data-status="' + status + '">' + escapeHtml(order.status_text || statusNames[status] || '处理中') + '</span></div>'
                 + '<div class="bo-goods">' + goodsMarkup(order) + '</div>'
                 + '<div class="bo-order-foot"><div class="bo-order-total">共 ' + escapeHtml(order.order_total_count || 0)
-                + ' 件商品　运费 ' + money(order.order_freight) + '　实付 <strong>' + money(order.order_total_amount) + '</strong></div>'
+                + ' 件商品　运费 ' + money(order.order_freight) + '　订单金额 <strong>' + money(order.order_total_amount) + '</strong></div>'
                 + '<div class="bo-actions">' + actionButtons(order) + '</div></div>'
                 + addressMarkup(order)
                 + '</article>';
@@ -138,10 +140,10 @@
     }
 
     function changeOrder(action, id) {
-        var deleting = action === 'delete';
-        if (!confirm(deleting ? '确定从列表隐藏这个订单吗？交易与评价记录将保留。' : '确认已经收到这个订单的商品吗？')) return;
+        var deleting = action === 'delete', cancelling = action === 'cancel';
+        if (!confirm(deleting ? '确定隐藏订单吗？未付款订单将同时取消并释放库存，记录仍保留。' : cancelling ? '取消订单并释放库存？取消记录仍计入预留限制。' : '确认已经收到这个订单的商品吗？')) return;
         $.ajax({
-            url: apiBase + '/v1/orders/' + encodeURIComponent(username) + (deleting ? '/delete' : '/confirm-receipt'),
+            url: apiBase + '/v1/orders/' + encodeURIComponent(username) + (deleting ? '/delete' : cancelling ? '/cancel' : '/confirm-receipt'),
             type: 'POST',
             contentType: 'application/json',
             dataType: 'json',

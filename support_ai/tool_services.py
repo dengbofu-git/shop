@@ -19,6 +19,8 @@ from .conversation_tasks import (purchase_topic, apply_purchase_topic, without_r
 from .recommendation_explanations import explain_existing_products, format_product_reasons
 from .bundle_recommendations import recommend_bundle
 from .total_budget_intent import CURRENCY
+from .order_contracts import rule_order_query
+from .order_queries import query_orders
 
 
 GENERIC_CATEGORIES = {'茶', '茶叶', '茶类', '商品', '茶品', 'tea', 'teas', 'products', 'tea products'}
@@ -154,8 +156,9 @@ def normalize_recommendation(raw, message, history, memory, request):
     return intent, (['当前商品属性不足以验证“适合日常饮用”，本次仅按已确认条件筛选。'] if daily else [])
 
 
-def create_tool_handlers(model, knowledge_search, message, resolved_question, history, memory, order_context,
-                         knowledge_context_chars=12000, scoped_knowledge_search=None, knowledge_notes=None):
+def create_tool_handlers(model, knowledge_search, message, resolved_question, history, memory, order_context=None,
+                         knowledge_context_chars=12000, scoped_knowledge_search=None, knowledge_notes=None,
+                         order_query_context=None):
     """All arguments supplied by the authenticated application, never from model tool names."""
     history_json = json.dumps(history, ensure_ascii=False)
 
@@ -358,7 +361,22 @@ def create_tool_handlers(model, knowledge_search, message, resolved_question, hi
                       unmet=[] if details['data']['attributes'] else [MISSING_ATTRIBUTES])
 
     def orders(step, completed):
-        return result(step, data={'question': step.request, 'orders': json.loads(order_context)})
+        if step.request not in message:
+            return result(step, 'needs_clarification', {'answer': '请在本轮明确要查询的订单和状态。'})
+        if '[无效订单引用]' in message:
+            return result(step, 'needs_clarification', {'answer': '订单引用已失效，请重新提供真实订单号。'})
+        anchors = explicit_requests(message)
+        anchor = next((r for r in anchors if r.kind == 'after_sales'), None)
+        request = message
+        # Preserve constraints outside a model's short quote. Remove only
+        # independently recognized other tasks, never overlapping order text.
+        for other in anchors:
+            if (other.kind != 'after_sales' and step.request not in other.quote
+                    and (anchor is None or anchor.quote not in other.quote)):
+                request = request.replace(other.quote, ' ', 1)
+        # Legacy order_context strings are deliberately not used as live facts.
+        queried = query_orders(step.order_query or rule_order_query(request), order_query_context, request)
+        return result(step, queried['status'], queried['data'])
 
     def explain_recommendations(step, completed):
         status, data = explain_existing_products(step, completed, history)

@@ -9,12 +9,18 @@
     function statusOf(order) {
         var text = String(order.status_text || '').trim();
         if (text === '订单完成') return '已完成';
+        if (order.status != null && Number(order.status) === 0 && order.order_type === 'standard') return '已关闭';
         return text || standard[Number(order.status) - 1] || '未知状态';
     }
     function escape(value) {
         return String(value == null ? '' : value).replace(/[&<>"']/g, function (c) {
             return {'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c];
         });
+    }
+    function allowed(order, action) {
+        var flag = order['can_' + action];
+        if (typeof flag === 'boolean') return flag;
+        return false; // Missing authenticated capability flags cannot enable a mutation.
     }
     function categories(orders) {
         var counts = new Map(standard.map(function (name) { return [name, 0]; }));
@@ -39,9 +45,9 @@
             '</tr></thead><tbody>' + orders.map(function (o) {
                 var id = escape(o.order_id || '-'), state = statusOf(o), status = Number(o.status);
                 var actions = '';
-                // Actions follow the existing supplier API's base-status checks.
-                if (status === 2) actions += '<button type="button" class="btn-ship" data-action="ship" data-order-id="' + id + '">发货</button>';
-                if (status === 1 || status === 4) actions += '<button type="button" class="btn-delete-order" data-action="delete" data-order-id="' + id + '">删除</button>';
+                if (allowed(o, 'ship')) actions += '<button type="button" class="btn-ship" data-action="ship" data-order-id="' + id + '">发货</button>';
+                if (allowed(o, 'delete')) actions += '<button type="button" class="btn-delete-order" data-action="delete" data-order-id="' + id + '">取消订单</button>';
+                if (o.requires_merchant_split) actions = '<span>需平台处理商家拆分</span>';
                 var tone = standard.indexOf(state);
                 var amount = Number(o.total_amount);
                 return '<tr><td>' + id + '</td><td><span class="order-status-badge order-status-' + tone + '">' + escape(state) + '</span></td>' +
@@ -75,15 +81,13 @@
             if (busy || loading || (action !== 'ship' && action !== 'delete')) return;
             var order = orders.find(function (o) { return String(o.order_id) === id; });
             if (!order) return;
-            if (action === 'ship' && Number(order.status) !== 2) return;
-            if (action === 'delete' && [1, 4].indexOf(Number(order.status)) < 0) return;
-            if (action === 'delete' && !deps.confirm('确定要删除订单 ' + id + ' 吗？')) return;
+            if (!allowed(order, action)) return;
+            if (action === 'delete' && !deps.confirm('确定要取消未付款订单 ' + id + ' 吗？订单记录将保留。')) return;
             busy = true; error = ''; render();
             try {
                 var result = await deps.request(action, id);
                 if (result.code !== 200) throw new Error(result.error || '操作失败');
-                if (action === 'delete') orders = orders.filter(function (o) { return String(o.order_id) !== id; });
-                deps.notify(action === 'ship' ? '发货成功' : '删除成功');
+                deps.notify(action === 'ship' ? '发货成功' : '订单已取消，记录保留');
                 // Re-read actual status_text: trial/presale labels have their own lifecycle.
                 busy = false;
                 await load();

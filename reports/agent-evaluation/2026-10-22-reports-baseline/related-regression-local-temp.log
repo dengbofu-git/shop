@@ -1,0 +1,317 @@
+Creating test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
+Operations to perform:
+  Synchronize unmigrated apps: admin_panel, corsheaders, merchant_ai, messages, staticfiles
+  Apply all migrations: admin, ai_storage, auth, contenttypes, engagement, goods, inventory, logistics, news, orders, sessions, supplier, support_ai, users
+Synchronizing apps without migrations:
+  Creating tables...
+    Running deferred SQL...
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying auth.0001_initial... OK
+  Applying admin.0001_initial... OK
+  Applying admin.0002_logentry_remove_auto_add... OK
+  Applying admin.0003_logentry_add_action_flag_choices... OK
+  Applying ai_storage.0001_initial... OK
+  Applying ai_storage.0002_embedding_validation... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying auth.0012_alter_user_first_name_max_length... OK
+  Applying users.0001_initial... OK
+  Applying users.0002_address... OK
+  Applying users.0003_weiboprofile... OK
+  Applying users.0004_auto_20260218_0108... OK
+  Applying users.0005_permission_role_rolepermission_userrole... OK
+  Applying users.0006_create_admin_user... OK
+  Applying users.0007_create_customs_user... OK
+  Applying goods.0001_initial... OK
+  Applying orders.0001_initial... OK
+  Applying orders.0002_auto_20260218_0147... OK
+  Applying goods.0002_spu_merchant... OK
+  Applying goods.0003_auto_20260218_0147... OK
+  Applying goods.0004_add_carousel_slide... OK
+  Applying goods.0005_brand_logo_optional... OK
+  Applying goods.0006_sku_is_recommended... OK
+  Applying goods.0007_spu_brand_optional... OK
+  Applying goods.0008_auto_20261002_2159... OK
+  Applying goods.0009_browsinghistory_favorite... OK
+  Applying goods.0010_catalog_fallback_image... OK
+  Applying orders.0003_auto_20261021_1530... OK
+  Applying engagement.0001_initial... OK
+  Applying goods.0011_merchantfavorite... OK
+  Applying inventory.0001_initial... OK
+  Applying logistics.0001_initial... OK
+  Applying news.0001_initial... OK
+  Applying sessions.0001_initial... OK
+  Applying supplier.0001_initial... OK
+  Applying supplier.0002_storepage... OK
+  Applying support_ai.0001_initial... OK
+  Applying support_ai.0002_agent_observability... OK
+  Applying support_ai.0003_agent_reranking... OK
+  Applying support_ai.0004_conversation_order_context... OK
+  Applying users.0008_userprofile_nickname... OK
+Creating test database for alias 'ai_storage' ('file:memorydb_ai_storage?mode=memory&cache=shared')...
+Operations to perform:
+  Synchronize unmigrated apps: admin_panel, corsheaders, merchant_ai, messages, staticfiles
+  Apply all migrations: admin, ai_storage, auth, contenttypes, engagement, goods, inventory, logistics, news, orders, sessions, supplier, support_ai, users
+Synchronizing apps without migrations:
+  Creating tables...
+    Running deferred SQL...
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying auth.0001_initial... OK
+  Applying admin.0001_initial... OK
+  Applying admin.0002_logentry_remove_auto_add... OK
+  Applying admin.0003_logentry_add_action_flag_choices... OK
+  Applying ai_storage.0001_initial... OK
+  Applying ai_storage.0002_embedding_validation... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying auth.0012_alter_user_first_name_max_length... OK
+  Applying users.0001_initial... OK
+  Applying users.0002_address... OK
+  Applying users.0003_weiboprofile... OK
+  Applying users.0004_auto_20260218_0108... OK
+  Applying users.0005_permission_role_rolepermission_userrole... OK
+  Applying users.0006_create_admin_user... OK
+  Applying users.0007_create_customs_user... OK
+  Applying goods.0001_initial... OK
+  Applying orders.0001_initial... OK
+  Applying orders.0002_auto_20260218_0147... OK
+  Applying goods.0002_spu_merchant... OK
+  Applying goods.0003_auto_20260218_0147... OK
+  Applying goods.0004_add_carousel_slide... OK
+  Applying goods.0005_brand_logo_optional... OK
+  Applying goods.0006_sku_is_recommended... OK
+  Applying goods.0007_spu_brand_optional... OK
+  Applying goods.0008_auto_20261002_2159... OK
+  Applying goods.0009_browsinghistory_favorite... OK
+  Applying goods.0010_catalog_fallback_image... OK
+  Applying orders.0003_auto_20261021_1530... OK
+  Applying engagement.0001_initial... OK
+  Applying goods.0011_merchantfavorite... OK
+  Applying inventory.0001_initial... OK
+  Applying logistics.0001_initial... OK
+  Applying news.0001_initial... OK
+  Applying sessions.0001_initial... OK
+  Applying supplier.0001_initial... OK
+  Applying supplier.0002_storepage... OK
+  Applying support_ai.0001_initial... OK
+  Applying support_ai.0002_agent_observability... OK
+  Applying support_ai.0003_agent_reranking... OK
+  Applying support_ai.0004_conversation_order_context... OK
+  Applying users.0008_userprofile_nickname... OK
+System check identified no issues (0 silenced).
+test_bad_model_conditions_error_without_unfiltered_query (support_ai.test_grouped_recommendations.GroupedRecommendationTests) ... ok
+test_explicit_subset_and_budget_and_exclusion_are_retained (support_ai.test_grouped_recommendations.GroupedRecommendationTests) ... FAIL
+test_full_question_covers_all_six_types_without_condition_model (support_ai.test_grouped_recommendations.GroupedRecommendationTests) ... ok
+test_group_with_two_products_clarifies_or_uses_explicit_position (support_ai.test_grouped_recommendations.GroupedRecommendationTests) ... ok
+test_missing_group_does_not_borrow_products (support_ai.test_grouped_recommendations.GroupedRecommendationTests) ... ok
+test_model_schema_failure_errors_and_reports_field (support_ai.test_grouped_recommendations.GroupedRecommendationTests) ... ok
+test_partial_group_error_keeps_other_results (support_ai.test_grouped_recommendations.GroupedRecommendationTests) ... ok
+test_per_group_two_and_total_limit (support_ai.test_grouped_recommendations.GroupedRecommendationTests) ... ok
+test_plain_group_budget_and_exclusion_do_not_require_a_model (support_ai.test_grouped_recommendations.GroupedRecommendationTests) ... ok
+test_sixth_product_and_second_group_followups_reload_live_rows (support_ai.test_grouped_recommendations.GroupedRecommendationTests) ... ok
+test_unknown_qualifiers_keep_model_extraction (support_ai.test_grouped_recommendations.GroupedRecommendationTests) ... ok
+test_unsupported_taste_is_not_silently_ignored (support_ai.test_grouped_recommendations.GroupedRecommendationTests) ... ok
+test_budget_still_applies_to_knowledge_bound_groups (support_ai.test_mixed_tea.MixedTeaIntegrationTests) ... FAIL
+test_empty_or_fabricated_evidence_never_unlocks_products (support_ai.test_mixed_tea.MixedTeaIntegrationTests) ... ok
+test_explanation_and_six_matching_product_groups_are_both_present (support_ai.test_mixed_tea.MixedTeaIntegrationTests) ... ok
+test_explicit_pair_does_not_expand_to_all_six (support_ai.test_mixed_tea.MixedTeaIntegrationTests) ... ok
+test_only_described_subset_is_recommended (support_ai.test_mixed_tea.MixedTeaIntegrationTests) ... ok
+test_unknown_historical_reference_clarifies_without_recommending (support_ai.test_mixed_tea.MixedTeaIntegrationTests) ... ok
+test_verified_explanation_scope_survives_into_history (support_ai.test_mixed_tea.MixedTeaIntegrationTests) ... ok
+test_attributes_are_public_bounded_and_redacted (support_ai.test_product_details.PublicProductDetailsTests) ... ok
+test_exhausted_ledger_does_not_revive_legacy_stock (support_ai.test_product_details.PublicProductDetailsTests) ... ok
+test_hidden_missing_and_empty_stock_have_same_public_result (support_ai.test_product_details.PublicProductDetailsTests) ... ok
+test_ledger_sum_overrides_legacy_stock_and_is_reloaded (support_ai.test_product_details.PublicProductDetailsTests) ... ok
+test_management_bridge_outputs_json_and_sanitizes_database_failure (support_ai.test_product_details.PublicProductDetailsTests) ... ok
+test_management_bridge_rejects_out_of_range_id (support_ai.test_product_details.PublicProductDetailsTests) ... ok
+test_public_shape_legacy_stock_and_read_only_queries (support_ai.test_product_details.PublicProductDetailsTests) ... ok
+test_strict_ids_fail_before_database_access (support_ai.test_product_details.PublicProductDetailsTests) ... ok
+test_exact_preference_request_uses_authenticated_record_without_model_slots (support_ai.test_task_tools.TaskToolIntegrationTests) ... ok
+test_foreign_conversation_is_rejected (support_ai.test_task_tools.TaskToolIntegrationTests) ... ok
+test_generic_category_is_range_not_false_no_match (support_ai.test_task_tools.TaskToolIntegrationTests) ... ok
+test_invalid_hard_conditions_commit_only_safe_clarification (support_ai.test_task_tools.TaskToolIntegrationTests) ... ok
+test_knowledge_and_recommendation_both_execute_in_user_order (support_ai.test_task_tools.TaskToolIntegrationTests) ... ok
+test_missing_saved_preference_requests_details_without_product_query (support_ai.test_task_tools.TaskToolIntegrationTests) ... ok
+test_one_product_and_dependent_live_details (support_ai.test_task_tools.TaskToolIntegrationTests) ... ok
+test_order_followup_reloads_status_and_keeps_identity_private (support_ai.test_task_tools.TaskToolIntegrationTests) ... ok
+test_saved_preference_quote_is_canonicalized_only_after_owner_verification (support_ai.test_task_tools.TaskToolIntegrationTests) ... ok
+test_simple_slots_do_not_discard_budget_before_recommendation_verb (support_ai.test_task_tools.TaskToolIntegrationTests) ... ok
+test_unknown_category_requests_clarification_instead_of_no_match (support_ai.test_task_tools.TaskToolIntegrationTests) ... ok
+test_buyer_and_anonymous_cannot_read_or_modify_configuration (support_ai.test_telemetry.AgentOperationsTests) ... ok
+test_catalog_is_loaded_from_authenticated_provider (support_ai.test_telemetry.AgentOperationsTests) ... ok
+test_inactive_operator_is_forbidden (support_ai.test_telemetry.AgentOperationsTests) ... ok
+test_invalid_model_and_collector_address_are_rejected (support_ai.test_telemetry.AgentOperationsTests) ... ok
+test_monitoring_summary_and_trace_detail_come_from_otel_spans (support_ai.test_telemetry.AgentOperationsTests) ... ok
+test_platform_page_contains_settings_and_monitoring (support_ai.test_telemetry.AgentOperationsTests) ... ok
+test_switch_changes_next_model_and_has_versioned_audit (support_ai.test_telemetry.AgentOperationsTests) ... ok
+test_configuration_refresh_keeps_inflight_trace_alive (support_ai.test_telemetry.AgentTelemetryTests) ... ok
+test_disabled_monitoring_creates_no_records (support_ai.test_telemetry.AgentTelemetryTests) ... ok
+test_errors_record_class_without_exception_message (support_ai.test_telemetry.AgentTelemetryTests) ... ok
+test_model_error_closes_child_span_and_counts_call_without_logging_payload (support_ai.test_telemetry.AgentTelemetryTests) ... ok
+test_persistence_failure_does_not_break_agent (support_ai.test_telemetry.AgentTelemetryTests) ... ok
+test_span_parentage_token_usage_and_privacy (support_ai.test_telemetry.AgentTelemetryTests) ... ok
+test_thinking_mode_structured_output_contains_schema_without_forced_tool_choice (support_ai.test_telemetry.AgentTelemetryTests) ... ok
+test_commit_rechecks_revision_after_slow_model_work (support_ai.tests.RecommendationIntegrationTests) ... ok
+test_http_recommendation_uses_saved_memory_and_commits_exact_replay (support_ai.tests.RecommendationIntegrationTests) ... ok
+test_invalid_conditions_clarify_but_provider_failure_does_not_commit (support_ai.tests.RecommendationIntegrationTests) ... {"timestamp": "2026-10-22T09:12:43.270+00:00", "level": "ERROR", "service": "tea_saas", "logger": "support_ai.views", "event": "support.workflow.failed", "http_request_id": "6ffd86cd84484d29805d79c4ac9e84df", "trace_id": "ce27ca8ec8fca16fb0fb97f472403323", "span_id": "7207ee9a0f656def", "method": "POST", "route": "v1/support/chat/", "error_type": "TimeoutError", "stack": [{"file": "views.py", "function": "chat", "line": 126}, {"file": "mock.py", "function": "__call__", "line": 1092}, {"file": "mock.py", "function": "_mock_call", "line": 1096}, {"file": "mock.py", "function": "_execute_mock_call", "line": 1151}]}
+{"timestamp": "2026-10-22T09:12:43.270+00:00", "level": "ERROR", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "6ffd86cd84484d29805d79c4ac9e84df", "trace_id": "ce27ca8ec8fca16fb0fb97f472403323", "span_id": "7207ee9a0f656def", "method": "POST", "route": "v1/support/chat/", "http_status": 503, "duration_ms": 4.01, "outcome": "server_error"}
+ok
+test_matching_enforces_budget_launch_and_inventory_without_popular_fallback (support_ai.tests.RecommendationIntegrationTests) ... FAIL
+test_other_users_conversations_and_preferences_are_isolated (support_ai.tests.RecommendationIntegrationTests) ... ok
+test_preferences_are_explicit_validated_and_deletable (support_ai.tests.RecommendationIntegrationTests) ... ok
+test_retry_payload_conflict_and_conversation_revision_conflict (support_ai.tests.RecommendationIntegrationTests) ... ok
+test_short_context_contains_only_committed_redacted_same_conversation_turns (support_ai.tests.RecommendationIntegrationTests) ... ok
+test_short_context_excludes_old_turns_and_unrelated_conversations (support_ai.tests.RecommendationIntegrationTests) ... ok
+test_unavailable_memory_database_returns_safe_503_without_model_or_commit (support_ai.tests.RecommendationIntegrationTests) ... {"timestamp": "2026-10-22T09:12:43.517+00:00", "level": "ERROR", "service": "tea_saas", "logger": "support_ai.views", "event": "support.storage.failed", "http_request_id": "b1c53e3ae1c343a6832a18072a497b1b", "method": "POST", "route": "v1/support/chat/", "error_type": "OperationalError", "stack": [{"file": "views.py", "function": "guarded", "line": 38}, {"file": "views.py", "function": "chat", "line": 109}, {"file": "mock.py", "function": "__call__", "line": 1092}, {"file": "mock.py", "function": "_mock_call", "line": 1096}, {"file": "mock.py", "function": "_execute_mock_call", "line": 1151}]}
+{"timestamp": "2026-10-22T09:12:43.518+00:00", "level": "ERROR", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "b1c53e3ae1c343a6832a18072a497b1b", "method": "POST", "route": "v1/support/chat/", "http_status": 503, "duration_ms": 2.38, "outcome": "server_error"}
+ok
+test_unavailable_preference_store_does_not_fall_back_to_mysql (support_ai.tests.RecommendationIntegrationTests) ... {"timestamp": "2026-10-22T09:12:43.530+00:00", "level": "ERROR", "service": "tea_saas", "logger": "support_ai.views", "event": "support.storage.failed", "http_request_id": "7f7fdd7717274db7a6006ea4f17e6e15", "method": "GET", "route": "v1/support/preferences/", "error_type": "OperationalError", "stack": [{"file": "views.py", "function": "guarded", "line": 38}, {"file": "views.py", "function": "preferences", "line": 169}, {"file": "mock.py", "function": "__call__", "line": 1092}, {"file": "mock.py", "function": "_mock_call", "line": 1096}, {"file": "mock.py", "function": "_execute_mock_call", "line": 1151}]}
+{"timestamp": "2026-10-22T09:12:43.530+00:00", "level": "ERROR", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "7f7fdd7717274db7a6006ea4f17e6e15", "method": "GET", "route": "v1/support/preferences/", "http_status": 503, "duration_ms": 2.37, "outcome": "server_error"}
+ok
+test_broken_default_and_first_gallery_do_not_hide_valid_gallery (goods.test_images.CatalogImageTests) ... ok
+test_cart_uses_fallback_with_fake_redis (goods.test_images.CatalogImageTests) ... ok
+test_catalogs_are_isolated_and_missing_files_use_generic_placeholder (goods.test_images.CatalogImageTests) ... ok
+test_real_sibling_and_legacy_photos_take_priority (goods.test_images.CatalogImageTests) ... ok
+test_real_upload_immediately_overrides_virtual_and_delete_restores_fallback (goods.test_images.CatalogImageTests) ... ok
+test_registration_previews_applies_idempotently_and_validates_hash (goods.test_images.CatalogImageTests) ... ok
+test_storefront_and_order_dtos_use_resolved_paths (goods.test_images.CatalogImageTests) ... ok
+test_virtual_image_served_and_upload_field_remains_empty (goods.test_images.CatalogImageTests) ... ok
+test_complete_request_and_group_options_are_preserved (support_ai.test_grouped_recommendations.GroupedContractTests) ... ok
+test_counts_are_distinct_from_flat_limits (support_ai.test_grouped_recommendations.GroupedContractTests) ... ok
+test_diagnostics_do_not_expose_input_or_exception_contents (support_ai.test_grouped_recommendations.GroupedContractTests) ... ok
+test_long_newest_group_history_keeps_references_within_budget (support_ai.test_grouped_recommendations.GroupedContractTests) ... ok
+test_query_and_saved_preference_have_independent_bounds (support_ai.test_grouped_recommendations.GroupedContractTests) ... ok
+test_buyer_pages_share_header_and_support_navigation (support_ai.tests.BuyerShellTests) ... ok
+test_support_page_contains_preference_controls_and_new_conversation (support_ai.tests.BuyerShellTests) ... ok
+test_support_requires_login (support_ai.tests.BuyerShellTests) ... ok
+test_model_uses_configured_deepseek_options (support_ai.tests.ModelConfigurationTests) ... ok
+test_current_category_overrides_long_term_preference (support_ai.tests.RecommendationContractTests) ... ok
+test_memory_cannot_supply_hard_conditions (support_ai.tests.RecommendationContractTests) ... ok
+test_only_known_recent_user_turns_can_supply_continuation (support_ai.tests.RecommendationContractTests) ... ok
+test_requires_original_user_evidence_and_rejects_injected_query_fields (support_ai.tests.RecommendationContractTests) ... ok
+test_total_budget_without_currency_uses_base_currency (support_ai.tests.RecommendationContractTests) ... ok
+test_recommendation_requires_registered_application_tools (support_ai.tests.RecommendationGraphTests) ... ok
+test_database_name_mismatch_prevents_writes (goods.test_seed_identity.SeedIdentityTests) ... ok
+test_server_uuid_mismatch_prevents_writes (goods.test_seed_identity.SeedIdentityTests) ... ok
+test_attributive_reference_is_not_a_second_knowledge_task (support_ai.test_mixed_tea.MixedPlanningTests) ... ok
+test_constraints_and_negative_clauses_do_not_add_model_tasks (support_ai.test_mixed_tea.MixedPlanningTests) ... ok
+test_failed_introduction_skips_dependent_recommendation (support_ai.test_mixed_tea.MixedPlanningTests) ... ok
+test_forged_source_is_rejected (support_ai.test_mixed_tea.MixedPlanningTests) ... ok
+test_scoped_retrieval_shares_candidate_budget (support_ai.test_mixed_tea.MixedPlanningTests) ... ok
+test_synonyms_and_coordinated_clauses_preserve_scopes (support_ai.test_mixed_tea.MixedPlanningTests) ... ok
+test_uncovered_clause_uses_model_instead_of_short_circuiting (support_ai.test_mixed_tea.MixedPlanningTests) ... ok
+test_user_sentence_contains_two_ordered_tasks (support_ai.test_mixed_tea.MixedPlanningTests) ... ok
+test_budget_stops_dispatch (support_ai.test_planning.ExecutorTests) ... ok
+test_dependency_overrides_storage_order_but_preserves_output_order (support_ai.test_planning.ExecutorTests) ... ok
+test_error_does_not_silently_complete_a_task (support_ai.test_planning.ExecutorTests) ... ok
+test_no_match_skips_only_dependent_steps (support_ai.test_planning.ExecutorTests) ... ok
+test_complete_graph_compiles (support_ai.test_planning.PlanningTests) ... ok
+test_context_only_continues_a_pending_clarification (support_ai.test_planning.PlanningTests) ... ok
+test_duplicate_output_ids_are_rejected (support_ai.test_planning.PlanningTests) ... ok
+test_explicit_introductions_do_not_inherit_shopping_history (support_ai.test_planning.PlanningTests) ... ok
+test_forged_tool_and_cycles_are_rejected (support_ai.test_planning.PlanningTests) ... ok
+test_mixed_tasks_and_requested_count (support_ai.test_planning.PlanningTests) ... ok
+test_negative_requests_are_not_executed (support_ai.test_planning.PlanningTests) ... ok
+test_product_dependency_is_program_owned (support_ai.test_planning.PlanningTests) ... ok
+test_quoted_recommendation_is_not_a_new_request (support_ai.test_planning.PlanningTests) ... ok
+test_cancel_clears_state_and_greeting_preserves_it_without_model_calls (support_ai.test_semantic_planning.SemanticPlanningTests) ... ok
+test_clear_budget_requires_explicit_scope_and_removes_all_budget_fields (support_ai.test_semantic_planning.SemanticPlanningTests) ... ok
+test_currency_supplement_preserves_budget_category_count_and_evidence (support_ai.test_semantic_planning.SemanticPlanningTests) ... FAIL
+test_exact_saved_preference_request_uses_only_server_owned_memory (support_ai.test_semantic_planning.SemanticPlanningTests) ... ok
+test_exact_six_type_grouping_is_not_invented_as_six_hard_filters (support_ai.test_semantic_planning.SemanticPlanningTests) ... ok
+test_expired_evidence_cannot_turn_a_budgeted_task_into_unfiltered_search (support_ai.test_semantic_planning.SemanticPlanningTests) ... ok
+test_grouping_shortcut_never_discards_extra_constraints (support_ai.test_semantic_planning.SemanticPlanningTests) ... ok
+test_model_cannot_rewrite_current_request_without_a_historical_source (support_ai.test_semantic_planning.SemanticPlanningTests) ... ok
+test_new_explicit_request_does_not_inherit_old_budget (support_ai.test_semantic_planning.SemanticPlanningTests) ... ok
+test_preference_canonicalization_requires_owner_and_saved_value (support_ai.test_semantic_planning.SemanticPlanningTests) ... ok
+test_unknown_and_out_of_bounds_product_references_are_rejected (support_ai.test_semantic_planning.SemanticPlanningTests) ... ok
+test_each_specialist_reaches_summary_and_compliance (support_ai.tests.GraphTests) ... ok
+test_normal_answer_can_refer_to_human_support (support_ai.tests.GraphTests) ... ok
+test_order_context_is_loaded_only_for_after_sales (support_ai.tests.GraphTests) ... ok
+test_pii_node_runs_before_classifier (support_ai.tests.GraphTests) ... ok
+test_unclear_intent_uses_bounded_clarification (support_ai.tests.GraphTests) ... ok
+test_contact_support_phrase_is_not_a_person_name (support_ai.tests.PiiTests) ... ok
+test_redacts_order_phone_email_name_and_address (support_ai.tests.PiiTests) ... ok
+
+======================================================================
+FAIL: test_explicit_subset_and_budget_and_exclusion_are_retained (support_ai.test_grouped_recommendations.GroupedRecommendationTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<WORKSPACE>\support_ai\test_grouped_recommendations.py", line 114, in test_explicit_subset_and_budget_and_exclusion_are_retained
+    self.assertEqual([p['category'] for p in result.data['recommendations']], ['绿茶', '白茶'])
+AssertionError: Lists differ: ['绿茶', '白茶', '乌龙茶', '黄茶', '黑茶'] != ['绿茶', '白茶']
+
+First list contains 3 additional elements.
+First extra element 2:
+'乌龙茶'
+
+- ['绿茶', '白茶', '乌龙茶', '黄茶', '黑茶']
++ ['绿茶', '白茶']
+
+======================================================================
+FAIL: test_budget_still_applies_to_knowledge_bound_groups (support_ai.test_mixed_tea.MixedTeaIntegrationTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<WORKSPACE>\support_ai\test_mixed_tea.py", line 207, in test_budget_still_applies_to_knowledge_bound_groups
+    self.assertEqual([p['category'] for p in data['recommendations']], ['绿茶'])
+AssertionError: Lists differ: ['绿茶', '红茶'] != ['绿茶']
+
+First list contains 1 additional elements.
+First extra element 1:
+'红茶'
+
+- ['绿茶', '红茶']
++ ['绿茶']
+
+======================================================================
+FAIL: test_matching_enforces_budget_launch_and_inventory_without_popular_fallback (support_ai.tests.RecommendationIntegrationTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<WORKSPACE>\support_ai\tests.py", line 272, in test_matching_enforces_budget_launch_and_inventory_without_popular_fallback
+    self.assertEqual([card['sku_id'] for card in result['recommendations']], [self.skus[1].pk])
+AssertionError: Lists differ: [2, 3] != [2]
+
+First list contains 1 additional elements.
+First extra element 1:
+3
+
+- [2, 3]
++ [2]
+
+======================================================================
+FAIL: test_currency_supplement_preserves_budget_category_count_and_evidence (support_ai.test_semantic_planning.SemanticPlanningTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<WORKSPACE>\support_ai\test_semantic_planning.py", line 50, in test_currency_supplement_preserves_budget_category_count_and_evidence
+    self.assertEqual(source, 'model')
+AssertionError: 'rules' != 'model'
+- rules
++ model
+
+
+----------------------------------------------------------------------
+Ran 127 tests in 3.451s
+
+FAILED (failures=4)
+Destroying test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
+Destroying test database for alias 'ai_storage' ('file:memorydb_ai_storage?mode=memory&cache=shared')...

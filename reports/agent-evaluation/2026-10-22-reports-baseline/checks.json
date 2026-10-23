@@ -1,0 +1,188 @@
+{
+  "executed_at": "2026-10-22T09:29:56.905472+00:00",
+  "settings": "support_ai.test_settings",
+  "results": [
+    {
+      "name": "django-check",
+      "command": [
+        "<PYTHON_ENV>\\python.exe",
+        "manage.py",
+        "check",
+        "--settings=support_ai.test_settings"
+      ],
+      "exit_code": 0,
+      "seconds": 1.879,
+      "log": "django-check.log",
+      "environment": {
+        "SUPPORT_RAG_QUERY_ENABLED": "false",
+        "temporary_directory": "sandbox default (permission failure)"
+      }
+    },
+    {
+      "name": "related-regression",
+      "command": [
+        "<PYTHON_ENV>\\python.exe",
+        "manage.py",
+        "test",
+        "support_ai",
+        "goods.test_images",
+        "goods.test_seed_identity",
+        "--settings=support_ai.test_settings",
+        "--noinput",
+        "-v",
+        "2"
+      ],
+      "exit_code": 1,
+      "seconds": 9.711,
+      "log": "related-regression.log",
+      "environment": {
+        "SUPPORT_RAG_QUERY_ENABLED": "false",
+        "temporary_directory": "sandbox default (permission failure)"
+      }
+    },
+    {
+      "name": "archive-contract",
+      "command": [
+        "<PYTHON_ENV>\\python.exe",
+        "client/tests/repository-cleanup-contract.py",
+        "RepositoryCleanupTests.test_historical_git_content_is_identical_and_complete",
+        "RepositoryCleanupTests.test_current_comparison_defaults_have_their_historical_inputs",
+        "-v"
+      ],
+      "exit_code": 0,
+      "seconds": 0.197,
+      "log": "archive-contract.log",
+      "environment": {
+        "SUPPORT_RAG_QUERY_ENABLED": "false",
+        "temporary_directory": "sandbox default (permission failure)"
+      }
+    },
+    {
+      "name": "related-regression-local-temp",
+      "command": [
+        "<PYTHON_ENV>\\python.exe",
+        "manage.py",
+        "test",
+        "support_ai",
+        "goods.test_images",
+        "goods.test_seed_identity",
+        "--settings=support_ai.test_settings",
+        "--noinput",
+        "-v",
+        "2"
+      ],
+      "exit_code": 1,
+      "seconds": 12.826,
+      "log": "related-regression-local-temp.log",
+      "environment": {
+        "DJANGO_SETTINGS_MODULE": "support_ai.test_settings",
+        "TEMP": "<WORKSPACE>\\.scratch\\reports-baseline-20261022\\tmp",
+        "TMP": "<WORKSPACE>\\.scratch\\reports-baseline-20261022\\tmp",
+        "LOG_TO_FILE": "false",
+        "LOG_LEVEL": "ERROR",
+        "network": "Blocked for custom probes; existing regression uses test doubles"
+      }
+    },
+    {
+      "name": "current-probes",
+      "command": [
+        "<PYTHON_ENV>\\python.exe",
+        ".scratch/reports-baseline-20261022/probe_reports.py"
+      ],
+      "exit_code": 0,
+      "seconds": 14.546,
+      "log": "current-probes.log",
+      "environment": {
+        "DJANGO_SETTINGS_MODULE": "support_ai.test_settings",
+        "TEMP": "<WORKSPACE>\\.scratch\\reports-baseline-20261022\\tmp",
+        "TMP": "<WORKSPACE>\\.scratch\\reports-baseline-20261022\\tmp",
+        "LOG_TO_FILE": "false",
+        "LOG_LEVEL": "ERROR",
+        "network": "Blocked for custom probes; existing regression uses test doubles"
+      }
+    },
+    {
+      "name": "current-contract",
+      "command": [
+        "<PYTHON_ENV>\\python.exe",
+        ".scratch/reports-baseline-20261022/probe_current_contract.py"
+      ],
+      "exit_code": 0,
+      "seconds": 8.349,
+      "log": "current-contract.log",
+      "environment": {
+        "DJANGO_SETTINGS_MODULE": "support_ai.test_settings",
+        "TEMP": "<WORKSPACE>\\.scratch\\reports-baseline-20261022\\tmp",
+        "TMP": "<WORKSPACE>\\.scratch\\reports-baseline-20261022\\tmp",
+        "LOG_TO_FILE": "false",
+        "LOG_LEVEL": "ERROR",
+        "network": "Blocked for custom probes; existing regression uses test doubles"
+      }
+    },
+    {
+      "name": "final-buyer-shell",
+      "command": [
+        "<PYTHON_ENV>\\python.exe",
+        "manage.py",
+        "test",
+        "support_ai.tests.BuyerShellTests",
+        "--settings=support_ai.test_settings",
+        "--noinput",
+        "-v",
+        "2"
+      ],
+      "exit_code": 0,
+      "seconds": 9.216,
+      "log": "final-buyer-shell.log",
+      "environment": {
+        "DJANGO_SETTINGS_MODULE": "support_ai.test_settings",
+        "TEMP": "<WORKSPACE>\\.scratch\\reports-baseline-20261022\\tmp",
+        "TMP": "<WORKSPACE>\\.scratch\\reports-baseline-20261022\\tmp",
+        "LOG_TO_FILE": "false",
+        "LOG_LEVEL": "ERROR",
+        "network": "Blocked for custom probes; existing regression uses test doubles"
+      }
+    },
+    {
+      "name": "module-ownership",
+      "command": [
+        "<PYTHON_ENV>\\python.exe",
+        "tools/module_versions.py",
+        "check"
+      ],
+      "exit_code": 0,
+      "seconds": 0.485,
+      "log": "module-ownership.log",
+      "environment": {
+        "DJANGO_SETTINGS_MODULE": "support_ai.test_settings",
+        "TEMP": "<WORKSPACE>\\.scratch\\reports-baseline-20261022\\tmp",
+        "TMP": "<WORKSPACE>\\.scratch\\reports-baseline-20261022\\tmp",
+        "LOG_TO_FILE": "false",
+        "LOG_LEVEL": "ERROR",
+        "network": "Blocked for custom probes; existing regression uses test doubles"
+      }
+    },
+    {
+      "name": "index-diff-check",
+      "command": [
+        "git",
+        "diff",
+        "--check",
+        "--",
+        "reports/README.md",
+        "reports/agent-evaluation/README.md"
+      ],
+      "exit_code": 0,
+      "seconds": 0.058,
+      "log": "index-diff-check.log",
+      "environment": {
+        "DJANGO_SETTINGS_MODULE": "support_ai.test_settings",
+        "TEMP": "<WORKSPACE>\\.scratch\\reports-baseline-20261022\\tmp",
+        "TMP": "<WORKSPACE>\\.scratch\\reports-baseline-20261022\\tmp",
+        "LOG_TO_FILE": "false",
+        "LOG_LEVEL": "ERROR",
+        "network": "Blocked for custom probes; existing regression uses test doubles"
+      }
+    }
+  ]
+}

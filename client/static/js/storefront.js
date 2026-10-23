@@ -25,7 +25,7 @@
         } else line.appendChild(text('span', 'store-muted', t('soon')));
         return line;
     }
-    function hero(root, content) {
+    function hero(root, content, actions) {
         root.replaceChildren();
         var banner = text('div', 'store-banner');
         if (content.banner_url) {
@@ -45,7 +45,9 @@
         copy.appendChild(text('h1', '', content.name || '我的店铺'));
         copy.appendChild(text('p', 'store-summary', content.summary || '商家正在完善店铺介绍。'));
         if (content.banner_url && content.welcome) copy.appendChild(text('p', 'store-welcome', content.welcome));
-        identity.append(logo, copy); root.append(banner, identity);
+        identity.append(logo, copy);
+        if (actions) identity.appendChild(actions);
+        root.append(banner, identity);
     }
     function card(item, preview) {
         var node = text('article', 'product-card store-product-card');

@@ -1,0 +1,7 @@
+test_historical_git_content_is_identical_and_complete (__main__.RepositoryCleanupTests) ... ok
+test_current_comparison_defaults_have_their_historical_inputs (__main__.RepositoryCleanupTests) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.046s
+
+OK

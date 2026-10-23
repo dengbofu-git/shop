@@ -29,22 +29,22 @@
 
 | 模块 | 当前版本 | 当前核对状态 | 完整变更记录 |
 | --- | --- | --- | --- |
-| core · 项目核心 | 0.7.1 | 装配独立 engagement 模块及双端咨询／评价／运营治理页面和 API；不复用 AI 私有会话。 | [core](changelogs/core.md) |
-| users · 用户与权限 | 0.4.1 | 统一登录与权限分流、平台联合鉴权、会话权限、品牌与旧入口清理 | [users](changelogs/users.md) |
-| goods · 商品管理 | 0.6.1 | 有购买／评价记录的商品或商品系列删除返回409并提示下架，配合订单历史保护。 | [goods](changelogs/goods.md) |
-| carts · 购物车 | 0.1.2 | 保持采购车及商品图片基线；本轮仅web调整币种展示 | [carts](changelogs/carts.md) |
-| orders · 订单管理 | 0.2.0 | 新购买项保存商家与规格快照；订单列表返回评价资格和咨询入口；买家删除改为隐藏，保留交易和评价依据。新增迁移，不推断旧订单归属。 | [orders](changelogs/orders.md) |
-| pays · 支付 | 0.1.0 | 保持已有支付基线；验签、金额与回调幂等仍待专项完善 | [pays](changelogs/pays.md) |
+| core · 项目核心 | 0.8.0 | 装配独立 engagement 模块及双端咨询／评价／运营治理页面和 API；不复用 AI 私有会话。 | [core](changelogs/core.md) |
+| users · 用户与权限 | 0.4.2 | 统一登录与权限分流、平台联合鉴权、会话权限、品牌与旧入口清理 | [users](changelogs/users.md) |
+| goods · 商品管理 | 0.6.3 | 有购买／评价记录的商品或商品系列删除返回409并提示下架，配合订单历史保护。 | [goods](changelogs/goods.md) |
+| carts · 购物车 | 0.2.1 | 保持采购车及商品图片基线；本轮仅web调整币种展示 | [carts](changelogs/carts.md) |
+| orders · 订单管理 | 0.4.0 | 新购买项保存商家与规格快照；订单列表返回评价资格和咨询入口；买家删除改为隐藏，保留交易和评价依据。新增迁移，不推断旧订单归属。 | [orders](changelogs/orders.md) |
+| pays · 支付 | 0.2.1 | 保持已有支付基线；验签、金额与回调幂等仍待专项完善 | [pays](changelogs/pays.md) |
 | news · 内容资讯 | 0.1.2 | 移除空后台注册文件；资讯API保持原有规则 | [news](changelogs/news.md) |
-| inventory · 库存管理 | 0.1.1 | 移除无效导入；库存行为保持原有规则 | [inventory](changelogs/inventory.md) |
+| inventory · 库存管理 | 0.2.1 | 移除无效导入；库存行为保持原有规则 | [inventory](changelogs/inventory.md) |
 | logistics · 物流 | 0.1.1 | 移除无效导入；物流查询和服务保持原有规则 | [logistics](changelogs/logistics.md) |
-| supplier · 商家与结算 | 0.3.3 | 禁止物理删除已完成订单，保留买家评价依据；咨询／评价管理导航由web提供。 | [supplier](changelogs/supplier.md) |
+| supplier · 商家与结算 | 0.4.0 | 禁止物理删除已完成订单，保留买家评价依据；咨询／评价管理导航由web提供。 | [supplier](changelogs/supplier.md) |
 | admin_panel · 平台运营 | 0.4.2 | 平台交易总览、角色与权限联合控制、共用销售条件 | [admin_panel](changelogs/admin_panel.md) |
-| support_ai · 智能客服 | 0.15.1 | 问候和功能咨询在模型配置与长期偏好读取前程序匹配并返回固定回复；未执行自动化或真实模型验收 | [support_ai](changelogs/support_ai.md) |
+| support_ai · 智能客服 | 0.17.3 | 问候和功能咨询在模型配置与长期偏好读取前程序匹配并返回固定回复；未执行自动化或真实模型验收 | [support_ai](changelogs/support_ai.md) |
 | merchant_ai · 商家智能助手 | 0.1.0 | 入口与初始化状态，聊天／模型／上传／经营工具未接入 | [merchant_ai](changelogs/merchant_ai.md) |
 | ai_storage · AI 记忆与知识存储 | 0.3.3 | 保持查询改写所用知识／向量与短Embedding超时基线 | [ai_storage](changelogs/ai_storage.md) |
-| web · 页面与前端资源 | 0.29.6 | 新增买家／商家消息中心、未读和关联卡片、评价提交、商家回复及运营举报治理；详情页同页评价与评分分布，支持三语、RTL和响应式。 | [web](changelogs/web.md) |
-| engagement · 站内咨询与商品评价 | 0.1.4 | 本地咨询与评价已启用；已完成历史商品按日志核验归属后补齐快照，保留角色隔离。 | [engagement](changelogs/engagement.md) |
+| web · 页面与前端资源 | 0.31.3 | 新增买家／商家消息中心、未读和关联卡片、评价提交、商家回复及运营举报治理；详情页同页评价与评分分布，支持三语、RTL和响应式。 | [web](changelogs/web.md) |
+| engagement · 站内咨询与商品评价 | 0.2.2 | 本地咨询与评价已启用；已完成历史商品按日志核验归属后补齐快照，保留角色隔离。 | [engagement](changelogs/engagement.md) |
 
 ## 历史实现演进和既有证据
 

@@ -5,6 +5,7 @@ from typing import List, Literal, Optional
 from langchain_core.prompts import ChatPromptTemplate
 from pydantic import BaseModel, ConfigDict, Field
 from .contracts import RecommendationOptions, RecommendationIntent
+from .order_contracts import OrderQuery, rule_order_query
 from .recommendation_options import BASIC_TEA_TYPES, DESCRIBED_TEA_REFERENCE, ORDINAL, recommendation_options, tea_scope
 from .conversation_tasks import REASON_PATTERN, PREVIOUS_RECOMMENDATION
 
@@ -31,6 +32,7 @@ class IntentRequest(BaseModel):
     kind: Intent
     quote: str = Field(min_length=1, max_length=1000)
     limit: Optional[int] = Field(default=None, ge=1, le=4)
+    order_query: Optional[OrderQuery] = None
 
 
 class FiniteIntents(BaseModel):
@@ -51,6 +53,7 @@ class TaskStep(BaseModel):
     knowledge_from: Optional[str] = None
     tea_scope: List[str] = Field(default_factory=list, max_length=6)
     purchase_intent: Optional[RecommendationIntent] = None
+    order_query: Optional[OrderQuery] = None
     reference_turn_id: Optional[str] = Field(default=None, max_length=80)
     reference_position: Optional[int] = Field(default=None, ge=1, le=12)
 
@@ -88,7 +91,7 @@ def explicit_requests(message):
     patterns = [
         ('recommendation', r'推荐|帮我(?:选|挑|找)|给我(?:选|挑)|我(?:要|想)买|可以买|在售|\brecommend\b|\bsuggest\b'),
         ('question_answering', r'介绍|说明|讲解|阐述|解释|讲讲|科普|比较|对比|怎么泡|如何冲泡|冲泡方法|什么是|有什么区别|有何区别|多少度|泡多久|\bdescribe\b|\bexplain\b|\bintroduce\b|\bcompare\b'),
-        ('after_sales', r'我的订单|这个订单|该订单|订单.{0,8}(?:状态|到哪|在哪|付款|发货|退款)|(?:物流|售后|退款).{0,8}(?:状态|进度)|\bmy order\b'),
+        ('after_sales', r'我的订单|这个订单|该订单|订单引用 ORDER_REF_[a-p]{8}_[1-9]|订单.{0,12}(?:状态|到哪|在哪|付款|发货|退款)|(?:物流|售后|退款).{0,8}(?:状态|进度)|\bmy order\b'),
     ]
     for kind, pattern in patterns:
         for match in re.finditer(pattern, message, re.I):
@@ -215,6 +218,8 @@ def extract_requests(model, message, resolved_question, history):
 def build_plan(requests, source, message):
     steps = []
     for request in requests:
+        if request.order_query is not None and request.kind != 'after_sales':
+            raise ValueError('Unexpected order query slots')
         if any(s.intent == request.kind for s in steps):
             continue
         step = TaskStep(id='s{}'.format(len(steps) + 1), intent=request.kind,
@@ -222,6 +227,8 @@ def build_plan(requests, source, message):
                         limit=requested_limit(request.quote) or request.limit or 4)
         if request.kind == 'recommendation':
             step.recommendation = recommendation_options(request.quote)
+        if request.kind == 'after_sales':
+            step.order_query = request.order_query or rule_order_query(request.quote)
         steps.append(step)
     # Dependencies are constructed by the application, not supplied by the model.
     recommendation = next((s for s in steps if s.intent == 'recommendation'), None)
@@ -261,6 +268,8 @@ def validate_plan(plan):
             raise ValueError('Tool does not match its fixed template')
         if step.purchase_intent is not None and step.intent != 'recommendation':
             raise ValueError('Purchase conditions require a recommendation task')
+        if step.order_query is not None and step.intent != 'after_sales':
+            raise ValueError('Order queries require an order task')
         if (step.reference_turn_id or step.reference_position is not None) and (
                 step.intent not in ('product_details', 'recommendation_explanation')
                 or not step.reference_turn_id or step.product_from):

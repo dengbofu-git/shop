@@ -41,6 +41,9 @@
 .eng-inbox-page .eng-chat-welcome > strong { display: block; color: #28553e; font-size: 16px; font-weight: 600; line-height: 1.6; }
 .eng-inbox-page .eng-chat-welcome > p { margin: 10px 0 0; color: #708478; font-size: 13px; line-height: 1.9; }
 .eng-inbox-page #eng-conversations > button { padding: 11px 12px; margin-bottom: 8px; }
+.eng-inbox-page #eng-conversations > button[draggable] { cursor: grab; user-select: none; -webkit-user-select: none; }
+.eng-inbox-page #eng-conversations > button.eng-dragging { opacity: .45; border-style: dashed; background: #e7f2e9; cursor: grabbing; }
+.eng-inbox-page #eng-conversations.eng-reordering { cursor: grabbing; }
 .eng-inbox-page #eng-conversations strong { display: block; font-size: 14px; line-height: 1.5; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .eng-inbox-page #eng-conversations small { margin-top: 4px; font-size: 12px; line-height: 1.5; }
 .eng-inbox-page #eng-list-pager { flex: 0 0 auto; }
@@ -59,7 +62,26 @@
 .eng-inbox-page .eng-context { min-width: 0; min-height: 0; padding: 16px; overflow-y: auto; grid-column: 3; grid-row: 1; }
 .eng-inbox-page .eng-context:not(:has(.eng-card)) { display: none; }
 .eng-inbox-page .eng-context .eng-card { margin: 0; font-size: 13px; line-height: 1.7; }
+.eng-inbox-page .eng-card[href]:hover { background: #f2f8f3; border-color: #19583d; }
+.eng-inbox-page .eng-card[href]:focus-visible { outline: 2px solid #19583d; outline-offset: 3px; }
+.eng-inbox-page .eng-card-action { display: block; margin-block-start: 8px; text-decoration: underline; }
 .eng-inbox-page .eng-back-list { display: none; }
+.eng-conversation-menu {
+    position: fixed; z-index: 1100; width: max-content; max-width: calc(100vw - 16px);
+    box-sizing: border-box; padding: 6px; border: 1px solid #e0e8e1; border-radius: 14px;
+    background: #fff; color: #274d3b; box-shadow: 0 12px 36px #173c2926;
+    animation: eng-menu-in 140ms ease-out;
+}
+.eng-conversation-menu[hidden] { display: none; }
+.eng-page .eng-conversation-menu > button {
+    display: flex; align-items: center; gap: 10px; width: 100%; margin: 0;
+    padding: 11px 14px; border: 0; border-radius: 9px; background: transparent;
+    color: #a3443c; font: inherit; font-size: 14px; text-align: start; cursor: pointer;
+    transition: background 140ms ease, color 140ms ease;
+}
+.eng-page .eng-conversation-menu > button:hover, .eng-page .eng-conversation-menu > button:focus-visible { background: #fbefec; color: #923b34; outline: 0; }
+@keyframes eng-menu-in { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
+@media (prefers-reduced-motion: reduce) { .eng-conversation-menu { animation: none; } .eng-conversation-menu > button { transition: none; } }
 
 @container inbox (max-width: 1050px) {
     .eng-inbox-page .eng-layout { grid-template-columns: 210px minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr); }
@@ -68,7 +90,7 @@
     .eng-inbox-page .eng-context { grid-column: 2; grid-row: 1; max-height: 112px; padding: 10px 16px; border-inline-start: 0; border-bottom: 1px solid #e1e8e3; }
     .eng-inbox-page .eng-context .eng-card { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 12px; padding: 7px 10px; }
     .eng-inbox-page .eng-context .eng-card strong, .eng-inbox-page .eng-context .eng-card small { grid-column: 1; margin: 0; }
-    .eng-inbox-page .eng-context .eng-card a { grid-column: 2; grid-row: 1 / 3; align-self: center; white-space: nowrap; }
+    .eng-inbox-page .eng-context .eng-card .eng-card-action { grid-column: 2; grid-row: 1 / 3; align-self: center; white-space: nowrap; }
 }
 @container inbox (max-width: 600px) {
     .eng-inbox-page .eng-layout { display: flex; flex-direction: column; }

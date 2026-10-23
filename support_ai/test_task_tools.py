@@ -160,12 +160,67 @@ class TaskToolIntegrationTests(TestCase):
         order.save()
         message, context, selected = current_order_context(self.user, conversation, '那现在呢？')
         self.assertEqual(selected, order.pk)
-        self.assertEqual(json.loads(context)[0]['status'], '待发货')
+        self.assertEqual(json.loads(context)[0]['order_status'], '待发货')
         self.assertNotIn(order.pk, context)
         self.assertNotIn(order.receiver_mobile, context)
         safe, _, selected = current_order_context(self.user, conversation, '订单号：ORDER-LOCAL-1')
         self.assertNotIn(order.pk, safe)
         self.assertEqual(selected, order.pk)
+
+    def test_order_tool_reloads_live_state_and_does_not_expose_private_fields(self):
+        from orders.models import OrderInfo
+        from .order_contracts import prepare_order_input, rule_order_query
+        from .order_queries import OrderQueryContext, query_orders
+        order=OrderInfo.objects.create(order_id='ORDER-LOCAL-PRIVATE',user_profile=self.user,total_amount=50,
+            total_count=1,freight=0,status=1,receiver='Secret receiver',address='Secret address',receiver_mobile='13800138000',tag='')
+        safe, references=prepare_order_input('查询订单号：'+order.pk)
+        context=OrderQueryContext(owner_id=self.user.pk,references=references)
+        result=query_orders(rule_order_query(safe),context,safe)
+        self.assertEqual(result['status'],'success')
+        self.assertEqual(result['data']['orders'][0]['order_status'],'待付款')
+        OrderInfo.objects.filter(pk=order.pk).update(status=2)
+        result=query_orders(rule_order_query(safe),context,safe)
+        self.assertEqual(result['data']['orders'][0]['order_status'],'待发货')
+        serialized=json.dumps(result,ensure_ascii=False)
+        for secret in (order.pk,order.receiver,order.address,order.receiver_mobile):self.assertNotIn(secret,serialized)
+        self.assertTrue(result['data']['queried_at'])
+
+    def test_order_tool_rejects_foreign_hidden_and_unbound_selected_order(self):
+        from orders.models import OrderInfo
+        from users.models import UserProfile
+        from .order_contracts import prepare_order_input, rule_order_query
+        from .order_queries import OrderQueryContext, query_orders
+        other=UserProfile.objects.create(username='order-tool-other',is_active=True)
+        order=OrderInfo.objects.create(order_id='FOREIGN-PRIVATE',user_profile=other,total_amount=50,
+            total_count=1,freight=0,status=2,receiver='Test',address='Test',receiver_mobile='000',tag='')
+        safe, references=prepare_order_input('查询订单号：'+order.pk)
+        context=OrderQueryContext(owner_id=self.user.pk,references=references)
+        result=query_orders(rule_order_query(safe),context,safe)
+        self.assertEqual(result['status'],'no_match');self.assertTrue(context.not_queryable)
+        OrderInfo.objects.filter(pk=order.pk).update(user_profile=self.user,buyer_hidden=True)
+        context=OrderQueryContext(owner_id=self.user.pk,references=references)
+        self.assertEqual(query_orders(rule_order_query(safe),context,safe)['status'],'no_match')
+        context=OrderQueryContext(owner_id=self.user.pk)
+        self.assertEqual(query_orders(rule_order_query('那现在呢？'),context,'那现在呢？')['status'],'needs_clarification')
+
+    def test_simple_order_http_uses_tool_without_model_and_rejects_foreign_reference(self):
+        from orders.models import OrderInfo
+        from users.models import UserProfile
+        OrderInfo.objects.create(order_id='HTTP-OWN-ORDER',user_profile=self.user,total_amount=50,
+            total_count=1,freight=0,status=2,receiver='Test',address='Test',receiver_mobile='000',tag='')
+        def no_extraction(prompt):
+            raise AssertionError('Explicit order task needs no extraction')
+        with patch.object(ToolModel,'invoke',side_effect=AssertionError('Order facts must not be generated')):
+            with patch.object(ToolModel,'with_structured_output',return_value=RunnableLambda(no_extraction)):
+                response=self.chat('查询最近一笔订单状态')
+        self.assertEqual(response.status_code,200)
+        self.assertEqual(response.json()['tasks'],[{'id':'s1','tool':'get_order_status','status':'success'}])
+        self.assertEqual(response.json()['order_result']['orders'][0]['order_status'],'待发货')
+        other=UserProfile.objects.create(username='order-http-other',is_active=True)
+        OrderInfo.objects.create(order_id='HTTP-FOREIGN-ORDER',user_profile=other,total_amount=50,
+            total_count=1,freight=0,status=2,receiver='Test',address='Test',receiver_mobile='000',tag='')
+        response=self.chat('查询订单号：HTTP-FOREIGN-ORDER')
+        self.assertEqual(response.status_code,404)
 
     def test_simple_slots_do_not_discard_budget_before_recommendation_verb(self):
         from .tool_services import simple_purchase_intent

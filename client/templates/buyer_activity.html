@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="/static/css/design-tokens.css">
     <link rel="stylesheet" href="/static/css/rtl.css">
     <link rel="stylesheet" href="/static/css/buyer-workbench.css">
-    <link rel="stylesheet" href="/static/css/buyer-activity.css?v=20261018-empty-layout">
+    <link rel="stylesheet" href="/static/css/buyer-activity.css?v=20261022-heading-tabs">
     <script src="/static/js/init.js"></script>
     <script src="/static/js/auth-storage.js?v=20261018-session-isolation"></script>
     {% include "shared/system_theme.html" %}
@@ -20,7 +20,13 @@
             <div class="buyer-content activity-content">
                 <div class="activity-page-header">
                     <p class="activity-eyebrow">BUYER WORKBENCH</p>
-                    <h1 id="activity-title">我的收藏</h1>
+                    <div class="activity-heading-row">
+                        <h1 id="activity-title">我的收藏</h1>
+                        <nav id="activity-kinds" class="activity-kinds" aria-label="收藏分类" hidden>
+                            <button type="button" id="activity-products" aria-pressed="true" aria-controls="activity-grid">收藏商品</button>
+                            <button type="button" id="activity-merchants" aria-pressed="false" aria-controls="activity-grid">收藏商家</button>
+                        </nav>
+                    </div>
                     <p id="activity-description"></p>
                 </div>
                 <div class="activity-toolbar">

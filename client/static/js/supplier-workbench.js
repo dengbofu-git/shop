@@ -197,46 +197,34 @@
 
         function renderDashboard(data) {
             if (!data || !data.summary) return;
-            var s = data.summary;
-            $('#stat-sales').text(s.total_sales_display || ('¥' + s.total_sales));
-            $('#stat-sales-sub').text('近365天已付订单 ' + s.paid_order_count + ' 笔 · 不含运费');
-            $('#stat-pending-ship').text(s.pending_ship);
-            $('#stat-pending-sub').text('待付款 ' + (s.unpaid || 0) + ' 笔');
-            $('#stat-in-transit').text(s.in_transit);
-            $('#stat-in-transit-sub').text('已完成 ' + s.completed + ' 笔');
-            $('#stat-orders-total').text(s.order_count);
-            $('#todo-unshipped').text(s.pending_ship);
-            $('#todo-settlement').text((data.todos && data.todos.settlement) || 0);
-            $('#todo-total-count').text('（共 ' + ((data.todos && data.todos.total) || 0) + ' 项）');
+            if (window.MerchantOverview) MerchantOverview.render(data.summary);
+            // Tasks and messages have their own all-time, merchant-scoped feed.
+            // Analytics' rolling period and synthetic auxiliary values are not tasks.
 
-            var top = data.top_products || [];
-            var maxPct = top.length ? top[0].amount : 1;
-            $('#insight-top-products').html(top.slice(0, 5).map(function(p) {
-                var w = Math.round((p.amount / maxPct) * 100);
-                return '<div class="bar-row"><span>' + p.name + '</span><span class="bar"><i style="width:' + w + '%"></i></span><em>' + p.qty + '件</em></div>';
-            }).join('') || '<div class="bar-row"><span>暂无销量</span></div>');
-
-            $('#sales-monthly-list').html((data.monthly || []).map(function(m) {
-                return '<li>' + m.label + '：' + m.order_count + ' 单 / ¥' + Math.round(m.sales) + '</li>';
-            }).join(''));
-            $('#sales-top-list').html(top.map(function(p) {
-                return '<li>' + p.name + ' — ' + p.qty + ' 件 / ¥' + Math.round(p.amount) + '</li>';
-            }).join('') || '<li>暂无</li>');
-            $('#sales-region-list').html((data.regions || []).map(function(r) {
-                return '<li>' + r.name + '：¥' + r.sales_wan + ' 万</li>';
-            }).join(''));
+            // Sales insights have a separate verified feed; synthetic regions,
+            // rounded revenue bars and SKU-only names from analytics stay out.
         }
 
-        if (typeof baseUrl !== 'undefined') {
+        var overviewGeneration = 0;
+        function loadAnalytics() {
+            var generation = ++overviewGeneration;
+            if (window.MerchantOverview) MerchantOverview.loading();
+            if (typeof baseUrl === 'undefined') { if (window.MerchantOverview) MerchantOverview.error(); return; }
             $.ajax({
                 url: baseUrl + '/v1/supplier/analytics?period=year',
                 headers: { 'Authorization': token },
                 success: function(r) {
-                    if (r.code === 200) renderDashboard(r.data);
+                    if (generation !== overviewGeneration) return;
+                    if (AuthStorage.getToken() !== token || r.code !== 200 || !r.data || !r.data.summary) {
+                        if (window.MerchantOverview) MerchantOverview.error(); return;
+                    }
+                    renderDashboard(r.data);
                 },
-                error: function() { /* 首页指标仍可在控制台查看接口错误 */ }
+                error: function() { if (generation === overviewGeneration && window.MerchantOverview) MerchantOverview.error(); }
             });
         }
+        document.addEventListener('supplier:refresh-overview', loadAnalytics);
+        loadAnalytics();
 
         var showPanel;
 
@@ -249,6 +237,7 @@
                 dashboard.style.display = 'block';
                 iframe.style.display = 'none';
                 iframe.src = 'about:blank';
+                loadAnalytics();
             } else {
                 dashboard.style.display = 'none';
                 iframe.style.display = 'block';
@@ -263,7 +252,14 @@
                 );
                 item.classList.toggle('active', !!isActive);
             });
+            document.dispatchEvent(new CustomEvent('supplier:panel-changed', {detail: {panel: panel}}));
         };
+
+        document.addEventListener('supplier:open-panel', function(event) {
+            var panel = event.detail && event.detail.panel;
+            // The activity widget only opens these merchant-owned pages.
+            if (typeof panel === 'string' && /^(merchant_orders|merchant_settlement|merchant_messages)\.html(?:\?|$)/.test(panel)) showPanel(panel);
+        });
 
         document.querySelectorAll('.sidebar-nav .nav-item').forEach(function(item) {
             item.addEventListener('click', function(e) {
@@ -283,18 +279,7 @@
             });
         });
 
-        // Tabs
-        document.querySelectorAll('.tab').forEach(function(tab) {
-            tab.addEventListener('click', function() {
-                var id = this.getAttribute('data-tab');
-                if (!id) return;
-                document.querySelectorAll('.tab').forEach(function(t) { t.classList.remove('active'); });
-                this.classList.add('active');
-                document.querySelectorAll('.tab-panel').forEach(function(p) {
-                    p.classList.toggle('active', p.id === id);
-                });
-            });
-        });
+        // Accessible sales-insight tabs are scoped by merchant-insights.js.
 
         // 按钮和回车统一提交，沿用现有订单页入口。
         $('#global-search-form').on('submit', function(e) {

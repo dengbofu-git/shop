@@ -55,6 +55,10 @@ def participants(user):
     return Conversation.objects.filter(**{portal(user): user})
 
 
+def visible_conversations(user):
+    return participants(user).filter(**{portal(user) + '_hidden': False})
+
+
 def completed(order):
     if order.order_type == 'standard':
         return order.status == 4

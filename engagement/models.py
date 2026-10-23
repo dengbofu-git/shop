@@ -7,6 +7,8 @@ class Conversation(models.Model):
     merchant = models.ForeignKey('users.UserProfile', on_delete=models.PROTECT, related_name='shop_conversations')
     buyer_read_id = models.PositiveBigIntegerField(default=0)
     merchant_read_id = models.PositiveBigIntegerField(default=0)
+    buyer_hidden = models.BooleanField(default=False)
+    merchant_hidden = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now_add=True, db_index=True)
 

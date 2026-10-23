@@ -5,10 +5,10 @@
     else root.ProductDetailSummary = api.mount(root.document);
 })(typeof window === 'undefined' ? globalThis : window, function (money) {
     'use strict';
+    // Same reference display ratios as the procurement catalog, based on API price.
     function price(value, currency) {
         if (value == null || String(value).trim() === '' || !Number.isFinite(Number(value)) || Number(value) < 0) return '—';
-        currency = money.currency(currency);
-        return currency + ' ' + money.amount(value, currency).toFixed(2);
+        return money.currency(currency) + ' ' + money.amount(value, currency).toFixed(2);
     }
     function attributes(data) {
         return (data.sku_sale_attr_names || []).map(function (name, index) {

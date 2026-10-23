@@ -8,11 +8,13 @@
     <link href="../static/css/rtl.css" rel="stylesheet">
     <link href="../static/css/merchant_workbench.css" rel="stylesheet">
     <link href="../static/css/supplier-workbench.css?v=20261018-search-layout" rel="stylesheet">
+    <link href="../static/css/merchant-workbench-feed.css?v=20261022" rel="stylesheet">
     <link href="../static/css/merchant-insights.css?v=20261022-price-layout" rel="stylesheet">
     <script src="../static/js/init.js"></script>
     <script src="../static/js/auth-storage.js?v=20261018-session-isolation"></script>
     <script src="../static/js/jquery-3.1.1.min.js"></script>
 {% include "shared/system_theme.html" %}
+    <link href="../static/css/merchant-overview.css?v=20261022-zones" rel="stylesheet">
 </head>
 <body class="ds-page-merchant_dashboard ds-theme merchant-body supplier-workbench" data-eng-role="merchant">
     <div class="supplier-layout">
@@ -48,8 +50,8 @@
                     </a>
                 </div>
 
-                <div class="nav-group"><a href="merchant_messages.html" class="nav-item" data-panel="merchant_messages.html"><span class="nav-icon">✉</span><span data-eng-text="consultations">买家咨询</span><span class="eng-badge" data-eng-unread></span></a></div>
-                <div class="nav-group"><a href="merchant_reviews.html" class="nav-item" data-panel="merchant_reviews.html"><span class="nav-icon">☆</span><span data-eng-text="reviews">商品评价</span></a></div>
+                <div class="nav-group"><a href="merchant_messages.html" class="nav-item" data-panel="merchant_messages.html"><span class="nav-icon">✉</span><span class="nav-text" data-eng-text="consultations">买家咨询</span><span class="eng-badge" data-eng-unread></span></a></div>
+                <div class="nav-group"><a href="merchant_reviews.html" class="nav-item" data-panel="merchant_reviews.html"><span class="nav-icon">☆</span><span class="nav-text" data-eng-text="reviews">商品评价</span></a></div>
                 <div class="nav-group">
                     <a href="merchant_assistant.html" class="nav-item" data-panel="merchant_assistant.html">
                         <span class="nav-icon" aria-hidden="true">💬</span>
@@ -123,106 +125,97 @@
                     </div>
                 </section>
 
-                <!-- 顶部4个指标卡 -->
-                <section class="wb-section">
-                    <div class="wb-section-head">
-                        <h2 class="wb-section-title">核心数据看板</h2>
+                <!-- 同一统计周期内的经营结果，不放待办入口 -->
+                <section class="wb-section" id="merchant-overview" aria-labelledby="overview-heading" aria-busy="true">
+                    <div class="wb-section-head overview-heading">
+                        <h2 class="wb-section-title" id="overview-heading" data-overview-text="heading">经营概览</h2>
+                        <p class="overview-period" data-overview-text="period">近365天 · 按下单日期统计</p>
                     </div>
                     <div class="wb-section-body">
                     <section class="metric-cards">
-                    <div class="metric-card metric-link nav-panel-link" data-panel="operations_dashboard.html">
-                        <div class="metric-icon">¥</div>
+                    <article class="metric-card">
+                        <div class="metric-icon" aria-hidden="true">¥</div>
                         <div class="metric-body">
-                            <div class="metric-value" id="stat-sales">—</div>
-                            <div class="metric-label" data-i18n="stat_sales">近一年已付销售额</div>
+                            <div class="metric-value" id="overview-sales">—</div>
+                            <div class="metric-label" data-overview-text="sales">已付销售额</div>
                         </div>
-                        <div class="metric-meta"><span class="meta-link" id="stat-sales-sub">加载中…</span></div>
-                    </div>
-                    <div class="metric-card metric-link nav-panel-link" data-panel="merchant_orders.html?filter=unshipped">
-                        <div class="metric-icon">📤</div>
+                        <div class="metric-meta" data-overview-text="sales_note">本店商品金额，不含运费</div>
+                    </article>
+                    <article class="metric-card">
+                        <div class="metric-icon" aria-hidden="true">✓</div>
                         <div class="metric-body">
-                            <div class="metric-value" id="stat-pending-ship">—</div>
-                            <div class="metric-label" data-i18n="stat_pending_ship">待发货订单数</div>
+                            <div class="metric-value" id="overview-paid">—</div>
+                            <div class="metric-label" data-overview-text="paid">已付订单数</div>
                         </div>
-                        <div class="metric-meta"><span class="meta-link" id="stat-pending-sub">来自订单库</span></div>
-                    </div>
-                    <div class="metric-card metric-link nav-panel-link" data-panel="merchant_orders.html">
-                        <div class="metric-icon">🚚</div>
+                        <div class="metric-meta" data-overview-text="paid_note">当前周期内已全额付款订单</div>
+                    </article>
+                    <article class="metric-card">
+                        <div class="metric-icon" aria-hidden="true">≋</div>
                         <div class="metric-body">
-                            <div class="metric-value" id="stat-in-transit">—</div>
-                            <div class="metric-label" data-i18n="stat_in_transit">待收货订单数</div>
+                            <div class="metric-value" id="overview-average">—</div>
+                            <div class="metric-label" data-overview-text="average">平均订单金额</div>
                         </div>
-                        <div class="metric-meta"><span class="meta-link" id="stat-in-transit-sub">待收货/在途</span></div>
-                    </div>
-                    <div class="metric-card metric-link nav-panel-link" data-panel="operations_dashboard.html">
-                        <div class="metric-icon">📈</div>
+                        <div class="metric-meta" data-overview-text="average_note">已付销售额 ÷ 已付订单数</div>
+                    </article>
+                    <article class="metric-card">
+                        <div class="metric-icon" aria-hidden="true">↗</div>
                         <div class="metric-body">
-                            <div class="metric-value" id="stat-orders-total">—</div>
-                            <div class="metric-label">统计周期内订单</div>
+                            <div class="metric-value" id="overview-completion">—</div>
+                            <div class="metric-label" data-overview-text="completion">订单完成率</div>
                         </div>
-                        <div class="metric-meta"><span class="meta-link">进入数据中心</span></div>
-                    </div>
+                        <div class="metric-meta" id="overview-completion-note">—</div>
+                    </article>
                     </section>
+                    <p class="overview-note" data-overview-text="basis">经营指标统一使用近365天统计；当前待处理事项见下方，不受该周期限制。</p>
+                    <div class="overview-feedback"><p id="overview-status" role="status">正在加载经营数据…</p><button type="button" id="overview-retry" data-overview-text="retry" hidden>重新加载</button></div>
                     </div>
                 </section>
 
                 <!-- 待办事项 + 最新消息 -->
-                <section class="wb-section">
-                    <div class="wb-section-head">
-                        <h2 class="wb-section-title">待办与消息</h2>
+                <section class="wb-section" id="merchant-workbench-feed" aria-busy="true">
+                    <div class="wb-section-head feed-toolbar">
+                        <h2 class="wb-section-title" data-workbench-text="heading">当前待办与动态</h2>
+                        <button type="button" class="feed-refresh" id="workbench-feed-refresh" data-workbench-text="refresh">刷新</button>
                     </div>
                     <div class="wb-section-body middle-section middle-60-40">
                     <div class="todo-card wb-subcard">
-                        <h3 class="section-title"><span data-i18n="todo_title">待办事项</span> <span class="title-count" id="todo-total-count">（加载中…）</span></h3>
+                        <h3 class="section-title"><span data-workbench-text="todos">待处理事项</span> <span class="title-count" id="todo-total-count">正在加载…</span></h3>
+                        <p class="feed-note" data-workbench-text="basis">覆盖全部待发货订单、待结算账单及未读咨询，咨询按会话计数。</p>
                         <ul class="todo-list">
                             <li class="todo-item">
-                                <a href="#" class="nav-panel-link" data-panel="merchant_orders.html?filter=unshipped">
-                                    <span class="todo-badge" id="todo-unshipped">0</span>
-                                    <span class="todo-text" data-i18n="todo_unshipped">待发货订单</span>
-                                    <span class="todo-arrow">→</span>
+                                <a href="merchant_orders.html?filter=unshipped" data-workbench-panel="merchant_orders.html?filter=unshipped">
+                                    <span class="todo-badge" id="todo-unshipped">—</span>
+                                    <span class="todo-text" data-workbench-text="unshipped">待发货订单</span>
+                                    <span class="todo-action" data-workbench-text="handle">去处理 →</span>
                                 </a>
                             </li>
                             <li class="todo-item">
-                                <a href="#" class="nav-panel-link" data-panel="merchant_settlement.html">
-                                    <span class="todo-badge" id="todo-settlement">0</span>
-                                    <span class="todo-text" data-i18n="todo_settlement">待结算账单</span>
-                                    <span class="todo-arrow">→</span>
+                                <a href="merchant_settlement.html" data-workbench-panel="merchant_settlement.html">
+                                    <span class="todo-badge" id="todo-settlement">—</span>
+                                    <span class="todo-text" data-workbench-text="settlement">待结算账单</span>
+                                    <span class="todo-action" data-workbench-text="handle">去处理 →</span>
                                 </a>
                             </li>
                             <li class="todo-item">
-                                <a href="#" class="nav-panel-link" data-panel="merchant_products.html">
-                                    <span class="todo-badge info">1</span>
-                                    <span class="todo-text">待审核商品</span>
-                                    <span class="todo-arrow">→</span>
+                                <a href="merchant_messages.html" data-workbench-panel="merchant_messages.html">
+                                    <span class="todo-badge info" id="todo-consultations">—</span>
+                                    <span class="todo-text" data-workbench-text="consultations">未读咨询</span>
+                                    <span class="todo-action" data-workbench-text="handle">去处理 →</span>
                                 </a>
                             </li>
-                            <li class="todo-item">
-                                <a href="#" class="nav-panel-link" data-panel="merchant_orders.html">
-                                    <span class="todo-badge muted">0</span>
-                                    <span class="todo-text">待处理售后</span>
-                                    <span class="todo-arrow">→</span>
-                                </a>
-                            </li>
+                            <!-- TODO: 待审核商品：尚无真实审核流程，保留注释占位；不得用上下架状态或演示数字替代。 -->
+                            <!-- TODO: 待处理售后：尚无独立售后工单模型，保留注释占位；不得用试单退货状态替代。 -->
                         </ul>
                     </div>
                     <div class="message-card wb-subcard">
-                        <h3 class="section-title">最新消息</h3>
-                        <ul class="message-list">
-                            <li class="message-item">
-                                <span class="msg-tag">系统</span>
-                                <span class="msg-text">您的商品“英德红茶・金毫礼盒 500g”已通过审核</span>
-                            </li>
-                            <li class="message-item">
-                                <span class="msg-tag warn">订单</span>
-                                <span class="msg-text">您有 1 个新订单待发货</span>
-                            </li>
-                            <li class="message-item">
-                                <span class="msg-tag info">物流</span>
-                                <span class="msg-text">订单号 OD20240315001 已发货</span>
-                            </li>
+                        <h3 class="section-title" data-workbench-text="messages">最近动态</h3>
+                        <p class="feed-note" data-workbench-text="source">本店订单、物流当前记录与买家咨询；时间为记录更新或消息发送时间</p>
+                        <ul class="message-list" id="workbench-message-list" aria-live="polite">
+                            <li class="feed-note" data-workbench-text="loading">正在加载…</li>
                         </ul>
                     </div>
                     </div>
+                    <p class="feed-status" id="workbench-feed-status" role="status">正在加载…</p>
                 </section>
 
                 <!-- 市场洞察与数据分析 -->
@@ -325,8 +318,10 @@
         </main>
     </div>
 
-    <script src="../static/js/supplier-workbench.js?v=20261020-store-pages"></script>
-<script src="../static/js/merchant-insights.js?v=20261022-price-layout" defer></script>
+    <script src="../static/js/merchant-overview.js?v=20261022-zones"></script>
+    <script src="../static/js/supplier-workbench.js?v=20261022-insights"></script>
+    <script src="../static/js/merchant-insights.js?v=20261022-price-layout" defer></script>
+    <script src="../static/js/merchant-workbench-feed.js?v=20261022-zones" defer></script>
 {% include 'shared/engagement_assets.html' %}
 </body>
 </html>

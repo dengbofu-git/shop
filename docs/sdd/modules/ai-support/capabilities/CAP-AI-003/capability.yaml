@@ -105,3 +105,14 @@ implementationReconciliation:
   targetTemporaryContextIds: not-implemented
   targetFullScreenStates: partially-implemented
   historyListAndPaging: implemented-source-observed-not-interaction-verified
+
+orderToolIncrement:
+  date: "2026-10-23"
+  registeredVersion: "0.17.0"
+  status: source-implemented-not-business-verified
+  report: docs/Agent语义规划与任务状态.md
+  scope: intent-first-lazy-python-order-tool
+  explicitOrder404: after-tool-before-commit-not-before-model
+  identity: shared-active-buyer-check-and-tool-owner-filter
+  runtimeTests: not-executed
+  lifecycle: SPEC_REVIEW-unchanged

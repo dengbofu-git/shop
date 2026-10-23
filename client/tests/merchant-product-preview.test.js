@@ -19,17 +19,17 @@ context.window = context;
 const source = name => fs.readFileSync(path.join(__dirname, '../static/js', name), 'utf8');
 vm.runInNewContext(source('merchant-product-preview.js'), context);
 context.MerchantProductPreview.open({ sku_id: 8, nameZh: '<test-product>', image: '/test.png',
-    cat1: 'Black tea', priceUsd: 3.5, stock: 12, is_launched: false, caption: '<script>synthetic</script>' });
+    cat1: 'Black tea', priceCny: 3.5, stock: 12, is_launched: false, caption: '<script>synthetic</script>' });
 const dialog = context.document.getElementById('merchant-product-preview');
 assert.equal(dialog.open, true);
 assert.equal(body.children.length, 1);
 assert.ok(nodes.some(el => el.textContent === '<script>synthetic</script>')); // text, never HTML
-assert.ok(nodes.some(el => el.textContent === 'USD 3.50'));
+assert.ok(nodes.some(el => el.textContent === 'CNY 3.50'));
 assert.ok(nodes.some(el => el.textContent === '下架'));
 assert.equal(nodes.some(el => ['a', 'form', 'input'].includes(el.tag)), false);
 nodes.find(el => el.tag === 'button').listeners.click();
 assert.equal(dialog.open, false);
-context.MerchantProductPreview.open({ sku_id: 9, nameZh: 'Next', priceUsd: 4, stock: 0, is_launched: true });
+context.MerchantProductPreview.open({ sku_id: 9, nameZh: 'Next', priceCny: 4, stock: 0, is_launched: true });
 assert.equal(dialog.open, true);
 assert.equal(body.children.length, 1);
 assert.equal(dialog.children.length, 2);

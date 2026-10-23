@@ -1,0 +1,10 @@
+Skipping setup of unused database(s): ai_storage, default.
+System check identified no issues (0 silenced).
+test_buyer_pages_share_header_and_support_navigation (support_ai.tests.BuyerShellTests) ... ok
+test_support_page_contains_preference_controls_and_new_conversation (support_ai.tests.BuyerShellTests) ... ok
+test_support_requires_login (support_ai.tests.BuyerShellTests) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.264s
+
+OK

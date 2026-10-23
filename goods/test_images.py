@@ -114,7 +114,8 @@ class CatalogImageTests(TestCase):
         redis = Mock()
         redis.hgetall.return_value = {str(self.sku.id).encode(): json.dumps({'count': '1', 'status': True}).encode()}
         with patch('carts.views.get_redis_connection', return_value=redis):
-            response = self.client.get('/v1/carts/' + buyer.username)
+            from tea_saas.utils import jwt_encode
+            response = self.client.get('/v1/carts/' + buyer.username, HTTP_AUTHORIZATION='Bearer '+jwt_encode({'id':buyer.pk}))
         self.assertEqual(response.json()['code'], 200)
         self.assertEqual(response.json()['data'][0]['default_image_url'], 'tea_categories/black.png')
 

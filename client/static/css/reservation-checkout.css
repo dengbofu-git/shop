@@ -1,0 +1,28 @@
+/* Scoped to the stock-protected submit/pay pages. */
+body[data-reservation-mode] { min-width: 0; }
+body[data-reservation-mode] #search-input { min-width: 0; width: 0; flex: 1 1 0; }
+body[data-reservation-mode] #btn-search { flex: 0 0 44px; min-width: 44px; width: 44px; padding: 8px; box-sizing: border-box; }
+body[data-reservation-mode] :is(#pay_form,#container,#pay_type,#dnBank) { width: 100%; max-width: 100%; min-width: 0; box-sizing: border-box; }
+body[data-reservation-mode] #navlist { width: 100%; height: auto; margin: 0 0 24px; }
+body[data-reservation-mode] #navlist ul { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 8px; padding: 0; margin: 0; }
+body[data-reservation-mode] #navlist li { float: none; width: auto; height: auto; min-width: 0; line-height: 1.5; padding: 12px 8px; border-radius: 8px; box-shadow: none; text-align: center; }
+body[data-reservation-mode] #navlist li:not(.navlist_gray):not(.navlist_blue), body[data-reservation-mode] #navlist li b { display: none; }
+body[data-reservation-mode] #navlist .navlist_gray { background: #edf3ed; color: #52665b; }
+body[data-reservation-mode] #navlist .navlist_blue { background: #185c3b; color: white; }
+body[data-reservation-mode] #container .pay_info { display: flex; flex-direction: column; align-items: stretch; gap: 12px; height: auto; width: 100%; padding: 20px 0; margin: 0; font-size: 16px; line-height: 1.7; }
+body[data-reservation-mode] .pay_info > :is(b,span,p,div) { float: none; width: auto; position: static; margin: 0; overflow-wrap: anywhere; }
+body[data-reservation-mode] #total_amount { color: #185c3b; font-size: 24px; font-weight: 700; }
+body[data-reservation-mode] #reservation-status { color: #52665b; font-size: 16px; line-height: 1.7; }
+body[data-reservation-mode] :is(#reservation-status,#reservation-orders) a { color: #185c3b; text-decoration: underline; }
+body[data-reservation-mode] #reservation-orders p { display: flex; flex-wrap: wrap; gap: 12px; margin: 12px 0; }
+body[data-reservation-mode] #container .pay_type_title { width: 100%; height: auto; padding: 12px; margin: 0; background: #f3f7f3; box-shadow: none; box-sizing: border-box; }
+body[data-reservation-mode] #pay_type ul { padding: 12px 0; margin: 0; height: auto; min-height: 0; }
+body[data-reservation-mode] #pay_type li { float: none; display: flex; align-items: center; gap: 12px; height: auto; width: auto; padding: 12px; }
+body[data-reservation-mode] #container #count_bar { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px; width: 100%; height: auto; min-height: 72px; margin: 24px 0 0; padding: 16px; line-height: 1.6; background: #f3f7f3; border-radius: 12px; box-shadow: none; box-sizing: border-box; }
+body[data-reservation-mode] #container #count_bar #pay_now { display: inline-flex; align-items: center; justify-content: center; float: none; width: auto; max-width: 100%; min-height: 44px; height: auto; padding: 12px 24px; margin: 0; font-size: 16px; line-height: 1.5; white-space: normal; border-radius: 8px; }
+body[data-reservation-mode] #pay_now:focus-visible { outline: 3px solid #70a686; outline-offset: 3px; }
+body[data-reservation-mode='pay'] :is(#container,#navlist) { max-width: 1000px; margin-inline: auto; }
+@media(max-width:600px) {
+    body[data-reservation-mode] #navlist li { padding: 10px 4px; font-size: 12px; }
+    body[data-reservation-mode] #container #count_bar #pay_now { width: 100%; }
+}

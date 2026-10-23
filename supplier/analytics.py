@@ -9,6 +9,8 @@ from django.utils import timezone
 from goods.models import SKU
 from orders.models import OrderInfo, OrderGoods
 from orders.analytics import sales_eligible_orders
+from orders.lifecycle import status_filter
+from orders.lifecycle import status_filter
 from supplier.models import SupplierSettlement
 
 
@@ -51,10 +53,10 @@ def build_supplier_analytics(user, period='year'):
 
     order_count = orders.count()
     paid_order_count = sales_ogs.values('order_info_id').distinct().count()
-    pending_ship = orders.filter(status=2).count()
-    in_transit = orders.filter(status=3).count()
-    completed = orders.filter(status=4).count()
-    unpaid = orders.filter(status=1).count()
+    pending_ship = orders.filter(status_filter(2)).count()
+    in_transit = orders.filter(status_filter(3)).count()
+    completed = orders.filter(status_filter(4)).count()
+    unpaid = orders.filter(status_filter(1)).count()
 
     # 月度趋势（最近 6 个自然月）
     monthly = []

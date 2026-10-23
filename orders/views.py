@@ -61,8 +61,11 @@ def build_data(id_list, username, is_all=True):
                 data.append(sku_object_dict)
     return data
 def advance(request, username):
+    from .checkout_views import buyer, error_response
+    from .reservations import ReservationError
+    try:user_profile = buyer(request,username)
+    except ReservationError as exc:return error_response(exc)
     settlement_type = request.GET.get('settlement_type')
-    user_profile = UserProfile.objects.get(username=username)
     addresses = list(
         Address.objects.filter(user_profile=user_profile, is_delete=False).values('id', 'address', name=F('receiver'),
                                                                                   mobile=F('receiver_mobile'),
@@ -78,6 +81,7 @@ def advance(request, username):
             'base_url': settings.TEA_SAAS_MEDIA,
             'data': {
                 'addresses': addresses,
+                'reservation_checkout_version': 1,
                 'sku_list': [sku_object_dict],
                 'sku_id': sku_id,
                 'buy_count': buy_num
@@ -93,6 +97,7 @@ def advance(request, username):
             'base_url': settings.TEA_SAAS_MEDIA,
             'data': {
                 'addresses': addresses,
+                'reservation_checkout_version': 1,
                 'sku_list': sku_list
             }
         }
@@ -105,111 +110,8 @@ class OrdersView(View):
         self.conn = get_redis_connection(alias='carts')
 
     def post(self, request, username):
-        data = json.loads(request.body)
-        address_id = data.get('address_id')
-        try:
-            user = UserProfile.objects.get(username=username)
-        except Exception as e:
-            return JsonResponse({'code': 400, 'errmsg': e})
-        try:
-            address = Address.objects.get(id=address_id)
-        except Exception as e:
-            return JsonResponse({'code': 400, 'errmsg': '地址不存在'})
-        settlement_type = data.get('settlement_type')
-        order_id = datetime.now().strftime('%Y%m%d%H%M%S%f') + str(random.randint(100000, 999999))
-        if settlement_type == '1':
-            buy_count = int(data.get('buy_count', 1))
-            sku_id = data.get('sku_id')
-            sku = SKU.objects.get(id=sku_id)
-            price = float(sku.price) * buy_count
-            orderinfo = OrderInfo.objects.create(
-                user_profile=user,
-                order_id=order_id,
-                total_amount=price,
-                total_count=buy_count,
-                pay_method=1,
-                freight=0,
-                status=1,
-                receiver=address.receiver,
-                address=address.address,
-                receiver_mobile=address.receiver_mobile,
-                tag=address.tag,
-            )
-            OrderGoods.objects.create(
-                order_info=orderinfo,
-                sku=sku,
-                count=buy_count,
-                price=sku.price,
-            )
-        elif settlement_type == '0':
-            list1 = data.get('sku_list') or []
-            if list1:
-                sku_ids = [item.get('id') or item.get('sku_id') for item in list1 if item.get('id') or item.get('sku_id')]
-            else:
-                cache_key = f'carts_{username}'
-                raw_keys = self.conn.hkeys(cache_key)
-                sku_ids = [int(k.decode()) if isinstance(k, bytes) else int(k) for k in raw_keys]
-            price, buy_count = 0, 0
-            for sid in sku_ids:
-                sku = SKU.objects.get(id=sid)
-                raw_val = self.conn.hget(f'carts_{username}', sid if isinstance(sid, (str, bytes)) else str(sid))
-                value = json.loads(raw_val) if raw_val else {'count': 1}
-                count = int(value.get('count', 1))
-                buy_count += count
-                price += count * float(sku.price)
-            orderinfo = OrderInfo.objects.create(
-                user_profile=user,
-                order_id=order_id,
-                total_amount=price,
-                total_count=buy_count,
-                pay_method=1,
-                freight=0,
-                status=1,
-                receiver=address.receiver,
-                address=address.address,
-                receiver_mobile=address.receiver_mobile,
-                tag=address.tag,
-            )
-            for sid in sku_ids:
-                sku = SKU.objects.get(id=sid)
-                raw_val = self.conn.hget(f'carts_{username}', sid if isinstance(sid, (str, bytes)) else str(sid))
-                val = json.loads(raw_val) if raw_val else {'count': 1}
-                OrderGoods.objects.create(
-                    order_info=orderinfo,
-                    sku=sku,
-                    count=val.get('count', 1),
-                    price=sku.price,
-                )
-            for sid in sku_ids:
-                self.conn.hdel(f'carts_{username}', sid if isinstance(sid, (str, bytes)) else str(sid))
-        app_private_key_string = settings.ALIPAY_APP_PRIVATE_KEY
-        with open(settings.BASE_DIR / 'app_key/alipay_public_key.pem') as a:
-            alipay_public_key_string = a.read()
-        alipay_object = AliPay(
-            appid=settings.ALIPAY_APP_ID,
-            app_notify_url=settings.ALIPAY_APP_NOTIFY_URL,
-            app_private_key_string=app_private_key_string,
-            alipay_public_key_string=alipay_public_key_string,
-        )
-        alipay_pay_url_params = alipay_object.api_alipay_trade_page_pay(
-            subject=f'{username}_tea_saas_确认支付',
-            out_trade_no=order_id,
-            total_amount=float(price),
-            return_url='http://127.0.0.1:8000/v1/pays/notify',
-        )
-        data = {
-            'saller': settings.ALIPAY_SALLER_NAME,
-            'total_amount': price,
-            'order_id': order_id,
-            'pay_url': settings.ALIPAY_PAY_URL + alipay_pay_url_params,
-            'carts_count': buy_count
-        }
-        context = {
-            'code': 200,
-            'data': data,
-        }
-
-        return JsonResponse(context)
+        from .checkout_views import submit_order
+        return submit_order(request, username, self.conn)
 
     def get(self, request, username):
         auth_header = request.headers.get('Authorization', '')
@@ -223,6 +125,11 @@ class OrdersView(View):
             return JsonResponse({'code': 401, 'error': '登录已过期，请重新登录'}, status=401)
         if user.username != username:
             return JsonResponse({'code': 403, 'error': '无权查看此订单'}, status=403)
+        if not user.is_active:
+            return JsonResponse({'code':401,'error':'账号已停用'},status=401)
+        from users.access import account_access
+        if account_access(user)['redirect_url']!='/buyer_dashboard.html':
+            return JsonResponse({'code':403,'error':'仅买家可访问本人订单'},status=403)
         type = request.GET.get('type') or '0'
         if type == '0':
             # 全部订单
@@ -240,44 +147,23 @@ class OrdersView(View):
             # 已完成
             orderinfo = OrderInfo.objects.filter(user_profile=user, status=4)
         elif type == '5':
-            order_id = request.GET.get('order_id')
-            try:
-                oderinfo = OrderInfo.objects.get(order_id=order_id, user_profile=user)
-            except OrderInfo.DoesNotExist:
-                return JsonResponse({'code': 404, 'error': '订单不存在'}, status=404)
-            carts_count = oderinfo.total_count
-            total_amount = oderinfo.total_amount
-            app_private_key_string = settings.ALIPAY_APP_PRIVATE_KEY
-            with open(settings.BASE_DIR / 'app_key/alipay_public_key.pem') as a:
-                alipay_public_key_string = a.read()
-            alipay_object = AliPay(
-                appid=settings.ALIPAY_APP_ID,
-                app_notify_url=settings.ALIPAY_APP_NOTIFY_URL,
-                app_private_key_string=app_private_key_string,
-                alipay_public_key_string=alipay_public_key_string
-            )
-            alipay_pay_url_params = alipay_object.api_alipay_trade_page_pay(
-                subject=f'{username}_tea_saas_确认支付',
-                out_trade_no=order_id,
-                total_amount=float(total_amount),
-                return_url='http://127.0.0.1:8000/v1/pays/notify'
-            )
-            context = {
-                'code': 200,
-                'data': {
-                    'order_id': order_id,
-                    'carts_count': carts_count,
-                    'total_amount': total_amount,
-                    'saller': settings.ALIPAY_SALLER_NAME,
-                    'pay_url': settings.ALIPAY_PAY_URL + alipay_pay_url_params
-                }
-            }
-            return JsonResponse(context)
+            from .checkout_views import error_response
+            from .reservations import ReservationError
+            from pays.service import payment_data
+            order = OrderInfo.objects.filter(order_id=request.GET.get('order_id'), user_profile=user).first()
+            if not order:return JsonResponse({'code':404,'error':'订单不存在'},status=404)
+            try:return JsonResponse({'code':200,'data':payment_data(order)})
+            except ReservationError as exc:return error_response(exc)
+        else:
+            return JsonResponse({'code':400,'error':'订单筛选参数无效'},status=400)
+        from .reservations import expire_orders
+        expire_orders(user_id=user.pk)
         orderinfo = orderinfo.filter(buyer_hidden=False)
         orders_list = orderinfo.values(
             'order_id',
             'status',
             'order_type',
+            'reservation_managed', 'expires_at', 'closed_at', 'close_reason', 'payment_exception',
             'receiver',
             'tag',
             'address',
@@ -443,12 +329,15 @@ def delete_order(request, username):
         return JsonResponse({'code': 404, 'error': '订单不存在'}, status=404)
     from engagement.services import completed
     unpaid = order.order_type == 'standard' and order.status == 1
-    if not (unpaid or completed(order)):
+    if not (unpaid or order.status == 0 or completed(order)):
         return JsonResponse({'code': 400, 'error': '仅待付款或已完成订单可删除'}, status=400)
     try:
+        if unpaid:
+            from .reservations import close_order
+            close_order(order.pk,user.pk)
         with transaction.atomic():
             order = OrderInfo.objects.select_for_update().get(pk=order.pk, user_profile=user)
-            if not ((order.order_type == 'standard' and order.status == 1) or completed(order)):
+            if not (order.status == 0 or completed(order)):
                 return JsonResponse({'code': 409, 'error': '订单状态已改变，请刷新'}, status=409)
             order.buyer_hidden = True
             order.save(update_fields=['buyer_hidden', 'updated_time'])

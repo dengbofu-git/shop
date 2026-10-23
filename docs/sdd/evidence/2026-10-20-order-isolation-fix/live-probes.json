@@ -1,0 +1,53 @@
+{
+  "total": 5,
+  "passed": 5,
+  "checks": [
+    {
+      "name": "F1 cart merchant splitting",
+      "passed": true,
+      "created_orders": 2,
+      "distinct_merchants_per_order": [
+        1,
+        1
+      ],
+      "separate_payment_urls": true
+    },
+    {
+      "name": "F2 historical mixed shipment protection",
+      "passed": true,
+      "http_statuses": [
+        409,
+        409
+      ],
+      "state_unchanged": true,
+      "inventory_unchanged": true
+    },
+    {
+      "name": "F3 historical mixed deletion protection",
+      "passed": true,
+      "http_status": 409,
+      "both_merchants_lines_preserved": true
+    },
+    {
+      "name": "F4 trial shipment",
+      "passed": true,
+      "http_status": 200,
+      "subtype_status": 3,
+      "base_status_unchanged": true,
+      "repeated_request_http": 400,
+      "stock_delta": -1
+    },
+    {
+      "name": "F5 fully paid presale shipment",
+      "passed": true,
+      "http_status": 200,
+      "subtype_status": 5,
+      "base_status_unchanged": true,
+      "repeated_request_http": 400,
+      "stock_delta": -1
+    }
+  ],
+  "all_observed_table_hashes_unchanged": true,
+  "table_count": 11,
+  "scope": "Business MySQL; current repaired routed views; RequestFactory and real authentication; temporary writes rolled back; cart/payment stubs; no real gateway, Redis mutation, migration or original data changes."
+}

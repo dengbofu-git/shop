@@ -42,6 +42,12 @@ class Inventory(models.Model):
         verbose_name = '库存'
         verbose_name_plural = verbose_name
         unique_together = ('sku', 'warehouse')
+        constraints = [
+            models.CheckConstraint(check=models.Q(quantity__gte=0), name='inventory_quantity_nonnegative'),
+            models.CheckConstraint(check=models.Q(reserved_quantity__gte=0), name='inventory_reserved_nonnegative'),
+            models.CheckConstraint(check=models.Q(reserved_quantity__lte=models.F('quantity')), name='inventory_reserved_within_quantity'),
+            models.CheckConstraint(check=models.Q(available_quantity=models.F('quantity')-models.F('reserved_quantity')), name='inventory_available_consistent'),
+        ]
     
     def __str__(self):
         return f"{self.sku.name} - {self.warehouse.name}: {self.quantity}"

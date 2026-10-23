@@ -3,7 +3,7 @@
   "modules": {
     "core": {
       "title": "项目核心",
-      "version": "0.7.1",
+      "version": "0.8.0",
       "paths": [
         "README.md",
         "CONTEXT.md",
@@ -30,7 +30,7 @@
     },
     "users": {
       "title": "用户与权限",
-      "version": "0.4.1",
+      "version": "0.4.2",
       "paths": [
         "users/",
         "versions/changelogs/users.md"
@@ -41,7 +41,7 @@
     },
     "goods": {
       "title": "商品管理",
-      "version": "0.6.1",
+      "version": "0.6.3",
       "paths": [
         "goods/",
         "media/",
@@ -60,7 +60,7 @@
     },
     "carts": {
       "title": "购物车",
-      "version": "0.1.2",
+      "version": "0.2.1",
       "paths": [
         "carts/",
         "versions/changelogs/carts.md"
@@ -68,12 +68,13 @@
       "dependencies": [
         "core",
         "users",
-        "goods"
+        "goods",
+        "inventory"
       ]
     },
     "orders": {
       "title": "订单管理",
-      "version": "0.2.0",
+      "version": "0.4.0",
       "paths": [
         "orders/",
         "versions/changelogs/orders.md"
@@ -82,12 +83,13 @@
         "core",
         "users",
         "goods",
-        "engagement"
+        "engagement",
+        "inventory"
       ]
     },
     "pays": {
       "title": "支付",
-      "version": "0.1.0",
+      "version": "0.2.1",
       "paths": [
         "pays/",
         "app_key/",
@@ -112,7 +114,7 @@
     },
     "inventory": {
       "title": "库存管理",
-      "version": "0.1.1",
+      "version": "0.2.1",
       "paths": [
         "inventory/",
         "versions/changelogs/inventory.md"
@@ -138,7 +140,7 @@
     },
     "supplier": {
       "title": "商家与结算",
-      "version": "0.3.3",
+      "version": "0.4.0",
       "paths": [
         "supplier/",
         "versions/changelogs/supplier.md"
@@ -148,7 +150,9 @@
         "users",
         "goods",
         "orders",
-        "inventory"
+        "inventory",
+        "logistics",
+        "engagement"
       ]
     },
     "admin_panel": {
@@ -167,7 +171,7 @@
     },
     "support_ai": {
       "title": "智能客服",
-      "version": "0.15.1",
+      "version": "0.17.3",
       "paths": [
         "support_ai/",
         "docs/客服商品推荐设计.md",
@@ -229,7 +233,7 @@
     },
     "web": {
       "title": "页面与前端资源",
-      "version": "0.29.6",
+      "version": "0.31.3",
       "paths": [
         "client/",
         "templates/",
@@ -255,7 +259,7 @@
     },
     "engagement": {
       "title": "站内咨询与商品评价",
-      "version": "0.1.4",
+      "version": "0.2.2",
       "paths": [
         "engagement/",
         "versions/changelogs/engagement.md"

@@ -1,15 +1,13 @@
 """Application-owned persistence and ownership checks, outside the Agent graph."""
 
 import json
-import re
 from datetime import timedelta
 
-from django.db import transaction
+from django.db import DatabaseError, InterfaceError, connections, transaction
 from django.utils import timezone
 
 from users.models import UserProfile
 from ai_storage.models import BuyerMemory
-from orders.models import OrderInfo
 
 from .contracts import Preferences, RequiredConditions, QueryConditions
 from .models import SupportConversation, SupportTurn
@@ -39,8 +37,39 @@ class ConversationConflict(Exception):
     pass
 
 
+class PreferenceStorageUnavailable(DatabaseError):
+    """A failed prerequisite read; never treat unavailable storage as no memory."""
+    def __init__(self, configuration_error=False):
+        super().__init__('Preference storage is unavailable')
+        self.configuration_error = configuration_error
+
+
+def _preference_connection_failure(exc):
+    cause = exc.__cause__ or exc
+    code = getattr(cause, 'pgcode', None) or ''
+    text = str(cause).lower()
+    configuration = code in ('28P01', '28000', '42P01', '42703', '3D000', '42501') or any(
+        value in text for value in ('password authentication failed', 'does not exist', 'permission denied'))
+    stale = code.startswith('08') or code in ('57P01', '57P02', '57P03') or any(
+        value in text for value in ('server closed the connection', 'connection already closed',
+            'connection not open', 'ssl connection has been closed', 'ssl syscall error: eof detected'))
+    return stale and not configuration, configuration
+
+
 def saved_preferences(user):
-    record = BuyerMemory.objects.filter(owner_id=user.pk).first()
+    for attempt in range(2):
+        try:
+            record = BuyerMemory.objects.filter(owner_id=user.pk).first()
+            break
+        except (DatabaseError, InterfaceError) as exc:
+            stale, configuration = _preference_connection_failure(exc)
+            connection = connections['ai_storage']
+            # Retry only this read, once, on a known broken transport. Never
+            # replay the workflow/commit, change request IDs, or retry writes.
+            if attempt == 0 and stale and not connection.in_atomic_block:
+                connection.close()
+                continue
+            raise PreferenceStorageUnavailable(configuration) from exc
     if record is None:
         return None
     data = Preferences.model_validate(record.preferences).model_dump()
@@ -137,26 +166,16 @@ def context_from_turns(turns):
 
 
 def current_order_context(user, conversation, message):
-    """Resolve a private order reference, rechecking ownership and live status."""
-    own_orders = OrderInfo.objects.filter(user_profile=user).order_by('-created_time')
-    owned_ids = list(own_orders.values_list('order_id', flat=True))
-    selected = next((oid for oid in sorted(owned_ids, key=len, reverse=True)
-                     if re.search(r'(?<![A-Za-z0-9_-])' + re.escape(oid) + r'(?![A-Za-z0-9_-])', message)), '')
-    explicit_unknown = bool(re.search(
-        r'(?<!\d)\d{10,}(?!\d)|(?:订单号|订单编号|单号|order\s*(?:id|number|#))\s*[:：#]?\s*[A-Za-z0-9-]{6,64}',
-        message, re.I)) and not selected
-    reset = bool(re.search(r'最近|近期|全部|所有|其他|另[一个]|别的|\b(?:recent|latest|other)\b|all\s+orders', message, re.I))
-    if (not selected and not explicit_unknown and not reset and conversation is not None
-            and conversation.active_order_at is not None
-            and conversation.active_order_at >= timezone.now() - timedelta(hours=HISTORY_HOURS)
-            and conversation.active_order_id in owned_ids):
-        selected = conversation.active_order_id
-    orders = own_orders.filter(order_id=selected) if selected else ([] if explicit_unknown else own_orders[:3])
-    data = [{'order': '当前会话所选订单' if selected else '近期订单{}'.format(i + 1),
-             'status': redact(order.get_status_display_text()),
-             'created_date': order.created_time.date().isoformat()}
-            for i, order in enumerate(orders)]
-    return redact(message.strip(), owned_ids), json.dumps(data, ensure_ascii=False), selected
+    """Legacy adapter for old local callers; HTTP/preview use lazy order tools."""
+    from .order_contracts import prepare_order_input, rule_order_query
+    from .order_queries import OrderQueryContext, query_orders
+    safe, references = prepare_order_input(message)
+    context = OrderQueryContext(owner_id=user.pk, references=references,
+        conversation_id=getattr(conversation, 'pk', None),
+        active_order_id=getattr(conversation, 'active_order_id', ''),
+        active_order_at=getattr(conversation, 'active_order_at', None))
+    queried = query_orders(rule_order_query(safe), context, safe)
+    return safe, json.dumps(queried['data']['orders'], ensure_ascii=False), context.selected_order_id
 
 
 def replay(user, request_id, request_hash):
@@ -178,13 +197,16 @@ def commit_turn(user, conversation, revision, request_id, request_hash, message,
     if conversation is None:
         current = SupportConversation.objects.create(user=user)
     else:
-        current = SupportConversation.objects.select_for_update().get(pk=conversation.pk, user=user)
+        current = SupportConversation.objects.select_for_update().filter(pk=conversation.pk, user=user).first()
+        if current is None:
+            raise ConversationConflict('咨询已删除，请开始新对话')
         if current.revision != revision:
             raise ConversationConflict('会话已更新，请重新读取后再提交')
     current.revision += 1
     fields = ['revision', 'updated_at']
     if order_id is not None:
-        current.active_order_id = order_id if OrderInfo.objects.filter(pk=order_id, user_profile=user).exists() else ''
+        from .order_queries import binding_for_commit
+        current.active_order_id = binding_for_commit(user.pk, order_id)
         current.active_order_at = timezone.now() if current.active_order_id else None
         fields += ['active_order_id', 'active_order_at']
     current.save(update_fields=fields)

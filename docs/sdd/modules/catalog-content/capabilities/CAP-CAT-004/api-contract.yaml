@@ -1,6 +1,6 @@
 schemaVersion: "0.1"
 capabilityId: CAP-CAT-004
-specVersion: "0.1.1"
+specVersion: "0.2.0"
 basePath: /v1/goods
 authentication: Authorization头使用现有JWT，可带Bearer前缀；仅活跃customer。
 identity: 用户仅由JWT决定；不接受任何owner字段作为归属依据。
@@ -8,6 +8,7 @@ response:
   success: {code: 200, data: object-or-array}
   error: {code: http-status, error: message}
   listItem: [skuid, product_name, name, caption, price, image_url, is_launched, is_favorite, recorded_at]
+  merchantListItem: [merchant_id, name, summary, logo_url, is_available, url, recorded_at]
   price: 当前SKU人民币十进制字符串
   recorded_at: ISO8601带时区；收藏时间或最近查看时间
   paginator: {page: positive-integer, pages: positive-integer, pagesize: 12, total: nonnegative-integer}
@@ -26,12 +27,19 @@ endpoints:
     methods:
       POST: 成功显示有效详情后调用；去重置顶并裁剪至100件；data为空对象
       DELETE: 幂等删除单件本人足迹；data为空对象
-pagination: 两个列表接受page正整数，默认1；非法值400，超末页回末页；空列表page=pages=1。
+  - path: /merchant-favorites
+    methods: {GET: 本人商家收藏分页列表，已下线项保留公开名称快照并标记不可用}
+  - path: /merchant-favorites/{merchant_id}
+    methods:
+      GET: 查询本人是否收藏此商家，data.is_favorite为布尔值
+      PUT: 幂等收藏活跃且有已发布店铺的商家；data.is_favorite=true
+      DELETE: 幂等取消本人商家收藏，包含下线店铺；data.is_favorite=false
+pagination: 三个列表接受page正整数，默认1；非法值400，超末页回末页；空列表page=pages=1。
 errors:
   400: page不是正整数
   401: Token缺失、无效、过期、用户不存在或账号停用
   403: 非customer账号
-  404: PUT收藏或POST足迹的SKU不存在或已下架
+  404: PUT收藏或POST足迹的SKU不存在或已下架，或新增商家收藏时店铺不可公开访问
   405: 不支持的方法，附带Allow头
 compatibility:
   - GET /detail/{id} 的data新增is_launched，既有字段保留。

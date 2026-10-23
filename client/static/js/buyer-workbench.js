@@ -29,7 +29,9 @@
             my_orders: '我的最近订单',
             orders_all: '查看全部',
             section_featured: '精选商品',
-            section_featured_sub: '按茶类浏览在售商品，每页10件，可翻页查看全部商品。',
+            section_featured_sub: '从不同茶类均衡选取10件在售茶品，发现下一款好茶。',
+            section_categories: '从一类茶开始',
+            section_categories_sub: '发现不同茶类，进入商品采购查看对应茶品。',
             view_all: '查看全部',
             grid_empty: '该茶类暂无可售商品，请查看其他分类。',
             grid_summary: '当前显示 {start}–{end} 件，共 {total} 件可售商品',
@@ -151,7 +153,9 @@
             my_orders: 'My Recent Orders',
             orders_all: 'View all',
             section_featured: 'Featured',
-            section_featured_sub: 'Browse 10 products per page by tea category. Use pagination to see every product.',
+            section_featured_sub: 'Discover ten available teas selected across different categories.',
+            section_categories: 'Start with a tea category',
+            section_categories_sub: 'Explore a category to find its teas in the procurement catalog.',
             view_all: 'View all',
             grid_empty: 'No available products in this category. Try another category.',
             grid_summary: 'Showing {start}–{end} of {total} available products',
@@ -273,7 +277,9 @@
             my_orders: 'طلباتي الأخيرة',
             orders_all: 'عرض الكل',
             section_featured: 'مميز',
-            section_featured_sub: 'تصفح 10 منتجات في كل صفحة حسب فئة الشاي. تنقل بين الصفحات لعرض جميع المنتجات.',
+            section_featured_sub: 'اكتشف عشرة منتجات شاي متوفرة مختارة من فئات متنوعة.',
+            section_categories: 'ابدأ بفئة من الشاي',
+            section_categories_sub: 'اختر فئة لاستعراض منتجاتها في صفحة المشتريات.',
             view_all: 'عرض الكل',
             grid_empty: 'لا توجد منتجات متاحة في هذه الفئة. اختر فئة أخرى.',
             grid_summary: 'عرض {start}–{end} من أصل {total} منتجاً متاحاً',
@@ -516,10 +522,9 @@
             catalogPreview = BuyerCatalogPreview.start({
                 url: getApiBase() + '/v1/goods/index',
                 tabs: document.getElementById('featured-tea-tabs'), grid: gGrid,
-                summary: document.getElementById('featured-summary'), error: gErr,
+                error: gErr,
                 retry: document.getElementById('featured-retry'),
                 empty: document.getElementById('product-grid-empty'),
-                pager: document.getElementById('featured-pagination'), section: document.getElementById('buyer-featured'),
                 labels: function() { return getT(localStorage.getItem('buyer_lang') || 'zh'); },
                 render: function(rows) { buildProductGrid(rows, gGrid, gSk, gErr); }
             });
@@ -781,12 +786,19 @@
             });
         }
 
+        function submitProductSearch(q) {
+            if (document.getElementById('procurement-filters')) {
+                document.dispatchEvent(new CustomEvent('buyer:catalog-search', {detail: q}));
+            } else if (q) {
+                location.href = 'buyer_products.html?q=' + encodeURIComponent(q);
+            }
+        }
         var btnSearch = document.getElementById('btn-search') || document.querySelector('.btn-search');
         if (btnSearch) {
             btnSearch.addEventListener('click', function() {
                 var q = (document.getElementById('search-input') && document.getElementById('search-input').value) || '';
                 q = q.trim();
-                if (q) location.href = 'search_list.html?keyword=' + encodeURIComponent(q);
+                submitProductSearch(q);
             });
         }
 
@@ -795,7 +807,7 @@
             searchInput.addEventListener('keypress', function(e) {
                 if (e.key === 'Enter') {
                     var q = this.value.trim();
-                    if (q) location.href = 'search_list.html?keyword=' + encodeURIComponent(q);
+                    submitProductSearch(q);
                 }
             });
         }

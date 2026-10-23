@@ -1,0 +1,11 @@
+{
+  "backend": "mysql",
+  "isolated_database": "test_merchant_favorites_5fdbda243736483f",
+  "business_migrated": false,
+  "target": ["goods", "0011_merchantfavorite"],
+  "result": "passed",
+  "table_created": true,
+  "unique_pair_and_foreign_keys": true,
+  "temporary_database_removed": true,
+  "scope": "Fresh isolated MySQL database; prerequisite migrations also ran only in this database. Not a business feature acceptance test."
+}

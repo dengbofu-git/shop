@@ -4,6 +4,7 @@ from django.utils.decorators import method_decorator
 from django.db import transaction
 from users.decorators import login_required, role_required
 from orders.models import OrderInfo
+from orders.lifecycle import can_delete, can_ship, merchant_ids, state_record, status_filter
 from goods.models import SPU, SKU
 from inventory.models import Inventory, Warehouse
 from inventory.services import InventoryService
@@ -39,32 +40,35 @@ class SupplierOrderListView(View):
         skus = SKU.objects.filter(spu__in=spus)
         
         # 获取包含这些SKU的订单
-        orders = OrderInfo.objects.filter(
-            ordergoods__sku__in=skus
-        ).distinct().order_by('-created_time')
+        from .workbench import owned_items
+        from orders.models import OrderGoods
+        owned = OrderGoods.objects.filter(owned_items(user))
+        orders = OrderInfo.objects.filter(pk__in=owned.values('order_info_id')).distinct().select_related('trialorder', 'presaleorder').order_by('-created_time')
         
         if status:
-            if status.isdigit():
-                orders = orders.filter(status=int(status))
-            elif status == 'unshipped':
-                orders = orders.filter(status=2)
-            elif status == 'unpaid':
-                orders = orders.filter(status=1)
-            else:
-                orders = orders.filter(status=status)
+            value = {'unshipped': 2, 'unpaid': 1}.get(status)
+            if status.isdigit() and int(status) in (0, 1, 2, 3, 4):
+                value = int(status)
+            if value is None:
+                return JsonResponse({'code': 400, 'error': '订单状态筛选不正确'}, status=400)
+            orders = orders.filter(status_filter(value))
         if limit and str(limit).isdigit():
             orders = orders[: int(limit)]
         
         data = []
         for order in orders:
-            order_goods = order.ordergoods_set.filter(sku__in=skus)
+            order_goods = order.ordergoods_set.filter(owned_items(user))
             total_amount = sum([og.count * og.price for og in order_goods])
+            owned_only = merchant_ids(order) == {user.pk}
             
             data.append({
                 'order_id': order.order_id,
                 'order_type': order.order_type,
                 'status': order.status,
                 'status_text': order.get_status_display_text(),
+                'can_ship': owned_only and can_ship(order),
+                'can_delete': owned_only and can_delete(order),
+                'requires_merchant_split': not owned_only,
                 'total_amount': float(total_amount),
                 'total_count': sum([og.count for og in order_goods]),
                 'receiver': order.receiver,
@@ -85,87 +89,38 @@ class SupplierOrderShipView(View):
     """商家发货：将订单状态从 待发货(2) 改为 待收货(3)"""
     
     def post(self, request, order_id):
-        user = request.user_profile
-        spus = SPU.objects.filter(merchant=user)
-        skus = SKU.objects.filter(spu__in=spus)
-        
+        from orders.reservations import ship_order,ReservationError
+        from orders.checkout_views import error_response
         try:
-            order = OrderInfo.objects.get(order_id=order_id)
-        except OrderInfo.DoesNotExist:
-            return JsonResponse({'code': 404, 'error': '订单不存在'}, status=404)
-        
-        # 验证订单包含当前商家的商品
-        order_skus = order.ordergoods_set.filter(sku__in=skus)
-        if not order_skus.exists():
-            return JsonResponse({'code': 403, 'error': '无权操作此订单'}, status=403)
-        
-        if order.status != 2:
-            return JsonResponse({'code': 400, 'error': '当前状态不可发货，需为待发货'}, status=400)
-
-        try:
-            with transaction.atomic():
-                for og in order_skus.select_for_update().select_related('sku'):
-                    InventoryService.ship_deduct_sku(
-                        og.sku_id, og.count, order_id=order.order_id
-                    )
-                order.status = 3
-                order.save(update_fields=['status', 'updated_time'])
-        except ValueError as e:
-            return JsonResponse({'code': 400, 'error': str(e)}, status=400)
-        except Exception:
-            return JsonResponse({'code': 500, 'error': '发货失败，库存扣减异常'}, status=500)
-
-        return JsonResponse({'code': 200, 'msg': '发货成功'})
+            ship_order(order_id,request.user_profile)
+            return JsonResponse({'code':200,'msg':'发货成功'})
+        except ReservationError as exc:return error_response(exc)
+        except ValueError as exc:return JsonResponse({'code':409,'error':str(exc)},status=409)
 
 
 @method_decorator(login_required, name='dispatch')
 @method_decorator(role_required('supplier'), name='dispatch')
 class SupplierOrderDeleteView(View):
-    """供应商删除订单（仅支持待付款或已完成订单）"""
-    
+    """Retained endpoint cancels an unpaid standard order without deleting history."""
     def post(self, request):
+        from orders.reservations import close_order, ReservationError
+        from orders.checkout_views import error_response
+        from orders.lifecycle import require_single_merchant, OrderActionError
+        user=request.user_profile
+        if not user.is_active:return JsonResponse({'code':403,'error':'当前账号已停用'},status=403)
         try:
-            data = json.loads(request.body)
-            order_id = data.get('order_id')
-            
-            if not order_id:
-                return JsonResponse({'code': 400, 'error': '缺少订单号'}, status=400)
-            
-            user = request.user_profile
-            
-            # 获取供应商的商品
-            spus = SPU.objects.filter(merchant=user)
-            skus = SKU.objects.filter(spu__in=spus)
-            
-            # 验证订单包含当前供应商的商品
-            try:
-                order = OrderInfo.objects.get(order_id=order_id)
-            except OrderInfo.DoesNotExist:
-                return JsonResponse({'code': 404, 'error': '订单不存在'}, status=404)
-            
-            order_skus = order.ordergoods_set.filter(sku__in=skus)
-            if not order_skus.exists():
-                return JsonResponse({'code': 403, 'error': '无权操作此订单'}, status=403)
-            
-            # 仅待付款(1)或已完成(4)订单可删除
-            from engagement.services import completed
-            if completed(order):
-                return JsonResponse({'code': 409, 'error': '已完成订单须保留交易和评价依据，不能物理删除'}, status=409)
-            if order.status not in (1, 4):
-                return JsonResponse({'code': 400, 'error': '仅待付款或已完成订单可删除'}, status=400)
-            
-            try:
-                with transaction.atomic():
-                    order.delete()
-            except Exception as e:
-                return JsonResponse({'code': 500, 'error': f'删除失败: {str(e)}'}, status=500)
-            
-            return JsonResponse({'code': 200, 'msg': '订单已删除'})
-            
-        except json.JSONDecodeError:
-            return JsonResponse({'code': 400, 'error': '请求数据格式错误'}, status=400)
-        except Exception as e:
-            return JsonResponse({'code': 500, 'error': f'删除失败: {str(e)}'}, status=500)
+            data=json.loads(request.body)
+            if not isinstance(data,dict) or not isinstance(data.get('order_id'),str) or not data['order_id']:
+                raise ValueError()
+            order=OrderInfo.objects.get(pk=data['order_id'])
+            require_single_merchant(order,user)
+            if not can_delete(order):return JsonResponse({'code':409,'error':'当前订单须保留履约和交易记录，不能删除'},status=409)
+            close_order(order.pk,merchant_id=user.pk)
+            return JsonResponse({'code':200,'msg':'订单已取消，库存已释放，记录保留'})
+        except OrderInfo.DoesNotExist:return JsonResponse({'code':404,'error':'订单不存在'},status=404)
+        except OrderActionError as exc:return JsonResponse({'code':exc.status,'error':str(exc)},status=exc.status)
+        except ReservationError as exc:return error_response(exc)
+        except (ValueError,TypeError,AttributeError):return JsonResponse({'code':400,'error':'请求数据格式错误'},status=400)
 
 
 @method_decorator(login_required, name='dispatch')
@@ -255,48 +210,11 @@ class SupplierInventoryUpdateView(View):
             
             sku = skus.first()
             
-            # 处理默认仓库的情况
-            if warehouse_name == '默认':
-                # 更新SKU的stock字段
-                sku.stock = quantity
-                sku.save(update_fields=['stock', 'updated_time'])
-                
-                # 获取或创建默认仓库，确保 Inventory 与 sku.stock 同步
-                default_warehouse, _ = Warehouse.objects.get_or_create(
-                    code='DEFAULT',
-                    defaults={'name': '默认', 'address': '默认仓库', 'is_active': True}
-                )
-                if default_warehouse:
-                    inv, created = Inventory.objects.get_or_create(
-                        sku=sku,
-                        warehouse=default_warehouse,
-                        defaults={'quantity': quantity, 'available_quantity': quantity}
-                    )
-                    if not created:
-                        inv.quantity = quantity
-                        inv.available_quantity = quantity
-                        inv.save(update_fields=['quantity', 'available_quantity', 'updated_time'])
-                
-                return JsonResponse({'code': 200, 'msg': '更新成功'})
-            else:
-                # 查找或创建仓库
-                warehouse = Warehouse.objects.filter(name=warehouse_name).first()
-                if not warehouse:
-                    return JsonResponse({'code': 404, 'error': '仓库不存在'}, status=404)
-                
-                # 更新或创建Inventory记录
-                inv, created = Inventory.objects.get_or_create(
-                    sku=sku,
-                    warehouse=warehouse,
-                    defaults={'quantity': quantity, 'available_quantity': quantity}
-                )
-                if not created:
-                    inv.quantity = quantity
-                    inv.available_quantity = quantity
-                    inv.save(update_fields=['quantity', 'available_quantity', 'updated_time'])
-                
-                return JsonResponse({'code': 200, 'msg': '更新成功'})
-                
+            try:
+                InventoryService.adjust_stock(sku.pk,quantity,warehouse_name)
+            except ValueError as exc:return JsonResponse({'code':409,'error':str(exc)},status=409)
+            return JsonResponse({'code':200,'msg':'更新成功'})
+
         except json.JSONDecodeError:
             return JsonResponse({'code': 400, 'error': '请求数据格式错误'}, status=400)
         except Exception as e:
@@ -327,31 +245,11 @@ class SupplierInventoryDeleteView(View):
             
             sku = skus.first()
             
-            # 处理默认仓库的情况
-            if warehouse_name == '默认':
-                # 将SKU的stock设为0
-                sku.stock = 0
-                sku.save(update_fields=['stock', 'updated_time'])
-                
-                # 删除Inventory记录（如果存在）
-                default_warehouse = Warehouse.objects.filter(code='DEFAULT').first()
-                if default_warehouse:
-                    Inventory.objects.filter(sku=sku, warehouse=default_warehouse).delete()
-                
-                return JsonResponse({'code': 200, 'msg': '删除成功'})
-            else:
-                # 查找仓库
-                warehouse = Warehouse.objects.filter(name=warehouse_name).first()
-                if not warehouse:
-                    return JsonResponse({'code': 404, 'error': '仓库不存在'}, status=404)
-                
-                # 删除Inventory记录
-                deleted_count = Inventory.objects.filter(sku=sku, warehouse=warehouse).delete()[0]
-                if deleted_count > 0:
-                    return JsonResponse({'code': 200, 'msg': '删除成功'})
-                else:
-                    return JsonResponse({'code': 404, 'error': '库存记录不存在'}, status=404)
-                
+            try:
+                InventoryService.adjust_stock(sku.pk,0,warehouse_name)
+            except ValueError as exc:return JsonResponse({'code':409,'error':str(exc)},status=409)
+            return JsonResponse({'code':200,'msg':'库存已清零，账本保留'})
+
         except json.JSONDecodeError:
             return JsonResponse({'code': 400, 'error': '请求数据格式错误'}, status=400)
         except Exception as e:

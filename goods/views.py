@@ -2,6 +2,7 @@ import base64
 import mimetypes
 from pathlib import Path
 
+from inventory.availability import with_availability
 from django.http import HttpResponse, JsonResponse
 from .models import Catalog
 from .models import SKU, SPU, SKUImage
@@ -27,6 +28,7 @@ def _sku_public_dict(sku):
         'product_name': spu_name,
         'caption': caption,
         'price': str(sku.price),
+        'stock': _get_available_stock(sku),
         'image': sku_image_name(sku) or None,
         'image_url': f'/v1/goods/sku/{sku.id}/image',
         'image_text': spu_name or sku_name or caption or '商品图',
@@ -79,13 +81,8 @@ def carousel(request):
 
 def recommended_products(request):
     """全平台已上架且有库存的 SKU，按销量优先；不要求人工推荐标记。"""
-    # Preserve this catalog's max(SKU.stock, summed ledger availability) eligibility.
-    # Filter before limiting so sold-out top sellers cannot exhaust a candidate window.
-    qs = SKU.objects.filter(is_launched=True).select_related('spu__catalog', 'spu__merchant__store_page').annotate(
-        ledger_available=Coalesce(Sum('inventory__available_quantity'), Value(0)),
-    ).filter(Q(stock__gt=0) | Q(ledger_available__gt=0)).order_by(
-        '-sales', '-updated_time', '-id'
-    )[:20]
+    from inventory.availability import with_availability
+    qs = with_availability(SKU.objects.filter(is_launched=True).select_related('spu__catalog','spu__merchant')).filter(sellable_stock__gt=0).order_by('-sales','-updated_time','-id')[:20]
     data = []
     for sku in qs:
         spu = sku.spu
@@ -109,9 +106,9 @@ def index(request):
     data = []
     categories = Catalog.objects.all()
     for category in categories:
-        sku_qs = SKU.objects.filter(
-            spu__in=category.spu_set.all(), is_launched=True, stock__gt=0
-        ).select_related('spu__catalog', 'spu__merchant__store_page')
+        sku_qs = with_availability(SKU.objects.filter(
+            spu__in=category.spu_set.all(), is_launched=True
+        )).filter(sellable_stock__gt=0).select_related('spu__catalog', 'spu__merchant__store_page')
         sku_list = [_sku_public_dict(sku) for sku in sku_qs]
         if sku_list:  # 只返回有商品的分类
             data.append({
@@ -136,9 +133,9 @@ def catalogs(request, id):
     if not 1 <= page_size <= 100:
         page_size = 12
     goods = Catalog.objects.get(id=id)
-    sku_qs = SKU.objects.filter(
-        spu__in=goods.spu_set.all(), is_launched=True, stock__gt=0
-    ).select_related('spu__catalog', 'spu__merchant__store_page').order_by('-id')
+    sku_qs = with_availability(SKU.objects.filter(
+        spu__in=goods.spu_set.all(), is_launched=True
+    )).filter(sellable_stock__gt=0).select_related('spu__catalog', 'spu__merchant__store_page').order_by('-id')
     data = [_sku_public_dict(sku) for sku in sku_qs]
     paginator_object = paginator.Paginator(data, page_size)
     page_object = paginator_object.get_page(page)
@@ -264,19 +261,8 @@ def sku_image(request, sku_id):
 
 
 def _get_available_stock(sku):
-    """
-    获取 SKU 可用库存。
-    取 Inventory 多仓库汇总 与 sku.stock 的较大值，避免两处数据不同步时显示错误。
-    """
-    sku_stock = int(sku.stock) if sku.stock is not None else 0
-    try:
-        from inventory.models import Inventory
-        from inventory.services import InventoryService
-        inv_total = InventoryService.get_available_quantity(sku.id)
-        return max(inv_total, sku_stock)
-    except Exception:
-        pass
-    return sku_stock
+    from inventory.availability import available_quantity
+    return available_quantity(sku)
 
 
 def detail(request, id):
@@ -313,11 +299,10 @@ def detail(request, id):
 
     # 为你推荐：同分类下其他可售商品（排除当前，仅显示有库存）
     from django.db.models import F
-    rec_skus = SKU.objects.filter(
+    rec_skus = with_availability(SKU.objects.filter(
         spu__catalog=sku.spu.catalog,
-        is_launched=True,
-        stock__gt=0
-    ).exclude(id=sku.id).select_related('spu__catalog', 'spu__merchant__store_page')[:8]
+        is_launched=True
+    )).filter(sellable_stock__gt=0).exclude(id=sku.id).select_related('spu__catalog', 'spu__merchant__store_page')[:8]
     rec_list = [_sku_public_dict(item) for item in rec_skus]
     for r in rec_list:
         r['image_text'] = r.get('name') or '商品图'

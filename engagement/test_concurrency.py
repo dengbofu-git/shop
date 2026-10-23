@@ -41,6 +41,34 @@ class EngagementConcurrencyTests(TransactionTestCase):
         self.assertEqual(Conversation.objects.count(), 1)
         self.assertEqual(Message.objects.count(), 1)
 
+    def test_hide_and_new_send_preserve_pair_and_history_under_row_lock(self):
+        from django.db import transaction
+        from threading import Event
+        conv = Conversation.objects.create(buyer=self.buyer, merchant=self.shop)
+        entered = Event()
+        def send():
+            close_old_connections()
+            try:
+                entered.set()
+                return Client().post('/v1/engagement/conversations', json.dumps({
+                    'merchant_id': self.shop.pk, 'text': '继续咨询', 'request_id': 'visibility-lock-send'}),
+                    content_type='application/json', HTTP_AUTHORIZATION=jwt_encode({'id': self.buyer.pk})).status_code
+            finally:
+                close_old_connections()
+        with ThreadPoolExecutor(max_workers=1) as pool:
+            # Hide and send serialize on the same pair, including POST conversations.
+            with transaction.atomic():
+                Conversation.objects.select_for_update().get(pk=conv.pk)
+                Conversation.objects.filter(pk=conv.pk).update(buyer_hidden=True, merchant_hidden=True)
+                result = pool.submit(send)
+                self.assertTrue(entered.wait(timeout=10))
+            self.assertEqual(result.result(timeout=20), 201)
+        conv.refresh_from_db()
+        self.assertFalse(conv.buyer_hidden)
+        self.assertFalse(conv.merchant_hidden)
+        self.assertEqual(Conversation.objects.count(), 1)
+        self.assertEqual(conv.messages.count(), 1)
+
     def test_same_order_item_race_creates_one_review(self):
         item = self.order()
         data = {'order_item_id':item.pk, 'rating':5, 'text':'并发提交评价测试。'}

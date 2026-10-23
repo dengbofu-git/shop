@@ -1,0 +1,255 @@
+{
+  "preview_default": {
+    "directory_suffix": "reports/agent-preview",
+    "recreated": true,
+    "events": [
+      "session_start",
+      "turn",
+      "synthetic_redaction_probe"
+    ],
+    "redacted": true,
+    "customer_turns": 0,
+    "preview_reported_version": "0.10.0",
+    "module_version": "0.15.0"
+  },
+  "preview_command": {
+    "response": {
+      "event": "turn",
+      "session_id": "3f252587c6b841aca2cc0c3de5e004b8",
+      "sequence": 1,
+      "created_at": "2026-10-22T09:12:58.284088+00:00",
+      "message": "你好",
+      "resolved_question": "你好",
+      "context_turns": 0,
+      "model": "deepseek-flash",
+      "thinking": "disabled",
+      "config_revision": 0,
+      "compliance_blocked": false,
+      "elapsed_seconds": 0.028,
+      "model_calls": 0,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "response": {
+        "answer": "您好！我可以介绍茶叶知识、按条件推荐商品、查询商品详情，以及查看您本人的订单状态。",
+        "intent": "greeting",
+        "intents": [
+          "greeting"
+        ],
+        "confidence": null,
+        "intent_source": "rules",
+        "recommendations": [],
+        "knowledge_sources": [],
+        "memory_used": false,
+        "clarification_required": false,
+        "tasks": [
+          {
+            "id": "s1",
+            "tool": "greet_user",
+            "status": "success"
+          }
+        ],
+        "task_plan": {
+          "steps": [
+            {
+              "id": "s1",
+              "intent": "greeting",
+              "tool": "greet_user",
+              "request": "你好",
+              "depends_on": [],
+              "product_from": null,
+              "limit": 4,
+              "recommendation": null,
+              "knowledge_from": null,
+              "tea_scope": [],
+              "purchase_intent": null,
+              "reference_turn_id": null,
+              "reference_position": null
+            }
+          ],
+          "output_order": [
+            "s1"
+          ],
+          "source": "rules"
+        },
+        "unmet_requirements": [],
+        "diagnostics": [],
+        "compliance_blocked": false,
+        "explained_categories": [],
+        "turn_action": "new_request",
+        "dialogue_state": {
+          "version": "1.0",
+          "status": "idle",
+          "task": null,
+          "request": "",
+          "purchase": null,
+          "limit": 4,
+          "recommendation": null,
+          "missing_fields": []
+        },
+        "pii_redacted": false
+      },
+      "retrieval": []
+    },
+    "log_directory": "reports/agent-evaluation/2026-10-22-reports-baseline/preview-command",
+    "configuration": "Current code and isolated test configuration; no real provider call"
+  },
+  "preview_http_tools": {
+    "preview_tasks": [
+      {
+        "id": "s1",
+        "tool": "recommend_products",
+        "status": "success"
+      }
+    ],
+    "http_tasks": [
+      {
+        "id": "s1",
+        "tool": "recommend_products",
+        "status": "success"
+      }
+    ],
+    "same_product": true,
+    "price": "40.00",
+    "currency": "CNY",
+    "model": "In-process ToolModel test double; not a provider quality evaluation"
+  },
+  "http_storage": {
+    "statuses": {
+      "chat": 200,
+      "replay": 200,
+      "list": 200,
+      "detail": 200,
+      "other_owner": 404,
+      "preference_put": 200,
+      "preference_get": 200,
+      "preference_delete": 200,
+      "anonymous_chat": 401
+    },
+    "stored_turns": 1,
+    "preview_log_writes": 0,
+    "preferences": {
+      "preferences": {
+        "categories": [
+          "绿茶"
+        ],
+        "brands": [],
+        "keywords": []
+      }
+    }
+  },
+  "bindings": {
+    "routes": [
+      {
+        "path": "/v1/support/chat/",
+        "handler": "support_ai.views.chat",
+        "route": "v1/support/chat/"
+      },
+      {
+        "path": "/v1/support/preferences/",
+        "handler": "support_ai.views.preferences",
+        "route": "v1/support/preferences/"
+      },
+      {
+        "path": "/v1/support/conversations/",
+        "handler": "support_ai.views.conversation_list",
+        "route": "v1/support/conversations/"
+      },
+      {
+        "path": "/v1/support/conversations/00000000-0000-0000-0000-000000000001/",
+        "handler": "support_ai.views.conversation_detail",
+        "route": "v1/support/conversations/<uuid:conversation_id>/"
+      },
+      {
+        "path": "/v1/goods/index",
+        "handler": "goods.views.index",
+        "route": "v1/goods/index"
+      },
+      {
+        "path": "/v1/goods/catalogs/1",
+        "handler": "goods.views.catalogs",
+        "route": "v1/goods/catalogs/<int:id>"
+      },
+      {
+        "path": "/v1/goods/detail/1",
+        "handler": "goods.views.detail",
+        "route": "v1/goods/detail/<int:id>"
+      },
+      {
+        "path": "/v1/goods/sku/1/image",
+        "handler": "goods.views.sku_image",
+        "route": "v1/goods/sku/<int:sku_id>/image"
+      },
+      {
+        "path": "/v1/goods/merchant/sku/1/image",
+        "handler": "goods.merchant_views.upload_sku_image",
+        "route": "v1/goods/merchant/sku/<int:sku_id>/image"
+      }
+    ],
+    "frontend": "client/static/js/buyer-support.js",
+    "coverage": "Route resolution plus Django test-client requests; no browser execution"
+  },
+  "image_manifest": {
+    "registered": 6,
+    "hash_checks": 6,
+    "served": [
+      {
+        "category": "红茶",
+        "status": 200,
+        "source": "catalog-virtual"
+      },
+      {
+        "category": "绿茶",
+        "status": 200,
+        "source": "catalog-virtual"
+      },
+      {
+        "category": "乌龙茶",
+        "status": 200,
+        "source": "catalog-virtual"
+      },
+      {
+        "category": "白茶",
+        "status": 200,
+        "source": "catalog-virtual"
+      },
+      {
+        "category": "黄茶",
+        "status": 200,
+        "source": "catalog-virtual"
+      },
+      {
+        "category": "黑茶",
+        "status": 200,
+        "source": "catalog-virtual"
+      }
+    ],
+    "idempotent": true,
+    "media_files": "Read only; apply affected isolated SQLite catalogs only"
+  },
+  "historical_tools": {
+    "report_input": "reports\\archive\\2026-10-16\\agent-evaluation\\2026-10-16-planner",
+    "report_outputs_generated_in_temporary_copy": true,
+    "stale_replay_missing": "reports/agent-evaluation/2026-10-16-grouping/before/20261016-114613-cf6a9b60bb8047dead1a4663ec911451.jsonl",
+    "archived_input_exists": "reports/archive/2026-10-16/agent-evaluation/2026-10-16-grouping/before/20261016-114613-cf6a9b60bb8047dead1a4663ec911451.jsonl",
+    "replay_result": "FileNotFoundError before model invocation; current defect reproduced"
+  },
+  "scenario_reporter": {
+    "synthetic_automatic_passes": 15,
+    "reused_manual_statuses": {
+      "通过": 3,
+      "失败": 6,
+      "前序阻塞": 2,
+      "基本完成": 2,
+      "部分完成": 2
+    },
+    "reused_version": "0.8.1",
+    "reused_date": "2026-10-16",
+    "verdict": "Historical formatter, unsuitable as a current generic report generator",
+    "synthetic_outputs_kept": false
+  },
+  "virtual_products": {
+    "planned_products": 100,
+    "sqlite_write_guard": "rejected before directory or row creation",
+    "mysql_end_to_end": "Not executed; no business database writes"
+  }
+}

@@ -1,0 +1,261 @@
+{
+  "checked_at": "2026-10-22T09:30:49.023956+00:00",
+  "baseline_paths": 1240,
+  "changed_baseline_paths": [
+    {
+      "path": "client/static/css/engagement-inbox.css",
+      "before": {
+        "sha256": "5df80eb48444055a3ac2ed12852c4da8f0ccef966b18445850233367e561af75",
+        "bytes": 8007
+      },
+      "after": {
+        "sha256": "db23ff976650e549005a0f0bff2042a0745fac67d84aab6e254426de7c111364",
+        "bytes": 8313
+      },
+      "allowed_index_update": false
+    },
+    {
+      "path": "client/static/js/engagement-messages.js",
+      "before": {
+        "sha256": "df4cd5a114b481a499c942d13352131730c993ad1c544b3d5f6a2cbc2d6ea4f4",
+        "bytes": 14875
+      },
+      "after": {
+        "sha256": "58da7ba0481fbc6ed3f05e2ff6a4f7b3c508f1f33b9006e08b599125326a3f15",
+        "bytes": 15220
+      },
+      "allowed_index_update": false
+    },
+    {
+      "path": "client/templates/buyer_messages.html",
+      "before": {
+        "sha256": "18b4dfc0c803d9fc900d296a734bcb7cc9367caf36418f3bda92ae9c0d0af58e",
+        "bytes": 1056
+      },
+      "after": {
+        "sha256": "429254fdb3e5570976167a9f3d64373cce82daa093409c125718836db9633aa6",
+        "bytes": 1062
+      },
+      "allowed_index_update": false
+    },
+    {
+      "path": "client/templates/merchant_messages.html",
+      "before": {
+        "sha256": "190100f7454945271acc19781209ce0ee3c5bc9fb5e09c8c69088b9e4b31a5fc",
+        "bytes": 702
+      },
+      "after": {
+        "sha256": "83d62ee1ad8da9a11487255411e138694c4600f6e4e1c0081b078783837de5e2",
+        "bytes": 708
+      },
+      "allowed_index_update": false
+    },
+    {
+      "path": "client/templates/shared/engagement_assets.html",
+      "before": {
+        "sha256": "bf411a2225a8542c8d3acca72d17ee393d671f9ffd306453efd19de036e7966e",
+        "bytes": 309
+      },
+      "after": {
+        "sha256": "3f655772e56b36d00d40f80e2862b42ffb26a9745dd98ed0c93230a3873f01e6",
+        "bytes": 315
+      },
+      "allowed_index_update": false
+    },
+    {
+      "path": "docs/sdd/modules/merchant-operations/buyer-merchant-conversations.md",
+      "before": {
+        "sha256": "83ce883192d9e64c5121324a9458a5f7bfb25c35b48a641301c22bc61a73d77f",
+        "bytes": 10278
+      },
+      "after": {
+        "sha256": "612aea3d05aa5b12ededb25413c66c3526d3003b244977091d6fa900601230c5",
+        "bytes": 10759
+      },
+      "allowed_index_update": false
+    },
+    {
+      "path": "reports/README.md",
+      "before": {
+        "sha256": "1e5a2ff6ac5412f15c7fae20be51c8bbbebcad797bf72c0126aea240a42d7d32",
+        "bytes": 782
+      },
+      "after": {
+        "sha256": "911dd5c6478a0580dff106e7ead26d2027fb7dd913416b312dbcce2e08fe2461",
+        "bytes": 1032
+      },
+      "allowed_index_update": true
+    },
+    {
+      "path": "reports/agent-evaluation/README.md",
+      "before": {
+        "sha256": "ef405028b8267f48e29a50e8c6a824413219f1b49cf4e1a30a4e8ca7e88c30ae",
+        "bytes": 225
+      },
+      "after": {
+        "sha256": "7b217291e280247e12848576a492216698e5a22e2b370f04f805f800fb8cf12e",
+        "bytes": 417
+      },
+      "allowed_index_update": true
+    },
+    {
+      "path": "versions/README.md",
+      "before": {
+        "sha256": "9bab1812aee6e60a60a7dd2445d2b8e96d3ef5ff4d8856bf3daba6dcd809d64a",
+        "bytes": 4112
+      },
+      "after": {
+        "sha256": "cff31e0a64f28a09d95725e262ebba249425939c2e0ebf7717c0df6e22c10818",
+        "bytes": 4112
+      },
+      "allowed_index_update": false
+    },
+    {
+      "path": "versions/changelogs/web.md",
+      "before": {
+        "sha256": "e9f2d9ad823f6690a5a9d151e8467dafca1e3cb888f897079010f4693ef25e5a",
+        "bytes": 31755
+      },
+      "after": {
+        "sha256": "f97895205741f012234e59e68584111dc524805583a8de08c7372b6a04587085",
+        "bytes": 32238
+      },
+      "allowed_index_update": false
+    },
+    {
+      "path": "versions/modules.json",
+      "before": {
+        "sha256": "d80a0c57e9c9eb4cd746a22ec923e7ae4b979fa495df519a666d48cdd3aa0aca",
+        "bytes": 6198
+      },
+      "after": {
+        "sha256": "49eaf094f7ab94cfcc457637236ca4e78e310d11b536b756355abcf484934e8e",
+        "bytes": 6198
+      },
+      "allowed_index_update": false
+    }
+  ],
+  "external_changes_during_run": [
+    {
+      "path": "client/static/css/engagement-inbox.css",
+      "before": {
+        "sha256": "5df80eb48444055a3ac2ed12852c4da8f0ccef966b18445850233367e561af75",
+        "bytes": 8007
+      },
+      "after": {
+        "sha256": "db23ff976650e549005a0f0bff2042a0745fac67d84aab6e254426de7c111364",
+        "bytes": 8313
+      },
+      "allowed_index_update": false
+    },
+    {
+      "path": "client/static/js/engagement-messages.js",
+      "before": {
+        "sha256": "df4cd5a114b481a499c942d13352131730c993ad1c544b3d5f6a2cbc2d6ea4f4",
+        "bytes": 14875
+      },
+      "after": {
+        "sha256": "58da7ba0481fbc6ed3f05e2ff6a4f7b3c508f1f33b9006e08b599125326a3f15",
+        "bytes": 15220
+      },
+      "allowed_index_update": false
+    },
+    {
+      "path": "client/templates/buyer_messages.html",
+      "before": {
+        "sha256": "18b4dfc0c803d9fc900d296a734bcb7cc9367caf36418f3bda92ae9c0d0af58e",
+        "bytes": 1056
+      },
+      "after": {
+        "sha256": "429254fdb3e5570976167a9f3d64373cce82daa093409c125718836db9633aa6",
+        "bytes": 1062
+      },
+      "allowed_index_update": false
+    },
+    {
+      "path": "client/templates/merchant_messages.html",
+      "before": {
+        "sha256": "190100f7454945271acc19781209ce0ee3c5bc9fb5e09c8c69088b9e4b31a5fc",
+        "bytes": 702
+      },
+      "after": {
+        "sha256": "83d62ee1ad8da9a11487255411e138694c4600f6e4e1c0081b078783837de5e2",
+        "bytes": 708
+      },
+      "allowed_index_update": false
+    },
+    {
+      "path": "client/templates/shared/engagement_assets.html",
+      "before": {
+        "sha256": "bf411a2225a8542c8d3acca72d17ee393d671f9ffd306453efd19de036e7966e",
+        "bytes": 309
+      },
+      "after": {
+        "sha256": "3f655772e56b36d00d40f80e2862b42ffb26a9745dd98ed0c93230a3873f01e6",
+        "bytes": 315
+      },
+      "allowed_index_update": false
+    },
+    {
+      "path": "docs/sdd/modules/merchant-operations/buyer-merchant-conversations.md",
+      "before": {
+        "sha256": "83ce883192d9e64c5121324a9458a5f7bfb25c35b48a641301c22bc61a73d77f",
+        "bytes": 10278
+      },
+      "after": {
+        "sha256": "612aea3d05aa5b12ededb25413c66c3526d3003b244977091d6fa900601230c5",
+        "bytes": 10759
+      },
+      "allowed_index_update": false
+    },
+    {
+      "path": "versions/README.md",
+      "before": {
+        "sha256": "9bab1812aee6e60a60a7dd2445d2b8e96d3ef5ff4d8856bf3daba6dcd809d64a",
+        "bytes": 4112
+      },
+      "after": {
+        "sha256": "cff31e0a64f28a09d95725e262ebba249425939c2e0ebf7717c0df6e22c10818",
+        "bytes": 4112
+      },
+      "allowed_index_update": false
+    },
+    {
+      "path": "versions/changelogs/web.md",
+      "before": {
+        "sha256": "e9f2d9ad823f6690a5a9d151e8467dafca1e3cb888f897079010f4693ef25e5a",
+        "bytes": 31755
+      },
+      "after": {
+        "sha256": "f97895205741f012234e59e68584111dc524805583a8de08c7372b6a04587085",
+        "bytes": 32238
+      },
+      "allowed_index_update": false
+    },
+    {
+      "path": "versions/modules.json",
+      "before": {
+        "sha256": "d80a0c57e9c9eb4cd746a22ec923e7ae4b979fa495df519a666d48cdd3aa0aca",
+        "bytes": 6198
+      },
+      "after": {
+        "sha256": "49eaf094f7ab94cfcc457637236ca4e78e310d11b536b756355abcf484934e8e",
+        "bytes": 6198
+      },
+      "allowed_index_update": false
+    }
+  ],
+  "new_paths_outside_scope": [],
+  "staged_diff_unchanged": true,
+  "all_baseline_paths_unchanged": false,
+  "tested_backend_and_support_frontend_source_changes": [],
+  "tested_backend_and_support_frontend_sources_unchanged": true,
+  "reports_archived_payloads_unchanged": true,
+  "module_version_changes_during_run": {
+    "web": {
+      "before": "0.29.4",
+      "after": "0.29.5"
+    }
+  },
+  "head_unchanged": true
+}

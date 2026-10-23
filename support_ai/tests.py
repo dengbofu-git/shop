@@ -79,7 +79,7 @@ class GraphTests(TestCase):
     def graph(self, model):
         def factory(state):
             def handler(step, completed):
-                data = {'orders': __import__('json').loads(state.get('order_context', '[]'))} if step.intent == 'after_sales' else {'answer': FALLBACK}
+                data = {'answer': '当前所选订单：待发货。', 'orders': [{'order_status': '待发货'}]} if step.intent == 'after_sales' else {'answer': FALLBACK}
                 return ToolResult(step_id=step.id, tool=step.tool, status='success', data=data)
             return {name: handler for name in ('introduce_tea', 'get_order_status', 'ask_clarification')}
         return build_graph(model, tool_factory=factory)
@@ -105,16 +105,18 @@ class GraphTests(TestCase):
         for _, content in model.calls:
             self.assertNotIn('private@example.com', content)
 
-    def test_order_context_is_loaded_only_for_after_sales(self):
+    def test_legacy_order_context_is_not_used_as_live_fact(self):
         context = '[{"status":"待付款"}]'
         qa = FakeModel({'recommendation': .1, 'question_answering': .9, 'after_sales': .1})
         self.graph(qa).invoke({'message': '如何查看订单？', 'order_context': context})
         self.assertFalse(any(context in text for _, text in qa.calls))
         after_sales = FakeModel({'recommendation': .1, 'question_answering': .1, 'after_sales': .9})
-        self.graph(after_sales).invoke({'message': '订单售后问题', 'order_context': context})
-        self.assertTrue(any(context.replace(' ', '') in text.replace(' ', '') for _, text in after_sales.calls))
+        result=self.graph(after_sales).invoke({'message': '订单售后问题', 'order_context': context})
+        self.assertFalse(any(context.replace(' ', '') in text.replace(' ', '') for _, text in after_sales.calls))
+        self.assertIn('待发货',result['answer'])
+        self.assertEqual(result['response']['order_result']['orders'],[{'order_status':'待发货'}])
 
-    def test_each_specialist_reaches_summary_and_compliance(self):
+    def test_knowledge_uses_model_and_order_tool_preserves_deterministic_answer(self):
         for intent in ('question_answering', 'after_sales'):
             with self.subTest(intent=intent):
                 scores = dict.fromkeys(('recommendation', 'question_answering', 'after_sales'), .1)
@@ -123,9 +125,14 @@ class GraphTests(TestCase):
                 message = '介绍绿茶' if intent == 'question_answering' else '我的订单状态'
                 result = self.graph(model).invoke({'message': message})
                 self.assertEqual(result['intent'], intent)
-                self.assertIn('已根据授权资料回答', result['answer'])
-                self.assertEqual(len([call for call in model.calls if call[0] == 'text']), 1)
-                self.assertEqual(len([call for call in model.calls if call[0] == 'structured']), 1)
+                if intent == 'after_sales':
+                    self.assertEqual(result['answer'],'当前所选订单：待发货。')
+                    self.assertEqual(model.calls,[])
+                    self.assertEqual(result['response']['tasks'][0]['tool'],'get_order_status')
+                else:
+                    self.assertIn('已根据授权资料回答', result['answer'])
+                    self.assertEqual(len([call for call in model.calls if call[0] == 'text']), 1)
+                    self.assertEqual(len([call for call in model.calls if call[0] == 'structured']), 1)
 
 
 @override_settings(ALLOWED_HOSTS=['127.0.0.1', 'testserver'])
