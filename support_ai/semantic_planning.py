@@ -13,7 +13,8 @@ from .total_budget_intent import simple_total_intent
 from .planning import Intent, IntentRequest, explicit_requests, build_plan
 from .pii import redact
 from .conversation_tasks import purchase_topic, apply_purchase_topic, without_reason_modifier
-from .order_contracts import FOLLOW_UP, rule_order_query
+from .order_contracts import FOLLOW_UP, NEXT_PAGE, OrderQuery, rule_order_query
+from .order_dates import order_today
 
 
 TurnAction = Literal['new_request', 'supplement', 'modify', 'follow_up', 'cancel', 'clarify']
@@ -28,6 +29,8 @@ class DialogueState(Contract):
     limit: int = Field(default=4, ge=1, le=4)
     recommendation: Optional[RecommendationOptions] = None
     missing_fields: List[str] = Field(default_factory=list, max_length=6)
+    order_query: Optional[OrderQuery] = None
+    order_has_more: bool = False
 
 
 class ResultReference(Contract):
@@ -151,6 +154,14 @@ def merge_purchase(previous, current, clear_fields, message, history, memory):
 
 def plan_turn(model, message, history, memory):
     state = active_state(history)
+    if NEXT_PAGE.fullmatch(message.strip()):
+        if state.order_query and state.order_has_more:
+            return SemanticPlan(action='follow_up', standalone_question=message,
+                requests=[IntentRequest(kind='after_sales', quote=message,
+                    order_query=state.order_query.model_copy(update={'page': 'next'}))]), 'rules', state
+        return SemanticPlan(action='clarify', standalone_question=message,
+            requests=[IntentRequest(kind='clarification', quote=message)], needs_clarification=True,
+            clarification_question='没有可继续的订单分页，请先查询全部订单或指定创建日期范围。'), 'rules', state
     fixed = fixed_reply(message)
     if fixed:
         return SemanticPlan(action='new_request', standalone_question=message,
@@ -231,6 +242,14 @@ def plan_turn(model, message, history, memory):
                     # not a later, separate intent/condition guessing pass.
                     covered = False
         if covered:
+            try:
+                for request in rules:
+                    if request.kind == 'after_sales':
+                        request.order_query = rule_order_query(request.quote)
+            except ValueError:
+                return SemanticPlan(action='clarify', standalone_question=message,
+                    requests=[IntentRequest(kind='clarification', quote=message)], needs_clarification=True,
+                    clarification_question='订单创建日期不明确，请使用真实的起止日期，例如2026-10-01至2026-10-23。'), 'rules', state
             return SemanticPlan(action='follow_up' if rules[0].kind == 'recommendation_explanation' else 'new_request',
                                 standalone_question=message, requests=rules, purchase=purchase), 'rules', state
     prompt = ChatPromptTemplate.from_messages([
@@ -250,9 +269,13 @@ def plan_turn(model, message, history, memory):
          '推荐茶叶可宽泛搜索，不要求先提供预算；介绍知识不等于推荐。'
          '涉及recommendation必须提供purchase，仍用RecommendationIntent契约；'
          '涉及after_sales时在对应request.order_query中提取selector和topic；其他任务不能填写order_query。'
-         'selector.type限latest最近一笔、recent近期三笔、selected当前所选、explicit本轮明确引用。'
+         'selector.type限recent最近三笔、selected当前所选、explicit本轮明确引用、all全部匹配订单。'
+         '没有latest类型，最近订单统一最多三笔，即使说最近一笔也使用recent。'
          'explicit.reference只能逐字使用本轮已有ORDER_REF引用，不得生成真实订单号。'
-         'topic限order_status、payment_status、shipping_status；不能查询指定商品、日期、金额或执行取消退款。'
+         'topic限order_status、payment_status、shipping_status。时间条件独立放入filters.created_date，'
+         'start/end是YYYY-MM-DD并包含首尾日期，依据北京时间订单创建时间；没指定日期则created_date=null。'
+         '相对日期依据提供的当前北京时间日期；未指定年份使用当前年；只指定期间时selector.type=all。'
+         'page固定first；下一页由程序读取已保存查询条件处理。不能按商品、金额或有效状态筛选或执行取消退款。'
          '多个订单引用、范围超出支持能力或对象不明确时先澄清，不丢弃约束查询近期订单。'
          'supplement/modify只提取本轮新增或替换字段，程序合并已有条件。'
          '每个购买条件必须有evidence，CURRENT逐字引用本轮，CONTEXT引用历史用户原话的turn_id，'
@@ -271,10 +294,10 @@ def plan_turn(model, message, history, memory):
          '取消预算须同时清除price_min、price_max、budget_min、budget_max、currency、price_basis；'
          '取消款数或每款数量分别清除distinct_count、quantity_per_product。'
          '同种任务合并，最多5项。取消和无法识别时用clarification任务。'),
-        ('human', '本轮原话：{message}\n安全历史：{history}\n当前结构化状态：{state}\n长期软偏好：{memory}'),
+        ('human', '当前北京时间日期：{today}\n本轮原话：{message}\n安全历史：{history}\n当前结构化状态：{state}\n长期软偏好：{memory}'),
     ])
     value = (prompt | model.with_structured_output(SemanticPlan)).invoke({
-        'message': message, 'history': json.dumps([
+        'today': order_today().isoformat(), 'message': message, 'history': json.dumps([
             {key: item for key, item in turn.items() if key != 'dialogue_state'} for turn in history
         ], ensure_ascii=False),
         'state': state.model_dump_json(), 'memory': json.dumps(memory, ensure_ascii=False)})
@@ -284,6 +307,13 @@ def plan_turn(model, message, history, memory):
     for request in value.requests:
         if request.order_query is not None and request.kind != 'after_sales':
             raise ValueError('Unexpected order slots')
+        if request.kind == 'after_sales' and request.order_query is None:
+            try:
+                request.order_query = rule_order_query(request.quote)
+            except ValueError:
+                value.action = 'clarify'
+                value.needs_clarification = True
+                value.clarification_question = '请明确订单创建日期范围，例如2026-10-01至2026-10-23。'
     if value.action == 'cancel' and any(r.kind != 'clarification' for r in value.requests):
         raise ValueError('Cancellation cannot silently discard other tasks')
     if value.action == 'clarify' and not value.needs_clarification:
@@ -337,7 +367,7 @@ def plan_turn(model, message, history, memory):
     return value, 'model', state
 
 
-def response_state(semantic, response, previous):
+def _response_state(semantic, response, previous):
     """Snapshot committed atomically with the public reply, without a new table."""
     if semantic.action == 'cancel':
         return DialogueState().model_dump()
@@ -378,3 +408,15 @@ def response_state(semantic, response, previous):
                              request=next(r.quote for r in semantic.requests if r.kind == 'after_sales'),
                              missing_fields=['reference'] if pending else []).model_dump()
     return DialogueState().model_dump()
+
+
+def response_state(semantic, response, previous):
+    state = DialogueState.model_validate(_response_state(semantic, response, previous))
+    result = response.get('order_result')
+    if result and result.get('query'):
+        state.order_query = OrderQuery.model_validate(result['query'])
+        state.order_has_more = bool(result.get('has_more'))
+    elif not result and semantic.action != 'cancel':
+        state.order_query = previous.order_query
+        state.order_has_more = previous.order_has_more
+    return state.model_dump()

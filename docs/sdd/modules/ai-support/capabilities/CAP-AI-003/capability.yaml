@@ -116,3 +116,16 @@ orderToolIncrement:
   identity: shared-active-buyer-check-and-tool-owner-filter
   runtimeTests: not-executed
   lifecycle: SPEC_REVIEW-unchanged
+
+orderRangeIncrement:
+  date: "2026-10-23"
+  registeredVersion: "0.18.0"
+  status: source-implemented-not-business-verified
+  report: docs/Agent语义规划与任务状态.md
+  confirmedScope: user-confirmed-all-selector-and-independent-time-filter
+  creationDate: Asia-Shanghai-inclusive-start-end-dates
+  paging: server-owned-20-per-page-and-signed-owner-bound-cursor
+  visibleScope: own-buyer-non-hidden-all-statuses
+  unresolved: definition-of-valid-orders-status-filter
+  runtimeTests: not-executed
+  lifecycle: SPEC_REVIEW-unchanged

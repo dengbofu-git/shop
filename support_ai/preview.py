@@ -108,7 +108,10 @@ class PreviewSession:
         history = self.history()
         order_query_context = OrderQueryContext(owner_id=self.user.pk if self.user else None,
             references=references, active_order_id=self.order_binding.active_order_id,
-            active_order_at=self.order_binding.active_order_at)
+            active_order_at=self.order_binding.active_order_at,
+            previous_page=next((turn.response['order_result'] for turn in reversed(self.turns)
+                if turn.created_at >= timezone.now() - timedelta(hours=HISTORY_HOURS)
+                and turn.response.get('order_result')), {}))
         usage = Usage()
         result = None
         retriever = None
