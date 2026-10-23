@@ -474,7 +474,7 @@
     {
       "path": "docs/sdd/evidence/2026-10-23-workspace-integration/workspace-disposition.json",
       "module": "core",
-      "sha256": "3170a6932f4efd6cad7a19bea82ab34d7e15eb89921e9aa48048d7ac5cf741eb"
+      "sha256": "bd2003f6884397f13b3311f03634e7f0a8bbf041c9794e968ad5110ff2f24e78"
     },
     {
       "path": "docs/sdd/modules/ai-support/capabilities/CAP-AI-003/api-observed.yaml",

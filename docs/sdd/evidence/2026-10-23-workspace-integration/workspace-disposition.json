@@ -2592,7 +2592,8 @@
       "path": "reports/agent-evaluation/2026-10-22-reports-baseline/checks.json",
       "source_sha256": "d92257fc8e43a2e19cd2850759646a195ab8fae784da01d67dfceff7b0100289",
       "decision": "local_increment",
-      "integrated_sha256": "d94aded4478a6e00542da221b744ffc77c6ebe6d420afdee3406605caf95255a"
+      "integrated_sha256": "90e914680edd0a41c3d77ca07de2c7e4b82fd2efbf6d425b10160ddb74fa1161",
+      "before_format_normalization_sha256": "d94aded4478a6e00542da221b744ffc77c6ebe6d420afdee3406605caf95255a"
     },
     {
       "path": "reports/agent-evaluation/2026-10-22-reports-baseline/current-contract-observations.json",
@@ -2604,13 +2605,15 @@
       "path": "reports/agent-evaluation/2026-10-22-reports-baseline/current-contract.log",
       "source_sha256": "dc6776106948e4d5bae941e91ed0a521d3cb47cca5639b69b0e3a04647010be8",
       "decision": "local_increment",
-      "integrated_sha256": "dc6776106948e4d5bae941e91ed0a521d3cb47cca5639b69b0e3a04647010be8"
+      "integrated_sha256": "35088eb6a6a01fd1041c37a2278720ce8e5bea94e2e74cdc497ac7eba33b2e1b",
+      "before_format_normalization_sha256": "dc6776106948e4d5bae941e91ed0a521d3cb47cca5639b69b0e3a04647010be8"
     },
     {
       "path": "reports/agent-evaluation/2026-10-22-reports-baseline/current-probes.log",
       "source_sha256": "3a2f05f4e58b8acf2ba17a8cd8f1945480fb905a672213ce14110618a65b69db",
       "decision": "local_increment",
-      "integrated_sha256": "3a2f05f4e58b8acf2ba17a8cd8f1945480fb905a672213ce14110618a65b69db"
+      "integrated_sha256": "282b5f69b7a10caa78a53f2ece6989f77e0da6ab2798da4d349da22e83047341",
+      "before_format_normalization_sha256": "3a2f05f4e58b8acf2ba17a8cd8f1945480fb905a672213ce14110618a65b69db"
     },
     {
       "path": "reports/agent-evaluation/2026-10-22-reports-baseline/django-check.log",
@@ -2640,7 +2643,8 @@
       "path": "reports/agent-evaluation/2026-10-22-reports-baseline/preview-command/20261022-171258-3f252587c6b841aca2cc0c3de5e004b8.jsonl",
       "source_sha256": "38b047269bd0af263b2ee4f66b1c3a18e004f869f30d62db0cdc06b03587af29",
       "decision": "local_increment",
-      "integrated_sha256": "c6abe7c4f79e5358444c85257c9ff7bc620b4e90651d0d2a6a48e42f920b87d6"
+      "integrated_sha256": "33c98b6d5cede27f77e279f69ef6ba00e9d57748c5a687fff160eb0084c45573",
+      "before_format_normalization_sha256": "c6abe7c4f79e5358444c85257c9ff7bc620b4e90651d0d2a6a48e42f920b87d6"
     },
     {
       "path": "reports/agent-evaluation/2026-10-22-reports-baseline/probe-observations.json",
@@ -2658,19 +2662,22 @@
       "path": "reports/agent-evaluation/2026-10-22-reports-baseline/procedures.md",
       "source_sha256": "30bb9630db09fbc2969f8a1aa3630b18fe256128535caabf0c68c61ce0fc7b5d",
       "decision": "local_increment",
-      "integrated_sha256": "30bb9630db09fbc2969f8a1aa3630b18fe256128535caabf0c68c61ce0fc7b5d"
+      "integrated_sha256": "3126c95d047f0b6e40688b33b2dcabef82ed32783a05870a2a16025bd9f7ed2d",
+      "before_format_normalization_sha256": "30bb9630db09fbc2969f8a1aa3630b18fe256128535caabf0c68c61ce0fc7b5d"
     },
     {
       "path": "reports/agent-evaluation/2026-10-22-reports-baseline/related-regression-local-temp.log",
       "source_sha256": "0479f5d700060d756eee53ee76a2711a0cd6bd066b2fb685cb90947a344fec49",
       "decision": "local_increment",
-      "integrated_sha256": "a6600974fbf14847869125ce53bc076d3277d951aab1382ceb4928a50b5efa33"
+      "integrated_sha256": "ee651096d13a9dd2359e7b842c2ce44771569db810016de3b477936e99c65d47",
+      "before_format_normalization_sha256": "a6600974fbf14847869125ce53bc076d3277d951aab1382ceb4928a50b5efa33"
     },
     {
       "path": "reports/agent-evaluation/2026-10-22-reports-baseline/related-regression.log",
       "source_sha256": "e8051cbc514beec499aa3138956cf7e0059f1784448ca3ed96c805fe2ed2a263",
       "decision": "local_increment",
-      "integrated_sha256": "51787ae34fd2729f8636a37a96b3bff06efe8064cf9984497d9a5eddb103af9f"
+      "integrated_sha256": "8bce40325c372244f0e90274a961529936eeabbb7c87acba117031da98edebce",
+      "before_format_normalization_sha256": "51787ae34fd2729f8636a37a96b3bff06efe8064cf9984497d9a5eddb103af9f"
     },
     {
       "path": "reports/agent-evaluation/2026-10-22-reports-baseline/workspace-integrity.json",
