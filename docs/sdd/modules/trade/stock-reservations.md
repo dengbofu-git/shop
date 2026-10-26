@@ -1,6 +1,8 @@
 # 库存预留、订单取消与批量采购
 
-规格0.2.0，2026-10-23，执行R04/R07；保留既有预留、可信支付及试单／预售边界。部分源码已存在；本轮新交互规则尚待实现，业务库启用须单独核对。
+规格0.2.1，2026-10-26，执行R04/R07；预留、防占用、取消／隐藏及历史子类型发货已在源码实现并完成隔离验证。业务库启用仍须单独核对、备份和授权，不等同真实支付联调完成。
+
+本地启用记录：2026-10-26获用户单独授权，备份后应用inventory.0002、orders.0004/0005；原业务列数据核验不变，后端及30秒到期清理进程已启动。支付收款方ID当前缺失，支付链接仍按保护规则拒绝生成；未进行真实支付。详见[启用证据](../../evidence/2026-10-26-stock-reservations/activation.md)，本记录不代表生产部署或开机自启已配置。
 
 ## 库存和支付不变量
 
@@ -53,8 +55,8 @@
 
 创建POST /v1/orders/<username>要求有效本人买家及16—64位ASCII安全字符幂等编号（Idempotency-Key或request_id）；同编号同意图回放，改变意图409；返回orders[]，创建不调用支付渠道；Redis删除比较原值，失败不能撤销已提交订单。GET advance返回reservation_checkout_version=1，旧后端无标记时页面禁止创建无保护订单。取消仅POST本人/cancel；type=5只为本人有效未过期受管订单生成固定截止支付链接。
 
-商家reservation-policy只允许本店完整四字段更新；身份、数量、金额和边界在服务端检查。到期进程watch_stock_reservations每30秒或定时expire_stock_reservations，访问时清理只作兜底。
+商家reservation-policy只允许本店完整四个配置字段及必填change_reason更新；依据须为1—200字符，身份、数量、金额和边界在服务端检查。ReservationPolicyChange同事务记录商家、actor、before、after、reason、effective_at；策略修改只影响后续创建，结算内使用单份店铺策略快照。到期进程watch_stock_reservations每30秒或定时expire_stock_reservations，访问时清理只作兜底。
 
 订单页区分应付与实付，未付款／已关闭不标实付；显示期限、关闭状态及支付异常。
 
-inventory.0002/orders.0004等现有迁移及启用材料见[原预留证据](../../evidence/2026-10-22-stock-reservations/verification.md)。历史迁移不可改，业务库须备份、单独授权限定迁移并核验。新规则验证需覆盖隐藏无副作用、取消／付款竞态、限额调整、批量出口、混合单、试单／预售及他单预留；本轮未执行这些测试或真实支付／退款。
+inventory.0002/orders.0004等现有迁移及启用材料见[原预留证据](../../evidence/2026-10-22-stock-reservations/verification.md)；本轮新增orders.0005_reservationpolicychange。历史迁移不可改，业务库须重新核对实际计划，备份后单独授权限定迁移并核验。MySQL33项、SQLite123项（9项MySQL专用跳过）及Node12项定向验证见[本轮证据](../../evidence/2026-10-26-stock-reservations/verification.md)，覆盖隐藏无副作用、取消／付款竞态、规则审计、批量出口、混合单、试单／预售及他单预留。本轮未调用真实支付／退款。

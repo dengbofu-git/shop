@@ -1,0 +1,38 @@
+{
+  "support_ai/grounding.py": {
+    "delivery_sha256": "9c30cbbf6db41ed5e8a1cca714a70415926c15844ad8cb0d9d8307ba57d3bee7",
+    "live_worktree_sha256": "9c30cbbf6db41ed5e8a1cca714a70415926c15844ad8cb0d9d8307ba57d3bee7",
+    "exact_equal": true,
+    "only_line_endings_or_identical": true
+  },
+  "support_ai/business_grounding.py": {
+    "delivery_sha256": "74091ea12b785fd854d7ae28b28b7a048e3e52000a7ce4926d92dd2ebc64ff26",
+    "live_worktree_sha256": "74091ea12b785fd854d7ae28b28b7a048e3e52000a7ce4926d92dd2ebc64ff26",
+    "exact_equal": true,
+    "only_line_endings_or_identical": true
+  },
+  "support_ai/tea_explanation.py": {
+    "delivery_sha256": "ea145ea13ffaf479534da5ac03225696f83c93c05c4185a7b60289b791dc1e70",
+    "live_worktree_sha256": "ea145ea13ffaf479534da5ac03225696f83c93c05c4185a7b60289b791dc1e70",
+    "exact_equal": true,
+    "only_line_endings_or_identical": true
+  },
+  "support_ai/workflow.py": {
+    "delivery_sha256": "458f60e8d7249e215b9e8abadf5e696dabd3a6589753aa33202e45fd11450651",
+    "live_worktree_sha256": "458f60e8d7249e215b9e8abadf5e696dabd3a6589753aa33202e45fd11450651",
+    "exact_equal": true,
+    "only_line_endings_or_identical": true
+  },
+  "support_ai/model_client.py": {
+    "delivery_sha256": "b5ce8b8c9fe1f829bc95fb2e3c1a9059c4062a563c25be299f1ad127d7f3bf33",
+    "live_worktree_sha256": "08f4601f749240cfb5812d19d37b9d82e9186938fac6873242c1d07a51e9d7bc",
+    "exact_equal": false,
+    "only_line_endings_or_identical": true
+  },
+  "support_ai/tool_services.py": {
+    "delivery_sha256": "460db66d2267d4eabb3ad2b564018d15c5f97207eaea64cb7972add6214f5bdf",
+    "live_worktree_sha256": "460db66d2267d4eabb3ad2b564018d15c5f97207eaea64cb7972add6214f5bdf",
+    "exact_equal": true,
+    "only_line_endings_or_identical": true
+  }
+}

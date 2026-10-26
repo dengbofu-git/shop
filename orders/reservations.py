@@ -145,6 +145,7 @@ def create_orders(user,request_id,digest,address_id,items,source_ip):
             rows_by_sku[sku.pk]=InventoryService.locked_ledgers(sku)
             groups[merchant.pk].append(sku)
         pending=OrderInfo.objects.filter(user_profile=buyer,status=1)
+        policies={mid:policy_for(mid) for mid in groups}
         window=now-timedelta(hours=1)
         budget=0
         history=OrderInfo.objects.filter(user_profile=buyer,reservation_managed=True).filter(
@@ -155,7 +156,7 @@ def create_orders(user,request_id,digest,address_id,items,source_ip):
             # retain the time actually occupied, even after hiding or cancellation.
             end=prior_order.expires_at if prior_order.status==1 else min(prior_order.closed_at,prior_order.expires_at,now)
             budget+=max(0,(end-start).total_seconds())
-        projected=budget+sum(policy_for(mid).ttl_seconds for mid in groups)
+        projected=budget+sum(policies[mid].ttl_seconds for mid in groups)
         if projected>getattr(settings,'RESERVATION_MAX_HOLD_SECONDS_PER_HOUR',1800):
             raise ReservationError('RESERVATION_TIME_BUDGET','本小时累计预留时长已达限额，请先处理已有订单或稍后重试',429,retry_after=60)
         if pending.count()+len(groups)>getattr(settings,'RESERVATION_MAX_UNPAID_ORDERS',3):
@@ -167,7 +168,7 @@ def create_orders(user,request_id,digest,address_id,items,source_ip):
         if global_amount>Decimal(str(getattr(settings,'RESERVATION_MAX_UNPAID_AMOUNT',60000))):
             raise ReservationError('UNPAID_AMOUNT_LIMIT','累计待付预留金额超过限额，请先处理已有订单',429)
         for merchant_id,products in groups.items():
-            policy=policy_for(merchant_id)
+            policy=policies[merchant_id]
             prior=OrderGoods.objects.filter(order_info__user_profile=buyer,order_info__status=1,merchant_snapshot_id=merchant_id)
             quantity=sum(normalized[s.pk] for s in products)+sum(prior.values_list('count',flat=True))
             amount=sum((s.price*normalized[s.pk] for s in products),Decimal('0'))+sum((i.price*i.count for i in prior),Decimal('0'))
@@ -186,7 +187,7 @@ def create_orders(user,request_id,digest,address_id,items,source_ip):
         checkout=CheckoutRequest.objects.create(user=buyer,request_id=request_id,fingerprint=digest)
         result=[]
         for merchant_id,products in sorted(groups.items()):
-            expiry=now+timedelta(seconds=policy_for(merchant_id).ttl_seconds)
+            expiry=now+timedelta(seconds=policies[merchant_id].ttl_seconds)
             order=OrderInfo.objects.create(user_profile=buyer,order_id=uuid.uuid4().hex,total_amount=sum((s.price*normalized[s.pk] for s in products),Decimal('0')),
                 total_count=sum(normalized[s.pk] for s in products),freight=0,pay_method=1,status=1,reservation_managed=True,expires_at=expiry,checkout_request=checkout,
                 receiver=address.receiver,address=address.address,receiver_mobile=address.receiver_mobile,tag=address.tag)
@@ -235,6 +236,42 @@ def confirm_payment(order_id,trade_no,amount):
         order.payment_trade_no=trade_no;order.paid_at=now
         order.save(update_fields=['status','paid_at','payment_trade_no','payment_exception','updated_time'])
         return order
+
+
+def _shipment_state(order,lock=False):
+    if order.order_type=='standard':return order,2,3
+    if order.reservation_managed:return None,0,0
+    from .models import TrialOrder,PreSaleOrder
+    model=TrialOrder if order.order_type=='trial' else PreSaleOrder if order.order_type=='presale' else None
+    if model is None:return None,0,0
+    query=model.objects.filter(order_info=order)
+    if lock:query=query.select_for_update()
+    detail=query.first()
+    if detail is None:return None,0,0
+    if order.order_type=='presale' and not (detail.deposit_paid and detail.balance_paid):return None,0,0
+    return (detail,2,3) if order.order_type=='trial' else (detail,4,5)
+
+
+def merchant_actions(order,merchant,items=None):
+    items=list(order.ordergoods_set.select_related('sku__spu')) if items is None else items
+    owned=bool(items) and all((i.merchant_snapshot_id or i.sku.spu.merchant_id)==merchant.pk for i in items)
+    detail,ready,_=_shipment_state(order)
+    return {'can_ship':bool(owned and detail is not None and detail.status==ready and not order.payment_exception),
+            'can_cancel':bool(owned and order.order_type=='standard' and order.status==1 and not order.paid_at and not order.payment_exception)}
+
+
+def cancel_by_merchant(order_id,merchant):
+    owner=OrderInfo.objects.filter(pk=order_id).values_list('user_profile_id',flat=True).first()
+    if owner is None:raise ReservationError('ORDER_NOT_FOUND','订单不存在',404)
+    with transaction.atomic():
+        UserProfile.objects.select_for_update().get(pk=owner)
+        order=OrderInfo.objects.select_for_update().get(pk=order_id)
+        items=list(order.ordergoods_set.select_related('sku__spu'))
+        if not items or any((i.merchant_snapshot_id or i.sku.spu.merchant_id)!=merchant.pk for i in items):
+            raise ReservationError('FORBIDDEN','混合商家订单或其他店铺订单不能整单取消',403)
+        if order.order_type!='standard':raise ReservationError('ORDER_TYPE_REQUIRES_REVIEW','试单／预售不能通过普通取消入口处理')
+        if order.status==0:return order
+        return close_order(order.pk,reason='merchant_cancel')
 
 
 def ship_order(order_id,merchant):

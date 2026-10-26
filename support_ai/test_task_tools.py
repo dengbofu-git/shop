@@ -10,6 +10,7 @@ from .contracts import RecommendationIntent
 from .planning import FiniteIntents
 from .workflow import ComplianceVerdict, DialogueResolution
 from .semantic_planning import SemanticPlan
+from .grounding import KnowledgeDraft, GroundingReview
 
 
 class ToolModel(Runnable):
@@ -19,6 +20,13 @@ class ToolModel(Runnable):
     def with_structured_output(self, schema):
         def structured(prompt):
             text = prompt.to_messages()[-1].content
+            if schema is KnowledgeDraft:
+                source = json.loads(text)['evidence'][0]
+                return KnowledgeDraft(claims=[{'text': source['text'], 'citations': [
+                    {'source_id': source['source_id'], 'quote': source['text']}]}])
+            if schema is GroundingReview:
+                return GroundingReview(verdicts=[{'claim_id': row['claim_id'], 'supported': True,
+                    'standalone': True, 'relevant': True} for row in json.loads(text)['claims']])
             if schema is SemanticPlan:
                 message = text.split('本轮原话：')[1].split('\n')[0]
                 if message == '先介绍绿茶，再推荐一款绿茶':

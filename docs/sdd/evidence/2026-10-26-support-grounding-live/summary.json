@@ -1,0 +1,44 @@
+{
+  "total_cases": 22,
+  "passed": 22,
+  "failed_ids": [],
+  "cases_using_real_model": 19,
+  "rule_only_cases": [
+    "R10",
+    "R11",
+    "R12"
+  ],
+  "model_calls": 28,
+  "input_tokens": 19125,
+  "output_tokens": 13495,
+  "case_seconds_sum": 99.584,
+  "active_case_mean_seconds": 5.241,
+  "active_case_median_seconds": 2.157,
+  "slowest_cases": [
+    {
+      "id": "M02",
+      "seconds": 27.182
+    },
+    {
+      "id": "R03",
+      "seconds": 22.423
+    },
+    {
+      "id": "T01",
+      "seconds": 7.358
+    }
+  ],
+  "provider_or_adapter_errors": [],
+  "business_model_rejections": 3,
+  "source_changes": [],
+  "artifact_sha256": {
+    "reports/agent-evaluation/2026-10-26-grounding-live-run-01/manifest.json": "474df1bb372db0519b2a6f4d37703d8c877e724e4f57462884f6edae51d09e36",
+    "reports/agent-evaluation/2026-10-26-grounding-live-run-01/results.jsonl": "352f2385f9adcc30b1717ada8f33a9be392ab55d8a41d2ad4225ae7e696c018b",
+    "reports/agent-evaluation/2026-10-26-grounding-live-run-01/summary.json": "787d790a90d3467556e543bcceab17cdac09e8f8e175d3e1116901018190fdc2",
+    "reports/agent-evaluation/2026-10-26-grounding-live-run-01/procedure.md": "badf42082d7cab3c1f2d5ba24734d3ad2aaa7a5954e06328a345d61329f1ef3a",
+    "reports/agent-evaluation/2026-10-26-grounding-live-run-02/manifest.json": "81310719b6c681da752bd27d95f3681037f3f5dda8bee9500d35f70ad6047b4f",
+    "reports/agent-evaluation/2026-10-26-grounding-live-run-02/results.jsonl": "02da2eacd85e060a738c4e311948c2abeb76130331b610b14a23f5cf47ab3a87",
+    "reports/agent-evaluation/2026-10-26-grounding-live-run-02/summary.json": "cec85ba5bb7e19db0b10bf95ea504dec472dd2d1793b26c54f0299049d825a1b",
+    "reports/agent-evaluation/2026-10-26-grounding-live-run-02/procedure.md": "1d5b42e31837cd5fc43f55c6c151f1ea4a7367addc3bd1103bd42d32f85d9f22"
+  }
+}

@@ -21,6 +21,7 @@ from .bundle_recommendations import recommend_bundle
 from .total_budget_intent import CURRENCY
 from .order_contracts import rule_order_query
 from .order_queries import query_orders
+from .grounding import generate_grounded_answer
 
 
 GENERIC_CATEGORIES = {'茶', '茶叶', '茶类', '商品', '茶品', 'tea', 'teas', 'products', 'tea products'}
@@ -322,12 +323,10 @@ def create_tool_handlers(model, knowledge_search, message, resolved_question, hi
         query = (resolved_question if history and len(requests) <= 1
                  and resolved_question != message else step.request)
         evidence = knowledge_search(query) if knowledge_search else []
-        if not evidence:
-            return result(step, 'no_match', {'answer': '本次未检索到足够的知识证据，暂无法可靠介绍该主题。'})
         notes = knowledge_notes() if knowledge_notes else []
-        return result(step, data={'question': query, 'evidence': evidence, 'evidence_limitations': notes}, sources=[
-            {'title': e['source_title'], 'url': e['source_reference'], 'year': e.get('metadata', {}).get('year')}
-            for e in evidence], unmet=notes)
+        data, sources = generate_grounded_answer(model, query, evidence, knowledge_context_chars)
+        data.update(question=query, evidence_limitations=notes)
+        return result(step, 'success' if data['grounding']['claims'] else 'no_match', data, sources=sources, unmet=notes)
 
     def product_details(step, completed):
         source = completed[step.product_from].data if step.product_from else next(
@@ -357,7 +356,7 @@ def create_tool_handlers(model, knowledge_search, message, resolved_question, hi
         details = get_product_details(selected[0]['sku_id'])
         if details['status'] == 'no_match':
             return result(step, 'no_match', {'answer': '所指商品当前未上架或没有可用库存，请重新选择。'})
-        return result(step, data=details['data'],
+        return result(step, data=dict(details['data'], observed_at=details['observed_at'], limitations=details['limitations']),
                       unmet=[] if details['data']['attributes'] else [MISSING_ATTRIBUTES])
 
     def orders(step, completed):

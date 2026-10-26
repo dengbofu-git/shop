@@ -1,0 +1,11 @@
+test_current_file_names_and_utf8_contents_use_current_namespace (tools.tests.test_project_identity.ProjectIdentityTests) ... ok
+test_entrypoints_and_tool_package_exist (tools.tests.test_project_identity.ProjectIdentityTests) ... ok
+test_historical_exception_rejects_any_content_change (tools.tests.test_project_identity.ProjectIdentityTests) ... ok
+test_new_migrations_and_current_source_cannot_use_retired_namespace (tools.tests.test_project_identity.ProjectIdentityTests) ... ok
+test_deleted_only_and_empty_git_output (tools.tests.test_module_versions.WorkingTreeOwnershipTests) ... ok
+test_deleted_paths_are_excluded_and_new_untracked_paths_are_checked (tools.tests.test_module_versions.WorkingTreeOwnershipTests) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.579s
+
+OK

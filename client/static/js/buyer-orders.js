@@ -33,10 +33,10 @@
         var id = escapeHtml(order.order_id);
         var actions = [];
         if (status === 1 && !order.payment_exception) actions.push('<a class="bo-action bo-action-primary" href="gopay.html?order_id=' + encodeURIComponent(order.order_id) + '">去付款</a>');
-        if (status === 1 && order.order_type === 'standard' && !order.payment_exception) actions.push('<button type="button" class="bo-action" data-action="cancel" data-order-id="' + id + '">' + (order.reservation_managed ? '取消并释放库存' : '取消订单') + '</button>');
+        if (order.can_cancel === true) actions.push('<button type="button" class="bo-action" data-action="cancel" data-order-id="' + id + '">' + (order.reservation_managed ? '取消并释放库存' : '取消订单') + '</button>');
         if (status === 3) actions.push('<button type="button" class="bo-action bo-action-primary" data-action="receive" data-order-id="' + id + '">确认收货</button>');
         if (status === 3) actions.push('<a class="bo-action" href="logistics_track.html?order=' + encodeURIComponent(order.order_id) + '">查看物流</a>');
-        if ((order.order_type === 'standard' && (status === 0 || status === 1)) || order.is_completed) actions.push('<button type="button" class="bo-action bo-action-danger" data-action="delete" data-order-id="' + id + '">隐藏订单</button>');
+        if (order.can_hide === true) actions.push('<button type="button" class="bo-action bo-action-danger" data-action="delete" data-order-id="' + id + '">隐藏订单</button>');
         if (order.payment_exception) actions.push('<span class="bo-good-meta">支付需人工核验，请联系商家或平台；请勿重复付款。</span>');
         if (order.status === 1 && order.expires_at) actions.push('<span class="bo-good-meta">付款截止：' + escapeHtml(new Date(order.expires_at).toLocaleString()) + '</span>');
         return actions.join('');
@@ -141,7 +141,7 @@
 
     function changeOrder(action, id) {
         var deleting = action === 'delete', cancelling = action === 'cancel';
-        if (!confirm(deleting ? '确定隐藏订单吗？未付款订单将同时取消并释放库存，记录仍保留。' : cancelling ? '取消订单并释放库存？取消记录仍计入预留限制。' : '确认已经收到这个订单的商品吗？')) return;
+        if (!confirm(deleting ? '确定仅从列表隐藏订单吗？交易状态、库存与评价记录均不改变。' : cancelling ? '取消订单并释放库存？取消记录仍计入预留限制。' : '确认已经收到这个订单的商品吗？')) return;
         $.ajax({
             url: apiBase + '/v1/orders/' + encodeURIComponent(username) + (deleting ? '/delete' : cancelling ? '/cancel' : '/confirm-receipt'),
             type: 'POST',

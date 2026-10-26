@@ -40,7 +40,7 @@
 | logistics · 物流 | 0.1.1 | 移除无效导入；物流查询和服务保持原有规则 | [logistics](changelogs/logistics.md) |
 | supplier · 商家与结算 | 0.4.0 | 禁止物理删除已完成订单，保留买家评价依据；咨询／评价管理导航由web提供。 | [supplier](changelogs/supplier.md) |
 | admin_panel · 平台运营 | 0.4.2 | 平台交易总览、角色与权限联合控制、共用销售条件 | [admin_panel](changelogs/admin_panel.md) |
-| support_ai · 智能客服 | 0.17.3 | 问候和功能咨询在模型配置与长期偏好读取前程序匹配并返回固定回复；未执行自动化或真实模型验收 | [support_ai](changelogs/support_ai.md) |
+| support_ai · 智能客服 | 0.19.0 | 知识结论逐项核对原文与语义支持；业务文字固定组合并拒绝模型改写，验证与既有失败见本轮证据 | [support_ai](changelogs/support_ai.md) |
 | merchant_ai · 商家智能助手 | 0.1.0 | 入口与初始化状态，聊天／模型／上传／经营工具未接入 | [merchant_ai](changelogs/merchant_ai.md) |
 | ai_storage · AI 记忆与知识存储 | 0.3.3 | 保持查询改写所用知识／向量与短Embedding超时基线 | [ai_storage](changelogs/ai_storage.md) |
 | web · 页面与前端资源 | 0.31.3 | 新增买家／商家消息中心、未读和关联卡片、评价提交、商家回复及运营举报治理；详情页同页评价与评分分布，支持三语、RTL和响应式。 | [web](changelogs/web.md) |

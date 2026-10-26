@@ -17,6 +17,7 @@ from . import test_grouped_recommendations as grouped_fixtures
 from .tool_services import create_tool_handlers
 from .workflow import ComplianceVerdict, DialogueResolution, build_graph
 from .semantic_planning import SemanticPlan
+from .grounding import GroundingReview
 
 
 QUESTION = '说明不同茶种的区别，给出具体说明的茶种的推荐商品'
@@ -54,9 +55,13 @@ class ExplanationModel(Runnable):
                     if not ids:
                         continue
                     evidence = next(e for e in data['evidence'] if e['source_id'] == ids[0])
-                    sections.append({'category': category, 'explanation': category + '以所引资料的制造工艺为依据进行分类和区别。',
-                                     'citations': [{'source_id': ids[0], 'quote': '不是来源中的逐字引文' if self.bad_quote else evidence['text'][:100]}]})
+                    sections.append({'category': category, 'claims': [
+                        {'text': category + '以所引资料的制造工艺为依据进行分类和区别。',
+                         'citations': [{'source_id': ids[0], 'quote': '不是来源中的逐字引文' if self.bad_quote else evidence['text'][:100]}]}]})
                 return TeaExplanation(sections=sections)
+            if schema is GroundingReview:
+                return GroundingReview(verdicts=[{'claim_id': row['claim_id'], 'supported': True,
+                    'standalone': True, 'relevant': True} for row in json.loads(text)['claims']])
             if schema is DialogueResolution:
                 return DialogueResolution(standalone_question=text.split('本轮：')[1].split('\n')[0], source_turn_ids=[], needs_clarification=False)
             if schema is RecommendationIntent:

@@ -82,6 +82,7 @@
                 <label>每买家累计待付数量 <input name="max_unpaid_quantity" type="number" min="1" max="100000" required></label>
                 <label>每买家累计待付金额（CNY） <input name="max_unpaid_amount" type="number" min="1" max="10000000" step="0.01" required></label>
                 <label>单次采购占实物库存上限（%） <input name="max_stock_percent" type="number" min="1" max="100" required></label>
+                <label>变更依据 <input name="change_reason" type="text" maxlength="200" required placeholder="说明供货、包装单位或批量采购调整依据"></label>
                 <small>超限买家需先联系商家确认。规则只影响新订单；平台累计限额及冷却规则仍生效。库存修改不能低于已预留数量。</small>
                 <button type="submit" disabled>保存库存保护规则</button><p id="reservation-policy-status" role="status"></p>
             </form>
@@ -232,6 +233,6 @@
         });
         }
     </script>
-<script src="/static/js/reservation-policy.js?v=20261022-stock"></script>
+<script src="/static/js/reservation-policy.js?v=20261026-audit"></script>
 </body>
 </html>

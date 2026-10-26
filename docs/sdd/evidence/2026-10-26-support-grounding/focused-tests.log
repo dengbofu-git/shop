@@ -1,0 +1,182 @@
+Creating test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
+Operations to perform:
+  Synchronize unmigrated apps: admin_panel, corsheaders, merchant_ai, messages, staticfiles
+  Apply all migrations: admin, ai_storage, auth, contenttypes, engagement, goods, inventory, logistics, news, orders, sessions, supplier, support_ai, users
+Synchronizing apps without migrations:
+  Creating tables...
+    Running deferred SQL...
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying auth.0001_initial... OK
+  Applying admin.0001_initial... OK
+  Applying admin.0002_logentry_remove_auto_add... OK
+  Applying admin.0003_logentry_add_action_flag_choices... OK
+  Applying ai_storage.0001_initial... OK
+  Applying ai_storage.0002_embedding_validation... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying auth.0012_alter_user_first_name_max_length... OK
+  Applying users.0001_initial... OK
+  Applying users.0002_address... OK
+  Applying users.0003_weiboprofile... OK
+  Applying users.0004_auto_20260218_0108... OK
+  Applying users.0005_permission_role_rolepermission_userrole... OK
+  Applying users.0006_create_admin_user... OK
+  Applying users.0007_create_customs_user... OK
+  Applying goods.0001_initial... OK
+  Applying orders.0001_initial... OK
+  Applying orders.0002_auto_20260218_0147... OK
+  Applying goods.0002_spu_merchant... OK
+  Applying goods.0003_auto_20260218_0147... OK
+  Applying goods.0004_add_carousel_slide... OK
+  Applying goods.0005_brand_logo_optional... OK
+  Applying goods.0006_sku_is_recommended... OK
+  Applying goods.0007_spu_brand_optional... OK
+  Applying goods.0008_auto_20261002_2159... OK
+  Applying goods.0009_browsinghistory_favorite... OK
+  Applying goods.0010_catalog_fallback_image... OK
+  Applying orders.0003_auto_20261021_1530... OK
+  Applying engagement.0001_initial... OK
+  Applying engagement.0002_conversation_visibility... OK
+  Applying goods.0011_merchantfavorite... OK
+  Applying inventory.0001_initial... OK
+  Applying inventory.0002_auto_20261022_1741... OK
+  Applying logistics.0001_initial... OK
+  Applying news.0001_initial... OK
+  Applying users.0008_userprofile_nickname... OK
+  Applying orders.0004_auto_20261022_1741... OK
+  Applying orders.0005_reservationpolicychange... OK
+  Applying sessions.0001_initial... OK
+  Applying supplier.0001_initial... OK
+  Applying supplier.0002_storepage... OK
+  Applying support_ai.0001_initial... OK
+  Applying support_ai.0002_agent_observability... OK
+  Applying support_ai.0003_agent_reranking... OK
+  Applying support_ai.0004_conversation_order_context... OK
+Creating test database for alias 'ai_storage' ('file:memorydb_ai_storage?mode=memory&cache=shared')...
+Operations to perform:
+  Synchronize unmigrated apps: admin_panel, corsheaders, merchant_ai, messages, staticfiles
+  Apply all migrations: admin, ai_storage, auth, contenttypes, engagement, goods, inventory, logistics, news, orders, sessions, supplier, support_ai, users
+Synchronizing apps without migrations:
+  Creating tables...
+    Running deferred SQL...
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying auth.0001_initial... OK
+  Applying admin.0001_initial... OK
+  Applying admin.0002_logentry_remove_auto_add... OK
+  Applying admin.0003_logentry_add_action_flag_choices... OK
+  Applying ai_storage.0001_initial... OK
+  Applying ai_storage.0002_embedding_validation... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying auth.0012_alter_user_first_name_max_length... OK
+  Applying users.0001_initial... OK
+  Applying users.0002_address... OK
+  Applying users.0003_weiboprofile... OK
+  Applying users.0004_auto_20260218_0108... OK
+  Applying users.0005_permission_role_rolepermission_userrole... OK
+  Applying users.0006_create_admin_user... OK
+  Applying users.0007_create_customs_user... OK
+  Applying goods.0001_initial... OK
+  Applying orders.0001_initial... OK
+  Applying orders.0002_auto_20260218_0147... OK
+  Applying goods.0002_spu_merchant... OK
+  Applying goods.0003_auto_20260218_0147... OK
+  Applying goods.0004_add_carousel_slide... OK
+  Applying goods.0005_brand_logo_optional... OK
+  Applying goods.0006_sku_is_recommended... OK
+  Applying goods.0007_spu_brand_optional... OK
+  Applying goods.0008_auto_20261002_2159... OK
+  Applying goods.0009_browsinghistory_favorite... OK
+  Applying goods.0010_catalog_fallback_image... OK
+  Applying orders.0003_auto_20261021_1530... OK
+  Applying engagement.0001_initial... OK
+  Applying engagement.0002_conversation_visibility... OK
+  Applying goods.0011_merchantfavorite... OK
+  Applying inventory.0001_initial... OK
+  Applying inventory.0002_auto_20261022_1741... OK
+  Applying logistics.0001_initial... OK
+  Applying news.0001_initial... OK
+  Applying users.0008_userprofile_nickname... OK
+  Applying orders.0004_auto_20261022_1741... OK
+  Applying orders.0005_reservationpolicychange... OK
+  Applying sessions.0001_initial... OK
+  Applying supplier.0001_initial... OK
+  Applying supplier.0002_storepage... OK
+  Applying support_ai.0001_initial... OK
+  Applying support_ai.0002_agent_observability... OK
+  Applying support_ai.0003_agent_reranking... OK
+  Applying support_ai.0004_conversation_order_context... OK
+System check identified no issues (0 silenced).
+test_reviewer_failure_returns_503_and_never_saves_a_success_turn (support_ai.test_grounding.GroundedHttpTests) ... {"timestamp": "2026-10-26T01:57:21.606+00:00", "level": "ERROR", "service": "tea_saas", "logger": "support_ai.views", "event": "support.workflow.failed", "http_request_id": "b39fea5840304067aeff667eac106d52", "trace_id": "225e32427ba8a4e5806a6b05b29f1d17", "span_id": "845eba58ff66474a", "method": "POST", "route": "v1/support/chat/", "error_type": "RuntimeError", "stack": [{"file": "views.py", "function": "chat", "line": 161}]}
+{"timestamp": "2026-10-26T01:57:21.607+00:00", "level": "ERROR", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "b39fea5840304067aeff667eac106d52", "trace_id": "225e32427ba8a4e5806a6b05b29f1d17", "span_id": "845eba58ff66474a", "method": "POST", "route": "v1/support/chat/", "http_status": 503, "duration_ms": 61.86, "outcome": "server_error"}
+ok
+test_unsupported_claim_is_a_clear_no_match_without_source_badges (support_ai.test_grounding.GroundedHttpTests) ... ok
+test_verified_claims_persist_and_idempotent_replay_does_not_run_model (support_ai.test_grounding.GroundedHttpTests) ... ok
+test_attributes_are_public_bounded_and_redacted (support_ai.test_product_details.PublicProductDetailsTests) ... ok
+test_exhausted_ledger_does_not_revive_legacy_stock (support_ai.test_product_details.PublicProductDetailsTests) ... ok
+test_hidden_missing_and_empty_stock_have_same_public_result (support_ai.test_product_details.PublicProductDetailsTests) ... ok
+test_ledger_sum_overrides_legacy_stock_and_is_reloaded (support_ai.test_product_details.PublicProductDetailsTests) ... ok
+test_management_bridge_outputs_json_and_sanitizes_database_failure (support_ai.test_product_details.PublicProductDetailsTests) ... ok
+test_management_bridge_rejects_out_of_range_id (support_ai.test_product_details.PublicProductDetailsTests) ... ok
+test_public_shape_legacy_stock_and_read_only_queries (support_ai.test_product_details.PublicProductDetailsTests) ... ok
+test_strict_ids_fail_before_database_access (support_ai.test_product_details.PublicProductDetailsTests) ... ok
+test_changed_price_currency_stock_state_or_promise_discards_entire_rewrite (support_ai.test_grounding.BusinessFactConsistencyTests) ... ok
+test_missing_business_answer_never_triggers_free_form_generation (support_ai.test_grounding.BusinessFactConsistencyTests) ... ok
+test_product_details_are_rendered_from_dto_not_the_provided_prose (support_ai.test_grounding.BusinessFactConsistencyTests) ... ok
+test_swapping_prices_between_products_is_not_accepted_as_same_numbers (support_ai.test_grounding.BusinessFactConsistencyTests) ... ok
+test_unchanged_answer_passes (support_ai.test_grounding.BusinessFactConsistencyTests) ... ok
+test_category_cannot_borrow_another_categories_valid_source (support_ai.test_grounding.ClaimGroundingTests) ... ok
+test_evidence_budget_is_shared_and_source_ids_are_server_owned (support_ai.test_grounding.ClaimGroundingTests) ... ok
+test_generator_transport_failure_does_not_become_evidence_insufficient (support_ai.test_grounding.ClaimGroundingTests) ... ok
+test_irrelevant_or_non_standalone_claims_are_not_published (support_ai.test_grounding.ClaimGroundingTests) ... ok
+test_knowledge_cannot_override_live_product_or_order_facts_even_with_a_quote (support_ai.test_grounding.ClaimGroundingTests) ... ok
+test_malformed_structure_gets_one_retry_then_is_a_technical_failure (support_ai.test_grounding.ClaimGroundingTests) ... ok
+test_market_amounts_are_not_rejected_just_for_mentioning_money (support_ai.test_grounding.ClaimGroundingTests) ... ok
+test_missing_or_duplicate_verdict_is_a_technical_failure (support_ai.test_grounding.ClaimGroundingTests) ... ok
+test_new_numerals_are_rejected_even_if_model_would_approve (support_ai.test_grounding.ClaimGroundingTests) ... ok
+test_no_evidence_does_not_invoke_models_or_attach_sources (support_ai.test_grounding.ClaimGroundingTests) ... ok
+test_number_lists_are_not_merged_and_valid_thousands_keep_their_value (support_ai.test_grounding.ClaimGroundingTests) ... ok
+test_one_repair_can_replace_a_bad_claim (support_ai.test_grounding.ClaimGroundingTests) ... ok
+test_partial_output_preserves_whole_standalone_units (support_ai.test_grounding.ClaimGroundingTests) ... ok
+test_real_quote_with_unsupported_extra_conclusion_is_rejected (support_ai.test_grounding.ClaimGroundingTests) ... ok
+test_reviewer_outage_never_becomes_supported_or_no_match (support_ai.test_grounding.ClaimGroundingTests) ... ok
+test_reviewer_receives_negated_full_context_not_only_cherry_picked_quote (support_ai.test_grounding.ClaimGroundingTests) ... ok
+test_unknown_id_or_fabricated_quote_never_reaches_reviewer (support_ai.test_grounding.ClaimGroundingTests) ... ok
+test_verified_claim_is_returned_with_exact_quote_and_source (support_ai.test_grounding.ClaimGroundingTests) ... ok
+test_empty_knowledge_cannot_produce_a_model_invented_answer (support_ai.test_grounding.GraphFactConsistencyTests) ... ok
+test_safe_but_false_compliance_rewrite_cannot_alter_mixed_order_facts (support_ai.test_grounding.GraphFactConsistencyTests) ... ok
+test_safety_block_does_not_leak_rejected_prose_through_grounding_audit (support_ai.test_grounding.GraphFactConsistencyTests) ... ok
+test_review_failure_is_error_and_independent_tasks_can_continue (support_ai.test_grounding.TeaGroundingTests) ... ok
+test_valid_quote_but_unsupported_tea_claim_does_not_unlock_recommendation (support_ai.test_grounding.TeaGroundingTests) ... ok
+test_each_specialist_preserves_grounded_output (support_ai.tests.GraphTests) ... ok
+test_legacy_order_context_is_not_forwarded_to_models (support_ai.tests.GraphTests) ... ok
+test_normal_answer_can_refer_to_human_support (support_ai.tests.GraphTests) ... ok
+test_pii_node_runs_before_classifier (support_ai.tests.GraphTests) ... ok
+test_unclear_intent_uses_bounded_clarification (support_ai.tests.GraphTests) ... ok
+
+----------------------------------------------------------------------
+Ran 44 tests in 0.490s
+
+OK
+Destroying test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
+Destroying test database for alias 'ai_storage' ('file:memorydb_ai_storage?mode=memory&cache=shared')...

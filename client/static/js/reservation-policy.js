@@ -11,7 +11,7 @@
     button.disabled=true;
     request().then(function(data){fields.forEach(function(k){form.elements[k].value=data[k];});button.disabled=false;}).catch(function(error){message.textContent=error.message;});
     form.addEventListener('submit',async function(event){event.preventDefault();if(button.disabled)return;button.disabled=true;
-        try{if(AuthStorage.getToken()!==token)throw new Error('账号已改变，请刷新');var data={};fields.forEach(function(k){data[k]=form.elements[k].value;});await request({method:'PUT',body:JSON.stringify(data)});message.textContent='规则已保存，仅影响新订单，已有预留不延期。';}
+        try{if(AuthStorage.getToken()!==token)throw new Error('账号已改变，请刷新');var data={};fields.forEach(function(k){data[k]=form.elements[k].value;});data.change_reason=form.elements.change_reason.value.trim();await request({method:'PUT',body:JSON.stringify(data)});message.textContent='规则已保存，变更依据已记录；仅影响新订单，已有预留不延期。';}
         catch(error){message.textContent=error.message;}finally{button.disabled=false;}
     });
 })();

@@ -1,9 +1,9 @@
 import json
-from django.db import OperationalError
+from django.db import OperationalError,transaction
 from django.http import JsonResponse
 from django.views.decorators.cache import never_cache
 from users.decorators import get_user_from_request
-from .models import ReservationPolicy
+from .models import ReservationPolicy,ReservationPolicyChange
 from .reservations import (ReservationError, positive, fingerprint, replay, create_orders, close_order)
 
 
@@ -98,15 +98,25 @@ def reservation_policy(request):
         if request.method=='PUT':
             from decimal import Decimal,InvalidOperation
             data=json.loads(request.body)
-            if not isinstance(data,dict) or set(data)!=set(fields):raise ValueError()
+            if not isinstance(data,dict) or set(data)!=set(fields+['change_reason']):raise ValueError()
+            if not isinstance(data['change_reason'],str) or not 1<=len(data['change_reason'].strip())<=200:raise ValueError()
             values={k:positive(data[k]) for k in fields if k!='max_unpaid_amount'}
             amount=Decimal(str(data['max_unpaid_amount']))
             if not amount.is_finite() or not Decimal('1')<=amount<=Decimal('10000000') or amount!=amount.quantize(Decimal('.01')):raise ValueError()
             if not 60<=values['ttl_seconds']<=900 or not 1<=values['max_stock_percent']<=100 or values['max_unpaid_quantity']>100000:raise ValueError()
             values['max_unpaid_amount']=amount
-            policy,_=ReservationPolicy.objects.update_or_create(merchant=user,defaults=values)
+            with transaction.atomic():
+                from users.models import UserProfile
+                UserProfile.objects.select_for_update().get(pk=user.pk)
+                policy,_=ReservationPolicy.objects.get_or_create(merchant=user)
+                policy=ReservationPolicy.objects.select_for_update().get(pk=policy.pk)
+                before={k:format(getattr(policy,k),'.2f') if k=='max_unpaid_amount' else getattr(policy,k) for k in fields}
+                for key,value in values.items():setattr(policy,key,value)
+                policy.save(update_fields=fields)
+                after={k:format(getattr(policy,k),'.2f') if k=='max_unpaid_amount' else getattr(policy,k) for k in fields}
+                ReservationPolicyChange.objects.create(merchant=user,actor=user,before=before,after=after,reason=data['change_reason'].strip())
         elif request.method=='GET':policy=ReservationPolicy.objects.filter(merchant=user).first() or ReservationPolicy(merchant=user)
         else:return JsonResponse({'code':405,'error':'方法不允许'},status=405)
-        return JsonResponse({'code':200,'data':{k:str(getattr(policy,k)) if k=='max_unpaid_amount' else getattr(policy,k) for k in fields}})
+        return JsonResponse({'code':200,'data':{k:format(getattr(policy,k),'.2f') if k=='max_unpaid_amount' else getattr(policy,k) for k in fields}})
     except (ValueError,TypeError,AttributeError,ArithmeticError,ReservationError):
-        return JsonResponse({'code':400,'error':'规则无效：时限60～900秒，占比1～100%，数量和金额须为正数'},status=400)
+        return JsonResponse({'code':400,'error':'规则无效：时限60～900秒，占比1～100%，数量和金额须为正数，且须填写变更依据'},status=400)
