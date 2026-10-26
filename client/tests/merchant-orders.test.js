@@ -3,7 +3,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const api = require('../static/js/merchant-orders.js');
 const fixture = [1, 2, 3, 4].map(status => ({order_id: String(status), status, total_amount: '35',
-    order_type: 'standard', can_ship: status === 2, can_delete: status === 1,
+    order_type: 'standard', can_ship: status === 2, can_cancel: status === 1,
     status_text: ['', '待付款', '待发货', '待收货', '订单完成'][status]}));
 fixture.push({order_id: 'trial', status: 4, status_text: '试用中'},
     {order_id: 'presale', status: 1, status_text: '待付定金'});
@@ -14,6 +14,8 @@ async function main() {
     assert.equal(api.statusOf({status: 4}), '已完成');
     assert.equal(api.statusOf({status: 4, status_text: '试用中'}), '试用中');
     assert.equal(api.statusOf({status: null}), '未知状态');
+    assert.equal(api.statusOf({order_type:'standard',status:0}), '已关闭');
+    assert.equal(api.statusOf({order_type:'standard',status:null}), '未知状态');
     assert.equal(api.initialFilter('?embed=1&filter=unshipped'), '待发货');
     assert.equal(api.initialFilter('?filter=4'), '已完成');
     assert.equal(api.initialFilter(''), '全部');
@@ -22,13 +24,15 @@ async function main() {
     assert(html.includes('&lt;img onerror=x&gt;') && html.includes('&amp;&quot;&#39;'));
     assert(html.includes('￥35.00') && html.includes('scope="col"'));
     assert(!api.rowsHtml([fixture[2]]).includes('data-action='));
+    assert(!api.rowsHtml([{status:2}]).includes('data-action='));
+    assert(!api.rowsHtml([fixture[3]]).includes('data-action='));
     assert(api.rowsHtml([fixture[1]]).includes('data-action="ship"'));
-    assert(api.rowsHtml([{order_id:'trial-ship',status:null,status_text:'待发货',can_ship:true,can_delete:false}]).includes('data-action="ship"'));
-    assert(!api.rowsHtml([{order_id:'mixed',status:2,can_ship:false,can_delete:false,requires_merchant_split:true}]).includes('data-action='));
+    assert(api.rowsHtml([{order_id:'trial-ship',status:null,status_text:'待发货',can_ship:true,can_cancel:false}]).includes('data-action="ship"'));
+    assert(!api.rowsHtml([{order_id:'mixed',status:2,can_ship:false,can_cancel:false,requires_merchant_split:true}]).includes('data-action='));
     let subtypeCalls=[];
     const subtypeController=api.createController({render:()=>{},confirm:()=>true,notify:()=>{},
         request:async function(action,id) { subtypeCalls.push([action,id]);return {code:200,data:[
-            {order_id:'trial-ship',status:null,status_text:'待发货',can_ship:true,can_delete:false}]}; }});
+            {order_id:'trial-ship',status:null,status_text:'待发货',can_ship:true,can_cancel:false}]}; }});
     await subtypeController.load();
     await subtypeController.act('ship','trial-ship');
     assert(subtypeCalls.some(call=>call[0]==='ship'),'Subtype action follows authenticated API flag, not null base status');
@@ -43,7 +47,7 @@ async function main() {
             }
             if (failAction) return {code: 400, error: '库存不足'};
             if (action === 'ship') Object.assign(server.find(o => o.order_id === id), {status: 3, status_text: '待收货'});
-            else Object.assign(server.find(o => o.order_id === id), {status: 0, status_text: '已关闭', can_delete: false});
+            else Object.assign(server.find(o => o.order_id === id), {status: 0, status_text: '已关闭', can_cancel: false});
             return {code: 200};
         }});
     await controller.load();

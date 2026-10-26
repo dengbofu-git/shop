@@ -74,7 +74,7 @@
     },
     "orders": {
       "title": "订单管理",
-      "version": "0.4.0",
+      "version": "0.4.1",
       "paths": [
         "orders/",
         "versions/changelogs/orders.md"
@@ -140,7 +140,7 @@
     },
     "supplier": {
       "title": "商家与结算",
-      "version": "0.4.0",
+      "version": "0.4.1",
       "paths": [
         "supplier/",
         "versions/changelogs/supplier.md"
@@ -233,7 +233,7 @@
     },
     "web": {
       "title": "页面与前端资源",
-      "version": "0.31.3",
+      "version": "0.31.4",
       "paths": [
         "client/",
         "templates/",
