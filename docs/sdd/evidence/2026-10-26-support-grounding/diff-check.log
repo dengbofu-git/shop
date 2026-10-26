@@ -1,0 +1,13 @@
+warning: in the working copy of 'docs/sdd/modules/ai-support/current-agent.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'support_ai/contracts.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'support_ai/diagnostics.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'support_ai/pii.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'support_ai/planning.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'support_ai/product_details.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'support_ai/recommendation_explanations.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'support_ai/semantic_planning.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'support_ai/tea_explanation.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'support_ai/test_mixed_tea.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'support_ai/test_task_tools.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'support_ai/tests.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'support_ai/tool_services.py', LF will be replaced by CRLF the next time Git touches it
