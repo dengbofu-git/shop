@@ -220,6 +220,8 @@ class OrdersView(View):
                         'order_sku': order_good,
                         'status_text': order.get_status_display_text(),
                         'is_completed': completed(order),
+                        'can_cancel': order.order_type=='standard' and order.status==1 and not order.paid_at and not order.payment_exception,
+                        'can_hide': (order.order_type=='standard' and order.status==0) or completed(order),
                     })
 
         data = {'orders_list': list(orders_list)}
@@ -328,16 +330,12 @@ def delete_order(request, username):
     except OrderInfo.DoesNotExist:
         return JsonResponse({'code': 404, 'error': '订单不存在'}, status=404)
     from engagement.services import completed
-    unpaid = order.order_type == 'standard' and order.status == 1
-    if not (unpaid or order.status == 0 or completed(order)):
-        return JsonResponse({'code': 400, 'error': '仅待付款或已完成订单可删除'}, status=400)
+    if not ((order.order_type == 'standard' and order.status == 0) or completed(order)):
+        return JsonResponse({'code':409,'error':'仅已关闭或已完成订单可隐藏；待付款订单请明确取消'},status=409)
     try:
-        if unpaid:
-            from .reservations import close_order
-            close_order(order.pk,user.pk)
         with transaction.atomic():
             order = OrderInfo.objects.select_for_update().get(pk=order.pk, user_profile=user)
-            if not (order.status == 0 or completed(order)):
+            if not ((order.order_type == 'standard' and order.status == 0) or completed(order)):
                 return JsonResponse({'code': 409, 'error': '订单状态已改变，请刷新'}, status=409)
             order.buyer_hidden = True
             order.save(update_fields=['buyer_hidden', 'updated_time'])

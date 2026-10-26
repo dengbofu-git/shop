@@ -155,7 +155,7 @@ class ReservationTests(Fixtures,TestCase):
             self.assertEqual(self.client.post('/v1/pays/notify',payload).content,b'success')
         order.refresh_from_db();self.assertEqual(order.status,2)
     def test_policy_endpoint_cannot_edit_other_merchant_and_rejects_invalid_limits(self):
-        url='/v1/supplier/reservation-policy';data={'ttl_seconds':600,'max_unpaid_quantity':200,'max_unpaid_amount':'20000','max_stock_percent':75}
+        url='/v1/supplier/reservation-policy';data={'ttl_seconds':600,'max_unpaid_quantity':200,'max_unpaid_amount':'20000','max_stock_percent':75,'change_reason':'按供货计划调整'}
         self.assertEqual(self.client.put(url,data,content_type='application/json',**self.headers(self.buyers[0])).status_code,403)
         self.assertEqual(self.client.put(url,data,content_type='application/json',**self.headers(self.shops[0])).status_code,200)
         self.assertEqual(ReservationPolicy.objects.get(merchant=self.shops[1]).max_stock_percent,100)

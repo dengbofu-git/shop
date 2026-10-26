@@ -210,3 +210,12 @@ class CheckoutThrottle(models.Model):
     key = models.CharField(max_length=64, primary_key=True)
     window_start = models.DateTimeField()
     attempts = models.PositiveIntegerField(default=0)
+
+
+class ReservationPolicyChange(models.Model):
+    merchant = models.ForeignKey(UserProfile,on_delete=models.PROTECT,related_name='reservation_policy_changes')
+    actor = models.ForeignKey(UserProfile,on_delete=models.PROTECT,related_name='authored_reservation_policy_changes')
+    before = models.JSONField(default=dict)
+    after = models.JSONField(default=dict)
+    reason = models.CharField(max_length=200)
+    effective_at = models.DateTimeField(auto_now_add=True)

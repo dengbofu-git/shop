@@ -46,7 +46,7 @@
                 var id = escape(o.order_id || '-'), state = statusOf(o), status = Number(o.status);
                 var actions = '';
                 if (allowed(o, 'ship')) actions += '<button type="button" class="btn-ship" data-action="ship" data-order-id="' + id + '">发货</button>';
-                if (allowed(o, 'delete')) actions += '<button type="button" class="btn-delete-order" data-action="delete" data-order-id="' + id + '">取消订单</button>';
+                if (allowed(o, 'cancel')) actions += '<button type="button" class="btn-delete-order" data-action="delete" data-order-id="' + id + '">取消订单</button>';
                 if (o.requires_merchant_split) actions = '<span>需平台处理商家拆分</span>';
                 var tone = standard.indexOf(state);
                 var amount = Number(o.total_amount);
@@ -81,8 +81,8 @@
             if (busy || loading || (action !== 'ship' && action !== 'delete')) return;
             var order = orders.find(function (o) { return String(o.order_id) === id; });
             if (!order) return;
-            if (!allowed(order, action)) return;
-            if (action === 'delete' && !deps.confirm('确定要取消未付款订单 ' + id + ' 吗？订单记录将保留。')) return;
+            if (!allowed(order, action === 'delete' ? 'cancel' : action)) return;
+            if (action === 'delete' && !deps.confirm('确定取消订单 ' + id + ' 并释放库存吗？交易记录将保留。')) return;
             busy = true; error = ''; render();
             try {
                 var result = await deps.request(action, id);

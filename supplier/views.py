@@ -41,6 +41,7 @@ class SupplierOrderListView(View):
         
         # 获取包含这些SKU的订单
         from .workbench import owned_items
+        from orders.reservations import merchant_actions
         from orders.models import OrderGoods
         owned = OrderGoods.objects.filter(owned_items(user))
         orders = OrderInfo.objects.filter(pk__in=owned.values('order_info_id')).distinct().select_related('trialorder', 'presaleorder').order_by('-created_time')
@@ -66,7 +67,7 @@ class SupplierOrderListView(View):
                 'order_type': order.order_type,
                 'status': order.status,
                 'status_text': order.get_status_display_text(),
-                'can_ship': owned_only and can_ship(order),
+                **merchant_actions(order,user),
                 'can_delete': owned_only and can_delete(order),
                 'requires_merchant_split': not owned_only,
                 'total_amount': float(total_amount),
@@ -103,7 +104,7 @@ class SupplierOrderShipView(View):
 class SupplierOrderDeleteView(View):
     """Retained endpoint cancels an unpaid standard order without deleting history."""
     def post(self, request):
-        from orders.reservations import close_order, ReservationError
+        from orders.reservations import cancel_by_merchant, ReservationError
         from orders.checkout_views import error_response
         from orders.lifecycle import require_single_merchant, OrderActionError
         user=request.user_profile
@@ -115,7 +116,7 @@ class SupplierOrderDeleteView(View):
             order=OrderInfo.objects.get(pk=data['order_id'])
             require_single_merchant(order,user)
             if not can_delete(order):return JsonResponse({'code':409,'error':'当前订单须保留履约和交易记录，不能删除'},status=409)
-            close_order(order.pk,merchant_id=user.pk)
+            cancel_by_merchant(order.pk,user)
             return JsonResponse({'code':200,'msg':'订单已取消，库存已释放，记录保留'})
         except OrderInfo.DoesNotExist:return JsonResponse({'code':404,'error':'订单不存在'},status=404)
         except OrderActionError as exc:return JsonResponse({'code':exc.status,'error':str(exc)},status=exc.status)
