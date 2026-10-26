@@ -1,27 +1,29 @@
 openapi: 3.0.3
 info:
   title: tea_saas 客服HTTP当前实现观察
-  version: "0.17.0-observed.20261023"
-  description: 2026-10-23订单工具增量仅观察源码；下列历史探针属于2026-10-18，不是本次运行证据或生产验收。业务目标仍以api-contract.yaml和规格0.2.0为准。
+  version: 0.18.0-observed.20261023
+  description: 2026-10-23当前源码静态观察；历史探针按原日期阅读，不是本轮运行或验收。唯一目标为api-contract.yaml与规格0.3.0，本文件只登记已观察协议及目标差异。
 x-status: source-observed-not-order-runtime-verified
 x-evidence: docs/sdd/evidence/2026-10-18-project-chat-sdd/manifest.json
 x-historical-evidence: docs/sdd/evidence/2026-10-16-sdd-reconciliation/manifest.json
 x-target-contract: api-contract.yaml
 x-observed-differences:
-  - 明确不可访问订单新增error_code=ORDER_NOT_QUERYABLE；其他错误仍未统一错误码。
-  - 明确他人或不存在订单由工具判定后HTTP404且不保存轮次；历史探针的200不代表当前增量结果。复杂意图仍可能先调用模型，不符合旧草案模型前404的时序。
-  - 本轮带明确标签的中英文编号由随机ORDER_REF替换；未识别格式、历史存量及完整响应树的过滤不能据此宣称已全部完成。
-  - 历史列表和详情GET已按既有模式再脱敏；成功重放仍直接返回保存内容。英文编号完整过滤目标仍未完成。
-  - 模型上下文使用turn-数据库主键，没有临时ctx映射。
-  - 单订单结果用工具固定模板，不调用组合或合规模型；意图识别仍可能用模型，未实现全链路模型前短路。
+- 明确不可访问订单新增error_code=ORDER_NOT_QUERYABLE；其他错误仍未统一错误码。
+- 明确他人或不存在订单由工具判定后HTTP404且不保存轮次；历史探针的200不代表当前增量结果。复杂意图仍可能先调用模型；确定性可识别订单任务的无模型路径仍需验证。
+- 本轮带明确标签的中英文编号由随机ORDER_REF替换；未识别格式、历史存量及完整响应树的过滤不能据此宣称已全部完成。
+- 历史列表和详情GET已按既有模式再脱敏；成功重放仍直接返回保存内容。英文编号完整过滤目标仍未完成。
+- 模型上下文使用turn-数据库主键，没有临时ctx映射。
+- 单订单结果用工具固定模板，不调用组合或合规模型；意图识别仍可能用模型，未实现全链路模型前短路。
+- recent最多3；all每页最多20，创建日期独立按上海首尾包含筛选；当前页位置追问映射尚未实施。
+- 共享偏好前置、混合不可见整轮404与目标R01/R02仍有差异。
 x-request-notes:
-  - Bearer身份必须是活跃customer类型；共享认证、历史GET/DELETE及订单工具均拒绝停用账号。
-  - request_id省略时生成；expected_revision省略或null时跳过客户端revision比较，最终提交仍校验读到的revision。
-  - conversation_id通过truthiness判断，旧入口除省略/null外也将空字符串等假值视作无会话；目标客户端只发送规范UUID或省略。
-  - 同用户/同request_id的已有成功重放优先于会话加载、偏好读取和订单查询；不重新读取状态。
-  - 订单号本地解析不查库；仅after_sales执行get_order_status时查询本人订单。混合任务中明确编号不可见也返回404，不提交轮次。
+- Bearer身份必须是活跃customer类型；共享认证、历史GET/DELETE及订单工具均拒绝停用账号。
+- request_id省略时生成；expected_revision省略或null时跳过客户端revision比较，最终提交仍校验读到的revision。
+- conversation_id通过truthiness判断，旧入口除省略/null外也将空字符串等假值视作无会话；目标客户端只发送规范UUID或省略。
+- 同用户/同request_id的已有成功重放优先于会话加载、偏好读取和订单查询；不重新读取状态。
+- 订单号本地解析不查库；仅after_sales执行get_order_status时查询本人订单。混合任务中明确编号不可见也返回404，不提交轮次。
 security:
-  - BuyerBearer: []
+- BuyerBearer: []
 paths:
   /v1/support/chat/:
     post:
@@ -33,39 +35,70 @@ paths:
             schema:
               type: object
               additionalProperties: false
-              required: [message]
+              required:
+              - message
               properties:
-                message: {type: string, minLength: 1, maxLength: 1000}
-                request_id: {type: string, description: UUID可接受形式；显式null不合法。}
-                conversation_id: {nullable: true, description: 正常客户端为UUID字符串；旧入口还接受假值表示新会话。}
-                expected_revision: {type: integer, minimum: 0, nullable: true}
+                message:
+                  type: string
+                  minLength: 1
+                  maxLength: 1000
+                request_id:
+                  type: string
+                  description: UUID可接受形式；显式null不合法。
+                conversation_id:
+                  nullable: true
+                  description: 正常客户端为UUID字符串；旧入口还接受假值表示新会话。
+                expected_revision:
+                  type: integer
+                  minimum: 0
+                  nullable: true
       responses:
         '200':
           description: 已有成功重放或新成功轮次；未指定编号且本人无订单可返回正常no_match。
           content:
             application/json:
-              schema: {$ref: '#/components/schemas/ObservedSuccess'}
-        '400': {$ref: '#/components/responses/ObservedError'}
-        '401': {$ref: '#/components/responses/ObservedError'}
-        '403': {$ref: '#/components/responses/ObservedError'}
+              schema:
+                $ref: '#/components/schemas/ObservedSuccess'
+        '400':
+          $ref: '#/components/responses/ObservedError'
+        '401':
+          $ref: '#/components/responses/ObservedError'
+        '403':
+          $ref: '#/components/responses/ObservedError'
         '404':
           description: 会话不可见，或明确订单编号在本人可见范围内不可访问；后者error_code为ORDER_NOT_QUERYABLE。
           content:
             application/json:
-              schema: {$ref: '#/components/schemas/ObservedError'}
-              example: {error: 会话不存在或无权访问。}
+              schema:
+                $ref: '#/components/schemas/ObservedError'
+              example:
+                error: 会话不存在或无权访问。
         '405':
           description: Django方法装饰器响应，可能不是JSON。
-        '409': {$ref: '#/components/responses/ObservedError'}
-        '413': {$ref: '#/components/responses/ObservedError'}
-        '503': {$ref: '#/components/responses/ObservedError'}
+        '409':
+          $ref: '#/components/responses/ObservedError'
+        '413':
+          $ref: '#/components/responses/ObservedError'
+        '503':
+          $ref: '#/components/responses/ObservedError'
   /v1/support/conversations/:
     get:
       operationId: observedBuyerSupportConversationList
       description: 本人活跃买家的非空咨询列表；读取不调用模型或偏好库，Cache-Control为no-store。
       parameters:
-        - {name: limit, in: query, schema: {type: integer, minimum: 1, maximum: 50, default: 20}}
-        - {name: cursor, in: query, schema: {type: string, maxLength: 1000}, description: 用户绑定签名游标，有效期24小时；未知和重复参数返回400。}
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 50
+          default: 20
+      - name: cursor
+        in: query
+        schema:
+          type: string
+          maxLength: 1000
+        description: 用户绑定签名游标，有效期24小时；未知和重复参数返回400。
       responses:
         '200':
           description: 更新时间降序、UUID降序；只显示本人且有已保存轮次的会话。
@@ -73,23 +106,55 @@ paths:
             application/json:
               schema:
                 type: object
-                required: [conversations, has_more, next_cursor]
+                required:
+                - conversations
+                - has_more
+                - next_cursor
                 properties:
-                  conversations: {type: array, maxItems: 50, items: {$ref: '#/components/schemas/ObservedConversationSummary'}}
-                  has_more: {type: boolean}
-                  next_cursor: {type: string, nullable: true}
-        '400': {$ref: '#/components/responses/ObservedError'}
-        '401': {$ref: '#/components/responses/ObservedError'}
-        '403': {$ref: '#/components/responses/ObservedError'}
-        '405': {description: Django方法检查响应，可能不是JSON。}
-        '503': {$ref: '#/components/responses/ObservedError'}
+                  conversations:
+                    type: array
+                    maxItems: 50
+                    items:
+                      $ref: '#/components/schemas/ObservedConversationSummary'
+                  has_more:
+                    type: boolean
+                  next_cursor:
+                    type: string
+                    nullable: true
+        '400':
+          $ref: '#/components/responses/ObservedError'
+        '401':
+          $ref: '#/components/responses/ObservedError'
+        '403':
+          $ref: '#/components/responses/ObservedError'
+        '405':
+          description: Django方法检查响应，可能不是JSON。
+        '503':
+          $ref: '#/components/responses/ObservedError'
   /v1/support/conversations/{conversation_id}/:
     get:
       operationId: observedBuyerSupportHistory
       parameters:
-        - {name: conversation_id, in: path, required: true, schema: {type: string, format: uuid}}
-        - {name: limit, in: query, schema: {type: integer, minimum: 1, maximum: 50, default: 6}}
-        - {name: before_sequence, in: query, schema: {type: integer, minimum: 1, maximum: 2147483647}, description: 严格小于该序号的更早轮次；未知和重复参数返回400。}
+      - name: conversation_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 50
+          default: 6
+      - name: before_sequence
+        in: query
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 2147483647
+        description: 严格小于该序号的更早轮次；未知和重复参数返回400。
       responses:
         '200':
           description: 活跃买家本人会话；默认6轮，新页面显式请求20轮，上限50。每页sequence升序，字符串递归按既有规则脱敏；不刷新业务事实，不扩大模型24小时6轮窗口。
@@ -97,87 +162,228 @@ paths:
             application/json:
               schema:
                 type: object
-                required: [conversation_id, revision, turns, title, turn_count, created_at, updated_at, has_more, next_before_sequence]
+                required:
+                - conversation_id
+                - revision
+                - turns
+                - title
+                - turn_count
+                - created_at
+                - updated_at
+                - has_more
+                - next_before_sequence
                 properties:
-                  conversation_id: {type: string, format: uuid}
-                  revision: {type: integer, minimum: 0}
-                  title: {type: string}
-                  turn_count: {type: integer}
-                  created_at: {type: string, format: date-time}
-                  updated_at: {type: string, format: date-time}
-                  has_more: {type: boolean}
-                  next_before_sequence: {type: integer, nullable: true}
-                  turns: {type: array, maxItems: 50, items: {type: object, required: [sequence, created_at, message, response], properties: {sequence: {type: integer}, created_at: {type: string, format: date-time}, message: {type: string}, response: {type: object}}}}
-        '400': {$ref: '#/components/responses/ObservedError'}
-        '401': {$ref: '#/components/responses/ObservedError'}
-        '403': {$ref: '#/components/responses/ObservedError'}
-        '404': {$ref: '#/components/responses/ObservedError'}
-        '405': {description: Django方法检查；非法UUID路径还可能由路由返回HTML404。}
-        '503': {$ref: '#/components/responses/ObservedError'}
+                  conversation_id:
+                    type: string
+                    format: uuid
+                  revision:
+                    type: integer
+                    minimum: 0
+                  title:
+                    type: string
+                  turn_count:
+                    type: integer
+                  created_at:
+                    type: string
+                    format: date-time
+                  updated_at:
+                    type: string
+                    format: date-time
+                  has_more:
+                    type: boolean
+                  next_before_sequence:
+                    type: integer
+                    nullable: true
+                  turns:
+                    type: array
+                    maxItems: 50
+                    items:
+                      type: object
+                      required:
+                      - sequence
+                      - created_at
+                      - message
+                      - response
+                      properties:
+                        sequence:
+                          type: integer
+                        created_at:
+                          type: string
+                          format: date-time
+                        message:
+                          type: string
+                        response:
+                          type: object
+        '400':
+          $ref: '#/components/responses/ObservedError'
+        '401':
+          $ref: '#/components/responses/ObservedError'
+        '403':
+          $ref: '#/components/responses/ObservedError'
+        '404':
+          $ref: '#/components/responses/ObservedError'
+        '405':
+          description: Django方法检查；非法UUID路径还可能由路由返回HTML404。
+        '503':
+          $ref: '#/components/responses/ObservedError'
 components:
   securitySchemes:
-    BuyerBearer: {type: http, scheme: bearer, bearerFormat: JWT}
+    BuyerBearer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
   responses:
     ObservedError:
       description: 应用错误为直接JSON，Cache-Control=no-store；不返回新增错误代码。
       content:
         application/json:
-          schema: {$ref: '#/components/schemas/ObservedError'}
+          schema:
+            $ref: '#/components/schemas/ObservedError'
   schemas:
     ObservedConversationSummary:
       type: object
-      required: [conversation_id, title, turn_count, created_at, updated_at]
+      required:
+      - conversation_id
+      - title
+      - turn_count
+      - created_at
+      - updated_at
       properties:
-        conversation_id: {type: string, format: uuid}
-        title: {type: string, description: 首条用户消息脱敏后截取，最多60字加省略号，不由模型生成。}
-        turn_count: {type: integer, minimum: 0}
-        created_at: {type: string, format: date-time}
-        updated_at: {type: string, format: date-time}
+        conversation_id:
+          type: string
+          format: uuid
+        title:
+          type: string
+          description: 首条用户消息脱敏后截取，最多60字加省略号，不由模型生成。
+        turn_count:
+          type: integer
+          minimum: 0
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
     ObservedError:
       type: object
-      required: [error]
+      required:
+      - error
       additionalProperties: false
       properties:
-        error: {type: string}
-        trace_id: {type: string}
-        error_code: {type: string}
+        error:
+          type: string
+        trace_id:
+          type: string
+        error_code:
+          type: string
     ObservedSuccess:
       type: object
       additionalProperties: true
       description: 新成功响应有下列字段，旧成功重放可能仍保留旧shape；不将新增字段强制套入旧存储。
       properties:
-        answer: {type: string}
-        intent: {type: string}
-        conversation_id: {type: string}
-        request_id: {type: string}
-        revision: {type: integer}
-        pii_redacted: {type: boolean}
-        intents: {type: array, items: {type: string}}
+        answer:
+          type: string
+        intent:
+          type: string
+        conversation_id:
+          type: string
+        request_id:
+          type: string
+        revision:
+          type: integer
+        pii_redacted:
+          type: boolean
+        intents:
+          type: array
+          items:
+            type: string
         order_result:
           type: object
           description: 仅订单任务返回；all每页最多20笔，recent最多3笔，其他最多1笔，无真实订单号；历史响应可能仍为旧shape。
           properties:
-            status: {type: string, enum: [success, no_match, needs_clarification, error]}
-            orders: {type: array, maxItems: 20, items: {type: object}}
-            queried_at: {type: string, nullable: true, format: date-time}
+            status:
+              type: string
+              enum:
+              - success
+              - no_match
+              - needs_clarification
+              - error
+            orders:
+              type: array
+              maxItems: 20
+              items:
+                type: object
+            queried_at:
+              type: string
+              nullable: true
+              format: date-time
             query:
               type: object
               nullable: true
               properties:
-                selector: {type: object, description: type为recent/selected/explicit/all；移除latest，最近订单统一最多3笔，reference仅explicit使用本轮匿名引用。}
-                topic: {type: string, enum: [order_status, payment_status, shipping_status]}
-                filters: {type: object, description: created_date为空或包含start/end的YYYY-MM-DD对象，按北京时间创建日期含首尾日筛选。}
-                page: {type: string, enum: [first, next]}
-            total_count: {type: integer, minimum: 0, nullable: true, description: all本次查询时可见匹配数量，其他选择器为空。}
-            returned_count: {type: integer, minimum: 0, maximum: 20}
-            has_more: {type: boolean}
-            next_cursor: {type: string, nullable: true, description: 服务端保存并校验的本人绑定签名游标，不进入模型；客户端不能提交游标或构造查询。}
-            page_offset: {type: integer, minimum: 0}
-            snapshot_at: {type: string, nullable: true, format: date-time, description: all首次查询的创建时间上界，不代表订单状态或可见性的事务快照。}
-        task_plan: {type: object, additionalProperties: true}
-        tasks: {type: array, items: {type: object}}
-        recommendation_groups: {type: array, items: {type: object}}
-        recommendation_options: {type: object, nullable: true}
-        explained_categories: {type: array, items: {type: string}}
-        diagnostics: {type: array, items: {type: object}}
-        compliance_blocked: {type: boolean}
+                selector:
+                  type: object
+                  description: type为recent/selected/explicit/all；移除latest，最近订单统一最多3笔，reference仅explicit使用本轮匿名引用。
+                topic:
+                  type: string
+                  enum:
+                  - order_status
+                  - payment_status
+                  - shipping_status
+                filters:
+                  type: object
+                  description: created_date为空或包含start/end的YYYY-MM-DD对象，按北京时间创建日期含首尾日筛选。
+                page:
+                  type: string
+                  enum:
+                  - first
+                  - next
+            total_count:
+              type: integer
+              minimum: 0
+              nullable: true
+              description: all本次查询时可见匹配数量，其他选择器为空。
+            returned_count:
+              type: integer
+              minimum: 0
+              maximum: 20
+            has_more:
+              type: boolean
+            next_cursor:
+              type: string
+              nullable: true
+              description: 服务端保存并校验的本人绑定签名游标，不进入模型；客户端不能提交游标或构造查询。
+            page_offset:
+              type: integer
+              minimum: 0
+            snapshot_at:
+              type: string
+              nullable: true
+              format: date-time
+              description: all首次查询的创建时间上界，不代表订单状态或可见性的事务快照。
+        task_plan:
+          type: object
+          additionalProperties: true
+        tasks:
+          type: array
+          items:
+            type: object
+        recommendation_groups:
+          type: array
+          items:
+            type: object
+        recommendation_options:
+          type: object
+          nullable: true
+        explained_categories:
+          type: array
+          items:
+            type: string
+        diagnostics:
+          type: array
+          items:
+            type: object
+        compliance_blocked:
+          type: boolean
+x-target-spec-version: 0.3.0
+x-usage-boundary: 保留现有源码观察，不将目标依赖降级／部分完成／序号映射字段宣称为已实现；本轮未运行实际协议探针。

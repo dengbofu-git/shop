@@ -1,145 +1,194 @@
-schemaVersion: "0.1"
-updatedAt: "2026-10-18"
+schemaVersion: '0.1'
+updatedAt: '2026-10-23'
 questions:
-  - id: Q-001
+- id: Q-001
+  status: resolved
+  question: 谁负责确认首个切片的业务规则、技术设计与验收，实际优先级是否接受本规划建议？
+  affectedCapabilities:
+  - CAP-AI-003
+  blockingFrom: SPEC_REVIEW
+  decisionOwner: dengbofu
+  recommendation: 先指定当前切片的业务负责人和技术评审人，不虚构全公司团队登记。
+  resolveWith: 负责人、优先级与当前切片评审记录；后续每个活动切片独立指定负责人。
+  resolution:
+    confirmedOn: '2026-10-16'
+    confirmedBy: dengbofu
+    decision: dengbofu 担任本切片业务确认人，继续以订单查询为试点；技术评审人及目标环境转入 Q-011，未代填人员。
+    record: docs/sdd/modules/ai-support/capabilities/CAP-AI-003/review.md
+- id: Q-002
+  status: partially-resolved
+  question: 订单查询是否覆盖标准、试单、预售；未指定订单返回近期几笔，多笔时如何选择，引用多久有效？
+  affectedCapabilities:
+  - CAP-AI-003
+  - CAP-TRD-002
+  blockingFrom: SPEC_REVIEW
+  decisionOwner: dengbofu
+  recommendation: 近期最多3笔；all每页最多20笔；独立创建日期筛选使用上海时区且包含首尾；有效订单含义不明时澄清。
+  resolveWith: 本人多订单、明确订单、过期引用、试单与预售示例及认可结果。
+  resolutions:
+  - capabilityId: CAP-AI-003
     status: resolved
-    question: 谁负责确认首个切片的业务规则、技术设计与验收，实际优先级是否接受本规划建议？
-    affectedCapabilities: [CAP-AI-003]
-    blockingFrom: SPEC_REVIEW
-    decisionOwner: dengbofu
-    recommendation: 先指定当前切片的业务负责人和技术评审人，不虚构全公司团队登记。
-    resolveWith: 负责人、优先级与当前切片评审记录；后续每个活动切片独立指定负责人。
-    resolution:
-      confirmedOn: "2026-10-16"
-      confirmedBy: dengbofu
-      decision: dengbofu 担任本切片业务确认人，继续以订单查询为试点；技术评审人及目标环境转入 Q-011，未代填人员。
-      record: docs/sdd/modules/ai-support/capabilities/CAP-AI-003/review.md
-  - id: Q-002
-    status: partially-resolved
-    question: 订单查询是否覆盖标准、试单、预售；未指定订单返回近期几笔，多笔时如何选择，引用多久有效？
-    affectedCapabilities: [CAP-AI-003, CAP-TRD-002]
-    blockingFrom: SPEC_REVIEW
-    decisionOwner: dengbofu
-    recommendation: 首轮沿用已观察的最多三笔、匿名标签和每轮实时重查；三类仅解释现有状态，不推进状态，最终由业务确认。
-    resolveWith: 本人多订单、明确订单、过期引用、试单与预售示例及认可结果。
-    resolutions:
-      - capabilityId: CAP-AI-003
-        status: resolved
-        confirmedBy: dengbofu
-        confirmedOn: "2026-10-16"
-        decision: 沿用现有标准/试单/预售状态读取、近期最多三笔和24小时追问；只解释状态，不推进订单。
-    remainingScope: CAP-TRD-002 的完整订单生命周期、状态迁移和其他业务规则仍未确认；不能借查询范围批准交易域。
-  - id: Q-003
+    confirmedBy: user
+    confirmedOn: '2026-10-23'
+    decision: 保留已确认recent3／all20及独立日期范围；R09增加当前展示页位置映射、24小时上限和每次重新鉴权，具体保存方案待评审。
+  remainingScope: 完整交易生命周期仍未确认；私有位置映射设计、访问与清理转入Q-011/Q-013，不以分页存在证明序号追问完成。
+- id: Q-003
+  status: resolved
+  question: 外人或不存在订单采用什么统一提示；模型、MySQL、偏好 PostgreSQL 不可用时如何响应及保留会话？
+  affectedCapabilities:
+  - CAP-AI-003
+  blockingFrom: SPEC_REVIEW
+  decisionOwner: dengbofu
+  recommendation: 按任务必要依赖判断；请求级身份和会话越权整体拒绝；任务级错误不得泄露对象存在性。
+  resolveWith: 错误语义、对用户可见文案和状态码、重试及会话写入策略。
+  resolution:
+    confirmedBy: user
+    confirmedOn: '2026-10-23'
+    decision: R01：订单／普通知识不依赖偏好，普通推荐缺少可选偏好须提示；明确按保存偏好推荐必须读取成功。R02：纯不可查询订单404；混合请求独立任务可部分完成，依赖任务跳过，无可提交结果的必要技术失败503。
+    record: docs/sdd/rule-review.md
+    implementationStatus: pending-task-dependency-and-partial-result-implementation
+- id: Q-004
+  status: open
+  question: 真实支付渠道、金额币种、可信通知验签、商户匹配、重复与乱序通知应如何处理？
+  affectedCapabilities:
+  - CAP-TRD-003
+  - CAP-TRD-002
+  blockingFrom: BUILD_READY
+  decisionOwner: null
+  recommendation: 将浏览器跳转与可信支付通知分开；订单变化必须有可验证支付事实。
+  resolveWith: 支付渠道契约、状态机、幂等键和正反向沙箱验收。
+- id: Q-005
+  status: open
+  question: 买家、商家、客服、运营分别可以查询哪些物流单及哪些字段，跨商家订单如何隔离？
+  affectedCapabilities:
+  - CAP-FUL-002
+  - CAP-MER-001
+  - CAP-IAM-003
+  blockingFrom: SPEC_REVIEW
+  decisionOwner: null
+  recommendation: 每次以认证身份校验业务对象归属，权限矩阵按岗位和对象范围分别确认。
+  resolveWith: 本人、他人、同单不同商家、停用账号、运营越权的允许／拒绝表。
+  observedEvidence: 对象级权限和跨商家物流衔接仍需专项验证，参见当前状态；历史观察不能推断当前接口已经满足矩阵。
+- id: Q-006
+  status: resolved-rule-pending-verification
+  question: SKU.stock 与仓库数量哪个是权威，库存在哪些时点预留、扣减、释放，重复发货与并发如何处理？
+  affectedCapabilities:
+  - CAP-FUL-001
+  - CAP-TRD-001
+  - CAP-TRD-002
+  - CAP-MER-001
+  blockingFrom: SPEC_REVIEW
+  decisionOwner: dengbofu
+  recommendation: 按库存预留现行规格执行，区别原子预留、释放、可信付款扣减和历史订单兼容；在隔离MySQL验证。
+  resolveWith: 库存事件表、状态转换和并发示例。
+  observedEvidence: 当前有预留、释放、扣减和幂等源码；本轮未运行并发／当前数据库启用验证。
+  resolution:
+    confirmedBy: user
+    confirmedOn: '2026-10-23'
+    decision: 保留库存预留不变量；R04禁止隐藏触发取消，R07明确试运行限额及批量采购联系商家出口；不自动放宽限额。
+    record: docs/sdd/modules/trade/stock-reservations.md
+- id: Q-008
+  status: open
+  question: 结算展示的数据由谁生成，费用、币种、账期、退款、对账和实际付款如何定义？
+  affectedCapabilities:
+  - CAP-MER-003
+  blockingFrom: SPEC_REVIEW
+  decisionOwner: null
+  recommendation: 先区分读取现有结算记录、自动计算与真实资金结算，分切片推进。
+  resolveWith: 账单样例、金额计算规则、数据来源和复核方式。
+- id: Q-009
+  status: partially-resolved
+  question: 统一登录与平台管理切片已明确；其他岗位、业务对象范围及停用账号策略如何统一？
+  affectedCapabilities:
+  - CAP-IAM-003
+  - CAP-PLAT-001
+  - CAP-AI-004
+  blockingFrom: SPEC_REVIEW
+  decisionOwner: null
+  recommendation: 业务确认最小权限和对象范围；不按界面可见性推断 API 已授权。
+  resolveWith: 岗位、功能权限、对象范围和停用账号策略矩阵。
+  observedEvidence: 产品三类角色与内部RBAC兼容已明确；跨对象、岗位权限矩阵及物流／库存各入口仍需实际核查，不从页面或历史报告推断。
+- id: Q-010
+  status: partially-resolved
+  question: 正式支持哪些语言、设备、商品价格及支付币种，预售定金尾款如何解释和换算？
+  affectedCapabilities:
+  - CAP-CAT-001
+  - CAP-TRD-001
+  - CAP-TRD-002
+  - CAP-TRD-003
+  - CAP-AI-001
+  - CAP-AI-002
+  - CAP-PLAT-002
+  blockingFrom: SPEC_REVIEW
+  decisionOwner: null
+  recommendation: 基础金额统一CNY，外币仅按共用配置参考显示；语言覆盖、支付渠道和预售尾款须分别确认。
+  resolveWith: 语言／设备范围、真实支付／退款渠道币种与沙箱样例；金额当前规则不等待这些范围关闭。
+  resolution:
+    confirmedBy: user
+    confirmedOn: '2026-10-23'
+    decision: R05基础CNY，新增订单可恢复币种，历史币种未知不推断；新快照兼容方案待技术设计，不自动迁移。
+    record: docs/sdd/architecture/currency.md
+- id: Q-011
+  status: open
+  question: 谁担任技术评审人，目标验收环境、合成数据、可用组件、现有实现版本及部署回滚由谁提供和确认？
+  affectedCapabilities:
+  - CAP-AI-003
+  - CAP-PLAT-003
+  blockingFrom: BUILD_READY
+  decisionOwner: null
+  recommendation: 隔离回归与真实 MySQL/PostgreSQL 集成分开；保留运行配置版本，不记录凭据。
+  resolveWith: 环境清单、组件版本、合成账号、命令、成功阈值及回滚范围。
+- id: Q-012
+  status: partially-resolved
+  question: 订单状态与创建日期可以发给哪些模型服务，日志、会话、监控的保留期和访问主体是什么？
+  affectedCapabilities:
+  - CAP-AI-003
+  - CAP-AI-004
+  - CAP-KNOW-001
+  - CAP-KNOW-002
+  blockingFrom: SPEC_REVIEW
+  decisionOwner: dengbofu
+  recommendation: 延续应用层脱敏和最少字段；模型不见身份或真实订单号；不要默认历史真实模型调用授权持续有效。
+  resolveWith: 允许发送的数据字段、模型边界、访问／保留／删除策略和定向泄漏验收。
+  resolutions:
+  - capabilityId: CAP-AI-003
     status: resolved
-    question: 外人或不存在订单采用什么统一提示；模型、MySQL、偏好 PostgreSQL 不可用时如何响应及保留会话？
-    affectedCapabilities: [CAP-AI-003]
-    blockingFrom: SPEC_REVIEW
-    decisionOwner: dengbofu
-    recommendation: 不泄露外人订单存在性；不凭历史编造当前状态；明确 PostgreSQL 故障是整体失败还是允许无偏好查询。
-    resolveWith: 错误语义、对用户可见文案和状态码、重试及会话写入策略。
-    resolution:
-      confirmedBy: dengbofu
-      confirmedOn: "2026-10-16"
-      decision: 偏好库不可用时保留503且不写成功轮次；他人/不存在订单统一404和“未找到可查询的订单”，不回退展示其他本人订单。
-      retainedBehavior: 其他关键数据库/模型故障继续按现有服务不可用处理；逐依赖注入与监控异常设计在 Q-011 的技术评审核实。
-      record: docs/sdd/modules/ai-support/capabilities/CAP-AI-003/review.md
-  - id: Q-004
-    status: open
-    question: 真实支付渠道、金额币种、可信通知验签、商户匹配、重复与乱序通知应如何处理？
-    affectedCapabilities: [CAP-TRD-003, CAP-TRD-002]
-    blockingFrom: BUILD_READY
-    decisionOwner: null
-    recommendation: 将浏览器跳转与可信支付通知分开；订单变化必须有可验证支付事实。
-    resolveWith: 支付渠道契约、状态机、幂等键和正反向沙箱验收。
-  - id: Q-005
-    status: open
-    question: 买家、商家、客服、运营分别可以查询哪些物流单及哪些字段，跨商家订单如何隔离？
-    affectedCapabilities: [CAP-FUL-002, CAP-MER-001, CAP-IAM-003]
-    blockingFrom: SPEC_REVIEW
-    decisionOwner: null
-    recommendation: 每次以认证身份校验业务对象归属，权限矩阵按岗位和对象范围分别确认。
-    resolveWith: 本人、他人、同单不同商家、停用账号、运营越权的允许／拒绝表。
-    observedEvidence: 当前物流入口只检查登录；商家发货推进整单状态但未调用创建物流单，跨商家及物流衔接规则仍需确认，见reconciliation.md。
-  - id: Q-006
-    status: open
-    question: SKU.stock 与仓库数量哪个是权威，库存在哪些时点预留、扣减、释放，重复发货与并发如何处理？
-    affectedCapabilities: [CAP-FUL-001, CAP-TRD-001, CAP-TRD-002, CAP-MER-001]
-    blockingFrom: SPEC_REVIEW
-    decisionOwner: null
-    recommendation: 先梳理真实调用再确认唯一数量语义，覆盖取消、支付失败、缺货及重试，不从函数注释直接定规则。
-    resolveWith: 库存事件表、状态转换和并发示例。
-    observedEvidence: 商品详情/购物车取max(账本,SKU.stock)，AI有账本时只认账本；发货扣减有调用，预留/释放/支付扣减未见业务接线。
-  - id: Q-008
-    status: open
-    question: 结算展示的数据由谁生成，费用、币种、账期、退款、对账和实际付款如何定义？
-    affectedCapabilities: [CAP-MER-003]
-    blockingFrom: SPEC_REVIEW
-    decisionOwner: null
-    recommendation: 先区分读取现有结算记录、自动计算与真实资金结算，分切片推进。
-    resolveWith: 账单样例、金额计算规则、数据来源和复核方式。
-  - id: Q-009
-    status: open
-    question: 统一登录与平台管理切片已明确；其他岗位、业务对象范围及停用账号策略如何统一？
-    affectedCapabilities: [CAP-IAM-003, CAP-PLAT-001, CAP-AI-004]
-    blockingFrom: SPEC_REVIEW
-    decisionOwner: null
-    recommendation: 业务确认最小权限和对象范围；不按界面可见性推断 API 已授权。
-    resolveWith: 岗位、功能权限、对象范围和停用账号策略矩阵。
-    observedEvidence: 2026-10-18统一登录切片要求有效平台角色加user_manage或system_config；其他对象范围仍待核查，通用库存列表不按商家过滤，URL用户名操作及HTTP客服与CLI检查仍有差异。
-  - id: Q-010
-    status: open
-    question: 正式支持哪些语言、设备、商品价格及支付币种，预售定金尾款如何解释和换算？
-    affectedCapabilities: [CAP-CAT-001, CAP-TRD-001, CAP-TRD-002, CAP-TRD-003, CAP-AI-001, CAP-AI-002, CAP-PLAT-002]
-    blockingFrom: SPEC_REVIEW
-    decisionOwner: null
-    recommendation: 将页面展示语言、知识语言和结算币种分开确认；本次订单查询草案只按中文状态文本讨论。
-    resolveWith: 首期语言／视口／币种范围及金额样例，不从卡片 USD 字段推断支付币种。
-  - id: Q-011
-    status: open
-    question: 谁担任技术评审人，目标验收环境、合成数据、可用组件、现有实现版本及部署回滚由谁提供和确认？
-    affectedCapabilities: [CAP-AI-003, CAP-PLAT-003]
-    blockingFrom: BUILD_READY
-    decisionOwner: null
-    recommendation: 隔离回归与真实 MySQL/PostgreSQL 集成分开；保留运行配置版本，不记录凭据。
-    resolveWith: 环境清单、组件版本、合成账号、命令、成功阈值及回滚范围。
-  - id: Q-012
-    status: partially-resolved
-    question: 订单状态与创建日期可以发给哪些模型服务，日志、会话、监控的保留期和访问主体是什么？
-    affectedCapabilities: [CAP-AI-003, CAP-AI-004, CAP-KNOW-001, CAP-KNOW-002]
-    blockingFrom: SPEC_REVIEW
-    decisionOwner: dengbofu
-    recommendation: 延续应用层脱敏和最少字段；模型不见身份或真实订单号；不要默认历史真实模型调用授权持续有效。
-    resolveWith: 允许发送的数据字段、模型边界、访问／保留／删除策略和定向泄漏验收。
-    resolutions:
-      - capabilityId: CAP-AI-003
-        status: resolved
-        confirmedBy: dengbofu
-        confirmedOn: "2026-10-16"
-        decision: 允许现有模型服务接收脱敏问题、必要脱敏历史、匿名订单标签、状态和创建日期；身份、真实订单号、地址和联系方式禁止发送。
-    remainingScope: 其他能力的模型数据范围仍独立确认；各类持久化数据的保留/删除/访问策略转入 Q-013；不扩大为新服务商或真实数据回放授权。
-  - id: Q-013
-    status: open
-    question: 会话、私有订单引用、日志和监控分别由谁访问，保留多久，如何清理与删除？
-    affectedCapabilities: [CAP-AI-003, CAP-AI-004, CAP-KNOW-001, CAP-KNOW-002]
-    blockingFrom: BUILD_READY
-    decisionOwner: dengbofu
-    recommendation: 模型可见字段已确认，持久化策略单独设计；不能把24小时模型上下文窗口或历史列表游标有效期当作数据库删除期限。
-    resolveWith: 数据类别、访问主体、保留周期、删除入口和验证步骤；由业务及技术评审共同确认。
-    observedEvidence: 历史咨询新增本人列表和分页，未新增删除／保留期功能；历史GET按既有regex再脱敏，成功重放仍直接读保存响应。
-  - id: Q-014
-    status: open
-    question: 区域、库存周转等经营指标应使用哪些真实来源，哪些演示/推算指标可以展示给哪些岗位？
-    affectedCapabilities: [CAP-MER-002, CAP-PLAT-002]
-    blockingFrom: SPEC_REVIEW
-    decisionOwner: null
-    recommendation: 区分真实商家订单聚合和hash分区/常量或公式推算指标；不能把商家权限接口作为独立平台统计服务。
-    resolveWith: 指标口径、来源、刷新频率、岗位范围和真实/演示标签；当前代码事实见reconciliation.md。
-    observedEvidence: 2026-10-18平台与商家销售额已共用已付订单条件，见modules/platform/sales-reconciliation.md；hash地区等推算指标仍需真实来源，问题不整体关闭。
-  - id: Q-015
-    status: open
-    question: 商家助手后续先交付哪些经营能力，文件／素材归属、库存事务、确认和幂等、生成任务及费用如何定义？
-    affectedCapabilities: [CAP-MER-004, CAP-CAT-002, CAP-FUL-001]
-    blockingFrom: SPEC_REVIEW
-    decisionOwner: null
-    recommendation: 保持0.1只开放入口；批量导入、文案／图片／视频和经营工具作为独立切片确认，不将方案讨论当成写入授权。
-    resolveWith: 首个经营切片范围、对象权限、草稿确认契约、隔离测试数据及失败恢复标准。
+    confirmedBy: dengbofu
+    confirmedOn: '2026-10-16'
+    decision: 允许现有模型服务接收脱敏问题、必要脱敏历史、匿名订单标签、状态和创建日期；身份、真实订单号、地址和联系方式禁止发送。
+  remainingScope: 其他能力的模型数据范围仍独立确认；各类持久化数据的保留/删除/访问策略转入 Q-013；不扩大为新服务商或真实数据回放授权。
+- id: Q-013
+  status: open
+  question: 会话、私有订单引用、日志和监控分别由谁访问，保留多久，如何清理与删除？
+  affectedCapabilities:
+  - CAP-AI-003
+  - CAP-AI-004
+  - CAP-KNOW-001
+  - CAP-KNOW-002
+  blockingFrom: BUILD_READY
+  decisionOwner: dengbofu
+  recommendation: 模型可见字段已确认，持久化策略单独设计；不能把24小时模型上下文窗口或历史列表游标有效期当作数据库删除期限。
+  resolveWith: 区分会话正文、私有引用映射、日志和监控，确认访问主体、保留周期及清理；R09映射可用上限24小时不等于底层数据保留周期。
+  observedEvidence: 本人历史分页和本浏览器移出资产存在；R08要求撤销与恢复，R09要求私有当前页结果映射，两者不等于数据库删除期限已确认。
+- id: Q-014
+  status: open
+  question: 区域、库存周转等经营指标应使用哪些真实来源，哪些演示/推算指标可以展示给哪些岗位？
+  affectedCapabilities:
+  - CAP-MER-002
+  - CAP-PLAT-002
+  blockingFrom: SPEC_REVIEW
+  decisionOwner: null
+  recommendation: 区分真实商家订单聚合和hash分区/常量或公式推算指标；不能把商家权限接口作为独立平台统计服务。
+  resolveWith: 指标口径、来源、刷新频率、岗位范围和真实／演示标签；当前代码观察见docs/sdd/product/current-state.md。
+  observedEvidence: 2026-10-18平台与商家销售额已共用已付订单条件，见modules/platform/sales-reconciliation.md；hash地区等推算指标仍需真实来源，问题不整体关闭。
+- id: Q-015
+  status: open
+  question: 商家助手后续先交付哪些经营能力，文件／素材归属、库存事务、确认和幂等、生成任务及费用如何定义？
+  affectedCapabilities:
+  - CAP-MER-004
+  - CAP-CAT-002
+  - CAP-FUL-001
+  blockingFrom: SPEC_REVIEW
+  decisionOwner: null
+  recommendation: 保持0.1只开放入口；批量导入、文案／图片／视频和经营工具作为独立切片确认，不将方案讨论当成写入授权。
+  resolveWith: 首个经营切片范围、对象权限、草稿确认契约、隔离测试数据及失败恢复标准。
