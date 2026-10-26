@@ -1,95 +1,169 @@
-schemaVersion: "0.1"
-observedAt: "2026-10-18"
+schemaVersion: '0.1'
+observedAt: '2026-10-23'
 timezone: Asia/Shanghai
 target:
-  root: 'E:\django\tea_saas'
-  head: 19b5f0b094305e7fd56c628729611dea8eb7317c
-  branch: codex/users-unified-login
+  root: <workspace>
+  head: 25a08ee29e23ce1bd479951e5860b44c9dfb2a89
+  branch: codex/orders-merchant-isolation
   workingTree: dirty
-  scope: 当前项目聊天涉及的功能增量、当前工作区源码和已有证据对账；本次仅静态SDD同步，不重跑业务或沿用历史授权。
-historicalTarget:
-  root: 'E:\django\tea_saas'
-  head: 4db3fd12e985c5b5fc3b04de20b780d926a4e319
-  branch: main
-  workingTree: dirty
-  scope: 初始本地源码和文档的静态观察；后续发现性隔离回归分别见SRC-LOCAL-007，HEAD不能独立复现脏工作区或各次运行。
+  scope: 当前源码及R01—R11规则静态审查；没有业务／模型／数据库运行或部署验证；HEAD不能单独复现脏工作区。
 reference:
-  root: 'E:\实习\store-ai-tp'
+  root: E:\实习\store-ai-tp
   mode: read-only-method-reference
   copiedRuntimeOrChecker: false
 sources:
-  - id: SRC-LOCAL-011
-    project: tea_saas
-    paths: [docs/sdd/reconciliation-2026-10-18.md, docs/sdd/evidence/2026-10-18-project-chat-sdd/manifest.json]
-    use: 当前项目聊天标题及相关轮次的增量索引，与实际源码交叉核对，覆盖前端、管理员端、rag、功能补全、商家助手、MCP与Skill及既有Git和SDD规划。
-    limit: 聊天结论是来源线索，不代替源码或新的验证；其他项目的解释不导入业务，历史推送与服务状态不视为当前事实。
-  - id: SRC-LOCAL-012
-    project: tea_saas
-    paths: [support_ai/planning.py, support_ai/conversation_tasks.py, support_ai/recommendation_explanations.py, support_ai/conversation_history.py, support_ai/product_details.py, support_ai/views.py, client/static/js/buyer-support.js, client/templates/admin_agents.html, merchant_ai/services.py, merchant_ai/views.py]
-    use: 六类任务、主题和理由追问、公开详情、历史分页及再脱敏、停用账号检查差异、管理开关与商家空能力状态。
-    limit: 本次源码静态观察；不表示历史GET和重放已经同等过滤，不表示交互、跨库或模型质量已验收。
-  - id: SRC-LOCAL-013
-    project: tea_saas
-    paths: [docs/MCP与Skill接入.md, docs/sdd/evidence/2026-10-18-mcp-skill/verification.md, tools/tea_saas_mcp/server.py, .agents/skills/tea-saas-change-delivery/SKILL.md, docs/sdd/modules/ai-support/search-products-design.md]
-    use: 已实施的仓库Skill、本地详情MCP及其22项Django与9项MCP既有定向验证，尚未实施的搜索草案。
-    limit: 既有证据不代表本次重新运行；本地工具未接远程认证或用户级配置，相邻回归2项已有失败保留。
-  - id: SRC-LOCAL-010
-    project: tea_saas
-    paths: [docs/sdd/modules/platform/tea-saas-platform.md, docs/sdd/evidence/2026-10-18-tea-saas/verification.md, client/tests/tea-saas-contract.py, client/tests/tea-saas-brand.test.js, supplier/test_analytics.py]
-    use: 2026-10-18用户确认的跨境茶叶SaaS定位、三语名称、订单经营指标及页面外壳定向验证。
-    limit: 未执行浏览器视觉、生产邮件／支付或业务数据库变更，历史快照不覆盖本次增量。
-  - id: SRC-REF-001
-    project: store-ai-tp
-    paths: [docs/sdd/README.md, new-project-sdd-handoff.md]
-    use: 渐进式发现、候选与活动能力分离、两轨探索、能力阶段、未知管理。
-    limit: 方法参考；不移植新项目假设、业务、人员、技术栈或已批准状态。
-  - id: SRC-REF-002
-    project: store-ai-tp
-    paths: [docs/sdd/catalog.yaml, docs/sdd/modules/ai-learning/capability-map.yaml, docs/sdd/modules/platform-foundation/capabilities/CAP-PLAT-001/capability.yaml]
-    use: 模块与能力结构、主归属、manifest、依赖和可追踪批准格式。
-    limit: 本项目采用简化 schema；未复制来源批准记录。
-  - id: SRC-REF-003
-    project: store-ai-tp
-    paths: [docs/sdd/governance/simple-vs-full-flow.md, docs/sdd/governance/repository-profile.yaml, docs/sdd/templates/requirements.template.md, docs/sdd/templates/test-plan.template.yaml]
-    use: 按语义分流、按风险验证、权威路径显式声明、需求和测试追踪。
-    limit: 没有接入来源检查器，不宣称 profile 或命令兼容。
-  - id: SRC-LOCAL-001
-    project: tea_saas
-    paths: [docs/项目接手指南.md, requirements.txt, tea_saas/urls.py, tea_saas/settings.py, versions/modules.json, versions/README.md]
-    use: 初始定位、技术资产、路由、配置和当时14个实现版本模块；当前15模块以versions/modules.json及本次快照为准。
-    limit: 现有说明及配置不代表部署事实。
-  - id: SRC-LOCAL-002
-    project: tea_saas
-    paths: [users/permissions.py, users/decorators.py, users/urls.py, goods/urls.py, carts/urls.py, news/urls.py, admin_panel/urls.py]
-    use: 身份权限和主要功能入口盘点。
-    limit: 未穷尽所有函数分支或执行全部权限检查。
-  - id: SRC-LOCAL-003
-    project: tea_saas
-    paths: [orders/models.py, orders/views.py, pays/views.py, inventory/services.py, logistics/views.py, supplier/views.py, supplier/urls.py]
-    use: 订单类型、支付信任边界、库存时点、物流数据范围及商家操作的静态观察。
-    limit: 未连接真实数据库或支付服务，不是端到端审计结论。
-  - id: SRC-LOCAL-004
-    project: tea_saas
-    paths: [support_ai/views.py, support_ai/context.py, support_ai/tool_services.py, support_ai/test_task_tools.py, support_ai/test_settings.py, ai_storage/router.py, admin_panel/agent_views.py]
-    use: 试点接口、本人订单读模型、会话提交、测试环境和运营访问范围。
-    limit: 未运行测试，未调用模型，也未验证真实跨库和故障行为。
-  - id: SRC-LOCAL-005
-    project: tea_saas
-    paths: [docs/Agent任务模板与对照评测.md, docs/客服商品推荐设计.md]
-    use: 已有 Agent 实现说明、历史测试命令和评测边界。
-    limit: 历史结论仅作为材料，不提升当前规格阶段。
-  - id: SRC-LOCAL-007
-    project: tea_saas
-    paths: [docs/sdd/evidence/2026-10-16-ai-003-discovery/baseline-manifest.json, docs/sdd/evidence/2026-10-16-ai-003-discovery/baseline-recheck-manifest.json, docs/sdd/evidence/2026-10-16-ai-003-discovery/probes-manifest.json]
-    use: 已有隔离回归的两次独立快照、订单查询的合成数据探针和源码哈希。
-    limit: 发现性证据，不是规格0.2.0全部AC通过、真实组件验收或阶段批准；并行改动前后的结果不能混成一次运行。
-  - id: SRC-LOCAL-008
-    project: tea_saas
-    paths: [support_ai/views.py, support_ai/context.py, support_ai/pii.py, support_ai/workflow.py, support_ai/models.py, support_ai/urls.py, client/static/js/buyer-support.js, client/templates/buyer_support.html]
-    use: 接口字段/处理顺序、响应结构、模型提示词边界及现有页面恢复/重试的静态设计输入。
-    limit: 新设计为规格0.2.0下的proposed材料；没有实施新错误代码或404、运行新测试、执行浏览器验收或沿用旧快照为当前通过证据。
-  - id: SRC-LOCAL-009
-    project: tea_saas
-    paths: [docs/sdd/evidence/2026-10-16-sdd-reconciliation/manifest.json, docs/sdd/evidence/2026-10-16-sdd-reconciliation/source-inventory.json, docs/Agent分类推荐.md, docs/Agent终端预览.md, docs/虚拟商品数据.md, support_ai/tea_explanation.py, support_ai/recommendation_options.py, supplier/analytics.py]
-    use: 全部24能力源码对账、当前0.8.1功能、资讯登录/交易库存及看板边界，101项隔离检查与5项探针。
-    limit: 98通过/3项真实PostgreSQL跳过；非AI域以静态检查为主，未运行造数、真实模型/支付/物流或浏览器验收；历史资料不等于当前数据库内容。
+- id: SRC-LOCAL-011
+  project: tea_saas
+  paths:
+  - docs/sdd/product/current-state.md
+  - docs/sdd/rule-review.md
+  - docs/sdd/evidence/2026-10-18-project-chat-sdd/manifest.json
+  use: 当前规则与实现差异，以及历史验证证据索引；旧对账正文已被完整替换并删除。
+  limit: 聊天结论是来源线索，不代替源码或新的验证；其他项目的解释不导入业务，历史推送与服务状态不视为当前事实。
+- id: SRC-LOCAL-012
+  project: tea_saas
+  paths:
+  - support_ai/planning.py
+  - support_ai/conversation_tasks.py
+  - support_ai/recommendation_explanations.py
+  - support_ai/conversation_history.py
+  - support_ai/product_details.py
+  - support_ai/views.py
+  - client/static/js/buyer-support.js
+  - client/templates/admin_agents.html
+  - merchant_ai/services.py
+  - merchant_ai/views.py
+  use: 当前受控任务、主题及理由追问、详情、历史、共享偏好入口和管理配置的源码观察；与新规则差异另行登记。
+  limit: 本次源码静态观察；不表示历史GET和重放已经同等过滤，不表示交互、跨库或模型质量已验收。
+- id: SRC-LOCAL-013
+  project: tea_saas
+  paths:
+  - docs/MCP与Skill接入.md
+  - docs/sdd/evidence/2026-10-18-mcp-skill/verification.md
+  - tools/tea_saas_mcp/server.py
+  - .agents/skills/tea-saas-change-delivery/SKILL.md
+  - docs/sdd/modules/ai-support/search-products-design.md
+  use: 已实施的仓库Skill、本地详情MCP及其22项Django与9项MCP既有定向验证，尚未实施的搜索草案。
+  limit: 既有证据不代表本次重新运行；本地工具未接远程认证或用户级配置，相邻回归2项已有失败保留。
+- id: SRC-LOCAL-010
+  project: tea_saas
+  paths:
+  - docs/sdd/modules/platform/tea-saas-platform.md
+  - docs/sdd/evidence/2026-10-18-tea-saas/verification.md
+  - client/tests/tea-saas-contract.py
+  - client/tests/tea-saas-brand.test.js
+  - supplier/test_analytics.py
+  use: 2026-10-18用户确认的跨境茶叶SaaS定位、三语名称、订单经营指标及页面外壳定向验证。
+  limit: 未执行浏览器视觉、生产邮件／支付或业务数据库变更，历史快照不覆盖本次增量。
+- id: SRC-REF-001
+  project: store-ai-tp
+  paths:
+  - docs/sdd/README.md
+  - new-project-sdd-handoff.md
+  use: 渐进式发现、候选与活动能力分离、两轨探索、能力阶段、未知管理。
+  limit: 方法参考；不移植新项目假设、业务、人员、技术栈或已批准状态。
+- id: SRC-REF-002
+  project: store-ai-tp
+  paths:
+  - docs/sdd/catalog.yaml
+  - docs/sdd/modules/ai-learning/capability-map.yaml
+  - docs/sdd/modules/platform-foundation/capabilities/CAP-PLAT-001/capability.yaml
+  use: 模块与能力结构、主归属、manifest、依赖和可追踪批准格式。
+  limit: 本项目采用简化 schema；未复制来源批准记录。
+- id: SRC-REF-003
+  project: store-ai-tp
+  paths:
+  - docs/sdd/governance/simple-vs-full-flow.md
+  - docs/sdd/governance/repository-profile.yaml
+  - docs/sdd/templates/requirements.template.md
+  - docs/sdd/templates/test-plan.template.yaml
+  use: 按语义分流、按风险验证、权威路径显式声明、需求和测试追踪。
+  limit: 没有接入来源检查器，不宣称 profile 或命令兼容。
+- id: SRC-LOCAL-001
+  project: tea_saas
+  paths:
+  - docs/项目接手指南.md
+  - requirements.txt
+  - tea_saas/urls.py
+  - tea_saas/settings.py
+  - versions/modules.json
+  - versions/README.md
+  use: 项目定位、路由、配置和实现模块清单；当前16模块以versions/modules.json为准。
+  limit: 现有说明及配置不代表部署事实。
+- id: SRC-LOCAL-002
+  project: tea_saas
+  paths:
+  - users/permissions.py
+  - users/decorators.py
+  - users/urls.py
+  - goods/urls.py
+  - carts/urls.py
+  - news/urls.py
+  - admin_panel/urls.py
+  use: 身份权限和主要功能入口盘点。
+  limit: 未穷尽所有函数分支或执行全部权限检查。
+- id: SRC-LOCAL-003
+  project: tea_saas
+  paths:
+  - orders/models.py
+  - orders/views.py
+  - pays/views.py
+  - inventory/services.py
+  - logistics/views.py
+  - supplier/views.py
+  - supplier/urls.py
+  use: 订单类型、支付信任边界、库存时点、物流数据范围及商家操作的静态观察。
+  limit: 未连接真实数据库或支付服务，不是端到端审计结论。
+- id: SRC-LOCAL-004
+  project: tea_saas
+  paths:
+  - support_ai/views.py
+  - support_ai/context.py
+  - support_ai/tool_services.py
+  - support_ai/test_task_tools.py
+  - support_ai/test_settings.py
+  - ai_storage/router.py
+  - admin_panel/agent_views.py
+  use: 试点接口、本人订单读模型、会话提交、测试环境和运营访问范围。
+  limit: 未运行测试，未调用模型，也未验证真实跨库和故障行为。
+- id: SRC-LOCAL-005
+  project: tea_saas
+  paths:
+  - docs/Agent任务模板与对照评测.md
+  - docs/客服商品推荐设计.md
+  use: 已有 Agent 实现说明、历史测试命令和评测边界。
+  limit: 历史结论仅作为材料，不提升当前规格阶段。
+- id: SRC-LOCAL-007
+  project: tea_saas
+  paths:
+  - docs/sdd/evidence/2026-10-16-ai-003-discovery/baseline-manifest.json
+  - docs/sdd/evidence/2026-10-16-ai-003-discovery/baseline-recheck-manifest.json
+  - docs/sdd/evidence/2026-10-16-ai-003-discovery/probes-manifest.json
+  use: 已有隔离回归的两次独立快照、订单查询的合成数据探针和源码哈希。
+  limit: 发现性证据，不是规格0.2.0全部AC通过、真实组件验收或阶段批准；并行改动前后的结果不能混成一次运行。
+- id: SRC-LOCAL-008
+  project: tea_saas
+  paths:
+  - support_ai/views.py
+  - support_ai/context.py
+  - support_ai/pii.py
+  - support_ai/workflow.py
+  - support_ai/models.py
+  - support_ai/urls.py
+  - client/static/js/buyer-support.js
+  - client/templates/buyer_support.html
+  use: 接口字段/处理顺序、响应结构、模型提示词边界及现有页面恢复/重试的静态设计输入。
+  limit: 本轮目标规格0.3.0下的技术设计待评审；静态观察不表示新依赖隔离／部分完成／位置追问已实现或验收。
+- id: SRC-LOCAL-009
+  project: tea_saas
+  paths:
+  - docs/sdd/evidence/2026-10-16-sdd-reconciliation/manifest.json
+  - docs/sdd/evidence/2026-10-16-sdd-reconciliation/source-inventory.json
+  - docs/Agent分类推荐.md
+  - docs/Agent终端预览.md
+  - docs/虚拟商品数据.md
+  - support_ai/tea_explanation.py
+  - support_ai/recommendation_options.py
+  - supplier/analytics.py
+  use: 全部24能力源码对账、当前0.8.1功能、资讯登录/交易库存及看板边界，101项隔离检查与5项探针。
+  limit: 98通过/3项真实PostgreSQL跳过；非AI域以静态检查为主，未运行造数、真实模型/支付/物流或浏览器验收；历史资料不等于当前数据库内容。

@@ -1,17 +1,17 @@
-schemaVersion: "0.1"
+schemaVersion: '0.1'
 id: CAP-CAT-004
 moduleId: MOD-CAT
-name: 买家收藏与浏览足迹
-specVersion: "0.2.0"
-status: IMPLEMENTING
+name: 买家商品／商家收藏与浏览足迹
+specVersion: 0.2.1
 documentStatus: implemented-pending-review
 owner: null
 technicalReviewer: null
-sourceFeatureIds: [FEAT-029]
+sourceFeatureIds:
+- FEAT-029
 implementationAuthorization:
   source: 当前用户请求
   scope: tea_saas 收藏和足迹补全并更新 SDD
-  date: "2026-10-16"
+  date: '2026-10-16'
 files:
   requirements: requirements.md
   acceptance: acceptance.yaml
@@ -19,24 +19,47 @@ files:
   apiContract: api-contract.yaml
 clientParticipation:
   buyer:
-    pages: [myCollect.html, recent.html, product_details.html, store.html]
+    pages:
+    - myCollect.html
+    - recent.html
+    - product_details.html
+    - store.html
     responsibility: 分别管理本人商品与商家收藏、删除与清空本人商品足迹。
-  merchant: {status: not-involved}
-  operations: {status: not-involved}
+  merchant:
+    status: not-involved
+  operations:
+    status: not-involved
 dependencies:
-  - {target: CAP-IAM-001, type: platform-runtime, purpose: JWT解码及当前用户身份}
-  - {target: CAP-CAT-001, type: data-owner, purpose: SKU商品事实与详情加载成功信号}
-  - {target: CAP-MER-005, type: data-owner, purpose: 当前公开店铺信息、可访问状态及公开名称快照}
-  - {target: CAP-PLAT-002, type: platform-runtime, purpose: 共用导航、三语与RTL}
-implementationVersions: {goods: "0.3.0", web: "0.5.0", core: "0.1.4"}
-versionNote: 此处为本切片引入版本；共享工作区的后续联合版本见证据manifest及versions/modules.json。
+- target: CAP-IAM-001
+  type: platform-runtime
+  purpose: JWT解码及当前用户身份
+- target: CAP-CAT-001
+  type: data-owner
+  purpose: SKU商品事实与详情加载成功信号
+- target: CAP-MER-005
+  type: data-owner
+  purpose: 当前公开店铺信息、可访问状态及公开名称快照
+- target: CAP-PLAT-002
+  type: platform-runtime
+  purpose: 共用导航、三语与RTL
+implementationVersions:
+  goods: 0.6.2
+  web: 0.31.2
+  core: 0.7.0
+versionNote: 当前工作区登记版本，仅标识源码；原测试、迁移与启用结论按各自证据记录阅读。
 evidenceManifests:
-  - docs/sdd/evidence/2026-10-16-buyer-activity/manifest.json
-  - docs/sdd/evidence/2026-10-16-buyer-card-favorites/manifest.json
+- docs/sdd/evidence/2026-10-16-buyer-activity/manifest.json
+- docs/sdd/evidence/2026-10-16-buyer-card-favorites/manifest.json
 approvals: []
 stageNote: 既有商品收藏曾执行定向验证；本次商家收藏只完成静态检查和新增迁移隔离验证，尚未执行功能自动化验收；没有代填人工评审、发布批准或生产上线记录。
-increment:
-  date: "2026-10-21"
-  authorization: 当前用户要求我的收藏区分商家和商品
-  implementationVersions: {goods: "0.6.0", web: "0.26.0"}
-  verification: 隔离MySQL迁移验证通过；用户另行授权后已完成本地goods.0011建表并重启预览，本轮未运行功能自动化测试。
+legacyStage: IMPLEMENTING
+assessment:
+  specStatus: in-review
+  implementationStatus: source-observed
+  verificationStatus: historical-evidence
+  deploymentStatus: local-recorded
+  scope: 商品／商家收藏已有资产和原日期启用记录；本轮同步AC未重跑
+implementationObservation:
+  date: '2026-10-23'
+  scope: 商品／商家分类、分页和本人隔离源码存在；商家收藏新增AC本轮未执行
+  deployment: 有原日期本地建表授权及记录，不在本轮重新核实当前进程或数据库

@@ -1,0 +1,297 @@
+{
+  "date": "2026-10-23",
+  "scope": "R01-R11 current specification replacement only",
+  "head": "25a08ee29e23ce1bd479951e5860b44c9dfb2a89",
+  "workingTree": "dirty-existing-work-preserved",
+  "validation": {
+    "mode": "live",
+    "scope": "documentation static checks only",
+    "counts": {
+      "active_documents": 61,
+      "yaml": 12,
+      "capabilities": 28,
+      "features": 37,
+      "business_modules": 8,
+      "implementation_modules": 16,
+      "planned_writes": 40,
+      "planned_deletes": 2
+    },
+    "errors": []
+  },
+  "diffCheck": {
+    "command": "git diff --check -- <exact documented file list>",
+    "exitCode": 0,
+    "untrackedWhitespace": "validated separately by validate.py"
+  },
+  "runtimeGuard": {
+    "files": 587,
+    "changed": [],
+    "includes": "runtime source, configuration, migrations, and module registrations tracked or nonignored at start"
+  },
+  "moduleOwnership": {
+    "docs/sdd/README.md": "core",
+    "docs/sdd/governance/workflow.md": "core",
+    "docs/sdd/product/current-state.md": "core",
+    "docs/sdd/roadmap.md": "core",
+    "docs/sdd/modules/ai-support/current-agent.md": "core",
+    "docs/sdd/modules/ai-support/total-budget-recommendation.md": "support_ai",
+    "docs/sdd/modules/ai-support/conversation-history.md": "core",
+    "docs/sdd/architecture/currency.md": "core",
+    "docs/sdd/architecture/context.md": "core",
+    "docs/sdd/modules/trade/stock-reservations.md": "core",
+    "docs/sdd/modules/trade/checkout-confirmation.md": "core",
+    "docs/sdd/modules/merchant-operations/order-status-filters.md": "core",
+    "docs/sdd/modules/platform/tea-saas-platform.md": "core",
+    "docs/sdd/modules/catalog-content/product-detail-summary.md": "core",
+    "docs/sdd/modules/ai-support/capabilities/CAP-AI-003/requirements.md": "core",
+    "docs/sdd/modules/ai-support/capabilities/CAP-AI-003/design.md": "core",
+    "docs/sdd/modules/ai-support/capabilities/CAP-AI-003/redaction.md": "core",
+    "docs/sdd/modules/ai-support/capabilities/CAP-AI-003/screen-spec.md": "core",
+    "docs/sdd/modules/ai-support/capabilities/CAP-AI-003/review.md": "core",
+    "docs/sdd/modules/ai-support/capabilities/CAP-AI-003/acceptance.yaml": "core",
+    "docs/sdd/modules/ai-support/capabilities/CAP-AI-003/test-plan.yaml": "core",
+    "docs/sdd/modules/ai-support/capabilities/CAP-AI-003/api-contract.yaml": "core",
+    "docs/sdd/modules/ai-support/capabilities/CAP-AI-003/capability.yaml": "core",
+    "docs/sdd/modules/ai-support/capabilities/CAP-AI-003/api-observed.yaml": "core",
+    "docs/sdd/modules/catalog-content/capabilities/CAP-CAT-004/capability.yaml": "core",
+    "docs/sdd/modules/catalog-content/capabilities/CAP-CAT-004/requirements.md": "core",
+    "docs/sdd/modules/catalog-content/capabilities/CAP-CAT-004/acceptance.yaml": "core",
+    "docs/sdd/modules/catalog-content/capabilities/CAP-CAT-004/api-contract.yaml": "core",
+    "docs/sdd/catalog.yaml": "core",
+    "docs/sdd/product/feature-inventory.yaml": "core",
+    "docs/sdd/product/open-questions.yaml": "core",
+    "docs/sdd/product/source-manifest.yaml": "core",
+    "docs/sdd/modules/ai-support/search-products-design.md": "core",
+    "docs/sdd/modules/catalog-content/capabilities/CAP-CAT-004/design.md": "core",
+    "docs/sdd/modules/catalog-content/merchant-preview.md": "core",
+    "docs/sdd/modules/catalog-content/card-interactions.md": "core",
+    "docs/sdd/modules/platform/interface-increments.md": "core",
+    "docs/sdd/rule-review.md": "core",
+    "docs/模块版本管理.md": "core",
+    "docs/项目接手指南.md": "core",
+    "docs/sdd/reconciliation.md": "core",
+    "docs/sdd/reconciliation-2026-10-18.md": "core",
+    "docs/sdd/evidence/2026-10-23-rule-review/verification.md": "core",
+    "docs/sdd/evidence/2026-10-23-rule-review/manifest.json": "core"
+  },
+  "deleted": [
+    "docs/sdd/reconciliation.md",
+    "docs/sdd/reconciliation-2026-10-18.md"
+  ],
+  "files": [
+    {
+      "path": "docs/sdd/README.md",
+      "before_sha256": "67d282299478f5e571d83e8e02fbf91f25342d998a44d9b836ecd5474548ae1f",
+      "after_sha256": "8908ca1e4c1bcf534c813a1d559129c8cde68eed119e9d0871c34451abf8ddbe"
+    },
+    {
+      "path": "docs/sdd/governance/workflow.md",
+      "before_sha256": "cc648d543017e353e100ae9d02803715972426d35da8b2c44ae7b57cc7c4af51",
+      "after_sha256": "55d7ee095cae7d7fed921a1a08aba8afacbd2cf929f18fefc56592445169d6bc"
+    },
+    {
+      "path": "docs/sdd/product/current-state.md",
+      "before_sha256": "56bff7758234219a4dacfc04affbb5205e3c3f3bfeadc1e2ff45a11fc699bfcc",
+      "after_sha256": "d67cc54eb934357ba072c911f21db1c6adcc4439aeea1cf73898edce93e31d2c"
+    },
+    {
+      "path": "docs/sdd/roadmap.md",
+      "before_sha256": "db12fd862e6e3581da89b98a22b73d1c9433933601a42a41f59ae5e6e6d21fac",
+      "after_sha256": "107e9e5b40d3dc376fec06c917e829330d9dcbc8043feb390a69e84fe7bcd76d"
+    },
+    {
+      "path": "docs/sdd/modules/ai-support/current-agent.md",
+      "before_sha256": "371fe1b0b6fc7b518e62a55edd723cf985f5f41a162302536064a36fd5eed1a8",
+      "after_sha256": "6088e7b2181736cebbe17c40f697cc63f1e5928bcca5c3cbd0d1951d5a77b7cf"
+    },
+    {
+      "path": "docs/sdd/modules/ai-support/total-budget-recommendation.md",
+      "before_sha256": "6aa21bf4a274d6288defabf39a7fed14bfca640a1166b265676b88ba8bb76509",
+      "after_sha256": "cad2dceed421bce7400eb6329d98014d841b1afc66724e3f93907e109e4659d8"
+    },
+    {
+      "path": "docs/sdd/modules/ai-support/conversation-history.md",
+      "before_sha256": "78e6572339acd4163335db4a298d674f4b4da3cbad4cfca256325b21525800e8",
+      "after_sha256": "c4b26b6587bc5bd59497bdab1982acd3ec23b2217e7fd39242e277d9c324a52f"
+    },
+    {
+      "path": "docs/sdd/architecture/currency.md",
+      "before_sha256": "a05e6fc6c56358c627563e191f49ecc0240b2ef64a55bc2fcb2d89f7d9f4867a",
+      "after_sha256": "ee8cc93b0dc14004b23d3920a469a49a49888929624b3a269637d03aaec31d40"
+    },
+    {
+      "path": "docs/sdd/architecture/context.md",
+      "before_sha256": "5d5ceef90313cbde27998e5d740355a537ffc911a60e63f73024bace2f9d6045",
+      "after_sha256": "39f33768c4ed185472bbdcbe319e80f7f91a06996fec6993184d86f2007f0ff8"
+    },
+    {
+      "path": "docs/sdd/modules/trade/stock-reservations.md",
+      "before_sha256": "3e6ead39272b9e81f44091864d32dfc69a9e513ead5677a336171e30e34b4be7",
+      "after_sha256": "0b9830a53dc9bc78d1e323f66ad7464e316c0eaff23e81fc43cf35a7bbc9069c"
+    },
+    {
+      "path": "docs/sdd/modules/trade/checkout-confirmation.md",
+      "before_sha256": "1ce65a212cf7eeb59cc00e0a3cf1e4c3cb3e69e67a6f67d391cde941e19e805f",
+      "after_sha256": "f976b0e188578b3cf0a6434e82a6ea5d71a4a0165e5ab81a22cd7187693fe1a7"
+    },
+    {
+      "path": "docs/sdd/modules/merchant-operations/order-status-filters.md",
+      "before_sha256": "6abd9d45e737f48eec854178013f7409304aac92cbe3ceb201eaf3d3fb90b3be",
+      "after_sha256": "2a7871f02ce3cfe142f0581b8824363488209d280c0c123129ddf6dc6043f5c2"
+    },
+    {
+      "path": "docs/sdd/modules/platform/tea-saas-platform.md",
+      "before_sha256": "1b863125ff7f2bf3dcef7607add03edc15417f686f8a04d7f762539a0c062416",
+      "after_sha256": "d85aadb37009e65ee1f67bcc73e1eee5d3400ab5588f864032e25cf56de703aa"
+    },
+    {
+      "path": "docs/sdd/modules/catalog-content/product-detail-summary.md",
+      "before_sha256": "d1bac0d4f0505b3f4cab611cc398c7899e455d2ce36244f5cc541f15a1844ef0",
+      "after_sha256": "d5c25f34a2d5b03cab86148120a8e8f819c1034e52fcb022c1121c5f1cbb1c85"
+    },
+    {
+      "path": "docs/sdd/modules/ai-support/capabilities/CAP-AI-003/requirements.md",
+      "before_sha256": "096145ff2d80aa672628fc86b354d834d4c1f2ab7b925064050a5251cf1c3eb1",
+      "after_sha256": "4491039e4921b5c0991b11ed2c59441c098964f1a5a03019a13636e9eba352e6"
+    },
+    {
+      "path": "docs/sdd/modules/ai-support/capabilities/CAP-AI-003/design.md",
+      "before_sha256": "06a0268a1666e311043ba721af75fa7ba64de1d9d7f28de25937f9f6f76d5c4c",
+      "after_sha256": "21beb88c808f505840428240d936dbbfb584fe2831411c7ae3a643a1d6c208e4"
+    },
+    {
+      "path": "docs/sdd/modules/ai-support/capabilities/CAP-AI-003/redaction.md",
+      "before_sha256": "01085fa9467fa6f55c23eb0b44d78b8f94347d465d3ca70edd9102fe9783bc44",
+      "after_sha256": "ee94d7ef26d78363910314e79f670caf80fc3572bf05cc29ddc0ac925d3a7e30"
+    },
+    {
+      "path": "docs/sdd/modules/ai-support/capabilities/CAP-AI-003/screen-spec.md",
+      "before_sha256": "2b3c66e668179d56fc69a88ca649acc1da2bca98ee7cf9b1e198860b6059d3fa",
+      "after_sha256": "0e70bb4856d36adc4db05d6cf8c6e97782c518c01fcbf125fe1ff8c6dcd70c1a"
+    },
+    {
+      "path": "docs/sdd/modules/ai-support/capabilities/CAP-AI-003/review.md",
+      "before_sha256": "67fd68a3762efe9d709c7039baaf4539eeab2a1077c5b2c12e798cc3a3462305",
+      "after_sha256": "7058da3b8901b15359485620ead3c0f51171b9f0324074bbb4d665d8db0f87ef"
+    },
+    {
+      "path": "docs/sdd/modules/ai-support/capabilities/CAP-AI-003/acceptance.yaml",
+      "before_sha256": "e637c41ae77ef9783d5c42dbcbdfa490f9f93f635d2d9d32723259270be771f6",
+      "after_sha256": "50ab76140a90c37682df8517e148894962be1e2fc2e4107720a444c3521b2157"
+    },
+    {
+      "path": "docs/sdd/modules/ai-support/capabilities/CAP-AI-003/test-plan.yaml",
+      "before_sha256": "57087cd257e7bf28a79c1b2ed16ce3978da0aa3660495afa17a66c51b4b10fd8",
+      "after_sha256": "e9704badc306cb71e3307f7b8d6212a883bc5d15fe771bc2d905573080a340b5"
+    },
+    {
+      "path": "docs/sdd/modules/ai-support/capabilities/CAP-AI-003/api-contract.yaml",
+      "before_sha256": "6e9dacb1c729bdd8340bfde6f82004841f40600dfd83bbfe5896342ca3182922",
+      "after_sha256": "5e7886fe6dd06c699c98d44afe8558aff6c303745148aa15d842514a2a54bec8"
+    },
+    {
+      "path": "docs/sdd/modules/ai-support/capabilities/CAP-AI-003/capability.yaml",
+      "before_sha256": "2571ea5d66216c1e08397bd794310b4a3f3eeb009b00556084ac7cf210ad499d",
+      "after_sha256": "343409347d2117e79ed3ccc4ef3f377f385bfa6f90b0b6c8631bc75ab9cb8ede"
+    },
+    {
+      "path": "docs/sdd/modules/ai-support/capabilities/CAP-AI-003/api-observed.yaml",
+      "before_sha256": "2b14a71a06a74c5001e5b6ea138ad50cf52623212c6a7983ce7dda46e3b7aa08",
+      "after_sha256": "bea8aca5502d7c17a6f105e9bda5624ad5275de7db54e5cad4d491bd3a1fb09d"
+    },
+    {
+      "path": "docs/sdd/modules/catalog-content/capabilities/CAP-CAT-004/capability.yaml",
+      "before_sha256": "eaf541cea7c21513e421b4bd64c7ccdfa303170969fa8dae9e4e618cc3656faf",
+      "after_sha256": "58b63f4fccc1d9f7efde3a3005320e79c5c34363e1190b65997b377e26a3ca9f"
+    },
+    {
+      "path": "docs/sdd/modules/catalog-content/capabilities/CAP-CAT-004/requirements.md",
+      "before_sha256": "c9788886229667f6685f52f2402474cc3efbcb06cfcb3214950145d16acc5272",
+      "after_sha256": "a3772e869d5bbd7f415471e3f5bda5ef23f6e948acf345b3b010276ea013d8b9"
+    },
+    {
+      "path": "docs/sdd/modules/catalog-content/capabilities/CAP-CAT-004/acceptance.yaml",
+      "before_sha256": "193a1169513bfa5a1929f67be456d4104d1524ccda2096583ed199b08a448153",
+      "after_sha256": "84f822773c11e96bed64adf5866e402335bec9281eb8d19ba5e1485a6d20ef9d"
+    },
+    {
+      "path": "docs/sdd/modules/catalog-content/capabilities/CAP-CAT-004/api-contract.yaml",
+      "before_sha256": "1faaa95fc965db370d0f9d7ec0bc86fa02872edf09b5da5538fd2be287919691",
+      "after_sha256": "fb3a7550072d8702a845ebba76927305fdc8a4c736d4b13af81a9040bc568851"
+    },
+    {
+      "path": "docs/sdd/catalog.yaml",
+      "before_sha256": "b95986e95a5b1187e50bbaca204123b333fb6ca85b8ce4a6d8d3bc53fe761f52",
+      "after_sha256": "a91bde30dd6aa54fbae3b568cc6806e626b3a79d2a0ab1a9dd3d1e927a8705cb"
+    },
+    {
+      "path": "docs/sdd/product/feature-inventory.yaml",
+      "before_sha256": "6c1faa2f7aef364f17e4c746cd293f903247eb46a5f656a4a68e6d98c52b125e",
+      "after_sha256": "27575998df0151bd673ae6e37937db63f7a7cc2c23c50f10e550325bc95ff8f9"
+    },
+    {
+      "path": "docs/sdd/product/open-questions.yaml",
+      "before_sha256": "6137bd51eeb78fbdf3385ef88cbe1ee02be8512159ac811faab3c31f53a8b54d",
+      "after_sha256": "e4ebe46575d3ffc2b58a5699674a1ac6c17abcff5b59d65209ac0aef6f5e8518"
+    },
+    {
+      "path": "docs/sdd/product/source-manifest.yaml",
+      "before_sha256": "8776ab479ae2dc3cefebb6f927a6b8ac5a1aeca38f6767b70e17f014a321042c",
+      "after_sha256": "7a6eed07765696f6bbddb01adb1339280362d9032106d83af1f8f46f504aeeae"
+    },
+    {
+      "path": "docs/sdd/modules/ai-support/search-products-design.md",
+      "before_sha256": "3fa8b47af157d9bf809a36ec16868911fcd9ccb4b1cd4a983f578d09fabd07df",
+      "after_sha256": "bb1551ba623265ea8ba8fe37c1c71e2f686ed4f66a3eb126280bf5688bc1976f"
+    },
+    {
+      "path": "docs/sdd/modules/catalog-content/capabilities/CAP-CAT-004/design.md",
+      "before_sha256": "687319b15585becd5ab7b2ef25e771f61f1a2f61429b4bb08ec51606030dc2b0",
+      "after_sha256": "1aeeffbc8b633b16074f1866c1f7b484a096976f4312d9e80b3cac013eb0de30"
+    },
+    {
+      "path": "docs/sdd/modules/catalog-content/merchant-preview.md",
+      "before_sha256": "ebac4c5ade2b4e20b38728010ed9c1b592d1af657575a10e873691e62bf65c10",
+      "after_sha256": "f52c278502f9cc7983d67ae36cbf921b1a2c4531f1430206f6e6019be8afd0b8"
+    },
+    {
+      "path": "docs/sdd/modules/catalog-content/card-interactions.md",
+      "before_sha256": "ba968faa672d4389aa4827bd496cf7c73ac4ad5a7e16428708e514e2856a254a",
+      "after_sha256": "4ff7ea0a822bfe0746117b647b8682472f886286a4a18a0e5d0ae4ec0671418a"
+    },
+    {
+      "path": "docs/sdd/modules/platform/interface-increments.md",
+      "before_sha256": "f784be2e497cd6d29fc5be3b0ba0716413c38a18163b84d8af315e698b51c6b5",
+      "after_sha256": "15322cd352020731f0ddb6720e0c6dd0774874f5f7ea7f7ed3448944c0939fde"
+    },
+    {
+      "path": "docs/sdd/rule-review.md",
+      "before_sha256": null,
+      "after_sha256": "d78fbb332a0afa8b923d63d08b0cc5008cd82c0e159c2dd9d754bd1f266eb106"
+    },
+    {
+      "path": "docs/模块版本管理.md",
+      "before_sha256": "bafb02ff0fec1823c4419382a177c5111f189f3025ddc01b9fe2a054e730838e",
+      "after_sha256": "50f14900ce6513eaae90aa501cccba7f0cc95811a2fb57f23f0357c05847f29a"
+    },
+    {
+      "path": "docs/项目接手指南.md",
+      "before_sha256": "d364712e46e26a3ff08d4363a33209a615c41712901e9b0f88df84f9041f33ea",
+      "after_sha256": "5af7a3a30ccab4931cf0e31807fe061f223b16afcbf22fa2a326fe73308821c3"
+    },
+    {
+      "path": "docs/sdd/reconciliation.md",
+      "before_sha256": "c702808a0135f0e1621e582b4bce65f1f17f08fdca3f2d727b21ad9be41ab09d",
+      "after_sha256": null
+    },
+    {
+      "path": "docs/sdd/reconciliation-2026-10-18.md",
+      "before_sha256": "b9ae8049b86edfe28edf9af5c8dd99c377daf23070e5d47885e2d75e2dfbbff2",
+      "after_sha256": null
+    }
+  ],
+  "specificationArchivesCreated": false,
+  "businessTests": "not-run",
+  "databaseAndModelAccess": "not-run",
+  "commitPushPrDeployment": "not-performed"
+}

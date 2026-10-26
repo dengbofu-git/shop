@@ -7,7 +7,7 @@
 原商家列表“查看”以target=_blank、rel=noopener打开买家product_details.html，编辑页“预览”也打开同页。新标签页没有所属商家的sessionStorage时，旧AuthStorage自动读取localStorage中最后登录的账号，因而可能显示另一个买家／平台账号；并非数据库用户名被商品操作改写。
 
 - REQ-MER-PREVIEW-001：列表“查看”和编辑“预览”均在商家页面内打开只读弹窗，关闭回到原页面；不新开标签页、不进入买家导航，不改变登录身份或筛选／编辑状态。
-- RULE-MER-PREVIEW-001：数据仅来自现有GET `/v1/goods/merchant/products` 返回的本人商品列表；展示SKU、商品名、图片、茶类、品牌、售价USD、库存、上架状态与商品介绍，允许查看本商家的下架商品。
+- RULE-MER-PREVIEW-001：数据仅来自现有GET `/v1/goods/merchant/products` 返回的本人商品列表；展示SKU、商品名、图片、茶类、品牌、售价CNY（外币如提供仅作参考显示，遵循[金额规格](../../architecture/currency.md)）、库存、上架状态与商品介绍，允许查看本商家的下架商品。
 - RULE-MER-PREVIEW-002：编辑页预览显示数据库已保存内容，明确标注“当前商家已保存的商品信息”；不自动保存草稿、不上传、不更改状态，不生成买家收藏／足迹，不展示购买按钮。读取与修改API的对象归属仍由后端保证。
 - RULE-IAM-TAB-001：Token、用户名、账号类型、店铺及购物车计数仅由sessionStorage管理；禁止从全浏览器共享localStorage导入身份或写入新身份。旧共享缓存即使存在也不参与授权或用户显示；路由工具没有AuthStorage时按未登录处理。
 - RULE-IAM-TAB-002：同源iframe属于顶层标签页会话；刷新保留身份。浏览器自行复制sessionStorage的标签页可能继承其打开者会话，但不继承其他无关标签页最后登录的账号；没有会话的新标签页必须登录。
