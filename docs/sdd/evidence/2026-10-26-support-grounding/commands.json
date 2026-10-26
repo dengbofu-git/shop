@@ -1,0 +1,88 @@
+{
+  "executed_at": "2026-10-26T01:57:34.006647+00:00",
+  "test_database": "support_ai.test_settings: default and ai_storage are SQLite in-memory; LocMem caches",
+  "model": "Synthetic test doubles; no real model requests",
+  "environment_overrides": {
+    "TEMP": "<workspace>\\.scratch\\support-grounding-20261026\\tmp",
+    "TMP": "<workspace>\\.scratch\\support-grounding-20261026\\tmp",
+    "PYTHONUTF8": "1",
+    "LOG_TO_FILE": "false",
+    "LOG_LEVEL": "ERROR"
+  },
+  "results": [
+    {
+      "name": "django-check",
+      "command": [
+        "python",
+        "manage.py",
+        "check",
+        "--settings=support_ai.test_settings"
+      ],
+      "exit_code": 0,
+      "seconds": 1.616,
+      "log": "django-check.log"
+    },
+    {
+      "name": "focused-tests",
+      "command": [
+        "python",
+        "manage.py",
+        "test",
+        "support_ai.test_grounding",
+        "support_ai.tests.GraphTests",
+        "support_ai.test_product_details",
+        "--settings=support_ai.test_settings",
+        "--noinput",
+        "-v",
+        "2"
+      ],
+      "exit_code": 0,
+      "seconds": 7.513,
+      "log": "focused-tests.log"
+    },
+    {
+      "name": "module-regression",
+      "command": [
+        "python",
+        "manage.py",
+        "test",
+        "support_ai",
+        "--settings=support_ai.test_settings",
+        "--noinput",
+        "-v",
+        "2"
+      ],
+      "exit_code": 1,
+      "seconds": 11.233,
+      "log": "module-regression.log"
+    },
+    {
+      "name": "module-ownership",
+      "command": [
+        "python",
+        "tools/module_versions.py",
+        "check"
+      ],
+      "exit_code": 0,
+      "seconds": 0.392,
+      "log": "module-ownership.log"
+    },
+    {
+      "name": "diff-check",
+      "command": [
+        "git",
+        "diff",
+        "--check",
+        "--",
+        "support_ai",
+        "versions/modules.json",
+        "versions/changelogs/support_ai.md",
+        "versions/README.md",
+        "docs/sdd/modules/ai-support/current-agent.md"
+      ],
+      "exit_code": 0,
+      "seconds": 0.105,
+      "log": "diff-check.log"
+    }
+  ]
+}

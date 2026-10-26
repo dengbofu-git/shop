@@ -14,6 +14,7 @@ from .execution import ToolResult
 from .model_client import configured_model
 from .contracts import RecommendationIntent, validate_recommendation_intent
 from .semantic_planning import SemanticPlan
+from .grounding import KnowledgeDraft, GroundingReview, generate_grounded_answer
 
 
 class FakeModel(Runnable):
@@ -26,6 +27,15 @@ class FakeModel(Runnable):
         def structured(prompt):
             content = prompt.to_messages()[-1].content
             self.calls.append(('structured', content))
+            if schema is KnowledgeDraft:
+                payload = __import__('json').loads(content)
+                source = payload['evidence'][0]
+                return KnowledgeDraft(claims=[{'text': source['text'], 'citations': [
+                    {'source_id': source['source_id'], 'quote': source['text']}]}])
+            if schema is GroundingReview:
+                payload = __import__('json').loads(content)
+                return GroundingReview(verdicts=[{'claim_id': row['claim_id'], 'supported': True,
+                    'standalone': True, 'relevant': True} for row in payload['claims']])
             if schema is SemanticPlan:
                 message = content.split('本轮原话：')[1].split('\n')[0]
                 kind = max(self.scores, key=self.scores.get)
@@ -79,6 +89,10 @@ class GraphTests(TestCase):
     def graph(self, model):
         def factory(state):
             def handler(step, completed):
+                if step.intent == 'question_answering':
+                    evidence = [{'text': '绿茶加工包括杀青和干燥。', 'source_title': '测试资料', 'source_reference': ''}]
+                    data, sources = generate_grounded_answer(model, step.request, evidence)
+                    return ToolResult(step_id=step.id, tool=step.tool, status='success', data=data, sources=sources)
                 data = {'answer': '当前所选订单：待发货。', 'orders': [{'order_status': '待发货'}]} if step.intent == 'after_sales' else {'answer': FALLBACK}
                 return ToolResult(step_id=step.id, tool=step.tool, status='success', data=data)
             return {name: handler for name in ('introduce_tea', 'get_order_status', 'ask_clarification')}
@@ -87,9 +101,10 @@ class GraphTests(TestCase):
     def test_normal_answer_can_refer_to_human_support(self):
         model = FakeModel({'recommendation': .1, 'question_answering': .9, 'after_sales': .1})
         reply = '绿茶加工包括杀青和干燥。如需进一步帮助，请联系人工客服。'
-        with patch.object(model, 'invoke', return_value=AIMessage(content=reply)):
-            result = build_graph(model).invoke({'message': '介绍一下绿茶'})
-        self.assertEqual(result['answer'], reply)
+        evidence = [{'text': reply, 'source_title': '测试绿茶资料', 'source_reference': ''}]
+        result = build_graph(model, knowledge_search=lambda *args: evidence).invoke({'message': '介绍一下绿茶'})
+        self.assertIn(reply, result['answer'])
+        self.assertEqual(result['response']['grounding']['knowledge'][0]['status'], 'verified')
 
     def test_unclear_intent_uses_bounded_clarification(self):
         model = FakeModel({'recommendation': .2, 'question_answering': .3, 'after_sales': .1})
@@ -130,9 +145,10 @@ class GraphTests(TestCase):
                     self.assertEqual(model.calls,[])
                     self.assertEqual(result['response']['tasks'][0]['tool'],'get_order_status')
                 else:
-                    self.assertIn('已根据授权资料回答', result['answer'])
-                    self.assertEqual(len([call for call in model.calls if call[0] == 'text']), 1)
-                    self.assertEqual(len([call for call in model.calls if call[0] == 'structured']), 1)
+                    self.assertIn('杀青', result['answer'])
+                    self.assertFalse([call for call in model.calls if call[0] == 'text'])
+                    self.assertEqual(result['response']['grounding']['knowledge'][0]['status'], 'verified')
+                self.assertIn('grounding', result['response'])
 
 
 @override_settings(ALLOWED_HOSTS=['127.0.0.1', 'testserver'])

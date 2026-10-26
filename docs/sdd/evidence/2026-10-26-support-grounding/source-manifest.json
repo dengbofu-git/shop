@@ -1,0 +1,67 @@
+{
+  "checked_at": "2026-10-26T01:59:13.432128+00:00",
+  "baseline_head": "25a08ee29e23ce1bd479951e5860b44c9dfb2a89",
+  "current_head": "25a08ee29e23ce1bd479951e5860b44c9dfb2a89",
+  "branch": "codex/orders-merchant-isolation",
+  "staged_diff_unchanged": true,
+  "files": {
+    "docs/sdd/modules/ai-support/current-agent.md": {
+      "before_sha256": "6088e7b2181736cebbe17c40f697cc63f1e5928bcca5c3cbd0d1951d5a77b7cf",
+      "after_sha256": "1a5487a02bb07c49ea7273a0d2d0e2e2aa7353bc3f4a48f281a77975839aa84b"
+    },
+    "docs/sdd/modules/ai-support/grounded-answers.md": {
+      "before_sha256": null,
+      "after_sha256": "588503b82155acd11d4234be071dcb1b3530adc793ccd287e052191b6577011a"
+    },
+    "support_ai/business_grounding.py": {
+      "before_sha256": null,
+      "after_sha256": "74091ea12b785fd854d7ae28b28b7a048e3e52000a7ce4926d92dd2ebc64ff26"
+    },
+    "support_ai/grounding.py": {
+      "before_sha256": null,
+      "after_sha256": "9c30cbbf6db41ed5e8a1cca714a70415926c15844ad8cb0d9d8307ba57d3bee7"
+    },
+    "support_ai/tea_explanation.py": {
+      "before_sha256": "c25ccccb55b893f3a5f9a5c6a07dcf882100bc42e97b5d4bc37c73f00c4baa19",
+      "after_sha256": "ea145ea13ffaf479534da5ac03225696f83c93c05c4185a7b60289b791dc1e70"
+    },
+    "support_ai/test_grounding.py": {
+      "before_sha256": null,
+      "after_sha256": "bb209eeefdb49324fef9a0f55cf6170b5f5f40ac69a3f052c4cb1b7a74171100"
+    },
+    "support_ai/test_mixed_tea.py": {
+      "before_sha256": "0fea1ff4c0adc3fdc63c55e4be9331f82b66f75d01a75bed6c43b0dffbbd6ed3",
+      "after_sha256": "2f447b5de70c67b32dbbe1955164817b4196ef2991757d7311b446b105b53b24"
+    },
+    "support_ai/test_task_tools.py": {
+      "before_sha256": "18bb08c3455d28472ad0af0fa83138b4ddfea9783d1be2d4b85b594b8b8e2a98",
+      "after_sha256": "c400ee71e48052ae91e7e8ff2b527d10e751dc5a129fc70f8609e7b4b26d05b2"
+    },
+    "support_ai/tests.py": {
+      "before_sha256": "30e6297aea69f370a9b7096d2c6aa62e54c0ef1a839c0942423bca51328cfd53",
+      "after_sha256": "c5d1cffe33211ed026e1349f6f2edab495531b425248b2c7c6efe78a755c9301"
+    },
+    "support_ai/tool_services.py": {
+      "before_sha256": "b3f85b80e9f4c48e845b57450c63bd8d0edb012f5f7f306ba85204c36641c19a",
+      "after_sha256": "460db66d2267d4eabb3ad2b564018d15c5f97207eaea64cb7972add6214f5bdf"
+    },
+    "support_ai/workflow.py": {
+      "before_sha256": "e2f7f9493fdfee87e9ac0199bce0baa4ebfbcf41d7519f5bd371f9b05e8becf8",
+      "after_sha256": "458f60e8d7249e215b9e8abadf5e696dabd3a6589753aa33202e45fd11450651"
+    },
+    "versions/README.md": {
+      "before_sha256": "e5114d11b14e967b2a5353f676844be7b15340b52846108770267eaacbb19652",
+      "after_sha256": "0ba54c72a9da9af7eaf15f0d079461f125a98f25f080b62c589978dc41bcc3a5"
+    },
+    "versions/changelogs/support_ai.md": {
+      "before_sha256": "eb4e7c96fce08b724f1f0ec80cba79e9587127f4ac29f15ed6da148c343558bc",
+      "after_sha256": "638a0802b6cc93b277b03a334e465ea36ae0224e3ef8dbe23c38856284fd70e5"
+    },
+    "versions/modules.json": {
+      "before_sha256": "0ad88a0a1ac14f5a7bfc5d8501f6e10e43510f06ccc8486f17f50e7d7e02c933",
+      "after_sha256": "ffacc100c02c3c0a1ca63fe1adc645cdd734775756d44f9ea96cc0d2d5e16035"
+    }
+  },
+  "whitespace_issues": [],
+  "broken_local_links": []
+}

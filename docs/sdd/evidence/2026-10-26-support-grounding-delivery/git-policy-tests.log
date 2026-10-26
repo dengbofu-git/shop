@@ -1,0 +1,28 @@
+test_chinese_conventional_title (test_git_policy.IdentityChecks) ... ok
+test_dirty_push_is_rejected_before_network (test_git_policy.IdentityChecks) ... ok
+test_english_or_untyped_title_is_rejected (test_git_policy.IdentityChecks) ... ok
+test_generated_merge_allowed_only_for_commit (test_git_policy.IdentityChecks) ... ok
+test_main_push_is_rejected_before_network (test_git_policy.IdentityChecks) ... ok
+test_protected_and_unregistered_branches_are_rejected (test_git_policy.IdentityChecks) ... ok
+test_committed_check_ignores_uncommitted_repair (test_git_policy.SnapshotChecks) ... ok
+test_conflict_marker_is_blocked (test_git_policy.SnapshotChecks) ... ok
+test_deleting_implementation_requires_version (test_git_policy.SnapshotChecks) ... ok
+test_documentation_does_not_require_release (test_git_policy.SnapshotChecks) ... ok
+test_downgrade_is_blocked (test_git_policy.SnapshotChecks) ... ok
+test_duplicate_migration_numbers_are_blocked (test_git_policy.SnapshotChecks) ... ok
+test_environment_example_is_allowed (test_git_policy.SnapshotChecks) ... ok
+test_existing_migration_deletion_is_blocked (test_git_policy.SnapshotChecks) ... ok
+test_existing_migration_edit_is_blocked (test_git_policy.SnapshotChecks) ... ok
+test_implementation_without_changelog_is_blocked (test_git_policy.SnapshotChecks) ... ok
+test_implementation_without_version_is_blocked (test_git_policy.SnapshotChecks) ... ok
+test_install_preserves_existing_hooks_configuration (test_git_policy.SnapshotChecks) ... ok
+test_invalid_staged_python_cannot_be_hidden_by_working_file (test_git_policy.SnapshotChecks) ... ok
+test_new_migration_is_allowed (test_git_policy.SnapshotChecks) ... ok
+test_partial_stage_reads_index_not_working_file (test_git_policy.SnapshotChecks) ... ok
+test_private_environment_path_is_blocked (test_git_policy.SnapshotChecks) ... ok
+test_unowned_file_is_blocked (test_git_policy.SnapshotChecks) ... ok
+
+----------------------------------------------------------------------
+Ran 23 tests in 11.127s
+
+OK

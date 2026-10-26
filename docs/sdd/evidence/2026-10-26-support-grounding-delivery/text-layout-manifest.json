@@ -1,0 +1,76 @@
+{
+  "records": [
+    {
+      "path": "docs/sdd/evidence/2026-10-26-support-grounding/baseline-tests.log",
+      "before_sha256": "a2597a940693c5dad9182a9ae923ff2ae5aeb4246c53f7223c0ba1ac3a405c5a",
+      "after_sha256": "93b4a7db5b06b6b9231d65838bfe4fbc5c5bd352f61e6c5e0fd7029c43c152de",
+      "change": "Windows CRLF/duplicate-CR newline sequences normalized to LF only"
+    },
+    {
+      "path": "docs/sdd/evidence/2026-10-26-support-grounding/django-check.log",
+      "before_sha256": "f87ceb15410bde28ff826ce26228e0576558258fa64d145847921a593a61ee63",
+      "after_sha256": "1e3e63f221bde88816c4a4ef7367691607b20cc1d194028a02ec9ae0586cf9b1",
+      "change": "Windows CRLF/duplicate-CR newline sequences normalized to LF only"
+    },
+    {
+      "path": "docs/sdd/evidence/2026-10-26-support-grounding/focused-tests.log",
+      "before_sha256": "3d17836a1e10859a4267ac76fdd000cd65abe3f17ac92057708d6aeaff0ebdb0",
+      "after_sha256": "21380105ead930ab45e06a232044a3cca1604a6de3bccf7e4dcbaf26523f471d",
+      "change": "Windows CRLF/duplicate-CR newline sequences normalized to LF only"
+    },
+    {
+      "path": "docs/sdd/evidence/2026-10-26-support-grounding/module-ownership.log",
+      "before_sha256": "89483c47e7db0bdddec741f658e73483787f76de022eff7b2ee13955f729d0cc",
+      "after_sha256": "724f40f65e8a02a0ec6c464f33d849489090114e0a5057cb16bfb6071819ddb3",
+      "change": "Windows CRLF/duplicate-CR newline sequences normalized to LF only"
+    },
+    {
+      "path": "docs/sdd/evidence/2026-10-26-support-grounding/module-regression.log",
+      "before_sha256": "142054ff47986fc669618af33b6d55353f2ab8d0c16da00e9582886ba712173e",
+      "after_sha256": "d0c00090d9e6fb6ee23dcc9dc80462c27913c576815e06d2e26e59a307713723",
+      "change": "Windows CRLF/duplicate-CR newline sequences normalized to LF only"
+    },
+    {
+      "path": "docs/sdd/evidence/2026-10-26-support-grounding-delivery/django-check.log",
+      "before_sha256": "f87ceb15410bde28ff826ce26228e0576558258fa64d145847921a593a61ee63",
+      "after_sha256": "1e3e63f221bde88816c4a4ef7367691607b20cc1d194028a02ec9ae0586cf9b1",
+      "change": "Windows CRLF/duplicate-CR newline sequences normalized to LF only"
+    },
+    {
+      "path": "docs/sdd/evidence/2026-10-26-support-grounding-delivery/git-policy-tests.log",
+      "before_sha256": "87ea161e92704125ff2a2c96ab441d2f852e6d849d57e685d64ae6c28be2e71e",
+      "after_sha256": "16559805d3651206c48f89a3fd31c785e162cea7e23607f6a53d2e691df0b31c",
+      "change": "Windows CRLF/duplicate-CR newline sequences normalized to LF only"
+    },
+    {
+      "path": "docs/sdd/evidence/2026-10-26-support-grounding-delivery/governance-tests.log",
+      "before_sha256": "f7f022ea81310252b0c78e096f01c89ccf065024c9b07f817f8ccd5ea474b91b",
+      "after_sha256": "51dda27d285edf4b7dccbb31e2fd2f6a42c68b65b119db9f463b7a7b92ded664",
+      "change": "Windows CRLF/duplicate-CR newline sequences normalized to LF only"
+    },
+    {
+      "path": "docs/sdd/evidence/2026-10-26-support-grounding-delivery/module-ownership.log",
+      "before_sha256": "89483c47e7db0bdddec741f658e73483787f76de022eff7b2ee13955f729d0cc",
+      "after_sha256": "724f40f65e8a02a0ec6c464f33d849489090114e0a5057cb16bfb6071819ddb3",
+      "change": "Windows CRLF/duplicate-CR newline sequences normalized to LF only"
+    },
+    {
+      "path": "docs/sdd/evidence/2026-10-26-support-grounding-delivery/support-regression.log",
+      "before_sha256": "22f0700c82ecbdd38daa0da98b099ed84ea4bdaea993ea725575b6f91818d43c",
+      "after_sha256": "2b459673ae3568ff13a6caadda27fce3c7d8be96a5e2534ff6a83db7bfbb0f38",
+      "change": "Windows CRLF/duplicate-CR newline sequences normalized to LF only"
+    },
+    {
+      "path": "docs/sdd/evidence/2026-10-26-support-grounding/task-patch.json",
+      "original_sha256": "05969164941cf551bf584fe72dba55b258b09215372e337886340b7fb85797f2",
+      "published_sha256": "d777f51c416bebb7ef91747de06fd83fdadf7f92fbb4c6ccac568cb4abb91126",
+      "change": "Lossless JSON wrapping; exact patch string retained"
+    },
+    {
+      "path": "docs/sdd/evidence/2026-10-26-support-grounding/baseline-tests.log",
+      "before_sha256": "93b4a7db5b06b6b9231d65838bfe4fbc5c5bd352f61e6c5e0fd7029c43c152de",
+      "after_sha256": "30d2a35bc5cc7151aa998c8a50d48276b691b165a04a21b5b696b7fd022743de",
+      "change": "Removed display-only empty lines at log EOF; original retained"
+    }
+  ]
+}
