@@ -1,0 +1,46 @@
+{"timestamp": "2026-10-26T07:31:39.883+00:00", "level": "WARNING", "service": "tea_saas", "logger": "py.warnings", "event": "runtime.warning"}
+System check identified no issues (0 silenced).
+{"timestamp": "2026-10-26T07:31:45.705+00:00", "level": "ERROR", "service": "tea_saas", "logger": "support_ai.views", "event": "support.workflow.failed", "http_request_id": "6536cc963a0445feb2fdd1cb0022ae42", "trace_id": "9342b3bb0a0dede2574a4037d6f15e6d", "span_id": "ca8fc92c1d0e3ac7", "method": "POST", "route": "v1/support/chat/", "error_type": "RuntimeError", "stack": [{"file": "views.py", "function": "chat", "line": 171}]}
+{"timestamp": "2026-10-26T07:31:45.706+00:00", "level": "ERROR", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "6536cc963a0445feb2fdd1cb0022ae42", "trace_id": "9342b3bb0a0dede2574a4037d6f15e6d", "span_id": "ca8fc92c1d0e3ac7", "method": "POST", "route": "v1/support/chat/", "http_status": 503, "duration_ms": 121.67, "outcome": "server_error"}
+{"timestamp": "2026-10-26T07:31:45.779+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "250af660731442ef9c7495260e481cdf", "trace_id": "bef2e3c9766f80c8063d0597ae1fb450", "span_id": "8561dddc2fc718ce", "method": "POST", "route": "v1/support/chat/", "http_status": 200, "duration_ms": 69.12, "outcome": "success"}
+{"timestamp": "2026-10-26T07:31:45.832+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "e556a71bc24947f7b64ca9464933a209", "trace_id": "4e1174bf01ba7d5feb2879b06ab40c88", "span_id": "c1950b8f11619e84", "method": "POST", "route": "v1/support/chat/", "http_status": 200, "duration_ms": 48.56, "outcome": "success"}
+{"timestamp": "2026-10-26T07:31:45.836+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "0edb40b28a1746a493cfbae7bb8f4e88", "method": "POST", "route": "v1/support/chat/", "http_status": 200, "duration_ms": 2.34, "outcome": "success"}
+{"timestamp": "2026-10-26T07:31:46.590+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "108fa8406874415793302d6a189c9af1", "trace_id": "03ac0f7a4149f0e05721b27660daf7c7", "span_id": "33a25a94ce31236e", "method": "POST", "route": "v1/support/chat/", "http_status": 200, "duration_ms": 74.07, "outcome": "success"}
+{"timestamp": "2026-10-26T07:31:46.613+00:00", "level": "WARNING", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "702eee8705294bb9ba545dc2a20d233f", "method": "POST", "route": "v1/support/chat/", "http_status": 404, "duration_ms": 9.9, "outcome": "client_error"}
+{"timestamp": "2026-10-26T07:31:46.724+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "77a5586d23874382a82f3c50d9116caa", "trace_id": "081d68f43b62abb9d4df49f562fe9cea", "span_id": "e3c1c7ac648ab3c0", "method": "POST", "route": "v1/support/chat/", "http_status": 200, "duration_ms": 97.57, "outcome": "success"}
+{"timestamp": "2026-10-26T07:31:46.764+00:00", "level": "WARNING", "service": "tea_saas", "logger": "support_ai.workflow", "event": "support.planning.unavailable", "http_request_id": "c15d23cccd18426cb66d184b58874c0f", "trace_id": "2eae47aeac6cd1f805bd852ea989494e", "span_id": "e2472c660ab57d7a", "method": "POST", "route": "v1/support/chat/", "error_type": "ValueError"}
+{"timestamp": "2026-10-26T07:31:46.780+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "c15d23cccd18426cb66d184b58874c0f", "trace_id": "2eae47aeac6cd1f805bd852ea989494e", "span_id": "c669eb7b1872f1a1", "method": "POST", "route": "v1/support/chat/", "http_status": 200, "duration_ms": 48.21, "outcome": "success"}
+{"timestamp": "2026-10-26T07:31:46.870+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "8468965d6e354da9a1019c3f27442591", "trace_id": "d4cbd3c02423c9593219f6cbebb59260", "span_id": "f487ba4360efec49", "method": "POST", "route": "v1/support/chat/", "http_status": 200, "duration_ms": 81.97, "outcome": "success"}
+{"timestamp": "2026-10-26T07:31:46.916+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "975f284a29344b00bf8bcdb2906827aa", "trace_id": "94080a0fdaca60083d995ab1c816cb3c", "span_id": "babec6709e54ced4", "method": "POST", "route": "v1/support/chat/", "http_status": 200, "duration_ms": 39.86, "outcome": "success"}
+{"timestamp": "2026-10-26T07:31:46.994+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "7ecae046cfdf4f20a567dabe67baaa8e", "trace_id": "9d9df4efbe09247fe6d401041ee492c3", "span_id": "2a8c9b175abd6f2f", "method": "POST", "route": "v1/support/chat/", "http_status": 200, "duration_ms": 71.96, "outcome": "success"}
+{"timestamp": "2026-10-26T07:31:47.083+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "7a190e377b94415e916e57bee4b3201e", "trace_id": "70da67f35f36173e6a39ca07e7ca91ff", "span_id": "8e00ca75d49c936c", "method": "POST", "route": "v1/support/chat/", "http_status": 200, "duration_ms": 63.45, "outcome": "success"}
+{"timestamp": "2026-10-26T07:31:47.117+00:00", "level": "WARNING", "service": "tea_saas", "logger": "support_ai.workflow", "event": "support.planning.unavailable", "http_request_id": "ca64d9c7fea4431d88f364175d70900e", "trace_id": "e9eefb76e5f9346b55901486ad2000ab", "span_id": "1a720982eeb90f60", "method": "POST", "route": "v1/support/chat/", "error_type": "ValueError"}
+{"timestamp": "2026-10-26T07:31:47.135+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "ca64d9c7fea4431d88f364175d70900e", "trace_id": "e9eefb76e5f9346b55901486ad2000ab", "span_id": "36a18abbf21ea8e7", "method": "POST", "route": "v1/support/chat/", "http_status": 200, "duration_ms": 50.91, "outcome": "success"}
+{"timestamp": "2026-10-26T07:31:47.190+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "4c50d3d751bd468ca472d2884689ef05", "trace_id": "6d965e95c7359a24f49e9f2f070f30f2", "span_id": "4f4e0d557bcd7dd2", "method": "POST", "route": "v1/support/chat/", "http_status": 200, "duration_ms": 43.03, "outcome": "success"}
+======================================================================
+ERROR: test_order_followup_reloads_status_and_keeps_identity_private (support_ai.test_task_tools.TaskToolIntegrationTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "E:\django\<LOCAL_PROJECT>\support_ai\test_task_tools.py", line 171, in test_order_followup_reloads_status_and_keeps_identity_private
+    self.assertEqual(json.loads(context)[0]['status'], '������')
+KeyError: 'status'
+
+======================================================================
+FAIL: test_budget_still_applies_to_knowledge_bound_groups (support_ai.test_mixed_tea.MixedTeaIntegrationTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "E:\django\<LOCAL_PROJECT>\support_ai\test_mixed_tea.py", line 212, in test_budget_still_applies_to_knowledge_bound_groups
+    self.assertEqual([p['category'] for p in data['recommendations']], ['�̲�'])
+AssertionError: Lists differ: ['�̲�', '���'] != ['�̲�']
+
+First list contains 1 additional elements.
+First extra element 1:
+'���'
+
+- ['�̲�', '���']
++ ['�̲�']
+
+----------------------------------------------------------------------
+Ran 73 tests in 12.321s
+
+FAILED (failures=1, errors=1)

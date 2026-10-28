@@ -4,9 +4,9 @@ from typing import List, Literal, Optional
 
 from langchain_core.prompts import ChatPromptTemplate
 from pydantic import BaseModel, ConfigDict, Field
-from .contracts import RecommendationOptions, RecommendationIntent
+from .contracts import RecommendationOptions, RecommendationIntent, ProductRecommendationParameters
 from .order_contracts import OrderQuery, rule_order_query
-from .recommendation_options import BASIC_TEA_TYPES, DESCRIBED_TEA_REFERENCE, ORDINAL, recommendation_options, tea_scope
+from .recommendation_options import BASIC_TEA_TYPES, DESCRIBED_TEA_REFERENCE, ORDINAL, number, recommendation_options, tea_scope
 from .conversation_tasks import REASON_PATTERN, PREVIOUS_RECOMMENDATION
 
 
@@ -31,7 +31,7 @@ class IntentRequest(BaseModel):
     model_config = ConfigDict(extra='forbid')
     kind: Intent
     quote: str = Field(min_length=1, max_length=1000)
-    limit: Optional[int] = Field(default=None, ge=1, le=4)
+    limit: Optional[int] = Field(default=None, strict=True, description='普通推荐返回款数；范围在工具分流后校验')
     order_query: Optional[OrderQuery] = None
 
 
@@ -56,6 +56,7 @@ class TaskStep(BaseModel):
     order_query: Optional[OrderQuery] = None
     reference_turn_id: Optional[str] = Field(default=None, max_length=80)
     reference_position: Optional[int] = Field(default=None, ge=1, le=12)
+    reference_bundle_position: Optional[int] = Field(default=None, ge=1, le=3)
 
 
 class TaskPlan(BaseModel):
@@ -78,10 +79,10 @@ def _clause(message, start):
 
 
 def requested_limit(message):
-    match = re.search(r'([一二两三四1234])\s*(?:款|种|件|个)', message)
+    match = re.search(r'(?<![\d一二两三四五六七八九十])' + ORDINAL + r'\s*(?:款|种|件|个)', message)
     if not match:
         return None
-    return {'一': 1, '二': 2, '两': 2, '三': 3, '四': 4}.get(match[1], int(match[1]) if match[1].isdigit() else None)
+    return number(match[1])
 
 
 def explicit_requests(message):
@@ -215,18 +216,32 @@ def extract_requests(model, message, resolved_question, history):
     return extracted.requests, 'model'
 
 
-def build_plan(requests, source, message):
+def build_plan(requests, source, message, *, purchase=None):
     steps = []
     for request in requests:
         if request.order_query is not None and request.kind != 'after_sales':
             raise ValueError('Unexpected order query slots')
         if any(s.intent == request.kind for s in steps):
             continue
+        tool = recommendation_tool(purchase) if request.kind == 'recommendation' else TOOL_FOR_INTENT[request.kind]
+        options = recommendation_options(request.quote) if request.kind == 'recommendation' else None
+        count_issue = False
+        limit = 4
+        if request.kind == 'recommendation' and tool == 'recommend_products' and options.mode == 'flat':
+            raw_limit = requested_limit(request.quote)
+            if raw_limit is None:
+                raw_limit = request.limit if request.limit is not None else 4
+            try:
+                limit = ProductRecommendationParameters(limit=raw_limit).limit
+            except ValueError:
+                count_issue = True
         step = TaskStep(id='s{}'.format(len(steps) + 1), intent=request.kind,
-                        tool=TOOL_FOR_INTENT[request.kind], request=request.quote,
-                        limit=requested_limit(request.quote) or request.limit or 4)
+                        tool=tool, request=request.quote, limit=limit)
         if request.kind == 'recommendation':
-            step.recommendation = recommendation_options(request.quote)
+            step.purchase_intent = purchase
+            step.recommendation = options
+            if count_issue:
+                step.recommendation.clarification = '单次普通推荐支持1至4款，请调整推荐数量。'
         if request.kind == 'after_sales':
             step.order_query = request.order_query or rule_order_query(request.quote)
         steps.append(step)
@@ -270,7 +285,7 @@ def validate_plan(plan):
             raise ValueError('Purchase conditions require a recommendation task')
         if step.order_query is not None and step.intent != 'after_sales':
             raise ValueError('Order queries require an order task')
-        if (step.reference_turn_id or step.reference_position is not None) and (
+        if (step.reference_turn_id or step.reference_position is not None or step.reference_bundle_position is not None) and (
                 step.intent not in ('product_details', 'recommendation_explanation')
                 or not step.reference_turn_id or step.product_from):
             raise ValueError('Invalid historical product reference')

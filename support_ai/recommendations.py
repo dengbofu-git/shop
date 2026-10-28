@@ -9,6 +9,7 @@ from .contracts import RecommendationOptions
 from .diagnostics import error_diagnostic
 from .pii import redact
 from .recommendation_options import BASIC_TEA_TYPES
+from .recommendation_presentation import product_summary, budget_scope_question
 from tea_saas.currency import BASE_CURRENCY, to_base
 
 
@@ -17,9 +18,12 @@ CLARIFICATIONS = {
     'currency': '基础币种为人民币（CNY）。可使用CNY、USD、AED、SAR、EUR；外币按参考比例换算，不是实时汇率。',
     'budget_scope': '这个预算是每份商品的单价，还是整笔采购的商品总预算？',
     'budget_amount': '请说明整套商品总预算上限，例如“总预算200元”；未注明币种按人民币处理。',
-    'bundle_constraints': '总价搭配支持1至4款、每款相同且明确的购买数量；默认2至4款、每款1件，不自动超预算。请调整或明确搭配条件。',
+    'bundle_constraints': '可以按总预算自动搭配1至4款商品及建议件数；也支持明确指定每款相同的1至100件。不同商品各自指定数量、保留或替换指定商品暂不支持，请调整搭配条件。',
+    'recommendation_count': '请明确普通推荐需要返回几款商品，目前支持1至4款；这不是每款的购买件数。',
+    'recommendation_scope': '请说明这次是挑选商品，还是按总预算搭配；组合采购条件不能直接作为普通推荐的返回数量。',
+    'purchase_quantity': '您提出了每款的购买件数。普通推荐目前只选择商品；如需按采购数量计算总价搭配，请补充商品总预算。',
     'product_reference': '请告诉我具体的商品名称或品类，方便继续筛选。',
-    'unsupported_attribute': '目前只能核对商品分类、品牌、名称和价格。请提供这些筛选条件，口感、功效或认证需向商家确认。',
+    'unsupported_attribute': '暂未找到您所要求的相关信息，无法确认商品是否符合这一条件。您可以查看商品详情或向商家进一步核实。',
     'details': '请说明您想买的品类、品牌或每份商品预算。',
 }
 
@@ -128,7 +132,9 @@ def match_products(intent, limit=4):
         raise ValueError('Recommendation limit must be 1 to 4')
     if intent.action == 'CLARIFY':
         return {'recommendation_status': 'CLARIFY', 'recommendations': [],
-                'answer': ' '.join(CLARIFICATIONS[field] for field in intent.missing_fields)}
+                'answer': ' '.join((budget_scope_question(intent) or CLARIFICATIONS[field])
+                                  if field == 'budget_scope' else CLARIFICATIONS[field]
+                                  for field in intent.missing_fields)}
     if intent.required.price_basis == 'total':
         raise ValueError('Total budgets require recommend_bundle')
     selected = list(ranked_products(intent)[:limit])
@@ -136,11 +142,10 @@ def match_products(intent, limit=4):
     if not cards:
         return {'recommendation_status': 'NO_MATCH', 'recommendations': [],
                 'answer': '当前没有满足这些条件的可售商品。您可以调整品类、品牌、关键词或预算；我会保留您明确提出的条件。'}
-    lines = ['按您的条件找到以下可售商品（人民币 CNY 单价，价格及库存以下单时为准）：']
+    lines = [product_summary(cards)]
     if intent.required.currency not in (None, BASE_CURRENCY):
         lines.append('输入的{}预算已按参考比例换算成人民币筛选，非实时汇率。'.format(intent.required.currency))
-    lines.extend('{}. {} · {} · ¥{} · {}'.format(index, card['product_name'], card['name'], card['price'], '、'.join(card['reasons']))
-                 for index, card in enumerate(cards, 1))
+    lines.append('价格及可购买状态以下单时为准。')
     return {'recommendation_status': 'MATCHED', 'recommendations': cards, 'answer': '\n'.join(lines)}
 
 

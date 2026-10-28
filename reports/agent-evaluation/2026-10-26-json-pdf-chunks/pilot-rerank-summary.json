@@ -1,0 +1,334 @@
+{
+  "completed_records": 40,
+  "statuses": {
+    "fallback": 39,
+    "success": 1
+  },
+  "fallback_reasons": {
+    "busy": 38,
+    "timeout": 1
+  },
+  "records": [
+    {
+      "group": "fixed",
+      "question_id": "actual_2025",
+      "rerank_status": "fallback",
+      "rerank_error": "busy",
+      "seconds": 0.19296423600098933,
+      "context_tokens": 1479
+    },
+    {
+      "group": "fixed",
+      "question_id": "egypt_forecast",
+      "rerank_status": "fallback",
+      "rerank_error": "busy",
+      "seconds": 0.09489686599954439,
+      "context_tokens": 1640
+    },
+    {
+      "group": "fixed",
+      "question_id": "iraq_forecast",
+      "rerank_status": "fallback",
+      "rerank_error": "busy",
+      "seconds": 0.1280007419991307,
+      "context_tokens": 1668
+    },
+    {
+      "group": "fixed",
+      "question_id": "israel_pair",
+      "rerank_status": "fallback",
+      "rerank_error": "busy",
+      "seconds": 0.11106451399973594,
+      "context_tokens": 1879
+    },
+    {
+      "group": "fixed",
+      "question_id": "jordan_nature",
+      "rerank_status": "fallback",
+      "rerank_error": "busy",
+      "seconds": 0.10233381900070526,
+      "context_tokens": 1642
+    },
+    {
+      "group": "fixed",
+      "question_id": "jordan_pair",
+      "rerank_status": "fallback",
+      "rerank_error": "busy",
+      "seconds": 0.12507530500079156,
+      "context_tokens": 1453
+    },
+    {
+      "group": "fixed",
+      "question_id": "live_sku",
+      "rerank_status": "fallback",
+      "rerank_error": "busy",
+      "seconds": 0.09996527899966168,
+      "context_tokens": 1448
+    },
+    {
+      "group": "fixed",
+      "question_id": "price",
+      "rerank_status": "fallback",
+      "rerank_error": "busy",
+      "seconds": 0.15200161499888054,
+      "context_tokens": 1642
+    },
+    {
+      "group": "fixed",
+      "question_id": "production",
+      "rerank_status": "fallback",
+      "rerank_error": "busy",
+      "seconds": 0.10241849399972125,
+      "context_tokens": 1639
+    },
+    {
+      "group": "fixed",
+      "question_id": "turkey_nature",
+      "rerank_status": "fallback",
+      "rerank_error": "busy",
+      "seconds": 0.10518426700036798,
+      "context_tokens": 1234
+    },
+    {
+      "group": "json",
+      "question_id": "iran_pair",
+      "rerank_status": "fallback",
+      "rerank_error": "busy",
+      "seconds": 0.08640168700003414,
+      "context_tokens": 357
+    },
+    {
+      "group": "json",
+      "question_id": "israel_forecast",
+      "rerank_status": "fallback",
+      "rerank_error": "busy",
+      "seconds": 0.08520198299993353,
+      "context_tokens": 319
+    },
+    {
+      "group": "json",
+      "question_id": "israel_nature",
+      "rerank_status": "fallback",
+      "rerank_error": "busy",
+      "seconds": 0.12614052000026277,
+      "context_tokens": 313
+    },
+    {
+      "group": "json",
+      "question_id": "saudi_arabia_pair",
+      "rerank_status": "fallback",
+      "rerank_error": "busy",
+      "seconds": 0.10121433099993737,
+      "context_tokens": 351
+    },
+    {
+      "group": "json",
+      "question_id": "turkey_forecast",
+      "rerank_status": "fallback",
+      "rerank_error": "busy",
+      "seconds": 0.11461485300060303,
+      "context_tokens": 392
+    },
+    {
+      "group": "json",
+      "question_id": "turkey_pair",
+      "rerank_status": "fallback",
+      "rerank_error": "busy",
+      "seconds": 0.0814272389998223,
+      "context_tokens": 365
+    },
+    {
+      "group": "json",
+      "question_id": "united_arab_emirates_pair",
+      "rerank_status": "fallback",
+      "rerank_error": "busy",
+      "seconds": 0.06468186999882164,
+      "context_tokens": 344
+    },
+    {
+      "group": "native",
+      "question_id": "cause",
+      "rerank_status": "fallback",
+      "rerank_error": "busy",
+      "seconds": 0.1014656389997981,
+      "context_tokens": 1065
+    },
+    {
+      "group": "native",
+      "question_id": "egypt_nature",
+      "rerank_status": "fallback",
+      "rerank_error": "busy",
+      "seconds": 0.15460892800001602,
+      "context_tokens": 472
+    },
+    {
+      "group": "native",
+      "question_id": "iran_pair",
+      "rerank_status": "fallback",
+      "rerank_error": "busy",
+      "seconds": 0.1398580180011777,
+      "context_tokens": 986
+    },
+    {
+      "group": "native",
+      "question_id": "iraq_forecast",
+      "rerank_status": "fallback",
+      "rerank_error": "timeout",
+      "seconds": 30.111375213999054,
+      "context_tokens": 977
+    },
+    {
+      "group": "native",
+      "question_id": "iraq_pair",
+      "rerank_status": "fallback",
+      "rerank_error": "busy",
+      "seconds": 0.1501512239992735,
+      "context_tokens": 964
+    },
+    {
+      "group": "native",
+      "question_id": "israel_forecast",
+      "rerank_status": "fallback",
+      "rerank_error": "busy",
+      "seconds": 0.1497524410006008,
+      "context_tokens": 472
+    },
+    {
+      "group": "native",
+      "question_id": "live_sku",
+      "rerank_status": "fallback",
+      "rerank_error": "busy",
+      "seconds": 0.07823810399895592,
+      "context_tokens": 653
+    },
+    {
+      "group": "native",
+      "question_id": "saudi_arabia_forecast",
+      "rerank_status": "fallback",
+      "rerank_error": "busy",
+      "seconds": 0.11961723700005678,
+      "context_tokens": 1302
+    },
+    {
+      "group": "native",
+      "question_id": "saudi_arabia_nature",
+      "rerank_status": "fallback",
+      "rerank_error": "busy",
+      "seconds": 0.14464950900037365,
+      "context_tokens": 499
+    },
+    {
+      "group": "native",
+      "question_id": "turkey_nature",
+      "rerank_status": "fallback",
+      "rerank_error": "busy",
+      "seconds": 0.15473287900022115,
+      "context_tokens": 898
+    },
+    {
+      "group": "native",
+      "question_id": "united_arab_emirates_nature",
+      "rerank_status": "fallback",
+      "rerank_error": "busy",
+      "seconds": 0.12672949799889466,
+      "context_tokens": 490
+    },
+    {
+      "group": "ocr",
+      "question_id": "cause",
+      "rerank_status": "fallback",
+      "rerank_error": "busy",
+      "seconds": 0.09743377800077724,
+      "context_tokens": 1215
+    },
+    {
+      "group": "ocr",
+      "question_id": "egypt_forecast",
+      "rerank_status": "fallback",
+      "rerank_error": "busy",
+      "seconds": 0.15954210500058252,
+      "context_tokens": 1575
+    },
+    {
+      "group": "ocr",
+      "question_id": "iran_nature",
+      "rerank_status": "fallback",
+      "rerank_error": "busy",
+      "seconds": 0.11680267700103286,
+      "context_tokens": 1593
+    },
+    {
+      "group": "ocr",
+      "question_id": "united_arab_emirates_nature",
+      "rerank_status": "fallback",
+      "rerank_error": "busy",
+      "seconds": 0.10532860000057553,
+      "context_tokens": 1459
+    },
+    {
+      "group": "paragraph",
+      "question_id": "egypt_pair",
+      "rerank_status": "fallback",
+      "rerank_error": "busy",
+      "seconds": 0.10985848900054407,
+      "context_tokens": 865
+    },
+    {
+      "group": "paragraph",
+      "question_id": "iraq_forecast",
+      "rerank_status": "fallback",
+      "rerank_error": "busy",
+      "seconds": 0.09567742500075838,
+      "context_tokens": 809
+    },
+    {
+      "group": "paragraph",
+      "question_id": "iraq_pair",
+      "rerank_status": "fallback",
+      "rerank_error": "busy",
+      "seconds": 0.09683717599909869,
+      "context_tokens": 820
+    },
+    {
+      "group": "paragraph",
+      "question_id": "live_sku",
+      "rerank_status": "fallback",
+      "rerank_error": "busy",
+      "seconds": 0.09021129800021299,
+      "context_tokens": 337
+    },
+    {
+      "group": "paragraph",
+      "question_id": "syria_forecast",
+      "rerank_status": "success",
+      "rerank_error": null,
+      "seconds": 27.247662331001266,
+      "context_tokens": 681
+    },
+    {
+      "group": "paragraph",
+      "question_id": "syria_pair",
+      "rerank_status": "fallback",
+      "rerank_error": "busy",
+      "seconds": 0.09032319799916877,
+      "context_tokens": 931
+    },
+    {
+      "group": "paragraph",
+      "question_id": "turkey_nature",
+      "rerank_status": "fallback",
+      "rerank_error": "busy",
+      "seconds": 0.08152245600103925,
+      "context_tokens": 567
+    },
+    {
+      "group": "paragraph",
+      "question_id": "united_arab_emirates_pair",
+      "rerank_status": "fallback",
+      "rerank_error": "busy",
+      "seconds": 0.07505973700062896,
+      "context_tokens": 810
+    }
+  ],
+  "scope": "Stopped before any generation. Completed records only; interrupted in-flight requests are not counted."
+}

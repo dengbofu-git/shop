@@ -1,0 +1,69 @@
+{
+  "questions": 36,
+  "system_groups": [
+    "json",
+    "native",
+    "ocr"
+  ],
+  "pure_groups": [
+    "paragraph",
+    "native",
+    "fixed"
+  ],
+  "generation_questions": [
+    "iran_pair",
+    "saudi_arabia_pair",
+    "egypt_pair",
+    "turkey_forecast",
+    "united_arab_emirates_forecast",
+    "jordan_forecast",
+    "iran_nature",
+    "saudi_arabia_nature",
+    "macro",
+    "index",
+    "production",
+    "actual_2025"
+  ],
+  "pure_generation_questions": [
+    "iran_pair",
+    "saudi_arabia_pair",
+    "iran_nature",
+    "macro",
+    "index",
+    "actual_2025"
+  ],
+  "repeat_questions": [
+    "iran_pair",
+    "saudi_arabia_pair",
+    "index",
+    "actual_2025"
+  ],
+  "seed": 20261026,
+  "candidates": 30,
+  "top_k": 5,
+  "context_tokens": 2000,
+  "target_tokens": 500,
+  "max_tokens": 800,
+  "overlap_tokens": 64,
+  "query_rewrite": "original plus frozen rule_queries; model rewrite/retry disabled equally to isolate chunking",
+  "generation_workers": 2,
+  "max_llm_calls": 240,
+  "generation_timeout": 90,
+  "generation_retries": 0,
+  "notes": "Full retrieval on all 36 questions; stratified generation, not 36-question answer benchmark. Paragraph/page baseline is visually reviewable, not an expert-optimized manual upper bound.",
+  "rerank_enabled": false,
+  "amendment": {
+    "reason": "First 40 sequential requests: first timeout then busy fallbacks. Stop before generation; preserve pilot records. Run all groups with vector+RRF equally, production config unchanged.",
+    "pilot_records": 40,
+    "generation_started": false,
+    "retrieval_comparison": "controlled reranker-disabled ablation, not the full production route"
+  },
+  "scoring_sha256_before_generation": "0087091d3a36758e5f0eecad6ed4699a08495dfc55b5c54b3aa03908e168fa0c",
+  "observed_pilot_results": {
+    "success": 1,
+    "fallback": 39,
+    "timeout": 1,
+    "busy": 38
+  },
+  "scorer_change_after_freeze": "Only runtime summary fallback counting changed: explicitly disabled reranking is not a fallback. Source fact probes were unchanged."
+}

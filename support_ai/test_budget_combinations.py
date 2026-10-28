@@ -27,19 +27,22 @@ class BudgetCombinationTests(TestCase):
         for _ in range(30):
             rows=[Candidate(i,i//2,str(i%3),rng.randrange(1,10000),2) for i in range(1,9)]
             cap=rng.randrange(5000,25000)
-            actual=search_bundles(rows,budget_cents=cap,categories=['1'],quantity=2)
-            expected=[]
-            for size in range(2,5):
-                for selected in combinations(rows,size):
-                    total=sum(r.price_cents*2 for r in selected)
-                    if total>cap or len({r.product_id for r in selected})!=size or '1' not in {r.category for r in selected}:
-                        continue
-                    quality=(8000+20*(len({r.category for r in selected})*100//size))//100
-                    ids=tuple(r.sku_id for r in selected)
-                    expected.append(((0 if total>=(cap*95+99)//100 else 1,-quality,cap-total,ids),ids,total))
-            expected.sort()
-            self.assertTrue(actual['search_complete'])
-            self.assertEqual([(p['sku_ids'],p['subtotal_cents']) for p in actual['plans']],[(list(ids),total) for _,ids,total in expected[:64]])
+            for near in (False, True):
+                actual=search_bundles(rows,budget_cents=cap,categories=['1'],quantity=2,prefer_near=near)
+                expected=[]
+                for size in range(1,5):
+                    for selected in combinations(rows,size):
+                        total=sum(r.price_cents*2 for r in selected)
+                        if total>cap or len({r.product_id for r in selected})!=size or '1' not in {r.category for r in selected}:
+                            continue
+                        quality=(8000+20*(len({r.category for r in selected})*100//size))//100
+                        ids=tuple(r.sku_id for r in selected)
+                        rank=(-quality,cap-total,2*size,size,tuple((pk,2) for pk in ids))
+                        if near: rank=(0 if total>=(cap*95+99)//100 else 1,)+rank
+                        expected.append((rank,ids,total))
+                expected.sort()
+                self.assertTrue(actual['search_complete'])
+                self.assertEqual([(p['sku_ids'],p['subtotal_cents']) for p in actual['plans']],[(list(ids),total) for _,ids,total in expected[:64]])
 
     def test_hard_floor_exact_count_and_no_solution(self):
         rows=[Candidate(1,1,'绿茶',19500,1),Candidate(2,2,'白茶',1000,1)]

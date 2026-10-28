@@ -95,17 +95,13 @@ class TaskToolIntegrationTests(TestCase):
         self.assertEqual(len(data['recommendations']), 1)
         self.assertTrue(data['knowledge_sources'])
 
-    def test_invalid_hard_conditions_commit_only_safe_clarification(self):
+    def test_unrepairable_model_provenance_does_not_query_or_commit(self):
         from .models import SupportTurn
         with patch('support_ai.tool_services.match_products') as query:
             response = self.chat('推荐测试品牌绿茶', {'action': 'SEARCH', 'required': {'categories': ['绿茶']}})
         query.assert_not_called()
-        self.assertEqual(response.status_code, 200)
-        self.assertTrue(response.json()['clarification_required'])
-        self.assertEqual([(t['tool'], t['status']) for t in response.json()['tasks']],
-                         [('ask_clarification', 'needs_clarification')])
-        self.assertFalse(response.json()['recommendations'])
-        self.assertEqual(SupportTurn.objects.count(), 1)
+        self.assertEqual(response.status_code, 503)
+        self.assertEqual(SupportTurn.objects.count(), 0)
 
     def test_saved_preference_quote_is_canonicalized_only_after_owner_verification(self):
         from ai_storage.models import BuyerMemory

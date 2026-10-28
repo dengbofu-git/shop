@@ -1,0 +1,24 @@
+{
+  "reviewed_before_reranking": true,
+  "all_15_accepted": true,
+  "reviewer": "Codex semantic review; no independent human review",
+  "checks": [
+    "Original objects, comparison and question retained",
+    "Numeric 80 and Celsius preserved",
+    "Black tea/hongcha versus dark tea/heicha mapping preserved",
+    "No added answer, expansion or claims",
+    "English questions directly translated to Chinese; Chinese/mixed/Arabic questions directly translated to English"
+  ],
+  "revision": {
+    "case_id": 9,
+    "reason": "Initial translation added parenthetical hongcha/heicha; one real revision call removed glosses; initial call retained in raw cost log"
+  },
+  "translations_sha256": "32fde9d469a9c671d89ae125dd37d757d39c09aad8f3fe9593a3544f5ab3a354",
+  "cases_sha256": "248024261a91862721f761ce5fee989a7caec6efaced68e49433735d8d7b8080",
+  "server": {
+    "source_sha256": "7b0f66c600205f7278bbac0ed4eb1657c4554c1b62be276947a7ffab5ebb609f",
+    "batch_size": 4,
+    "threads": 4,
+    "device": "cpu"
+  }
+}

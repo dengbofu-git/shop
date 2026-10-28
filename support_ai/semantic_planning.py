@@ -8,13 +8,18 @@ from langchain_core.prompts import ChatPromptTemplate
 from pydantic import Field
 
 from .contracts import (Contract, EvidenceField, RecommendationIntent, RecommendationOptions,
-                        validate_recommendation_intent, canonicalize_total_budget)
-from .total_budget_intent import simple_total_intent
-from .planning import Intent, IntentRequest, explicit_requests, build_plan
+                        validate_recommendation_intent, canonicalize_total_budget, budget_scope_reply, IntentEvidence, IntentEvidenceError)
+from .total_budget_intent import simple_total_intent, simple_money_intent
+from .planning import Intent, IntentRequest, explicit_requests, build_plan, requested_limit
 from .pii import redact
 from .conversation_tasks import purchase_topic, apply_purchase_topic, without_reason_modifier
 from .order_contracts import FOLLOW_UP, NEXT_PAGE, OrderQuery, rule_order_query
 from .order_dates import order_today
+from .bundle_references import mentioned_bundle, bundle_products
+from .budget_scope import resolve_budget_scope, scope_only_candidate
+from .recommendation_presentation import budget_scope_question
+from .condition_evidence import repair_purchase_evidence
+from .initial_purchase import reconcile_initial_purchase
 
 
 TurnAction = Literal['new_request', 'supplement', 'modify', 'follow_up', 'cancel', 'clarify']
@@ -36,6 +41,7 @@ class DialogueState(Contract):
 class ResultReference(Contract):
     turn_id: str = Field(min_length=1, max_length=80)
     position: Optional[int] = Field(default=None, ge=1, le=12)
+    bundle_position: Optional[int] = Field(default=None, ge=1, le=3)
 
 
 class SemanticPlan(Contract):
@@ -79,11 +85,21 @@ def active_state(history):
     return DialogueState.model_validate(history[-1]['dialogue_state'])
 
 
+def _model_context(value):
+    """Application provenance validates the result; it is not model output data."""
+    if isinstance(value, dict):
+        return {key: _model_context(item) for key, item in value.items()
+                if key not in ('context_turn_id', 'budget_scope_evidence')}
+    if isinstance(value, list):
+        return [_model_context(item) for item in value]
+    return value
+
+
 def _simple_purchase(message):
     text = without_reason_modifier(message).strip('。！!？? ')
     pattern = (r'(?:请|给我|帮我|我想|我要)?(?:推荐|选|挑|找|买)'
                r'(?:一|二|两|三|四|[1-4])?(?:款|种|件|个)?\s*'
-               r'[“”"\'「『]?\s*(红茶|绿茶|白茶|乌龙茶|黑茶|黄茶|茶叶|茶)'
+               r'(?:适合日常饮用的)?[“”"\'「『]?\s*(红茶|绿茶|白茶|乌龙茶|黑茶|黄茶|茶叶|茶)'
                r'\s*[“”"\'」』]?\s*(?:吧)?')
     match = re.fullmatch(pattern, text)
     if not match:
@@ -106,10 +122,10 @@ def merge_purchase(previous, current, clear_fields, message, history, memory):
     if previous is None:
         if clear_fields:
             raise ValueError('No active fields to clear')
-        return validate_recommendation_intent(current, message, history, memory)
+        return validate_recommendation_intent(current, message, history, memory, branch_rules=False)
     old = canonicalize_total_budget(previous)
     # Expired provenance must not silently turn a constrained request into a broad query.
-    old = validate_recommendation_intent(old, '', history, memory)
+    old = validate_recommendation_intent(old, '', history, memory, branch_rules=False)
     if current.required.price_basis == 'unit' and old.required.price_basis == 'total':
         # "I meant per item" reinterprets the confirmed amount. Explicit new
         # amounts start a new range instead of inheriting a conflicting floor.
@@ -124,8 +140,9 @@ def merge_purchase(previous, current, clear_fields, message, history, memory):
                     if item.field == 'required.' + budget:
                         item.field = 'required.' + price
         old.required.quantity_per_product = old.required.distinct_count = None
+        old.required.budget_mode = None
         old.evidence = [e for e in old.evidence if e.field not in (
-            'required.quantity_per_product', 'required.distinct_count')]
+            'required.quantity_per_product', 'required.distinct_count', 'required.budget_mode')]
     elif (current.required.price_basis == 'total' and old.required.price_basis != 'total'
           and (current.required.budget_min is not None or current.required.budget_max is not None)):
         old.required.price_min = old.required.price_max = None
@@ -137,6 +154,9 @@ def merge_purchase(previous, current, clear_fields, message, history, memory):
                 setattr(getattr(old, section), field, value)
                 old.evidence = [e for e in old.evidence if e.field != path]
     old.evidence.extend(current.evidence)
+    if current.required.price_basis == 'unit':
+        old.required.budget_mode = None
+        old.evidence = [e for e in old.evidence if e.field != 'required.budget_mode']
     # Currency/scope can now be complete; let the validator recompute those gaps.
     supplied = set()
     if current.required.categories:
@@ -145,15 +165,46 @@ def merge_purchase(previous, current, clear_fields, message, history, memory):
         supplied.add('currency')
     if current.required.price_basis:
         supplied.add('budget_scope')
+    if requested_limit(message) is not None:
+        supplied.add('recommendation_count')
+    quantity_fields = {'required.quantity_per_product', 'required.distinct_count'}
+    if (current.required.quantity_per_product is not None or current.required.distinct_count is not None
+            or quantity_fields.intersection(clear_fields)):
+        supplied.update(('bundle_constraints', 'purchase_quantity'))
     old.missing_fields = list(dict.fromkeys(
         [f for f in old.missing_fields if f not in supplied and f not in ('currency', 'budget_scope', 'budget_amount')]
         + current.missing_fields))
     old.action = 'CLARIFY' if old.missing_fields else 'SEARCH'
-    return validate_recommendation_intent(old, message, history, memory)
+    return validate_recommendation_intent(old, message, history, memory, branch_rules=False)
 
 
 def plan_turn(model, message, history, memory):
     state = active_state(history)
+    try:
+        bundle_position = mentioned_bundle(message)
+    except ValueError as exc:
+        return SemanticPlan(action='clarify', standalone_question=message,
+            requests=[IntentRequest(kind='clarification', quote=message)], needs_clarification=True,
+            clarification_question=str(exc)), 'rules', state
+    selected_source = next((t for t in reversed(history) if t.get('selected_bundle_id')), None)
+    selected_follow_up = selected_source is not None and re.search(
+        r'这套|这款|这些|那款|这几个|第[一二三四1-4]款|为什么推荐|推荐理由', message)
+    if ((bundle_position is not None or selected_follow_up)
+            and re.search(r'理由|原因|为什么|详情|特点|介绍|说明|看看|查看|价格|规格', message)
+            and not re.search(r'重新推荐|再推荐|换成|搭配|订单|下单|付款|购买|取消|退款|区别|知识', message)
+            and len(explicit_requests(message)) <= 1):
+        source = selected_source or next((t for t in reversed(history) if t.get('recommendation_bundles')), None)
+        if source:
+            try:
+                bundle_products(source, message, bundle_position)
+            except ValueError as exc:
+                return SemanticPlan(action='clarify', standalone_question=message,
+                    requests=[IntentRequest(kind='clarification', quote=message)], needs_clarification=True,
+                    clarification_question=str(exc)), 'rules', state
+            kind = 'recommendation_explanation' if re.search(r'理由|原因|为什么', message) else 'product_details'
+            return SemanticPlan(action='follow_up', standalone_question=message,
+                requests=[IntentRequest(kind=kind, quote=message)], source_turn_ids=[source['turn_id']],
+                result_reference=ResultReference(turn_id=source['turn_id'], bundle_position=bundle_position)), 'rules', state
     if NEXT_PAGE.fullmatch(message.strip()):
         if state.order_query and state.order_has_more:
             return SemanticPlan(action='follow_up', standalone_question=message,
@@ -174,10 +225,35 @@ def plan_turn(model, message, history, memory):
         return SemanticPlan(action='cancel', standalone_question=message,
                             requests=[IntentRequest(kind='clarification', quote=message)]), 'rules', state
     active_purchase = state.task == 'recommendation' and state.purchase is not None
-    active_budget = active_purchase and (
-        state.purchase.required.price_basis == 'total' or state.purchase.required.price_min is not None
-        or state.purchase.required.price_max is not None or state.purchase.required.currency is not None)
-    total = simple_total_intent(message, allow_supplement=active_budget)
+    active_total = active_purchase and state.purchase.required.price_basis == 'total'
+    scope_reply = budget_scope_reply(message)
+    pending_scope = active_purchase and state.status == 'pending' and 'budget_scope' in state.missing_fields
+    if pending_scope and (scope_reply or scope_only_candidate(message)):
+        # Validate the owned, live pending facts before spending a model call.
+        validate_recommendation_intent(state.purchase, '', history, memory, branch_rules=False)
+        decision = None if scope_reply else resolve_budget_scope(model, message, state.purchase)
+        if scope_reply or decision is not None:
+            source = 'rules' if scope_reply else 'model'
+            if decision is not None and decision.scope == 'uncertain':
+                return SemanticPlan(action='clarify', standalone_question=message,
+                    requests=[IntentRequest(kind='clarification', quote=message)], needs_clarification=True,
+                    clarification_question=budget_scope_question(state.purchase) or
+                        '请确认预算是每件商品的，还是整套商品合计的？'), source, state
+            basis, scope = scope_reply if scope_reply else (decision.scope, message)
+            evidence = dict(field='required.price_basis', value=basis, source='CURRENT', quote=scope)
+            if not scope_reply:
+                evidence['context_turn_id'] = history[-1]['turn_id']
+            current = RecommendationIntent(action='SEARCH', required={'price_basis': basis}, evidence=[evidence])
+            purchase = merge_purchase(state.purchase, current, [], message, history, memory)
+            return SemanticPlan(action='supplement', standalone_question=message,
+                requests=[IntentRequest(kind='recommendation', quote=message)], purchase=purchase), source, state
+    money = simple_money_intent(message)
+    if money is not None:
+        return SemanticPlan(action='new_request', standalone_question=message,
+            requests=[IntentRequest(kind='recommendation', quote=message)],
+            purchase=merge_purchase(None, money, [], message, history, memory)), 'rules', state
+    total = simple_total_intent(message, allow_supplement=bool(active_total and not re.search(
+        r'推荐|搭配|帮我选|给我选', message)))
     if total is not None:
         continuation = active_purchase and not re.search(r'推荐|搭配|帮我选|给我选', message)
         action = ('supplement' if state.status == 'pending' else 'modify') if continuation else 'new_request'
@@ -266,6 +342,9 @@ def plan_turn(model, message, history, memory):
          '多个指代对象不确定时needs_clarification=true并给具体问题，不能猜。'
          '追问历史商品时用result_reference指定已有turn_id，可选position为该轮商品列表的1起始位置；'
          '同时将该turn_id加入source_turn_ids。不要生成SKU ID。无法确定哪轮哪款时先澄清。'
+         '历史recommendation_bundles按方案position保存商品；涉及方案2等时填result_reference.bundle_position，'
+         'position是该方案内部商品位置，不是把所有方案商品混在一起编号。未指明方案时使用selected_bundle_id，'
+         '没有显式选择则用primary_bundle_id；方案不存在或缺少来源时澄清，不退回另一套商品。'
          '推荐茶叶可宽泛搜索，不要求先提供预算；介绍知识不等于推荐。'
          '涉及recommendation必须提供purchase，仍用RecommendationIntent契约；'
          '涉及after_sales时在对应request.order_query中提取selector和topic；其他任务不能填写order_query。'
@@ -279,29 +358,44 @@ def plan_turn(model, message, history, memory):
          '多个订单引用、范围超出支持能力或对象不明确时先澄清，不丢弃约束查询近期订单。'
          'supplement/modify只提取本轮新增或替换字段，程序合并已有条件。'
          '每个购买条件必须有evidence，CURRENT逐字引用本轮，CONTEXT引用历史用户原话的turn_id，'
+         'context_turn_id为程序只读字段，必须留空；只提取本轮新增条件，不复制旧条件的内部解释引用。'
          'MEMORY仅能用于preferred且使用提供的记忆ID；助手文字不是筛选事实。'
          '金额用十进制字符串；基础币种人民币CNY，未注明币种时currency留空由程序默认CNY，不能伪造币种证据。'
          '明确外币原样提取币种和金额，由程序按参考比例换算，不自行计算汇率。'
+         '口语块、块钱、元钱表示人民币CNY；金额清楚但单件／整套范围不明时保留金额及币种，'
+         'price_basis=unknown并标budget_scope，只追问范围，不把本轮所有条件说成无法识别。'
+         '未知口径无需price_basis证据；普通预算不额外填budget_mode=cap，只有明确上限词才填。'
+         '茶／茶叶是商城范围，不能当作具体categories；金额不可遗漏。'
          '每盒/包/单价用price_basis=unit和price_min/price_max；'
+         '先区分普通商品选择与总价组合。普通推荐“一款/两款”放入对应requests[].limit，'
+         '不得填入purchase.required.distinct_count或quantity_per_product，也不得触发bundle_constraints。'
          '总价/总预算/整笔采购用price_basis=total和budget_min/budget_max，总价200用budget_max=200，'
          '100至200总价用budget_min=100,budget_max=200，恰好200用两者均200。'
          '总价已明确不能再问单价还是总价；未注明币种默认CNY，不追问币种，缺总预算上限填budget_amount；预算类型不明填budget_scope。'
-         '总价默认2至4款、每款1件、不超预算，仅明确数量才填quantity_per_product，每款数量必须相同；'
-         '明确款数填distinct_count，1至4款；二者都需required对应路径的evidence，value用数字字符串。'
-         '不支持差异数量、各类指定不同款数、超过4款、指定商品保留/替换及自动超支，填bundle_constraints，不能忽略。'
+         '总价未指定数量时由程序在1至4款内自动搭配，各款件数按预算和可售数量求解，不设每款5件上限，不超预算；'
+         '仅用户明确所有商品每款相同件数时填quantity_per_product，不生成建议购买件数。'
+         '左右/接近用budget_mode=near，恰好/正好用exact，明确上限可用cap；mode须有原话evidence。'
+         '仅总价组合的明确款数填distinct_count；数量按原文提取，不因范围不符改变任务类型，由工具分支检查范围；'
+         '二者都需required对应路径的evidence，value用数字字符串。'
+         '仅总价组合不支持的差异数量、各类指定不同款数、指定商品保留/替换及自动超支填bundle_constraints，不能忽略。'
          '未支持的口感功效认证属性填unsupported_attribute，不凭空生成可筛选属性。'
+         '日常饮用、每天喝、daily drinking等宽泛用途不作为硬属性或unsupported_attribute，'
+         '按已确认商品条件搜索，不输出属性不足的固定尾注或适用性保证；'
+         '同时明确的认证、成分、含量、功效要求仍须保留，不能被宽泛用途覆盖。'
          'clear_fields仅用于本轮明确取消的条件路径；清空品牌/茶类用对应字段路径，'
-         '取消预算须同时清除price_min、price_max、budget_min、budget_max、currency、price_basis；'
+         '取消预算须同时清除price_min、price_max、budget_min、budget_max、budget_mode、currency、price_basis；'
          '取消款数或每款数量分别清除distinct_count、quantity_per_product。'
          '同种任务合并，最多5项。取消和无法识别时用clarification任务。'),
         ('human', '当前北京时间日期：{today}\n本轮原话：{message}\n安全历史：{history}\n当前结构化状态：{state}\n长期软偏好：{memory}'),
     ])
     value = (prompt | model.with_structured_output(SemanticPlan)).invoke({
-        'today': order_today().isoformat(), 'message': message, 'history': json.dumps([
+        'today': order_today().isoformat(), 'message': message, 'history': json.dumps(_model_context([
             {key: item for key, item in turn.items() if key != 'dialogue_state'} for turn in history
-        ], ensure_ascii=False),
-        'state': state.model_dump_json(), 'memory': json.dumps(memory, ensure_ascii=False)})
+        ]), ensure_ascii=False),
+        'state': json.dumps(_model_context(state.model_dump()), ensure_ascii=False), 'memory': json.dumps(memory, ensure_ascii=False)})
     value = SemanticPlan.model_validate(value)
+    if value.purchase and any(e.context_turn_id is not None for e in value.purchase.evidence):
+        raise ValueError('Contextual scope origin is assigned only by the application')
     if any(r.quote not in message for r in value.requests):
         raise ValueError('Ungrounded current task')
     for request in value.requests:
@@ -328,7 +422,7 @@ def plan_turn(model, message, history, memory):
         if reference.turn_id not in value.source_turn_ids:
             raise ValueError('Product reference lacks a grounded source')
         turn = next(t for t in history if t['turn_id'] == reference.turn_id)
-        products = turn.get('product_references', [])
+        products = bundle_products(turn, position=reference.bundle_position)
         if not products or (reference.position is not None and reference.position > len(products)):
             raise ValueError('Product reference is outside the server result list')
         if not any(r.kind in ('product_details', 'recommendation_explanation') for r in value.requests):
@@ -348,6 +442,7 @@ def plan_turn(model, message, history, memory):
                  'price_min': r'预算|价格|金额', 'price_max': r'预算|价格|金额',
                  'currency': r'预算|价格|金额|总价', 'price_basis': r'预算|价格|金额|总价',
                  'budget_min': r'预算|价格|金额|总价', 'budget_max': r'预算|价格|金额|总价',
+                 'budget_mode': r'预算|价格|金额|总价',
                  'quantity_per_product': r'数量|每款', 'distinct_count': r'款数|种数|数量'}[field]
         if not re.search(r'(?:不限|不限制|不限定|取消|去掉|不设|不要).{0,6}(?:' + scope + r')', message):
             raise ValueError('Cleared field lacks an explicit scope')
@@ -357,7 +452,32 @@ def plan_turn(model, message, history, memory):
         if value.purchase is None:
             raise ValueError('Missing purchase slots')
         previous = state.purchase if value.action in ('supplement', 'modify') else None
-        value.purchase = merge_purchase(previous, value.purchase, value.clear_fields, message, history, memory)
+        if value.action == 'new_request' and len(value.requests) == 1:
+            value.purchase = reconcile_initial_purchase(value.purchase, message)
+        # A mixed answer still uses the full planner for every other condition.
+        # Its scoped enum receives the same server-owned contextual provenance,
+        # rather than being vetoed by a keyword list after correct extraction.
+        if (pending_scope and previous is not None and len(message) <= 300
+                and value.purchase.required.price_basis in ('unit', 'total')):
+            basis = value.purchase.required.price_basis
+            if any(e.field == 'required.price_basis' and e.value == basis and e.source == 'CURRENT'
+                   and e.source_id is None and e.quote in message for e in value.purchase.evidence):
+                value.purchase.evidence = [e for e in value.purchase.evidence if e.field != 'required.price_basis']
+                value.purchase.evidence.append(IntentEvidence(field='required.price_basis', value=basis,
+                    source='CURRENT', quote=message, context_turn_id=history[-1]['turn_id']))
+        if previous is not None:
+            # An expired old condition cannot be repaired into a new user's fact.
+            validate_recommendation_intent(previous, '', history, memory, branch_rules=False)
+        try:
+            value.purchase = merge_purchase(previous, value.purchase, value.clear_fields, message, history, memory)
+        except IntentEvidenceError as exc:
+            if not exc.repairable:
+                raise
+            repaired = repair_purchase_evidence(model, value.purchase, exc, message, history, memory)
+            try:
+                value.purchase = merge_purchase(previous, repaired, value.clear_fields, message, history, memory)
+            except IntentEvidenceError as repeated:
+                raise RuntimeError('Purchase evidence remains unsupported') from repeated
     elif value.purchase is not None or value.clear_fields:
         raise ValueError('Unexpected purchase slots')
     if any(r.kind in ('greeting', 'system_help') for r in value.requests):
@@ -381,7 +501,7 @@ def _response_state(semantic, response, previous):
         plan = response.get('task_plan', {})
         step = next((s for s in plan.get('steps', []) if s['intent'] == 'recommendation'), None)
         if step is None:
-            original = build_plan(semantic.requests, 'model', semantic.requests[0].quote)
+            original = build_plan(semantic.requests, 'model', semantic.requests[0].quote, purchase=semantic.purchase)
             step = next(s.model_dump() for s in original.steps if s.intent == 'recommendation')
             if semantic.action in ('supplement', 'modify'):
                 from .planning import requested_limit

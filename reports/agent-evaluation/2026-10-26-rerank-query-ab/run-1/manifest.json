@@ -1,0 +1,84 @@
+{
+  "started_at": "2026-10-26T03:36:01.790576+00:00",
+  "source_head": "25a08ee29e23ce1bd479951e5860b44c9dfb2a89",
+  "configuration": {
+    "model": "deepseek-flash",
+    "thinking": "disabled",
+    "telemetry_enabled": false,
+    "export_enabled": false,
+    "otlp_endpoint": "http://127.0.0.1:4318",
+    "revision": 5,
+    "rerank_enabled": true,
+    "rerank_model": "BAAI/bge-reranker-v2-m3",
+    "retrieval_candidates": 30,
+    "retrieval_top_k": 5,
+    "retrieval_per_document": 2,
+    "retrieval_context_chars": 12000,
+    "rerank_timeout_ms": 30000,
+    "rerank_min_score": null,
+    "rerank_fallback": false
+  },
+  "serving_config_revision": 5,
+  "serving_thinking": "enabled",
+  "reranker": {
+    "status": "ready",
+    "model": "BAAI/bge-reranker-v2-m3",
+    "revision": "953dc6f6f85a1b2dbfca4c34a2796e7dde08d41e",
+    "device": "cpu"
+  },
+  "protocol": {
+    "design": "15 fixed public regression cases; A=original; B=original | direct translation; 3 paired rounds; case order fixed shuffled seed 20261026; AB/BA alternates by case and round",
+    "candidate_policy": "Identical ordered 30-candidate pool per case from archived public single-query recall; no retrieval calls, no gold injection; identical pool across all arms and repeats",
+    "labels": "Pre-output exhaustive 0/1/2 grades across 50 frozen chunks: 2 directly supports a requested core fact, 1 useful background, 0 irrelevant; agent annotated against corpus, no independent expert adjudication; historical support groups separately preserved",
+    "isolated_variable": "Only reranker query string differs; same weights, tokenizer, server, candidate order, timeout=30000ms, source diversity=2, top_k=5, char_budget=12000; fallback/retry OFF in experiment",
+    "generation": "One generation per arm/case from first successful repeat; same original question and prompt, temperature=0, thinking disabled, max_tokens=1000. Paired order alternates. Not full Agent workflow.",
+    "translation": "One actual API call per question, frozen before reranking; direct faithful translation only; zh/mixed/ar to en, en to zh; explicit translation review before running arms",
+    "cost": "Per-request wall/server seconds, cgroup CPU seconds and RSS/cgroup memory samples; exact reranker tokenizer workload collected separately; actual provider usage for translation/generation, estimated USD off-peak/peak range, excludes hardware/electricity and unpriced failures",
+    "budget": "90 measured rerank calls + 2 warmups; 15 translation calls + 30 answer calls; no customer identity/history, DB writes, telemetry export or live configuration mutation",
+    "limits": "Small existing regression set, English public corpus snapshot from 2026-10-16; not current-corpus recall test, not independent held-out evaluation, not universal multilingual accuracy",
+    "failure_handling": "No reruns or replacements; all attempts count toward availability/wall/CPU; ranking quality restricted to complete successful pairs, missing pairs disclosed."
+  },
+  "case_order": [
+    2,
+    13,
+    4,
+    11,
+    3,
+    8,
+    7,
+    15,
+    1,
+    14,
+    5,
+    12,
+    10,
+    6,
+    9
+  ],
+  "source_fingerprints": {
+    "support_ai/retrieval.py": "7841cad837a94be9236b3d085ed24b54ca1401f4ca2dfdabed5ec02753d346b9",
+    "support_ai/query_rewrite.py": "fd0443c9421977d3277971ee332de6f30452b32c3b537174a5b4dd8dfd04702e",
+    "ai_storage/reranking.py": "b9e60bb6929351f9f819e991c29a9ad0b936258c94af33350ca70c6498fde540",
+    "deploy/reranker/server.py": "7b0f66c600205f7278bbac0ed4eb1657c4554c1b62be276947a7ffab5ebb609f",
+    "support_ai/evaluation/rag_rewrite_cases.json": "a16cdf1845f46dc887c77bb5c57c4a5215e0d47766b788ec68b95cf30747f900"
+  },
+  "prices_usd_per_million": {
+    "off_peak": {
+      "cached_input": 0.003,
+      "uncached_input": 0.15,
+      "output": 0.6
+    },
+    "peak": {
+      "cached_input": 0.006,
+      "uncached_input": 0.3,
+      "output": 1.2
+    }
+  },
+  "pricing_source": "https://api-docs.deepseek.com/quick_start/pricing/",
+  "pricing_read_on": "2026-10-26",
+  "evaluation_scripts_sha256": {
+    "analyze.py": "776042e7ed57a99d5c75c165b58c93bb5391736ad2545c83647e17ba5cb97ba7",
+    "count_work.py": "5b8b32100c63d9d2d4135cead5dcc1733ee013a9d3ec387e966c967c45fa4e16",
+    "experiment.py": "cd9141f735a54faee77501b79d671e27c374a314aea20dfae8c6063646f5c116"
+  }
+}

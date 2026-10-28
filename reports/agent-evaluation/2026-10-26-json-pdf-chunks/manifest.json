@@ -1,0 +1,70 @@
+{
+  "database": "pdf_chunk_eval_2d8108d1c63c42fab5e97e3bf95fda8e",
+  "configuration": {
+    "model": "deepseek-flash",
+    "thinking": "enabled",
+    "telemetry_enabled": false,
+    "export_enabled": false,
+    "revision": 5,
+    "rerank_enabled": true,
+    "rerank_model": "BAAI/bge-reranker-v2-m3",
+    "retrieval_candidates": 30,
+    "retrieval_top_k": 5,
+    "retrieval_per_document": 2,
+    "retrieval_context_chars": 12000,
+    "rerank_timeout_ms": 30000,
+    "rerank_min_score": null,
+    "rerank_fallback": true
+  },
+  "production_before": {
+    "published_documents": 12,
+    "published_public_chunks": 50,
+    "memories": 1,
+    "corpus_sha256": "497d34d3a24251b56d163b4b8659a34132904ee9f6aac07ba21d8cda59cc6c74"
+  },
+  "space": {
+    "key": "bge-m3-1024-v1",
+    "provider": "ollama",
+    "model": "bge-m3",
+    "revision": "latest",
+    "dimensions": 1024
+  },
+  "code_sha256": {
+    "ai_storage/pdf_pipeline/parser.py": "0e3d1bf405d0b2c8133d2873bb9272ae9d38d8585f66658f54a4ad70d76e59a3",
+    "ai_storage/pdf_pipeline/chunking.py": "11244681fb2229b0ea34c62c4a1eb09e9b00bbbcb12dea73a10462edcaf3d29f",
+    "ai_storage/embeddings.py": "41050ed409a70c0c34230e48baf7e655a6828e7a56fd4c363ad841f7fe6e9288",
+    "ai_storage/knowledge.py": "0aea97b5ee9d5b749e7f8199d5e2b1ed29ae970774fe0d8a430b701d94b7afa1",
+    "ai_storage/reranking.py": "b9e60bb6929351f9f819e991c29a9ad0b936258c94af33350ca70c6498fde540",
+    "support_ai/retrieval.py": "edf6a52912a0e5c97305f80bbf29609570ace19c9990faff94a70daef3a31889",
+    "support_ai/query_rewrite.py": "fd0443c9421977d3277971ee332de6f30452b32c3b537174a5b4dd8dfd04702e",
+    "support_ai/grounding.py": "7155445b5edb90edc3bb1c8b7e2b636cc2f276d4adb865eb3a855b2da44b2479",
+    "support_ai/model_client.py": "08f4601f749240cfb5812d19d37b9d82e9186938fac6873242c1d07a51e9d7bc"
+  },
+  "rerank_revision": "953dc6f6f85a1b2dbfca4c34a2796e7dde08d41e",
+  "git_head": "25a08ee29e23ce1bd479951e5860b44c9dfb2a89",
+  "git_branch": "codex/orders-merchant-isolation",
+  "workspace_dirty": true,
+  "source_url": "https://www.fao.org/fileadmin/templates/est/meetings/IGGtea21/14-Inf3-CurrentSituation.pdf",
+  "source_sha256": "64c7d46f7f2cdbf71f1bbaf3b4526efc368c5f654639e0790446347d6c9bd508",
+  "input_json_sha256": "43dc5118a92af299cbc7144354b15cba4e186912eddfee365f9d00dddb45af4a",
+  "runtime_image": "sha256:ad9b8bd3af3d6d5562c528370206168f8a9a04059d661a7d38a5b54558ffadf6",
+  "actual_experiment_rerank_enabled": false,
+  "scratch_scripts": {
+    "bootstrap.py": "8363ad2b9df09bebc7056c95f27cbb6a22ae162fbaa367664ba25700f0c78fd0",
+    "environment.py": "fd11fa5ceb644ae169b3d4f54dee7f2d04f9f129095db3cf4ae8b17466914cc9",
+    "export_candidates.py": "1b8da693c96aa508465b4e7dbb4d220c890b41e9dbb87e04d18e789592a4fc82",
+    "inspect_source.py": "ea11d3ff83303c6b49a6ed35ab0a069251ceffe1cb3434e38676ea3d5fb31e60",
+    "package_report.py": "fb6150ae03664ffaaf44d57f20c59c008d14cd7fa9b314bd498992cba2e55c71",
+    "prepare.py": "c5cbeae3fe8f371f1113250097a2730bb20fae266115a9dbf5a0b3369351c520",
+    "rerank_diagnostic.py": "11e7edb43ba1d1d45f91b2531d8fcbff3c938b9e5f8086cff44b396931e34c3c",
+    "run_eval.py": "a8ffe91dd183eb9139f5ae162bcd109e2b4ec9795a20d31e359c06b0c896b941",
+    "score_answers.py": "4d7986314905008f59cd45b7c3306ffcd5fcc4f431d97431438b353493c4c623",
+    "score_retrieval.py": "25dfd8baff02a4dc10735b05d2ff4089a6e92a5a6f4cc4ab2d7cde47ae433996"
+  },
+  "raw_local_evidence": "E:\\django\\<LOCAL_PROJECT>\\.scratch\\rag-chunk-eval-20261026",
+  "embedded_texts": 192,
+  "isolated_chunks": 201,
+  "isolated_documents": 16,
+  "unique_query_embeddings": 66,
+  "timing_note": "Load/query summaries were overwritten by cached resume. Do not report them as fresh embedding latency. Native/OCR parse measurements are the uncached first pass."
+}

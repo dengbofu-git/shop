@@ -1,0 +1,22 @@
+{
+  "scope": "Post-hoc sensitivity excluding only cases with both arms all embedding routes timing out and no evidence; raw 100-case main result retained",
+  "excluded_common_embedding_failure_ids": [
+    "R069",
+    "R070",
+    "R092"
+  ],
+  "groups": {
+    "before": {
+      "total": 97,
+      "reviewed_pass": 75,
+      "mean_seconds": 16.361689525773194,
+      "known_usage_cost_offpeak": 0.117967326
+    },
+    "after": {
+      "total": 97,
+      "reviewed_pass": 74,
+      "mean_seconds": 6.132335680412372,
+      "known_usage_cost_offpeak": 0.0253905
+    }
+  }
+}

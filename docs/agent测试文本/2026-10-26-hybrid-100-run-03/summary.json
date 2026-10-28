@@ -1,0 +1,597 @@
+{
+  "before": {
+    "total": 100,
+    "automatic_pass": 84,
+    "reviewed_pass": 74,
+    "review_entries": 25,
+    "uncaught_errors": 0,
+    "usage": {
+      "calls": 136,
+      "input_tokens": 299055,
+      "output_tokens": 28206,
+      "reasoning_tokens": 0,
+      "cache_hit_tokens": 250364,
+      "cache_miss_tokens": 48691,
+      "missing_usage": 0,
+      "cost_usd_offpeak": 0.024978341999999997,
+      "cost_usd_peak": 0.049956683999999994
+    },
+    "latency_seconds": {
+      "mean": 5.54599713,
+      "p50": 2.3879764999999997,
+      "p95": 19.8288154,
+      "max": 33.301821
+    },
+    "model_path_latency": {
+      "mean": 7.633273,
+      "p50": 2.940226,
+      "p95": 20.2127728,
+      "max": 33.301821
+    },
+    "groups": {
+      "入口与语言": {
+        "count": 8,
+        "automatic_pass": 8,
+        "reviewed_pass": 5,
+        "latency_seconds": {
+          "mean": 1.386722125,
+          "p50": 1.129783,
+          "p95": 2.1849038,
+          "max": 2.290482
+        },
+        "usage": {
+          "calls": 3,
+          "input_tokens": 11986,
+          "output_tokens": 264,
+          "reasoning_tokens": 0,
+          "cache_hit_tokens": 7936,
+          "cache_miss_tokens": 4050,
+          "missing_usage": 0,
+          "cost_usd_offpeak": 0.000789708,
+          "cost_usd_peak": 0.001579416
+        }
+      },
+      "商品推荐": {
+        "count": 20,
+        "automatic_pass": 15,
+        "reviewed_pass": 15,
+        "latency_seconds": {
+          "mean": 3.90245455,
+          "p50": 2.778836,
+          "p95": 4.988532100000021,
+          "max": 33.301821
+        },
+        "usage": {
+          "calls": 17,
+          "input_tokens": 55876,
+          "output_tokens": 4877,
+          "reasoning_tokens": 0,
+          "cache_hit_tokens": 50688,
+          "cache_miss_tokens": 5188,
+          "missing_usage": 0,
+          "cost_usd_offpeak": 0.003856464,
+          "cost_usd_peak": 0.007712928
+        }
+      },
+      "商品详情": {
+        "count": 12,
+        "automatic_pass": 6,
+        "reviewed_pass": 6,
+        "latency_seconds": {
+          "mean": 3.99610275,
+          "p50": 2.547107,
+          "p95": 10.719220199999988,
+          "max": 20.069515
+        },
+        "usage": {
+          "calls": 14,
+          "input_tokens": 46372,
+          "output_tokens": 1724,
+          "reasoning_tokens": 0,
+          "cache_hit_tokens": 43392,
+          "cache_miss_tokens": 2980,
+          "missing_usage": 0,
+          "cost_usd_offpeak": 0.001611576,
+          "cost_usd_peak": 0.003223152
+        }
+      },
+      "真实知识检索": {
+        "count": 20,
+        "automatic_pass": 20,
+        "reviewed_pass": 14,
+        "latency_seconds": {
+          "mean": 15.7442963,
+          "p50": 14.216137,
+          "p95": 20.935433550000003,
+          "max": 24.039531
+        },
+        "usage": {
+          "calls": 73,
+          "input_tokens": 91952,
+          "output_tokens": 15640,
+          "reasoning_tokens": 0,
+          "cache_hit_tokens": 66684,
+          "cache_miss_tokens": 25268,
+          "missing_usage": 0,
+          "cost_usd_offpeak": 0.013374252,
+          "cost_usd_peak": 0.026748504
+        }
+      },
+      "多轮交接": {
+        "count": 12,
+        "automatic_pass": 10,
+        "reviewed_pass": 10,
+        "latency_seconds": {
+          "mean": 3.9122910833333333,
+          "p50": 2.3107645,
+          "p95": 13.634514749999997,
+          "max": 15.079824
+        },
+        "usage": {
+          "calls": 15,
+          "input_tokens": 46064,
+          "output_tokens": 3599,
+          "reasoning_tokens": 0,
+          "cache_hit_tokens": 38400,
+          "cache_miss_tokens": 7664,
+          "missing_usage": 0,
+          "cost_usd_offpeak": 0.0034241999999999996,
+          "cost_usd_peak": 0.006848399999999999
+        }
+      },
+      "订单与权限": {
+        "count": 18,
+        "automatic_pass": 16,
+        "reviewed_pass": 16,
+        "latency_seconds": {
+          "mean": 0.9707111666666667,
+          "p50": 0.831447,
+          "p95": 2.0048714999999997,
+          "max": 2.155585
+        },
+        "usage": {
+          "calls": 2,
+          "input_tokens": 8430,
+          "output_tokens": 326,
+          "reasoning_tokens": 0,
+          "cache_hit_tokens": 8064,
+          "cache_miss_tokens": 366,
+          "missing_usage": 0,
+          "cost_usd_offpeak": 0.000274692,
+          "cost_usd_peak": 0.000549384
+        }
+      },
+      "长期偏好": {
+        "count": 5,
+        "automatic_pass": 5,
+        "reviewed_pass": 4,
+        "latency_seconds": {
+          "mean": 5.7870812,
+          "p50": 2.59659,
+          "p95": 15.688384199999998,
+          "max": 18.88387
+        },
+        "usage": {
+          "calls": 8,
+          "input_tokens": 22374,
+          "output_tokens": 1262,
+          "reasoning_tokens": 0,
+          "cache_hit_tokens": 20096,
+          "cache_miss_tokens": 2278,
+          "missing_usage": 0,
+          "cost_usd_offpeak": 0.0011591879999999998,
+          "cost_usd_peak": 0.0023183759999999996
+        }
+      },
+      "故障恢复与安全": {
+        "count": 5,
+        "automatic_pass": 4,
+        "reviewed_pass": 4,
+        "latency_seconds": {
+          "mean": 1.8523972,
+          "p50": 1.9161,
+          "p95": 2.2667416,
+          "max": 2.274296
+        },
+        "usage": {
+          "calls": 4,
+          "input_tokens": 16001,
+          "output_tokens": 514,
+          "reasoning_tokens": 0,
+          "cache_hit_tokens": 15104,
+          "cache_miss_tokens": 897,
+          "missing_usage": 0,
+          "cost_usd_offpeak": 0.00048826199999999994,
+          "cost_usd_peak": 0.0009765239999999999
+        }
+      }
+    },
+    "schemas": {
+      "SemanticPlan": {
+        "calls": 55,
+        "input_tokens": 225151,
+        "output_tokens": 10386,
+        "reasoning_tokens": 0,
+        "cache_hit_tokens": 206976,
+        "cache_miss_tokens": 18175,
+        "missing_usage": 0,
+        "cost_usd_offpeak": 0.009578777999999998,
+        "cost_usd_peak": 0.019157555999999996
+      },
+      "QueryTranslations": {
+        "calls": 34,
+        "input_tokens": 20201,
+        "output_tokens": 4818,
+        "reasoning_tokens": 0,
+        "cache_hit_tokens": 13696,
+        "cache_miss_tokens": 6505,
+        "missing_usage": 0,
+        "cost_usd_offpeak": 0.003907638,
+        "cost_usd_peak": 0.007815276
+      },
+      "KnowledgeDraft": {
+        "calls": 26,
+        "input_tokens": 27579,
+        "output_tokens": 9795,
+        "reasoning_tokens": 0,
+        "cache_hit_tokens": 20988,
+        "cache_miss_tokens": 6591,
+        "missing_usage": 0,
+        "cost_usd_offpeak": 0.006928614,
+        "cost_usd_peak": 0.013857228
+      },
+      "GroundingReview": {
+        "calls": 21,
+        "input_tokens": 26124,
+        "output_tokens": 3207,
+        "reasoning_tokens": 0,
+        "cache_hit_tokens": 8704,
+        "cache_miss_tokens": 17420,
+        "missing_usage": 0,
+        "cost_usd_offpeak": 0.004563312,
+        "cost_usd_peak": 0.009126624
+      }
+    },
+    "local": {
+      "embedding": {
+        "calls": 110,
+        "http_statuses": {
+          "200": 110
+        },
+        "latency_seconds": {
+          "mean": 0.13535483636363635,
+          "p50": 0.08908350000000001,
+          "p95": 0.16824085,
+          "max": 4.470292
+        }
+      },
+      "rerank": {
+        "calls": 34,
+        "http_statuses": {
+          "200": 33,
+          "ReadTimeout": 1
+        },
+        "latency_seconds": {
+          "mean": 6.025943352941177,
+          "p50": 5.7506725,
+          "p95": 7.4688903,
+          "max": 10.548365
+        }
+      }
+    },
+    "http_statuses": {
+      "200": 136
+    },
+    "sensitive_prompt_hits": [],
+    "max_calls_per_turn": 5,
+    "retrieval": {
+      "queries": 110,
+      "keyword_routes": 0,
+      "cache_hits": 0,
+      "rewrite_calls": 34
+    }
+  },
+  "after": {
+    "total": 100,
+    "automatic_pass": 82,
+    "reviewed_pass": 72,
+    "review_entries": 25,
+    "uncaught_errors": 0,
+    "usage": {
+      "calls": 108,
+      "input_tokens": 284312,
+      "output_tokens": 24702,
+      "reasoning_tokens": 0,
+      "cache_hit_tokens": 228352,
+      "cache_miss_tokens": 55960,
+      "missing_usage": 0,
+      "cost_usd_offpeak": 0.023900256,
+      "cost_usd_peak": 0.047800512
+    },
+    "latency_seconds": {
+      "mean": 4.79239693,
+      "p50": 2.3119625,
+      "p95": 15.998342749999999,
+      "max": 22.092513
+    },
+    "model_path_latency": {
+      "mean": 6.533545565217391,
+      "p50": 2.766687,
+      "p95": 17.24513399999999,
+      "max": 22.092513
+    },
+    "groups": {
+      "入口与语言": {
+        "count": 8,
+        "automatic_pass": 8,
+        "reviewed_pass": 5,
+        "latency_seconds": {
+          "mean": 1.463988125,
+          "p50": 1.1632259999999999,
+          "p95": 2.4580553499999995,
+          "max": 2.634994
+        },
+        "usage": {
+          "calls": 3,
+          "input_tokens": 11986,
+          "output_tokens": 264,
+          "reasoning_tokens": 0,
+          "cache_hit_tokens": 11392,
+          "cache_miss_tokens": 594,
+          "missing_usage": 0,
+          "cost_usd_offpeak": 0.00028167599999999996,
+          "cost_usd_peak": 0.0005633519999999999
+        }
+      },
+      "商品推荐": {
+        "count": 20,
+        "automatic_pass": 14,
+        "reviewed_pass": 14,
+        "latency_seconds": {
+          "mean": 3.23059385,
+          "p50": 2.6785245,
+          "p95": 4.642493400000013,
+          "max": 21.32965
+        },
+        "usage": {
+          "calls": 16,
+          "input_tokens": 55353,
+          "output_tokens": 4795,
+          "reasoning_tokens": 0,
+          "cache_hit_tokens": 49408,
+          "cache_miss_tokens": 5945,
+          "missing_usage": 0,
+          "cost_usd_offpeak": 0.003916974,
+          "cost_usd_peak": 0.007833948
+        }
+      },
+      "商品详情": {
+        "count": 12,
+        "automatic_pass": 6,
+        "reviewed_pass": 6,
+        "latency_seconds": {
+          "mean": 3.903429,
+          "p50": 2.371392,
+          "p95": 10.781644149999988,
+          "max": 20.509443
+        },
+        "usage": {
+          "calls": 13,
+          "input_tokens": 45767,
+          "output_tokens": 1547,
+          "reasoning_tokens": 0,
+          "cache_hit_tokens": 42240,
+          "cache_miss_tokens": 3527,
+          "missing_usage": 0,
+          "cost_usd_offpeak": 0.0015839699999999999,
+          "cost_usd_peak": 0.0031679399999999997
+        }
+      },
+      "真实知识检索": {
+        "count": 20,
+        "automatic_pass": 20,
+        "reviewed_pass": 14,
+        "latency_seconds": {
+          "mean": 13.03867405,
+          "p50": 12.569440499999999,
+          "p95": 18.164737050000003,
+          "max": 22.092513
+        },
+        "usage": {
+          "calls": 50,
+          "input_tokens": 79372,
+          "output_tokens": 12642,
+          "reasoning_tokens": 0,
+          "cache_hit_tokens": 46592,
+          "cache_miss_tokens": 32780,
+          "missing_usage": 0,
+          "cost_usd_offpeak": 0.012641976,
+          "cost_usd_peak": 0.025283952
+        }
+      },
+      "多轮交接": {
+        "count": 12,
+        "automatic_pass": 9,
+        "reviewed_pass": 9,
+        "latency_seconds": {
+          "mean": 3.5372045,
+          "p50": 2.2682729999999998,
+          "p95": 11.3707581,
+          "max": 11.932527
+        },
+        "usage": {
+          "calls": 13,
+          "input_tokens": 45562,
+          "output_tokens": 3437,
+          "reasoning_tokens": 0,
+          "cache_hit_tokens": 36480,
+          "cache_miss_tokens": 9082,
+          "missing_usage": 0,
+          "cost_usd_offpeak": 0.0035339399999999997,
+          "cost_usd_peak": 0.0070678799999999995
+        }
+      },
+      "订单与权限": {
+        "count": 18,
+        "automatic_pass": 16,
+        "reviewed_pass": 16,
+        "latency_seconds": {
+          "mean": 0.9832581111111112,
+          "p50": 0.8640129999999999,
+          "p95": 1.7213993499999993,
+          "max": 2.173726
+        },
+        "usage": {
+          "calls": 2,
+          "input_tokens": 8430,
+          "output_tokens": 346,
+          "reasoning_tokens": 0,
+          "cache_hit_tokens": 7424,
+          "cache_miss_tokens": 1006,
+          "missing_usage": 0,
+          "cost_usd_offpeak": 0.000380772,
+          "cost_usd_peak": 0.000761544
+        }
+      },
+      "长期偏好": {
+        "count": 5,
+        "automatic_pass": 5,
+        "reviewed_pass": 4,
+        "latency_seconds": {
+          "mean": 5.2130551999999994,
+          "p50": 2.750741,
+          "p95": 13.493990999999994,
+          "max": 16.175817
+        },
+        "usage": {
+          "calls": 7,
+          "input_tokens": 21841,
+          "output_tokens": 1157,
+          "reasoning_tokens": 0,
+          "cache_hit_tokens": 19584,
+          "cache_miss_tokens": 2257,
+          "missing_usage": 0,
+          "cost_usd_offpeak": 0.001091502,
+          "cost_usd_peak": 0.002183004
+        }
+      },
+      "故障恢复与安全": {
+        "count": 5,
+        "automatic_pass": 4,
+        "reviewed_pass": 4,
+        "latency_seconds": {
+          "mean": 1.8181812000000002,
+          "p50": 1.924149,
+          "p95": 2.268244,
+          "max": 2.290503
+        },
+        "usage": {
+          "calls": 4,
+          "input_tokens": 16001,
+          "output_tokens": 514,
+          "reasoning_tokens": 0,
+          "cache_hit_tokens": 15232,
+          "cache_miss_tokens": 769,
+          "missing_usage": 0,
+          "cost_usd_offpeak": 0.000469446,
+          "cost_usd_peak": 0.000938892
+        }
+      }
+    },
+    "schemas": {
+      "SemanticPlan": {
+        "calls": 55,
+        "input_tokens": 225269,
+        "output_tokens": 10321,
+        "reasoning_tokens": 0,
+        "cache_hit_tokens": 208640,
+        "cache_miss_tokens": 16629,
+        "missing_usage": 0,
+        "cost_usd_offpeak": 0.00931287,
+        "cost_usd_peak": 0.01862574
+      },
+      "QueryTranslations": {
+        "calls": 9,
+        "input_tokens": 5489,
+        "output_tokens": 1283,
+        "reasoning_tokens": 0,
+        "cache_hit_tokens": 3584,
+        "cache_miss_tokens": 1905,
+        "missing_usage": 0,
+        "cost_usd_offpeak": 0.0010663019999999999,
+        "cost_usd_peak": 0.0021326039999999997
+      },
+      "KnowledgeDraft": {
+        "calls": 24,
+        "input_tokens": 26039,
+        "output_tokens": 9830,
+        "reasoning_tokens": 0,
+        "cache_hit_tokens": 8832,
+        "cache_miss_tokens": 17207,
+        "missing_usage": 0,
+        "cost_usd_offpeak": 0.008505546000000001,
+        "cost_usd_peak": 0.017011092000000002
+      },
+      "GroundingReview": {
+        "calls": 20,
+        "input_tokens": 27515,
+        "output_tokens": 3268,
+        "reasoning_tokens": 0,
+        "cache_hit_tokens": 7296,
+        "cache_miss_tokens": 20219,
+        "missing_usage": 0,
+        "cost_usd_offpeak": 0.005015538,
+        "cost_usd_peak": 0.010031076
+      }
+    },
+    "local": {
+      "embedding": {
+        "calls": 63,
+        "http_statuses": {
+          "200": 63
+        },
+        "latency_seconds": {
+          "mean": 0.09903879365079366,
+          "p50": 0.09454,
+          "p95": 0.16194389999999997,
+          "max": 0.178457
+        }
+      },
+      "rerank": {
+        "calls": 30,
+        "http_statuses": {
+          "200": 30
+        },
+        "latency_seconds": {
+          "mean": 6.2442216,
+          "p50": 6.4781365,
+          "p95": 8.04640485,
+          "max": 8.397767
+        }
+      }
+    },
+    "http_statuses": {
+      "200": 108
+    },
+    "sensitive_prompt_hits": [],
+    "max_calls_per_turn": 4,
+    "retrieval": {
+      "queries": 96,
+      "keyword_routes": 33,
+      "cache_hits": 0,
+      "rewrite_calls": 9
+    }
+  },
+  "paired_changes": {
+    "improved": [
+      "R045"
+    ],
+    "regressed": [
+      "R025",
+      "R059",
+      "R063"
+    ],
+    "same_pass": 71,
+    "same_fail": 25
+  }
+}

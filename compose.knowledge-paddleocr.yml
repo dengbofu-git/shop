@@ -1,0 +1,12 @@
+# Optional overlay; use together with compose.knowledge-worker.yml.
+services:
+  knowledge-worker:
+    env_file:
+      - ./.scratch/paddleocr/client.env
+    networks:
+      - default
+      - document-parser
+networks:
+  document-parser:
+    external: true
+    name: ${PADDLEOCR_NETWORK_NAME:-tea_saas-document-parser}

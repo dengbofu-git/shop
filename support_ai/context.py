@@ -12,6 +12,7 @@ from ai_storage.models import BuyerMemory
 from .contracts import Preferences, RequiredConditions, QueryConditions
 from .models import SupportConversation, SupportTurn
 from .pii import redact
+from .bundle_references import compact_bundle_references
 
 
 HISTORY_HOURS = 24
@@ -95,6 +96,17 @@ def context_from_turns(turns):
         answer = redact(turn.answer)[:1500]
         item = {'turn_id': 'turn-{}'.format(turn.pk), 'user_text': text,
                 'assistant_text': answer, 'intent': turn.intent}
+        # These annotations originate in a committed application result, not a
+        # model-authored context list. Bind the interpretation to this exact turn.
+        purchase = (turn.response.get('product_intent') or
+                    (turn.response.get('dialogue_state') or {}).get('purchase') or {})
+        scope_evidence = [{key: evidence[key] for key in ('field', 'value', 'quote', 'context_turn_id')}
+            for evidence in purchase.get('evidence', [])
+            if evidence.get('context_turn_id') and evidence.get('source') == 'CURRENT'
+            and evidence.get('field') == 'required.price_basis' and evidence.get('value') in ('unit', 'total')
+            and evidence.get('quote') == text][:1]
+        if scope_evidence:
+            item['budget_scope_evidence'] = scope_evidence
         if index == 0 and turn.response.get('dialogue_state'):
             # Only application-committed JSON is admitted; clients cannot submit
             # state. Bind this turn's CURRENT evidence to its real persisted ID.
@@ -148,6 +160,10 @@ def context_from_turns(turns):
             ]
         if turn.response.get('explained_categories'):
             item['explained_categories'] = list(turn.response['explained_categories'][:6])
+        bundle_refs = compact_bundle_references(turn.response)
+        if bundle_refs:
+            item['recommendation_bundles'] = bundle_refs
+            item['primary_bundle_id'] = turn.response.get('primary_bundle_id') or bundle_refs[0]['bundle_id']
         size = len(json.dumps(item, ensure_ascii=False)) + (2 if result else 0)
         # A long grouped reply must not evict the entire newest turn. Prefer
         # product identity references over verbose historical assistant prose.
@@ -157,6 +173,9 @@ def context_from_turns(turns):
                 size = len(json.dumps(item, ensure_ascii=False))
             while size > remaining and item.get('product_references'):
                 item['product_references'].pop()
+                size = len(json.dumps(item, ensure_ascii=False))
+            while size > remaining and item.get('recommendation_bundles'):
+                item['recommendation_bundles'].pop()
                 size = len(json.dumps(item, ensure_ascii=False))
         if size > remaining:
             break
@@ -176,6 +195,26 @@ def current_order_context(user, conversation, message):
         active_order_at=getattr(conversation, 'active_order_at', None))
     queried = query_orders(rule_order_query(safe), context, safe)
     return safe, json.dumps(queried['data']['orders'], ensure_ascii=False), context.selected_order_id
+
+
+def select_bundle_context(user, conversation, history, selection):
+    """Apply a browser selection only to an owned, recent, saved result."""
+    if conversation is None:
+        return False
+    turn = SupportTurn.objects.filter(user=user, conversation=conversation,
+        request_id=selection['request_id'], created_at__gte=timezone.now() - timedelta(hours=HISTORY_HOURS)).first()
+    if turn is None:
+        return False
+    item = next((row for row in history if row['turn_id'] == 'turn-{}'.format(turn.pk)), None)
+    if item is None:
+        return False
+    bundle = next((b for b in item.get('recommendation_bundles', [])
+                   if b['bundle_id'] == selection['bundle_id']), None)
+    if bundle is None or not bundle.get('items'):
+        return False
+    item['selected_bundle_id'] = bundle['bundle_id']
+    item['product_references'] = list(bundle['items'])
+    return True
 
 
 def replay(user, request_id, request_hash):

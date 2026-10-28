@@ -5,7 +5,8 @@ import re
 from langchain_core.prompts import ChatPromptTemplate
 
 from goods.models import Catalog, SKU
-from .contracts import RecommendationIntent, validate_recommendation_intent
+from .contracts import (RecommendationIntent, validate_recommendation_intent,
+                        validate_recommendation_branch)
 from .execution import ToolResult
 from .diagnostics import error_diagnostic
 from .pii import redact
@@ -22,6 +23,7 @@ from .total_budget_intent import CURRENCY
 from .order_contracts import rule_order_query
 from .order_queries import query_orders
 from .grounding import generate_grounded_answer
+from .bundle_references import bundle_products
 
 
 GENERIC_CATEGORIES = {'茶', '茶叶', '茶类', '商品', '茶品', 'tea', 'teas', 'products', 'tea products'}
@@ -129,7 +131,7 @@ def simple_purchase_intent(message, request, history, memory):
     return RecommendationIntent.model_validate(data)
 
 
-def normalize_recommendation(raw, message, history, memory, request):
+def normalize_recommendation(raw, message, history, memory, request, *, tool=None, limit=4):
     """Normalize range words before provenance validation can clear soft preferences."""
     intent = RecommendationIntent.model_validate(raw).model_copy(deep=True)
     for section in ('required', 'preferred'):
@@ -138,23 +140,27 @@ def normalize_recommendation(raw, message, history, memory, request):
         getattr(intent, section).categories = [v for v in values if v not in removed]
         intent.evidence = [e for e in intent.evidence
                            if not (e.field == section + '.categories' and e.value in removed)]
-    daily = bool(re.search(r'日常|每天|\bdaily\b', request, re.I))
-    allowed_missing = {'category', 'details'} | ({'unsupported_attribute'} if daily else set())
+    intent = validate_recommendation_intent(intent, message, history, memory, branch_rules=False)
+    selected_tool = tool or ('recommend_bundle' if intent.required.price_basis == 'total' else 'recommend_products')
+    intent = validate_recommendation_branch(intent, tool=selected_tool, limit=limit)
+    allowed_missing = {'category', 'details'}
     hard = intent.required
     if (set(intent.missing_fields) <= allowed_missing and hard.budget_min is None and hard.budget_max is None
             and hard.price_basis != 'total' and hard.price_min is None
             and hard.price_max is None and not re.search(r'不超过|预算|以内|\d.*(?:美元|元|usd)', request, re.I)):
         intent.missing_fields = []
         intent.action = 'SEARCH'
-    intent = validate_recommendation_intent(intent, message, history, memory)
-    catalog_names = set(Catalog.objects.values_list('name', flat=True))
-    if any(CATEGORY_ALIASES.get(v.casefold(), v) not in catalog_names for v in intent.required.categories):
-        intent.action = 'CLARIFY'
-        intent.missing_fields = ['category']
+    if intent.action != 'CLARIFY' and intent.required.categories:
+        catalog_names = set(Catalog.objects.values_list('name', flat=True))
+        if any(CATEGORY_ALIASES.get(v.casefold(), v) not in catalog_names for v in intent.required.categories):
+            intent.action = 'CLARIFY'
+            intent.missing_fields = ['category']
     if any(v.casefold() in GENERIC_CATEGORIES for v in intent.excluded.categories):
         intent.action = 'CLARIFY'
         intent.missing_fields = ['details']
-    return intent, (['当前商品属性不足以验证“适合日常饮用”，本次仅按已确认条件筛选。'] if daily else [])
+    # Public uncertainty comes from an actual unmet requirement or tool result,
+    # not a stock disclaimer about a broad shopping occasion.
+    return intent, []
 
 
 def create_tool_handlers(model, knowledge_search, message, resolved_question, history, memory, order_context=None,
@@ -185,7 +191,7 @@ def create_tool_handlers(model, knowledge_search, message, resolved_question, hi
              'MEMORY只能用于preferred，quote/value来自所给偏好，source_id使用偏好id。'
              '不能把助手回答或商品列表伪装成用户证据。分类品牌保留原文；茶叶/商品是范围词，不是硬分类。'
              'evidence.field仅允许required.categories/brands/keywords/price_min/price_max/currency/price_basis/'
-             'budget_min/budget_max/quantity_per_product/distinct_count、'
+             'budget_min/budget_max/budget_mode/quantity_per_product/distinct_count、'
              'preferred.categories/brands/keywords、excluded.categories/brands/keywords。'
              '每个数组元素独立给证据，路径必须是required.categories，不能带[0]、.0等索引；'
              '总价搭配明确的每款数量quantity_per_product和款数distinct_count须给证据；'
@@ -202,17 +208,25 @@ def create_tool_handlers(model, knowledge_search, message, resolved_question, hi
              '总价范围100至200用budget_min=100,budget_max=200；恰好200用两者均200。'
              '总价约200默认不超200；不支持自动超支、差异数量、指定保留/替换商品及超过4款，'
              '此类要求填bundle_constraints且不得忽略。每款数量仅显式给出时填quantity_per_product；'
-             '总价搭配明确款数用distinct_count，默认均留空。不明预算类型用budget_scope。'
+             '总价搭配明确款数用distinct_count，未指定时程序自动选1至4款；不明预算类型用budget_scope。'
+             '未指定购买件数时由程序自动建议各款数量，不自行填quantity_per_product；'
+             '左右/接近用budget_mode=near，恰好用exact，明确上限可用cap，并提供对应原话证据。'
+             '普通推荐的返回数量由计划limit决定，“推荐一款”不得写入distinct_count或quantity_per_product，'
+             '这些购买数量字段和bundle_constraints仅在已识别总价组合时适用。'
              '口感功效认证等无属性证据时标unsupported_attribute，不编造。'
-             '日常饮用只是尚待验证的用途，可以先按明确茶类搜索，不虚构适用性。'),
+             '日常饮用、每天喝、daily drinking等只是宽泛用途，不填硬属性或unsupported_attribute，'
+             '可按已确认茶类搜索，不虚构适用性，不附加商品属性不足等内部校验结论。'
+             '用户明确要求认证、成分、含量或功效时，不得因同时提到日常饮用而忽略这些要求；'
+             '缺少相应证据仍标unsupported_attribute。'),
             ('human', '购买子任务：{request}\n本轮原话：{message}\n指代补全（不作为原文证据）：{resolved}\n安全历史：{history}\n长期偏好：{memory}\n契约修正要求：{repair}'),
         ])
         options = step.recommendation
         if linked_scope is not None:
             options = options.model_copy(update={'mode': 'by_category'})
-        if options and options.clarification:
+        if step.tool == 'recommend_products' and options and options.clarification:
             return result(step, 'needs_clarification', {'answer': options.clarification,
                           'recommendations': [], 'recommendation_status': 'CLARIFY'})
+        condition_limit = (options.per_category_limit if options and options.mode == 'by_category' else step.limit)
         topic = purchase_topic(message, step.request, history) if step.purchase_intent is None and linked_scope is None and not (
             options and options.mode == 'by_category') else {'state': 'none'}
         if topic['state'] == 'multiple':
@@ -238,7 +252,8 @@ def create_tool_handlers(model, knowledge_search, message, resolved_question, hi
                         raw.evidence = [e for e in raw.evidence if e.field != 'preferred.' + field]
                         raw.evidence.extend(IntentEvidence(field='preferred.' + field, value=value,
                             source='MEMORY', source_id=memory['id'], quote=value) for value in values)
-                intent, unmet = normalize_recommendation(apply_purchase_topic(raw, topic), message, history, memory, step.request)
+                intent, unmet = normalize_recommendation(apply_purchase_topic(raw, topic), message, history, memory,
+                                                       step.request, tool=step.tool, limit=condition_limit)
             else:
                 for attempt in range(2):
                     extraction_attempts += 1
@@ -248,7 +263,8 @@ def create_tool_handlers(model, knowledge_search, message, resolved_question, hi
                              'resolved': resolved_question, 'memory': json.dumps(memory, ensure_ascii=False),
                              'repair': json.dumps(diagnostics[-1], ensure_ascii=False) if diagnostics else '无；首次提取'})
                         raw = RecommendationIntent.model_validate(raw)
-                        intent, unmet = normalize_recommendation(apply_purchase_topic(raw, topic), message, history, memory, step.request)
+                        intent, unmet = normalize_recommendation(apply_purchase_topic(raw, topic), message, history, memory,
+                                                               step.request, tool=step.tool, limit=condition_limit)
                         break
                     except ValueError as exc:
                         diagnostics.append(error_diagnostic(exc, 'recommendation.conditions'))
@@ -331,8 +347,11 @@ def create_tool_handlers(model, knowledge_search, message, resolved_question, hi
     def product_details(step, completed):
         source = completed[step.product_from].data if step.product_from else next(
             (t for t in reversed(history) if (t['turn_id'] == step.reference_turn_id if step.reference_turn_id
-             else t.get('product_references') or t.get('recommendation_groups'))), {})
-        selected = list(source.get('recommendations', source.get('product_references', [])))
+             else t.get('product_references') or t.get('recommendation_groups') or t.get('recommendation_bundles'))), {})
+        try:
+            selected = bundle_products(source, step.request, step.reference_bundle_position)
+        except ValueError as exc:
+            return result(step, 'needs_clarification', {'answer': str(exc)})
         if step.reference_position is not None:
             selected = selected[step.reference_position - 1:step.reference_position]
         group_match = re.search(r'第' + ORDINAL + r'类', step.request) if step.reference_position is None else None
@@ -347,7 +366,7 @@ def create_tool_handlers(model, knowledge_search, message, resolved_question, hi
             selected = selected[index:index + 1] if index >= 0 else []
         if len(selected) != 1:
             return result(step, 'needs_clarification', {'answer': '您希望了解哪一款商品？请说明商品名称或列表中的位置。'})
-        if not step.product_from:
+        if not step.product_from and not (type(selected[0].get('sku_id')) is int and selected[0]['sku_id'] > 0):
             # Historical names identify an object, never its live price/stock.
             matches = list(SKU.objects.filter(name=selected[0]['name'], spu__name=selected[0]['product_name'])[:2])
             if len(matches) != 1:

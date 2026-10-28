@@ -1,0 +1,62 @@
+{
+  "completed_at": "2026-10-26T09:33:20.674098+00:00",
+  "before": {
+    "documents": 18,
+    "chunks": 152,
+    "memories": 1,
+    "import_jobs": 6,
+    "active_jobs": 0,
+    "public_documents": 12,
+    "public_chunks": 50,
+    "migrations": [
+      [
+        "ai_storage",
+        "0001_initial"
+      ],
+      [
+        "ai_storage",
+        "0002_embedding_validation"
+      ],
+      [
+        "ai_storage",
+        "0003_pdf_import_pipeline"
+      ]
+    ]
+  },
+  "after": {
+    "documents": 18,
+    "chunks": 152,
+    "memories": 1,
+    "import_jobs": 6,
+    "active_jobs": 0,
+    "public_documents": 12,
+    "public_chunks": 50,
+    "migrations": [
+      [
+        "ai_storage",
+        "0001_initial"
+      ],
+      [
+        "ai_storage",
+        "0002_embedding_validation"
+      ],
+      [
+        "ai_storage",
+        "0003_pdf_import_pipeline"
+      ],
+      [
+        "ai_storage",
+        "0004_hybrid_search"
+      ]
+    ]
+  },
+  "backup": {
+    "bytes": 994115,
+    "sha256": "555926976f50dbb989793eaf216733a7fc269d4ffc45b94af4e4e56372da13a5",
+    "archive_list_verified": true
+  },
+  "missing_search_index_rows": 0,
+  "gin_index_count": 1,
+  "business_mysql_changed": false,
+  "services_restarted": false
+}

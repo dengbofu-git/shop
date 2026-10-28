@@ -1,0 +1,40 @@
+{
+  "records": {
+    "baseline": 100,
+    "current": 100
+  },
+  "unique_ids": {
+    "baseline": 100,
+    "current": 100
+  },
+  "frozen_agent_source_unchanged": {
+    "baseline": true,
+    "current": true
+  },
+  "api_log_calls": 397,
+  "per_case_api_calls": 397,
+  "no_production_business_writes": "runner routes default and memory to isolated SQLite; PostgreSQL repeatable-read read-only shared snapshot; enforced owner None for live search",
+  "fixture_integrity": {
+    "baseline": {
+      "counts": {
+        "goods_sku": 115,
+        "orders_order_info": 27,
+        "support_ai_supportturn": 0
+      },
+      "order_states_match": true
+    },
+    "current": {
+      "counts": {
+        "goods_sku": 115,
+        "orders_order_info": 27,
+        "support_ai_supportturn": 0
+      },
+      "order_states_match": true
+    }
+  },
+  "api_response_ids_unique": true,
+  "token_accounting_consistent": true,
+  "public_export_matches_database_snapshot": true,
+  "post_run_workspace_drift_files": 9,
+  "post_run_workspace_version": "0.20.3"
+}

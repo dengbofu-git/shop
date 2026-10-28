@@ -1,0 +1,206 @@
+{
+  "django": [
+    {
+      "name": "system-check",
+      "exit_code": 0,
+      "seconds": 2.2
+    },
+    {
+      "name": "migration-drift",
+      "exit_code": 0,
+      "seconds": 2.17
+    },
+    {
+      "name": "business-tests",
+      "exit_code": 0,
+      "seconds": 36.3
+    }
+  ],
+  "mysql": [
+    {
+      "name": "isolated-mysql",
+      "exit_code": 0,
+      "seconds": 79.17
+    }
+  ],
+  "postgres": [
+    {
+      "name": "isolated-postgres",
+      "exit_code": 0,
+      "seconds": 13.14
+    }
+  ],
+  "ai": [
+    {
+      "name": "ai-parser-fixtures",
+      "exit_code": 0,
+      "seconds": 3.09
+    }
+  ],
+  "node": [
+    {
+      "name": "admin-shell.test",
+      "exit_code": 0,
+      "seconds": 0.14
+    },
+    {
+      "name": "auth-storage.test",
+      "exit_code": 0,
+      "seconds": 0.16
+    },
+    {
+      "name": "buyer-carousel.test",
+      "exit_code": 0,
+      "seconds": 0.2
+    },
+    {
+      "name": "buyer-catalog-preview.test",
+      "exit_code": 0,
+      "seconds": 0.2
+    },
+    {
+      "name": "buyer-entry-split.test",
+      "exit_code": 0,
+      "seconds": 0.23
+    },
+    {
+      "name": "buyer-order-support-links.test",
+      "exit_code": 0,
+      "seconds": 0.23
+    },
+    {
+      "name": "buyer-products-pagination.test",
+      "exit_code": 0,
+      "seconds": 0.2
+    },
+    {
+      "name": "buyer-support-quantity.test",
+      "exit_code": 0,
+      "seconds": 0.2
+    },
+    {
+      "name": "cart-currency.test",
+      "exit_code": 0,
+      "seconds": 0.16
+    },
+    {
+      "name": "checkout.test",
+      "exit_code": 0,
+      "seconds": 0.19
+    },
+    {
+      "name": "engagement-messages.test",
+      "exit_code": 0,
+      "seconds": 0.28
+    },
+    {
+      "name": "engagement.test",
+      "exit_code": 0,
+      "seconds": 0.2
+    },
+    {
+      "name": "merchant-insights.test",
+      "exit_code": 0,
+      "seconds": 0.28
+    },
+    {
+      "name": "merchant-orders.test",
+      "exit_code": 0,
+      "seconds": 0.19
+    },
+    {
+      "name": "merchant-overview.test",
+      "exit_code": 0,
+      "seconds": 0.19
+    },
+    {
+      "name": "merchant-product-preview.test",
+      "exit_code": 0,
+      "seconds": 0.16
+    },
+    {
+      "name": "merchant-workbench-feed.test",
+      "exit_code": 0,
+      "seconds": 0.19
+    },
+    {
+      "name": "operations-dashboard.test",
+      "exit_code": 0,
+      "seconds": 0.17
+    },
+    {
+      "name": "product-detail-summary.test",
+      "exit_code": 0,
+      "seconds": 0.22
+    },
+    {
+      "name": "profile-nickname.test",
+      "exit_code": 0,
+      "seconds": 0.19
+    },
+    {
+      "name": "reservation-checkout.test",
+      "exit_code": 0,
+      "seconds": 0.25
+    },
+    {
+      "name": "storefront.test",
+      "exit_code": 0,
+      "seconds": 0.22
+    },
+    {
+      "name": "tea-saas-brand.test",
+      "exit_code": 0,
+      "seconds": 0.22
+    },
+    {
+      "name": "unified-login.test",
+      "exit_code": 0,
+      "seconds": 0.2
+    }
+  ],
+  "templates": {
+    "compiled": [
+      "buyer_orders.html",
+      "buyer_support.html"
+    ],
+    "rendered": [
+      {
+        "name": "buyer_orders.html",
+        "status": 200
+      },
+      {
+        "name": "buyer_support.html",
+        "status": 200
+      }
+    ],
+    "assets": [
+      "/static/css/buyer-account-menu.css",
+      "/static/css/buyer-favorites.css",
+      "/static/css/buyer-orders.css",
+      "/static/css/buyer-support.css",
+      "/static/css/buyer-workbench.css",
+      "/static/css/design-tokens.css",
+      "/static/css/engagement-inbox.css",
+      "/static/css/engagement.css",
+      "/static/css/rtl.css",
+      "/static/css/system-theme.css",
+      "/static/images/tea_saas/tea_saas-logo.png",
+      "/static/js/auth-storage.js",
+      "/static/js/buyer-favorites.js",
+      "/static/js/buyer-orders.js",
+      "/static/js/buyer-support.js",
+      "/static/js/buyer-workbench.js",
+      "/static/js/currency.js",
+      "/static/js/engagement-shell.js",
+      "/static/js/engagement.js",
+      "/static/js/init.js",
+      "/static/js/jquery-3.1.1.min.js"
+    ],
+    "failures": []
+  },
+  "settings": {
+    "mysql": "\n    commands = [('isolated-mysql', [sys.executable, 'manage.py', 'test', 'orders.test_reservations',\n        'orders.test_reservation_contracts', 'pays.test_reservation_signatures', 'supplier.test_order_actions',\n        'engagement', 'users.test_nickname', 'inventory', '--settings=engagement.test_mysql_settings', '--noinput', '-v', '1'])]\n",
+    "postgres": "\"\"\"Disposable PostgreSQL test target; never the configured AI/business schema.\"\"\"\nimport copy\nimport secrets\nfrom support_ai.test_settings import *  # noqa: F401,F403\nfrom tea_saas.settings import DATABASES as CONFIGURED_DATABASES\n\n_name = 'test_delivery_ai_' + secrets.token_hex(8)\nassert _name not in [v['NAME'] for v in CONFIGURED_DATABASES.values()]\nDATABASES['ai_storage'] = copy.deepcopy(CONFIGURED_DATABASES['ai_storage'])\nDATABASES['ai_storage']['NAME'] = _name\nDATABASES['ai_storage']['TEST'] = {'NAME': _name, 'DEPENDENCIES': []}\n"
+  }
+}

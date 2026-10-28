@@ -11,6 +11,7 @@ from pydantic import ValidationError
 import pytz
 
 from orders.models import OrderInfo, STATUS_CHOICES, TRIAL_STATUS_CHOICES, PRESALE_STATUS_CHOICES
+from orders.support_links import support_order_reference
 from users.models import UserProfile
 
 from .context import HISTORY_HOURS
@@ -35,6 +36,22 @@ class OrderQueryContext:
     not_queryable: bool = field(default=False, init=False)
     conversation_missing: bool = field(default=False, init=False)
     previous_page: dict = field(default_factory=dict, repr=False)
+    navigation_tokens: dict = field(default_factory=dict, init=False, repr=False)
+
+
+def attach_order_links(response, context):
+    """HTTP-only projection, after model execution and tracing have finished."""
+    result = response.get('order_result')
+    if response.get('compliance_blocked') or not result or result.get('status') != 'success':
+        return response
+    orders = []
+    for order in result.get('orders') or []:
+        item = dict(order)
+        token = context.navigation_tokens.get(order.get('reference'))
+        if token:
+            item['detail_url'] = '/buyer_orders.html#support-order=' + token
+        orders.append(item)
+    return dict(response, order_result=dict(result, orders=orders))
 
 
 def _result(status, answer, orders=None, queried_at=None, **pagination):
@@ -102,6 +119,8 @@ def _project(row, label):
 
 def query_orders(query, context, request):
     """Only invoked by get_order_status after the server selects the fixed tool."""
+    if isinstance(context, OrderQueryContext):
+        context.navigation_tokens = {}
     if not isinstance(context, OrderQueryContext) or type(context.owner_id) is not int:
         return _result('needs_clarification', '请先绑定并登录买家账号后查询本人订单。')
     user = UserProfile.objects.filter(pk=context.owner_id, is_active=True).first()
@@ -180,17 +199,17 @@ def query_orders(query, context, request):
         if query.topic != 'order_status':
             detail += '；{}：{}'.format('付款状态' if query.topic == 'payment_status' else '发货状态', labels[order[query.topic]])
         lines.append('{}（{}）：{}。'.format(order['reference'], order['created_date'], detail))
-    if selector.type == 'recent':
-        lines.append('以上最多显示近期三笔订单；查询其中一笔的后续状态，请提供该订单号。')
-    elif selector.type == 'all':
-        lines.append('共匹配{}笔订单，本页显示第{}至{}笔，每页最多{}笔。'.format(
-            pagination['total_count'], offset + 1, offset + len(data), PAGE_SIZE))
+    if selector.type == 'all':
+        lines.append('共{}笔订单，本页第{}至{}笔。'.format(
+            pagination['total_count'], offset + 1, offset + len(data)))
         if has_more:
-            lines.append('回复“下一页”继续查看。隐藏或删除订单后，分页结果可能变化。')
+            lines.append('可回复“下一页”继续查看。')
     if query.topic == 'payment_status':
         lines.append('付款状态依据订单业务状态解释，不代表独立的支付到账核验。')
-    lines.append('查询时间：{}。订单状态可能随后变化，请以订单详情为准。'.format(queried_at))
+    lines.append('订单状态以订单详情为准。')
     result = _result('success', '\n'.join(lines), data, queried_at, **pagination)
+    context.navigation_tokens = {item['reference']: support_order_reference(user.pk, row['order_id'])
+                                 for item, row in zip(data, rows)}
     context.binding_changed = True
     context.selected_order_id = rows[0]['order_id'] if selector.type not in ('recent', 'all') else ''
     return result

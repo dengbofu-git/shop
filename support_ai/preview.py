@@ -21,6 +21,7 @@ from .query_rewrite import QueryPolicy
 from .telemetry import observe_agent
 from .tool_services import create_tool_handlers
 from .workflow import build_graph, fixed_result
+from .cost_control import CostPolicy, STAGES, stage_options
 from .order_contracts import prepare_order_input
 from .order_queries import OrderQueryContext
 
@@ -78,6 +79,9 @@ class PreviewSession:
                 'retrieval_candidates': config.retrieval_candidates, 'retrieval_top_k': config.retrieval_top_k,
                 'scope': 'selected_buyer' if self.user else 'public', 'telemetry': config.telemetry_enabled,
                 'rag_query_rewrite': asdict(QueryPolicy.current()),
+                'model_cost_policy': {'limits': asdict(CostPolicy.current()), 'stages': {
+                    stage: {'thinking': stage_options(stage)[0], 'max_tokens': stage_options(stage)[1]}
+                    for stage in STAGES}},
                 'history_turns': HISTORY_TURNS, 'log_file': str(self.log_path) if hasattr(self, 'log_path') else None}
 
     def _append(self, record):

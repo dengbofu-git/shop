@@ -1,0 +1,29 @@
+{"timestamp": "2026-10-26T07:25:01.464+00:00", "level": "WARNING", "service": "tea_saas", "logger": "py.warnings", "event": "runtime.warning"}
+System check identified no issues (0 silenced).
+======================================================================
+ERROR: test_order_followup_reloads_status_and_keeps_identity_private (support_ai.test_task_tools.TaskToolIntegrationTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "E:\django\<LOCAL_PROJECT>\.scratch\agent-cost-control-20261026\baseline\support_ai\test_task_tools.py", line 171, in test_order_followup_reloads_status_and_keeps_identity_private
+    self.assertEqual(json.loads(context)[0]['status'], '������')
+KeyError: 'status'
+
+======================================================================
+FAIL: test_budget_still_applies_to_knowledge_bound_groups (support_ai.test_mixed_tea.MixedTeaIntegrationTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "E:\django\<LOCAL_PROJECT>\.scratch\agent-cost-control-20261026\baseline\support_ai\test_mixed_tea.py", line 212, in test_budget_still_applies_to_knowledge_bound_groups
+    self.assertEqual([p['category'] for p in data['recommendations']], ['�̲�'])
+AssertionError: Lists differ: ['�̲�', '���'] != ['�̲�']
+
+First list contains 1 additional elements.
+First extra element 1:
+'���'
+
+- ['�̲�', '���']
++ ['�̲�']
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.076s
+
+FAILED (failures=1, errors=1)

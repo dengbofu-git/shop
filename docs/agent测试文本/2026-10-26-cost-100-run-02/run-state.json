@@ -1,0 +1,10 @@
+{
+  "started_at": "2026-10-26T07:58:53.415056+00:00",
+  "status": "running",
+  "postgresql": {
+    "shared_read_only_snapshot": true,
+    "public_corpus_sha256": "0fb3054f00942af6814f59b3959afc9c261d14a27a2fc365d427aea688fe0a9a",
+    "chunks": 50
+  },
+  "protocol": "same cases/config/fixtures; alternating AB/BA case order; sequential requests, real public pgvector recall and rerank; frozen support_ai source; frozen shared infrastructure/models; both arms use identical current business rules; before arm reverses only cost-control files; local account/order/memory fixtures; entry graph test, not HTTP/browser E2E"
+}

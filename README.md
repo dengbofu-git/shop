@@ -1,406 +1,350 @@
-# tea_saas
+# tea_saas｜多商家茶叶采购与智能客服平台
 
-**个人项目 · 源码开放获取 · 禁止商用**
+**个人工程实践项目 · Django / LangGraph / MySQL / Redis / PostgreSQL / pgvector**
 
-本项目由个人维护，用于学习、研究与工程实践。允许免费获取、阅读、修改和分享本项目中有权授权的原创代码与文档，仅限非商业用途。禁止出售源码、付费部署、商业项目交付、商业 SaaS 运营、企业商业业务使用及其他直接或间接商业行为；修改或衍生版本同样受此限制。分享时须保留版权、许可及项目来源。完整条款见 [非商业使用许可](LICENSE)，第三方依赖和素材遵循各自授权。
+tea_saas 围绕茶叶采购场景，将商品发现、多商家交易、库存履约、买卖双方沟通、购买后评价与 AI 选茶咨询组织在同一套系统中。买家完成采购，商家管理本店商品与订单，平台运营维护账号权限、Agent 配置及运行监控。
 
-面向跨境茶叶采购与商家经营的 SaaS 平台，面向管理员、商家、买家三类角色提供对应工作台，覆盖平台管理、商品采购、订单协作、库存、经营统计、结算记录展示与买家 AI 客服。
+项目重点是两条相互衔接的流程：**交易流程保证权限、金额、库存与订单状态一致；AI 流程把自然语言转换为受控任务，通过业务工具或知识证据作答。**
 
-项目采用 **Django 多 App 单体后端 + Django 模板 / jQuery / 原生 JavaScript 多页面前端**。买家 Agent 基于 LangChain / LangGraph，运行在 Django 应用进程内；MySQL、Redis、PostgreSQL / pgvector 及本地推理服务分别承担业务存储、采购车缓存和知识检索职责。
+本文按当前分支源码描述功能与设计。系统采用 Django 多 App 单体架构，SaaS 是产品定位；当前以账号、角色和商家归属隔离业务数据，未实现企业租户体系、订阅套餐或自动计费。源码开放获取，仅限非商业用途，详见 [LICENSE](LICENSE)。
 
-**当前状态：**业务实现、演示数据和待扩展入口并存，尚不能据此认定完整生产交易或商家 AI 能力已交付。SaaS 为平台定位，当前未实现租户级数据隔离、订阅套餐或自动计费。模块版本以 [`versions/modules.json`](versions/modules.json) 为准，业务规格和验证边界见 [`docs/sdd/`](docs/sdd/README.md)。
+## 阅读导航
 
-[项目接手指南](docs/项目接手指南.md) · [环境配置](docs/环境配置.md) · [当前模块版本](versions/README.md) · [SDD 入口](docs/sdd/README.md)
+- [业务场景与功能地图](#features)
+- [智能客服：从用户表达走到可核验结果](#agent)
+- [交易与库存：从采购意向走到履约](#trade)
+- [多商家协作：商品、咨询与评价](#collaboration)
+- [商家经营与平台运营](#operations)
+- [技术结构与数据分工](#architecture)
+- [关键设计取舍与验证](#engineering)
+- [当前边界与后续方向](#scope)
+- [源码与设计文档导航](#documents)
 
-## 目录
+<a id="features"></a>
 
-- [功能与角色](#capabilities)
-- [系统架构](#architecture)
-- [工程组成](#repository)
-- [当前模块版本](#versions)
-- [环境要求](#requirements)
-- [本地启动](#quickstart)
-- [关键设计](#design)
-- [页面与 API 导航](#entrypoints)
-- [数据与迁移](#data)
-- [验证与调试](#verification)
-- [开发与交付](#development)
-- [已知问题与文档](#limitations)
+## 业务场景与功能地图
 
-<a id="capabilities"></a>
-## 功能与角色
+项目以“买家采购—商家供货—平台管理”为主线，功能按业务职责组织，而非按页面数量堆叠。
 
-系统角色分为 **管理员、商家、买家**，各角色的功能与当前实现边界如下。
+| 业务模块 | 用户可以做什么 | 主要设计 | 源码入口 |
+| --- | --- | --- | --- |
+| 身份与权限 | 统一登录，自动进入对应工作台，维护资料、昵称及地址 | JWT 身份、RBAC 平台权限、本人／本店对象范围 | [users](users/)、[权限分流](users/access.py) |
+| 商品发现 | 按茶类、店铺、价格等条件选品，查看规格、图片、评价，收藏及查看足迹 | SPU / SKU 分层、统一可售库存、真实图片优先、查询条件恢复 | [goods](goods/)、[买家页面](client/templates/) |
+| 交易与履约 | 管理采购车，按商家下单，付款、取消、发货及确认收货 | 原子预留、幂等、订单归属快照、状态检查、到期释放 | [orders](orders/)、[inventory](inventory/)、[pays](pays/) |
+| 买卖双方协作 | 从商品详情联系商家，在订单完成后评价购买的商品 | 私聊与评价分离、消息幂等、购买凭据、商家维度评分汇总 | [engagement](engagement/) |
+| 买家 AI 客服 | 问茶知识、推荐商品、组合预算、追问推荐理由、查询本人订单 | 有限意图、受控工具、多轮状态、证据检索与结果校验 | [support_ai](support_ai/)、[ai_storage](ai_storage/) |
+| 商家经营 | 管理商品、库存、订单、店铺页面，查看待办与销售洞察 | 本店明细聚合、统一已付口径、真实数据与未知数据区分 | [supplier](supplier/)、[店铺服务](supplier/storefront.py) |
+| 平台运营 | 管理业务账号，调整 Agent 模型及检索配置，定位运行问题 | 权限检查、配置快照与修订记录、结构化日志及可选链路追踪 | [admin_panel](admin_panel/)、[运行日志](tea_saas/runtime_logging.py) |
 
-| 角色 | 当前提供的能力 | 实现边界 |
-| --- | --- | --- |
-| 管理员 | 业务用户管理、Agent 模型配置、重排序参数、配置变更记录、监控与链路查看 | 使用业务权限校验；平台管理工作台 |
-| 商家 | SPU / SKU 维护、图片上传、上下架、库存、订单协作、经营看板和结算展示；商家智能助手入口及认证后的模块状态 | 部分经营指标为演示推算，结算页面不代表实际资金清结算；`merchant_ai 0.1.0` 仅初始化入口，输入禁用，无聊天 / 上传接口，不调用模型 |
-| 买家 | 分类浏览、商品详情与规格、采购车、订单与收货操作、资料和收货地址；商品收藏 / 取消、收藏分页、自动浏览记录、单条删除和清空足迹；AI 多轮知识问答、商品及分类推荐、详情和推荐理由追问、本人订单查询与显式偏好 | 支付可信确认、库存口径和完整履约链路仍有待完善项；收藏与足迹按活跃买家账号隔离，不合并匿名记录，不自动写入 AI 长期偏好；AI 使用受控工具读取业务事实，多轮和检索仍有已记录问题 |
+三端使用同一个账号密码登录入口，工作台由服务端根据有效身份和权限决定。前端菜单承担导航职责，接口继续检查身份与对象归属。买家与商家页面提供中文、英文、阿拉伯文及 RTL 支持，具体覆盖范围随页面而异。
 
-买家和商家导航支持中文、英文、阿拉伯语及 RTL。语言切换覆盖范围取决于具体页面，并非所有业务内容都已完成三语本地化。
+<a id="agent"></a>
 
-<a id="architecture"></a>
-## 系统架构
+## 智能客服：从用户表达走到可核验结果
+
+### 1. 核心处理流程
+
+买家可能在同一轮同时提出知识、选品和订单问题。Agent 先识别任务与条件，再由程序选择允许执行的工具；需要商品或订单事实时读取业务数据，需要知识时检索可见文档。
 
 ```mermaid
-flowchart TB
-    Browser["浏览器：Django 模板 / jQuery / 原生 JS"] --> Django["Django 页面与业务 API"]
-    Django --> MySQL["MySQL：用户、商品、订单、库存、会话、配置与监控"]
-    Django --> Redis["Redis：缓存 DB0 / 采购车 DB1"]
-    Django --> Media["media：真实商品图片与茶类虚拟图"]
-    Django --> Agent["进程内买家 Agent：固定计划与受控工具"]
-    Agent --> Business["商品 / 库存 / 本人订单业务读取"]
-    Business --> MySQL
-    Agent --> Knowledge["知识检索与证据选择"]
-    Knowledge --> PG["PostgreSQL / pgvector：偏好、知识与向量"]
-    Knowledge --> Ollama["Ollama / BGE-M3：Embedding"]
-    Knowledge --> Reranker["BGE Reranker：可配置重排序"]
-    Agent --> Model["OpenAI 兼容模型服务"]
-    Agent -.-> OTel["可选观测：OTel Collector / Jaeger / Prometheus"]
+flowchart TD
+    Input["用户原话＋短期上下文＋相关显式长期偏好"]
+    Input --> Identity["服务端身份绑定与输入脱敏"]
+    Identity --> Plan["意图识别、指代解析与参数提取"]
+    Plan --> Validate["程序校验任务计划、条件依据与工具映射"]
+    Validate --> Route{"任务类型"}
+
+    Route --> Order["订单查询：受控本人订单工具"]
+    Route --> Product["商品推荐：受控商品匹配／组合工具"]
+    Route --> Knowledge["知识问答：可见范围内检索"]
+    Route --> Clarify["条件不清楚：澄清或固定帮助回复"]
+
+    Order --> OrderResult["查询真实订单，返回匿名结果与固定说明"]
+    Product --> ProductResult["筛选可售商品，程序计算价格、数量与方案"]
+
+    Knowledge --> Normalize["原问题规范化、术语别名与多语言查询扩展"]
+    Normalize --> Recall["多查询向量召回：同一 Embedding 空间"]
+    Recall --> Fusion["RRF 排名融合、片段去重"]
+    Fusion --> Rank["保留原问题锚点，对候选片段可选重排"]
+    Rank --> Coverage{"数量、相关性与主题覆盖是否足够"}
+    Coverage -->|足够| Generate["依据选中片段生成回答"]
+    Coverage -->|不足| Retry["针对缺口改写与补检，至多一轮"]
+    Retry --> Select["重新融合、重排、比较证据质量"]
+    Select --> Bounded["依据可支持部分回答，保留未覆盖问题提示"]
+
+    OrderResult --> Check["程序结果校验；生成型回答走模型安全检查"]
+    ProductResult --> Check
+    Generate --> Check
+    Bounded --> Check
+    Clarify --> Check
+    Check --> Output["返回答案、商品卡片、知识来源及任务状态"]
+    Output --> Context["保存会话轮次与结构化对话状态"]
 ```
 
-### 存储与服务分工
+图中按业务阅读顺序归纳流程；具体节点由 [LangGraph 工作流](support_ai/workflow.py) 与 [工具执行器](support_ai/execution.py) 组织。检索支持全文与向量RRF融合、证据不足时一次改写补检；知识回答按结论关联逐字引文并执行独立语义复核。复核仍依赖模型判断，不构成事实正确性的形式证明。
 
-| 组件 | 保存或处理的内容 | 当前约定 |
+### 2. 语义规划与受控工具
+
+模型负责理解“用户想做什么”，程序负责决定“允许怎样做”。结构化计划包含任务、条件、引用及依赖关系，经过校验后映射到固定工具；不会执行模型生成的 SQL、Python 或任意工具名。
+
+| 用户表达示例 | 处理方式 | 业务事实由谁决定 |
 | --- | --- | --- |
-| MySQL | 用户、RBAC、商品、订单、库存、收藏足迹；客服会话、短期上下文、Agent 配置和监控投影 | 连接来自 `.env` 的 `DB_*` |
-| PostgreSQL | 长期偏好、知识文档、知识片段及向量空间 | 由 `AiStorageRouter` 限定 App 读写与迁移 |
-| Redis | 默认缓存、采购车 Hash | `REDIS_CACHE_URL`／`REDIS_CARTS_URL` 配置地址，`REDIS_PASSWORD` 配置认证 |
-| `media/` | 上传图片和已生成的茶类默认图 | 数据库保存文件路径；备份数据库不能代替备份媒体文件 |
-| Ollama / BGE-M3 | 本地知识入库与查询向量化 | 与知识向量空间的模型、版本、维度保持匹配 |
-| 本地重排序服务 | 对召回候选重新评分和选证据 | 可启停；超时和异常按运营配置降级 |
-| 模型服务 | 意图 / 条件抽取及需要生成的回复 | 服务凭据在后端；不直接暴露给浏览器 |
+| “找两款不超过100元的红茶” | 提取茶类、数量及单价条件，筛选当前可售 SKU | 商品数据库和推荐程序 |
+| “总预算200元，搭配几种茶” | 识别总价条件，进入有界组合搜索 | 程序计算每行金额、合计及预算差额 |
+| “刚才第二款为什么适合我？” | 绑定原推荐结果的位置，重新读取对应商品事实 | 原结果引用＋当前商品数据 |
+| “介绍乌龙茶，再推荐几款” | 生成带依赖的知识介绍与推荐任务 | 知识证据及可售商品集合 |
+| “看看我最近待发货的订单” | 校验订单条件，调用本人订单查询工具 | 当前登录身份及订单服务 |
 
-<a id="repository"></a>
+示例用于说明交互与工具分工，不代表任意表达都能一次识别成功。歧义、缺失条件、无匹配及依赖失败通过结构化状态返回，不能包装成成功结果。服务端计划最多5步，执行器限制任务与派发预算；派发预算不等于能够强制中断所有已发出的远程请求。
 
-## 工程组成
+关键源码：[语义规划](support_ai/semantic_planning.py) · [任务计划](support_ai/planning.py) · [工具服务](support_ai/tool_services.py)
+
+### 3. 商品推荐与预算组合
+
+普通推荐先检查分类、品牌、关键词、价格及排除条件，再读取统一口径的可售库存。硬条件用来过滤，显式偏好只作为允许范围内的软条件；不能为了推荐出结果自行放宽预算或补造风味属性。
+
+总价推荐采用“候选筛选 → 有界枚举 → 确定性排序 → 返回前复核”，而不是让模型生成购物清单后自行计算金额：
+
+1. 在符合条件、数量可购买的 SKU 中按茶类和价格段分桶选取，最多40个候选。
+2. 自动组合1～4个不同 SPU，各款件数按预算与可售数量求解，不设每款5件上限；明确支持的相同件数要求经原文依据校验后使用。
+3. 使用整数分计算，单款／双款整数解补种与有界beam搜索结合；普通模式优先偏好质量，再比较预算差额，明确接近模式另按接近区间排序。
+4. 限制搜索节点与计算时间，最多返回3套方案；截断时标记搜索未完成，不宣称全库最优。
+5. 返回前重读价格、库存及分类，发生变化时在同一候选范围重新计算一次。
+
+基础币种为 CNY，USD／AED／SAR／EUR 是统一配置下的参考换算，不是实时汇率或外币支付能力。推荐结果不锁价、不占库存，最终以下单时的服务端校验为准。
+
+关键源码：[商品筛选](support_ai/recommendations.py) · [组合搜索](support_ai/budget_combinations.py) · [组合推荐](support_ai/bundle_recommendations.py) · [金额约定](docs/sdd/architecture/currency.md)
+
+### 4. 知识检索与证据选择
+
+知识文档以“文档 → 片段 → 向量空间”组织。检索先限定已发布、当前用户可见的文档，再在相同模型、版本和维度的 Embedding 空间内比较向量，避免混用不同空间的数据。
+
+- **保留原问题。** 规范化、术语别名和中英文扩展提高召回范围，改写文本只作为检索查询，不成为回答证据。
+- **按排名融合。** 多查询结果使用 RRF，随后按片段与正文去重，不直接相加不同来源的分数。
+- **重排与上下文预算。** 可选本地 BGE Reranker；结合相关性、文档分布、片段数和字符预算选择正文，并标记截断。
+- **覆盖不足时有界补检。** 根据证据数量、重排分数及主题覆盖信号追加一轮查询，比较补检质量；补检失败不能抹掉首轮有效证据。
+- **证据不足明确说明。** 检索质量检查属于规则信号，无法保证所有问题都得到完整支持；无直接证据时不能编造知识、政策或市场数据。
+
+关键源码：[检索编排](support_ai/retrieval.py) · [查询扩展与覆盖规则](support_ai/query_rewrite.py) · [权限过滤及向量查询](ai_storage/knowledge.py) · [重排序适配](ai_storage/reranking.py)
+
+### 5. 多轮上下文与本人订单查询
+
+短期上下文保存于 MySQL，默认按最近24小时、最多6轮、6000字符筛选，用于解析“第二款”“预算改成300”等表达。结构化对话状态记录待补条件与结果引用，减少只靠历史助手文字猜测用户意图。
+
+长期偏好保存于 PostgreSQL，由用户显式维护；收藏、浏览足迹、助手生成文字不会自动变成硬性采购条件。恢复历史只展示保存快照，不把历史价格、库存或订单状态当作本轮实时结果。
+
+订单工具在执行时从服务端上下文绑定买家身份，模型不决定查询归属。时间、状态、分页及会话引用经过程序校验，响应提供匿名订单 DTO 与固定说明；订单状态和数量来自本次查询，不由模型重写，也不通过聊天自动执行支付或退款。
+
+关键源码：[短期上下文](support_ai/context.py) · [订单查询工具](support_ai/order_queries.py) · [订单契约](support_ai/order_contracts.py) · [长期偏好](ai_storage/models.py)
+
+<a id="trade"></a>
+
+## 交易与库存：从采购意向走到履约
+
+### 1. 交易主流程
+
+```mermaid
+flowchart TD
+    Choose["浏览商品／选择规格"] --> Cart["加入采购车：不预留库存"]
+    Cart --> Confirm["确认地址与采购内容"]
+    Confirm --> Submit["显式提交：携带幂等请求编号"]
+    Submit --> Validate["校验本人地址、服务端价格、可售库存及预留额度"]
+    Validate --> Tx["一个事务：锁定买家与库存，按商家拆单并预留"]
+    Tx -->|任一商品失败| Reject["全部回滚，保留采购车内容"]
+    Tx -->|全部成功| Unpaid["每个商家独立待付款订单，固定付款截止"]
+    Unpaid -->|可信支付通知| Paid["待发货：保留已付预留"]
+    Unpaid -->|明确取消／未付到期| Closed["关闭订单，释放本单预留"]
+    Paid --> Ship["本店发货：消耗本单预留并扣减实物"]
+    Ship --> Receive["买家确认收货，订单完成"]
+    Receive --> Review["从订单商品进入评价"]
+    Closed --> Hide["可隐藏列表记录，不删除交易依据"]
+```
+
+一次采购可以包含多家店铺的商品，采购车是跨店选择容器；结算按商家拆成独立订单。**同一次结算的建单与预留全部成功或全部回滚，后续付款和履约则由各店订单独立推进。**
+
+### 2. 防超卖：统一库存事实与事务边界
+
+存在库存账本时，以启用仓的可用数量作为可售事实；没有账本时才回退旧 SKU 库存，并在首次结算的 SKU 锁内初始化仓库账本。`SKU.stock` 是实物总量投影，不能与账本取最大值来恢复已经被预留的库存。
+
+每仓满足：
 
 ```text
-tea_saas/
-├── manage.py                    Django 命令入口
-├── tea_saas/                    settings、根路由、认证共享工具
-├── client/
-│   ├── templates/               管理员、商家、买家页面及演示页面
-│   └── static/                  CSS、JavaScript 和静态素材
-├── templates/                   邮件等模板
-├── users/                       业务用户、角色权限、资料地址
-├── goods/                       商品、图片、收藏足迹和数据管理命令
-├── carts/                       Redis 采购车
-├── orders/                      订单与预结算
-├── pays/                        支付集成
-├── inventory/                   仓库、库存和流水
-├── logistics/                   物流与轨迹
-├── supplier/                    商家经营、结算和分析
-├── news/                        资讯
-├── admin_panel/                 运营管理和 Agent 配置 / 监控 API
-├── support_ai/                  买家 Agent、工具、上下文和评测
-├── merchant_ai/                 商家助手独立入口模块
-├── ai_storage/                  长期偏好、知识、Embedding 和重排序
-├── media/                       运行所需的商品及茶类图片
-├── deploy/                      PostgreSQL、重排序和监控部署配置
-├── docs/                        环境、接手指南、专题设计和 SDD
-├── reports/                     数据批次、定向评测和验证材料
-├── tools/                       模块版本及诊断工具
-└── versions/                    模块清单和各模块 changelog
+实物数量 quantity ≥ 0
+0 ≤ 预留数量 reserved_quantity ≤ quantity
+可售数量 available_quantity = quantity - reserved_quantity
 ```
 
-前端与买家 Agent 源码随 Django 项目一起部署，页面由后端渲染，常规运行无需前端构建。MySQL 和 Redis 需要自行准备，现有 Compose 覆盖对应 AI 存储、本地推理与监控服务。
+预留记录绑定“订单商品项＋库存账本”，保留 `reserved → paid → consumed` 或 `reserved → released` 的状态。生命周期操作遵循“买家 → 订单 → 升序 SKU → 升序库存账本”的锁顺序，约束同一业务对象的并发状态转换；库存不变量同时落在数据库中。商家手动调库存也不能减到已预留量以下。
 
-<a id="versions"></a>
-## 当前模块版本
+以库存100件、两个买家分别采购99件和50件为例：在允许该采购比例的配置下，竞争会在事务内串行校验，不能两笔都成功预留。默认在线采购占比阈值还会提前限制过大的单次占用，超限引导联系商家确认。
 
-当前登记 15 个实现模块，版本独立管理。下表于 2026-10-18 按当前工作区清单核对；后续以机器可读清单和对应 changelog 为准。
+关键源码：[订单预留与状态转换](orders/reservations.py) · [库存服务](inventory/services.py) · [可售量读取](inventory/availability.py)
 
-| 模块 | 版本 | 主要职责 |
+### 3. 防恶意占位：限制占用能力，而不只设置超时
+
+| 控制 | 当前试运行默认与行为 | 目的 |
 | --- | --- | --- |
-| `core` | 0.4.3 | 项目配置、路由、共享工具与交付支撑 |
-| `users` | 0.2.5 | 业务身份、RBAC、资料与地址 |
-| `goods` | 0.5.1 | 商品、媒体、收藏足迹、茶类默认图、公开店铺摘要与SKU库存 |
-| `carts` | 0.1.2 | 采购车与统一图片回退 |
-| `orders` | 0.1.6 | 订单、预结算与统一图片选择 |
-| `pays` | 0.1.0 | 支付接口 |
-| `news` | 0.1.1 | 资讯 |
-| `inventory` | 0.1.0 | 仓库、库存和流水 |
-| `logistics` | 0.1.0 | 物流和轨迹 |
-| `supplier` | 0.2.1 | 商家经营与结算展示 |
-| `admin_panel` | 0.4.2 | 运营管理、模型设置与监控 |
-| `support_ai` | 0.12.2 | 买家客服与推荐追问 |
-| `merchant_ai` | 0.1.0 | 商家助手入口和状态 |
-| `ai_storage` | 0.3.3 | 长期偏好、知识和向量检索 |
-| `web` | 0.24.0 | 多角色页面、主题、语言、首页发现与10件精选、采购组合筛选与状态恢复、卡片收藏、商家订单分类与数据中心异步展示 |
+| 固定预留期限 | 10分钟，店铺可配置60～900秒 | 到期释放，刷新或重试不续期 |
+| 幂等结算 | 同账号、同请求编号、同意图返回原结果；改意图冲突 | 网络重试不重复建单或延长截止 |
+| 同商品与累计额度 | 同买家同 SKU 最多一份待付订单；账号最多3笔待付，并检查累计件数／金额 | 防止拆成多次请求绕过单笔规则 |
+| 占用时长预算 | 一小时内累计预算1800秒，生效中计承诺时长，取消／到期计实际时长 | 取消重下不能清空占位历史 |
+| 冷却与频控 | 多次取消／超时触发冷却；账号结算频率与来源尝试频率受限 | 抑制反复预留和失败请求滥用 |
+| 店铺策略审计 | 记录修改人、前后值、依据及生效时间，只影响新预留 | 阈值可调整且可追查 |
 
-模块版本、Git 标签、数据库 Migration、Agent 配置 `revision` 和 SDD `specVersion` 表达不同含义；清单中的版本不自动代表已创建标签、已部署或已通过生产验收。
+每30秒扫描的到期清理进程负责无人访问时释放，接口中的到期检查作为兜底。限额属于可配置的试运行规则，不等同于能完全阻断多账号攻击，也不把大额采购自动转成已实现的授信或定金流程。
 
-<a id="requirements"></a>
-## 环境要求
+### 4. 支付、履约与历史记录
 
-依赖版本以 [`requirements.txt`](requirements.txt)、Compose 和服务配置为准。
+支付结果由可信异步 POST 通知确认，校验签名、应用、收款方、金额、交易状态及唯一交易流水；浏览器返回页只负责跳转，不直接修改已付款状态。重复通知不重复推进订单；关闭后迟到的真实到账记录为待人工退款异常，不重新抢占库存。
 
-| 工作范围 | 所需环境 | 默认本地地址 |
+商家只能操作完整归属于本店的订单。历史混合商家订单不能由任一商家整单发货或取消；试单、预售分别读取自己的子状态，预售还需检查定金和尾款。保留这些兼容能力不代表已经开放所有试单／预售新建、支付与退款流程。
+
+取消和隐藏是两种操作：取消改变待付状态并释放预留；隐藏只影响本人列表可见性，保留订单、评价和交易依据。支付配置、真实渠道联调和退款处理仍需独立验收。
+
+设计与证据：[库存预留规格](docs/sdd/modules/trade/stock-reservations.md) · [支付服务](pays/service.py) · [交付验证](docs/sdd/evidence/2026-10-26-stock-reservations/delivery.md)
+
+<a id="collaboration"></a>
+
+## 多商家协作：商品、咨询与评价
+
+### 商品组织与发现
+
+SPU 表达茶品系列，承载商家、品牌及分类；SKU 表达具体包装、规格、价格和库存。首页负责茶类发现和均衡精选，采购页承载完整目录与筛选，详情页承载规格选择、商家联系及评价，避免所有功能挤在首页。
+
+图片由统一选择服务处理：真实商品图片优先，缺图时回退到茶类默认图和通用占位；生成的茶类图片单独存放，不覆盖真实上传字段。收藏与足迹按买家隔离，重复收藏幂等，同商品重访更新最近浏览位置；采购筛选与分页状态可在返回详情后恢复。
+
+### 站内咨询与购买后评价
+
+```mermaid
+flowchart LR
+    Detail["商品详情"] --> Contact["联系商家"]
+    Contact --> Chat["买家与该商家的站内会话"]
+    Chat --> Reply["消息中心续聊、未读与关联商品上下文"]
+    Complete["已完成订单"] --> Item["选择订单商品"]
+    Item --> Rating["提交文字评价与1～5星评分"]
+    Rating --> Public["商品详情公开评价与评分汇总"]
+    Rating --> Merchant["对应商家回复／评价治理"]
+```
+
+站内咨询是买家与商家之间的人际会话，和 AI 客服分开。会话按买家与商家唯一关联，消息带请求编号防止重复发送；商品上下文方便双方确认咨询对象。双方分别维护已读位置及隐藏状态，私聊内容默认不进入 AI 上下文。当前使用 HTTP 获取消息，不宣称已实现 WebSocket 推送。
+
+评价从“我的订单”的商品项进入，不另设买家评价导航，也不把评价入口跳转为消息中心。只有本人已完成且购买归属可核验的商品项可以评价，每个订单商品一条主评价；商品详情按“商家＋SPU”汇总评分，可进一步看 SKU，防止不同商家同名商品混算。
+
+订单商品保存购买时商家和商品快照。商品后续转移归属时，不把历史成交和评价转给新商家；历史记录缺少可靠归属时先核验，而不是仅凭当前商品商家猜测。
+
+关键源码：[会话与评价模型](engagement/models.py) · [业务规则](engagement/services.py) · [购买后评价设计](docs/sdd/modules/catalog-content/purchase-reviews.md)
+
+<a id="operations"></a>
+
+## 商家经营与平台运营
+
+### 商家：从交易记录形成经营反馈
+
+工作台连接商品管理、库存、订单、店铺页面与买家咨询。待办和近期动态来自本店真实订单、结算记录、消息及物流记录；销售洞察提供热销商品、成交单价分布、销售额排名和自然月趋势。
+
+经营统计先定义口径，再画图：
+
+- 平台和商家共用已付款订单资格，排除待付、仅定金及不符合状态的记录。
+- 商家金额取本店历史成交明细的单价乘件数，不使用混合订单头总额，也不分摊其他店铺收入。
+- SPU 汇总多个规格，同名但不同 ID 的商品保持独立；近6个月按上海时区自然月计算。
+- 无数据、真实零值和接口失败分别展示；切换账号或迟到请求不能覆盖当前店铺数据。
+- 可靠的国家、口感和行业来源尚未接入时显示缺口，不从自由地址、订单哈希或固定百分比生成市场结论。
+
+本店销售洞察与部分旧数据中心推算型指标分开，结算记录展示也不代表真实资金清结算。
+
+关键源码：[统一销售资格](orders/analytics.py) · [商家销售洞察](supplier/insights.py) · [工作台待办](supplier/workbench.py)
+
+### 平台：让 Agent 配置与执行过程可检查
+
+平台运营分别检查有效平台角色及对应权限，可管理业务账号、模型参数、检索与重排序配置。每次请求使用配置快照，配置修订号与代码模块版本分开，便于说明“这次回答使用了哪套参数”。
+
+运行日志采用结构化字段白名单，记录请求编号、路由模板、状态、耗时和安全异常信息，避免把聊天原文、凭据、完整订单号或地址直接写入普通日志。HTTP 请求编号与 Agent 幂等请求编号分开；执行 Agent 时可关联 Trace。
+
+可选 OpenTelemetry 链路包含规划、工具、Embedding、召回、重排及模型调用节点，并接入 Collector / Jaeger / Prometheus。观察节点耗时、错误、Token 和检索命中，用于定位慢在模型、数据库还是检索环节；这不等于已配置生产告警、长期保留或完整审计平台。
+
+关键源码：[Agent 运行模块](support_ai/) · [遥测](support_ai/telemetry.py) · [请求日志](tea_saas/request_logging.py) · [日志设计](docs/sdd/modules/platform/runtime-logging.md)
+
+<a id="architecture"></a>
+
+## 技术结构与数据分工
+
+选择 Django 多 App 单体承载当前业务，将鉴权、业务事务和 Agent 工具放在一个可追踪的进程边界内；通过 App 及服务模块划分职责。前端采用 Django 模板、jQuery 和原生 JavaScript 的多页面形式，没有将现有页面描述为前后端分离 SPA，也没有为了展示技术栈拆成微服务。
+
+| 技术／组件 | 在项目中承担的职责 | 设计原因或约束 |
 | --- | --- | --- |
-| Web 与业务 API | 项目约定 Python 3.9、Django 3.2.12、MySQL、Redis | Django `127.0.0.1:8000`；Redis `6379` |
-| AI 偏好 / 知识 | PostgreSQL 16 + pgvector、Ollama / BGE-M3、可用模型服务 | PostgreSQL `5433`；Ollama `11434` |
-| 知识重排序 | Docker Compose 及本地 BGE Reranker 服务 | `127.0.0.1:18081` |
-| 可选观测 | OTel Collector、Jaeger、Prometheus | OTLP HTTP `4318`；Jaeger `16686`；Prometheus `9091` |
-| 前端脚本语法检查 | 本机 Node.js | 仅用于 `node --check` 等开发检查 |
+| Django 3.2 / Python 3.9 | 页面、业务 API、认证、ORM 事务及管理命令 | 多 App 模块化；依赖基线见requirements，后续升级需验证兼容性 |
+| MySQL / InnoDB | 账号、商品、交易、库存、咨询评价、客服会话及运营配置 | 业务事实源；使用事务、行锁、唯一约束和检查约束 |
+| Redis | 采购车与缓存 | 保存采购意向及缓存，不作为库存额度和订单状态的最终事实源 |
+| PostgreSQL / pgvector | 显式长期偏好、知识文档、片段及向量空间 | 与交易存储分工；数据路由限定对应 App，跨库不伪造外键事务 |
+| LangChain / LangGraph / Pydantic | 模型适配、状态流转、结构化意图与工具结果 | 语言理解与程序执行分工，工具及计划需要校验 |
+| Ollama / BGE-M3、BGE Reranker | 本地向量化与可选重排序 | 统一向量空间，控制检索候选、正文与调用预算 |
+| OpenAI 兼容模型接口 | 语义规划、需要生成的知识回复和安全检查 | 服务端配置与凭据管理，业务价格和订单状态不靠生成 |
+| OpenTelemetry | Agent 关键节点、模型和检索观测 | 与请求日志关联，导出和采集按配置启用 |
+| 媒体文件 | 商品真实图片与茶类默认图片 | 数据库保存引用；数据库备份不能替代媒体备份 |
 
-<a id="quickstart"></a>
+当前登记16个实现模块，逐模块版本及变更以 [versions/modules.json](versions/modules.json) 和 [changelog](versions/changelogs/) 为准，README 不复制一张容易过时的版本表。
 
-## 本地启动
+<a id="engineering"></a>
 
-以下使用 PowerShell，均在项目根目录执行。其他系统按实际环境替换激活和复制命令。
+## 关键设计取舍与验证
 
-### 1. 获取代码与安装依赖
+### 可以从代码追问的设计问题
 
-```powershell
-git clone https://github.com/dengbofu-git/shop.git tea_saas
-cd tea_saas
-conda create -n tea_saas python=3.9 -y
-conda activate tea_saas
-python -m pip install -r requirements.txt
-```
-
-已有环境可直接激活后安装依赖；不要重复创建环境覆盖现有工作。
-
-### 2. 准备配置与基础服务
-
-```powershell
-if (-not (Test-Path -LiteralPath .env)) { Copy-Item -LiteralPath .env.example -Destination .env }
-if (-not (Test-Path -LiteralPath .env.postgres)) { Copy-Item -LiteralPath .env.postgres.example -Destination .env.postgres }
-```
-
-创建 MySQL 业务数据库，启动 Redis，并填写配置：
-
-- `DJANGO_SECRET_KEY`、`JWT_SECRET_KEY`、`DB_*`、允许访问的主机和管理账号初始密码。
-- 注册与登录使用账号密码；旧短信验证码、邮箱激活／找回密码、微博认证接口已移除，无需配置对应服务。邮箱和手机号仍作为账号资料保留。
-- AI 使用 `SUPPORT_API_KEY`、`SUPPORT_BASE_URL`、`SUPPORT_MODEL`；仅浏览商城时可以暂不联调模型，但配置文件仍需保留导入时要求的变量键。
-- 使用长期偏好和知识问答时，填写 `.env.postgres` 的 PostgreSQL、Ollama 和向量空间参数。
-
-配置加载顺序是进程环境优先，随后读取 `.env`、`.env.postgres`，文件中的值不覆盖已经存在的值。示例空值不代表对应服务已可用，SMTP、支付等能力需各自完成真实配置。完整说明见 [环境配置](docs/环境配置.md)。
-
-### 3. 迁移业务库与启动 Django
-
-```powershell
-python manage.py check
-python manage.py migrate --plan --database default
-python manage.py migrate --database default
-```
-
-新环境需要初始化角色和业务管理员账号时，再执行：
-
-```powershell
-python manage.py seed_rbac
-python manage.py create_super_admin
-```
-
-`create_super_admin` 会重置已有业务 `admin` 的密码并激活账号，不能作为日常启动步骤。业务账号与 `/admin/` 的 Django 认证账号是两套体系，后者使用 `python manage.py createsuperuser` 管理。
-
-```powershell
-python manage.py runserver 127.0.0.1:8000
-```
-
-通过 [登录页](http://127.0.0.1:8000/login.html) 访问应用，不直接从磁盘打开模板。`runserver` 用于本地开发；本仓库的 Compose 不是完整生产部署方案。
-
-当前前端 `init.js` 的 API / 媒体地址和后端 `TEA_SAAS_MEDIA` 使用 `127.0.0.1:8000`。换域名或端口时，还需一起检查这些地址、CORS、`ALLOWED_HOSTS` 及支付 / OAuth 回调，不能只修改 runserver 参数。
-
-### 4. 按需启用 AI 知识服务
-
-```powershell
-docker compose --env-file .env.postgres -f compose.ai-storage.yml up -d --wait
-docker compose --env-file .env.postgres -f compose.ai-storage.yml exec ollama ollama pull bge-m3
-python manage.py migrate ai_storage --database ai_storage
-```
-
-MySQL 的迁移命令不会替代 PostgreSQL 迁移。准备好本地 Embedding 后，需要示例知识语料时再运行：
-
-```powershell
-python manage.py import_middle_east_tea_knowledge
-```
-
-该命令更新来源文档并重建其知识片段，是写入操作。需要保留现有知识版本时，先核对数据和向量空间，详见 [PostgreSQL 与 pgvector](docs/PostgreSQL与pgvector配置.md)。
-
-### 5. 按需启用重排序与监控
-
-```powershell
-docker compose --env-file deploy/reranker/compose.env.example -f compose.reranker.yml up -d --build
-docker compose -f compose.agent-observability.yml up -d
-```
-
-重排序服务完成模型加载后，在 `admin_agents.html` 中启用相应配置；链路导出也需要运营配置开启。仅启动容器不表示检索质量已验证或已有链路数据。日常停机使用 `stop` 保留数据卷，详细配置见 [本地重排序](docs/本地重排序.md) 和 [Agent 监控](docs/Agent监控与模型设置.md)。
-
-<a id="design"></a>
-## 关键设计
-
-### 业务身份与访问边界
-
-业务身份来自 `users.UserProfile` 和 JWT，`user_type` 与 RBAC 角色并存。浏览器使用 `AuthStorage` 管理登录状态，但最终权限和对象归属由服务端处理。私有收藏、足迹、偏好、会话和订单读取不能由客户端自报用户名决定归属；既有业务中仍需继续核查的权限差异见后文。
-
-登录页只有一个账号密码入口，服务端按有效角色及权限返回工作台地址，管理员、商家和买家分别进入对应工作台；旧终端登录地址重定向统一入口。管理员的账号管理功能同时要求有效平台角色及 `user_manage`，Agent 管理要求平台角色及 `system_config`，不再使用商家共有的商品权限代替账号管理权限。完整规则与验证见[统一登录设计](docs/sdd/modules/identity/unified-login.md)。
-
-### 商品、收藏与图片
-
-- SPU 表达商品系列，SKU 表达可定价、可库存管理的具体规格。
-- 收藏使用显式 GET / PUT / DELETE，数据库以 `(user, sku)` 唯一，重复收藏不重复插入；取消操作幂等。
-- 足迹在成功查看有效商品详情后记录，同 SKU 重访置顶，最多保留最近 100 件，每页 12 件；清空足迹不删除收藏。
-- 图片统一由 `goods/images.py` 选择：SKU 真实默认图 → 有效图库图 → 旧媒体文件 → 同 SPU 真实图 → 茶类虚拟图 → 通用占位。
-- 虚拟图保存在 `Catalog.fallback_image` 和独立媒体目录，不覆盖 SKU 上传字段；后续上传真实图片会自动优先显示。
-
-收藏页和最近浏览页共用页面模板，通过顶部独立入口访问；页面内部不再重复放置切换栏。采购、精选和推荐卡片支持直接收藏，详情和足迹页也保留收藏操作。
-
-买家首页用于发现茶品：保留沉浸式轮播，茶类图片链接直达对应采购分类，固定最多10件均衡精选，桌面两行五列，不再提供全量计数或分页。商品采购承载全部目录，支持关键词、展示币种价格范围、最低库存、店铺组合筛选和价格排序，每页10件；URL保留条件与页码，详情返回后恢复浏览位置。采购页不展示固定阶梯优惠或重复推荐区。价格为参考换算，库存沿用SKU.stock目录口径，详见[当前规格](docs/sdd/modules/catalog-content/catalog-preview.md)。
-
-### 买家 Agent 与受控执行
-
-主要执行链路是：身份与输入处理 → 有限意图及任务计划 → 校验后的固定工具 → 业务事实 / 知识证据 → 组合回复与安全检查 → 会话记录。
-
-`planning.py` 定义任务计划，`execution.py` 按依赖和预算执行服务端注册的工具。工具结果只返回结构化数据，不决定任意下一步或执行模型生成的代码；商品、价格、库存和订单事实来自业务服务。
-
-推荐支持茶类、品牌、关键词、预算、偏好与排除条件的受控表达，条件需要原话证据；分类推荐和总数量受契约约束。0.10.0 增加最近用户茶类主题继承与独立的推荐理由解释，理由解释重新读取绑定 SKU 的当前事实，不等同于再筛一份新商品。
-
-短期多轮上下文与长期偏好分开：前者来自 MySQL 客服会话，按时间、轮数和字符预算筛选；后者保存在 PostgreSQL。商品收藏、足迹、助手生成文字不会自动变成用户明确的长期购买条件。
-
-### 知识检索与运行配置
-
-知识问答使用已发布、当前用户可见的知识文档；查询向量与入库向量属于同一模型空间。当前链路包括查询翻译 / 扩展、多查询融合、去重、可选重排序、来源与正文预算，以及有界的一次补检。
-
-模型、思考模式、重排序和导出开关还受 MySQL `AgentConfiguration` 影响，每次请求使用配置快照。因此 `.env` 中的模型默认值不一定等于当前实际模型，运营 `revision` 也不是代码模块版本。
-
-### 商家助手的独立边界
-
-`merchant_ai` 目前只返回入口状态，`chat_enabled=false`、`model_connected=false`、`capabilities=[]`。它没有会话表、聊天接口或真实业务工具；后续商家能力需要单独定义身份、工具、数据与验收，不直接将买家聊天接口接给商家页面。
-
-<a id="entrypoints"></a>
-## 页面与 API 导航
-
-下列为主要入口，完整定义以 [`tea_saas/urls.py`](tea_saas/urls.py) 和各 App 的 `urls.py` 为准。业务 API 的末尾斜线约定并不统一，请使用源码中的准确路径。
-
-| 场景 | 页面 | 主要 API 命名空间或路径 |
+| 问题 | 本项目的处理 | 可继续讨论的取舍 |
 | --- | --- | --- |
-| 注册 / 登录 / 资料 | `login.html`、`register_sms.html`、`buyer_profile.html` | `/v1/users/` |
-| 买家工作台 / 商品 | `buyer_dashboard.html`、`buyer_products.html`、`product_details.html` | `/v1/goods/index`、`catalogs/<id>`、`detail/<id>`、`sku/<id>/image` |
-| 收藏 / 足迹 | `myCollect.html`、`recent.html` | `/v1/goods/favorites`、`favorites/<sku_id>`、`recent`、`recent/<sku_id>` |
-| 采购车 / 订单 / 支付 | `cart.html`、`orderConfirm.html`、`buyer_orders.html`、`payment.html` | `/v1/carts/`、`/v1/orders/`、`/v1/pays/` |
-| 买家客服 | `buyer_support.html` | `/v1/support/chat/`、`preferences/`、`conversations/<uuid>/` |
-| 商家经营 | `merchant_dashboard.html`、商品 / 订单 / 库存 / 结算面板 | `/v1/goods/merchant/`、`/v1/supplier/`、`/v1/inventory/` |
-| 商家助手 | `merchant_assistant.html` | `GET /v1/merchant-ai/status/` |
-| 管理员工作台 | 统一 `login.html` 自动分流；`admin_panel.html`、`admin_agents.html` | `/v1/admin-panel/users`、`/v1/admin-panel/agent/` 下的配置和监控接口 |
-| 物流 / 资讯 | `logistics_track.html`及资讯入口 | `/v1/logistics/`、`/v1/news/` |
-| Django Admin | `/admin/` | Django 自带管理站点 |
+| 为什么加入采购车不占库存？ | 将采购意向与交易承诺分开，在显式下单事务中预留 | 大额采购需要报价、授信或定金等单独流程 |
+| 为什么既有超时，又有时长预算和冷却？ | 超时解决单次占用，累计规则约束取消重下 | 多账号攻击与正常批量采购之间仍需更细风控 |
+| 为什么不让模型直接查 SQL？ | 服务端绑定身份、固定工具、参数校验、匿名 DTO | 工具接口维护成本换取明确的数据与动作边界 |
+| 为什么推荐后还要重读价格库存？ | 推荐是读快照，下单才形成库存承诺 | 高并发下可用性、锁粒度与交互提示需一起考虑 |
+| 为什么保留购买时商家快照？ | 让历史订单、销售和评价归属不随商品转移变化 | 历史缺快照的数据必须有证据才能补齐 |
+| 为什么 RAG 补检只做一轮？ | 把检索提升限制在候选、模型次数和时间预算内 | 更高召回率要与延迟、成本和错误扩散权衡 |
+| 为什么不把所有指标都画成图？ | 先核验来源和口径，缺失数据保留未知状态 | 真实地区、行业与财务数据需要独立接入 |
 
-`index.html` 等旧地址存在兼容重定向。部分页面是展示外壳，页面可以打开并不证明其所有业务 API 或外部集成都已实现。
+### 用什么验证这些设计
 
-<a id="data"></a>
-## 数据与迁移
+验证按问题选择测试层，不以 Python / JavaScript 语法通过替代业务验收：
 
-### 当前迁移检查点
+- **MySQL 并发测试：**使用真实多连接验证99／50竞争库存、付款与取消竞争、重复发货、重复幂等编号，以及同账号跨 SKU 绕过累计额度等场景。
+- **规则与接口测试：**覆盖身份／对象范围、混合商家订单、子类型状态、隐藏无库存副作用、商家策略审计及历史归属保护。
+- **AI 定向测试与评测：**以工具、意图、上下文、订单查询、组合金额和检索行为分别组织用例；模型替身验证程序规则，真实模型评测另行记录输入范围及结果。
+- **前端契约：**检查能力标记、重复点击、身份切换、迟到响应、失败重试及状态刷新；模板渲染和浏览器验证与接口检查分开。
+- **交付约束：**实现随模块版本和 changelog 交付，Migration 不改写历史，提交及推送检查完整 Diff、模块归属、编号和语法；SDD 记录业务规则及验证证据。
 
-| 数据库 / 模块 | 关键迁移 | 内容 |
-| --- | --- | --- |
-| MySQL / goods | `0009_browsinghistory_favorite` | 收藏与浏览足迹 |
-| MySQL / goods | `0010_catalog_fallback_image` | 茶类虚拟默认图片 |
-| MySQL / support_ai | `0002_agent_observability`、`0003_agent_reranking`、`0004_conversation_order_context` | 配置监控、重排序及订单上下文 |
-| PostgreSQL / ai_storage | `0001_initial`、`0002_embedding_validation` | 长期偏好、知识向量及向量校验 |
-| merchant_ai | 无业务表迁移 | 入口初始化不创建聊天持久化 |
+例如，2026-10-26 库存增量交付记录为 **MySQL 54项通过、SQLite 144项中134通过／10项MySQL专用跳过、前端12项通过**，另有5个模板渲染检查。它们只证明该次提交与定向范围，详见 [交付验证](docs/sdd/evidence/2026-10-26-stock-reservations/delivery.md)，不是全项目覆盖率、真实支付结果或生产性能指标。
 
-使用当前代码时按数据库执行完整迁移；不要为启用某一功能将已有数据库指定迁移到更旧编号。恢复或回退前同时考虑业务数据、媒体文件、两库身份对应和版本兼容。
+<a id="scope"></a>
 
-### 虚拟商品与茶类图片
+## 当前边界与后续方向
 
-仓库包含可追溯的虚拟商品批次和六类茶默认图。2026-10-16 本地核对为 104 个 SKU，其中 102 个通过茶类默认图展示、2 个使用真实图片；这是本地数据快照，不是新安装后的固定商品数量。
+项目已实现多商家采购主流程、库存预留及防占用规则、站内咨询与购买后评价，以及受控买家 Agent。以下能力继续独立推进，不将页面、模型或入口存在视作完整业务交付：
 
-```powershell
-# 先复制媒体文件并准备匹配茶类；默认只预览和校验
-python manage.py register_tea_images --manifest reports/tea-images/2026-10-16/plan.json
-# 确认后才写入 Catalog 的默认图片路径
-python manage.py register_tea_images --manifest reports/tea-images/2026-10-16/plan.json --apply
-```
-
-虚拟图片表示茶类，不是具体商品的实拍、包装或资质证明。图片来源、提示词和哈希见 [图片清单](reports/tea-images/2026-10-16/plan.json)，规则见 [图片设计](docs/sdd/modules/catalog-content/image-fallback.md)。
-
-`seed_virtual_tea_products` 会创建商品和库存，要求明确商家 ID 和数据库服务器 UUID；`seed_demo_orders` 会创建模拟订单。它们都不是首次启动必跑命令。操作前阅读 [虚拟商品数据](docs/虚拟商品数据.md) 和对应 `--help`，不要把示例数据导入已有业务库当作环境检查。
-
-<a id="verification"></a>
-## 验证与调试
-
-在项目根目录、配置键已经准备好的情况下执行；按本次实际改动选择范围。
-
-### 静态与隔离检查
-
-```powershell
-python manage.py check --settings=support_ai.test_settings
-python manage.py makemigrations --check --dry-run --settings=support_ai.test_settings
-python tools/module_versions.py check
-python manage.py test goods.test_activity goods.test_images merchant_ai --settings=support_ai.test_settings --noinput
-python manage.py test support_ai.tests support_ai.test_planning support_ai.test_task_tools support_ai.test_telemetry support_ai.test_grouped_recommendations support_ai.test_mixed_tea ai_storage.tests --settings=support_ai.test_settings --noinput
-```
-
-隔离设置使用 SQLite / LocMem，相关模型调用由测试替身提供。真实向量 SQL 和 MySQL 行锁测试可能被明确跳过，跳过不等于通过。使用上面的明确测试标签；`goods/test_mysql_settings.py` 是测试配置模块，不是普通业务用例。
-
-### 真实数据库定向检查
-
-```powershell
-# 唯一命名的临时 MySQL 测试库，结束后删除；需建 / 删测试库权限
-python manage.py test goods.test_activity goods.test_images --settings=goods.test_mysql_settings --noinput
-# 业务使用 SQLite，AI 存储使用独立 test_tea_saas_ai 测试库
-python manage.py test ai_storage.tests --settings=support_ai.pg_test_settings --noinput
-```
-
-执行前确认测试数据库配置，`--noinput` 不代表只读。浏览器验收、真实模型调用、数据库迁移、部署和发布需要分别记录，不能由上述检查结果替代。
-
-### Agent 终端预览
-
-```powershell
-python -X utf8 -u manage.py agent_preview
-```
-
-支持 `/config`、`/plan`、`/rag`、`/history`、`/new` 和 `/exit`。明确需要测试买家私有数据时，可使用开发环境的 `--user-id <买家ID>`。
-
-终端预览直接调用真实 Agent，不经过网页 HTTP 鉴权和限流；默认使用独立临时会话，日志进入 `reports/agent-preview/`，不写入客户会话或偏好。它无需网页或 Redis，但仍依赖所选工具需要的 MySQL、知识库和模型服务。详情见 [终端预览](docs/Agent终端预览.md)。
-
-<a id="development"></a>
-## 开发与交付
-
-资源清理与评测材料入口见 [报告索引](reports/README.md)。2026-10-16 的 Agent 历史资料已原字节归档，当前输出目录与在途测试继续独立维护。
-
-Git 分支、中文提交、PR 和交付检查统一遵循 [Git 协作规范](docs/Git协作规范.md) 与 [AGENTS.md](AGENTS.md)。每个克隆先运行 `python tools/git_policy.py install` 启用本地 Hook 和提交模板；开发使用 `codex/<模块>-<任务>`，通过 PR 合入 `main`。GitHub Actions 及服务端保护的生效边界见规范。
-
-1. 从当前页面 / 功能找到代码 App、实现模块和对应 SDD 能力，确认已知问题、规则归属及这次变更范围。
-2. 新增或改变规则、权限、状态与 API 时，同步更新相应 REQ / RULE / AC、契约和实现差异；已有实现与目标规格有差异时明确登记。
-3. 修改共享代码时检查真实消费者；变更商品图片需要联动商品、采购车和订单，变更公共导航需检查买家或商家各页面。
-4. 按模块更新代码、`versions/modules.json` 和 changelog；前后端分别评估，纯文档维护不自动抬升业务版本。
-5. 对最终改动执行充分的定向检查；有数据库 Migration 时，说明目标数据库、数据兼容和回退方式。
-6. 分别记录验证、部署和发布；共享工作区中保留他人改动，提交时只选择明确属于当前交付范围的文件。
-
-版本工具：
-
-```powershell
-python tools/module_versions.py list
-python tools/module_versions.py changed
-python tools/module_versions.py check
-# 示例：实际需要升版时再执行
-python tools/module_versions.py bump goods patch --note "说明本次修复"
-```
-
-标签约定为 `<模块>/v<版本>`，例如 `goods/v0.4.0`；工具不会自动提交或推送。流程见 [模块版本管理](docs/模块版本管理.md)。
-
-tea_saas采用渐进式 SDD，当前仍有候选能力和人工评审阶段，尚未接入自动阶段检查器。日常验证使用本节实际提供的命令；业务能力阶段以本仓库 `docs/sdd/catalog.yaml` 及活动能力 manifest 为准。
-
-<a id="limitations"></a>
-
-### 文档导航
-
-| 文档 | 内容 |
+| 方向 | 当前边界／下一步 |
 | --- | --- |
-| [项目接手指南](docs/项目接手指南.md) | 当前版本、运行边界、账号初始化、命令和交接顺序 |
-| [环境配置](docs/环境配置.md) | Python / Conda、MySQL、Redis 和基础环境变量 |
-| [当前版本](versions/README.md) / [模块版本管理](docs/模块版本管理.md) | 实现模块、版本与 changelog 约定 |
-| [SDD 入口](docs/sdd/README.md) / [功能清单](docs/sdd/product/feature-inventory.yaml) | 业务能力、规格、阶段与证据定位 |
-| [收藏足迹规格](docs/sdd/modules/catalog-content/capabilities/CAP-CAT-004/requirements.md) | 收藏、足迹、账号边界与卡片操作 |
-| [图片设计](docs/sdd/modules/catalog-content/image-fallback.md) / [虚拟商品数据](docs/虚拟商品数据.md) | 茶类图片、生成记录、种子数据与回退 |
-| [PostgreSQL 与 pgvector](docs/PostgreSQL与pgvector配置.md) / [本地重排序](docs/本地重排序.md) | 双库、长期偏好、知识和本地推理服务 |
-| [多轮对话](docs/Agent多轮对话.md) / [任务模板](docs/Agent任务模板与对照评测.md) | 上下文、固定任务与受控执行 |
-| [分类推荐](docs/Agent分类推荐.md) / [推荐追问修复](docs/Agent推荐追问修复.md) | 分组、主题继承和理由解释 |
-| [查询改写](docs/Agent查询改写.md) | 多语言查询、融合和一次补检 |
-| [Agent 监控与模型设置](docs/Agent监控与模型设置.md) / [终端预览](docs/Agent终端预览.md) | 运行配置、链路与调试 |
-| [商家智能助手](docs/商家智能助手.md) / [全站主题](docs/全站主题规范.md) | 商家入口完成范围与 UI 基线 |
+| SaaS 商业化 | 目前为平台账号与商家范围隔离；企业租户、订阅、套餐及自动计费未实现 |
+| 支付、退款与财务 | 有可信回调处理；真实商户联调、自动退款、支付账本及资金结算仍需完善，本地配置状态不代表所有环境 |
+| 试单、预售及外部履约 | 保留历史状态和发货保护；完整新建／支付／退款生命周期及生产物流、报关集成未完成 |
+| 检索与答案质量 | 已接入混合召回、证据核验与缓存；继续扩展独立多语言题集，既有小样本或组件结果不代表任意问答可靠 |
+| PDF与商家AI | 平台知识已有PDF/OCR任务、逐页追溯、显式发布及可选PaddleOCR／视觉适配；商家助手仍为入口与状态，商家私有文件、视频及经营工具未形成完整业务链路 |
+| 风控与运维 | 验证码／设备及多账号风控、生产容量测试、告警和数据保留策略仍需建设；本地后台进程不等于生产托管 |
+
+<a id="documents"></a>
+
+## 源码与设计文档导航
+
+建议先沿一个业务问题阅读，再按需查看运行配置。完整启动命令和环境变量移至运维／接手文档，避免与功能设计主线混排。
+
+| 想进一步了解 | 阅读入口 |
+| --- | --- |
+| Agent 如何规划、执行和保存多轮状态 | [语义规划与任务状态](docs/Agent语义规划与任务状态.md)、[当前Agent能力](docs/sdd/modules/ai-support/current-agent.md) |
+| 如何补检、融合与选择知识片段 | [查询改写](docs/Agent查询改写.md)、[检索源码](support_ai/retrieval.py) |
+| 总预算推荐如何计算而不靠模型凑价 | [组合推荐规格](docs/sdd/modules/ai-support/total-budget-recommendation.md)、[组合算法](support_ai/budget_combinations.py) |
+| 如何防超卖与防恶意占库存 | [库存预留规格](docs/sdd/modules/trade/stock-reservations.md)、[库存预留ADR](docs/adr/0004-order-stock-reservations.md) |
+| 咨询与评价为什么分开 | [站内咨询](docs/sdd/modules/merchant-operations/buyer-merchant-conversations.md)、[购买后评价](docs/sdd/modules/catalog-content/purchase-reviews.md) |
+| 销售看板如何得到真实指标 | [本店销售洞察](docs/sdd/modules/merchant-operations/sales-insights.md)、[统一销售口径](docs/sdd/modules/platform/sales-reconciliation.md) |
+| 如何定位请求、模型和检索异常 | [运行日志](docs/运行日志.md)、[Agent监控与模型设置](docs/Agent监控与模型设置.md) |
+| 如何理解当前领域与模块 | [领域术语](CONTEXT.md)、[SDD入口](docs/sdd/README.md)、[模块版本](versions/modules.json) |
+| 如何运行、接手及准备依赖 | [项目接手指南](docs/项目接手指南.md)、[环境配置](docs/环境配置.md)、[PostgreSQL与pgvector](docs/PostgreSQL与pgvector配置.md) |
+
+## 许可
+
+个人学习与工程实践项目，允许按 [非商业使用许可](LICENSE) 免费获取、阅读、修改和分享有权授权的原创代码与文档。禁止源码销售、付费部署、商业项目交付、商业 SaaS 运营及其他商业用途；衍生版本须保留限制与项目来源。该许可不是 OSI 认可的开源许可，第三方依赖、模型、图片和其他素材遵循各自授权。

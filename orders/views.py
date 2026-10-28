@@ -19,6 +19,7 @@ from goods.images import sku_image_name
 from users.models import UserProfile, Address
 from tea_saas.utils import jwt_decode
 from .models import OrderInfo, OrderGoods
+from .support_links import support_order_reference
 
 
 def build_single_data(sku_object, number, status):
@@ -174,6 +175,7 @@ class OrdersView(View):
             order_freight=F('freight'),
         )
         for dict1 in orders_list:
+            dict1['support_reference'] = support_order_reference(user.pk, dict1['order_id'])
             title = dict1.get('tag')
             address = dict1.get('address')
             mobile = dict1.get('receiver_mobile')

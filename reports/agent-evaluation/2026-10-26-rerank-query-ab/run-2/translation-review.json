@@ -1,0 +1,8 @@
+{
+  "reviewed_before_reranking": true,
+  "all_15_accepted": true,
+  "source_review": "E:\\django\\<LOCAL_PROJECT>\\reports\\agent-evaluation\\2026-10-26-rerank-query-ab\\run-1\\translation-review.json",
+  "reviewer": "Reuse prior reviewed experimental inputs, not prior outcomes",
+  "cases_sha256": "248024261a91862721f761ce5fee989a7caec6efaced68e49433735d8d7b8080",
+  "translations_sha256": "32fde9d469a9c671d89ae125dd37d757d39c09aad8f3fe9593a3544f5ab3a354"
+}

@@ -1,0 +1,16 @@
+{
+  "cases_completed": 200,
+  "completion_marker": {
+    "started_at": "2026-10-26T07:58:53.415056+00:00",
+    "completed_at": "2026-10-26T08:38:18.822627+00:00",
+    "status": "completed",
+    "records_per_arm": 100
+  },
+  "controller_exit": "TimeoutExpired waiting for worker after all cases were saved",
+  "observed_worker_pids_after_controller_exit": [
+    40388,
+    7080
+  ],
+  "follow_up_process_check": "No matching worker processes remained; workers exited naturally before cleanup; no processes stopped",
+  "production_services_changed": false
+}

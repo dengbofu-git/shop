@@ -1,0 +1,12 @@
+{
+  "production_after": {
+    "published_documents": 12,
+    "published_public_chunks": 50,
+    "memories": 1,
+    "corpus_sha256": "497d34d3a24251b56d163b4b8659a34132904ee9f6aac07ba21d8cda59cc6c74"
+  },
+  "production_unchanged": true,
+  "code_unchanged": true,
+  "isolated_database_dropped": "pdf_chunk_eval_2d8108d1c63c42fab5e97e3bf95fda8e",
+  "configuration_revision_after": 5
+}

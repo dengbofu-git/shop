@@ -1,0 +1,70 @@
+{
+  "recorded_at": "2026-10-26T07:38:59.612093+00:00",
+  "module": "ai_storage",
+  "version": "0.5.0",
+  "git_head": "25a08ee29e23ce1bd479951e5860b44c9dfb2a89",
+  "workspace_dirty": true,
+  "checks": {
+    "host_unittest": {
+      "tests": 34,
+      "passed": 30,
+      "skipped": 4
+    },
+    "worker_network_none_unittest": {
+      "tests": 34,
+      "passed": 34,
+      "skipped": 0
+    },
+    "isolated_postgres_unittest": {
+      "tests": 3,
+      "passed": 3,
+      "skipped": 0
+    },
+    "django_check": "passed",
+    "python_ast_files": 13,
+    "module_version": "passed",
+    "targeted_whitespace": "passed"
+  },
+  "database": {
+    "database": "vision_adapter_test_d21888b2a34a46ebb8d89ed6",
+    "before": {
+      "published_documents": 12,
+      "published_chunks": 50,
+      "memories": 1,
+      "corpus_sha256": "497d34d3a24251b56d163b4b8659a34132904ee9f6aac07ba21d8cda59cc6c74"
+    },
+    "after": {
+      "published_documents": 12,
+      "published_chunks": 50,
+      "memories": 1,
+      "corpus_sha256": "497d34d3a24251b56d163b4b8659a34132904ee9f6aac07ba21d8cda59cc6c74"
+    },
+    "dropped": true,
+    "production_unchanged": true
+  },
+  "real_vision_calls": 0,
+  "real_embedding_calls": 0,
+  "new_migrations": false,
+  "identity_authentication_tested": false,
+  "existing_worker_restarted": false,
+  "deployed": false,
+  "git_published": false,
+  "runtime_image": "sha256:ad9b8bd3af3d6d5562c528370206168f8a9a04059d661a7d38a5b54558ffadf6",
+  "code_sha256": {
+    "ai_storage/vision/cache.py": "059c9a257ee1f3116eeb40d90aa00fbe2ed570a03515425921558ebe55959f0a",
+    "ai_storage/vision/config.py": "c936b2dfe346776cffa9646851601fb16b187c3dfea16ca424ca868bbe0b6e17",
+    "ai_storage/vision/contracts.py": "74a4360bc90cdfcc2c2f3d3ac76f7cba76300330a38dfb1797ed262a024e6606",
+    "ai_storage/vision/openai_compatible.py": "cd45e89aad92b9eecb836b11fe3a54dc4605dd4c6ad2f66c65436d3d60181b94",
+    "ai_storage/vision/pipeline.py": "1ddbe7275089e56e88d07e1ab40c401efd40e6d8ab711af34571aa814f58f4f7",
+    "ai_storage/vision/__init__.py": "687f64f104b24914fa25cb0ba86da68a94fb696f476e0ab7ab685cbd32c78a26",
+    "ai_storage/pdf_pipeline/parser.py": "e1810199ba78b03e2efb0b3a3577bbe64d5d719ba9c0c832bef1ef55f43222bd",
+    "ai_storage/pdf_pipeline/chunking.py": "ecc23658e7e715ca1ec738669e08640bc561229358d22779bf33f94dab4d353b",
+    "ai_storage/pdf_pipeline/service.py": "db7903cb49dc503fd322921cd391e6f7bab85dc5413bb7258e8fc47b4aa39da0",
+    "ai_storage/management/commands/knowledge_pdf.py": "c45ff80eae0f0de4064e3bddd1786c960705f9d70ccbab247e4d379c78d9b7a0",
+    "ai_storage/test_vision.py": "951baa2882ba123ad18e990627ef0d3b37e5c33c79d28036b0a60e76b37e3e9c",
+    "ai_storage/test_pdf_vision.py": "6a3334987c643a79df2df908bafbf5c1fcd2191e34ba580791b88a2a7dd196f4",
+    "ai_storage/test_vision_database.py": "4ee6c3cedd9b07e9fe40fea87e6ff60229b54ee4a586ed8941167be9604d690c",
+    "deploy/knowledge-worker/vision.env.example": "b37bf95ef6a1e12a5c07856c913bdb3dbca95171d400e587e19636c1ea937d2b",
+    "versions/modules.json": "0f1f22a6d4fc3d57aa457674fc5c0e8f323d8ba40b8553ca2d493f9efb651dff"
+  }
+}

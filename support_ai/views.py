@@ -16,11 +16,11 @@ from ai_storage.models import BuyerMemory
 
 from .contracts import Preferences
 from .context import (ConversationConflict, PreferenceStorageUnavailable, commit_turn,
-                      recent_context, replay, saved_preferences, HISTORY_TURNS)
+                      recent_context, replay, saved_preferences, HISTORY_TURNS, select_bundle_context)
 from .models import SupportConversation
 from .conversation_history import list_conversations, conversation_page
 from .order_contracts import prepare_order_input
-from .order_queries import OrderQueryContext
+from .order_queries import OrderQueryContext, attach_order_links
 from pydantic import ValidationError
 
 
@@ -82,9 +82,17 @@ def chat(request):
         return _response({'error': '消息过长，请缩短后重试。'}, 413)
     try:
         body = json.loads(request.body)
-        if not isinstance(body, dict) or set(body) - {'message', 'conversation_id', 'request_id', 'expected_revision'}:
+        if not isinstance(body, dict) or set(body) - {'message', 'conversation_id', 'request_id', 'expected_revision', 'bundle_selection'}:
             raise ValueError('unknown input')
         message = body.get('message', '')
+        selection = body.get('bundle_selection')
+        if selection is not None:
+            from .bundle_references import BUNDLE_ID
+            if (not isinstance(selection, dict) or set(selection) != {'request_id', 'bundle_id'}
+                    or not isinstance(selection['request_id'], str)
+                    or not isinstance(selection['bundle_id'], str) or not BUNDLE_ID.fullmatch(selection['bundle_id'])):
+                raise ValueError('invalid bundle selection')
+            uuid.UUID(selection['request_id'])
     except (ValueError, TypeError, AttributeError):
         return _response({'error': '请求格式无效。'}, 400)
     if not isinstance(message, str) or not message.strip() or len(message) > 1000:
@@ -111,6 +119,8 @@ def chat(request):
         if expected is not None and expected != revision:
             raise ConversationConflict('会话已更新，请重新读取后再提交')
         history = recent_context(conversation)
+        if selection is not None and not select_bundle_context(user, conversation, history, selection):
+            return _response({'error': '所选方案不在当前咨询的近期记录中，请重新选择或获取搭配。'}, 404)
         # Keep authentication, ownership, revision and idempotency checks, while
         # skipping model configuration, PostgreSQL memory and business tools.
         from .workflow import fixed_result
@@ -162,6 +172,7 @@ def chat(request):
             if order_query_context.not_queryable:
                 return _response({'error': '未找到可查询的订单。', 'error_code': 'ORDER_NOT_QUERYABLE'}, 404)
             response = dict(result['response'], pii_redacted=safe_message != message.strip() or result.get('pii_redacted', False))
+            response = attach_order_links(response, order_query_context)
             if observation.trace_id:
                 response['trace_id'] = observation.trace_id
             response = commit_turn(

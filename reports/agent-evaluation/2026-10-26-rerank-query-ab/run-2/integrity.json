@@ -1,0 +1,34 @@
+{
+  "checks": {
+    "cases_frozen": true,
+    "translation_frozen": true,
+    "all_90_keys_unique": true,
+    "same_request_across_repeats": true,
+    "same_candidates_both_arms": true,
+    "production_source_unchanged": true,
+    "full_payload_only_query_differs": true
+  },
+  "files_sha256": {
+    "answer-review.json": "6f1f939a70ef2bbed88724b1354427bf5a2582e6d3d1f18110d72b0200be4bda",
+    "answer-rubric.json": "859c87570f1b60c3579187f108c7e87ccda505610e07781ffa15238aa61947d5",
+    "answers.jsonl": "c78361dc2e104b5e26d383ab107fbb8c66bdac8b4a25ae5bd4b080b21b0e372f",
+    "answers.md": "5f5412c6e8b452516fef643d1d1681df687049848aa0ccfad2c69f64587ae72e",
+    "api-calls.jsonl": "112f18686c4ac74dc91e9ef7c01968057749754835865954b5cc5075804045d3",
+    "cases.json": "248024261a91862721f761ce5fee989a7caec6efaced68e49433735d8d7b8080",
+    "comparison.png": "89c3f73114ccf40a76d1eacb7439dc8aea6a026aae4e02d6ae50e755a57ff476",
+    "corpus.json": "e576428d784026d699eb1f11346a3aded6e0b695a55ef3ca657eb73f59ab8987",
+    "environment-validity.jsonl": "b1c02a0785e539393cc5874a9921a9d9d42ad1a7608cefbcc26b20c7ebddb873",
+    "manifest.json": "7b632cc3746c2282adf9b6f4e539b0e67882bfd496542684cff58a3508650747",
+    "per-case.csv": "e9a85a60170b6ecf90dd483dc3ab58355c6bbae2e3d444527afdd9fdf4d074fc",
+    "preflight.json": "d252432e40b6d1d28f652aafafa78185f7b0618bbd8cbde34fd6bd16b819e966",
+    "procedures.zip": "7915a2647625ef130bb1a5beadf3d5ebb6e99c58024a41b5d28e4461a283b93a",
+    "report.md": "f3012efd638e2e9238a92b31ba8e2915f171a9c6a4f81184a4a58bf3f31f9da8",
+    "rerank-results.jsonl": "4b5ba20a9b3f76001df4d4cb5d0f4e70ee14ad89e0723dc2cd3bbd7cace89151",
+    "run-state.json": "92168506589235d788d309aaca239cbc17018f31ea42f4671ecc6fc496ec21f6",
+    "summary.json": "f7f6fe89b986681f9802c76b5df29bdc07e36fb87cce377213b593418e250d18",
+    "tokenizer-work.json": "ac7ba157771ec8de2bd64810d9016550ea29326c59bfc919922d266a6f3e8934",
+    "translation-review.json": "2155769ebf88ea06290f1598abeff6d720ef2e8267feef5db977a76e47af1da0",
+    "translations-frozen.json": "32fde9d469a9c671d89ae125dd37d757d39c09aad8f3fe9593a3544f5ab3a354",
+    "warmups.jsonl": "ffcfab45720de0ad7a9a5577aa8a08d689a81fe7aa5127e3939d1053bec56c4f"
+  }
+}

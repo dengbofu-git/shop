@@ -91,7 +91,7 @@ class GroupedRecommendationTests(TestCase):
         self.assertEqual([p['category'] for p in result.data['recommendations']], list(BASIC_TEA_TYPES))
         self.assertEqual(result.data['product_intent']['required']['categories'], [])
         self.assertIn('推荐依据', result.data['answer'])
-        self.assertIn('尚无可验证的风味', result.data['answer'])
+        self.assertIn('尚不能据此认定某款最适合您的口味', result.data['answer'])
 
     def test_per_group_two_and_total_limit(self):
         result = self.run_tool('按不同茶类每类推荐两款，并给出理由')
@@ -158,7 +158,7 @@ class GroupedRecommendationTests(TestCase):
         self.assertEqual(result.status, 'error')
         self.assertEqual(result.data['recommendation_status'], 'ERROR')
         self.assertFalse(result.data['recommendations'])
-        self.assertEqual(result.data['diagnostics'][0]['error_type'], 'ValueError')
+        self.assertEqual(result.data['diagnostics'][0]['error_type'], 'IntentEvidenceError')
 
     def test_model_schema_failure_errors_and_reports_field(self):
         result = self.run_tool('推荐测试品牌绿茶', {'action': 'SEARCH', 'required': {'categories': ['茶'] * 13}})

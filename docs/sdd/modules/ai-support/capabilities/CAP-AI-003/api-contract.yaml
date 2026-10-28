@@ -388,6 +388,20 @@ components:
           minimum: 0
           nullable: true
           description: 可省略或null；新页面继续会话时必须发送上次确认值。新会话若填写则只能为0，否则409。
+        bundle_selection:
+          type: object
+          nullable: true
+          additionalProperties: false
+          required: [request_id, bundle_id]
+          description: 可选商品方案引用；仅接受本人同一会话近期上下文中已保存方案。非法格式400，不可访问或已过窗口统一404。参与原幂等请求指纹，不接受客户端商品或金额。
+          properties:
+            request_id:
+              type: string
+              format: uuid
+              description: 被选择的推荐轮次的请求ID。
+            bundle_id:
+              type: string
+              pattern: '^bundle-[0-9a-f]{12}$'
     ChatSuccess:
       type: object
       additionalProperties: true
@@ -541,7 +555,7 @@ components:
         order_result:
           type: object
           additionalProperties: true
-          description: 匿名reference/业务状态/创建日期/查询时间及页控制；不含真实ID或私有位置映射。
+          description: 匿名reference/业务状态/创建日期/查询时间及页控制；成功订单可带orders[].detail_url，值为固定同源buyer_orders.html及按买家绑定的匿名定位片段，只在模型与遥测完成后投影。不含真实ID或私有位置映射，链接本身不授权访问。
     ApiError:
       type: object
       additionalProperties: false

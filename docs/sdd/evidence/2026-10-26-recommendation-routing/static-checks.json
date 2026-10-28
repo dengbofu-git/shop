@@ -1,0 +1,58 @@
+{
+  "date": "2026-10-26",
+  "mode": "static-only-no-import-or-business-execution",
+  "head": "25a08ee29e23ce1bd479951e5860b44c9dfb2a89",
+  "dirtyWorkspace": true,
+  "pythonAst": {
+    "files": [
+      "support_ai/contracts.py",
+      "support_ai/semantic_planning.py",
+      "support_ai/planning.py",
+      "support_ai/workflow.py",
+      "support_ai/tool_services.py",
+      "support_ai/recommendations.py",
+      "support_ai/bundle_recommendations.py"
+    ],
+    "exitCode": 0
+  },
+  "diffCheck": {
+    "paths": [
+      "support_ai/contracts.py",
+      "support_ai/semantic_planning.py",
+      "support_ai/planning.py",
+      "support_ai/workflow.py",
+      "support_ai/tool_services.py",
+      "support_ai/recommendations.py",
+      "support_ai/bundle_recommendations.py",
+      "docs/sdd/modules/ai-support/current-agent.md",
+      "docs/sdd/modules/ai-support/total-budget-recommendation.md",
+      "versions/modules.json",
+      "versions/changelogs/support_ai.md",
+      "versions/README.md"
+    ],
+    "exitCode": 0
+  },
+  "moduleOwnership": {
+    "exitCode": 0
+  },
+  "links": "passed-for-affected-specifications",
+  "moduleVersion": "support_ai/0.20.2",
+  "tests": "not-added-or-run",
+  "realModel": "not-called",
+  "database": "not-written-or-migrated",
+  "commitPush": "not-performed",
+  "fileHashes": {
+    "support_ai/contracts.py": "9c8d342a2af223f09052238149d7fba68f5e68fe2d35ea539414aa699308a368",
+    "support_ai/semantic_planning.py": "e02faff777b0560af0ceb44f880e111c1708b3195d325ecc5cb0af077d79e368",
+    "support_ai/planning.py": "c1593ebd8ff5b97a8ce8dc3b572193859026b5d9078a3e4bd902690cd09212ff",
+    "support_ai/workflow.py": "4df973c6ef006f029df051d254e851d86a29433d026d515e8c165a9e1d4df914",
+    "support_ai/tool_services.py": "55bfd00105aba25844266ea9b13e335182d6745e6f375ebf5bb5b13698477b10",
+    "support_ai/recommendations.py": "9001cffdb48419824ea8294b411f0a3ba68b2c45aebf7312ae17a2b350ccc8f3",
+    "support_ai/bundle_recommendations.py": "269de4096db2455dd2d9aab44a6f2de351d48a4507371e57a5f5cfcb59fc7853",
+    "docs/sdd/modules/ai-support/current-agent.md": "232747f125d4342d34e730385655416b696239784320af5ed5306e6db8342022",
+    "docs/sdd/modules/ai-support/total-budget-recommendation.md": "9c73a9319dcf92fc8919848ce7da73a49eba1e96458c184041238db8eb8a09d2",
+    "versions/modules.json": "7f4ed6b12b82848fb414da939c3b7652c89c59a7cf792984c9c28b0123c41c4d",
+    "versions/changelogs/support_ai.md": "c5bc6ecfc725eaf66e2d78404b400c74cfb735ceb23d0bd73a3d2916f04b5486",
+    "versions/README.md": "9323b1f88e04a73f54ef53e8a68c71c1f903f6a2bd7732d9c265c256e140ef94"
+  }
+}

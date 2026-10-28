@@ -295,8 +295,15 @@ class GraphFactConsistencyTests(TestCase):
             if schema is ComplianceVerdict:
                 return RunnableLambda(lambda p: ComplianceVerdict(safe=False,revised_answer='不应发布的修订内容。'))
             return original(schema)
+        def factory(state):
+            def introduce(step, done):
+                return ToolResult(step_id=step.id, tool=step.tool, status='success',
+                    data={'answer': text, 'grounding': {'status': 'unverified',
+                          'claims': [{'text': text}], 'sources': [{'title': text}]}},
+                    sources=[{'title': text}])
+            return {'introduce_tea': introduce}
         with patch.object(model,'with_structured_output',side_effect=structured):
-            result = build_graph(model,knowledge_search=lambda *args:[dict(SOURCE,text=text)]).invoke({'message':'介绍绿茶'})
+            result = build_graph(model,tool_factory=factory).invoke({'message':'介绍绿茶'})
         response = result['response']
         self.assertTrue(response['compliance_blocked'])
         self.assertNotIn(text,json.dumps(response,ensure_ascii=False))
@@ -305,12 +312,14 @@ class GraphFactConsistencyTests(TestCase):
         self.assertFalse(response['grounding']['knowledge'][0]['claims'])
         self.assertFalse(response['grounding']['knowledge'][0]['sources'])
 
-    def test_safe_but_false_compliance_rewrite_cannot_alter_mixed_order_facts(self):
+    def test_verified_mixed_units_skip_redundant_review_and_keep_order_facts(self):
         model = FakeModel({'recommendation':.1,'question_answering':.9,'after_sales':.1})
         original = model.with_structured_output
+        calls = []
         def structured(schema):
             if schema is ComplianceVerdict:
-                return RunnableLambda(lambda p: ComplianceVerdict(safe=True,revised_answer='订单已付款、已发货，商品仅1美元。'))
+                return RunnableLambda(lambda p: calls.append('review') or ComplianceVerdict(
+                    safe=True,revised_answer='订单已付款、已发货，商品仅1美元。'))
             return original(schema)
         def factory(state):
             def introduce(step,done):
@@ -327,7 +336,8 @@ class GraphFactConsistencyTests(TestCase):
         self.assertIn('待付款，尚未发货',result['answer'])
         self.assertIn(SOURCE['text'],result['answer'])
         self.assertNotIn('1美元',result['answer'])
-        self.assertTrue(result['response']['grounding']['business_facts']['rewrite_rejected'])
+        self.assertFalse(result['response']['grounding']['business_facts']['rewrite_rejected'])
+        self.assertEqual(calls, [])
 
     def test_empty_knowledge_cannot_produce_a_model_invented_answer(self):
         model = FakeModel({'recommendation':.1,'question_answering':.9,'after_sales':.1})

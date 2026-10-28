@@ -1,0 +1,51 @@
+{
+  "data_scope": "public-catalog-read-only-with-synthetic-conditions",
+  "status": "MATCHED",
+  "plans": [
+    {
+      "subtotal": "3000.00",
+      "items": [
+        {
+          "sku_id": 23,
+          "price": "75.00",
+          "quantity": 40,
+          "line_subtotal": "3000.00"
+        }
+      ]
+    },
+    {
+      "subtotal": "3000.00",
+      "items": [
+        {
+          "sku_id": 23,
+          "price": "75.00",
+          "quantity": 37,
+          "line_subtotal": "2775.00"
+        },
+        {
+          "sku_id": 127,
+          "price": "45.00",
+          "quantity": 5,
+          "line_subtotal": "225.00"
+        }
+      ]
+    },
+    {
+      "subtotal": "3000.00",
+      "items": [
+        {
+          "sku_id": 23,
+          "price": "75.00",
+          "quantity": 18,
+          "line_subtotal": "1350.00"
+        },
+        {
+          "sku_id": 130,
+          "price": "66.00",
+          "quantity": 25,
+          "line_subtotal": "1650.00"
+        }
+      ]
+    }
+  ]
+}

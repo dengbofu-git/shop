@@ -1,0 +1,9 @@
+{
+  "ai_storage/pdf_pipeline/parser.py": "0e3d1bf405d0b2c8133d2873bb9272ae9d38d8585f66658f54a4ad70d76e59a3",
+  "ai_storage/pdf_pipeline/service.py": "e5c7236ed70025bcfcd002b299ff6248f35b35e0e30df92a456784c04d0f6674",
+  "ai_storage/pdf_pipeline/chunking.py": "11244681fb2229b0ea34c62c4a1eb09e9b00bbbcb12dea73a10462edcaf3d29f",
+  "ai_storage/models.py": "10918484ae5a3aaf6a39bf4554443daabe1d64b72fb7a294441f510dc9add24e",
+  "ai_storage/migrations/0003_pdf_import_pipeline.py": "9948cefd711661d556cd95614160e5d9442e8912d297c81f1038d9617402a0bc",
+  "compose.knowledge-worker.yml": "14b36fb97158ccc5570e994f98e74d9674d1455d1d8d5ef845399f0eda606c75",
+  "ai_storage/test_pdf_parser_protocol.py": "18608915459e80fd0edb5a10b16a1986cb42994e90c8418a595c084cb6758077"
+}

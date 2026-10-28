@@ -1,0 +1,12 @@
+{
+  "frozen_workspace_version": "0.21.1",
+  "post_run_workspace_version": "0.21.4",
+  "changed_support_files_since_freeze": [
+    "support_ai\\contracts.py",
+    "support_ai\\semantic_planning.py",
+    "support_ai\\test_colloquial_budget.py",
+    "support_ai\\test_order_navigation.py",
+    "support_ai\\total_budget_intent.py"
+  ],
+  "interpretation": "Frozen after/shared source hashes define tested code; subsequent live changes are not validated"
+}

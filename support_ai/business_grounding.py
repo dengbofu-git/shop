@@ -6,6 +6,55 @@ BUSINESS_TOOLS = frozenset({'recommend_products', 'recommend_bundle', 'get_produ
                             'get_order_status', 'explain_recommendations'})
 
 
+def _fixed_insufficient_text(data):
+    from .grounding import INSUFFICIENT
+    from .recommendation_options import BASIC_TEA_TYPES
+    answer = data.get('answer', '')
+    if answer in (INSUFFICIENT, '本次未检索到足够证据说明这些茶类的区别，因此暂不推荐对应商品。'):
+        return True
+    categories = data.get('unexplained_categories', [])
+    if (not isinstance(categories, list) or not 1 <= len(categories) <= 6 or
+            any(c not in BASIC_TEA_TYPES for c in categories)):
+        return False
+    expected = ['茶种一词可能指茶树品种；这里按制造工艺区分的茶类说明：']
+    expected.extend('\n{}：本次证据不足，暂不作具体说明，也不据此推荐商品。'.format(c) for c in categories)
+    return answer == '\n'.join(expected)
+
+
+def needs_model_review(results):
+    """Only server-owned units and independently grounded knowledge bypass review.
+
+    These flags come from registered handlers, never documents or request JSON.
+    Unknown/unverified prose still takes the fail-closed compliance path.
+    """
+    fixed_tools = {'greet_user', 'describe_capabilities', 'ask_clarification'}
+    for result in results:
+        tool, data = result['tool'], result['data']
+        if tool in BUSINESS_TOOLS or tool in fixed_tools:
+            continue
+        if tool == 'introduce_tea':
+            grounding = data.get('grounding', {})
+            claims = grounding.get('claims', [])
+            # A bare status string is not sufficient provenance. Require the
+            # server's accepted units and source map to match rendered text.
+            if (grounding.get('status') in ('verified', 'partial') and claims and
+                    grounding.get('sources') and all(isinstance(c, dict) and
+                        isinstance(c.get('text'), str) and c['text'] and
+                        c['text'] in data.get('answer', '') and c.get('citations') for c in claims)):
+                continue
+            if (grounding.get('status') == 'insufficient' and not claims and
+                    not grounding.get('sources') and not result.get('sources') and _fixed_insufficient_text(data)):
+                continue
+            if result['status'] in ('error', 'skipped') and data.get('answer') in (
+                    '该项服务暂时不可用，请稍后重试。',
+                    '本次模型处理已达到预算，暂未完成该项，请稍后单独查询。',
+                    '前置任务未取得有效结果，暂无法继续该项查询。',
+                    '本次处理已达到时间预算，请稍后继续。'):
+                continue
+        return True
+    return False
+
+
 def render_product_details(data):
     """Public DTO fields, never an LLM paraphrase of price/currency/stock."""
     lines = ['{} · {}'.format(data['product_name'], data['specification']),

@@ -1,0 +1,167 @@
+[
+  {
+    "group": "fixed",
+    "full_fact_coverage": true,
+    "errors": [],
+    "seconds": 61.05758984300155,
+    "top_chunks": [
+      [
+        "fixed",
+        22,
+        0.9853
+      ],
+      [
+        "fixed",
+        10,
+        0.9729
+      ],
+      [
+        "common",
+        0,
+        0.43
+      ],
+      [
+        "common",
+        8,
+        0.0351
+      ],
+      [
+        "fixed",
+        11,
+        0.953
+      ]
+    ]
+  },
+  {
+    "group": "json",
+    "full_fact_coverage": true,
+    "errors": [],
+    "seconds": 9.925226152001414,
+    "top_chunks": [
+      [
+        "json",
+        0,
+        0.9981
+      ],
+      [
+        "json",
+        2,
+        0.9925
+      ],
+      [
+        "common",
+        0,
+        0.43
+      ],
+      [
+        "common",
+        8,
+        0.0351
+      ],
+      [
+        "json",
+        5,
+        0.9716
+      ]
+    ]
+  },
+  {
+    "group": "native",
+    "full_fact_coverage": true,
+    "errors": [],
+    "seconds": 37.22821218900026,
+    "top_chunks": [
+      [
+        "native",
+        40,
+        0.9806
+      ],
+      [
+        "native",
+        19,
+        0.9761
+      ],
+      [
+        "common",
+        0,
+        0.43
+      ],
+      [
+        "common",
+        8,
+        0.0351
+      ],
+      [
+        "native",
+        34,
+        0.9702
+      ]
+    ]
+  },
+  {
+    "group": "ocr",
+    "full_fact_coverage": false,
+    "errors": [],
+    "seconds": 45.95811263199903,
+    "top_chunks": [
+      [
+        "ocr",
+        24,
+        0.9873
+      ],
+      [
+        "ocr",
+        11,
+        0.9748
+      ],
+      [
+        "common",
+        0,
+        0.43
+      ],
+      [
+        "common",
+        8,
+        0.0351
+      ],
+      [
+        "ocr",
+        25,
+        0.9229
+      ]
+    ]
+  },
+  {
+    "group": "paragraph",
+    "full_fact_coverage": true,
+    "errors": [],
+    "seconds": 21.025948129001335,
+    "top_chunks": [
+      [
+        "paragraph",
+        57,
+        0.9872
+      ],
+      [
+        "paragraph",
+        50,
+        0.9676
+      ],
+      [
+        "common",
+        0,
+        0.43
+      ],
+      [
+        "common",
+        8,
+        0.0351
+      ],
+      [
+        "paragraph",
+        28,
+        0.9554
+      ]
+    ]
+  }
+]

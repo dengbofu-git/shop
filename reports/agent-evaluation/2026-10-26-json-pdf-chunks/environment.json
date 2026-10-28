@@ -1,0 +1,22 @@
+{
+  "python": "3.10.22",
+  "pymupdf": "1.26.7",
+  "tesseract": "tesseract 5.3.0",
+  "embedding_models": [
+    {
+      "name": "bge-m3:latest",
+      "digest": "7907646426070047a77226ac3e684fbbe8410524f7b4a74d02837e43f2146bab",
+      "size": 1157672605,
+      "modified_at": "2026-10-15T04:08:55.118726162Z"
+    }
+  ],
+  "reranker": {
+    "status": "ready",
+    "model": "BAAI/bge-reranker-v2-m3",
+    "revision": "953dc6f6f85a1b2dbfca4c34a2796e7dde08d41e",
+    "device": "cpu"
+  },
+  "tokenizer_sha256": "21106b6d7dab2952c1d496fb21d5dc9db75c28ed361a05f5020bbba27810dd08",
+  "provider_model_alias": "deepseek-flash",
+  "provider_immutable_revision": "not exposed; alias may drift on future reruns"
+}

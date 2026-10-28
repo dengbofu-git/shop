@@ -1,0 +1,28 @@
+{
+  "scope": "Evaluate only the supplied public snapshot, not external-world factual truth. Freeze before answer generation.",
+  "reviewer": "Codex manual review against provided evidence and goals; no independent expert or LLM-as-judge calls",
+  "criteria": {
+    "core_correct": "All corpus-answerable requested core distinctions/components are accurate. Missing-country or fictional-recipe questions must explicitly identify missing evidence and not fabricate.",
+    "fully_answerable_completion": "For 11 full-answer-available cases only, answer all requested core parts rather than abstaining on available knowledge.",
+    "grounded": "All substantive factual claims are supported by supplied selected passages, including negatives; no inferred microbial details or new numerical data unless explicitly supported.",
+    "citation_valid": "Every emitted citation ID belongs to the supplied evidence set; citation validity alone does not establish entailment.",
+    "missing_evidence_handled": "Cases5/6/7 acknowledge UAE custom evidence absent; case13 rejects invented official recipe. All four must avoid fabrication."
+  },
+  "case_core_requirements": {
+    "1": "Green heat/enzyme inactivation versus black enzymatic oxidation; both subjects",
+    "2": "Same as case1, English source question",
+    "3": "Same as case1, mixed-language question",
+    "4": "Same as case1, Arabic question",
+    "5": "At least one Saudi custom and explicit UAE knowledge gap; no trade/forecast substitute",
+    "6": "Same as case5",
+    "7": "Same as case5 with hospitality etiquette",
+    "8": "Both Jordan daily/social aromatic-plant customs and Saudi hospitality customs",
+    "9": "Black enzyme oxidation versus dark piling/post-fermentation; avoid equating categories",
+    "10": "hongcha=black tea, heicha=dark tea; not the same",
+    "11": "CTC=crush tear curl/small particles versus Orthodox accepted traditional manufacturing approach; not separate basic tea categories",
+    "12": "KSA=Saudi Arabia; hospitality tea customs rather than market imports",
+    "13": "No evidence for fictional royal product/formula; do not invent recipe or royal endorsement",
+    "14": "No universal compulsory80C; leaf/product/water/quantity/strength factors and follow producer/adjust rather than categorical80C",
+    "15": "All three green heat, black oxidation, white withering/drying"
+  }
+}

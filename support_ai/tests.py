@@ -178,7 +178,7 @@ class BuyerShellTests(SimpleTestCase):
 
 class ModelConfigurationTests(SimpleTestCase):
     def test_model_uses_configured_deepseek_options(self):
-        with patch('support_ai.model_client.ChatOpenAI') as chat_model:
+        with patch('support_ai.model_client.SupportChatOpenAI') as chat_model:
             configured_model()
         options = chat_model.call_args.kwargs
         self.assertEqual(options['model'], settings.SUPPORT_MODEL)
@@ -331,28 +331,24 @@ class RecommendationIntegrationTests(DatabaseTestCase):
         self.assertEqual(self.client.get('/v1/support/conversations/{}/'.format(foreign.pk), **self.auth).status_code, 404)
         self.assertEqual(self.client.get('/v1/support/preferences/', **self.auth).json()['preferences']['categories'], [])
 
-    def test_invalid_conditions_clarify_but_provider_failure_does_not_commit(self):
+    def test_unrepairable_provenance_and_provider_failure_do_not_commit(self):
         from .models import SupportConversation, SupportTurn
         bad = self.model({'action': 'SEARCH', 'required': {'categories': ['绿茶']}})
         with patch('support_ai.tool_services.match_products') as query:
             data = self.post_chat(bad, message='推荐测试品牌绿茶')
         query.assert_not_called()
-        self.assertEqual(data.status_code, 200)
-        self.assertTrue(data.json()['clarification_required'])
-        self.assertEqual([(t['tool'], t['status']) for t in data.json()['tasks']],
-                         [('ask_clarification', 'needs_clarification')])
-        self.assertFalse(data.json()['recommendations'])
+        self.assertEqual(data.status_code, 503)
         from .models import AgentSpan
         completed = AgentSpan.objects.get(name='support.chat')
-        self.assertEqual(completed.status, 'OK')
-        self.assertEqual(SupportTurn.objects.filter(user=self.user).count(), 1)
-        self.assertEqual(SupportConversation.objects.filter(user=self.user).count(), 1)
+        self.assertEqual(completed.status, 'ERROR')
+        self.assertEqual(SupportTurn.objects.filter(user=self.user).count(), 0)
+        self.assertEqual(SupportConversation.objects.filter(user=self.user).count(), 0)
         with patch('support_ai.model_client.configured_model', side_effect=TimeoutError):
             import json
             response = self.client.post('/v1/support/chat/', data=json.dumps({'message': '推荐茶'}),
                                         content_type='application/json', **self.auth)
         self.assertEqual(response.status_code, 503)
-        self.assertEqual(SupportTurn.objects.filter(user=self.user).count(), 1)
+        self.assertEqual(SupportTurn.objects.filter(user=self.user).count(), 0)
 
     def test_retry_payload_conflict_and_conversation_revision_conflict(self):
         import json

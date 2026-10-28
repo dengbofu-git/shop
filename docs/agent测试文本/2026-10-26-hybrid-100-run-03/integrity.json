@@ -1,0 +1,22 @@
+{
+  "records": {
+    "before": 100,
+    "after": 100
+  },
+  "frozen_sources_unchanged": {
+    "before": true,
+    "after": true
+  },
+  "shared_sources_unchanged": true,
+  "inputs_unchanged": true,
+  "fixture_unchanged": {
+    "before.sqlite3": true,
+    "after.sqlite3": true,
+    "memory.sqlite3": true
+  },
+  "api_log_calls": 244,
+  "row_api_calls": 244,
+  "public_evidence_only": true,
+  "unique_provider_response_ids": true,
+  "sensitive_prompt_hits": 0
+}

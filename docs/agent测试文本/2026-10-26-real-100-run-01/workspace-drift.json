@@ -1,0 +1,54 @@
+{
+  "checked_at": "2026-10-26T07:02:45.424702+00:00",
+  "tested_arm": "current (immutable start-of-run source snapshot)",
+  "initial_version_label": "0.20.1",
+  "post_run_workspace_version": "0.20.3",
+  "changed_files": [
+    {
+      "path": "support_ai\\budget_combinations.py",
+      "tested_sha256": "8bb97621707e98e76e04e336496eb986219fd12b1d13efdc017080f14a2ab1b6",
+      "post_run_workspace_sha256": "8ca691d5ff2ea367bbb62397f585ad67d1f7bcb48350a28af0f7e0ca6638ea41"
+    },
+    {
+      "path": "support_ai\\bundle_recommendations.py",
+      "tested_sha256": "61883c0f5e320b545c11d3c8a51061c545a1771a31390a92e332b1f329408c86",
+      "post_run_workspace_sha256": "d75e6ddd4135a071be0a1ee2a6ae867120652e26c24382660ac8d984674215d2"
+    },
+    {
+      "path": "support_ai\\contracts.py",
+      "tested_sha256": "b399c63b4aeb9bd70d34b1ebfc4fff8fcca350abdd2ca5e8e3fee45471291a0b",
+      "post_run_workspace_sha256": "36658c2bb1155b146ca5ec1340466b475f20a1900a28ab5b353fbfbb68b6c7d9"
+    },
+    {
+      "path": "support_ai\\planning.py",
+      "tested_sha256": "946974aea841c8375021c38347eea244c605074ecb3084798203585cdf8c8b8a",
+      "post_run_workspace_sha256": "c1593ebd8ff5b97a8ce8dc3b572193859026b5d9078a3e4bd902690cd09212ff"
+    },
+    {
+      "path": "support_ai\\recommendations.py",
+      "tested_sha256": "5a805afe8d7364a9f1e455f6cb0a789f2acbc386bf349fdef970869cded44c22",
+      "post_run_workspace_sha256": "7a3e87d54f3410247c90fb72ab96fa6b8022924ade8a82bf51ff2b0dc475af50"
+    },
+    {
+      "path": "support_ai\\semantic_planning.py",
+      "tested_sha256": "123d4e2451311297ec2af9e15886de73d9564223ae0c669f0b0d7c503e0e3a06",
+      "post_run_workspace_sha256": "66c537bd71babeebb707bcb740a6e7a37168a596075023721abcb0574d827366"
+    },
+    {
+      "path": "support_ai\\tool_services.py",
+      "tested_sha256": "460db66d2267d4eabb3ad2b564018d15c5f97207eaea64cb7972add6214f5bdf",
+      "post_run_workspace_sha256": "0457f8520182d01375044a85c9860f22da7a920d264d578405247183f2efb075"
+    },
+    {
+      "path": "support_ai\\total_budget_intent.py",
+      "tested_sha256": "fac05f4f1ff04df17048607c31cc18f34dcb072eeb801d0f4c4b4c601e50623e",
+      "post_run_workspace_sha256": "763a8c55a0a9eead8a49bb76885ddf594e021fb32b1c2add4d1784e762ad8054"
+    },
+    {
+      "path": "support_ai\\workflow.py",
+      "tested_sha256": "9da1771141175e427d95662294c59fc507368a6b25d875fa920bc26365da868b",
+      "post_run_workspace_sha256": "07c0bd843072166fb5eb46583e6edd0e46ab6c775dc2c028b30db8b533e10207"
+    }
+  ],
+  "scope": "Results apply to frozen source fingerprints, not subsequent workspace changes. No 0.20.3 rerun was performed."
+}

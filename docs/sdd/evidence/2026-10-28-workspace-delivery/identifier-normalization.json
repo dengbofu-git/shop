@@ -1,0 +1,92 @@
+{
+  "original_commit": "73c1ad932f2f3094628646f160e36e2c3a48d343",
+  "scope": "Only local paths/resource labels in published evidence; original bytes remain in the original commit and task-local backup.",
+  "historical_hashes": "Existing experiment manifests describe the original artifacts; this map records the published normalized copies separately.",
+  "files": [
+    {
+      "path": "docs/agent测试文本/2026-10-26-cost-100-run-02/after-stderr.log",
+      "original_sha256": "7cb6ff5f4b43a27fb34983f0c2f339ceee611f49a099bb1043bdcbe128eed521",
+      "published_sha256": "6ef2c86c32ecd0455b8742d08836d207f21ac362589827d844e0107d1123a14b"
+    },
+    {
+      "path": "docs/agent测试文本/2026-10-26-cost-100-run-02/before-stderr.log",
+      "original_sha256": "7ed4844c424ea406fbe0c0c40e9d19f59ff8c11e3190ba32d3439eab6c521aa1",
+      "published_sha256": "c2efeece72cc0fd951fe11c827e31573f42ac9f51e1d718fa24b13582f5532df"
+    },
+    {
+      "path": "docs/agent测试文本/2026-10-26-real-100-run-01/environment.json",
+      "original_sha256": "0d66b4e5f4790fd1ea884b35699148b912d20b9986d7efb9d64e02e9ce0d1513",
+      "published_sha256": "7e8ccd2a59813bdbff13b186b11d901cacb3c536a436d3b57afe919f1ffc5145"
+    },
+    {
+      "path": "docs/sdd/evidence/2026-10-26-agent-cost-control/baseline-failures.log",
+      "original_sha256": "c95c125e60de7bb1aab939ad9212f814f6adb9912ad9b95765c1877886860815",
+      "published_sha256": "13ed04ba0f7514d3754225b407c69b5a80a762b6f79d15e2ac8cc6e1a08fcbd6"
+    },
+    {
+      "path": "docs/sdd/evidence/2026-10-26-agent-cost-control/regression.log",
+      "original_sha256": "f30f70001e72e160bf5dacfe0e32ad112e5f135027116e7ffde06877ab200e8c",
+      "published_sha256": "ec29abcee710a649e500174aed8ecf106c043c8c3e24e7a6034af5e8047785c7"
+    },
+    {
+      "path": "docs/sdd/evidence/2026-10-26-agent-cost-control/verification.md",
+      "original_sha256": "c20936047b402a3b71386a0a88fc2b9dbcb4852243e5a5369c3892f6cee1e78b",
+      "published_sha256": "dc1f79b5ba2c3ba4582f48ac5bedb90130218c188176ff1f1dc642b6f7974997"
+    },
+    {
+      "path": "docs/sdd/evidence/2026-10-26-bundle-experience/verification.md",
+      "original_sha256": "b9256b32a1de16bcd72af139d8007d5091a13a856d0a10f2bf2180b2f9242ae1",
+      "published_sha256": "3abe37d4c2539a1ae920c715035ea2ef78c2320573dc12e833e912b1ed4fe766"
+    },
+    {
+      "path": "docs/sdd/evidence/2026-10-26-colloquial-budget/verification.md",
+      "original_sha256": "83436350b80bb8fc7a03e59fa695b976f3d11ae78a8f451aae6f64771311c36c",
+      "published_sha256": "45dd6e76efad15c9d99a06f8e23b55f89ec9a3a099c7a35751abb948d9d4f54d"
+    },
+    {
+      "path": "docs/sdd/evidence/2026-10-26-hybrid-retrieval/postgres-infra-failed.log",
+      "original_sha256": "b2d9e390e01997d011512fc904ed7fd3bfeb1830cee5b9ab7e83998ebea25a11",
+      "published_sha256": "93c7e5543dda12476157983325e1bdc3a5f64ef12bdaf8fb1ead43e1377b2718"
+    },
+    {
+      "path": "docs/sdd/evidence/2026-10-26-hybrid-retrieval/verification.md",
+      "original_sha256": "2709d52d49b19caf392f980e59961ea46659e19f501534d88bbff0c3b242aef2",
+      "published_sha256": "d6b155c0c3fd70a19cf0d866e559d82e8f48d2ecfd9387e14d48e677206e98c1"
+    },
+    {
+      "path": "docs/sdd/evidence/2026-10-26-initial-budget-quantity/verification.md",
+      "original_sha256": "97af19cd983cb272757b09e4e176284dc0a2fa458ed194daa4ad4d2576b43bba",
+      "published_sha256": "4d44c5fe4cc13335cab6747a6c6a7cf2f73d6149949f27a1ccd3218577b10bbd"
+    },
+    {
+      "path": "docs/sdd/evidence/2026-10-26-vision-adapter/verification.md",
+      "original_sha256": "cd556d33beb7f75d3eed582e7fe0e19c089c138bfac4350b34ba9408fb050cb6",
+      "published_sha256": "c718e458a15bbcea924c942e2e4a9f4d5a3f97ade7a6da03fe2a6b52e1c025cc"
+    },
+    {
+      "path": "docs/sdd/evidence/2026-10-28-paddleocr-stage1/verification.md",
+      "original_sha256": "f14da501dfeac3ead3e49e14198dc7d608e7b714ccfdfe01b13b8c1f8cd99645",
+      "published_sha256": "5dfcd3f5be8bfb872910f504e3fa2d61f600d160220a846d69f02443442fc121"
+    },
+    {
+      "path": "docs/sdd/evidence/2026-10-28-workspace-delivery/verification.md",
+      "original_sha256": "e9c77b70667bc894354afb2a7c185e65942e525ba8e2baafb85ecdd40de7d009",
+      "published_sha256": "547020e29cc4e9b61b553751171723616132ed519cc9f0eb36776c60a3cdb615"
+    },
+    {
+      "path": "reports/agent-evaluation/2026-10-26-json-pdf-chunks/manifest.json",
+      "original_sha256": "7ee9684589240cc1d23ab397e3c32d47c72ebd631153cd1a4a61550418213473",
+      "published_sha256": "36d26c7c94f489430b07994cd325abaae0f6b205d46efcc588078c120c6c6a02"
+    },
+    {
+      "path": "reports/agent-evaluation/2026-10-26-rerank-query-ab/run-2/manifest.json",
+      "original_sha256": "7b632cc3746c2282adf9b6f4e539b0e67882bfd496542684cff58a3508650747",
+      "published_sha256": "b03c50ddd1a6928e635fb2a26056017fb45039c095cd92cc6d854592a541c21c"
+    },
+    {
+      "path": "reports/agent-evaluation/2026-10-26-rerank-query-ab/run-2/translation-review.json",
+      "original_sha256": "2155769ebf88ea06290f1598abeff6d720ef2e8267feef5db977a76e47af1da0",
+      "published_sha256": "b0a0ff229f54db647521877e9ecb013cacb1dd73c159e8746cd386b2d782e4d0"
+    }
+  ]
+}

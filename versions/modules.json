@@ -3,7 +3,7 @@
   "modules": {
     "core": {
       "title": "项目核心",
-      "version": "0.8.2",
+      "version": "0.8.3",
       "paths": [
         "README.md",
         "CONTEXT.md",
@@ -74,7 +74,7 @@
     },
     "orders": {
       "title": "订单管理",
-      "version": "0.4.1",
+      "version": "0.4.3",
       "paths": [
         "orders/",
         "versions/changelogs/orders.md"
@@ -140,7 +140,7 @@
     },
     "supplier": {
       "title": "商家与结算",
-      "version": "0.4.1",
+      "version": "0.4.2",
       "paths": [
         "supplier/",
         "versions/changelogs/supplier.md"
@@ -171,7 +171,7 @@
     },
     "support_ai": {
       "title": "智能客服",
-      "version": "0.19.0",
+      "version": "0.23.2",
       "paths": [
         "support_ai/",
         "docs/客服商品推荐设计.md",
@@ -214,7 +214,7 @@
     },
     "ai_storage": {
       "title": "AI 记忆与知识存储",
-      "version": "0.3.3",
+      "version": "0.7.1",
       "paths": [
         "ai_storage/",
         "deploy/postgres/",
@@ -224,7 +224,13 @@
         "versions/changelogs/ai_storage.md",
         "compose.reranker.yml",
         "deploy/reranker/",
-        "docs/本地重排序.md"
+        "docs/本地重排序.md",
+        "deploy/knowledge-worker/",
+        "compose.knowledge-worker.yml",
+        "compose.knowledge-paddleocr.yml",
+        "compose.paddleocr.yml",
+        "deploy/paddleocr/",
+        "docs/sdd/modules/ai-support/pdf-ingestion.md"
       ],
       "dependencies": [
         "core",
@@ -233,7 +239,7 @@
     },
     "web": {
       "title": "页面与前端资源",
-      "version": "0.31.4",
+      "version": "0.31.9",
       "paths": [
         "client/",
         "templates/",

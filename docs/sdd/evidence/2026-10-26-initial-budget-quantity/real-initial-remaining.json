@@ -1,0 +1,122 @@
+{
+  "model": "deepseek-flash",
+  "data_scope": "synthetic-only",
+  "rows": [
+    {
+      "question": "给出3000块的茶叶推荐",
+      "amount": "3000.00",
+      "currency": "CNY",
+      "price_basis": "unknown",
+      "missing_fields": [
+        "budget_scope"
+      ],
+      "passed": true,
+      "usage": {
+        "calls": 1,
+        "input_tokens": 4053,
+        "output_tokens": 273,
+        "unknown_usage_calls": 0,
+        "rejected_calls": 0,
+        "provider_overrun_calls": 0,
+        "stages": {
+          "planning": 1
+        },
+        "stage_policy": {
+          "scope": {
+            "thinking": "disabled",
+            "max_tokens": 192
+          },
+          "planning": {
+            "thinking": "disabled",
+            "max_tokens": 1400
+          },
+          "extraction": {
+            "thinking": "disabled",
+            "max_tokens": 1600
+          },
+          "rewrite": {
+            "thinking": "disabled",
+            "max_tokens": 512
+          },
+          "knowledge": {
+            "thinking": "disabled",
+            "max_tokens": 2400
+          },
+          "verification": {
+            "thinking": "disabled",
+            "max_tokens": 768
+          },
+          "compliance": {
+            "thinking": "disabled",
+            "max_tokens": 512
+          }
+        },
+        "limits": {
+          "calls": 2,
+          "input_tokens": 65536,
+          "output_tokens": 8192
+        }
+      }
+    },
+    {
+      "question": "帮我看看3000块能选哪些茶叶",
+      "amount": "3000.00",
+      "currency": "CNY",
+      "price_basis": "unknown",
+      "missing_fields": [
+        "budget_scope"
+      ],
+      "passed": true,
+      "usage": {
+        "calls": 2,
+        "input_tokens": 5055,
+        "output_tokens": 362,
+        "unknown_usage_calls": 0,
+        "rejected_calls": 0,
+        "provider_overrun_calls": 0,
+        "stages": {
+          "planning": 1,
+          "extraction": 1
+        },
+        "stage_policy": {
+          "scope": {
+            "thinking": "disabled",
+            "max_tokens": 192
+          },
+          "planning": {
+            "thinking": "disabled",
+            "max_tokens": 1400
+          },
+          "extraction": {
+            "thinking": "disabled",
+            "max_tokens": 1600
+          },
+          "rewrite": {
+            "thinking": "disabled",
+            "max_tokens": 512
+          },
+          "knowledge": {
+            "thinking": "disabled",
+            "max_tokens": 2400
+          },
+          "verification": {
+            "thinking": "disabled",
+            "max_tokens": 768
+          },
+          "compliance": {
+            "thinking": "disabled",
+            "max_tokens": 512
+          }
+        },
+        "limits": {
+          "calls": 2,
+          "input_tokens": 65536,
+          "output_tokens": 8192
+        }
+      }
+    }
+  ],
+  "passed": 2,
+  "total": 2,
+  "calls": 3
+}

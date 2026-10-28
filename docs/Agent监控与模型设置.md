@@ -32,6 +32,37 @@ Compose 使用独立项目 `tea_saas-agent-observability`，所有主机映射�
 
 ## 模型配置
 
+### 0.21.0 分阶段成本控制
+
+买家助手按阶段选择 thinking；以下阶段默认均为 `disabled`，优先于后台保留的全局 thinking 字段。可在服务端环境中设置，或由部署 settings 显式覆盖；不是聊天参数，也没有自动新增后台页面控件。进程重启后读取新的环境，单轮内冻结策略。
+
+| 阶段 | 环境变量前缀 | 默认输出上限 |
+|---|---|---:|
+| 意图、语义规划 | `SUPPORT_PLANNING` | 1400 |
+| 条件提取 | `SUPPORT_EXTRACTION` | 1600 |
+| 检索查询改写 | `SUPPORT_REWRITE` | 512 |
+| 知识及茶类生成 | `SUPPORT_KNOWLEDGE` | 2400 |
+| 证据支持关系核验 | `SUPPORT_VERIFICATION` | 768 |
+| 未核验文字通用审核 | `SUPPORT_COMPLIANCE` | 512 |
+
+每个前缀支持 `_THINKING=enabled/disabled` 和 `_MAX_TOKENS=正整数`，单阶段配置最大8192；调用方已有更小上限时继续取更小值。例如仅复杂知识生成需要思考时，设置 `SUPPORT_KNOWLEDGE_THINKING=enabled`，不同时开启提取和核验。过小的上限可能导致结构化输出截断；技术失败不能当成可靠答复。
+
+每轮共享预算默认如下，涵盖检索工具内新建的模型客户端：
+
+| 环境变量 | 默认 | 配置范围 |
+|---|---:|---:|
+| `SUPPORT_MODEL_MAX_CALLS` | 8 | 1—32 |
+| `SUPPORT_MODEL_MAX_INPUT_TOKENS` | 65536 | 1—262144 |
+| `SUPPORT_MODEL_MAX_OUTPUT_TOKENS` | 8192 | 1—32768 |
+
+输入按含结构契约的保守长度预占，收到 usage 后回填；输出以剩余额度与阶段上限的较小值发出。超时/缺少 usage 保留整个预占，不能解释成免费调用。输出超过供应商上限时记录实际用量并阻止后续调用；已发生的供应商超额无法撤回。SDK隐式重试为0，业务层允许的修正也必须重新申请同轮额度。本地 embedding/reranker 继续受既有检索预算约束，不记成外部聊天模型 Token。
+
+知识默认一次生成、一次支持关系核验；只在有错误且没有任何有效结论时允许一次修正。有合格部分则直接返回并说明缺口。程序业务单元、已核验知识和固定错误提示不重复走通用模型复核；来源、逐字引文、数字、隐私、语义支持和依赖校验仍执行，未核验文字在预算耗尽时不得发布。
+
+Agent JSON 响应的 `model_usage` 为预算诊断：调用数、阶段数、输入/输出记账、拒绝次数、未知用量及供应商超额次数。含未知调用时 Token 数是保守记账，不是实扣账单；不保存提示词或思考原文。终端预览 `status` 的 `model_cost_policy` 展示实际阶段策略，后台全局 thinking 字段不能单独代表本轮实际开关。
+
+DeepSeek适配器会将LangChain改写后的字段恢复为文档定义的 `max_tokens`，避免只在Python对象上配置上限。协议参考：[DeepSeek Chat Completions](https://api-docs.deepseek.com/api/create-chat-completion/)、[thinking开关](https://api-docs.deepseek.com/guides/thinking_mode/)。本轮只验证了模拟提供商请求和本地业务边界，实际降费比例需另做真实模型对照。
+
 `SUPPORT_API_KEY`、`SUPPORT_BASE_URL` 保持在服务器环境中，不写入配置表、响应 JSON 或监控。模型选择通过当前服务器配置的 DeepSeek `/models` 接口读取，并在切换前再次校验。当前可用模型以该接口为准，不在前端写死模型列表。
 
 数据库配置不存在或模型未覆盖时沿用 `SUPPORT_MODEL`。保存后，新请求读取同一份不可变配置快照，意图识别、专家回答、总结、合规节点使用同一模型；已在执行的请求继续使用原快照。已有 `request_id` 的幂等重放仍返回当时保存的回答。

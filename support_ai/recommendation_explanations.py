@@ -9,6 +9,8 @@ from .recommendations import CATEGORY_ALIASES, available_products, product_cards
 from .recommendation_options import ORDINAL, number
 from .conversation_tasks import tea_mentions
 from tea_saas.currency import to_base, BASE_CURRENCY
+from .bundle_references import bundle_products
+from .recommendation_presentation import shopping_reasons
 
 
 def _basis(raw):
@@ -83,10 +85,9 @@ def format_product_reasons(cards, basis, heading='以下解释上一份商品列
         if card.get('group_category'):
             lines.append('原推荐分组：' + card['group_category'])
         lines.append('推荐依据：' + '；'.join(reasons) + '。')
-        if facts:
-            lines.append('已配置属性：' + '；'.join('{}：{}'.format(k, v) for k, v in facts.items()) + '。')
-        else:
-            lines.append('尚无可验证的风味或包装等属性，无法据此进一步区分。')
+        details = shopping_reasons(card)
+        if details:
+            lines.append('商品信息：' + '；'.join(details) + '。')
     if any('虚拟' in c['product_name'] or any('模拟' in k for k in c.get('facts', {})) for c in cards):
         lines.append('\n以上涉及虚拟商品数据，模拟口感、香气等仅为数据库中的演示属性。')
     lines.append('这些依据限于已确认条件及商品当前数据；尚不能据此认定某款最适合您的口味。价格及库存以下单时为准。')
@@ -96,8 +97,11 @@ def format_product_reasons(cards, basis, heading='以下解释上一份商品列
 def explain_existing_products(step, completed, history):
     source = completed[step.product_from].data if step.product_from else next(
         (t for t in reversed(history) if (t['turn_id'] == step.reference_turn_id if step.reference_turn_id
-         else t.get('product_references') or t.get('recommendation_groups'))), {})
-    references = list(source.get('recommendations') or source.get('product_references') or [])[:12]
+         else t.get('product_references') or t.get('recommendation_groups') or t.get('recommendation_bundles'))), {})
+    try:
+        references = bundle_products(source, step.request, step.reference_bundle_position)[:12]
+    except ValueError as exc:
+        return 'needs_clarification', {'answer': str(exc), 'explained_products': [], 'explanation_status': 'needs_clarification'}
     basis = _basis(source.get('recommendation_basis') or source.get('product_intent'))
 
     def response(status, answer, **data):

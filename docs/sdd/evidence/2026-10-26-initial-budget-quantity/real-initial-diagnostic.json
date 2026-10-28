@@ -1,0 +1,67 @@
+{
+  "model": "deepseek-flash",
+  "data_scope": "synthetic-only",
+  "rows": [
+    {
+      "question": "我想买点茶叶，3000元预算，帮我选选",
+      "diagnostic": {
+        "stage": "initial.synthetic",
+        "error_type": "RuntimeError",
+        "fields": []
+      },
+      "cause": "IntentEvidenceError('意向条件无法对应输入证据')",
+      "error": "Purchase evidence remains unsupported",
+      "passed": false,
+      "usage": {
+        "calls": 2,
+        "input_tokens": 5024,
+        "output_tokens": 418,
+        "unknown_usage_calls": 0,
+        "rejected_calls": 0,
+        "provider_overrun_calls": 0,
+        "stages": {
+          "planning": 1,
+          "extraction": 1
+        },
+        "stage_policy": {
+          "scope": {
+            "thinking": "disabled",
+            "max_tokens": 192
+          },
+          "planning": {
+            "thinking": "disabled",
+            "max_tokens": 1400
+          },
+          "extraction": {
+            "thinking": "disabled",
+            "max_tokens": 1600
+          },
+          "rewrite": {
+            "thinking": "disabled",
+            "max_tokens": 512
+          },
+          "knowledge": {
+            "thinking": "disabled",
+            "max_tokens": 2400
+          },
+          "verification": {
+            "thinking": "disabled",
+            "max_tokens": 768
+          },
+          "compliance": {
+            "thinking": "disabled",
+            "max_tokens": 512
+          }
+        },
+        "limits": {
+          "calls": 2,
+          "input_tokens": 65536,
+          "output_tokens": 8192
+        }
+      }
+    }
+  ],
+  "passed": 0,
+  "total": 1,
+  "calls": 2
+}

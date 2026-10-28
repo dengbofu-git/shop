@@ -8,6 +8,19 @@
     var currentStatus = 'all';
     var currentCurrency = 'CNY';
     var statusNames = { 0: '已关闭', 1: '待付款', 2: '待发货', 3: '待收货', 4: '已完成' };
+    var supportReference = orderReference();
+
+    function orderReference() {
+        var match = /^#support-order=(os-[a-p]{64})$/.exec(window.location.hash);
+        return match ? match[1] : null;
+    }
+
+    function clearOrderReference() {
+        if (!supportReference) return;
+        supportReference = null;
+        window.history.replaceState(null, '', window.location.pathname + window.location.search);
+        document.getElementById('bo-all-orders').hidden = true;
+    }
 
     function escapeHtml(value) {
         return String(value == null ? '' : value).replace(/[&<>"']/g, function (char) {
@@ -76,6 +89,7 @@
     function render() {
         var query = ($('#bo-search').val() || '').trim().toLowerCase();
         var filtered = orders.filter(function (order) {
+            if (supportReference && order.support_reference !== supportReference) return false;
             if (currentStatus === 'review') {
                 if (!(order.order_sku || []).some(function (good) { return good.can_review; })) return false;
             } else if (currentStatus === '4') {
@@ -89,7 +103,7 @@
         });
         $('#bo-count').text('共 ' + filtered.length + ' 笔订单');
         if (!filtered.length) {
-            $('#bo-list').html('<div class="bo-empty">' + (orders.length ? '没有符合条件的订单。' : '暂无订单，<a href="buyer_products.html">去选购茶品</a>。') + '</div>');
+            $('#bo-list').html('<div class="bo-empty">' + (supportReference ? '这笔订单当前不可查看，可返回全部订单。' : orders.length ? '没有符合条件的订单。' : '暂无订单，<a href="buyer_products.html">去选购茶品</a>。') + '</div>');
             return;
         }
         var markup = filtered.map(function (order) {
@@ -158,6 +172,24 @@
     }
 
     $(function () {
+        document.getElementById('bo-all-orders').hidden = !supportReference;
+        $('#bo-all-orders').on('click', function () {
+            clearOrderReference();
+            $('#bo-search').val('');
+            currentStatus = 'all';
+            $('.bo-tab').removeClass('active');
+            $('.bo-tab[data-status="all"]').addClass('active');
+            render();
+        });
+        window.addEventListener('hashchange', function () {
+            supportReference = orderReference();
+            document.getElementById('bo-all-orders').hidden = !supportReference;
+            currentStatus = 'all';
+            $('#bo-search').val('');
+            $('.bo-tab').removeClass('active');
+            $('.bo-tab[data-status="all"]').addClass('active');
+            render();
+        });
         $('#currency-select').on('change', function () {
             currentCurrency = TeaMoney.currency(this.value);
             render();
@@ -165,6 +197,7 @@
         $('#bo-refresh').on('click', loadOrders);
         $('#bo-list').on('click', '#bo-retry', loadOrders);
         $('.bo-tab').on('click', function () {
+            clearOrderReference();
             $('.bo-tab').removeClass('active');
             $(this).addClass('active');
             currentStatus = String($(this).data('status'));

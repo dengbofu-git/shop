@@ -1,0 +1,8 @@
+{
+  "after_measured_requests": 70,
+  "measured_failures": 9,
+  "reason": "Docker resource probe exceeded15s following rerank ReadTimeout and429; process exited before next model request",
+  "recovery": "Health200/ready with matching model and revision; resume only previously unattempted case/arm/repeat keys; sampler bounded5s and optional so monitoring cannot abort inference",
+  "model_settings_changed": false,
+  "completed_failures_retried": false
+}

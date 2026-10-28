@@ -1,0 +1,11 @@
+{"timestamp": "2026-10-26T09:35:31.009+00:00", "level": "WARNING", "service": "tea_saas", "logger": "py.warnings", "event": "runtime.warning"}
+{"timestamp": "2026-10-26T09:35:43.320+00:00", "level": "WARNING", "service": "tea_saas", "logger": "support_ai.workflow", "event": "support.planning.unavailable", "error_type": "ValueError"}
+{"timestamp": "2026-10-26T09:35:49.920+00:00", "level": "WARNING", "service": "tea_saas", "logger": "support_ai.workflow", "event": "support.planning.unavailable", "error_type": "ValueError"}
+{"timestamp": "2026-10-26T09:35:51.838+00:00", "level": "WARNING", "service": "tea_saas", "logger": "support_ai.workflow", "event": "support.planning.unavailable", "error_type": "ValueError"}
+{"timestamp": "2026-10-26T09:36:24.460+00:00", "level": "WARNING", "service": "tea_saas", "logger": "support_ai.workflow", "event": "support.planning.unavailable", "error_type": "ValueError"}
+{"timestamp": "2026-10-26T09:36:27.633+00:00", "level": "WARNING", "service": "tea_saas", "logger": "support_ai.workflow", "event": "support.planning.unavailable", "error_type": "ValueError"}
+{"timestamp": "2026-10-26T09:37:03.734+00:00", "level": "WARNING", "service": "tea_saas", "logger": "support_ai.workflow", "event": "support.planning.unavailable", "error_type": "ValueError"}
+{"timestamp": "2026-10-26T09:39:49.499+00:00", "level": "WARNING", "service": "tea_saas", "logger": "support_ai.workflow", "event": "support.planning.unavailable", "error_type": "ValueError"}
+{"timestamp": "2026-10-26T09:49:53.754+00:00", "level": "WARNING", "service": "tea_saas", "logger": "support_ai.workflow", "event": "support.planning.unavailable", "error_type": "ValueError"}
+{"timestamp": "2026-10-26T09:50:53.801+00:00", "level": "WARNING", "service": "tea_saas", "logger": "support_ai.workflow", "event": "support.planning.unavailable", "error_type": "ValidationError"}
+{"timestamp": "2026-10-26T09:52:42.963+00:00", "level": "WARNING", "service": "tea_saas", "logger": "support_ai.workflow", "event": "support.planning.unavailable", "error_type": "ValueError"}

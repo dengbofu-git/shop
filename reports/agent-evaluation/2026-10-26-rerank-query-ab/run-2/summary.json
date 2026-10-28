@@ -1,0 +1,2596 @@
+{
+  "measured_calls": 90,
+  "successes": 90,
+  "failures": [],
+  "quality_unit": "14 questions with positive labels; 3 repeats each; repeats are NOT 42 independent quality samples; case13 no-evidence excluded from ranking-quality averages",
+  "arms": {
+    "A": {
+      "requests": 45,
+      "successes": 45,
+      "paired_successes": 45,
+      "raw_ranking": {
+        "ndcg_at_5": 0.8780296311021328,
+        "precision_at_5_direct": 0.38571428571428573,
+        "recall_at_5_direct": 0.8285714285714285,
+        "mrr_direct": 1.0,
+        "top1_direct": 1,
+        "support_coverage_at_5": 1.0,
+        "all_support_at_5": 1
+      },
+      "selected_evidence": {
+        "ndcg_at_5": 0.8704094684235035,
+        "precision_at_5_direct": 0.37142857142857144,
+        "recall_at_5_direct": 0.8107142857142857,
+        "mrr_direct": 1.0,
+        "top1_direct": 1,
+        "support_coverage_at_5": 1.0,
+        "all_support_at_5": 1
+      },
+      "wall_seconds_mean": 10.66293862000001,
+      "wall_seconds_median": 10.52535290000003,
+      "wall_seconds_p95": 11.596884380000004,
+      "server_seconds_mean": 10.649695333333334,
+      "cpu_seconds_mean": 42.66679471111111,
+      "cpu_samples_available": 45,
+      "paired_success_wall_seconds_mean": 10.66293862000001,
+      "paired_success_cpu_seconds_mean": 42.66679471111111,
+      "rss_mib_peak_sample": 2156.41015625,
+      "cgroup_memory_mib_peak_sample": 3301.6640625,
+      "query_tokens_mean": 16.2,
+      "query_truncations": 0,
+      "pair_tokens_unpadded_mean": 2987.3333333333335,
+      "pair_tokens_padded_mean": 3457.0666666666666,
+      "windows_mean": 30,
+      "cpu_core_hours_per_1000_requests": 11.851887419753085
+    },
+    "B": {
+      "requests": 45,
+      "successes": 45,
+      "paired_successes": 45,
+      "raw_ranking": {
+        "ndcg_at_5": 0.7776789082108897,
+        "precision_at_5_direct": 0.42857142857142855,
+        "recall_at_5_direct": 0.8785714285714286,
+        "mrr_direct": 0.8571428571428571,
+        "top1_direct": 0.7857142857142857,
+        "support_coverage_at_5": 1.0,
+        "all_support_at_5": 1
+      },
+      "selected_evidence": {
+        "ndcg_at_5": 0.7955102834463703,
+        "precision_at_5_direct": 0.38571428571428573,
+        "recall_at_5_direct": 0.775,
+        "mrr_direct": 0.9285714285714286,
+        "top1_direct": 0.9285714285714286,
+        "support_coverage_at_5": 0.9285714285714286,
+        "all_support_at_5": 0.9285714285714286
+      },
+      "wall_seconds_mean": 12.524246819999995,
+      "wall_seconds_median": 12.408478500000001,
+      "wall_seconds_p95": 13.862527020000039,
+      "server_seconds_mean": 12.512650444444445,
+      "cpu_seconds_mean": 50.11294933333333,
+      "cpu_samples_available": 45,
+      "paired_success_wall_seconds_mean": 12.524246819999995,
+      "paired_success_cpu_seconds_mean": 50.11294933333333,
+      "rss_mib_peak_sample": 2156.42578125,
+      "cgroup_memory_mib_peak_sample": 3302.1953125,
+      "query_tokens_mean": 36.53333333333333,
+      "query_truncations": 0,
+      "pair_tokens_unpadded_mean": 3597.3333333333335,
+      "pair_tokens_padded_mean": 4067.0666666666666,
+      "windows_mean": 30,
+      "cpu_core_hours_per_1000_requests": 13.920263703703704,
+      "wall_seconds_increase_pct": 17.45586527628332,
+      "cpu_seconds_increase_pct": 17.451872522036734
+    }
+  },
+  "paired_quality": {
+    "ranking_metrics.ndcg_at_5": {
+      "mean_delta_B_minus_A": -0.10035072289124311,
+      "wins": 4,
+      "ties": 4,
+      "losses": 6,
+      "question_bootstrap_95ci": [
+        -0.22378573720636283,
+        0.012602757231980524
+      ],
+      "family_mean_delta": -0.15019550726818298,
+      "family_bootstrap_95ci": [
+        -0.29536154090511124,
+        -0.020872893982799113
+      ]
+    },
+    "selected_metrics.ndcg_at_5": {
+      "mean_delta_B_minus_A": -0.07489918497713316,
+      "wins": 2,
+      "ties": 7,
+      "losses": 5,
+      "question_bootstrap_95ci": [
+        -0.23840779751070706,
+        0.04694599692471794
+      ],
+      "family_mean_delta": -0.1308201149703768,
+      "family_bootstrap_95ci": [
+        -0.35781242775013705,
+        0.007730405220701262
+      ]
+    },
+    "ranking_metrics.precision_at_5_direct": {
+      "mean_delta_B_minus_A": 0.04285714285714285,
+      "wins": 4,
+      "ties": 9,
+      "losses": 1,
+      "question_bootstrap_95ci": [
+        -0.014285714285714306,
+        0.09999999999999999
+      ]
+    },
+    "selected_metrics.precision_at_5_direct": {
+      "mean_delta_B_minus_A": 0.014285714285714287,
+      "wins": 2,
+      "ties": 10,
+      "losses": 2,
+      "question_bootstrap_95ci": [
+        -0.057142857142857134,
+        0.09999999999999999
+      ]
+    },
+    "ranking_metrics.recall_at_5_direct": {
+      "mean_delta_B_minus_A": 0.05,
+      "wins": 4,
+      "ties": 9,
+      "losses": 1,
+      "question_bootstrap_95ci": [
+        -0.021428571428571425,
+        0.12142857142857143
+      ]
+    },
+    "selected_metrics.recall_at_5_direct": {
+      "mean_delta_B_minus_A": -0.03571428571428571,
+      "wins": 2,
+      "ties": 10,
+      "losses": 2,
+      "question_bootstrap_95ci": [
+        -0.21428571428571427,
+        0.10714285714285714
+      ]
+    },
+    "ranking_metrics.mrr_direct": {
+      "mean_delta_B_minus_A": -0.14285714285714288,
+      "wins": 0,
+      "ties": 11,
+      "losses": 3,
+      "question_bootstrap_95ci": [
+        -0.28571428571428575,
+        0.0
+      ]
+    },
+    "selected_metrics.mrr_direct": {
+      "mean_delta_B_minus_A": -0.07142857142857142,
+      "wins": 0,
+      "ties": 13,
+      "losses": 1,
+      "question_bootstrap_95ci": [
+        -0.21428571428571427,
+        0.0
+      ]
+    },
+    "ranking_metrics.top1_direct": {
+      "mean_delta_B_minus_A": -0.21428571428571427,
+      "wins": 0,
+      "ties": 11,
+      "losses": 3,
+      "question_bootstrap_95ci": [
+        -0.42857142857142855,
+        0.0
+      ]
+    },
+    "selected_metrics.top1_direct": {
+      "mean_delta_B_minus_A": -0.07142857142857142,
+      "wins": 0,
+      "ties": 13,
+      "losses": 1,
+      "question_bootstrap_95ci": [
+        -0.21428571428571427,
+        0.0
+      ]
+    },
+    "ranking_metrics.support_coverage_at_5": {
+      "mean_delta_B_minus_A": 0.0,
+      "wins": 0,
+      "ties": 14,
+      "losses": 0,
+      "question_bootstrap_95ci": [
+        0.0,
+        0.0
+      ]
+    },
+    "selected_metrics.support_coverage_at_5": {
+      "mean_delta_B_minus_A": -0.07142857142857142,
+      "wins": 0,
+      "ties": 13,
+      "losses": 1,
+      "question_bootstrap_95ci": [
+        -0.21428571428571427,
+        0.0
+      ]
+    },
+    "ranking_metrics.all_support_at_5": {
+      "mean_delta_B_minus_A": 0,
+      "wins": 0,
+      "ties": 14,
+      "losses": 0,
+      "question_bootstrap_95ci": [
+        0.0,
+        0.0
+      ]
+    },
+    "selected_metrics.all_support_at_5": {
+      "mean_delta_B_minus_A": -0.07142857142857142,
+      "wins": 0,
+      "ties": 13,
+      "losses": 1,
+      "question_bootstrap_95ci": [
+        -0.21428571428571427,
+        0.0
+      ]
+    }
+  },
+  "paired_latency": {
+    "wall_seconds": {
+      "mean_delta_B_minus_A": 1.8613081999999852,
+      "question_bootstrap_95ci": [
+        1.6844932428888655,
+        2.038388116722213
+      ]
+    },
+    "cpu_seconds": {
+      "mean_delta_B_minus_A": 7.446154622222222,
+      "question_bootstrap_95ci": [
+        6.7258003577777785,
+        8.170238726666666
+      ]
+    }
+  },
+  "cases": [
+    {
+      "case_id": 1,
+      "question": "绿茶和红茶在制作工艺上有什么区别？",
+      "scene": "中文加工比较",
+      "arms": {
+        "A": {
+          "ranking_metrics": {
+            "ndcg_at_5": 0.6540952403163659,
+            "precision_at_5_direct": 0.4,
+            "recall_at_5_direct": 0.5,
+            "mrr_direct": 1.0,
+            "top1_direct": 1,
+            "support_coverage_at_5": 1.0,
+            "all_support_at_5": 1
+          },
+          "selected_metrics": {
+            "ndcg_at_5": 0.6595245679994903,
+            "precision_at_5_direct": 0.4,
+            "recall_at_5_direct": 0.5,
+            "mrr_direct": 1.0,
+            "top1_direct": 1,
+            "support_coverage_at_5": 1.0,
+            "all_support_at_5": 1
+          },
+          "wall_seconds": 10.38299490000002,
+          "cpu_seconds": 41.57217033333333,
+          "top5_rankings": [
+            [
+              65,
+              81,
+              68,
+              66,
+              78
+            ],
+            [
+              65,
+              81,
+              68,
+              66,
+              78
+            ],
+            [
+              65,
+              81,
+              68,
+              66,
+              78
+            ]
+          ],
+          "selected_ids": [
+            [
+              65,
+              81,
+              68,
+              78,
+              79
+            ],
+            [
+              65,
+              81,
+              68,
+              78,
+              79
+            ],
+            [
+              65,
+              81,
+              68,
+              78,
+              79
+            ]
+          ],
+          "deterministic_top5_across_repeats": true,
+          "deterministic_full_ranking_across_repeats": true
+        },
+        "B": {
+          "ranking_metrics": {
+            "ndcg_at_5": 0.7662376682915638,
+            "precision_at_5_direct": 0.6,
+            "recall_at_5_direct": 0.75,
+            "mrr_direct": 1.0,
+            "top1_direct": 1,
+            "support_coverage_at_5": 1.0,
+            "all_support_at_5": 1
+          },
+          "selected_metrics": {
+            "ndcg_at_5": 0.6540952403163659,
+            "precision_at_5_direct": 0.4,
+            "recall_at_5_direct": 0.5,
+            "mrr_direct": 1.0,
+            "top1_direct": 1,
+            "support_coverage_at_5": 1.0,
+            "all_support_at_5": 1
+          },
+          "wall_seconds": 11.950117133333293,
+          "cpu_seconds": 47.78579766666667,
+          "top5_rankings": [
+            [
+              65,
+              81,
+              68,
+              64,
+              66
+            ],
+            [
+              65,
+              81,
+              68,
+              64,
+              66
+            ],
+            [
+              65,
+              81,
+              68,
+              64,
+              66
+            ]
+          ],
+          "selected_ids": [
+            [
+              65,
+              81,
+              68,
+              79,
+              78
+            ],
+            [
+              65,
+              81,
+              68,
+              79,
+              78
+            ],
+            [
+              65,
+              81,
+              68,
+              79,
+              78
+            ]
+          ],
+          "deterministic_top5_across_repeats": true,
+          "deterministic_full_ranking_across_repeats": true
+        }
+      }
+    },
+    {
+      "case_id": 2,
+      "question": "Explain how green tea and black tea differ in their manufacturing processes.",
+      "scene": "英文加工比较",
+      "arms": {
+        "A": {
+          "ranking_metrics": {
+            "ndcg_at_5": 0.7214696044146649,
+            "precision_at_5_direct": 0.4,
+            "recall_at_5_direct": 0.5,
+            "mrr_direct": 1.0,
+            "top1_direct": 1,
+            "support_coverage_at_5": 1.0,
+            "all_support_at_5": 1
+          },
+          "selected_metrics": {
+            "ndcg_at_5": 0.7214696044146649,
+            "precision_at_5_direct": 0.4,
+            "recall_at_5_direct": 0.5,
+            "mrr_direct": 1.0,
+            "top1_direct": 1,
+            "support_coverage_at_5": 1.0,
+            "all_support_at_5": 1
+          },
+          "wall_seconds": 10.833724166666668,
+          "cpu_seconds": 43.33524766666667,
+          "top5_rankings": [
+            [
+              65,
+              81,
+              63,
+              78,
+              79
+            ],
+            [
+              65,
+              81,
+              63,
+              78,
+              79
+            ],
+            [
+              65,
+              81,
+              63,
+              78,
+              79
+            ]
+          ],
+          "selected_ids": [
+            [
+              65,
+              81,
+              63,
+              78,
+              79
+            ],
+            [
+              65,
+              81,
+              63,
+              78,
+              79
+            ],
+            [
+              65,
+              81,
+              63,
+              78,
+              79
+            ]
+          ],
+          "deterministic_top5_across_repeats": true,
+          "deterministic_full_ranking_across_repeats": true
+        },
+        "B": {
+          "ranking_metrics": {
+            "ndcg_at_5": 0.8399303495618896,
+            "precision_at_5_direct": 0.6,
+            "recall_at_5_direct": 0.75,
+            "mrr_direct": 1.0,
+            "top1_direct": 1,
+            "support_coverage_at_5": 1.0,
+            "all_support_at_5": 1
+          },
+          "selected_metrics": {
+            "ndcg_at_5": 0.989141344633751,
+            "precision_at_5_direct": 0.8,
+            "recall_at_5_direct": 1.0,
+            "mrr_direct": 1.0,
+            "top1_direct": 1,
+            "support_coverage_at_5": 1.0,
+            "all_support_at_5": 1
+          },
+          "wall_seconds": 12.376465899999978,
+          "cpu_seconds": 49.481003,
+          "top5_rankings": [
+            [
+              65,
+              81,
+              64,
+              69,
+              63
+            ],
+            [
+              65,
+              81,
+              64,
+              69,
+              63
+            ],
+            [
+              65,
+              81,
+              64,
+              69,
+              63
+            ]
+          ],
+          "selected_ids": [
+            [
+              65,
+              81,
+              64,
+              78,
+              62
+            ],
+            [
+              65,
+              81,
+              64,
+              78,
+              62
+            ],
+            [
+              65,
+              81,
+              64,
+              78,
+              62
+            ]
+          ],
+          "deterministic_top5_across_repeats": true,
+          "deterministic_full_ranking_across_repeats": true
+        }
+      }
+    },
+    {
+      "case_id": 3,
+      "question": "请比较green tea和红茶的processing，说明关键区别。",
+      "scene": "中英混合加工比较",
+      "arms": {
+        "A": {
+          "ranking_metrics": {
+            "ndcg_at_5": 0.6681130542686281,
+            "precision_at_5_direct": 0.4,
+            "recall_at_5_direct": 0.5,
+            "mrr_direct": 1.0,
+            "top1_direct": 1,
+            "support_coverage_at_5": 1.0,
+            "all_support_at_5": 1
+          },
+          "selected_metrics": {
+            "ndcg_at_5": 0.6681130542686281,
+            "precision_at_5_direct": 0.4,
+            "recall_at_5_direct": 0.5,
+            "mrr_direct": 1.0,
+            "top1_direct": 1,
+            "support_coverage_at_5": 1.0,
+            "all_support_at_5": 1
+          },
+          "wall_seconds": 10.955430433333325,
+          "cpu_seconds": 43.861429,
+          "top5_rankings": [
+            [
+              65,
+              81,
+              78,
+              79,
+              73
+            ],
+            [
+              65,
+              81,
+              78,
+              79,
+              73
+            ],
+            [
+              65,
+              81,
+              78,
+              79,
+              73
+            ]
+          ],
+          "selected_ids": [
+            [
+              65,
+              81,
+              78,
+              79,
+              73
+            ],
+            [
+              65,
+              81,
+              78,
+              79,
+              73
+            ],
+            [
+              65,
+              81,
+              78,
+              79,
+              73
+            ]
+          ],
+          "deterministic_top5_across_repeats": true,
+          "deterministic_full_ranking_across_repeats": true
+        },
+        "B": {
+          "ranking_metrics": {
+            "ndcg_at_5": 0.8399303495618896,
+            "precision_at_5_direct": 0.6,
+            "recall_at_5_direct": 0.75,
+            "mrr_direct": 1.0,
+            "top1_direct": 1,
+            "support_coverage_at_5": 1.0,
+            "all_support_at_5": 1
+          },
+          "selected_metrics": {
+            "ndcg_at_5": 0.8453596772450139,
+            "precision_at_5_direct": 0.6,
+            "recall_at_5_direct": 0.75,
+            "mrr_direct": 1.0,
+            "top1_direct": 1,
+            "support_coverage_at_5": 1.0,
+            "all_support_at_5": 1
+          },
+          "wall_seconds": 12.96989886666664,
+          "cpu_seconds": 51.87641633333333,
+          "top5_rankings": [
+            [
+              65,
+              81,
+              64,
+              68,
+              78
+            ],
+            [
+              65,
+              81,
+              64,
+              68,
+              78
+            ],
+            [
+              65,
+              81,
+              64,
+              68,
+              78
+            ]
+          ],
+          "selected_ids": [
+            [
+              65,
+              81,
+              64,
+              78,
+              79
+            ],
+            [
+              65,
+              81,
+              64,
+              78,
+              79
+            ],
+            [
+              65,
+              81,
+              64,
+              78,
+              79
+            ]
+          ],
+          "deterministic_top5_across_repeats": true,
+          "deterministic_full_ranking_across_repeats": true
+        }
+      }
+    },
+    {
+      "case_id": 4,
+      "question": "اشرح الفرق بين تصنيع الشاي الأخضر والشاي الأسود.",
+      "scene": "阿拉伯文加工比较",
+      "arms": {
+        "A": {
+          "ranking_metrics": {
+            "ndcg_at_5": 0.8866167491742403,
+            "precision_at_5_direct": 0.6,
+            "recall_at_5_direct": 0.75,
+            "mrr_direct": 1.0,
+            "top1_direct": 1,
+            "support_coverage_at_5": 1.0,
+            "all_support_at_5": 1
+          },
+          "selected_metrics": {
+            "ndcg_at_5": 0.946347335353756,
+            "precision_at_5_direct": 0.6,
+            "recall_at_5_direct": 0.75,
+            "mrr_direct": 1.0,
+            "top1_direct": 1,
+            "support_coverage_at_5": 1.0,
+            "all_support_at_5": 1
+          },
+          "wall_seconds": 10.102576966666694,
+          "cpu_seconds": 40.44636,
+          "top5_rankings": [
+            [
+              65,
+              81,
+              64,
+              68,
+              69
+            ],
+            [
+              65,
+              81,
+              64,
+              68,
+              69
+            ],
+            [
+              65,
+              81,
+              64,
+              68,
+              69
+            ]
+          ],
+          "selected_ids": [
+            [
+              65,
+              81,
+              64,
+              78,
+              79
+            ],
+            [
+              65,
+              81,
+              64,
+              78,
+              79
+            ],
+            [
+              65,
+              81,
+              64,
+              78,
+              79
+            ]
+          ],
+          "deterministic_top5_across_repeats": true,
+          "deterministic_full_ranking_across_repeats": true
+        },
+        "B": {
+          "ranking_metrics": {
+            "ndcg_at_5": 0.857773318451325,
+            "precision_at_5_direct": 0.6,
+            "recall_at_5_direct": 0.75,
+            "mrr_direct": 1.0,
+            "top1_direct": 1,
+            "support_coverage_at_5": 1.0,
+            "all_support_at_5": 1
+          },
+          "selected_metrics": {
+            "ndcg_at_5": 0.6785815599127776,
+            "precision_at_5_direct": 0.4,
+            "recall_at_5_direct": 0.5,
+            "mrr_direct": 1.0,
+            "top1_direct": 1,
+            "support_coverage_at_5": 1.0,
+            "all_support_at_5": 1
+          },
+          "wall_seconds": 11.466325199999972,
+          "cpu_seconds": 45.908589666666664,
+          "top5_rankings": [
+            [
+              65,
+              81,
+              68,
+              64,
+              70
+            ],
+            [
+              65,
+              81,
+              68,
+              64,
+              70
+            ],
+            [
+              65,
+              81,
+              68,
+              64,
+              70
+            ]
+          ],
+          "selected_ids": [
+            [
+              65,
+              81,
+              68,
+              80,
+              52
+            ],
+            [
+              65,
+              81,
+              68,
+              80,
+              52
+            ],
+            [
+              65,
+              81,
+              68,
+              80,
+              52
+            ]
+          ],
+          "deterministic_top5_across_repeats": true,
+          "deterministic_full_ranking_across_repeats": true
+        }
+      }
+    },
+    {
+      "case_id": 5,
+      "question": "请比较沙特阿拉伯与阿联酋的饮茶习惯。",
+      "scene": "中文双国习俗与资料缺口",
+      "arms": {
+        "A": {
+          "ranking_metrics": {
+            "ndcg_at_5": 1.0,
+            "precision_at_5_direct": 0.2,
+            "recall_at_5_direct": 1.0,
+            "mrr_direct": 1.0,
+            "top1_direct": 1,
+            "support_coverage_at_5": 1.0,
+            "all_support_at_5": 1
+          },
+          "selected_metrics": {
+            "ndcg_at_5": 1.0,
+            "precision_at_5_direct": 0.2,
+            "recall_at_5_direct": 1.0,
+            "mrr_direct": 1.0,
+            "top1_direct": 1,
+            "support_coverage_at_5": 1.0,
+            "all_support_at_5": 1
+          },
+          "wall_seconds": 10.196785599999979,
+          "cpu_seconds": 40.840811,
+          "top5_rankings": [
+            [
+              59,
+              51,
+              58,
+              53,
+              57
+            ],
+            [
+              59,
+              51,
+              58,
+              53,
+              57
+            ],
+            [
+              59,
+              51,
+              58,
+              53,
+              57
+            ]
+          ],
+          "selected_ids": [
+            [
+              59,
+              51,
+              58,
+              53,
+              57
+            ],
+            [
+              59,
+              51,
+              58,
+              53,
+              57
+            ],
+            [
+              59,
+              51,
+              58,
+              53,
+              57
+            ]
+          ],
+          "deterministic_top5_across_repeats": true,
+          "deterministic_full_ranking_across_repeats": true
+        },
+        "B": {
+          "ranking_metrics": {
+            "ndcg_at_5": 0.5,
+            "precision_at_5_direct": 0.2,
+            "recall_at_5_direct": 1.0,
+            "mrr_direct": 0.3333333333333333,
+            "top1_direct": 0,
+            "support_coverage_at_5": 1.0,
+            "all_support_at_5": 1
+          },
+          "selected_metrics": {
+            "ndcg_at_5": 1.0,
+            "precision_at_5_direct": 0.2,
+            "recall_at_5_direct": 1.0,
+            "mrr_direct": 1.0,
+            "top1_direct": 1,
+            "support_coverage_at_5": 1.0,
+            "all_support_at_5": 1
+          },
+          "wall_seconds": 11.903297099999955,
+          "cpu_seconds": 47.57203466666667,
+          "top5_rankings": [
+            [
+              51,
+              53,
+              59,
+              35,
+              57
+            ],
+            [
+              51,
+              53,
+              59,
+              35,
+              57
+            ],
+            [
+              51,
+              53,
+              59,
+              35,
+              57
+            ]
+          ],
+          "selected_ids": [
+            [
+              59,
+              51,
+              53,
+              35,
+              57
+            ],
+            [
+              59,
+              51,
+              53,
+              35,
+              57
+            ],
+            [
+              59,
+              51,
+              53,
+              35,
+              57
+            ]
+          ],
+          "deterministic_top5_across_repeats": true,
+          "deterministic_full_ranking_across_repeats": true
+        }
+      }
+    },
+    {
+      "case_id": 6,
+      "question": "Compare tea drinking customs in Saudi Arabia and the United Arab Emirates.",
+      "scene": "英文双国习俗与资料缺口",
+      "arms": {
+        "A": {
+          "ranking_metrics": {
+            "ndcg_at_5": 1.0,
+            "precision_at_5_direct": 0.2,
+            "recall_at_5_direct": 1.0,
+            "mrr_direct": 1.0,
+            "top1_direct": 1,
+            "support_coverage_at_5": 1.0,
+            "all_support_at_5": 1
+          },
+          "selected_metrics": {
+            "ndcg_at_5": 1.0,
+            "precision_at_5_direct": 0.2,
+            "recall_at_5_direct": 1.0,
+            "mrr_direct": 1.0,
+            "top1_direct": 1,
+            "support_coverage_at_5": 1.0,
+            "all_support_at_5": 1
+          },
+          "wall_seconds": 11.044437100000039,
+          "cpu_seconds": 44.216845666666664,
+          "top5_rankings": [
+            [
+              59,
+              35,
+              53,
+              51,
+              34
+            ],
+            [
+              59,
+              35,
+              53,
+              51,
+              34
+            ],
+            [
+              59,
+              35,
+              53,
+              51,
+              34
+            ]
+          ],
+          "selected_ids": [
+            [
+              59,
+              35,
+              53,
+              51,
+              34
+            ],
+            [
+              59,
+              35,
+              53,
+              51,
+              34
+            ],
+            [
+              59,
+              35,
+              53,
+              51,
+              34
+            ]
+          ],
+          "deterministic_top5_across_repeats": true,
+          "deterministic_full_ranking_across_repeats": true
+        },
+        "B": {
+          "ranking_metrics": {
+            "ndcg_at_5": 1.0,
+            "precision_at_5_direct": 0.2,
+            "recall_at_5_direct": 1.0,
+            "mrr_direct": 1.0,
+            "top1_direct": 1,
+            "support_coverage_at_5": 1.0,
+            "all_support_at_5": 1
+          },
+          "selected_metrics": {
+            "ndcg_at_5": 1.0,
+            "precision_at_5_direct": 0.2,
+            "recall_at_5_direct": 1.0,
+            "mrr_direct": 1.0,
+            "top1_direct": 1,
+            "support_coverage_at_5": 1.0,
+            "all_support_at_5": 1
+          },
+          "wall_seconds": 12.64954366666664,
+          "cpu_seconds": 50.529333666666666,
+          "top5_rankings": [
+            [
+              59,
+              51,
+              53,
+              35,
+              34
+            ],
+            [
+              59,
+              51,
+              53,
+              35,
+              34
+            ],
+            [
+              59,
+              51,
+              53,
+              35,
+              34
+            ]
+          ],
+          "selected_ids": [
+            [
+              59,
+              51,
+              53,
+              35,
+              34
+            ],
+            [
+              59,
+              51,
+              53,
+              35,
+              34
+            ],
+            [
+              59,
+              51,
+              53,
+              35,
+              34
+            ]
+          ],
+          "deterministic_top5_across_repeats": true,
+          "deterministic_full_ranking_across_repeats": true
+        }
+      }
+    },
+    {
+      "case_id": 7,
+      "question": "请比较Saudi Arabia和UAE的饮茶习惯与待客礼仪。",
+      "scene": "中英缩写国家习俗",
+      "arms": {
+        "A": {
+          "ranking_metrics": {
+            "ndcg_at_5": 1.0,
+            "precision_at_5_direct": 0.2,
+            "recall_at_5_direct": 1.0,
+            "mrr_direct": 1.0,
+            "top1_direct": 1,
+            "support_coverage_at_5": 1.0,
+            "all_support_at_5": 1
+          },
+          "selected_metrics": {
+            "ndcg_at_5": 1.0,
+            "precision_at_5_direct": 0.2,
+            "recall_at_5_direct": 1.0,
+            "mrr_direct": 1.0,
+            "top1_direct": 1,
+            "support_coverage_at_5": 1.0,
+            "all_support_at_5": 1
+          },
+          "wall_seconds": 10.613374099999996,
+          "cpu_seconds": 42.44300966666667,
+          "top5_rankings": [
+            [
+              59,
+              51,
+              57,
+              53,
+              58
+            ],
+            [
+              59,
+              51,
+              57,
+              53,
+              58
+            ],
+            [
+              59,
+              51,
+              57,
+              53,
+              58
+            ]
+          ],
+          "selected_ids": [
+            [
+              59,
+              51,
+              57,
+              53,
+              58
+            ],
+            [
+              59,
+              51,
+              57,
+              53,
+              58
+            ],
+            [
+              59,
+              51,
+              57,
+              53,
+              58
+            ]
+          ],
+          "deterministic_top5_across_repeats": true,
+          "deterministic_full_ranking_across_repeats": true
+        },
+        "B": {
+          "ranking_metrics": {
+            "ndcg_at_5": 1.0,
+            "precision_at_5_direct": 0.2,
+            "recall_at_5_direct": 1.0,
+            "mrr_direct": 1.0,
+            "top1_direct": 1,
+            "support_coverage_at_5": 1.0,
+            "all_support_at_5": 1
+          },
+          "selected_metrics": {
+            "ndcg_at_5": 1.0,
+            "precision_at_5_direct": 0.2,
+            "recall_at_5_direct": 1.0,
+            "mrr_direct": 1.0,
+            "top1_direct": 1,
+            "support_coverage_at_5": 1.0,
+            "all_support_at_5": 1
+          },
+          "wall_seconds": 12.819255699999994,
+          "cpu_seconds": 51.33100833333334,
+          "top5_rankings": [
+            [
+              59,
+              57,
+              51,
+              65,
+              53
+            ],
+            [
+              59,
+              57,
+              51,
+              65,
+              53
+            ],
+            [
+              59,
+              57,
+              51,
+              65,
+              53
+            ]
+          ],
+          "selected_ids": [
+            [
+              59,
+              57,
+              51,
+              65,
+              53
+            ],
+            [
+              59,
+              57,
+              51,
+              65,
+              53
+            ],
+            [
+              59,
+              57,
+              51,
+              65,
+              53
+            ]
+          ],
+          "deterministic_top5_across_repeats": true,
+          "deterministic_full_ranking_across_repeats": true
+        }
+      }
+    },
+    {
+      "case_id": 8,
+      "question": "请比较约旦和沙特的待客饮茶习俗。",
+      "scene": "双国均有资料的习俗比较",
+      "arms": {
+        "A": {
+          "ranking_metrics": {
+            "ndcg_at_5": 1.0,
+            "precision_at_5_direct": 0.4,
+            "recall_at_5_direct": 1.0,
+            "mrr_direct": 1.0,
+            "top1_direct": 1,
+            "support_coverage_at_5": 1.0,
+            "all_support_at_5": 1
+          },
+          "selected_metrics": {
+            "ndcg_at_5": 1.0,
+            "precision_at_5_direct": 0.4,
+            "recall_at_5_direct": 1.0,
+            "mrr_direct": 1.0,
+            "top1_direct": 1,
+            "support_coverage_at_5": 1.0,
+            "all_support_at_5": 1
+          },
+          "wall_seconds": 10.538166500000026,
+          "cpu_seconds": 42.244432333333336,
+          "top5_rankings": [
+            [
+              59,
+              60,
+              57,
+              58,
+              55
+            ],
+            [
+              59,
+              60,
+              57,
+              58,
+              55
+            ],
+            [
+              59,
+              60,
+              57,
+              58,
+              55
+            ]
+          ],
+          "selected_ids": [
+            [
+              59,
+              60,
+              57,
+              58,
+              55
+            ],
+            [
+              59,
+              60,
+              57,
+              58,
+              55
+            ],
+            [
+              59,
+              60,
+              57,
+              58,
+              55
+            ]
+          ],
+          "deterministic_top5_across_repeats": true,
+          "deterministic_full_ranking_across_repeats": true
+        },
+        "B": {
+          "ranking_metrics": {
+            "ndcg_at_5": 1.0,
+            "precision_at_5_direct": 0.4,
+            "recall_at_5_direct": 1.0,
+            "mrr_direct": 1.0,
+            "top1_direct": 1,
+            "support_coverage_at_5": 1.0,
+            "all_support_at_5": 1
+          },
+          "selected_metrics": {
+            "ndcg_at_5": 1.0,
+            "precision_at_5_direct": 0.4,
+            "recall_at_5_direct": 1.0,
+            "mrr_direct": 1.0,
+            "top1_direct": 1,
+            "support_coverage_at_5": 1.0,
+            "all_support_at_5": 1
+          },
+          "wall_seconds": 12.062892033333355,
+          "cpu_seconds": 48.27862066666667,
+          "top5_rankings": [
+            [
+              59,
+              60,
+              55,
+              51,
+              57
+            ],
+            [
+              59,
+              60,
+              55,
+              51,
+              57
+            ],
+            [
+              59,
+              60,
+              55,
+              51,
+              57
+            ]
+          ],
+          "selected_ids": [
+            [
+              59,
+              60,
+              55,
+              51,
+              57
+            ],
+            [
+              59,
+              60,
+              55,
+              51,
+              57
+            ],
+            [
+              59,
+              60,
+              55,
+              51,
+              57
+            ]
+          ],
+          "deterministic_top5_across_repeats": true,
+          "deterministic_full_ranking_across_repeats": true
+        }
+      }
+    },
+    {
+      "case_id": 9,
+      "question": "解释红茶的发酵与黑茶的后发酵有什么区别。",
+      "scene": "发酵术语区别",
+      "arms": {
+        "A": {
+          "ranking_metrics": {
+            "ndcg_at_5": 0.8613566455634184,
+            "precision_at_5_direct": 0.8,
+            "recall_at_5_direct": 1.0,
+            "mrr_direct": 1.0,
+            "top1_direct": 1,
+            "support_coverage_at_5": 1.0,
+            "all_support_at_5": 1
+          },
+          "selected_metrics": {
+            "ndcg_at_5": 0.7175749781746813,
+            "precision_at_5_direct": 0.6,
+            "recall_at_5_direct": 0.75,
+            "mrr_direct": 1.0,
+            "top1_direct": 1,
+            "support_coverage_at_5": 1.0,
+            "all_support_at_5": 1
+          },
+          "wall_seconds": 11.064796500000057,
+          "cpu_seconds": 44.210458333333335,
+          "top5_rankings": [
+            [
+              81,
+              65,
+              69,
+              64,
+              62
+            ],
+            [
+              81,
+              65,
+              69,
+              64,
+              62
+            ],
+            [
+              81,
+              65,
+              69,
+              64,
+              62
+            ]
+          ],
+          "selected_ids": [
+            [
+              81,
+              65,
+              69,
+              62,
+              78
+            ],
+            [
+              81,
+              65,
+              69,
+              62,
+              78
+            ],
+            [
+              81,
+              65,
+              69,
+              62,
+              78
+            ]
+          ],
+          "deterministic_top5_across_repeats": true,
+          "deterministic_full_ranking_across_repeats": true
+        },
+        "B": {
+          "ranking_metrics": {
+            "ndcg_at_5": 0.7175749781746813,
+            "precision_at_5_direct": 0.6,
+            "recall_at_5_direct": 0.75,
+            "mrr_direct": 1.0,
+            "top1_direct": 1,
+            "support_coverage_at_5": 1.0,
+            "all_support_at_5": 1
+          },
+          "selected_metrics": {
+            "ndcg_at_5": 0.7012869951253081,
+            "precision_at_5_direct": 0.6,
+            "recall_at_5_direct": 0.75,
+            "mrr_direct": 1.0,
+            "top1_direct": 1,
+            "support_coverage_at_5": 1.0,
+            "all_support_at_5": 1
+          },
+          "wall_seconds": 13.492587000000034,
+          "cpu_seconds": 54.01424,
+          "top5_rankings": [
+            [
+              81,
+              65,
+              64,
+              69,
+              68
+            ],
+            [
+              81,
+              65,
+              64,
+              69,
+              68
+            ],
+            [
+              81,
+              65,
+              64,
+              69,
+              68
+            ]
+          ],
+          "selected_ids": [
+            [
+              81,
+              65,
+              64,
+              78,
+              62
+            ],
+            [
+              81,
+              65,
+              64,
+              78,
+              62
+            ],
+            [
+              81,
+              65,
+              64,
+              78,
+              62
+            ]
+          ],
+          "deterministic_top5_across_repeats": true,
+          "deterministic_full_ranking_across_repeats": true
+        }
+      }
+    },
+    {
+      "case_id": 10,
+      "question": "Explain hongcha versus heicha: is black tea the same as dark tea?",
+      "scene": "拼音和英语别名",
+      "arms": {
+        "A": {
+          "ranking_metrics": {
+            "ndcg_at_5": 0.7012869951253081,
+            "precision_at_5_direct": 0.6,
+            "recall_at_5_direct": 0.75,
+            "mrr_direct": 1.0,
+            "top1_direct": 1,
+            "support_coverage_at_5": 1.0,
+            "all_support_at_5": 1
+          },
+          "selected_metrics": {
+            "ndcg_at_5": 0.7012869951253081,
+            "precision_at_5_direct": 0.6,
+            "recall_at_5_direct": 0.75,
+            "mrr_direct": 1.0,
+            "top1_direct": 1,
+            "support_coverage_at_5": 1.0,
+            "all_support_at_5": 1
+          },
+          "wall_seconds": 10.62333319999999,
+          "cpu_seconds": 42.52477433333333,
+          "top5_rankings": [
+            [
+              76,
+              65,
+              81,
+              78,
+              64
+            ],
+            [
+              76,
+              65,
+              81,
+              78,
+              64
+            ],
+            [
+              76,
+              65,
+              81,
+              78,
+              64
+            ]
+          ],
+          "selected_ids": [
+            [
+              76,
+              65,
+              81,
+              78,
+              64
+            ],
+            [
+              76,
+              65,
+              81,
+              78,
+              64
+            ],
+            [
+              76,
+              65,
+              81,
+              78,
+              64
+            ]
+          ],
+          "deterministic_top5_across_repeats": true,
+          "deterministic_full_ranking_across_repeats": true
+        },
+        "B": {
+          "ranking_metrics": {
+            "ndcg_at_5": 0.7012869951253081,
+            "precision_at_5_direct": 0.6,
+            "recall_at_5_direct": 0.75,
+            "mrr_direct": 1.0,
+            "top1_direct": 1,
+            "support_coverage_at_5": 1.0,
+            "all_support_at_5": 1
+          },
+          "selected_metrics": {
+            "ndcg_at_5": 0.7012869951253081,
+            "precision_at_5_direct": 0.6,
+            "recall_at_5_direct": 0.75,
+            "mrr_direct": 1.0,
+            "top1_direct": 1,
+            "support_coverage_at_5": 1.0,
+            "all_support_at_5": 1
+          },
+          "wall_seconds": 12.65833513333333,
+          "cpu_seconds": 50.63362766666667,
+          "top5_rankings": [
+            [
+              76,
+              65,
+              81,
+              78,
+              64
+            ],
+            [
+              76,
+              65,
+              81,
+              78,
+              64
+            ],
+            [
+              76,
+              65,
+              81,
+              78,
+              64
+            ]
+          ],
+          "selected_ids": [
+            [
+              76,
+              65,
+              81,
+              78,
+              64
+            ],
+            [
+              76,
+              65,
+              81,
+              78,
+              64
+            ],
+            [
+              76,
+              65,
+              81,
+              78,
+              64
+            ]
+          ],
+          "deterministic_top5_across_repeats": true,
+          "deterministic_full_ranking_across_repeats": true
+        }
+      }
+    },
+    {
+      "case_id": 11,
+      "question": "请介绍茶叶的CTC工艺，说明它与传统Orthodox工艺的区别。",
+      "scene": "制造术语缩写与同义表达",
+      "arms": {
+        "A": {
+          "ranking_metrics": {
+            "ndcg_at_5": 1.0,
+            "precision_at_5_direct": 0.2,
+            "recall_at_5_direct": 1.0,
+            "mrr_direct": 1.0,
+            "top1_direct": 1,
+            "support_coverage_at_5": 1.0,
+            "all_support_at_5": 1
+          },
+          "selected_metrics": {
+            "ndcg_at_5": 1.0,
+            "precision_at_5_direct": 0.2,
+            "recall_at_5_direct": 1.0,
+            "mrr_direct": 1.0,
+            "top1_direct": 1,
+            "support_coverage_at_5": 1.0,
+            "all_support_at_5": 1
+          },
+          "wall_seconds": 11.816777566666653,
+          "cpu_seconds": 47.301566333333334,
+          "top5_rankings": [
+            [
+              79,
+              80,
+              74,
+              77,
+              65
+            ],
+            [
+              79,
+              80,
+              74,
+              77,
+              65
+            ],
+            [
+              79,
+              80,
+              74,
+              77,
+              65
+            ]
+          ],
+          "selected_ids": [
+            [
+              79,
+              80,
+              74,
+              77,
+              65
+            ],
+            [
+              79,
+              80,
+              74,
+              77,
+              65
+            ],
+            [
+              79,
+              80,
+              74,
+              77,
+              65
+            ]
+          ],
+          "deterministic_top5_across_repeats": true,
+          "deterministic_full_ranking_across_repeats": true
+        },
+        "B": {
+          "ranking_metrics": {
+            "ndcg_at_5": 0.7959761332981399,
+            "precision_at_5_direct": 0.2,
+            "recall_at_5_direct": 1.0,
+            "mrr_direct": 1.0,
+            "top1_direct": 1,
+            "support_coverage_at_5": 1.0,
+            "all_support_at_5": 1
+          },
+          "selected_metrics": {
+            "ndcg_at_5": 0.7959761332981399,
+            "precision_at_5_direct": 0.2,
+            "recall_at_5_direct": 1.0,
+            "mrr_direct": 1.0,
+            "top1_direct": 1,
+            "support_coverage_at_5": 1.0,
+            "all_support_at_5": 1
+          },
+          "wall_seconds": 14.012643733333343,
+          "cpu_seconds": 56.07856266666666,
+          "top5_rankings": [
+            [
+              79,
+              80,
+              65,
+              70,
+              67
+            ],
+            [
+              79,
+              80,
+              65,
+              70,
+              67
+            ],
+            [
+              79,
+              80,
+              65,
+              70,
+              67
+            ]
+          ],
+          "selected_ids": [
+            [
+              79,
+              80,
+              65,
+              70,
+              62
+            ],
+            [
+              79,
+              80,
+              65,
+              70,
+              62
+            ],
+            [
+              79,
+              80,
+              65,
+              70,
+              62
+            ]
+          ],
+          "deterministic_top5_across_repeats": true,
+          "deterministic_full_ranking_across_repeats": true
+        }
+      }
+    },
+    {
+      "case_id": 12,
+      "question": "请介绍KSA的待客饮茶习俗。",
+      "scene": "国家缩写与习俗同义表达",
+      "arms": {
+        "A": {
+          "ranking_metrics": {
+            "ndcg_at_5": 1.0,
+            "precision_at_5_direct": 0.2,
+            "recall_at_5_direct": 1.0,
+            "mrr_direct": 1.0,
+            "top1_direct": 1,
+            "support_coverage_at_5": 1.0,
+            "all_support_at_5": 1
+          },
+          "selected_metrics": {
+            "ndcg_at_5": 1.0,
+            "precision_at_5_direct": 0.2,
+            "recall_at_5_direct": 1.0,
+            "mrr_direct": 1.0,
+            "top1_direct": 1,
+            "support_coverage_at_5": 1.0,
+            "all_support_at_5": 1
+          },
+          "wall_seconds": 10.345005700000021,
+          "cpu_seconds": 41.359863,
+          "top5_rankings": [
+            [
+              59,
+              57,
+              58,
+              61,
+              60
+            ],
+            [
+              59,
+              57,
+              58,
+              61,
+              60
+            ],
+            [
+              59,
+              57,
+              58,
+              61,
+              60
+            ]
+          ],
+          "selected_ids": [
+            [
+              59,
+              57,
+              58,
+              61,
+              60
+            ],
+            [
+              59,
+              57,
+              58,
+              61,
+              60
+            ],
+            [
+              59,
+              57,
+              58,
+              61,
+              60
+            ]
+          ],
+          "deterministic_top5_across_repeats": true,
+          "deterministic_full_ranking_across_repeats": true
+        },
+        "B": {
+          "ranking_metrics": {
+            "ndcg_at_5": 0.5,
+            "precision_at_5_direct": 0.2,
+            "recall_at_5_direct": 1.0,
+            "mrr_direct": 0.3333333333333333,
+            "top1_direct": 0,
+            "support_coverage_at_5": 1.0,
+            "all_support_at_5": 1
+          },
+          "selected_metrics": {
+            "ndcg_at_5": 1.0,
+            "precision_at_5_direct": 0.2,
+            "recall_at_5_direct": 1.0,
+            "mrr_direct": 1.0,
+            "top1_direct": 1,
+            "support_coverage_at_5": 1.0,
+            "all_support_at_5": 1
+          },
+          "wall_seconds": 11.830050433333346,
+          "cpu_seconds": 47.33618966666666,
+          "top5_rankings": [
+            [
+              58,
+              57,
+              59,
+              67,
+              70
+            ],
+            [
+              58,
+              57,
+              59,
+              67,
+              70
+            ],
+            [
+              58,
+              57,
+              59,
+              67,
+              70
+            ]
+          ],
+          "selected_ids": [
+            [
+              59,
+              58,
+              57,
+              67,
+              70
+            ],
+            [
+              59,
+              58,
+              57,
+              67,
+              70
+            ],
+            [
+              59,
+              58,
+              57,
+              67,
+              70
+            ]
+          ],
+          "deterministic_top5_across_repeats": true,
+          "deterministic_full_ranking_across_repeats": true
+        }
+      }
+    },
+    {
+      "case_id": 13,
+      "question": "请介绍阿联酋皇室专用“月光蓝钻茶”的官方配方。",
+      "scene": "库中不存在的具体配方",
+      "arms": {
+        "A": {
+          "ranking_metrics": {
+            "ndcg_at_5": null,
+            "precision_at_5_direct": null,
+            "recall_at_5_direct": null,
+            "mrr_direct": null,
+            "top1_direct": null,
+            "support_coverage_at_5": null,
+            "all_support_at_5": null
+          },
+          "selected_metrics": {
+            "ndcg_at_5": null,
+            "precision_at_5_direct": null,
+            "recall_at_5_direct": null,
+            "mrr_direct": null,
+            "top1_direct": null,
+            "support_coverage_at_5": null,
+            "all_support_at_5": null
+          },
+          "wall_seconds": 10.243292699999992,
+          "cpu_seconds": 40.956956,
+          "top5_rankings": [
+            [
+              70,
+              68,
+              37,
+              35,
+              60
+            ],
+            [
+              70,
+              68,
+              37,
+              35,
+              60
+            ],
+            [
+              70,
+              68,
+              37,
+              35,
+              60
+            ]
+          ],
+          "selected_ids": [
+            [
+              35,
+              70,
+              68,
+              37,
+              60
+            ],
+            [
+              35,
+              70,
+              68,
+              37,
+              60
+            ],
+            [
+              35,
+              70,
+              68,
+              37,
+              60
+            ]
+          ],
+          "deterministic_top5_across_repeats": true,
+          "deterministic_full_ranking_across_repeats": true
+        },
+        "B": {
+          "ranking_metrics": {
+            "ndcg_at_5": null,
+            "precision_at_5_direct": null,
+            "recall_at_5_direct": null,
+            "mrr_direct": null,
+            "top1_direct": null,
+            "support_coverage_at_5": null,
+            "all_support_at_5": null
+          },
+          "selected_metrics": {
+            "ndcg_at_5": null,
+            "precision_at_5_direct": null,
+            "recall_at_5_direct": null,
+            "mrr_direct": null,
+            "top1_direct": null,
+            "support_coverage_at_5": null,
+            "all_support_at_5": null
+          },
+          "wall_seconds": 12.533616433333316,
+          "cpu_seconds": 50.186424,
+          "top5_rankings": [
+            [
+              70,
+              68,
+              66,
+              63,
+              53
+            ],
+            [
+              70,
+              68,
+              66,
+              63,
+              53
+            ],
+            [
+              70,
+              68,
+              66,
+              63,
+              53
+            ]
+          ],
+          "selected_ids": [
+            [
+              53,
+              70,
+              68,
+              51,
+              37
+            ],
+            [
+              53,
+              70,
+              68,
+              51,
+              37
+            ],
+            [
+              53,
+              70,
+              68,
+              51,
+              37
+            ]
+          ],
+          "deterministic_top5_across_repeats": true,
+          "deterministic_full_ranking_across_repeats": true
+        }
+      }
+    },
+    {
+      "case_id": 14,
+      "question": "绿茶冲泡水温是否必须固定为80摄氏度？",
+      "scene": "带数字的冲泡误解",
+      "arms": {
+        "A": {
+          "ranking_metrics": {
+            "ndcg_at_5": 1.0,
+            "precision_at_5_direct": 0.2,
+            "recall_at_5_direct": 1.0,
+            "mrr_direct": 1.0,
+            "top1_direct": 1,
+            "support_coverage_at_5": 1.0,
+            "all_support_at_5": 1
+          },
+          "selected_metrics": {
+            "ndcg_at_5": 1.0,
+            "precision_at_5_direct": 0.2,
+            "recall_at_5_direct": 1.0,
+            "mrr_direct": 1.0,
+            "top1_direct": 1,
+            "support_coverage_at_5": 1.0,
+            "all_support_at_5": 1
+          },
+          "wall_seconds": 10.810165666666677,
+          "cpu_seconds": 43.242151,
+          "top5_rankings": [
+            [
+              74,
+              65,
+              68,
+              66,
+              70
+            ],
+            [
+              74,
+              65,
+              68,
+              66,
+              70
+            ],
+            [
+              74,
+              65,
+              68,
+              66,
+              70
+            ]
+          ],
+          "selected_ids": [
+            [
+              74,
+              65,
+              81,
+              79,
+              78
+            ],
+            [
+              74,
+              65,
+              81,
+              79,
+              78
+            ],
+            [
+              74,
+              65,
+              81,
+              79,
+              78
+            ]
+          ],
+          "deterministic_top5_across_repeats": true,
+          "deterministic_full_ranking_across_repeats": true
+        },
+        "B": {
+          "ranking_metrics": {
+            "ndcg_at_5": 0.5,
+            "precision_at_5_direct": 0.2,
+            "recall_at_5_direct": 1.0,
+            "mrr_direct": 0.3333333333333333,
+            "top1_direct": 0,
+            "support_coverage_at_5": 1.0,
+            "all_support_at_5": 1
+          },
+          "selected_metrics": {
+            "ndcg_at_5": 0.0,
+            "precision_at_5_direct": 0.0,
+            "recall_at_5_direct": 0.0,
+            "mrr_direct": 0,
+            "top1_direct": 0,
+            "support_coverage_at_5": 0.0,
+            "all_support_at_5": 0
+          },
+          "wall_seconds": 13.159482300000017,
+          "cpu_seconds": 52.726073666666665,
+          "top5_rankings": [
+            [
+              65,
+              68,
+              74,
+              63,
+              70
+            ],
+            [
+              65,
+              68,
+              74,
+              63,
+              70
+            ],
+            [
+              65,
+              68,
+              74,
+              63,
+              70
+            ]
+          ],
+          "selected_ids": [
+            [
+              65,
+              68,
+              53,
+              55,
+              57
+            ],
+            [
+              65,
+              68,
+              53,
+              55,
+              57
+            ],
+            [
+              65,
+              68,
+              53,
+              55,
+              57
+            ]
+          ],
+          "deterministic_top5_across_repeats": true,
+          "deterministic_full_ranking_across_repeats": true
+        }
+      }
+    },
+    {
+      "case_id": 15,
+      "question": "说明绿茶、红茶和白茶的加工区别。",
+      "scene": "三茶类证据覆盖",
+      "arms": {
+        "A": {
+          "ranking_metrics": {
+            "ndcg_at_5": 0.7994765465672333,
+            "precision_at_5_direct": 0.6,
+            "recall_at_5_direct": 0.6,
+            "mrr_direct": 1.0,
+            "top1_direct": 1,
+            "support_coverage_at_5": 1.0,
+            "all_support_at_5": 1
+          },
+          "selected_metrics": {
+            "ndcg_at_5": 0.7714160225925204,
+            "precision_at_5_direct": 0.6,
+            "recall_at_5_direct": 0.6,
+            "mrr_direct": 1.0,
+            "top1_direct": 1,
+            "support_coverage_at_5": 1.0,
+            "all_support_at_5": 1
+          },
+          "wall_seconds": 10.373218199999997,
+          "cpu_seconds": 41.445846,
+          "top5_rankings": [
+            [
+              65,
+              81,
+              78,
+              66,
+              63
+            ],
+            [
+              65,
+              81,
+              78,
+              66,
+              63
+            ],
+            [
+              65,
+              81,
+              78,
+              66,
+              63
+            ]
+          ],
+          "selected_ids": [
+            [
+              65,
+              66,
+              81,
+              78,
+              79
+            ],
+            [
+              65,
+              66,
+              81,
+              78,
+              79
+            ],
+            [
+              65,
+              66,
+              81,
+              78,
+              79
+            ]
+          ],
+          "deterministic_top5_across_repeats": true,
+          "deterministic_full_ranking_across_repeats": true
+        },
+        "B": {
+          "ranking_metrics": {
+            "ndcg_at_5": 0.8687949224876581,
+            "precision_at_5_direct": 0.8,
+            "recall_at_5_direct": 0.8,
+            "mrr_direct": 1.0,
+            "top1_direct": 1,
+            "support_coverage_at_5": 1.0,
+            "all_support_at_5": 1
+          },
+          "selected_metrics": {
+            "ndcg_at_5": 0.7714160225925204,
+            "precision_at_5_direct": 0.6,
+            "recall_at_5_direct": 0.6,
+            "mrr_direct": 1.0,
+            "top1_direct": 1,
+            "support_coverage_at_5": 1.0,
+            "all_support_at_5": 1
+          },
+          "wall_seconds": 11.979191666666699,
+          "cpu_seconds": 47.956318333333336,
+          "top5_rankings": [
+            [
+              65,
+              81,
+              66,
+              64,
+              68
+            ],
+            [
+              65,
+              81,
+              66,
+              64,
+              68
+            ],
+            [
+              65,
+              81,
+              66,
+              64,
+              68
+            ]
+          ],
+          "selected_ids": [
+            [
+              65,
+              66,
+              81,
+              78,
+              79
+            ],
+            [
+              65,
+              66,
+              81,
+              78,
+              79
+            ],
+            [
+              65,
+              66,
+              81,
+              78,
+              79
+            ]
+          ],
+          "deterministic_top5_across_repeats": true,
+          "deterministic_full_ranking_across_repeats": true
+        }
+      }
+    }
+  ],
+  "complete_successful_pairs": 45,
+  "experiment_local_cost": {
+    "measured_request_wall_seconds": 1043.4233448000002,
+    "measured_cpu_core_seconds": 4175.088482000001,
+    "cpu_samples_missing": 0,
+    "warmup_requests": 2,
+    "warmup_wall_seconds": 21.6377873,
+    "warmup_cpu_core_seconds": 86.478337,
+    "note": "Warmups excluded from paired latency/quality averages but retained in total experimental compute cost; cgroup CPU includes probes and any concurrent service work."
+  },
+  "failure_policy": "No automatic retry or replacement. Availability and wall/CPU costs include all measured attempts; quality uses only paired successes and reports missing pairs.",
+  "rankable_questions_with_complete_pairs": 14,
+  "api_cost": {
+    "translation": {
+      "calls": 0,
+      "seconds_total": 0,
+      "tokens": {
+        "input": 0,
+        "output": 0,
+        "cached_input": 0,
+        "uncached_input": 0
+      },
+      "estimated_usd_range": {
+        "off_peak": 0,
+        "peak": 0
+      }
+    },
+    "translation_revision": {
+      "calls": 0,
+      "seconds_total": 0,
+      "tokens": {
+        "input": 0,
+        "output": 0,
+        "cached_input": 0,
+        "uncached_input": 0
+      },
+      "estimated_usd_range": {
+        "off_peak": 0,
+        "peak": 0
+      }
+    },
+    "answer": {
+      "calls": 30,
+      "seconds_total": 62.12282910000001,
+      "tokens": {
+        "input": 16247,
+        "output": 5221,
+        "cached_input": 11259,
+        "uncached_input": 4988
+      },
+      "estimated_usd_range": {
+        "off_peak": 0.003914577,
+        "peak": 0.007829154
+      }
+    },
+    "all": {
+      "calls": 30,
+      "seconds_total": 62.12282910000001,
+      "tokens": {
+        "input": 16247,
+        "output": 5221,
+        "cached_input": 11259,
+        "uncached_input": 4988
+      },
+      "estimated_usd_range": {
+        "off_peak": 0.003914577,
+        "peak": 0.007829154
+      }
+    },
+    "answers_A": {
+      "calls": 15,
+      "seconds_mean": 2.0635984200000004,
+      "input_tokens": 8304,
+      "output_tokens": 2582,
+      "estimated_usd_range": {
+        "off_peak": 0.001948227,
+        "peak": 0.003896454
+      }
+    },
+    "answers_B": {
+      "calls": 15,
+      "seconds_mean": 2.0779235200000006,
+      "input_tokens": 7943,
+      "output_tokens": 2639,
+      "estimated_usd_range": {
+        "off_peak": 0.0019663499999999995,
+        "peak": 0.003932699999999999
+      }
+    },
+    "accepted_translation_serving_cost": {
+      "calls": 15,
+      "seconds_mean": 1.0946869666666663,
+      "estimated_usd_range": {
+        "off_peak": 0.0005366999999999999,
+        "peak": 0.0010733999999999997
+      },
+      "provenance": "Cost of preparing the accepted frozen translations; historical reference only when this run reuses translations. Actual current-run charges are in all/translation/translation_revision."
+    },
+    "billing_note": "Published official price estimate from returned usage, not invoice; report off-peak/peak range, excludes electricity/depreciation and no assumed local per-token API charge. Only calls in this run are included; serving B needs no extra translation call if upstream translation already exists.",
+    "standardized_uncached_answer_cost": {
+      "A": {
+        "off_peak": 0.0027948000000000005,
+        "peak": 0.005589600000000001
+      },
+      "B": {
+        "off_peak": 0.0027748499999999997,
+        "peak": 0.005549699999999999
+      }
+    }
+  },
+  "answer_review": {
+    "A": {
+      "core_correct": 15,
+      "strict_pass": 12,
+      "grounded": 12,
+      "confirmed_factual_errors": 2,
+      "citation_valid": 15
+    },
+    "B": {
+      "core_correct": 14,
+      "strict_pass": 11,
+      "grounded": 12,
+      "confirmed_factual_errors": 2,
+      "citation_valid": 15
+    }
+  },
+  "environment_validity": {
+    "heartbeat_events": 0,
+    "requests_marked_invalid": 0,
+    "probe_failure": false,
+    "keep_awake_released": true
+  },
+  "finished_at": "2026-10-26T05:16:27.154997+00:00"
+}

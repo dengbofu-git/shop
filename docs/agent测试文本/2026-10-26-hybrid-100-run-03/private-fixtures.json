@@ -1,0 +1,227 @@
+{
+  "synthetic_only": true,
+  "orders": [
+    {
+      "id": "EVAL202610260001",
+      "owner_fixture": 1,
+      "hidden": false,
+      "type": "standard",
+      "created_at": "2026-10-26T10:00:00+08:00",
+      "status": 1
+    },
+    {
+      "id": "EVAL202610260002",
+      "owner_fixture": 1,
+      "hidden": false,
+      "type": "standard",
+      "created_at": "2026-10-25T10:00:00+08:00",
+      "status": 2
+    },
+    {
+      "id": "EVAL202610260003",
+      "owner_fixture": 1,
+      "hidden": false,
+      "type": "standard",
+      "created_at": "2026-10-24T10:00:00+08:00",
+      "status": 3
+    },
+    {
+      "id": "EVAL202610260004",
+      "owner_fixture": 1,
+      "hidden": false,
+      "type": "standard",
+      "created_at": "2026-10-23T10:00:00+08:00",
+      "status": 4
+    },
+    {
+      "id": "EVAL202610260005",
+      "owner_fixture": 1,
+      "hidden": false,
+      "type": "standard",
+      "created_at": "2026-10-22T10:00:00+08:00",
+      "status": 0
+    },
+    {
+      "id": "EVAL202610260006",
+      "owner_fixture": 1,
+      "hidden": false,
+      "type": "standard",
+      "created_at": "2026-10-21T10:00:00+08:00",
+      "status": 1
+    },
+    {
+      "id": "EVAL202610260007",
+      "owner_fixture": 1,
+      "hidden": false,
+      "type": "standard",
+      "created_at": "2026-10-20T10:00:00+08:00",
+      "status": 2
+    },
+    {
+      "id": "EVAL202610260008",
+      "owner_fixture": 1,
+      "hidden": false,
+      "type": "standard",
+      "created_at": "2026-10-19T10:00:00+08:00",
+      "status": 3
+    },
+    {
+      "id": "EVAL202610260009",
+      "owner_fixture": 1,
+      "hidden": false,
+      "type": "standard",
+      "created_at": "2026-10-18T10:00:00+08:00",
+      "status": 4
+    },
+    {
+      "id": "EVAL202610260010",
+      "owner_fixture": 1,
+      "hidden": false,
+      "type": "standard",
+      "created_at": "2026-10-17T10:00:00+08:00",
+      "status": 0
+    },
+    {
+      "id": "EVAL202610260011",
+      "owner_fixture": 1,
+      "hidden": false,
+      "type": "standard",
+      "created_at": "2026-10-16T10:00:00+08:00",
+      "status": 1
+    },
+    {
+      "id": "EVAL202610260012",
+      "owner_fixture": 1,
+      "hidden": false,
+      "type": "standard",
+      "created_at": "2026-10-15T10:00:00+08:00",
+      "status": 2
+    },
+    {
+      "id": "EVAL202610260013",
+      "owner_fixture": 1,
+      "hidden": false,
+      "type": "standard",
+      "created_at": "2026-10-14T10:00:00+08:00",
+      "status": 3
+    },
+    {
+      "id": "EVAL202610260014",
+      "owner_fixture": 1,
+      "hidden": false,
+      "type": "standard",
+      "created_at": "2026-10-13T10:00:00+08:00",
+      "status": 4
+    },
+    {
+      "id": "EVAL202610260015",
+      "owner_fixture": 1,
+      "hidden": false,
+      "type": "standard",
+      "created_at": "2026-10-12T10:00:00+08:00",
+      "status": 0
+    },
+    {
+      "id": "EVAL202610260016",
+      "owner_fixture": 1,
+      "hidden": false,
+      "type": "standard",
+      "created_at": "2026-10-11T10:00:00+08:00",
+      "status": 1
+    },
+    {
+      "id": "EVAL202610260017",
+      "owner_fixture": 1,
+      "hidden": false,
+      "type": "standard",
+      "created_at": "2026-10-10T10:00:00+08:00",
+      "status": 2
+    },
+    {
+      "id": "EVAL202610260018",
+      "owner_fixture": 1,
+      "hidden": false,
+      "type": "standard",
+      "created_at": "2026-10-09T10:00:00+08:00",
+      "status": 3
+    },
+    {
+      "id": "EVAL202610260019",
+      "owner_fixture": 1,
+      "hidden": false,
+      "type": "standard",
+      "created_at": "2026-10-08T10:00:00+08:00",
+      "status": 4
+    },
+    {
+      "id": "EVAL202610260020",
+      "owner_fixture": 1,
+      "hidden": false,
+      "type": "standard",
+      "created_at": "2026-10-07T10:00:00+08:00",
+      "status": 0
+    },
+    {
+      "id": "EVAL202610260021",
+      "owner_fixture": 1,
+      "hidden": false,
+      "type": "standard",
+      "created_at": "2026-10-06T10:00:00+08:00",
+      "status": 1
+    },
+    {
+      "id": "EVAL202610260022",
+      "owner_fixture": 1,
+      "hidden": false,
+      "type": "standard",
+      "created_at": "2026-10-05T10:00:00+08:00",
+      "status": 2
+    },
+    {
+      "id": "EVAL202610260023",
+      "owner_fixture": 1,
+      "hidden": false,
+      "type": "trial",
+      "created_at": "2026-10-04T10:00:00+08:00",
+      "status": 3
+    },
+    {
+      "id": "EVAL202610260024",
+      "owner_fixture": 1,
+      "hidden": false,
+      "type": "presale",
+      "created_at": "2026-10-03T10:00:00+08:00",
+      "status": 4
+    },
+    {
+      "id": "EVAL202610260025",
+      "owner_fixture": 1,
+      "hidden": true,
+      "type": "standard",
+      "created_at": "2026-10-02T10:00:00+08:00",
+      "status": 0
+    },
+    {
+      "id": "EVAL202610260026",
+      "owner_fixture": 2,
+      "hidden": false,
+      "type": "standard",
+      "created_at": "2026-10-01T10:00:00+08:00",
+      "status": 1
+    },
+    {
+      "id": "EVAL202610260027",
+      "owner_fixture": 2,
+      "hidden": false,
+      "type": "standard",
+      "created_at": "2026-09-30T10:00:00+08:00",
+      "status": 2
+    }
+  ],
+  "memory": {
+    "owner_fixture": 1,
+    "categories": [
+      "红茶"
+    ]
+  }
+}

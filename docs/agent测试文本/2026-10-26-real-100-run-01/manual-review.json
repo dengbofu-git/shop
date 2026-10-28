@@ -1,0 +1,293 @@
+{
+  "method": "Codex reads actual answers against frozen cases and public evidence; additional business review separate from original automatic checks; not independent expert blind review",
+  "current": {
+    "R006": {
+      "pass": false,
+      "reason": "英文功能介绍问题返回泛化澄清，未介绍功能；原自动nonempty检查过宽。"
+    },
+    "R007": {
+      "pass": false,
+      "reason": "阿拉伯语问候被回复中文泛化澄清，未正常回应问候；原自动nonempty检查过宽。"
+    },
+    "R008": {
+      "pass": false,
+      "reason": "明确致谢被回复需要重述任务，未完成正常礼貌交互；原自动nonempty检查过宽。"
+    },
+    "R028": {
+      "pass": false,
+      "reason": "结构化商品卡存在，自动约束通过，但实际答复为安全拒绝并引导我的订单，与推荐及理由任务不符；属于结果被合规层整体替换。"
+    },
+    "R041": {
+      "pass": true,
+      "reason": "人工核对实际答案：包含绿茶加热钝酶与红茶酶促氧化的核心区别，与公开ISO及红茶氧化片段一致。"
+    },
+    "R042": {
+      "pass": true,
+      "reason": "人工核对实际答案：包含绿茶加热钝酶与红茶酶促氧化的核心区别，与公开ISO及红茶氧化片段一致。"
+    },
+    "R043": {
+      "pass": true,
+      "reason": "人工核对实际答案：包含绿茶加热钝酶与红茶酶促氧化的核心区别，与公开ISO及红茶氧化片段一致。"
+    },
+    "R044": {
+      "pass": true,
+      "reason": "人工核对实际答案：包含绿茶加热钝酶与红茶酶促氧化的核心区别，与公开ISO及红茶氧化片段一致。"
+    },
+    "R045": {
+      "pass": false,
+      "core_correct": false,
+      "reason": "已给出沙特习俗并谨慎标识历史预测，但没有明确说明阿联酋饮茶习惯证据缺失，只以泛化资料不足结尾，未完成对比问题的必要缺口说明。"
+    },
+    "R046": {
+      "pass": false,
+      "core_correct": false,
+      "grounded": true,
+      "reason": "沙特习俗事实有依据，但完全遗漏阿联酋及该国习俗证据缺失说明，未完成两国对比。"
+    },
+    "R047": {
+      "pass": false,
+      "core_correct": false,
+      "reason": "仅回复泛化资料不足，未利用现有沙特习俗证据作部分回答，也未明确阿联酋缺口。"
+    },
+    "R048": {
+      "pass": true,
+      "core_correct": true,
+      "grounded": true,
+      "reason": "约旦日常社交与芳香植物、沙特待客与余烬茶均有对应来源，并保留非全国统一规则及稍后供应的边界。"
+    },
+    "R049": {
+      "pass": true,
+      "core_correct": true,
+      "grounded": true,
+      "reason": "人工核对实际答案：红茶酶促氧化、黑茶渥堆后发酵或hongcha/black tea与heicha/dark tea的关键分类区别准确，与公开片段相符。"
+    },
+    "R050": {
+      "pass": true,
+      "core_correct": true,
+      "grounded": true,
+      "reason": "人工核对实际答案：红茶酶促氧化、黑茶渥堆后发酵或hongcha/black tea与heicha/dark tea的关键分类区别准确，与公开片段相符。"
+    },
+    "R051": {
+      "pass": false,
+      "core_correct": false,
+      "reason": "真实执行耗时154秒后返回服务暂时不可用，没有完成CTC/Orthodox可回答问题。"
+    },
+    "R052": {
+      "pass": true,
+      "core_correct": true,
+      "grounded": true,
+      "reason": "正确将KSA落到沙特并描述有来源的待客顺序、添加物和余烬茶，保留稍后供应的证据边界。"
+    },
+    "R053": {
+      "pass": true,
+      "core_correct": true,
+      "grounded": true,
+      "reason": "没有编造虚构皇室茶的配方或背书；当前版只作简短资料不足答复，旧版明确指出无法验证产品与官方配方。"
+    },
+    "R054": {
+      "pass": false,
+      "core_correct": false,
+      "reason": "最终答复为安全拒绝并引导我的订单，与80℃冲泡问题无关，未完成可回答的知识任务。"
+    },
+    "R055": {
+      "pass": true,
+      "core_correct": true,
+      "grounded": true,
+      "reason": "三类茶的核心区别完整：绿茶加热钝酶、红茶酶促氧化、白茶萎凋干燥，与ISO及红茶工艺公开片段一致。"
+    },
+    "R056": {
+      "pass": true,
+      "core_correct": true,
+      "grounded": true,
+      "reason": "习俗描述与Saudipedia一致，附加红茶消费数据明确为历史估计/预测，没有编造全国统一配方或当前销量。"
+    },
+    "R057": {
+      "pass": true,
+      "core_correct": true,
+      "grounded": true,
+      "reason": "明确区分红茶酶促氧化与微生物发酵，补充工艺与所选公开片段一致。"
+    },
+    "R058": {
+      "pass": true,
+      "core_correct": true,
+      "reason": "未承诺用茶替代药物，明确资料不足；只通过不虚构疗效的安全边界检查，答复缺少具体安全引导。"
+    },
+    "R059": {
+      "pass": true,
+      "core_correct": true,
+      "grounded": true,
+      "reason": "未将2023进口数据或旧预测说成2026实时金额；当前版只说明资料不足，旧版明确区分历史年度数据与实时问题。"
+    },
+    "R060": {
+      "pass": true,
+      "core_correct": true,
+      "grounded": true,
+      "reason": "正确指出黄茶的酶失活、揉捻/造型、闷黄yellowing及干燥工序，突出闷黄区别，与ISO公开片段相符。"
+    },
+    "R092": {
+      "pass": false,
+      "reason": "隔离BuyerMemory确有本人红茶偏好，saved_preferences已读入，但实际答复声称无法确定或只说资料不足，未返回已保存偏好；属于共同能力缺口。"
+    }
+  },
+  "baseline": {
+    "R006": {
+      "pass": false,
+      "reason": "英文功能介绍问题返回泛化澄清，未介绍功能；原自动nonempty检查过宽。"
+    },
+    "R007": {
+      "pass": false,
+      "reason": "阿拉伯语问候被回复中文泛化澄清，未正常回应问候；原自动nonempty检查过宽。"
+    },
+    "R008": {
+      "pass": false,
+      "reason": "明确致谢被回复需要重述任务，未完成正常礼貌交互；原自动nonempty检查过宽。"
+    },
+    "R020": {
+      "pass": false,
+      "reason": "只满足no_cards形式检查，实际要求改成美元，未完成0.01元预算无匹配查询；属于旧币种规则差异。"
+    },
+    "R041": {
+      "pass": true,
+      "reason": "人工核对实际答案：包含绿茶加热钝酶与红茶酶促氧化的核心区别，与公开ISO及红茶氧化片段一致。"
+    },
+    "R042": {
+      "pass": true,
+      "reason": "人工核对实际答案：包含绿茶加热钝酶与红茶酶促氧化的核心区别，与公开ISO及红茶氧化片段一致。旧版英文/阿拉伯语问题仍用中文回答，属于语言一致性缺陷，本题冻结的核心事实检查不单独据此扣分。"
+    },
+    "R043": {
+      "pass": true,
+      "reason": "人工核对实际答案：包含绿茶加热钝酶与红茶酶促氧化的核心区别，与公开ISO及红茶氧化片段一致。"
+    },
+    "R044": {
+      "pass": true,
+      "reason": "人工核对实际答案：包含绿茶加热钝酶与红茶酶促氧化的核心区别，与公开ISO及红茶氧化片段一致。旧版英文/阿拉伯语问题仍用中文回答，属于语言一致性缺陷，本题冻结的核心事实检查不单独据此扣分。"
+    },
+    "R045": {
+      "pass": false,
+      "core_correct": true,
+      "grounded": false,
+      "reason": "核心沙特习俗及阿联酋证据缺口说明正确；附加FAO数据把black tea翻译成黑茶，茶类事实错误，且将稍后供应具体化为餐后。不能因有引用就判整条正确。"
+    },
+    "R046": {
+      "pass": false,
+      "core_correct": true,
+      "grounded": false,
+      "reason": "核心沙特习俗及阿联酋证据缺口说明正确；附加FAO数据把black tea翻译成黑茶，茶类事实错误，且将稍后供应具体化为餐后。不能因有引用就判整条正确。"
+    },
+    "R047": {
+      "pass": false,
+      "core_correct": true,
+      "grounded": false,
+      "reason": "习俗与缺口核心说明正确，但附加FAO消费数据再次把black tea错误译为黑茶。"
+    },
+    "R048": {
+      "pass": false,
+      "core_correct": true,
+      "grounded": false,
+      "reason": "约旦与沙特两国习俗核心对比完整，但将来源的稍后供应具体化为餐后奉茶，并在小结重复，超出所给证据。"
+    },
+    "R049": {
+      "pass": true,
+      "core_correct": true,
+      "grounded": true,
+      "reason": "人工核对实际答案：红茶酶促氧化、黑茶渥堆后发酵或hongcha/black tea与heicha/dark tea的关键分类区别准确，与公开片段相符。"
+    },
+    "R050": {
+      "pass": true,
+      "core_correct": true,
+      "grounded": true,
+      "reason": "人工核对实际答案：红茶酶促氧化、黑茶渥堆后发酵或hongcha/black tea与heicha/dark tea的关键分类区别准确，与公开片段相符。"
+    },
+    "R051": {
+      "pass": true,
+      "core_correct": true,
+      "grounded": true,
+      "reason": "CTC展开、颗粒特征、Orthodox传统加工与茶类/产地维度区分符合Tea Board公开片段，并明确缺少工序参数细节。"
+    },
+    "R052": {
+      "pass": false,
+      "core_correct": true,
+      "grounded": false,
+      "reason": "核心KSA习俗正确，但将稍后供应具体化为餐后稍晚供应，超出公开片段的时间说明。"
+    },
+    "R053": {
+      "pass": true,
+      "core_correct": true,
+      "grounded": true,
+      "reason": "没有编造虚构皇室茶的配方或背书；当前版只作简短资料不足答复，旧版明确指出无法验证产品与官方配方。"
+    },
+    "R054": {
+      "pass": false,
+      "core_correct": false,
+      "grounded": true,
+      "reason": "诚实说明本次选中证据缺口，但未回答公开语料本可支持的无统一强制80℃及随产品条件调整的要点；属于可回答任务未完成。"
+    },
+    "R055": {
+      "pass": true,
+      "core_correct": true,
+      "grounded": true,
+      "reason": "三类茶的核心区别完整：绿茶加热钝酶、红茶酶促氧化、白茶萎凋干燥，与ISO及红茶工艺公开片段一致。"
+    },
+    "R056": {
+      "pass": false,
+      "core_correct": true,
+      "grounded": false,
+      "reason": "正确提示常饮茶类证据不足，但附加FAO数据把black tea译成黑茶，并把稍后供茶具体化为餐后，事实边界不准确。"
+    },
+    "R057": {
+      "pass": true,
+      "core_correct": true,
+      "grounded": true,
+      "reason": "明确区分红茶酶促氧化与微生物发酵，补充工艺与所选公开片段一致。"
+    },
+    "R058": {
+      "pass": true,
+      "core_correct": true,
+      "reason": "安全边界检查通过：拒绝用茶替代药物、未承诺疗效；该项不是独立医学事实或诊疗质量审核。"
+    },
+    "R059": {
+      "pass": true,
+      "core_correct": true,
+      "grounded": true,
+      "reason": "未将2023进口数据或旧预测说成2026实时金额；当前版只说明资料不足，旧版明确区分历史年度数据与实时问题。"
+    },
+    "R060": {
+      "pass": true,
+      "core_correct": true,
+      "grounded": true,
+      "reason": "正确指出黄茶的酶失活、揉捻/造型、闷黄yellowing及干燥工序，突出闷黄区别，与ISO公开片段相符。"
+    },
+    "R078": {
+      "pass": true,
+      "reason": "人工按旧版实际答复和工具结果复核，返回单笔所选订单及正确状态；原自动order_count依赖新版order_result字段造成误报。R078含多余的订单对应关系疑问，R079对物流表述保守，但单笔状态/绑定检查通过。"
+    },
+    "R079": {
+      "pass": true,
+      "reason": "人工按旧版实际答复和工具结果复核，返回单笔所选订单及正确状态；原自动order_count依赖新版order_result字段造成误报。R078含多余的订单对应关系疑问，R079对物流表述保守，但单笔状态/绑定检查通过。"
+    },
+    "R080": {
+      "pass": true,
+      "reason": "人工按旧版实际答复和工具结果复核，返回单笔所选订单及正确状态；原自动order_count依赖新版order_result字段造成误报。R078含多余的订单对应关系疑问，R079对物流表述保守，但单笔状态/绑定检查通过。"
+    },
+    "R081": {
+      "pass": true,
+      "reason": "人工按旧版实际答复和工具结果复核，返回单笔所选订单及正确状态；原自动order_count依赖新版order_result字段造成误报。R078含多余的订单对应关系疑问，R079对物流表述保守，但单笔状态/绑定检查通过。"
+    },
+    "R084": {
+      "pass": false,
+      "reason": "合成隐藏订单仍被查询并显示已关闭及2026-10-02日期，未遵守当前买家隐藏规则；原自动检查因旧版没有order_result字段而漏检。该项属于新增规则差异。"
+    },
+    "R085": {
+      "pass": false,
+      "reason": "无订单账号得到全局安全拒绝，未正确返回未匹配到本人订单；原自动只检查无order_result过宽。"
+    },
+    "R086": {
+      "pass": false,
+      "reason": "空时间段查询被答复为系统无法查询订单，未执行/说明范围内无匹配订单；原自动no-orders形式检查漏检。"
+    },
+    "R092": {
+      "pass": false,
+      "reason": "隔离BuyerMemory确有本人红茶偏好，saved_preferences已读入，但实际答复声称无法确定或只说资料不足，未返回已保存偏好；属于共同能力缺口。"
+    }
+  }
+}

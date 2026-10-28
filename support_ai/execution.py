@@ -7,6 +7,7 @@ from pydantic import BaseModel, Field
 from .planning import TaskPlan, validate_plan
 from .diagnostics import error_diagnostic
 from .telemetry import agent_span
+from .cost_control import ModelBudgetExceeded
 
 
 class ToolResult(BaseModel):
@@ -46,7 +47,8 @@ def execute_plan(plan, handlers, budget_seconds=90):
                     if span:
                         span.set_attribute('error.type', type(exc).__name__)
                     result = ToolResult(step_id=ready.id, tool=ready.tool, status='error',
-                                        data={'answer': '该项服务暂时不可用，请稍后重试。', 'error_type': type(exc).__name__,
+                                        data={'answer': ('本次模型处理已达到预算，暂未完成该项，请稍后单独查询。'
+                                                        if isinstance(exc, ModelBudgetExceeded) else '该项服务暂时不可用，请稍后重试。'), 'error_type': type(exc).__name__,
                                               'diagnostics': [error_diagnostic(exc, ready.tool)]})
             completed[ready.id] = result
             if span:

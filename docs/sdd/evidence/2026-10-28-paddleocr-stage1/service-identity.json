@@ -1,0 +1,13 @@
+{
+  "ready": true,
+  "identity": {
+    "model": "PaddleOCR-VL-1.6-0.9B",
+    "revision": "04f1b01c5f0c89cb35fcd105ada6edfee747087511f0855133401a47fb634d57",
+    "contract_version": "paddle-document-v1",
+    "pipeline_version": "v1.6",
+    "weights": {
+      "layout": "70bd316b0582769ec968829fd1feb1a6a58b7c941b938327e551b6b12b45c137",
+      "recognition": "85a479d506a11e724e7285d395c551be69f41dbc16b6342d3cacfb189aed71db"
+    }
+  }
+}

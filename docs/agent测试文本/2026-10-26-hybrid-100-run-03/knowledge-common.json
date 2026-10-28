@@ -1,0 +1,121 @@
+{
+  "common_core": {
+    "ids": [
+      "R041",
+      "R042",
+      "R043",
+      "R044",
+      "R045",
+      "R047",
+      "R048",
+      "R049",
+      "R050",
+      "R051",
+      "R052",
+      "R053",
+      "R054",
+      "R055",
+      "R056",
+      "R057",
+      "R058",
+      "R060"
+    ],
+    "count": 18,
+    "scope": "Post-hoc common-success sensitivity, not a replacement for all-100 primary result",
+    "before": {
+      "usage": {
+        "calls": 64,
+        "input_tokens": 81037,
+        "output_tokens": 13766,
+        "reasoning_tokens": 0,
+        "cache_hit_tokens": 57984,
+        "cache_miss_tokens": 23053,
+        "missing_usage": 0,
+        "cost_usd_offpeak": 0.011891502,
+        "cost_usd_peak": 0.023783004
+      },
+      "latency_seconds": {
+        "mean": 15.442794277777779,
+        "p50": 14.216137,
+        "p95": 20.3778453,
+        "max": 20.77206
+      }
+    },
+    "after": {
+      "usage": {
+        "calls": 46,
+        "input_tokens": 72325,
+        "output_tokens": 11675,
+        "reasoning_tokens": 0,
+        "cache_hit_tokens": 41728,
+        "cache_miss_tokens": 30597,
+        "missing_usage": 0,
+        "cost_usd_offpeak": 0.011719734,
+        "cost_usd_peak": 0.023439468
+      },
+      "latency_seconds": {
+        "mean": 13.49422361111111,
+        "p50": 12.569440499999999,
+        "p95": 18.578187149999994,
+        "max": 22.092513
+      }
+    }
+  },
+  "common_strict": {
+    "ids": [
+      "R041",
+      "R042",
+      "R043",
+      "R044",
+      "R049",
+      "R050",
+      "R051",
+      "R053",
+      "R054",
+      "R055",
+      "R057",
+      "R058",
+      "R060"
+    ],
+    "count": 13,
+    "scope": "Post-hoc common-success sensitivity, not a replacement for all-100 primary result",
+    "before": {
+      "usage": {
+        "calls": 46,
+        "input_tokens": 61633,
+        "output_tokens": 9790,
+        "reasoning_tokens": 0,
+        "cache_hit_tokens": 44928,
+        "cache_miss_tokens": 16705,
+        "missing_usage": 0,
+        "cost_usd_offpeak": 0.008514533999999999,
+        "cost_usd_peak": 0.017029067999999998
+      },
+      "latency_seconds": {
+        "mean": 15.107746846153846,
+        "p50": 13.952673,
+        "p95": 19.2310996,
+        "max": 19.816147
+      }
+    },
+    "after": {
+      "usage": {
+        "calls": 33,
+        "input_tokens": 55614,
+        "output_tokens": 8317,
+        "reasoning_tokens": 0,
+        "cache_hit_tokens": 33152,
+        "cache_miss_tokens": 22462,
+        "missing_usage": 0,
+        "cost_usd_offpeak": 0.008458956,
+        "cost_usd_peak": 0.016917912
+      },
+      "latency_seconds": {
+        "mean": 13.680161230769231,
+        "p50": 12.527854,
+        "p95": 19.611812399999994,
+        "max": 22.092513
+      }
+    }
+  }
+}

@@ -17,6 +17,8 @@ x-observed-differences:
 - recent最多3；all每页最多20，创建日期独立按上海首尾包含筛选；当前页位置追问映射尚未实施。
 - 共享偏好前置、混合不可见整轮404与目标R01/R02仍有差异。
 x-request-notes:
+- 2026-10-26查看订单增量：成功查询的HTTP order_result.orders可附detail_url；只含固定同源订单页与按买家绑定的匿名HMAC片段，不进入模型／工具事实。订单列表另提供support_reference用于本人页面精确定位，仍走原本人鉴权；不是新增访问凭据。
+- 2026-10-26源码增量新增可选bundle_selection，仅接受本人当前会话近期保存的request_id及bundle_id；用于商品方案追问，不接受价格或SKU。格式错误400，不可访问／过期404；本轮仅静态检查，未运行接口验收。
 - Bearer身份必须是活跃customer类型；共享认证、历史GET/DELETE及订单工具均拒绝停用账号。
 - request_id省略时生成；expected_revision省略或null时跳过客户端revision比较，最终提交仍校验读到的revision。
 - conversation_id通过truthiness判断，旧入口除省略/null外也将空字符串等假值视作无会话；目标客户端只发送规范UUID或省略。
@@ -52,6 +54,18 @@ paths:
                   type: integer
                   minimum: 0
                   nullable: true
+                bundle_selection:
+                  type: object
+                  nullable: true
+                  additionalProperties: false
+                  required: [request_id, bundle_id]
+                  properties:
+                    request_id:
+                      type: string
+                      format: uuid
+                    bundle_id:
+                      type: string
+                      pattern: '^bundle-[0-9a-f]{12}$'
       responses:
         '200':
           description: 已有成功重放或新成功轮次；未指定编号且本人无订单可返回正常no_match。

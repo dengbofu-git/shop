@@ -3,9 +3,10 @@ from decimal import Decimal
 from hashlib import sha256
 
 from .budget_combinations import Candidate, MAX_CANDIDATES, search_bundles
-from .contracts import canonicalize_total_budget
+from .contracts import canonicalize_total_budget, validate_recommendation_branch
 from .pii import redact
 from .recommendations import CATEGORY_ALIASES, CLARIFICATIONS, product_cards, ranked_products
+from .recommendation_presentation import shopping_reasons, bundle_summary
 from tea_saas.currency import BASE_CURRENCY, currency, to_base, display, RATES
 
 
@@ -54,7 +55,7 @@ def _candidates(query, budget_cents, quantity, required_categories):
 
 def recommend_bundle(intent, *, category_scope=None):
     """Called only after the application has validated intent provenance."""
-    intent = canonicalize_total_budget(intent)
+    intent = validate_recommendation_branch(canonicalize_total_budget(intent), tool='recommend_bundle')
     empty = {'recommendations': [], 'recommendation_bundles': []}
 
     def clarify(field):
@@ -83,22 +84,24 @@ def recommend_bundle(intent, *, category_scope=None):
         return clarify('bundle_constraints')
     requested_currency = currency(hard.currency)
     budget = cents(to_base(hard.budget_max, requested_currency))
-    minimum = cents(to_base(hard.budget_min or '0', requested_currency, upper=False))
+    minimum_value = hard.budget_max if hard.budget_mode == 'exact' else (hard.budget_min or '0')
+    minimum = cents(to_base(minimum_value, requested_currency, upper=False))
     if minimum > budget:
         return dict(empty, recommendation_status='NO_MATCH', answer='该外币金额按参考比例换算后无法用人民币分精确满足，请调整预算范围。')
-    quantity = hard.quantity_per_product or 1
+    quantity = hard.quantity_per_product
+    minimum_quantity = quantity if quantity is not None else 1
     scoped = intent.model_copy(deep=True)
     scoped.required.categories = categories
     query = ranked_products(scoped, unit_prices=False).filter(
-        price__gt=0, price__lte=Decimal(budget) / (100 * quantity), available_stock__gte=quantity)
-    selected, truncated = _candidates(query, budget, quantity, categories)
+        price__gt=0, price__lte=Decimal(budget) / (100 * minimum_quantity), available_stock__gte=minimum_quantity)
+    selected, truncated = _candidates(query, budget, minimum_quantity, categories)
     preference_max = (3 * bool(intent.preferred.categories) + 3 * bool(intent.preferred.brands)
                       + len(intent.preferred.keywords))
 
     def search(rows):
         return search_bundles([_candidate(p) for p in rows], budget_cents=budget, minimum_cents=minimum,
                               categories=categories, quantity=quantity, distinct_count=count,
-                              preference_max=preference_max)
+                              preference_max=preference_max, prefer_near=hard.budget_mode in ('near', 'exact'))
 
     searched = search(selected)
     # Requery all candidates once. Search again if prices, availability, categories
@@ -117,25 +120,29 @@ def recommend_bundle(intent, *, category_scope=None):
                                'near_minimum': money(searched['near_floor_cents']), 'allow_over_budget': False,
                                'requested_currency': requested_currency, 'requested_maximum': hard.budget_max,
                                'conversion_kind': 'reference' if requested_currency != BASE_CURRENCY else 'none'},
-                bundle_assumptions={'quantity_per_product': quantity, 'min_distinct_products': count or 2,
+                bundle_assumptions={'quantity_per_product': quantity, 'quantity_mode': 'fixed' if quantity is not None else 'automatic',
+                                    'automatic_quantity_cap': None, 'quantity_bound': 'budget_and_available_stock',
+                                    'min_distinct_products': count or 1,
                                     'max_distinct_products': count or 4, 'shipping_and_tax_included': False})
     bundles = []
-    seen_products = set()
+    seen_combinations = set()
     for plan in searched['plans']:
         rows = [live_by_id[pk] for pk in plan['sku_ids']]
-        products = frozenset(p.spu_id for p in rows)
-        if products in seen_products:
+        quantities = dict(zip(plan['sku_ids'], plan['quantities']))
+        combination = frozenset((p.spu_id, quantities[p.pk]) for p in rows)
+        if combination in seen_combinations:
             continue
-        # Alternatives must change at least one product, not just its pack size.
-        seen_products.add(products)
+        # A quantity change is meaningful; merely changing a pack is not.
+        seen_combinations.add(combination)
         cards = product_cards(rows, scoped)
-        subtotal = sum(cents(c['price']) * quantity for c in cards)
-        if not minimum <= subtotal <= budget or any(c['available_stock'] < quantity for c in cards):
+        subtotal = sum(cents(c['price']) * quantities[c['sku_id']] for c in cards)
+        if not minimum <= subtotal <= budget or any(c['available_stock'] < quantities[c['sku_id']] for c in cards):
             continue
         for card in cards:
-            card.update(quantity=quantity, line_subtotal=money(cents(card['price']) * quantity))
-            card['reasons'].append('本套商品合计符合您的总预算')
-        signature = '|'.join('{}:{}:{}'.format(c['sku_id'], quantity, c['price']) for c in cards)
+            units = quantities[card['sku_id']]
+            card.update(quantity=units, line_subtotal=money(cents(card['price']) * units))
+            card['reasons'] = shopping_reasons(card)
+        signature = '|'.join('{}:{}:{}'.format(c['sku_id'], c['quantity'], c['price']) for c in cards)
         bundle_id = 'bundle-' + sha256((str(budget) + '|' + signature).encode()).hexdigest()[:12]
         bundles.append({'bundle_id': bundle_id, 'position': len(bundles) + 1, 'items': cards,
                         'subtotal': money(subtotal), 'remaining_budget': money(budget - subtotal),
@@ -143,37 +150,23 @@ def recommend_bundle(intent, *, category_scope=None):
                         'display_currency': requested_currency,
                         'display_subtotal': format(display(Decimal(subtotal) / 100, requested_currency), '.2f'),
                         'quality_score': plan['quality_score']})
+        bundles[-1]['summary'] = bundle_summary(bundles[-1], money(budget), automatic=quantity is None)
         if len(bundles) == 3:
             break
     if not bundles:
         return dict(base, recommendation_status='NO_MATCH',
                     answer='在当前候选范围内，未找到同时满足总预算、茶类覆盖和商品数量的搭配。'
                            '我没有放宽条件；您可以调整预算、茶类或款数。')
-    lines = ['按整套商品总预算 ¥{}（人民币 CNY）搭配，每款{}件，{}；商品合计不含运费、税费。'.format(
-        money(budget), quantity, '共{}款'.format(count) if count else '默认2至4款')]
-    if minimum == budget:
-        lines.append('要求商品合计恰好 ¥{}。'.format(money(budget)))
-    else:
-        lines.append('优先接近 ¥{}～¥{}，不超过总预算。'.format(money(searched['near_floor_cents']), money(budget)))
+    notice = '商品合计不含运费、税费，价格及可购买状态以下单校验为准。'
+    lines = [bundles[0]['summary']]
+    if len(bundles) > 1:
+        lines.append('另外还有{}套搭配，可在下方切换比较商品和数量。'.format(len(bundles) - 1))
     if requested_currency != BASE_CURRENCY:
-        lines.append('输入预算 {} {} 已按参考比例换算成人民币核算；非实时汇率，实际外币扣款以支付渠道为准。'.format(
-            requested_currency, hard.budget_max))
-    for bundle in bundles:
-        lines.append('\n方案{}：'.format(bundle['position']))
-        for i, card in enumerate(bundle['items'], 1):
-            lines.append('{}. {} · {} · 单价 ¥{} × {}件 = ¥{}'.format(
-                i, card['product_name'], card['name'], card['price'], quantity, card['line_subtotal']))
-            lines.append('依据：{}。'.format('；'.join(card['reasons'])))
-            if card['facts']:
-                lines.append('已配置属性：' + '；'.join('{}：{}'.format(k, v) for k, v in card['facts'].items()) + '。')
-        lines.append('商品合计 ¥{}；剩余预算 ¥{}。{}'.format(bundle['subtotal'], bundle['remaining_budget'],
-                     '已进入接近预算范围。' if bundle['near_budget'] else '未进入优先接近预算范围，未为凑价增加数量。'))
-        if requested_currency != BASE_CURRENCY:
-            lines.append('参考显示合计：{} {}。'.format(requested_currency, bundle['display_subtotal']))
-    lines.append('\n以下商品卡片对应方案1；每套方案独立选购。结果限本次候选范围，价格及可购买状态以下单校验为准。')
-    if any('虚拟' in c['product_name'] for b in bundles for c in b['items']):
-        lines.append('包含虚拟商品，模拟属性仅供演示。')
-    if not searched['search_complete']:
-        lines.append('本次搜索达到计算上限，仅展示已完成搜索的可用方案。')
+        notice += '外币按参考比例显示，实际扣款以支付渠道为准。'
+    if any('虚拟' in c['product_name'] or '模拟' in c['product_name']
+           or any('模拟' in key for key in c.get('facts', {})) for b in bundles for c in b['items']):
+        notice += '含演示商品，模拟属性仅供展示。'
+    lines.append(notice)
     return dict(base, recommendation_status='MATCHED', recommendation_bundles=bundles,
+                primary_bundle_id=bundles[0]['bundle_id'], bundle_notice=notice, presentation_version='bundles-v2',
                 recommendations=bundles[0]['items'], answer=redact('\n'.join(lines)))

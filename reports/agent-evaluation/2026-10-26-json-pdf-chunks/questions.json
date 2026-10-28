@@ -1,0 +1,386 @@
+[
+  {
+    "id": "iran_pair",
+    "family": "iran",
+    "category": "shared",
+    "kind": "pair",
+    "country": "Iran",
+    "values": [
+      83000,
+      115808
+    ],
+    "question": "In FAO Table 9, what were the estimated 2013 and projected 2023 black-tea consumption figures for Iran? State both years and the unit.",
+    "gold_page": 27
+  },
+  {
+    "id": "iran_forecast",
+    "family": "iran",
+    "category": "shared",
+    "kind": "forecast",
+    "country": "Iran",
+    "values": [
+      115808
+    ],
+    "question": "How many tonnes of black tea did the FAO outlook project Iran would consume in 2023?",
+    "gold_page": 27
+  },
+  {
+    "id": "iran_nature",
+    "family": "iran",
+    "category": "shared",
+    "kind": "nature",
+    "country": "Iran",
+    "values": [],
+    "question": "Is the 2023 black-tea consumption figure for Iran in FAO Table 9 a projection or a verified 2023 observation?",
+    "gold_page": 27
+  },
+  {
+    "id": "turkey_pair",
+    "family": "turkey",
+    "category": "shared",
+    "kind": "pair",
+    "country": "Turkey",
+    "values": [
+      228026,
+      259503
+    ],
+    "question": "In FAO Table 9, what were the estimated 2013 and projected 2023 black-tea consumption figures for Turkey? State both years and the unit.",
+    "gold_page": 27
+  },
+  {
+    "id": "turkey_forecast",
+    "family": "turkey",
+    "category": "shared",
+    "kind": "forecast",
+    "country": "Turkey",
+    "values": [
+      259503
+    ],
+    "question": "How many tonnes of black tea did the FAO outlook project Turkey would consume in 2023?",
+    "gold_page": 27
+  },
+  {
+    "id": "turkey_nature",
+    "family": "turkey",
+    "category": "shared",
+    "kind": "nature",
+    "country": "Turkey",
+    "values": [],
+    "question": "Is the 2023 black-tea consumption figure for Turkey in FAO Table 9 a projection or a verified 2023 observation?",
+    "gold_page": 27
+  },
+  {
+    "id": "iraq_pair",
+    "family": "iraq",
+    "category": "shared",
+    "kind": "pair",
+    "country": "Iraq",
+    "values": [
+      34000,
+      34123
+    ],
+    "question": "In FAO Table 9, what were the estimated 2013 and projected 2023 black-tea consumption figures for Iraq? State both years and the unit.",
+    "gold_page": 27
+  },
+  {
+    "id": "iraq_forecast",
+    "family": "iraq",
+    "category": "shared",
+    "kind": "forecast",
+    "country": "Iraq",
+    "values": [
+      34123
+    ],
+    "question": "How many tonnes of black tea did the FAO outlook project Iraq would consume in 2023?",
+    "gold_page": 27
+  },
+  {
+    "id": "iraq_nature",
+    "family": "iraq",
+    "category": "shared",
+    "kind": "nature",
+    "country": "Iraq",
+    "values": [],
+    "question": "Is the 2023 black-tea consumption figure for Iraq in FAO Table 9 a projection or a verified 2023 observation?",
+    "gold_page": 27
+  },
+  {
+    "id": "saudi_arabia_pair",
+    "family": "saudi_arabia",
+    "category": "shared",
+    "kind": "pair",
+    "country": "Saudi Arabia",
+    "values": [
+      30350,
+      44999
+    ],
+    "question": "In FAO Table 9, what were the estimated 2013 and projected 2023 black-tea consumption figures for Saudi Arabia? State both years and the unit.",
+    "gold_page": 27
+  },
+  {
+    "id": "saudi_arabia_forecast",
+    "family": "saudi_arabia",
+    "category": "shared",
+    "kind": "forecast",
+    "country": "Saudi Arabia",
+    "values": [
+      44999
+    ],
+    "question": "How many tonnes of black tea did the FAO outlook project Saudi Arabia would consume in 2023?",
+    "gold_page": 27
+  },
+  {
+    "id": "saudi_arabia_nature",
+    "family": "saudi_arabia",
+    "category": "shared",
+    "kind": "nature",
+    "country": "Saudi Arabia",
+    "values": [],
+    "question": "Is the 2023 black-tea consumption figure for Saudi Arabia in FAO Table 9 a projection or a verified 2023 observation?",
+    "gold_page": 27
+  },
+  {
+    "id": "syria_pair",
+    "family": "syria",
+    "category": "shared",
+    "kind": "pair",
+    "country": "Syria",
+    "values": [
+      28000,
+      31225
+    ],
+    "question": "In FAO Table 9, what were the estimated 2013 and projected 2023 black-tea consumption figures for Syria? State both years and the unit.",
+    "gold_page": 27
+  },
+  {
+    "id": "syria_forecast",
+    "family": "syria",
+    "category": "shared",
+    "kind": "forecast",
+    "country": "Syria",
+    "values": [
+      31225
+    ],
+    "question": "How many tonnes of black tea did the FAO outlook project Syria would consume in 2023?",
+    "gold_page": 27
+  },
+  {
+    "id": "syria_nature",
+    "family": "syria",
+    "category": "shared",
+    "kind": "nature",
+    "country": "Syria",
+    "values": [],
+    "question": "Is the 2023 black-tea consumption figure for Syria in FAO Table 9 a projection or a verified 2023 observation?",
+    "gold_page": 27
+  },
+  {
+    "id": "united_arab_emirates_pair",
+    "family": "united_arab_emirates",
+    "category": "shared",
+    "kind": "pair",
+    "country": "United Arab Emirates",
+    "values": [
+      40000,
+      63394
+    ],
+    "question": "In FAO Table 9, what were the estimated 2013 and projected 2023 black-tea consumption figures for United Arab Emirates? State both years and the unit.",
+    "gold_page": 27
+  },
+  {
+    "id": "united_arab_emirates_forecast",
+    "family": "united_arab_emirates",
+    "category": "shared",
+    "kind": "forecast",
+    "country": "United Arab Emirates",
+    "values": [
+      63394
+    ],
+    "question": "How many tonnes of black tea did the FAO outlook project United Arab Emirates would consume in 2023?",
+    "gold_page": 27
+  },
+  {
+    "id": "united_arab_emirates_nature",
+    "family": "united_arab_emirates",
+    "category": "shared",
+    "kind": "nature",
+    "country": "United Arab Emirates",
+    "values": [],
+    "question": "Is the 2023 black-tea consumption figure for United Arab Emirates in FAO Table 9 a projection or a verified 2023 observation?",
+    "gold_page": 27
+  },
+  {
+    "id": "egypt_pair",
+    "family": "egypt",
+    "category": "shared",
+    "kind": "pair",
+    "country": "Egypt",
+    "values": [
+      97304,
+      135243
+    ],
+    "question": "In FAO Table 9, what were the estimated 2013 and projected 2023 black-tea consumption figures for Egypt? State both years and the unit.",
+    "gold_page": 27
+  },
+  {
+    "id": "egypt_forecast",
+    "family": "egypt",
+    "category": "shared",
+    "kind": "forecast",
+    "country": "Egypt",
+    "values": [
+      135243
+    ],
+    "question": "How many tonnes of black tea did the FAO outlook project Egypt would consume in 2023?",
+    "gold_page": 27
+  },
+  {
+    "id": "egypt_nature",
+    "family": "egypt",
+    "category": "shared",
+    "kind": "nature",
+    "country": "Egypt",
+    "values": [],
+    "question": "Is the 2023 black-tea consumption figure for Egypt in FAO Table 9 a projection or a verified 2023 observation?",
+    "gold_page": 27
+  },
+  {
+    "id": "jordan_pair",
+    "family": "jordan",
+    "category": "shared",
+    "kind": "pair",
+    "country": "Jordan",
+    "values": [
+      5327,
+      5886
+    ],
+    "question": "In FAO Table 9, what were the estimated 2013 and projected 2023 black-tea consumption figures for Jordan? State both years and the unit.",
+    "gold_page": 27
+  },
+  {
+    "id": "jordan_forecast",
+    "family": "jordan",
+    "category": "shared",
+    "kind": "forecast",
+    "country": "Jordan",
+    "values": [
+      5886
+    ],
+    "question": "How many tonnes of black tea did the FAO outlook project Jordan would consume in 2023?",
+    "gold_page": 27
+  },
+  {
+    "id": "jordan_nature",
+    "family": "jordan",
+    "category": "shared",
+    "kind": "nature",
+    "country": "Jordan",
+    "values": [],
+    "question": "Is the 2023 black-tea consumption figure for Jordan in FAO Table 9 a projection or a verified 2023 observation?",
+    "gold_page": 27
+  },
+  {
+    "id": "israel_pair",
+    "family": "israel",
+    "category": "shared",
+    "kind": "pair",
+    "country": "Israel",
+    "values": [
+      1537,
+      1555
+    ],
+    "question": "In FAO Table 9, what were the estimated 2013 and projected 2023 black-tea consumption figures for Israel? State both years and the unit.",
+    "gold_page": 27
+  },
+  {
+    "id": "israel_forecast",
+    "family": "israel",
+    "category": "shared",
+    "kind": "forecast",
+    "country": "Israel",
+    "values": [
+      1555
+    ],
+    "question": "How many tonnes of black tea did the FAO outlook project Israel would consume in 2023?",
+    "gold_page": 27
+  },
+  {
+    "id": "israel_nature",
+    "family": "israel",
+    "category": "shared",
+    "kind": "nature",
+    "country": "Israel",
+    "values": [],
+    "question": "Is the 2023 black-tea consumption figure for Israel in FAO Table 9 a projection or a verified 2023 observation?",
+    "gold_page": 27
+  },
+  {
+    "id": "macro",
+    "family": "macro",
+    "category": "pdf_only",
+    "kind": "orgs",
+    "question": "Which international organizations supplied macro-economic data for the tea projections in the FAO report? List organization names only.",
+    "gold_page": 1
+  },
+  {
+    "id": "index",
+    "family": "index",
+    "category": "pdf_only",
+    "kind": "index",
+    "question": "Does the FAO Tea Composite Price include green tea prices? Explain what type of tea it covers.",
+    "gold_page": 4
+  },
+  {
+    "id": "cause",
+    "family": "cause",
+    "category": "pdf_only",
+    "kind": "cause",
+    "question": "Which tea segment caused the weakening of the FAO composite price in 2013 and 2014, and how did orthodox tea prices behave?",
+    "gold_page": 4
+  },
+  {
+    "id": "production",
+    "family": "production",
+    "category": "pdf_only",
+    "kind": "production",
+    "question": "What was world tea production in 2013, and by what percentage did it increase, according to the report?",
+    "gold_page": 2
+  },
+  {
+    "id": "price",
+    "family": "price",
+    "category": "pdf_only",
+    "kind": "price",
+    "question": "What were the average FAO Tea Composite Prices in 2012 and 2013, including the unit?",
+    "gold_page": 4
+  },
+  {
+    "id": "horizon",
+    "family": "horizon",
+    "category": "pdf_only",
+    "kind": "horizon",
+    "question": "What year is the projection horizon of the tea outlook described in the introduction?",
+    "gold_page": 1
+  },
+  {
+    "id": "actual_2025",
+    "family": "actual_2025",
+    "category": "unanswerable",
+    "kind": "refuse",
+    "question": "What was the verified actual black-tea consumption in Iran in 2025?"
+  },
+  {
+    "id": "actual_2023",
+    "family": "actual_2023",
+    "category": "unanswerable",
+    "kind": "refuse",
+    "question": "What was the subsequently verified actual 2023 black-tea consumption in Saudi Arabia, rather than the earlier forecast?"
+  },
+  {
+    "id": "live_sku",
+    "family": "live_sku",
+    "category": "unanswerable",
+    "kind": "refuse",
+    "question": "What is the current live price and available stock of the shop product SKU 987654?"
+  }
+]
