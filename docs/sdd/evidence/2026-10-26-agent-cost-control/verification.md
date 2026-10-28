@@ -18,12 +18,12 @@
 
 ## 本次命令及结果
 
-环境为E:\miniconda\envs\dadashop\python.exe，使用support_ai.test_settings的隔离SQLite；HTTP均为MockTransport或业务测试客户端，无外部模型请求。
+环境为E:\miniconda\envs\<LOCAL_PROJECT>\python.exe，使用support_ai.test_settings的隔离SQLite；HTTP均为MockTransport或业务测试客户端，无外部模型请求。
 
 1. 定向验证：
 
 ```powershell
-E:\miniconda\envs\dadashop\python.exe manage.py test support_ai.test_cost_control support_ai.test_grounding --settings=support_ai.test_settings --verbosity 0
+E:\miniconda\envs\<LOCAL_PROJECT>\python.exe manage.py test support_ai.test_cost_control support_ai.test_grounding --settings=support_ai.test_settings --verbosity 0
 ```
 
 最终48项全部通过；包含阶段HTTP协议、max_tokens、默认/显式thinking、跨客户端额度、输入准入、输出剩余额度、超额止损、超时保守记账、解析失败usage、请求隔离、LangGraph线程传播、并发预占、独立工具部分成功、部分知识只生成/核验一次，以及未核验文字失败关闭。见[最终定向日志](targeted.log)。
@@ -31,7 +31,7 @@ E:\miniconda\envs\dadashop\python.exe manage.py test support_ai.test_cost_contro
 2. 扩展回归：
 
 ```powershell
-E:\miniconda\envs\dadashop\python.exe manage.py test support_ai.test_cost_control support_ai.test_grounding support_ai.test_mixed_tea support_ai.test_task_tools --settings=support_ai.test_settings --verbosity 0
+E:\miniconda\envs\<LOCAL_PROJECT>\python.exe manage.py test support_ai.test_cost_control support_ai.test_grounding support_ai.test_mixed_tea support_ai.test_task_tools --settings=support_ai.test_settings --verbosity 0
 ```
 
 加最后一项防伪核验标记测试前共73项，71通过、2项失败；见[扩展回归日志](regression.log)。最后新增项包含在上述48项最终定向验证中。两项失败均在将本次改动文件恢复为开工备份的隔离副本中复现，见[改动前复现日志](baseline-failures.log)：

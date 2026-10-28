@@ -12,7 +12,7 @@
 ## 实际验证
 
 1. `docker exec tea_saas-knowledge-worker-knowledge-worker-1 python -m unittest ai_storage.test_paddle_document ai_storage.test_vision ai_storage.test_pdf_vision ai_storage.test_pdf_parser_protocol`：58 项通过。覆盖真实 HTTP 夹具、认证、服务身份、并发、GPU 线程上下文、OOM 状态、坐标、阅读顺序、简单 HTML 表格、授权域缓存和旧视觉回归。
-2. 在新建、无公开端口的 `dadashop-paddleocr-stage1-postgres` 临时容器中执行 `python manage.py migrate ai_storage --database ai_storage --noinput`：0001～0004 通过。业务身份库端点显式设为 127.0.0.1:1，代码进一步禁止 MySQL 连接。
+2. 在新建、无公开端口的 `<LOCAL_PROJECT>-paddleocr-stage1-postgres` 临时容器中执行 `python manage.py migrate ai_storage --database ai_storage --noinput`：0001～0004 通过。业务身份库端点显式设为 127.0.0.1:1，代码进一步禁止 MySQL 连接。
 3. 相同专用测试库执行 `python -m unittest ai_storage.test_paddle_document_database`：4 项通过。覆盖冻结解析版本变更阻止执行、草稿、页面和向量恢复、处理中取消丢弃迟到结果、截断阻止 Embedding 与发布。
 4. 两页合成 PDF 的真实模型验收：第一页面原生英文文字，第二页面扫描表格。通过实际 PaddleOCR HTTP 服务和实际本地 Ollama bge-m3，未使用识别或向量夹具。操作者鉴权使用测试夹具，明确未验证业务 MySQL 身份。
 5. `docker run --rm --network none ... python manage.py check`：无问题。
@@ -22,7 +22,7 @@
 真实验收命令：
 
 ```text
-docker run --rm --name dadashop-paddleocr-stage1-e2e --network dadashop-document-parser --add-host host.docker.internal:host-gateway --env-file .scratch/paddleocr/test.env --env-file .scratch/paddleocr/client.env -v E:/django/dadashop:/app:ro -v E:/django/dadashop/.scratch/paddle-stage1:/evidence tea_saas-knowledge-worker-knowledge-worker python -u /app/.scratch/paddle-stage1/e2e.py
+docker run --rm --name <LOCAL_PROJECT>-paddleocr-stage1-e2e --network <LOCAL_PROJECT>-document-parser --add-host host.docker.internal:host-gateway --env-file .scratch/paddleocr/test.env --env-file .scratch/paddleocr/client.env -v E:/django/<LOCAL_PROJECT>:/app:ro -v E:/django/<LOCAL_PROJECT>/.scratch/paddle-stage1:/evidence tea_saas-knowledge-worker-knowledge-worker python -u /app/.scratch/paddle-stage1/e2e.py
 ```
 
 `.scratch/paddleocr/test.env` 仅指向临时测试库，不是业务连接配置。各轮使用独立文件/缓存目录，避免此前成功缓存影响冷缓存请求数断言。
@@ -49,7 +49,7 @@ docker run --rm --name dadashop-paddleocr-stage1-e2e --network dadashop-document
 
 ## 启用与未覆盖
 
-OCR 服务 `dadashop-paddleocr-paddleocr-1` 已启动并 healthy，端口只发布到本机 127.0.0.1:18080；Worker 内通过显式允许的 paddleocr:8080 调用。私有 key 与客户端配置仅在 .scratch，不进入证据。
+OCR 服务 `<LOCAL_PROJECT>-paddleocr-paddleocr-1` 已启动并 healthy，端口只发布到本机 127.0.0.1:18080；Worker 内通过显式允许的 paddleocr:8080 调用。私有 key 与客户端配置仅在 .scratch，不进入证据。
 
 自动审批拒绝了业务 MySQL 的只读连接检查，理由是用户此前要求 Agent 不直接连接数据库。本次未改用其他路径绕过：业务身份认证未验收、业务 Worker 未切换到新增 overlay、未向业务库导入样本或发布知识。后续需要明确业务侧受控命令验收授权。
 

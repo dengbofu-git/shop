@@ -25,7 +25,9 @@ docker compose --env-file deploy/knowledge-worker/compose.env -f compose.paddleo
 
 ## Worker 接入
 
-可选 overlay 将 Worker 接入 `dadashop-document-parser` 网络并加载本地客户端配置。默认提交仍是 legacy，不会自动给旧任务开启模型。
+可选 overlay 将 Worker 接入 `tea_saas-document-parser` 网络并加载本地客户端配置。默认提交仍是 legacy，不会自动给旧任务开启模型。
+
+已有部署若使用其他资源名，可设置 `PADDLEOCR_COMPOSE_PROJECT` 与 `PADDLEOCR_NETWORK_NAME` 复用原项目及网络；两个Compose命令须使用相同的网络变量。修改配置文件不会重命名现有资源，本次交付不执行up、down或网络迁移。两个外部模型缓存卷名称保持原值。
 
 ```powershell
 # 检查配置不会输出密钥

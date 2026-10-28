@@ -214,7 +214,7 @@
     },
     "ai_storage": {
       "title": "AI 记忆与知识存储",
-      "version": "0.7.0",
+      "version": "0.7.1",
       "paths": [
         "ai_storage/",
         "deploy/postgres/",

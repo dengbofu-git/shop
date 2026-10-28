@@ -12,8 +12,8 @@
 
 ## 实际执行
 
-1. 本机Python3.9：`E:/miniconda/envs/dadashop/python.exe -X utf8 -m unittest ai_storage.test_vision ai_storage.test_pdf_parser_protocol ai_storage.test_pdf_vision -q`。最终34项中30项通过，4项因本机缺少PDF Worker依赖跳过；没有将跳过项当作通过。
-2. Worker镜像：`docker run --rm --name dadashop-vision-check --network none --read-only --tmpfs /tmp:size=512m -e PYTHONPATH=/app -e AI_PDF_STORAGE_ROOT=/tmp/knowledge -v E:/django/dadashop:/app:ro -w /app tea_saas-knowledge-worker-knowledge-worker python -m unittest ai_storage.test_vision ai_storage.test_pdf_parser_protocol ai_storage.test_pdf_vision -v`。最终34项全部通过，无跳过。容器断外网，HTTP仅访问同容器内的夹具服务器；真实执行PyMuPDF解析、表格检测与渲染，使用镜像固定BGE-M3 Tokenizer。
+1. 本机Python3.9：`E:/miniconda/envs/<LOCAL_PROJECT>/python.exe -X utf8 -m unittest ai_storage.test_vision ai_storage.test_pdf_parser_protocol ai_storage.test_pdf_vision -q`。最终34项中30项通过，4项因本机缺少PDF Worker依赖跳过；没有将跳过项当作通过。
+2. Worker镜像：`docker run --rm --name <LOCAL_PROJECT>-vision-check --network none --read-only --tmpfs /tmp:size=512m -e PYTHONPATH=/app -e AI_PDF_STORAGE_ROOT=/tmp/knowledge -v E:/django/<LOCAL_PROJECT>:/app:ro -w /app tea_saas-knowledge-worker-knowledge-worker python -m unittest ai_storage.test_vision ai_storage.test_pdf_parser_protocol ai_storage.test_pdf_vision -v`。最终34项全部通过，无跳过。容器断外网，HTTP仅访问同容器内的夹具服务器；真实执行PyMuPDF解析、表格检测与渲染，使用镜像固定BGE-M3 Tokenizer。
 3. 临时数据库：`vision_adapter_test_d21888b2a34a46ebb8d89ed6`，只在该库执行`python manage.py migrate ai_storage --database ai_storage --noinput`，实际应用现有0001、0002、0003。未新增迁移，未迁移正式库。
 4. PostgreSQL流程：容器显式设置AI_POSTGRES_NAME和AI_VISION_TEST_DATABASE为上述临时库、AI_POSTGRES_HOST=host.docker.internal，执行`python -m unittest ai_storage.test_vision_database -v`，3项全部通过。包含真实Worker逐页持久化、草稿退出检索、警告确认发布、原子版本切换、缓存复用、阻塞项拒绝发布/重试绕过，以及处理中取消后拒绝写入。
 5. `manage.py check`无问题；13个相关Python文件AST解析、模块JSON/版本与定向空白检查通过。未运行整项目全量回归或付费问答评测。

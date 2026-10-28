@@ -15,7 +15,7 @@
 
 ## 实际验证
 
-使用E:/miniconda/envs/dadashop/python.exe与E:/New Folder/node.exe。命令及逐项结果见[validation.json](validation.json)，测试日志位于本目录。
+使用E:/miniconda/envs/<LOCAL_PROJECT>/python.exe与E:/New Folder/node.exe。命令及逐项结果见[validation.json](validation.json)，测试日志位于本目录。
 
 | 验证 | 实际结果 |
 | --- | --- |
@@ -39,3 +39,11 @@
 未追加真实DeepSeek对照、生产支付联调、浏览器视觉验收、真实GPU硬挂死注入或业务身份PDF发布验收。常驻Worker未自动切换OCR后端，旧运行说明中的这些边界保持。通过本地验证不等于已部署、合入或生产验收。
 
 本记录不自称远端强制保护生效。最终源SHA、远端推送及MR链接由本次PR正文记录；当前证据提交只增加文档与测试记录，不改变上述被测源码。
+
+## 远端CI命名检查复核
+
+MR23首次远端检查中，23项治理回归通过；命名检查发现20个新增文件含退休名称（主要是本机路径、历史资源标签和OCR Compose默认资源名）。未修改检查器、未添加豁免，也未改动两份不可变历史迁移。
+
+公开证据中的本机标识使用占位标签，既有实验manifest仍描述原始产物；[identifier-normalization.json](identifier-normalization.json)单独记录原始／公开副本SHA，原始字节可从73c1ad9提交和本地任务备份恢复。测试数、结论、Token或成本数据没有改写；上述命令中的本机环境路径也按此规则规范化。
+
+OCR Compose默认使用当前产品命名，并提供PADDLEOCR_COMPOSE_PROJECT及PADDLEOCR_NETWORK_NAME兼容既有资源名；ai_storage递增0.7.1。仅执行Compose配置解析，没有重建容器、改网络或改动外部缓存卷。复核命名和模块归属6项通过，两套Compose默认配置解析通过；业务Python／JavaScript源码保持此前通过验证的字节，故不重复调用模型或全量业务测试。

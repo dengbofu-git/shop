@@ -22,7 +22,7 @@
 - PyYAML safe_load：CAP-AI-003/api-contract.yaml及api-observed.yaml均可解析。
 - `git diff --check -- <本轮相关文件>`：通过；Git只提示部分文件未来检出时LF转CRLF，不是空白错误。7个未跟踪新增实现／规格／证据文件的行尾空白检查也通过。
 
-静态命令使用E:/miniconda/envs/dadashop/python.exe及E:/New Folder/node.exe。首次版本命令错误使用了不支持的--level选项，未改动版本；随后按CLI约定以位置参数patch重新执行，support_ai与web分别递增至0.20.4和0.31.6，既有changelog保留。
+静态命令使用E:/miniconda/envs/<LOCAL_PROJECT>/python.exe及E:/New Folder/node.exe。首次版本命令错误使用了不支持的--level选项，未改动版本；随后按CLI约定以位置参数patch重新执行，support_ai与web分别递增至0.20.4和0.31.6，既有changelog保留。
 
 ## 本地加载
 

@@ -1,4 +1,4 @@
-name: dadashop-paddleocr
+name: ${PADDLEOCR_COMPOSE_PROJECT:-tea_saas-paddleocr}
 services:
   paddleocr:
     image: ccr-2vdh3abv-pub.cnc.bj.baidubce.com/paddlepaddle/paddleocr-vl@sha256:ad0b1f056a76967f9191cd06398e8babb21b49a4673a28c3de5fd31f481884db
@@ -42,4 +42,4 @@ volumes:
     name: paddleocr-vl-general-cache
 networks:
   document-parser:
-    name: dadashop-document-parser
+    name: ${PADDLEOCR_NETWORK_NAME:-tea_saas-document-parser}

@@ -78,7 +78,7 @@
   },
   "pricing_source": "https://api-docs.deepseek.com/quick_start/pricing/",
   "pricing_read_on": "2026-10-26",
-  "frozen_input_source": "E:\\django\\dadashop\\reports\\agent-evaluation\\2026-10-26-rerank-query-ab\\run-1",
+  "frozen_input_source": "E:\\django\\<LOCAL_PROJECT>\\reports\\agent-evaluation\\2026-10-26-rerank-query-ab\\run-1",
   "frozen_input_sha256": {
     "cases.json": "248024261a91862721f761ce5fee989a7caec6efaced68e49433735d8d7b8080",
     "corpus.json": "e576428d784026d699eb1f11346a3aded6e0b695a55ef3ca657eb73f59ab8987",

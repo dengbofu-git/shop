@@ -15,7 +15,7 @@
 
 ## 实际验证
 
-Python：E:/miniconda/envs/dadashop/python.exe，Django 3.2.12。没有调用真实付费模型。
+Python：E:/miniconda/envs/<LOCAL_PROJECT>/python.exe，Django 3.2.12。没有调用真实付费模型。
 
 1. `python manage.py test support_ai.test_hybrid_retrieval support_ai.test_grounding support_ai.test_cost_control --settings=support_ai.test_settings --verbosity 0`：**64项通过**，见targeted-tests.log。隔离SQLite及模拟模型，覆盖无需翻译、一次补检、无新候选不重排、候选预算和对象覆盖、年份缺口、故障后下一请求恢复、缓存副本/嵌入版本、later越界、旧schema过渡及既有证据与模型预算回归。
 2. 设置PYTHONPATH包含仓库和本记录pg_settings.py.txt所示的临时配置目录后，执行 `python manage.py test ai_storage.test_hybrid_search ai_storage.tests.VectorStorageTests --settings=pg_settings --noinput --verbosity 1`：**11项通过**，见postgres-tests.log。真实本机PostgreSQL/pgvector，数据库名固定为本次专用`test_rag_hybrid_20261026`，Django自动创建并删除；业务default数据库未使用。

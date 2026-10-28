@@ -11,7 +11,7 @@
 
 ## 本地验证
 
-使用 E:/miniconda/envs/dadashop/python.exe，隔离test_settings数据库，不连接业务库试跑迁移：
+使用 E:/miniconda/envs/<LOCAL_PROJECT>/python.exe，隔离test_settings数据库，不连接业务库试跑迁移：
 
 ```text
 python -X utf8 manage.py test support_ai.test_initial_budget_evidence support_ai.test_budget_quantities support_ai.test_budget_scope_semantics support_ai.test_colloquial_budget support_ai.test_colloquial_budget_graph support_ai.test_total_budget_generic_tea support_ai.test_cost_control support_ai.test_semantic_planning --settings=support_ai.test_settings --noinput -v 1

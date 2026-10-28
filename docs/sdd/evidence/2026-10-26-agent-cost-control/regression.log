@@ -21,7 +21,7 @@ System check identified no issues (0 silenced).
 ERROR: test_order_followup_reloads_status_and_keeps_identity_private (support_ai.test_task_tools.TaskToolIntegrationTests)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "E:\django\dadashop\support_ai\test_task_tools.py", line 171, in test_order_followup_reloads_status_and_keeps_identity_private
+  File "E:\django\<LOCAL_PROJECT>\support_ai\test_task_tools.py", line 171, in test_order_followup_reloads_status_and_keeps_identity_private
     self.assertEqual(json.loads(context)[0]['status'], '������')
 KeyError: 'status'
 
@@ -29,7 +29,7 @@ KeyError: 'status'
 FAIL: test_budget_still_applies_to_knowledge_bound_groups (support_ai.test_mixed_tea.MixedTeaIntegrationTests)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "E:\django\dadashop\support_ai\test_mixed_tea.py", line 212, in test_budget_still_applies_to_knowledge_bound_groups
+  File "E:\django\<LOCAL_PROJECT>\support_ai\test_mixed_tea.py", line 212, in test_budget_still_applies_to_knowledge_bound_groups
     self.assertEqual([p['category'] for p in data['recommendations']], ['�̲�'])
 AssertionError: Lists differ: ['�̲�', '���'] != ['�̲�']
 

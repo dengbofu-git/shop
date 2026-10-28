@@ -12,7 +12,7 @@
 
 ## 验证
 
-解释器：E:/miniconda/envs/dadashop/python.exe。
+解释器：E:/miniconda/envs/<LOCAL_PROJECT>/python.exe。
 
 1. `python -X utf8 -m unittest support_ai.test_colloquial_budget -v`：8项通过，模型替身禁止任何规划调用，不接数据库。
 2. 首次完整图链路的3项用例：1通过、2失败，定位为normalize_recommendation无条件查询Catalog；修正为澄清先行、仅实际搜索且有硬分类时读取。

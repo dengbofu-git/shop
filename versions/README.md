@@ -21,7 +21,7 @@
 | admin_panel · 平台运营 | 0.4.2 | 平台交易总览、角色与权限联合控制、共用销售条件 | [admin_panel](changelogs/admin_panel.md) |
 | support_ai · 智能客服 | 0.23.2 | 首轮预算证据与金额保真修复，自动件数按预算及可售数量求解；本轮验证与真实模型失败范围见SDD证据，未宣称生产准确率 | [support_ai](changelogs/support_ai.md) |
 | merchant_ai · 商家智能助手 | 0.1.0 | 入口与初始化状态，聊天／模型／上传／经营工具未接入 | [merchant_ai](changelogs/merchant_ai.md) |
-| ai_storage · AI 记忆与知识存储 | 0.7.0 | 保持查询改写所用知识／向量与短Embedding超时基线 | [ai_storage](changelogs/ai_storage.md) |
+| ai_storage · AI 记忆与知识存储 | 0.7.1 | 保持查询改写所用知识／向量与短Embedding超时基线 | [ai_storage](changelogs/ai_storage.md) |
 | web · 页面与前端资源 | 0.31.9 | 客服方案及金额同步；订单查看按钮定位本人订单，可返回全部，3项脚本VM测试通过，未做浏览器视觉验收 | [web](changelogs/web.md) |
 | engagement · 站内咨询与商品评价 | 0.2.2 | 本地咨询与评价已启用；已完成历史商品按日志核验归属后补齐快照，保留角色隔离。 | [engagement](changelogs/engagement.md) |
 

@@ -61,7 +61,7 @@
     "score_answers.py": "4d7986314905008f59cd45b7c3306ffcd5fcc4f431d97431438b353493c4c623",
     "score_retrieval.py": "25dfd8baff02a4dc10735b05d2ff4089a6e92a5a6f4cc4ab2d7cde47ae433996"
   },
-  "raw_local_evidence": "E:\\django\\dadashop\\.scratch\\rag-chunk-eval-20261026",
+  "raw_local_evidence": "E:\\django\\<LOCAL_PROJECT>\\.scratch\\rag-chunk-eval-20261026",
   "embedded_texts": 192,
   "isolated_chunks": 201,
   "isolated_documents": 16,

@@ -9,4 +9,4 @@ services:
 networks:
   document-parser:
     external: true
-    name: dadashop-document-parser
+    name: ${PADDLEOCR_NETWORK_NAME:-tea_saas-document-parser}
