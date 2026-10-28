@@ -1,4 +1,27 @@
+import uuid
+
 from django.db import models
+
+
+class ProductImportJob(models.Model):
+    """Merchant-owned, immutable preview and atomic import receipt."""
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    merchant = models.ForeignKey('users.UserProfile', on_delete=models.CASCADE)
+    request_key = models.UUIDField()
+    filename = models.CharField(max_length=120)
+    file_sha256 = models.CharField(max_length=64)
+    parser_version = models.CharField(max_length=40)
+    review_digest = models.CharField(max_length=64)
+    status = models.CharField(max_length=20, default='ready')
+    rows = models.JSONField(default=list)
+    result = models.JSONField(default=dict)
+    created_time = models.DateTimeField(auto_now_add=True)
+    expires_at = models.DateTimeField()
+    committed_at = models.DateTimeField(null=True, blank=True)
+
+    class Meta:
+        db_table = 'goods_product_import_job'
+        constraints = [models.UniqueConstraint(fields=['merchant', 'request_key'], name='goods_import_merchant_request')]
 
 
 class Favorite(models.Model):

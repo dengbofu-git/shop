@@ -1,0 +1,55 @@
+{
+  "date": "2026-10-28",
+  "timezone": "Asia/Shanghai",
+  "base_commit": "63fa850843771dde21c7bd49ed9bc98019e5d24a",
+  "branch": "codex/goods-bulk-import",
+  "spec": "CAP-CAT-002 / FEAT-005 product-import 0.1.0",
+  "implementation_versions": {
+    "goods": "0.7.0",
+    "web": "0.32.0",
+    "core": "0.8.4"
+  },
+  "verification": {
+    "mysql_tests": 23,
+    "mysql_exit_code": 0,
+    "mysql_500_rows_seconds": 4.62,
+    "node_import_groups": 5,
+    "browser": "isolated SQLite service; XLSX + CSV real HTTP successful; no business DB"
+  },
+  "files": {
+    "requirements.txt": "100f0ca646c31c0a1118f54b45579dc140e7510cccbd1873501080a95ea8c665",
+    "goods/catalog_constants.py": "ee2f1b2beba0ca5ab18b4be00d859b6b6cc88319bc44739dd43a8e7915d1cade",
+    "goods/merchant_views.py": "f131f4de5621343de0dc19b78559895c202f41e29fe862a5b5d005bd85136118",
+    "goods/models.py": "aea9d5287c28fde1eaf20497d5b3a985ef5f6771f979ed595ffea7e269d08868",
+    "goods/urls.py": "d0dd121de2007f2728543902124c2f20061aa5eda4a9c98832fa9356f5e0490e",
+    "goods/product_import_parser.py": "47ca2361d8df57334832d72277c9b51ace1d9f9b99119f7b514636b914d4bbbe",
+    "goods/product_import_service.py": "f6d673656c8ed3803a82b5e059e90962d88debae3c7d6b61574910f0bbcfa140",
+    "goods/product_import_views.py": "53261a82d762cdc52f256f803303b4d47d9cbd7c9127f18da499a433aa50e513",
+    "goods/migrations/0012_productimportjob.py": "207efaf57ec7fd3b4655f98e22db8d6c3a02c27143936e1a111b11c6d2eef8ec",
+    "goods/test_product_import.py": "ff1767a30ab7cfc3b5e8f095f83a6616b473299db116c46a9be4d2e844f1e005",
+    "client/templates/merchant_products.html": "078fd1fe4dd86358f3b88670dc4023c140e5f03b87a8a173dceb0b745262d801",
+    "client/static/css/product-import.css": "78b5747afd26ab21f8e288e5851bc3392e58beef5e011171bacea26178e30d63",
+    "client/static/js/product-import.js": "ba694cc3bbf7373a664b8c7cc5bca51be959acadb9b188f60a73f8e71370bc59",
+    "client/tests/product-import.test.js": "e1c8c6bddfa42d82263f7db2dd27185ca2b9b2d333f4ff0ef297bc1e6025ebf1",
+    "docs/sdd/catalog.yaml": "dfaeedbc15fa88c87c6ab6b3119f12df85aa72c95eeb7e7401f6b4f1e51d56da",
+    "docs/sdd/product/feature-inventory.yaml": "4b2a977c8bb2ff1cdc02bbdf3ab618373d0404f1cfb61a7da37a505459548fab",
+    "docs/sdd/modules/catalog-content/product-import.md": "4471f4e0bf4ba3ce7247f8e8147a8b174d5adc79454f8a6dd86f0c14738018dc",
+    "versions/modules.json": "3f94d45441eb180d822ca8c242431c27b0260597b0f59cbfd8726fc4ab11ef5b",
+    "versions/README.md": "d33e3aa1029f1bd0be3a789a352223b45de4ce686af6d3ae8f4c0b9a43ec04e5",
+    "versions/changelogs/goods.md": "eb7cbcd2e5ab596488464931293c9ee4c768479db2f6df37e298c703ef94b7e9",
+    "versions/changelogs/web.md": "15a77a4997e9d699f3d75200f194c867a5a8521f420629b20b318793b9607009",
+    "versions/changelogs/core.md": "121ea8a7a5bf251d2a74504fb311b5517cb179acce6d738bc5dcd4667c741e79",
+    "docs/sdd/evidence/2026-10-28-product-import/errors.png": "79d8681c48d6fa824a3383560b783c80cbfb0a7b4ce9621d2b129ee9b4b1b523",
+    "docs/sdd/evidence/2026-10-28-product-import/mysql-tests.txt": "a8002e339574dc7fd640c2ead35291340d133d7dd24790257de5bab12e58de52",
+    "docs/sdd/evidence/2026-10-28-product-import/preview.png": "6060f8ac4ae16e5b86a45bca8705fc6c502c25e08dd4668e2a6c1bf52203ca03",
+    "docs/sdd/evidence/2026-10-28-product-import/products.png": "e6545f0ce73e4c96fb1eaf1af115a4820ada9d8914abb82e090e4ad9b8c87bf9",
+    "docs/sdd/evidence/2026-10-28-product-import/success.png": "acbbec07c1909679ce44035a3e09e67956e97fe6f8c823d7d4707fdd6fe62d5f",
+    "docs/sdd/evidence/2026-10-28-product-import/verification.md": "9643f07bc6283d4f843c680f9d1212e152c22cf04ecec1351d00c4e8a10d854c"
+  },
+  "local_harness_sha256": {
+    ".scratch/product-import/browser_service.py": "01698a09f8d2336aa2d0a070e39b12280f90007535b498111ffc64a926c6c91d",
+    ".scratch/product-import/mysql_test_settings.py": "3720ba9a25f90179262ebef050ab221891597a958c68aad48bb09337adc15921",
+    ".scratch/product-import/run-test.ps1": "532f5d687fb6d9dbfa9d48d9c83646a218c33aff4ae7c11e3c67ce739ec21ed2",
+    ".scratch/product-import/start-test.ps1": "d2d1346eb80b218ac3b16067d5f790314ec6352b92363154d72715ddd95f6afc"
+  }
+}

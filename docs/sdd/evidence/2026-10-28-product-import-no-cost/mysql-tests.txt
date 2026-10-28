@@ -1,0 +1,102 @@
+Skipping setup of unused database(s): ai_storage.
+Creating test database for alias 'default' ('test_product_import')...
+Operations to perform:
+  Synchronize unmigrated apps: admin_panel, corsheaders, merchant_ai, messages, staticfiles
+  Apply all migrations: admin, ai_storage, auth, contenttypes, engagement, goods, inventory, logistics, news, orders, sessions, supplier, support_ai, users
+Synchronizing apps without migrations:
+  Creating tables...
+    Running deferred SQL...
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying auth.0001_initial... OK
+  Applying admin.0001_initial... OK
+  Applying admin.0002_logentry_remove_auto_add... OK
+  Applying admin.0003_logentry_add_action_flag_choices... OK
+  Applying ai_storage.0001_initial... OK
+  Applying ai_storage.0002_embedding_validation... OK
+  Applying ai_storage.0003_pdf_import_pipeline... OK
+  Applying ai_storage.0004_hybrid_search... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying auth.0012_alter_user_first_name_max_length... OK
+  Applying users.0001_initial... OK
+  Applying users.0002_address... OK
+  Applying users.0003_weiboprofile... OK
+  Applying users.0004_auto_20260218_0108... OK
+  Applying users.0005_permission_role_rolepermission_userrole... OK
+  Applying users.0006_create_admin_user... OK
+  Applying users.0007_create_customs_user... OK
+  Applying goods.0001_initial... OK
+  Applying orders.0001_initial... OK
+  Applying orders.0002_auto_20260218_0147... OK
+  Applying goods.0002_spu_merchant... OK
+  Applying goods.0003_auto_20260218_0147... OK
+  Applying goods.0004_add_carousel_slide... OK
+  Applying goods.0005_brand_logo_optional... OK
+  Applying goods.0006_sku_is_recommended... OK
+  Applying goods.0007_spu_brand_optional... OK
+  Applying goods.0008_auto_20261002_2159... OK
+  Applying goods.0009_browsinghistory_favorite... OK
+  Applying goods.0010_catalog_fallback_image... OK
+  Applying orders.0003_auto_20261021_1530... OK
+  Applying engagement.0001_initial... OK
+  Applying engagement.0002_conversation_visibility... OK
+  Applying goods.0011_merchantfavorite... OK
+  Applying goods.0012_productimportjob... OK
+  Applying inventory.0001_initial... OK
+  Applying inventory.0002_auto_20261022_1741... OK
+  Applying logistics.0001_initial... OK
+  Applying news.0001_initial... OK
+  Applying users.0008_userprofile_nickname... OK
+  Applying orders.0004_auto_20261022_1741... OK
+  Applying orders.0005_reservationpolicychange... OK
+  Applying sessions.0001_initial... OK
+  Applying supplier.0001_initial... OK
+  Applying supplier.0002_storepage... OK
+  Applying support_ai.0001_initial... OK
+  Applying support_ai.0002_agent_observability... OK
+  Applying support_ai.0003_agent_reranking... OK
+  Applying support_ai.0004_conversation_order_context... OK
+System check identified no issues (0 silenced).
+test_auth_active_role_method_and_cross_merchant_boundaries (goods.test_product_import.ProductImportHttpTests) ... ok
+test_buyer_catalog_and_detail_do_not_return_internal_cost (goods.test_product_import.ProductImportHttpTests) ... ok
+test_commit_accepts_only_confirmed_digest (goods.test_product_import.ProductImportHttpTests) ... ok
+test_existing_products_are_not_overwritten_and_rechecked_at_commit (goods.test_product_import.ProductImportHttpTests) ... ok
+test_expiry_and_disabled_warehouse_block_writes (goods.test_product_import.ProductImportHttpTests) ... ok
+test_failure_rolls_back_products_stock_receipt_and_can_retry (goods.test_product_import.ProductImportHttpTests) ... ok
+test_invalid_rows_block_entire_batch (goods.test_product_import.ProductImportHttpTests) ... ok
+test_legacy_preview_hides_internal_cost_and_cannot_be_committed (goods.test_product_import.ProductImportHttpTests) ... ok
+IMPORT_500_SPECS_SECONDS=4.069
+test_maximum_batch_creates_all_500_specs (goods.test_product_import.ProductImportHttpTests) ... ok
+test_tampered_persisted_candidate_and_deactivated_identity_are_rejected (goods.test_product_import.ProductImportHttpTests) ... ok
+test_template_roundtrips_and_xlsx_http_import (goods.test_product_import.ProductImportHttpTests) ... ok
+test_upload_is_preview_only_then_commit_is_idempotent_and_unlaunched (goods.test_product_import.ProductImportHttpTests) ... ok
+test_upload_rejects_identity_fields_oversize_and_bad_files_without_job (goods.test_product_import.ProductImportHttpTests) ... ok
+test_upload_retry_reuses_job_and_key_cannot_bind_another_file (goods.test_product_import.ProductImportHttpTests) ... ok
+test_parallel_confirm_creates_one_receipt_and_one_set_of_skus (goods.test_product_import.ProductImportConcurrentTests) ... ok
+test_two_ready_jobs_with_same_names_cannot_both_commit (goods.test_product_import.ProductImportConcurrentTests) ... ok
+test_csv_encodings_and_typed_money (goods.test_product_import.ProductImportParserTests) ... ok
+test_duplicate_variant_and_conflicting_spu_metadata (goods.test_product_import.ProductImportParserTests) ... ok
+test_file_format_size_row_and_column_limits (goods.test_product_import.ProductImportParserTests) ... ok
+test_formula_multiple_sheets_merged_and_dates_are_rejected (goods.test_product_import.ProductImportParserTests) ... ok
+test_internal_cost_columns_are_explicitly_rejected (goods.test_product_import.ProductImportParserTests) ... ok
+test_numeric_ranges_required_fields_and_lengths (goods.test_product_import.ProductImportParserTests) ... ok
+test_row_errors_do_not_coerce_values (goods.test_product_import.ProductImportParserTests) ... ok
+test_unknown_duplicate_missing_headers_and_unheaded_data (goods.test_product_import.ProductImportParserTests) ... ok
+test_xlsx_and_english_headers (goods.test_product_import.ProductImportParserTests) ... ok
+test_zip_xml_entity_is_rejected (goods.test_product_import.ProductImportParserTests) ... ok
+
+----------------------------------------------------------------------
+Ran 26 tests in 5.855s
+
+OK
+Destroying test database for alias 'default' ('test_product_import')...

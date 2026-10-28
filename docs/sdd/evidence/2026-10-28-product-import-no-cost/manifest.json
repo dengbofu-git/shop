@@ -1,0 +1,32 @@
+{
+  "date": "2026-10-28",
+  "base_commit": "63fa850843771dde21c7bd49ed9bc98019e5d24a",
+  "scope": "CAP-CAT-002 product import spec 0.1.1; no internal costs",
+  "versions": {
+    "goods": "0.7.1",
+    "web": "0.32.1"
+  },
+  "verification": {
+    "mysql_tests": 26,
+    "exit_code": 0,
+    "parser_without_database_tests": 10,
+    "node_groups": 6,
+    "browser": "isolated real XLSX preview; selling and market prices only"
+  },
+  "files": {
+    "goods/product_import_parser.py": "0d4ade0fb73a8320efaba16e04544eafb4367a52a71bb257a911f0d74e741236",
+    "goods/product_import_service.py": "ec2b40f2d385053d1ae1f84ccd71c7c619e05804e44aa3e13297e0839c3c269e",
+    "goods/test_product_import.py": "3c2fa41ecf80b93a331c4ab7714ed0586c92af0b8a0532382c151ecc50ed4dca",
+    "client/static/js/product-import.js": "f97e5ec56a003e02984d4e0c89411d0bbc13f38c52b3fe77569f01e8c7a5128a",
+    "client/templates/merchant_products.html": "7f851b1632b4e88168f6ba04a57ff459f48a44133c2ef4bf6faf21cbbc8cbd44",
+    "client/tests/product-import.test.js": "b0a8d1bc5325fc9c61695feec4e18977e4615fc8260d5f4d0e5dfd437a80b542",
+    "docs/sdd/modules/catalog-content/product-import.md": "c5015db8617affa21e1066cd7bac23269d09a24bee57832ee13d133d63ee5f07",
+    "versions/README.md": "1f5bbfcd640f7dae57018443e32fa15d3a88a94e921bc839f63177d8282720bf",
+    "versions/modules.json": "d97ed6c0fbdd713e2c68fac8c048609a67c99dbd7daa759bbfdc8cf6573aa21d",
+    "versions/changelogs/goods.md": "8a48d99fe492d16c86e5663a6bc9ac0880124cad28ddf4ead6db975ba265a9e2",
+    "versions/changelogs/web.md": "2e05fc22a2a2fe6c07267eee063253fae268dc809d087c53b9b461eeae83e2e1",
+    "docs/sdd/evidence/2026-10-28-product-import-no-cost/mysql-tests.txt": "8e4785d9f90ca3026109e5be094a8417088519d0ff0a08573e97641ce55cbf63",
+    "docs/sdd/evidence/2026-10-28-product-import-no-cost/preview.png": "027f969e8c90e14d260da0a40d7a696674e695522d3feee788b488060df39783",
+    "docs/sdd/evidence/2026-10-28-product-import-no-cost/verification.md": "fa6028ad76df020d93fddad43424593223798c5d9d93dfdadaf1b7b4b72e2adc"
+  }
+}

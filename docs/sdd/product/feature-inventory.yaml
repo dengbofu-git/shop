@@ -167,6 +167,7 @@ features:
   implementationGap: R06公开可展示缺货详情与可售集合须分离
 - id: FEAT-005
   name: 商家 SPU/SKU 与商品图片维护
+  productImportSpec: docs/sdd/modules/catalog-content/product-import.md
   primaryCapability: CAP-CAT-002
   relatedCapabilities:
   - CAP-FUL-001
@@ -179,6 +180,11 @@ features:
   codePaths:
   - goods/merchant_views.py
   - goods/models.py
+  - goods/product_import_parser.py
+  - goods/product_import_service.py
+  - goods/product_import_views.py
+  - goods/migrations/0012_productimportjob.py
+  - client/static/js/product-import.js
   observation: observed-code
 - id: FEAT-006
   name: 商家资讯维护与已发布资讯登录态查询
