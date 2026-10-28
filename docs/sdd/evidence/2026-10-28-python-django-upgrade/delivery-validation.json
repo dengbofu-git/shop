@@ -1,0 +1,149 @@
+{
+  "implementation_sha": "7202aab9b4a4ddf2a702067b5beb459b52cb195c",
+  "main_sha": "3a8125fa610f656d2273010443e88a387c462bb9",
+  "python": "3.13.18",
+  "django": "5.2.18",
+  "results": {
+    "django-results": [
+      {
+        "name": "system-check",
+        "exit_code": 0,
+        "seconds": 5.98
+      },
+      {
+        "name": "migration-drift",
+        "exit_code": 0,
+        "seconds": 4.3
+      },
+      {
+        "name": "business-tests",
+        "exit_code": 0,
+        "seconds": 51.4
+      }
+    ],
+    "governance-results": [
+      {
+        "name": "governance",
+        "exit_code": 0,
+        "seconds": 39.8
+      }
+    ],
+    "mysql-results": [
+      {
+        "name": "isolated-mysql",
+        "exit_code": 0,
+        "seconds": 88.4
+      }
+    ],
+    "policy-results": [
+      {
+        "name": "merge-main",
+        "exit_code": 0
+      },
+      {
+        "name": "policy",
+        "exit_code": 0
+      },
+      {
+        "name": "modules",
+        "exit_code": 0
+      }
+    ],
+    "postgres-results": [
+      {
+        "name": "isolated-postgres",
+        "exit_code": 0,
+        "seconds": 9.53
+      }
+    ]
+  },
+  "mcp_checks": 16,
+  "provider_calls": 0,
+  "source_files_sha256": {
+    ".dockerignore": "86dd8c7b69aebfaeb7ba8b6805625da13a51e39dbffc3205b6d654dc3191c0da",
+    ".github/workflows/git-policy.yml": "830f428cceb375687d431198b4162320a1c08eb51eb1680df5f0028e1227e978",
+    ".gitignore": "38dd5cd451c0d37dbdc8754f5811aefbcd443d717b0af40e1c5649b64d269b02",
+    ".python-version": "02e735b3dfe1c32833eb550b7ff8ffa17f5f2bc3fa1e7bae61a8f5a3883ce398",
+    "README.md": "f7c147ae1ed0bdf6fe51ccd85e5b712c235cc19a38c6ebfd1e98185816766d80",
+    "ai_storage/test_paddle_document.py": "c2acae6fdf115eeeeed2cd6eb10d8e2ddfc18efe95e964b84152000f714718f1",
+    "constraints-py313.txt": "8413f22d1e3591410ffda34c11ba18f95b3e2b37afe19ff32e0a39b0b4805c6f",
+    "deploy/knowledge-worker/Dockerfile": "556a11d8ad5bd29861e879eab8ec2ee1c1e4a00b75b363c785cc1ad28af3d6e8",
+    "docs/MCP与Skill接入.md": "177d316121ba66b9d78031b208d2da82607336eb571cd9060d66e38e114d7686",
+    "docs/Python与Django升级.md": "617c9d07f58ad0f5e8cc184091c6f7cc31e96dadc7d1c25c55e6eb541531d681",
+    "engagement/test_mysql_settings.py": "1f5be35cd9b127b1c01867155fa92aa89b679199e0c415ac821e38593c3a5ee4",
+    "goods/test_mysql_settings.py": "80f7745e7f467ec88023eef9bbd260cad10aaae62f297411525b103297601fb5",
+    "requirements.txt": "8573825be0f8a57cc166fa4649b1ad432ed040b085f1dd139fcd0526d6cd02dc",
+    "support_ai/mcp_client.py": "b29402c6ac221f9ebb6435f7e9207500473972e635a36b63c69a2deb9e8e2f3b",
+    "support_ai/order_queries.py": "2325cd8dc58d979b3bd498bb52bbae68e33831eb280a9ac38f3ccbad2ba9616f",
+    "support_ai/pg_test_settings.py": "d1d82f134d3b2a2d47d8ae6f3cbe9f9fb5163c876ac56e7cdf94fedf1594eb92",
+    "tea_saas/__init__.py": "0f80ff1fe42612381f489afa8e343650e0b86a1230bfdb034ba3acdc865e7463",
+    "tea_saas/settings.py": "34b820b33074cfbf25e1cd91504ad5af6b3481f5f66d1391ffa0b55055539ba5",
+    "tools/runtime/preview.ps1": "055f77dea6bcdd61b2e4d3af910d5ed201a166e6189f982e98341eef857f377c",
+    "tools/tea_saas_mcp/agent_integration.py": "7d24225966df758ca04696637eda6c43d6d3915bd01c9620bb45ae1c9a68358a",
+    "tools/tea_saas_mcp/agent_pg_test_settings.py": "4e6ded8b44c6b822c1806d1e03c708b074b4c610024ccc2b18b2b1f76057fae9",
+    "tools/tea_saas_mcp/requirements.txt": "929c61ef8d464a3baa4bad83061444175fb379587f41b6fd1aafb54401de3473",
+    "tools/tea_saas_mcp/test_settings.py": "63e498688edd2d695a0f2acb4361b412c64750bd53a86ea1f10cd68bbe0781f3",
+    "versions/README.md": "7ac3a0a63ba6da4be4d3ab7fb2bb07a2fea14e836f0627897bc46cbb0c2b208f",
+    "versions/changelogs/ai_storage.md": "67f08e56464365921ad89922a5c49c5715839842358607a046be58d8fbc5994a",
+    "versions/changelogs/core.md": "b379839e8d45cd6edb3c4f3046393d653257f28ef016d9bc8197e47715e2ddba",
+    "versions/changelogs/engagement.md": "ac0505cce3a35ebd6e50790e5923816a13432163f390e68c4d819c055c9754a1",
+    "versions/changelogs/goods.md": "f5077733f8867ccdcfbc82209d88053e1ff1eb335fbee49ef8a2974f9162ce1e",
+    "versions/changelogs/support_ai.md": "4155192a11299173b56e276209cebfad570939a3ebc940730b882ef1732e4978",
+    "versions/modules.json": "070a81bb309b91a912b63bad88299fdf4bc3c970dcf44ac5744457f92ff6cffd"
+  },
+  "local_log_hashes": {
+    "commit.log": {
+      "sha256": "6a877c2905fad003fc795f5538a69fc2c43422622d9729b490105c8838ae5cdb",
+      "bytes": 725
+    },
+    "django-business-tests.log": {
+      "sha256": "b3e387811a6e43eae42626bf83c33946686b212cce34c816015b4fe1e5ebd9ea",
+      "bytes": 305557
+    },
+    "django-migration-drift.log": {
+      "sha256": "93e6e2d5be3c054add80c0f19101608803f7ca8a7df1fa41f76bbb9a1f570f4a",
+      "bytes": 21
+    },
+    "django-system-check.log": {
+      "sha256": "f87ceb15410bde28ff826ce26228e0576558258fa64d145847921a593a61ee63",
+      "bytes": 49
+    },
+    "fetch.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "governance-governance.log": {
+      "sha256": "e7610a18f68222a7baf1957437e415ef0816dfe709a16b4c24d8a227fcf5731a",
+      "bytes": 4336
+    },
+    "mcp-final.log": {
+      "sha256": "3a2fb462b0e9a859b7fd60e6e168bb996d82013cd85f0b04bad7bb8ae8d1ef8f",
+      "bytes": 1808
+    },
+    "merge-main.log": {
+      "sha256": "e5d6c99aec87ec07a2d1b5c1222d8b690d0a61c3548a55c795fff56db9450d0d",
+      "bytes": 20
+    },
+    "modules.log": {
+      "sha256": "89483c47e7db0bdddec741f658e73483787f76de022eff7b2ee13955f729d0cc",
+      "bytes": 54
+    },
+    "mysql-isolated-mysql.log": {
+      "sha256": "8b6ac40a19c04743a6d51286840eae0b013f9a883f89b7bd81dcc43a69da2359",
+      "bytes": 173805
+    },
+    "policy.log": {
+      "sha256": "d1493fa76f1f949de70f50b00138c1c84eae7d4cd87e69085b387396f0c312c9",
+      "bytes": 146
+    },
+    "postgres-isolated-postgres.log": {
+      "sha256": "6474ff60b5d1e24b1035363697ef550985fc47b9d03ccf8066ef58a0e807b6a0",
+      "bytes": 287
+    },
+    "stage.log": {
+      "sha256": "c502c80bd94d89c9fa62bc4979e9d91594e3086f8a266fb2462becdf2e7b62d1",
+      "bytes": 727
+    }
+  },
+  "business_migrations_executed": false
+}
