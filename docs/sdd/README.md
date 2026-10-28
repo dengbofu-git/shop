@@ -12,6 +12,8 @@
 4. 对应能力的需求、验收和契约：规则正文的唯一权威。跨域消费者引用规则，不另造订单状态、价格或库存语义。
 5. [开放问题](product/open-questions.yaml)、[工作约定](governance/workflow.md)与[下一步](roadmap.md)。
 
+工程交付与本地收尾设计见[本地收尾](governance/local-delivery-closeout.md)：分别记录远端合入、原工作区核销和临时资源回收；来源记录、只读核对和恢复入口已接入交付Skill，自动清理工具尚未实现，不改变根协作规则的授权边界。
+
 2026-10-28用户确认[模型 Agent 数据访问统一经 MCP](architecture/agent-data-access.md)并要求“运行”。应用入口已完成源码迁移及隔离验证，见[运行设计](modules/ai-support/mcp-runtime.md)；[全项目改造清单](modules/ai-support/mcp-migration.md)保留实施前差异和顺序。业务启用、真实模型质量和发布未据此完成。
 
 截至本轮静态盘点为8个业务域、28个能力、37项功能、16个实现模块。数量仅为本轮快照；动态清单以YAML为准。
