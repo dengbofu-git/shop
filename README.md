@@ -272,7 +272,7 @@ flowchart LR
 
 | 技术／组件 | 在项目中承担的职责 | 设计原因或约束 |
 | --- | --- | --- |
-| Django 3.2 / Python 3.9 | 页面、业务 API、认证、ORM 事务及管理命令 | 多 App 模块化；依赖基线见requirements，后续升级需验证兼容性 |
+| Django 5.2 LTS / Python 3.13 | 页面、业务 API、认证、ORM 事务及管理命令 | 多 App 模块化；依赖与跨平台约束见 requirements.txt / constraints-py313.txt；[升级与运行说明](docs/Python与Django升级.md) |
 | MySQL / InnoDB | 账号、商品、交易、库存、咨询评价、客服会话及运营配置 | 业务事实源；使用事务、行锁、唯一约束和检查约束 |
 | Redis | 采购车与缓存 | 保存采购意向及缓存，不作为库存额度和订单状态的最终事实源 |
 | PostgreSQL / pgvector | 显式长期偏好、知识文档、片段及向量空间 | 与交易存储分工；数据路由限定对应 App，跨库不伪造外键事务 |

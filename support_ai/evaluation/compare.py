@@ -63,6 +63,9 @@ def evaluate_case(case, response):
 
 
 def main():
+    raise RuntimeError('This frozen 0.5/0.6 comparator predates MCP identity and context contracts. '
+                       'Reproduce it with its historical source snapshot; use run_scenario_suite or '
+                       'PreviewSession for current MCP Agent acceptance. No database or model was called.')
     parser = argparse.ArgumentParser()
     parser.add_argument('--root', default='reports/archive/2026-10-16/agent-evaluation/2026-10-16-planner')
     parser.add_argument('--output', default='paired-run-1.json')

@@ -2,6 +2,16 @@
 
 日期：2026-10-18。实现范围为仓库级 `tea-saas-change-delivery` Skill 和本地 stdio MCP 的 `get_product_details`。`search_products` 尚处于[详细设计](sdd/modules/ai-support/search-products-design.md)阶段。本增量没有数据库迁移、HTTP MCP 地址、远端部署或模型调用。
 
+2026-10-28补充：用户确认[模型 Agent 数据访问统一经 MCP](sdd/architecture/agent-data-access.md)并要求“运行”。support_ai 0.24.0／core 0.9.0已完成应用入口迁移与隔离验证，见[运行设计](sdd/modules/ai-support/mcp-runtime.md)；原静态差异保存在[清单](sdd/modules/ai-support/mcp-migration.md)。下文安装配置仍适用于独立开发者公开详情工具；它与客服的私有请求授权是两种入口，不能混同。
+
+## 应用客服入口
+
+客服由 Django 宿主创建请求级 MCP Client，签名绑定本人身份、咨询、当前引用及预算，通过独立 SDK 环境访问固定后端命令。商品、组合推荐、解释、订单、本人偏好／历史和知识工具列表见[运行设计](sdd/modules/ai-support/mcp-runtime.md)。不在用户级 Codex MCP 配置里复制买家凭据，也不把私有授权写入工具参数。
+
+服务端配置 `SUPPORT_MCP_PYTHON` 为 SDK Python 3.12绝对路径，默认使用仓库 `tools/tea_saas_mcp/.venv`；Django继续运行在现有3.9环境。调用／整轮超时默认40／120秒。缺配置或 MCP 故障返回明确错误，没有本地查询降级。部署后需要正常重载应用，本轮未操作已有业务服务。
+
+真实协议验收使用业务解释器运行 `python -X utf8 -m tools.tea_saas_mcp.agent_integration`，默认创建临时 SQLite；增加 `--postgres` 验证随机 PostgreSQL 测试库，增加 `--mysql` 使用本机已有 `mysql:8.0.46` 创建唯一标签、随机端口、无挂载的临时容器。真实后端验收命令会创建并清理专用测试资源，不使用业务 MySQL，外部模型调用被关闭。结果及边界见[证据](sdd/evidence/2026-10-28-agent-mcp/verification.md)。
+
 ## Skill 使用
 
 技能入口为 [SKILL.md](../.agents/skills/tea-saas-change-delivery/SKILL.md)，随仓库共享，由 Codex 从 `.agents/skills/` 发现。示例：
@@ -18,7 +28,7 @@
 官方 SDK 与 Django 使用两个 Python 环境：
 
 - `tools/tea_saas_mcp/.venv`：建议 Python 3.12，安装单独锁定的 MCP SDK 1.29.1（受支持的 v1 维护线）。
-- 现有 Django Python 3.9：使用仓库业务依赖，通过固定 `manage.py mcp_product_details` 命令读取商品。
+- Django Python 3.13：使用仓库业务依赖，通过固定 `manage.py mcp_product_details` 命令读取商品；SDK 继续使用独立 Python 3.12 环境。
 
 本地宿主通过 stdio 调用 MCP，适配器使用宿主配置的绝对 `TEA_SAAS_PYTHON` 路径启动 Django 子进程。工具参数只能提供 `sku_id`，不能指定解释器、命令、设置模块、SQL、用户或文件路径。每次查询启动一个短生命周期进程，避免跨环境安装依赖；这会增加启动开销，应先测量后再决定是否采用常驻只读服务。
 

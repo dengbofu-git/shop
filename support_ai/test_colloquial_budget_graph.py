@@ -3,7 +3,7 @@ from unittest.mock import patch
 
 from django.test import SimpleTestCase
 
-from .tool_services import create_tool_handlers
+from .mcp_testing import create_tool_handlers
 from .workflow import build_graph
 
 
@@ -34,7 +34,7 @@ class ColloquialBudgetGraphTests(SimpleTestCase):
 
     def test_confirming_total_reaches_bundle_tool_with_preserved_money(self):
         history = self.history(self.first_turn())
-        with patch('support_ai.tool_services.recommend_bundle', return_value={
+        with patch('support_ai.mcp_backend.recommend_bundle', return_value={
                 'recommendation_status': 'NO_MATCH', 'recommendations': [], 'answer': '合成候选为空。'}) as tool:
             response = self.graph().invoke({'message': '总价', 'recent_turns': history})['response']
         tool.assert_called_once()

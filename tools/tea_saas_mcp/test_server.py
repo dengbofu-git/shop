@@ -151,5 +151,54 @@ class AdapterTests(unittest.IsolatedAsyncioTestCase):
                     self.assertTrue(rejected.isError)
 
 
+class AgentBridgeTests(unittest.IsolatedAsyncioTestCase):
+    def process(self, results):
+        process = AsyncMock()
+        process.returncode = None
+        process.kill = unittest.mock.Mock()
+        process.stdin.write = unittest.mock.Mock()
+        process.stdout.readline.side_effect = [json.dumps(value).encode('utf-8') + b'\n' for value in results]
+        return process
+
+    async def test_one_persistent_backend_survives_a_business_failure(self):
+        good = {'schema_version':'1.0','status':'success','data':{'valid':True},
+                'observed_at':'2026-10-28T00:00:00Z','limitations':[]}
+        process = self.process([adapter.private_failure('SERVICE_UNAVAILABLE'),good])
+        bridge = adapter.AgentBridge()
+        with patch.dict(os.environ,{'TEA_SAAS_PYTHON':sys.executable}), \
+             patch.object(adapter.asyncio,'create_subprocess_exec',return_value=process) as spawn:
+            self.assertEqual((await bridge.call('get_saved_preferences',{}))['status'],'error')
+            self.assertEqual((await bridge.call('validate_categories',{'categories':[]}))['data'],{'valid':True})
+            spawn.assert_awaited_once()
+            self.assertIn('mcp_agent_data',spawn.call_args.args)
+            await bridge.close()
+        process.kill.assert_called_once()
+
+    async def test_timeout_kills_backend_without_restarting_its_request_state(self):
+        process = self.process([])
+        bridge = adapter.AgentBridge()
+        async def timeout(awaitable, **kwargs):
+            awaitable.close()
+            raise asyncio.TimeoutError()
+        with patch.dict(os.environ,{'TEA_SAAS_PYTHON':sys.executable}), \
+             patch.object(adapter.asyncio,'create_subprocess_exec',return_value=process) as spawn, \
+             patch.object(adapter.asyncio,'wait_for',side_effect=timeout):
+            self.assertEqual((await bridge.call('search_knowledge',{}))['error_code'],'BACKEND_TIMEOUT')
+            self.assertEqual((await bridge.call('get_product_details',{}))['error_code'],'SERVICE_UNAVAILABLE')
+            spawn.assert_awaited_once()
+        process.kill.assert_called_once()
+
+    async def test_invalid_response_closes_and_a_new_request_has_a_fresh_bridge(self):
+        process = self.process([{'status':'success','data':{'private':'never forwarded'}}])
+        bridge = adapter.AgentBridge()
+        with patch.dict(os.environ,{'TEA_SAAS_PYTHON':sys.executable}), \
+             patch.object(adapter.asyncio,'create_subprocess_exec',return_value=process):
+            result = await bridge.call('get_product_details',{})
+        self.assertEqual(result['error_code'],'INVALID_BACKEND_RESPONSE')
+        self.assertNotIn('private',json.dumps(result))
+        self.assertTrue(bridge.broken)
+        self.assertFalse(adapter.AgentBridge().broken)
+
+
 if __name__ == '__main__':
     unittest.main()

@@ -6,5 +6,6 @@ app_key/*private*.pem
 __pycache__/
 *.py[cod]
 /tools/tea_saas_mcp/.venv/
+/.venv/
 /.scratch/
 /logs/

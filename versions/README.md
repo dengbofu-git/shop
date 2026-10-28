@@ -8,9 +8,9 @@
 
 | 模块 | 当前版本 | 当前核对状态 | 完整变更记录 |
 | --- | --- | --- | --- |
-| core · 项目核心 | 0.8.5 | 已删除商家助手模块及其路由、版本和设计；无数据库迁移。 | [core](changelogs/core.md) |
+| core · 项目核心 | 0.10.1 | 保留Python 3.13／Django 5.2及MCP基线；删除商家助手，补齐安全配置模板及受控退役门禁。 | [core](changelogs/core.md) |
 | users · 用户与权限 | 0.4.2 | 统一登录与权限分流、平台联合鉴权、会话权限、品牌与旧入口清理 | [users](changelogs/users.md) |
-| goods · 商品管理 | 0.7.1 | 表格导入仅采集商品资料，移除内部进价；保留隔离与幂等，0012尚未在业务库启用。 | [goods](changelogs/goods.md) |
+| goods · 商品管理 | 0.7.2 | 隔离测试设置兼容Django 5.2；保留商品导入与收藏，0012业务库启用仍独立授权。 | [goods](changelogs/goods.md) |
 | carts · 购物车 | 0.2.1 | 保持采购车及商品图片基线；本轮仅web调整币种展示 | [carts](changelogs/carts.md) |
 | orders · 订单管理 | 0.4.3 | 库存预留及本人订单能力；列表增加匿名客服定位引用，保留身份与隐藏过滤；本轮无Migration | [orders](changelogs/orders.md) |
 | pays · 支付 | 0.2.1 | 保持已有支付基线；验签、金额与回调幂等仍待专项完善 | [pays](changelogs/pays.md) |
@@ -19,10 +19,10 @@
 | logistics · 物流 | 0.1.1 | 移除无效导入；物流查询和服务保持原有规则 | [logistics](changelogs/logistics.md) |
 | supplier · 商家与结算 | 0.4.2 | 禁止物理删除已完成订单，保留买家评价依据；咨询／评价管理导航由web提供。 | [supplier](changelogs/supplier.md) |
 | admin_panel · 平台运营 | 0.4.2 | 平台交易总览、角色与权限联合控制、共用销售条件 | [admin_panel](changelogs/admin_panel.md) |
-| support_ai · 智能客服 | 0.23.2 | 首轮预算证据与金额保真修复，自动件数按预算及可售数量求解；本轮验证与真实模型失败范围见SDD证据，未宣称生产准确率 | [support_ai](changelogs/support_ai.md) |
-| ai_storage · AI 记忆与知识存储 | 0.7.1 | 保持查询改写所用知识／向量与短Embedding超时基线 | [ai_storage](changelogs/ai_storage.md) |
+| support_ai · 智能客服 | 0.24.1 | 订单时间窗口适配ZoneInfo，保持多轮／推荐／MCP数据契约及AI主版本。 | [support_ai](changelogs/support_ai.md) |
+| ai_storage · AI 记忆与知识存储 | 0.7.2 | Worker采用Python 3.13并共用依赖约束，OCR／重排序／向量模型不变。 | [ai_storage](changelogs/ai_storage.md) |
 | web · 页面与前端资源 | 0.32.2 | 已删除商家助手入口、页面与专属资源；商品导入和店铺管理保留。 | [web](changelogs/web.md) |
-| engagement · 站内咨询与商品评价 | 0.2.2 | 本地咨询与评价已启用；已完成历史商品按日志核验归属后补齐快照，保留角色隔离。 | [engagement](changelogs/engagement.md) |
+| engagement · 站内咨询与商品评价 | 0.2.3 | 隔离MySQL测试设置兼容Django 5.2；咨询、评价及身份隔离保持原行为。 | [engagement](changelogs/engagement.md) |
 
 买家评价仅从“我的订单”的对应商品进入，查看／提交绑定该订单商品；不提供独立“我的评价”导航和跨订单评价列表。
 

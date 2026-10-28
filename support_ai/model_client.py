@@ -89,3 +89,22 @@ def configured_model(config=None, *, timeout=None, max_retries=0, max_tokens=Non
     if thinking:
         options['extra_body'] = {'thinking': {'type': thinking}}
     return AgentModel(SupportChatOpenAI(**options), thinking)
+
+
+def lazy_configured_model(config):
+    """Deterministic tools do not require provider credentials or availability."""
+    class LazyModel(Runnable):
+        client = None
+
+        def get(self):
+            if self.client is None:
+                self.client = configured_model(config)
+            return self.client
+
+        def invoke(self, input, config=None, **kwargs):
+            return self.get().invoke(input, config=config, **kwargs)
+
+        def with_structured_output(self, schema):
+            return RunnableLambda(lambda prompt, config=None: self.get().with_structured_output(schema).invoke(prompt, config=config))
+
+    return LazyModel()

@@ -13,7 +13,7 @@ from .planning import build_plan, explicit_requests
 from .recommendation_options import BASIC_TEA_TYPES, recommendation_options
 from .recommendations import match_product_groups, match_products
 from .test_task_tools import ToolModel
-from .tool_services import create_tool_handlers
+from .mcp_testing import create_tool_handlers
 
 
 QUESTION = '那我希望你能根据不同的茶叶种类给我进行一些商品推荐，并给出理由'
@@ -152,7 +152,7 @@ class GroupedRecommendationTests(TestCase):
         self.assertNotIn('sensitive exception content', str(result.model_dump()))
 
     def test_bad_model_conditions_error_without_unfiltered_query(self):
-        with patch('support_ai.tool_services.match_products') as query:
+        with patch('support_ai.mcp_backend.match_products') as query:
             result = self.run_tool('推荐测试品牌绿茶', {'action': 'SEARCH', 'required': {'categories': ['绿茶']}})
         query.assert_not_called()
         self.assertEqual(result.status, 'error')

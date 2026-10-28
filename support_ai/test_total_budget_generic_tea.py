@@ -7,7 +7,7 @@ from django.test import TestCase
 
 from goods.models import Catalog, SPU, SKU
 from users.models import UserProfile
-from .tool_services import create_tool_handlers
+from .mcp_testing import create_tool_handlers
 from .workflow import build_graph
 from .context import commit_turn, recent_context
 from .models import SupportConversation

@@ -25,6 +25,8 @@ def main():
     from support_ai.contracts import RecommendationOptions
     from support_ai.planning import TaskStep
     from support_ai.tool_services import create_tool_handlers
+    from support_ai.mcp_client import AgentDataAccess
+    from support_ai.configuration import effective_configuration
 
     class ScriptedExtraction:
         def __init__(self, payloads):
@@ -72,7 +74,9 @@ def main():
             model=ScriptedExtraction(payloads)
             step=TaskStep(id='s1',intent='recommendation',tool='recommend_products',request=message,
                           limit=2,recommendation=RecommendationOptions())
-            result=create_tool_handlers(model,None,message,message,[],None,'[]')['recommend_products'](step,{})
+            with AgentDataAccess(config=effective_configuration(), message=message, preview_history=[]) as access:
+                result=create_tool_handlers(model,None,message,message,[],None,'[]',
+                    data_access=access)['recommend_products'](step,{})
             checks={'status':result.status==status,'bounded_calls':model.calls==calls,
                     'attempts_recorded':result.data.get('extraction_attempts')==calls,
                     'no_products_on_failure':bool(result.data.get('recommendations')) if status=='success' else not result.data.get('recommendations')}

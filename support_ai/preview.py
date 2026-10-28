@@ -13,10 +13,11 @@ from django.utils import timezone
 from langchain_core.callbacks import BaseCallbackHandler
 
 from .configuration import effective_configuration
-from .context import HISTORY_HOURS, HISTORY_TURNS, context_from_turns, saved_preferences
-from .model_client import configured_model
+from .context import HISTORY_HOURS, HISTORY_TURNS, context_from_turns
+from .model_client import lazy_configured_model
 from .pii import redact
-from .retrieval import KnowledgeRetriever
+from .mcp_client import AgentDataAccess
+from .views import load_agent_preferences
 from .query_rewrite import QueryPolicy
 from .telemetry import observe_agent
 from .tool_services import create_tool_handlers
@@ -25,7 +26,7 @@ from .cost_control import CostPolicy, STAGES, stage_options
 from .order_contracts import prepare_order_input
 from .order_queries import OrderQueryContext
 
-PREVIEW_RUNTIME_VERSION = '0.10.0'
+PREVIEW_RUNTIME_VERSION = '0.11.0'
 
 
 def safe_record(value):
@@ -125,11 +126,13 @@ class PreviewSession:
             result = fixed_result(safe_message, history)
             if result is None:
                 memory = None
+                retriever = AgentDataAccess(config=config, message=safe_message,
+                    owner_id=self.user.pk if self.user else None, references=references,
+                    order_context=order_query_context, preview_history=history)
                 if self.user:
-                    memory = saved_preferences(self.user)
+                    memory = load_agent_preferences(retriever, safe_message, history)
                 with observe_agent(config) as observation:
-                    model = configured_model(config)
-                    retriever = KnowledgeRetriever(self.user.pk if self.user else None, config)
+                    model = lazy_configured_model(config)
 
                     def tool_factory(state):
                         handlers = create_tool_handlers(
@@ -137,7 +140,7 @@ class PreviewSession:
                             state['safe_message'], state['resolved_question'], state.get('recent_turns', []), memory,
                             knowledge_context_chars=config.retrieval_context_chars,
                             scoped_knowledge_search=retriever.scoped_search, knowledge_notes=retriever.notes,
-                            order_query_context=order_query_context)
+                            order_query_context=order_query_context, data_access=retriever)
                         return handlers
 
                     graph = build_graph(model, tool_factory=tool_factory)
@@ -160,8 +163,9 @@ class PreviewSession:
                                   'model': config.model, 'thinking': config.thinking, 'config_revision': config.revision,
                                   'compliance_blocked': result.get('compliance_blocked', False),
                                   'elapsed_seconds': round(time.perf_counter() - started, 3),
-                                  'model_calls': usage.calls, 'input_tokens': usage.input_tokens,
-                                  'output_tokens': usage.output_tokens, 'response': response,
+                                  'model_calls': usage.calls + (retriever.remote_usage['calls'] if retriever else 0),
+                                  'input_tokens': usage.input_tokens + (retriever.remote_usage['input_tokens'] if retriever else 0),
+                                  'output_tokens': usage.output_tokens + (retriever.remote_usage['output_tokens'] if retriever else 0), 'response': response,
                                   'retrieval': retriever.audit if retriever else []})
             # Persist before advancing session memory. Never call commit_turn().
             self._append(record)
@@ -193,4 +197,6 @@ class PreviewSession:
             self._append(self.last_error)
             raise
         finally:
+            if retriever is not None:
+                retriever.close()
             close_old_connections()

@@ -1,2 +1,2 @@
-# Separate Python 3.12 environment; never install into the Django Python 3.9 env.
+# Separate Python 3.12 SDK environment; keep independent of Django's environment.
 mcp==1.29.1
