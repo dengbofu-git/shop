@@ -1,0 +1,12 @@
+{
+  "support_ai/bundle_optimizer.py": "6c9965ff9e6fc3109a318be9050d134ace7fa2619ef252a9f401c073a6ca23dd",
+  "support_ai/bundle_recommendations.py": "62689775f1424b761f1b28af357e7444e8e627d17280adaaa54f9d1ac4a58097",
+  "support_ai/contracts.py": "c8e5da36395de46ab00bda5523325e32f39667f1043634bdf5f17d78b33500f2",
+  "support_ai/semantic_planning.py": "7d7c84633b962a54b5aad0a668a1fe6243a2fb67073e537d482820e72502d217",
+  "support_ai/initial_purchase.py": "45bcce5262c681e74653ba8f42ffa7805fe3b71eb4cfe3ea54899e8f19973b24",
+  "support_ai/tool_services.py": "d3f83904e909b1407c36b2d628816de65ae3a22e893458a3257b934471f76abe",
+  "support_ai/test_bundle_optimizer.py": "66e31e7ff859e641d0658ad3ea12340db1451a7d5920e7dddb36fae055bd09c4",
+  "support_ai/test_bundle_intent_boundary.py": "1f2da260417d59018f4cad01158e08a016803900bbacbeeb2143b130ec62230f",
+  "requirements.txt": "5f87e59b90796855ab29064355f4c78242c65f976d8368bdcc22fb4c046c933c",
+  "constraints-py313.txt": "b08c37361346591d5f6e353eb1db4d7bacda89f6cf67f5f8b07ee9838df27918"
+}

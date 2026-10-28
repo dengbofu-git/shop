@@ -1,0 +1,1236 @@
+{
+  "candidates": [
+    {
+      "sku_id": 72,
+      "product_id": 72,
+      "category": "乌龙茶",
+      "price_cents": 3200,
+      "available_quantity": 136,
+      "preference_score": 0
+    },
+    {
+      "sku_id": 88,
+      "product_id": 88,
+      "category": "白茶",
+      "price_cents": 740,
+      "available_quantity": 728,
+      "preference_score": 3
+    },
+    {
+      "sku_id": 126,
+      "product_id": 126,
+      "category": "红茶",
+      "price_cents": 3800,
+      "available_quantity": 125,
+      "preference_score": 0
+    },
+    {
+      "sku_id": 32,
+      "product_id": 32,
+      "category": "绿茶",
+      "price_cents": 2750,
+      "available_quantity": 416,
+      "preference_score": 3
+    },
+    {
+      "sku_id": 134,
+      "product_id": 134,
+      "category": "黄茶",
+      "price_cents": 4900,
+      "available_quantity": 145,
+      "preference_score": 0
+    },
+    {
+      "sku_id": 112,
+      "product_id": 112,
+      "category": "黑茶",
+      "price_cents": 2440,
+      "available_quantity": 735,
+      "preference_score": 0
+    },
+    {
+      "sku_id": 80,
+      "product_id": 80,
+      "category": "乌龙茶",
+      "price_cents": 1080,
+      "available_quantity": 432,
+      "preference_score": 0
+    },
+    {
+      "sku_id": 96,
+      "product_id": 96,
+      "category": "白茶",
+      "price_cents": 2811,
+      "available_quantity": 143,
+      "preference_score": 3
+    },
+    {
+      "sku_id": 48,
+      "product_id": 48,
+      "category": "红茶",
+      "price_cents": 525,
+      "available_quantity": 128,
+      "preference_score": 0
+    },
+    {
+      "sku_id": 40,
+      "product_id": 40,
+      "category": "绿茶",
+      "price_cents": 900,
+      "available_quantity": 712,
+      "preference_score": 3
+    },
+    {
+      "sku_id": 104,
+      "product_id": 104,
+      "category": "黄茶",
+      "price_cents": 6000,
+      "available_quantity": 439,
+      "preference_score": 0
+    },
+    {
+      "sku_id": 120,
+      "product_id": 120,
+      "category": "黑茶",
+      "price_cents": 1391,
+      "available_quantity": 152,
+      "preference_score": 0
+    },
+    {
+      "sku_id": 133,
+      "product_id": 133,
+      "category": "乌龙茶",
+      "price_cents": 4200,
+      "available_quantity": 140,
+      "preference_score": 0
+    },
+    {
+      "sku_id": 127,
+      "product_id": 127,
+      "category": "白茶",
+      "price_cents": 4500,
+      "available_quantity": 127,
+      "preference_score": 3
+    },
+    {
+      "sku_id": 56,
+      "product_id": 56,
+      "category": "红茶",
+      "price_cents": 1811,
+      "available_quantity": 424,
+      "preference_score": 0
+    },
+    {
+      "sku_id": 125,
+      "product_id": 125,
+      "category": "绿茶",
+      "price_cents": 3100,
+      "available_quantity": 120,
+      "preference_score": 3
+    },
+    {
+      "sku_id": 137,
+      "product_id": 137,
+      "category": "黄茶",
+      "price_cents": 7000,
+      "available_quantity": 160,
+      "preference_score": 0
+    },
+    {
+      "sku_id": 135,
+      "product_id": 135,
+      "category": "黑茶",
+      "price_cents": 5600,
+      "available_quantity": 146,
+      "preference_score": 0
+    },
+    {
+      "sku_id": 136,
+      "product_id": 136,
+      "category": "乌龙茶",
+      "price_cents": 6300,
+      "available_quantity": 152,
+      "preference_score": 0
+    },
+    {
+      "sku_id": 130,
+      "product_id": 130,
+      "category": "白茶",
+      "price_cents": 6600,
+      "available_quantity": 143,
+      "preference_score": 3
+    },
+    {
+      "sku_id": 64,
+      "product_id": 64,
+      "category": "红茶",
+      "price_cents": 3500,
+      "available_quantity": 720,
+      "preference_score": 0
+    },
+    {
+      "sku_id": 128,
+      "product_id": 128,
+      "category": "绿茶",
+      "price_cents": 5200,
+      "available_quantity": 132,
+      "preference_score": 3
+    },
+    {
+      "sku_id": 100,
+      "product_id": 100,
+      "category": "黄茶",
+      "price_cents": 1270,
+      "available_quantity": 292,
+      "preference_score": 0
+    },
+    {
+      "sku_id": 138,
+      "product_id": 138,
+      "category": "黑茶",
+      "price_cents": 7700,
+      "available_quantity": 163,
+      "preference_score": 0
+    },
+    {
+      "sku_id": 65,
+      "product_id": 65,
+      "category": "乌龙茶",
+      "price_cents": 1080,
+      "available_quantity": 757,
+      "preference_score": 0
+    },
+    {
+      "sku_id": 85,
+      "product_id": 85,
+      "category": "白茶",
+      "price_cents": 1200,
+      "available_quantity": 617,
+      "preference_score": 3
+    },
+    {
+      "sku_id": 129,
+      "product_id": 129,
+      "category": "红茶",
+      "price_cents": 5900,
+      "available_quantity": 140,
+      "preference_score": 0
+    },
+    {
+      "sku_id": 23,
+      "product_id": 23,
+      "category": "绿茶",
+      "price_cents": 7500,
+      "available_quantity": 998,
+      "preference_score": 3
+    },
+    {
+      "sku_id": 101,
+      "product_id": 101,
+      "category": "黄茶",
+      "price_cents": 2025,
+      "available_quantity": 329,
+      "preference_score": 0
+    },
+    {
+      "sku_id": 110,
+      "product_id": 110,
+      "category": "黑茶",
+      "price_cents": 940,
+      "available_quantity": 662,
+      "preference_score": 0
+    },
+    {
+      "sku_id": 66,
+      "product_id": 66,
+      "category": "乌龙茶",
+      "price_cents": 1740,
+      "available_quantity": 794,
+      "preference_score": 0
+    },
+    {
+      "sku_id": 86,
+      "product_id": 86,
+      "category": "白茶",
+      "price_cents": 1920,
+      "available_quantity": 654,
+      "preference_score": 3
+    },
+    {
+      "sku_id": 22,
+      "product_id": 22,
+      "category": "红茶",
+      "price_cents": 32000,
+      "available_quantity": 199,
+      "preference_score": 0
+    },
+    {
+      "sku_id": 25,
+      "product_id": 25,
+      "category": "绿茶",
+      "price_cents": 900,
+      "available_quantity": 157,
+      "preference_score": 3
+    },
+    {
+      "sku_id": 102,
+      "product_id": 102,
+      "category": "黄茶",
+      "price_cents": 3100,
+      "available_quantity": 366,
+      "preference_score": 0
+    },
+    {
+      "sku_id": 111,
+      "product_id": 111,
+      "category": "黑茶",
+      "price_cents": 1530,
+      "available_quantity": 699,
+      "preference_score": 0
+    },
+    {
+      "sku_id": 67,
+      "product_id": 67,
+      "category": "乌龙茶",
+      "price_cents": 2720,
+      "available_quantity": 831,
+      "preference_score": 0
+    },
+    {
+      "sku_id": 87,
+      "product_id": 87,
+      "category": "白茶",
+      "price_cents": 2960,
+      "available_quantity": 691,
+      "preference_score": 3
+    },
+    {
+      "sku_id": 24,
+      "product_id": 24,
+      "category": "红茶",
+      "price_cents": 12300,
+      "available_quantity": 9999,
+      "preference_score": 0
+    },
+    {
+      "sku_id": 26,
+      "product_id": 26,
+      "category": "绿茶",
+      "price_cents": 1470,
+      "available_quantity": 194,
+      "preference_score": 3
+    }
+  ],
+  "truncated": true,
+  "legacy": {
+    "plans": [
+      {
+        "sku_ids": [
+          88
+        ],
+        "quantities": [
+          1
+        ],
+        "subtotal_cents": 740,
+        "quality_score": 100,
+        "near_budget": false
+      },
+      {
+        "sku_ids": [
+          25
+        ],
+        "quantities": [
+          1
+        ],
+        "subtotal_cents": 900,
+        "quality_score": 100,
+        "near_budget": false
+      },
+      {
+        "sku_ids": [
+          40
+        ],
+        "quantities": [
+          1
+        ],
+        "subtotal_cents": 900,
+        "quality_score": 100,
+        "near_budget": false
+      },
+      {
+        "sku_ids": [
+          85
+        ],
+        "quantities": [
+          1
+        ],
+        "subtotal_cents": 1200,
+        "quality_score": 100,
+        "near_budget": false
+      },
+      {
+        "sku_ids": [
+          88
+        ],
+        "quantities": [
+          2
+        ],
+        "subtotal_cents": 1480,
+        "quality_score": 100,
+        "near_budget": false
+      },
+      {
+        "sku_ids": [
+          25
+        ],
+        "quantities": [
+          2
+        ],
+        "subtotal_cents": 1800,
+        "quality_score": 100,
+        "near_budget": false
+      },
+      {
+        "sku_ids": [
+          40
+        ],
+        "quantities": [
+          2
+        ],
+        "subtotal_cents": 1800,
+        "quality_score": 100,
+        "near_budget": false
+      },
+      {
+        "sku_ids": [
+          85
+        ],
+        "quantities": [
+          2
+        ],
+        "subtotal_cents": 2400,
+        "quality_score": 100,
+        "near_budget": false
+      },
+      {
+        "sku_ids": [
+          25,
+          88
+        ],
+        "quantities": [
+          1,
+          1
+        ],
+        "subtotal_cents": 1640,
+        "quality_score": 100,
+        "near_budget": false
+      },
+      {
+        "sku_ids": [
+          40,
+          88
+        ],
+        "quantities": [
+          1,
+          1
+        ],
+        "subtotal_cents": 1640,
+        "quality_score": 100,
+        "near_budget": false
+      },
+      {
+        "sku_ids": [
+          25,
+          85
+        ],
+        "quantities": [
+          1,
+          1
+        ],
+        "subtotal_cents": 2100,
+        "quality_score": 100,
+        "near_budget": false
+      },
+      {
+        "sku_ids": [
+          40,
+          85
+        ],
+        "quantities": [
+          1,
+          1
+        ],
+        "subtotal_cents": 2100,
+        "quality_score": 100,
+        "near_budget": false
+      },
+      {
+        "sku_ids": [
+          88
+        ],
+        "quantities": [
+          3
+        ],
+        "subtotal_cents": 2220,
+        "quality_score": 100,
+        "near_budget": false
+      },
+      {
+        "sku_ids": [
+          25
+        ],
+        "quantities": [
+          3
+        ],
+        "subtotal_cents": 2700,
+        "quality_score": 100,
+        "near_budget": false
+      },
+      {
+        "sku_ids": [
+          40
+        ],
+        "quantities": [
+          3
+        ],
+        "subtotal_cents": 2700,
+        "quality_score": 100,
+        "near_budget": false
+      },
+      {
+        "sku_ids": [
+          85
+        ],
+        "quantities": [
+          3
+        ],
+        "subtotal_cents": 3600,
+        "quality_score": 100,
+        "near_budget": false
+      },
+      {
+        "sku_ids": [
+          25,
+          88
+        ],
+        "quantities": [
+          1,
+          2
+        ],
+        "subtotal_cents": 2380,
+        "quality_score": 100,
+        "near_budget": false
+      },
+      {
+        "sku_ids": [
+          40,
+          88
+        ],
+        "quantities": [
+          1,
+          2
+        ],
+        "subtotal_cents": 2380,
+        "quality_score": 100,
+        "near_budget": false
+      },
+      {
+        "sku_ids": [
+          25,
+          88
+        ],
+        "quantities": [
+          2,
+          1
+        ],
+        "subtotal_cents": 2540,
+        "quality_score": 100,
+        "near_budget": false
+      },
+      {
+        "sku_ids": [
+          40,
+          88
+        ],
+        "quantities": [
+          2,
+          1
+        ],
+        "subtotal_cents": 2540,
+        "quality_score": 100,
+        "near_budget": false
+      },
+      {
+        "sku_ids": [
+          25,
+          85
+        ],
+        "quantities": [
+          2,
+          1
+        ],
+        "subtotal_cents": 3000,
+        "quality_score": 100,
+        "near_budget": false
+      },
+      {
+        "sku_ids": [
+          40,
+          85
+        ],
+        "quantities": [
+          2,
+          1
+        ],
+        "subtotal_cents": 3000,
+        "quality_score": 100,
+        "near_budget": false
+      },
+      {
+        "sku_ids": [
+          25,
+          85
+        ],
+        "quantities": [
+          1,
+          2
+        ],
+        "subtotal_cents": 3300,
+        "quality_score": 100,
+        "near_budget": false
+      },
+      {
+        "sku_ids": [
+          40,
+          85
+        ],
+        "quantities": [
+          1,
+          2
+        ],
+        "subtotal_cents": 3300,
+        "quality_score": 100,
+        "near_budget": false
+      },
+      {
+        "sku_ids": [
+          88
+        ],
+        "quantities": [
+          4
+        ],
+        "subtotal_cents": 2960,
+        "quality_score": 100,
+        "near_budget": false
+      },
+      {
+        "sku_ids": [
+          25
+        ],
+        "quantities": [
+          4
+        ],
+        "subtotal_cents": 3600,
+        "quality_score": 100,
+        "near_budget": false
+      },
+      {
+        "sku_ids": [
+          40
+        ],
+        "quantities": [
+          4
+        ],
+        "subtotal_cents": 3600,
+        "quality_score": 100,
+        "near_budget": false
+      },
+      {
+        "sku_ids": [
+          85
+        ],
+        "quantities": [
+          4
+        ],
+        "subtotal_cents": 4800,
+        "quality_score": 100,
+        "near_budget": false
+      },
+      {
+        "sku_ids": [
+          25,
+          88
+        ],
+        "quantities": [
+          1,
+          3
+        ],
+        "subtotal_cents": 3120,
+        "quality_score": 100,
+        "near_budget": false
+      },
+      {
+        "sku_ids": [
+          40,
+          88
+        ],
+        "quantities": [
+          1,
+          3
+        ],
+        "subtotal_cents": 3120,
+        "quality_score": 100,
+        "near_budget": false
+      },
+      {
+        "sku_ids": [
+          25,
+          88
+        ],
+        "quantities": [
+          2,
+          2
+        ],
+        "subtotal_cents": 3280,
+        "quality_score": 100,
+        "near_budget": false
+      },
+      {
+        "sku_ids": [
+          40,
+          88
+        ],
+        "quantities": [
+          2,
+          2
+        ],
+        "subtotal_cents": 3280,
+        "quality_score": 100,
+        "near_budget": false
+      },
+      {
+        "sku_ids": [
+          25,
+          88
+        ],
+        "quantities": [
+          3,
+          1
+        ],
+        "subtotal_cents": 3440,
+        "quality_score": 100,
+        "near_budget": false
+      },
+      {
+        "sku_ids": [
+          40,
+          88
+        ],
+        "quantities": [
+          3,
+          1
+        ],
+        "subtotal_cents": 3440,
+        "quality_score": 100,
+        "near_budget": false
+      },
+      {
+        "sku_ids": [
+          25,
+          85
+        ],
+        "quantities": [
+          3,
+          1
+        ],
+        "subtotal_cents": 3900,
+        "quality_score": 100,
+        "near_budget": false
+      },
+      {
+        "sku_ids": [
+          40,
+          85
+        ],
+        "quantities": [
+          3,
+          1
+        ],
+        "subtotal_cents": 3900,
+        "quality_score": 100,
+        "near_budget": false
+      },
+      {
+        "sku_ids": [
+          25,
+          85
+        ],
+        "quantities": [
+          2,
+          2
+        ],
+        "subtotal_cents": 4200,
+        "quality_score": 100,
+        "near_budget": false
+      },
+      {
+        "sku_ids": [
+          40,
+          85
+        ],
+        "quantities": [
+          2,
+          2
+        ],
+        "subtotal_cents": 4200,
+        "quality_score": 100,
+        "near_budget": false
+      },
+      {
+        "sku_ids": [
+          25,
+          85
+        ],
+        "quantities": [
+          1,
+          3
+        ],
+        "subtotal_cents": 4500,
+        "quality_score": 100,
+        "near_budget": false
+      },
+      {
+        "sku_ids": [
+          40,
+          85
+        ],
+        "quantities": [
+          1,
+          3
+        ],
+        "subtotal_cents": 4500,
+        "quality_score": 100,
+        "near_budget": false
+      },
+      {
+        "sku_ids": [
+          88
+        ],
+        "quantities": [
+          5
+        ],
+        "subtotal_cents": 3700,
+        "quality_score": 100,
+        "near_budget": false
+      },
+      {
+        "sku_ids": [
+          25
+        ],
+        "quantities": [
+          5
+        ],
+        "subtotal_cents": 4500,
+        "quality_score": 100,
+        "near_budget": false
+      },
+      {
+        "sku_ids": [
+          40
+        ],
+        "quantities": [
+          5
+        ],
+        "subtotal_cents": 4500,
+        "quality_score": 100,
+        "near_budget": false
+      },
+      {
+        "sku_ids": [
+          85
+        ],
+        "quantities": [
+          5
+        ],
+        "subtotal_cents": 6000,
+        "quality_score": 100,
+        "near_budget": false
+      },
+      {
+        "sku_ids": [
+          25,
+          88
+        ],
+        "quantities": [
+          1,
+          4
+        ],
+        "subtotal_cents": 3860,
+        "quality_score": 100,
+        "near_budget": false
+      },
+      {
+        "sku_ids": [
+          40,
+          88
+        ],
+        "quantities": [
+          1,
+          4
+        ],
+        "subtotal_cents": 3860,
+        "quality_score": 100,
+        "near_budget": false
+      },
+      {
+        "sku_ids": [
+          25,
+          88
+        ],
+        "quantities": [
+          2,
+          3
+        ],
+        "subtotal_cents": 4020,
+        "quality_score": 100,
+        "near_budget": false
+      },
+      {
+        "sku_ids": [
+          40,
+          88
+        ],
+        "quantities": [
+          2,
+          3
+        ],
+        "subtotal_cents": 4020,
+        "quality_score": 100,
+        "near_budget": false
+      },
+      {
+        "sku_ids": [
+          25,
+          88
+        ],
+        "quantities": [
+          3,
+          2
+        ],
+        "subtotal_cents": 4180,
+        "quality_score": 100,
+        "near_budget": false
+      },
+      {
+        "sku_ids": [
+          40,
+          88
+        ],
+        "quantities": [
+          3,
+          2
+        ],
+        "subtotal_cents": 4180,
+        "quality_score": 100,
+        "near_budget": false
+      },
+      {
+        "sku_ids": [
+          25,
+          88
+        ],
+        "quantities": [
+          4,
+          1
+        ],
+        "subtotal_cents": 4340,
+        "quality_score": 100,
+        "near_budget": false
+      },
+      {
+        "sku_ids": [
+          40,
+          88
+        ],
+        "quantities": [
+          4,
+          1
+        ],
+        "subtotal_cents": 4340,
+        "quality_score": 100,
+        "near_budget": false
+      },
+      {
+        "sku_ids": [
+          25,
+          85
+        ],
+        "quantities": [
+          4,
+          1
+        ],
+        "subtotal_cents": 4800,
+        "quality_score": 100,
+        "near_budget": false
+      },
+      {
+        "sku_ids": [
+          40,
+          85
+        ],
+        "quantities": [
+          4,
+          1
+        ],
+        "subtotal_cents": 4800,
+        "quality_score": 100,
+        "near_budget": false
+      },
+      {
+        "sku_ids": [
+          25,
+          85
+        ],
+        "quantities": [
+          3,
+          2
+        ],
+        "subtotal_cents": 5100,
+        "quality_score": 100,
+        "near_budget": false
+      },
+      {
+        "sku_ids": [
+          40,
+          85
+        ],
+        "quantities": [
+          3,
+          2
+        ],
+        "subtotal_cents": 5100,
+        "quality_score": 100,
+        "near_budget": false
+      },
+      {
+        "sku_ids": [
+          25,
+          85
+        ],
+        "quantities": [
+          2,
+          3
+        ],
+        "subtotal_cents": 5400,
+        "quality_score": 100,
+        "near_budget": false
+      },
+      {
+        "sku_ids": [
+          40,
+          85
+        ],
+        "quantities": [
+          2,
+          3
+        ],
+        "subtotal_cents": 5400,
+        "quality_score": 100,
+        "near_budget": false
+      },
+      {
+        "sku_ids": [
+          25,
+          85
+        ],
+        "quantities": [
+          1,
+          4
+        ],
+        "subtotal_cents": 5700,
+        "quality_score": 100,
+        "near_budget": false
+      },
+      {
+        "sku_ids": [
+          40,
+          85
+        ],
+        "quantities": [
+          1,
+          4
+        ],
+        "subtotal_cents": 5700,
+        "quality_score": 100,
+        "near_budget": false
+      },
+      {
+        "sku_ids": [
+          88
+        ],
+        "quantities": [
+          6
+        ],
+        "subtotal_cents": 4440,
+        "quality_score": 100,
+        "near_budget": false
+      },
+      {
+        "sku_ids": [
+          25
+        ],
+        "quantities": [
+          6
+        ],
+        "subtotal_cents": 5400,
+        "quality_score": 100,
+        "near_budget": false
+      },
+      {
+        "sku_ids": [
+          40
+        ],
+        "quantities": [
+          6
+        ],
+        "subtotal_cents": 5400,
+        "quality_score": 100,
+        "near_budget": false
+      },
+      {
+        "sku_ids": [
+          85
+        ],
+        "quantities": [
+          6
+        ],
+        "subtotal_cents": 7200,
+        "quality_score": 100,
+        "near_budget": false
+      }
+    ],
+    "nodes": 120001,
+    "valid_combinations": 116861,
+    "search_complete": false,
+    "candidate_count": 40,
+    "near_floor_cents": 285000,
+    "quantity_mode": "automatic",
+    "automatic_quantity_cap": null,
+    "quantity_bound": "budget_and_available_stock",
+    "quantity_option_limit": 64,
+    "pair_target_limit": 16,
+    "beam_width": 96,
+    "measured_ms": 1816.519
+  },
+  "cpsat": {
+    "plans": [
+      {
+        "sku_ids": [
+          23,
+          127,
+          128,
+          130
+        ],
+        "quantities": [
+          10,
+          15,
+          15,
+          12
+        ],
+        "subtotal_cents": 299700,
+        "quality_score": 90,
+        "near_budget": true,
+        "solver_status": "FEASIBLE",
+        "objective_value": 18869.0,
+        "best_objective_bound": 23020.0,
+        "budget_stage_optimal": null
+      },
+      {
+        "sku_ids": [
+          127,
+          128,
+          130,
+          137
+        ],
+        "quantities": [
+          16,
+          15,
+          11,
+          11
+        ],
+        "subtotal_cents": 299600,
+        "quality_score": 75,
+        "near_budget": true,
+        "solver_status": "FEASIBLE",
+        "objective_value": 18869.0,
+        "best_objective_bound": 23018.0,
+        "budget_stage_optimal": null
+      },
+      {
+        "sku_ids": [
+          23,
+          127,
+          128,
+          135
+        ],
+        "quantities": [
+          9,
+          17,
+          16,
+          13
+        ],
+        "subtotal_cents": 300000,
+        "quality_score": 75,
+        "near_budget": true,
+        "solver_status": "FEASIBLE",
+        "objective_value": 18803.0,
+        "best_objective_bound": 23020.0,
+        "budget_stage_optimal": null
+      }
+    ],
+    "nodes": 17117,
+    "valid_combinations": 3,
+    "candidate_count": 40,
+    "near_floor_cents": 285000,
+    "solver": "ortools-cp-sat",
+    "policy_version": "balanced-cpsat-v1",
+    "termination_status": "FEASIBLE",
+    "search_complete": false,
+    "globally_optimal": false,
+    "quantity_mode": "automatic",
+    "automatic_quantity_cap": null,
+    "quantity_bound": "budget_and_available_stock",
+    "duration_ms": 2007.211,
+    "objective_policy": {
+      "utilization": 10000,
+      "max_line_penalty": 3000,
+      "distinct_product": 1000,
+      "category": 1000,
+      "preference_per_product": 1000,
+      "volume_reference_price_cents": 2960,
+      "volume_penalty": 2000,
+      "repeat_tiers": [
+        [
+          2,
+          100
+        ],
+        [
+          4,
+          50
+        ],
+        [
+          8,
+          25
+        ],
+        [
+          16,
+          12
+        ],
+        [
+          32,
+          6
+        ]
+      ]
+    }
+  }
+}

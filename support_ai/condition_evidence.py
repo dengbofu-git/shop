@@ -5,7 +5,7 @@ from typing import List
 from langchain_core.prompts import ChatPromptTemplate
 from pydantic import Field
 
-from .contracts import Contract, IntentEvidence, canonicalize_total_budget
+from .contracts import Contract, IntentEvidence, IntentEvidenceError, canonicalize_total_budget
 
 
 class PurchaseEvidenceRepair(Contract):
@@ -47,4 +47,4 @@ def repair_purchase_evidence(model, purchase, error, message, history, memory):
         result.evidence = [e for e in result.evidence if e.field != error.field] + repaired.evidence
         return canonicalize_total_budget(result)
     except (ValueError, TypeError) as exc:
-        raise RuntimeError('Purchase evidence correction failed') from exc
+        raise IntentEvidenceError(error.field, 'repair_rejected', '购买条件证据仍不足，请明确该条件', repairable=False) from exc
