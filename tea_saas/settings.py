@@ -204,6 +204,13 @@ SUPPORT_MODEL = os.environ['SUPPORT_MODEL']
 SUPPORT_BASE_URL = os.environ['SUPPORT_BASE_URL']
 SUPPORT_THINKING = os.environ.get('SUPPORT_THINKING', '')
 
+# Application Agent data access is MCP-only. SDK stays in its Python 3.12 env.
+SUPPORT_MCP_PYTHON = os.getenv('SUPPORT_MCP_PYTHON', str(BASE_DIR / 'tools' / 'tea_saas_mcp' / '.venv' /
+                               ('Scripts/python.exe' if os.name == 'nt' else 'bin/python')))
+SUPPORT_MCP_CALL_TIMEOUT = float(os.getenv('SUPPORT_MCP_CALL_TIMEOUT', '40'))
+SUPPORT_MCP_REQUEST_TIMEOUT = float(os.getenv('SUPPORT_MCP_REQUEST_TIMEOUT', '120'))
+SUPPORT_MCP_PRIVATE_ROOT = BASE_DIR / '.scratch' / 'agent-mcp'
+
 # Request-local RAG expansion. Operational model/reranker settings still come
 # from AgentConfiguration; these bounded pipeline switches need no DB migration.
 SUPPORT_RAG_QUERY_ENABLED = os.getenv('SUPPORT_RAG_QUERY_ENABLED', 'true').lower() == 'true'

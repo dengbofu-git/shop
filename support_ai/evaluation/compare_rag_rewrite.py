@@ -89,7 +89,7 @@ def main():
     (root/'manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2,default=str),encoding='utf-8')
     (root/'corpus.json').write_text(json.dumps(corpus,ensure_ascii=False,indent=2,default=str),encoding='utf-8')
     records, captured, intermediate, routes, structured = [], {}, [], [], []
-    original_graph, original_select, original_search = preview.build_graph, retrieval.select_evidence, retrieval.search_knowledge
+    original_graph = preview.build_graph
 
     class CaptureCalls(BaseCallbackHandler):
         def on_llm_end(self, response, **kwargs):
@@ -115,20 +115,6 @@ def main():
             return state
         return SimpleNamespace(invoke=invoke)
 
-    def observe_select(*a, **kw):
-        evidence = original_select(*a, **kw)
-        intermediate.append(preview.safe_record(evidence))
-        return evidence
-
-    def observe_search(embedding, space_key, owner_id, limit=5):
-        if owner_id is not None:
-            raise RuntimeError('Public evaluation must never use a buyer identity')
-        started = time.perf_counter()
-        result = original_search(embedding, space_key, owner_id, limit=limit)
-        routes.append({'owner_id':None,'limit':limit,'chunk_ids':[v['chunk_id'] for v in result],
-                       'seconds':round(time.perf_counter()-started,4)})
-        return result
-
     def score(case, evidence):
         ids = {v['chunk_id'] for v in evidence}
         groups, relevant = case['support_groups'], set(case['relevant_ids'])
@@ -139,9 +125,7 @@ def main():
                 'all_available_support':covered==len(groups) if groups else None,
                 'labelled_relevant_precision':len(ids & relevant)/len(ids) if ids and relevant else None}
 
-    with patch('support_ai.preview.build_graph',side_effect=observe_graph), \
-         patch('support_ai.retrieval.select_evidence',side_effect=observe_select), \
-         patch('support_ai.retrieval.search_knowledge',side_effect=observe_search):
+    with patch('support_ai.preview.build_graph',side_effect=observe_graph):
         for case in cases:
             arms = ('single_query','rewrite') if case['id'] % 2 else ('rewrite','single_query')
             for arm in arms:
@@ -158,7 +142,8 @@ def main():
                 record = preview.safe_record(dict(record,case_id=case['id'],arm=arm,scene=case['scene'],
                     audit=graph, intermediate_evidence=list(intermediate), vector_routes=list(routes),
                     structured_outputs=list(structured), evidence_metrics=score(case,evidence),
-                    first_round_metrics=score(case,intermediate[0]) if intermediate else None))
+                    first_round_metrics=None,
+                    capture_scope='MCP returned evidence and audit; backend intermediate/route interception is unavailable'))
                 records.append(record)
                 with (root/'results.jsonl').open('a',encoding='utf-8') as stream:
                     stream.write(json.dumps(record,ensure_ascii=False,default=str)+'\n')

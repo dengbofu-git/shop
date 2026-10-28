@@ -13,7 +13,7 @@ from .context import commit_turn, recent_context
 from .models import SupportConversation
 from .semantic_planning import plan_turn, SemanticPlan
 from . import test_colloquial_budget as colloquial_fixtures
-from .tool_services import create_tool_handlers
+from .mcp_testing import create_tool_handlers
 from .workflow import build_graph
 
 

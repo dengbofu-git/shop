@@ -44,12 +44,19 @@ def execute_plan(plan, handlers, budget_seconds=90):
                     if result.step_id != ready.id or result.tool != ready.tool:
                         raise ValueError('Tool result identity mismatch')
                 except Exception as exc:
+                    from .mcp_client import McpServiceError
+                    if isinstance(exc, McpServiceError) and exc.code in ('ACCESS_DENIED','CONVERSATION_CONFLICT'):
+                        # These are request-scope failures, not optional data
+                        # dependencies. Stop before independent tools or models.
+                        raise
                     if span:
                         span.set_attribute('error.type', type(exc).__name__)
                     result = ToolResult(step_id=ready.id, tool=ready.tool, status='error',
                                         data={'answer': ('本次模型处理已达到预算，暂未完成该项，请稍后单独查询。'
                                                         if isinstance(exc, ModelBudgetExceeded) else '该项服务暂时不可用，请稍后重试。'), 'error_type': type(exc).__name__,
                                               'diagnostics': [error_diagnostic(exc, ready.tool)]})
+                    if isinstance(exc, McpServiceError):
+                        result.data.update(error_code=exc.code, retryable=exc.retryable)
             completed[ready.id] = result
             if span:
                 span.set_attribute('agent.tool.status', result.status)

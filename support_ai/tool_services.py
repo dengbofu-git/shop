@@ -4,24 +4,20 @@ import re
 
 from langchain_core.prompts import ChatPromptTemplate
 
-from goods.models import Catalog, SKU
 from .contracts import (RecommendationIntent, validate_recommendation_intent,
                         validate_recommendation_branch)
 from .execution import ToolResult
 from .diagnostics import error_diagnostic
 from .pii import redact
-from .product_details import get_product_details, MISSING_ATTRIBUTES
-from .recommendations import CATEGORY_ALIASES, match_products, match_product_groups
+from .catalog_terms import MISSING_ATTRIBUTES
 from .recommendation_options import BASIC_TEA_TYPES, CATEGORY_PATTERN, DESCRIBED_TEA_REFERENCE, ORDINAL, number
 from .tea_explanation import explain_tea_scope
 from .planning import explicit_requests
 from .conversation_tasks import (purchase_topic, apply_purchase_topic, without_reason_modifier,
                                  REASON_PATTERN)
-from .recommendation_explanations import explain_existing_products, format_product_reasons
-from .bundle_recommendations import recommend_bundle
+from .recommendation_presentation import format_product_reasons
 from .total_budget_intent import CURRENCY
 from .order_contracts import rule_order_query
-from .order_queries import query_orders
 from .grounding import generate_grounded_answer
 from .bundle_references import bundle_products
 
@@ -131,7 +127,7 @@ def simple_purchase_intent(message, request, history, memory):
     return RecommendationIntent.model_validate(data)
 
 
-def normalize_recommendation(raw, message, history, memory, request, *, tool=None, limit=4):
+def normalize_recommendation(raw, message, history, memory, request, *, tool=None, limit=4, data_access=None):
     """Normalize range words before provenance validation can clear soft preferences."""
     intent = RecommendationIntent.model_validate(raw).model_copy(deep=True)
     for section in ('required', 'preferred'):
@@ -151,8 +147,9 @@ def normalize_recommendation(raw, message, history, memory, request, *, tool=Non
         intent.missing_fields = []
         intent.action = 'SEARCH'
     if intent.action != 'CLARIFY' and intent.required.categories:
-        catalog_names = set(Catalog.objects.values_list('name', flat=True))
-        if any(CATEGORY_ALIASES.get(v.casefold(), v) not in catalog_names for v in intent.required.categories):
+        if data_access is None:
+            raise RuntimeError('MCP data access is required')
+        if not data_access.call('validate_categories', categories=intent.required.categories)['data']['valid']:
             intent.action = 'CLARIFY'
             intent.missing_fields = ['category']
     if any(v.casefold() in GENERIC_CATEGORIES for v in intent.excluded.categories):
@@ -165,8 +162,11 @@ def normalize_recommendation(raw, message, history, memory, request, *, tool=Non
 
 def create_tool_handlers(model, knowledge_search, message, resolved_question, history, memory, order_context=None,
                          knowledge_context_chars=12000, scoped_knowledge_search=None, knowledge_notes=None,
-                         order_query_context=None):
+                         order_query_context=None, *, data_access=None):
     """All arguments supplied by the authenticated application, never from model tool names."""
+    if data_access is None:
+        raise RuntimeError('MCP data access is required')
+    knowledge_search, scoped_knowledge_search, knowledge_notes = data_access.search, data_access.scoped_search, data_access.notes
     history_json = json.dumps(history, ensure_ascii=False)
 
     def result(step, status='success', data=None, sources=None, unmet=None):
@@ -253,7 +253,7 @@ def create_tool_handlers(model, knowledge_search, message, resolved_question, hi
                         raw.evidence.extend(IntentEvidence(field='preferred.' + field, value=value,
                             source='MEMORY', source_id=memory['id'], quote=value) for value in values)
                 intent, unmet = normalize_recommendation(apply_purchase_topic(raw, topic), message, history, memory,
-                                                       step.request, tool=step.tool, limit=condition_limit)
+                                                       step.request, tool=step.tool, limit=condition_limit, data_access=data_access)
             else:
                 for attempt in range(2):
                     extraction_attempts += 1
@@ -264,7 +264,7 @@ def create_tool_handlers(model, knowledge_search, message, resolved_question, hi
                              'repair': json.dumps(diagnostics[-1], ensure_ascii=False) if diagnostics else '无；首次提取'})
                         raw = RecommendationIntent.model_validate(raw)
                         intent, unmet = normalize_recommendation(apply_purchase_topic(raw, topic), message, history, memory,
-                                                               step.request, tool=step.tool, limit=condition_limit)
+                                                               step.request, tool=step.tool, limit=condition_limit, data_access=data_access)
                         break
                     except ValueError as exc:
                         diagnostics.append(error_diagnostic(exc, 'recommendation.conditions'))
@@ -295,15 +295,18 @@ def create_tool_handlers(model, knowledge_search, message, resolved_question, hi
             if unsupported_bundle:
                 intent.action = 'CLARIFY'
                 intent.missing_fields = list(dict.fromkeys(intent.missing_fields + ['bundle_constraints']))
-            data = recommend_bundle(intent, category_scope=scope)
+            data = data_access.call('recommend_bundle', intent=intent, category_scope=scope, limit=condition_limit)['data']
             if data.get('bundle_missing_fields'):
                 intent.missing_fields = list(dict.fromkeys(intent.missing_fields + data['bundle_missing_fields']))
                 intent.action = 'CLARIFY'
         elif step.tool == 'recommend_bundle':
             raise ValueError('Total budget tool received unit-price conditions')
         else:
-            data = match_product_groups(intent, options, category_scope=linked_scope) if options and options.mode == 'by_category' else match_products(intent, limit=step.limit)
+            data = data_access.call('search_products', intent=intent, options=options,
+                                    category_scope=linked_scope, limit=step.limit)['data']
         unmet += data.get('unmet_requirements', [])
+        if getattr(data_access, 'preference_unavailable', False):
+            unmet.append('本次推荐未使用已保存的偏好。')
         data['product_intent'] = intent.model_dump()
         data['condition_source'] = extraction_source
         data['extraction_attempts'] = extraction_attempts
@@ -368,11 +371,12 @@ def create_tool_handlers(model, knowledge_search, message, resolved_question, hi
             return result(step, 'needs_clarification', {'answer': '您希望了解哪一款商品？请说明商品名称或列表中的位置。'})
         if not step.product_from and not (type(selected[0].get('sku_id')) is int and selected[0]['sku_id'] > 0):
             # Historical names identify an object, never its live price/stock.
-            matches = list(SKU.objects.filter(name=selected[0]['name'], spu__name=selected[0]['product_name'])[:2])
-            if len(matches) != 1:
+            identity = data_access.call('resolve_product', name=selected[0]['name'],
+                                        product_name=selected[0]['product_name'])['data']['sku_id']
+            if identity is None:
                 return result(step, 'needs_clarification', {'answer': '该名称无法唯一定位商品，请重新推荐或明确商品名称。'})
-            selected = [{'sku_id': matches[0].pk}]
-        details = get_product_details(selected[0]['sku_id'])
+            selected = [{'sku_id': identity}]
+        details = data_access.call('get_product_details', sku_id=selected[0]['sku_id'])
         if details['status'] == 'no_match':
             return result(step, 'no_match', {'answer': '所指商品当前未上架或没有可用库存，请重新选择。'})
         return result(step, data=dict(details['data'], observed_at=details['observed_at'], limitations=details['limitations']),
@@ -393,12 +397,16 @@ def create_tool_handlers(model, knowledge_search, message, resolved_question, hi
                     and (anchor is None or anchor.quote not in other.quote)):
                 request = request.replace(other.quote, ' ', 1)
         # Legacy order_context strings are deliberately not used as live facts.
-        queried = query_orders(step.order_query or rule_order_query(request), order_query_context, request)
+        if order_query_context is None or order_query_context.owner_id is None:
+            return result(step, 'needs_clarification', {'answer': '请先绑定并登录买家账号后查询本人订单。'})
+        queried = data_access.call('get_order_status', query=step.order_query or rule_order_query(request), request=request)
+        if queried['status'] == 'no_match' and order_query_context.not_queryable:
+            return result(step, 'error', dict(queried['data'], error_code='ORDER_NOT_QUERYABLE'))
         return result(step, queried['status'], queried['data'])
 
     def explain_recommendations(step, completed):
-        status, data = explain_existing_products(step, completed, history)
-        return result(step, status, data)
+        queried = data_access.call('explain_recommendations', step=step, completed=completed)
+        return result(step, queried['status'], queried['data'])
 
     def clarify(step, completed):
         return result(step, 'needs_clarification', {'answer': '您希望了解茶叶知识、挑选商品，还是查询订单？请补充具体对象或要求。'})

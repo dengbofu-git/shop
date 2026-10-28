@@ -14,7 +14,7 @@ from .contracts import RecommendationIntent
 from types import SimpleNamespace
 from .tea_explanation import TeaExplanation
 from . import test_grouped_recommendations as grouped_fixtures
-from .tool_services import create_tool_handlers
+from .mcp_testing import create_tool_handlers
 from .workflow import ComplianceVerdict, DialogueResolution, build_graph
 from .semantic_planning import SemanticPlan
 from .grounding import GroundingReview

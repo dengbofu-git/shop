@@ -27,10 +27,7 @@ CLARIFICATIONS = {
     'details': '请说明您想买的品类、品牌或每份商品预算。',
 }
 
-CATEGORY_ALIASES = {
-    'black tea': '红茶', 'green tea': '绿茶', 'white tea': '白茶',
-    'oolong tea': '乌龙茶', 'dark tea': '黑茶', 'yellow tea': '黄茶',
-}
+from .catalog_terms import CATEGORY_ALIASES
 
 
 def _match(field, terms):

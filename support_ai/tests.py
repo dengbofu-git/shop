@@ -8,7 +8,8 @@ from langchain_core.messages import AIMessage
 from langchain_core.runnables import Runnable, RunnableLambda
 
 from .pii import contains_pii, redact
-from .workflow import ComplianceVerdict, DialogueResolution, FALLBACK, IntentScores, build_graph
+from .workflow import ComplianceVerdict, DialogueResolution, FALLBACK, IntentScores
+from .mcp_testing import build_graph
 from .planning import FiniteIntents
 from .execution import ToolResult
 from .model_client import configured_model
@@ -251,6 +252,8 @@ class RecommendationContractTests(SimpleTestCase):
 class RecommendationIntegrationTests(DatabaseTestCase):
     databases = {'default', 'ai_storage'}
     def setUp(self):
+        from .mcp_testing import enable_synthetic_mcp
+        enable_synthetic_mcp(self)
         import uuid
         from decimal import Decimal
         from tea_saas.utils import jwt_encode
@@ -334,7 +337,7 @@ class RecommendationIntegrationTests(DatabaseTestCase):
     def test_unrepairable_provenance_and_provider_failure_do_not_commit(self):
         from .models import SupportConversation, SupportTurn
         bad = self.model({'action': 'SEARCH', 'required': {'categories': ['绿茶']}})
-        with patch('support_ai.tool_services.match_products') as query:
+        with patch('support_ai.mcp_backend.match_products') as query:
             data = self.post_chat(bad, message='推荐测试品牌绿茶')
         query.assert_not_called()
         self.assertEqual(data.status_code, 503)
@@ -345,7 +348,7 @@ class RecommendationIntegrationTests(DatabaseTestCase):
         self.assertEqual(SupportConversation.objects.filter(user=self.user).count(), 0)
         with patch('support_ai.model_client.configured_model', side_effect=TimeoutError):
             import json
-            response = self.client.post('/v1/support/chat/', data=json.dumps({'message': '推荐茶'}),
+            response = self.client.post('/v1/support/chat/', data=json.dumps({'message': '帮我比较品牌A与品牌B的绿茶再挑一款'}),
                                         content_type='application/json', **self.auth)
         self.assertEqual(response.status_code, 503)
         self.assertEqual(SupportTurn.objects.filter(user=self.user).count(), 0)
@@ -414,16 +417,17 @@ class RecommendationIntegrationTests(DatabaseTestCase):
                         {'answer': '候选回复', 'intent': 'recommendation'})
         self.assertFalse(SupportTurn.objects.filter(conversation=conversation).exists())
 
-    def test_unavailable_memory_database_returns_safe_503_without_model_or_commit(self):
+    def test_optional_memory_failure_keeps_recommendation_and_reports_omission(self):
         from django.db import OperationalError
         from .models import SupportTurn
         model = self.model()
-        with patch('support_ai.views.saved_preferences', side_effect=OperationalError('private connection information')):
+        with patch('support_ai.mcp_backend.saved_preferences', side_effect=OperationalError('private connection information')):
             response = self.post_chat(model)
-        self.assertEqual(response.status_code, 503)
+        self.assertEqual(response.status_code, 200)
         self.assertNotIn('private connection', response.content.decode())
         self.assertEqual(model.calls, [])
-        self.assertFalse(SupportTurn.objects.filter(user=self.user).exists())
+        self.assertIn('本次推荐未使用已保存的偏好', response.json()['answer'])
+        self.assertTrue(SupportTurn.objects.filter(user=self.user).exists())
 
     def test_unavailable_preference_store_does_not_fall_back_to_mysql(self):
         from django.db import OperationalError

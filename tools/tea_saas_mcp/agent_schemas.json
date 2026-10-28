@@ -1,0 +1,1832 @@
+{
+  "get_conversation_context": {
+    "description": "Read the bound buyer conversation model projection, limited to the configured recent window.",
+    "input": {
+      "additionalProperties": false,
+      "properties": {},
+      "title": "Empty",
+      "type": "object"
+    }
+  },
+  "get_saved_preferences": {
+    "description": "Read only the authenticated buyer explicit saved preferences; unavailable is not empty.",
+    "input": {
+      "additionalProperties": false,
+      "properties": {},
+      "title": "Empty",
+      "type": "object"
+    }
+  },
+  "validate_categories": {
+    "description": "Check public category names against the catalog; accepts no query expressions.",
+    "input": {
+      "additionalProperties": false,
+      "properties": {
+        "categories": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 12,
+          "title": "Categories",
+          "type": "array"
+        }
+      },
+      "required": [
+        "categories"
+      ],
+      "title": "Categories",
+      "type": "object"
+    }
+  },
+  "search_products": {
+    "description": "Match validated product intent using fixed public saleable filters, flat or bounded category groups.",
+    "input": {
+      "$defs": {
+        "IntentEvidence": {
+          "additionalProperties": false,
+          "properties": {
+            "field": {
+              "description": "Exact section.field path; arrays use the field itself, without [index]. Purchase filters and explicit bundle quantity/count need evidence. Never use limit, action, reasons or missing_fields here.",
+              "enum": [
+                "required.categories",
+                "required.brands",
+                "required.keywords",
+                "required.price_min",
+                "required.price_max",
+                "required.currency",
+                "required.price_basis",
+                "required.budget_min",
+                "required.budget_max",
+                "required.budget_mode",
+                "required.quantity_per_product",
+                "required.distinct_count",
+                "preferred.categories",
+                "preferred.brands",
+                "preferred.keywords",
+                "excluded.categories",
+                "excluded.brands",
+                "excluded.keywords"
+              ],
+              "title": "Field",
+              "type": "string"
+            },
+            "value": {
+              "maxLength": 40,
+              "minLength": 1,
+              "title": "Value",
+              "type": "string"
+            },
+            "source": {
+              "enum": [
+                "CURRENT",
+                "CONTEXT",
+                "MEMORY"
+              ],
+              "title": "Source",
+              "type": "string"
+            },
+            "source_id": {
+              "anyOf": [
+                {
+                  "maxLength": 80,
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Source Id"
+            },
+            "quote": {
+              "maxLength": 300,
+              "minLength": 1,
+              "title": "Quote",
+              "type": "string"
+            },
+            "context_turn_id": {
+              "anyOf": [
+                {
+                  "maxLength": 80,
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "description": "Server-only origin of a contextual budget-scope interpretation; models must leave null.",
+              "title": "Context Turn Id"
+            }
+          },
+          "required": [
+            "field",
+            "value",
+            "source",
+            "quote"
+          ],
+          "title": "IntentEvidence",
+          "type": "object"
+        },
+        "QueryConditions": {
+          "additionalProperties": false,
+          "description": "Request filters have their own bounds, independent of saved preferences.",
+          "properties": {
+            "categories": {
+              "items": {
+                "type": "string"
+              },
+              "maxItems": 12,
+              "title": "Categories",
+              "type": "array"
+            },
+            "brands": {
+              "items": {
+                "type": "string"
+              },
+              "maxItems": 10,
+              "title": "Brands",
+              "type": "array"
+            },
+            "keywords": {
+              "items": {
+                "type": "string"
+              },
+              "maxItems": 10,
+              "title": "Keywords",
+              "type": "array"
+            }
+          },
+          "title": "QueryConditions",
+          "type": "object"
+        },
+        "RecommendationIntent": {
+          "additionalProperties": false,
+          "properties": {
+            "action": {
+              "enum": [
+                "SEARCH",
+                "CLARIFY"
+              ],
+              "title": "Action",
+              "type": "string"
+            },
+            "required": {
+              "$ref": "#/$defs/RequiredConditions"
+            },
+            "preferred": {
+              "$ref": "#/$defs/QueryConditions"
+            },
+            "excluded": {
+              "$ref": "#/$defs/QueryConditions"
+            },
+            "evidence": {
+              "items": {
+                "$ref": "#/$defs/IntentEvidence"
+              },
+              "maxItems": 40,
+              "title": "Evidence",
+              "type": "array"
+            },
+            "missing_fields": {
+              "items": {
+                "enum": [
+                  "category",
+                  "currency",
+                  "budget_scope",
+                  "budget_amount",
+                  "bundle_constraints",
+                  "recommendation_count",
+                  "recommendation_scope",
+                  "purchase_quantity",
+                  "product_reference",
+                  "unsupported_attribute",
+                  "details"
+                ],
+                "type": "string"
+              },
+              "maxItems": 6,
+              "title": "Missing Fields",
+              "type": "array"
+            }
+          },
+          "required": [
+            "action"
+          ],
+          "title": "RecommendationIntent",
+          "type": "object"
+        },
+        "RecommendationOptions": {
+          "additionalProperties": false,
+          "properties": {
+            "mode": {
+              "default": "flat",
+              "enum": [
+                "flat",
+                "by_category"
+              ],
+              "title": "Mode",
+              "type": "string"
+            },
+            "category_scope": {
+              "default": "requested",
+              "enum": [
+                "requested",
+                "basic_tea_types"
+              ],
+              "title": "Category Scope",
+              "type": "string"
+            },
+            "per_category_limit": {
+              "default": 1,
+              "maximum": 4,
+              "minimum": 1,
+              "title": "Per Category Limit",
+              "type": "integer"
+            },
+            "total_limit": {
+              "default": 12,
+              "maximum": 12,
+              "minimum": 1,
+              "title": "Total Limit",
+              "type": "integer"
+            },
+            "include_reasons": {
+              "default": true,
+              "title": "Include Reasons",
+              "type": "boolean"
+            },
+            "clarification": {
+              "default": "",
+              "title": "Clarification",
+              "type": "string"
+            }
+          },
+          "title": "RecommendationOptions",
+          "type": "object"
+        },
+        "RequiredConditions": {
+          "additionalProperties": false,
+          "properties": {
+            "categories": {
+              "items": {
+                "type": "string"
+              },
+              "maxItems": 12,
+              "title": "Categories",
+              "type": "array"
+            },
+            "brands": {
+              "items": {
+                "type": "string"
+              },
+              "maxItems": 10,
+              "title": "Brands",
+              "type": "array"
+            },
+            "keywords": {
+              "items": {
+                "type": "string"
+              },
+              "maxItems": 10,
+              "title": "Keywords",
+              "type": "array"
+            },
+            "price_min": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Price Min"
+            },
+            "price_max": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Price Max"
+            },
+            "budget_min": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Budget Min"
+            },
+            "budget_max": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Budget Max"
+            },
+            "budget_mode": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "cap",
+                    "near",
+                    "exact"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Budget Mode"
+            },
+            "quantity_per_product": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "description": "仅总价组合的每款购买件数",
+              "title": "Quantity Per Product"
+            },
+            "distinct_count": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "description": "仅总价组合的不同商品款数；普通推荐用request.limit",
+              "title": "Distinct Count"
+            },
+            "currency": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "USD",
+                    "AED",
+                    "SAR",
+                    "CNY",
+                    "EUR"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Currency"
+            },
+            "price_basis": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "unit",
+                    "total",
+                    "unknown"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Price Basis"
+            }
+          },
+          "title": "RequiredConditions",
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "properties": {
+        "intent": {
+          "$ref": "#/$defs/RecommendationIntent"
+        },
+        "limit": {
+          "default": 4,
+          "maximum": 4,
+          "minimum": 1,
+          "title": "Limit",
+          "type": "integer"
+        },
+        "options": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/RecommendationOptions"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "category_scope": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "maxItems": 6,
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Category Scope"
+        }
+      },
+      "required": [
+        "intent"
+      ],
+      "title": "Search",
+      "type": "object"
+    }
+  },
+  "recommend_bundle": {
+    "description": "Compute bounded product bundles and exact CNY subtotals with fixed backend rules.",
+    "input": {
+      "$defs": {
+        "IntentEvidence": {
+          "additionalProperties": false,
+          "properties": {
+            "field": {
+              "description": "Exact section.field path; arrays use the field itself, without [index]. Purchase filters and explicit bundle quantity/count need evidence. Never use limit, action, reasons or missing_fields here.",
+              "enum": [
+                "required.categories",
+                "required.brands",
+                "required.keywords",
+                "required.price_min",
+                "required.price_max",
+                "required.currency",
+                "required.price_basis",
+                "required.budget_min",
+                "required.budget_max",
+                "required.budget_mode",
+                "required.quantity_per_product",
+                "required.distinct_count",
+                "preferred.categories",
+                "preferred.brands",
+                "preferred.keywords",
+                "excluded.categories",
+                "excluded.brands",
+                "excluded.keywords"
+              ],
+              "title": "Field",
+              "type": "string"
+            },
+            "value": {
+              "maxLength": 40,
+              "minLength": 1,
+              "title": "Value",
+              "type": "string"
+            },
+            "source": {
+              "enum": [
+                "CURRENT",
+                "CONTEXT",
+                "MEMORY"
+              ],
+              "title": "Source",
+              "type": "string"
+            },
+            "source_id": {
+              "anyOf": [
+                {
+                  "maxLength": 80,
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Source Id"
+            },
+            "quote": {
+              "maxLength": 300,
+              "minLength": 1,
+              "title": "Quote",
+              "type": "string"
+            },
+            "context_turn_id": {
+              "anyOf": [
+                {
+                  "maxLength": 80,
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "description": "Server-only origin of a contextual budget-scope interpretation; models must leave null.",
+              "title": "Context Turn Id"
+            }
+          },
+          "required": [
+            "field",
+            "value",
+            "source",
+            "quote"
+          ],
+          "title": "IntentEvidence",
+          "type": "object"
+        },
+        "QueryConditions": {
+          "additionalProperties": false,
+          "description": "Request filters have their own bounds, independent of saved preferences.",
+          "properties": {
+            "categories": {
+              "items": {
+                "type": "string"
+              },
+              "maxItems": 12,
+              "title": "Categories",
+              "type": "array"
+            },
+            "brands": {
+              "items": {
+                "type": "string"
+              },
+              "maxItems": 10,
+              "title": "Brands",
+              "type": "array"
+            },
+            "keywords": {
+              "items": {
+                "type": "string"
+              },
+              "maxItems": 10,
+              "title": "Keywords",
+              "type": "array"
+            }
+          },
+          "title": "QueryConditions",
+          "type": "object"
+        },
+        "RecommendationIntent": {
+          "additionalProperties": false,
+          "properties": {
+            "action": {
+              "enum": [
+                "SEARCH",
+                "CLARIFY"
+              ],
+              "title": "Action",
+              "type": "string"
+            },
+            "required": {
+              "$ref": "#/$defs/RequiredConditions"
+            },
+            "preferred": {
+              "$ref": "#/$defs/QueryConditions"
+            },
+            "excluded": {
+              "$ref": "#/$defs/QueryConditions"
+            },
+            "evidence": {
+              "items": {
+                "$ref": "#/$defs/IntentEvidence"
+              },
+              "maxItems": 40,
+              "title": "Evidence",
+              "type": "array"
+            },
+            "missing_fields": {
+              "items": {
+                "enum": [
+                  "category",
+                  "currency",
+                  "budget_scope",
+                  "budget_amount",
+                  "bundle_constraints",
+                  "recommendation_count",
+                  "recommendation_scope",
+                  "purchase_quantity",
+                  "product_reference",
+                  "unsupported_attribute",
+                  "details"
+                ],
+                "type": "string"
+              },
+              "maxItems": 6,
+              "title": "Missing Fields",
+              "type": "array"
+            }
+          },
+          "required": [
+            "action"
+          ],
+          "title": "RecommendationIntent",
+          "type": "object"
+        },
+        "RecommendationOptions": {
+          "additionalProperties": false,
+          "properties": {
+            "mode": {
+              "default": "flat",
+              "enum": [
+                "flat",
+                "by_category"
+              ],
+              "title": "Mode",
+              "type": "string"
+            },
+            "category_scope": {
+              "default": "requested",
+              "enum": [
+                "requested",
+                "basic_tea_types"
+              ],
+              "title": "Category Scope",
+              "type": "string"
+            },
+            "per_category_limit": {
+              "default": 1,
+              "maximum": 4,
+              "minimum": 1,
+              "title": "Per Category Limit",
+              "type": "integer"
+            },
+            "total_limit": {
+              "default": 12,
+              "maximum": 12,
+              "minimum": 1,
+              "title": "Total Limit",
+              "type": "integer"
+            },
+            "include_reasons": {
+              "default": true,
+              "title": "Include Reasons",
+              "type": "boolean"
+            },
+            "clarification": {
+              "default": "",
+              "title": "Clarification",
+              "type": "string"
+            }
+          },
+          "title": "RecommendationOptions",
+          "type": "object"
+        },
+        "RequiredConditions": {
+          "additionalProperties": false,
+          "properties": {
+            "categories": {
+              "items": {
+                "type": "string"
+              },
+              "maxItems": 12,
+              "title": "Categories",
+              "type": "array"
+            },
+            "brands": {
+              "items": {
+                "type": "string"
+              },
+              "maxItems": 10,
+              "title": "Brands",
+              "type": "array"
+            },
+            "keywords": {
+              "items": {
+                "type": "string"
+              },
+              "maxItems": 10,
+              "title": "Keywords",
+              "type": "array"
+            },
+            "price_min": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Price Min"
+            },
+            "price_max": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Price Max"
+            },
+            "budget_min": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Budget Min"
+            },
+            "budget_max": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Budget Max"
+            },
+            "budget_mode": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "cap",
+                    "near",
+                    "exact"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Budget Mode"
+            },
+            "quantity_per_product": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "description": "仅总价组合的每款购买件数",
+              "title": "Quantity Per Product"
+            },
+            "distinct_count": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "description": "仅总价组合的不同商品款数；普通推荐用request.limit",
+              "title": "Distinct Count"
+            },
+            "currency": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "USD",
+                    "AED",
+                    "SAR",
+                    "CNY",
+                    "EUR"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Currency"
+            },
+            "price_basis": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "unit",
+                    "total",
+                    "unknown"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Price Basis"
+            }
+          },
+          "title": "RequiredConditions",
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "properties": {
+        "intent": {
+          "$ref": "#/$defs/RecommendationIntent"
+        },
+        "limit": {
+          "default": 4,
+          "maximum": 4,
+          "minimum": 1,
+          "title": "Limit",
+          "type": "integer"
+        },
+        "options": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/RecommendationOptions"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "category_scope": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "maxItems": 6,
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Category Scope"
+        }
+      },
+      "required": [
+        "intent"
+      ],
+      "title": "Search",
+      "type": "object"
+    }
+  },
+  "resolve_product": {
+    "description": "Resolve an exact historical public SKU name pair only when unique.",
+    "input": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "product_name": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Product Name",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "product_name"
+      ],
+      "title": "ResolveProduct",
+      "type": "object"
+    }
+  },
+  "get_product_details": {
+    "description": "Read current allowlisted public fields of a specific saleable SKU.",
+    "input": {
+      "additionalProperties": false,
+      "properties": {
+        "sku_id": {
+          "maximum": 2147483647,
+          "minimum": 1,
+          "title": "Sku Id",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "sku_id"
+      ],
+      "title": "Product",
+      "type": "object"
+    }
+  },
+  "get_order_status": {
+    "description": "Read bound buyer orders with trusted current-turn constraints; no private IDs in result.",
+    "input": {
+      "$defs": {
+        "OrderCreatedDate": {
+          "additionalProperties": false,
+          "properties": {
+            "start": {
+              "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+              "title": "Start",
+              "type": "string"
+            },
+            "end": {
+              "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+              "title": "End",
+              "type": "string"
+            }
+          },
+          "required": [
+            "start",
+            "end"
+          ],
+          "title": "OrderCreatedDate",
+          "type": "object"
+        },
+        "OrderFilters": {
+          "additionalProperties": false,
+          "properties": {
+            "created_date": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/OrderCreatedDate"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null
+            }
+          },
+          "title": "OrderFilters",
+          "type": "object"
+        },
+        "OrderQuery": {
+          "additionalProperties": false,
+          "properties": {
+            "selector": {
+              "$ref": "#/$defs/OrderSelector"
+            },
+            "topic": {
+              "default": "order_status",
+              "enum": [
+                "order_status",
+                "payment_status",
+                "shipping_status"
+              ],
+              "title": "Topic",
+              "type": "string"
+            },
+            "filters": {
+              "$ref": "#/$defs/OrderFilters"
+            },
+            "page": {
+              "default": "first",
+              "enum": [
+                "first",
+                "next"
+              ],
+              "title": "Page",
+              "type": "string"
+            }
+          },
+          "title": "OrderQuery",
+          "type": "object"
+        },
+        "OrderSelector": {
+          "additionalProperties": false,
+          "properties": {
+            "type": {
+              "default": "recent",
+              "enum": [
+                "recent",
+                "selected",
+                "explicit",
+                "all"
+              ],
+              "title": "Type",
+              "type": "string"
+            },
+            "reference": {
+              "anyOf": [
+                {
+                  "pattern": "^ORDER_REF_[a-p]{8}_[1-9]$",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Reference"
+            }
+          },
+          "title": "OrderSelector",
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "properties": {
+        "query": {
+          "$ref": "#/$defs/OrderQuery"
+        },
+        "request": {
+          "maxLength": 1000,
+          "minLength": 1,
+          "title": "Request",
+          "type": "string"
+        }
+      },
+      "required": [
+        "query",
+        "request"
+      ],
+      "title": "Orders",
+      "type": "object"
+    }
+  },
+  "explain_recommendations": {
+    "description": "Refresh public facts for a bound previous product list without searching for replacements.",
+    "input": {
+      "$defs": {
+        "IntentEvidence": {
+          "additionalProperties": false,
+          "properties": {
+            "field": {
+              "description": "Exact section.field path; arrays use the field itself, without [index]. Purchase filters and explicit bundle quantity/count need evidence. Never use limit, action, reasons or missing_fields here.",
+              "enum": [
+                "required.categories",
+                "required.brands",
+                "required.keywords",
+                "required.price_min",
+                "required.price_max",
+                "required.currency",
+                "required.price_basis",
+                "required.budget_min",
+                "required.budget_max",
+                "required.budget_mode",
+                "required.quantity_per_product",
+                "required.distinct_count",
+                "preferred.categories",
+                "preferred.brands",
+                "preferred.keywords",
+                "excluded.categories",
+                "excluded.brands",
+                "excluded.keywords"
+              ],
+              "title": "Field",
+              "type": "string"
+            },
+            "value": {
+              "maxLength": 40,
+              "minLength": 1,
+              "title": "Value",
+              "type": "string"
+            },
+            "source": {
+              "enum": [
+                "CURRENT",
+                "CONTEXT",
+                "MEMORY"
+              ],
+              "title": "Source",
+              "type": "string"
+            },
+            "source_id": {
+              "anyOf": [
+                {
+                  "maxLength": 80,
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Source Id"
+            },
+            "quote": {
+              "maxLength": 300,
+              "minLength": 1,
+              "title": "Quote",
+              "type": "string"
+            },
+            "context_turn_id": {
+              "anyOf": [
+                {
+                  "maxLength": 80,
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "description": "Server-only origin of a contextual budget-scope interpretation; models must leave null.",
+              "title": "Context Turn Id"
+            }
+          },
+          "required": [
+            "field",
+            "value",
+            "source",
+            "quote"
+          ],
+          "title": "IntentEvidence",
+          "type": "object"
+        },
+        "OrderCreatedDate": {
+          "additionalProperties": false,
+          "properties": {
+            "start": {
+              "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+              "title": "Start",
+              "type": "string"
+            },
+            "end": {
+              "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+              "title": "End",
+              "type": "string"
+            }
+          },
+          "required": [
+            "start",
+            "end"
+          ],
+          "title": "OrderCreatedDate",
+          "type": "object"
+        },
+        "OrderFilters": {
+          "additionalProperties": false,
+          "properties": {
+            "created_date": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/OrderCreatedDate"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null
+            }
+          },
+          "title": "OrderFilters",
+          "type": "object"
+        },
+        "OrderQuery": {
+          "additionalProperties": false,
+          "properties": {
+            "selector": {
+              "$ref": "#/$defs/OrderSelector"
+            },
+            "topic": {
+              "default": "order_status",
+              "enum": [
+                "order_status",
+                "payment_status",
+                "shipping_status"
+              ],
+              "title": "Topic",
+              "type": "string"
+            },
+            "filters": {
+              "$ref": "#/$defs/OrderFilters"
+            },
+            "page": {
+              "default": "first",
+              "enum": [
+                "first",
+                "next"
+              ],
+              "title": "Page",
+              "type": "string"
+            }
+          },
+          "title": "OrderQuery",
+          "type": "object"
+        },
+        "OrderSelector": {
+          "additionalProperties": false,
+          "properties": {
+            "type": {
+              "default": "recent",
+              "enum": [
+                "recent",
+                "selected",
+                "explicit",
+                "all"
+              ],
+              "title": "Type",
+              "type": "string"
+            },
+            "reference": {
+              "anyOf": [
+                {
+                  "pattern": "^ORDER_REF_[a-p]{8}_[1-9]$",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Reference"
+            }
+          },
+          "title": "OrderSelector",
+          "type": "object"
+        },
+        "QueryConditions": {
+          "additionalProperties": false,
+          "description": "Request filters have their own bounds, independent of saved preferences.",
+          "properties": {
+            "categories": {
+              "items": {
+                "type": "string"
+              },
+              "maxItems": 12,
+              "title": "Categories",
+              "type": "array"
+            },
+            "brands": {
+              "items": {
+                "type": "string"
+              },
+              "maxItems": 10,
+              "title": "Brands",
+              "type": "array"
+            },
+            "keywords": {
+              "items": {
+                "type": "string"
+              },
+              "maxItems": 10,
+              "title": "Keywords",
+              "type": "array"
+            }
+          },
+          "title": "QueryConditions",
+          "type": "object"
+        },
+        "RecommendationIntent": {
+          "additionalProperties": false,
+          "properties": {
+            "action": {
+              "enum": [
+                "SEARCH",
+                "CLARIFY"
+              ],
+              "title": "Action",
+              "type": "string"
+            },
+            "required": {
+              "$ref": "#/$defs/RequiredConditions"
+            },
+            "preferred": {
+              "$ref": "#/$defs/QueryConditions"
+            },
+            "excluded": {
+              "$ref": "#/$defs/QueryConditions"
+            },
+            "evidence": {
+              "items": {
+                "$ref": "#/$defs/IntentEvidence"
+              },
+              "maxItems": 40,
+              "title": "Evidence",
+              "type": "array"
+            },
+            "missing_fields": {
+              "items": {
+                "enum": [
+                  "category",
+                  "currency",
+                  "budget_scope",
+                  "budget_amount",
+                  "bundle_constraints",
+                  "recommendation_count",
+                  "recommendation_scope",
+                  "purchase_quantity",
+                  "product_reference",
+                  "unsupported_attribute",
+                  "details"
+                ],
+                "type": "string"
+              },
+              "maxItems": 6,
+              "title": "Missing Fields",
+              "type": "array"
+            }
+          },
+          "required": [
+            "action"
+          ],
+          "title": "RecommendationIntent",
+          "type": "object"
+        },
+        "RecommendationOptions": {
+          "additionalProperties": false,
+          "properties": {
+            "mode": {
+              "default": "flat",
+              "enum": [
+                "flat",
+                "by_category"
+              ],
+              "title": "Mode",
+              "type": "string"
+            },
+            "category_scope": {
+              "default": "requested",
+              "enum": [
+                "requested",
+                "basic_tea_types"
+              ],
+              "title": "Category Scope",
+              "type": "string"
+            },
+            "per_category_limit": {
+              "default": 1,
+              "maximum": 4,
+              "minimum": 1,
+              "title": "Per Category Limit",
+              "type": "integer"
+            },
+            "total_limit": {
+              "default": 12,
+              "maximum": 12,
+              "minimum": 1,
+              "title": "Total Limit",
+              "type": "integer"
+            },
+            "include_reasons": {
+              "default": true,
+              "title": "Include Reasons",
+              "type": "boolean"
+            },
+            "clarification": {
+              "default": "",
+              "title": "Clarification",
+              "type": "string"
+            }
+          },
+          "title": "RecommendationOptions",
+          "type": "object"
+        },
+        "RequiredConditions": {
+          "additionalProperties": false,
+          "properties": {
+            "categories": {
+              "items": {
+                "type": "string"
+              },
+              "maxItems": 12,
+              "title": "Categories",
+              "type": "array"
+            },
+            "brands": {
+              "items": {
+                "type": "string"
+              },
+              "maxItems": 10,
+              "title": "Brands",
+              "type": "array"
+            },
+            "keywords": {
+              "items": {
+                "type": "string"
+              },
+              "maxItems": 10,
+              "title": "Keywords",
+              "type": "array"
+            },
+            "price_min": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Price Min"
+            },
+            "price_max": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Price Max"
+            },
+            "budget_min": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Budget Min"
+            },
+            "budget_max": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Budget Max"
+            },
+            "budget_mode": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "cap",
+                    "near",
+                    "exact"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Budget Mode"
+            },
+            "quantity_per_product": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "description": "仅总价组合的每款购买件数",
+              "title": "Quantity Per Product"
+            },
+            "distinct_count": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "description": "仅总价组合的不同商品款数；普通推荐用request.limit",
+              "title": "Distinct Count"
+            },
+            "currency": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "USD",
+                    "AED",
+                    "SAR",
+                    "CNY",
+                    "EUR"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Currency"
+            },
+            "price_basis": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "unit",
+                    "total",
+                    "unknown"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Price Basis"
+            }
+          },
+          "title": "RequiredConditions",
+          "type": "object"
+        },
+        "TaskStep": {
+          "additionalProperties": false,
+          "properties": {
+            "id": {
+              "title": "Id",
+              "type": "string"
+            },
+            "intent": {
+              "enum": [
+                "recommendation",
+                "recommendation_explanation",
+                "question_answering",
+                "product_details",
+                "after_sales",
+                "clarification",
+                "greeting",
+                "system_help"
+              ],
+              "title": "Intent",
+              "type": "string"
+            },
+            "tool": {
+              "title": "Tool",
+              "type": "string"
+            },
+            "request": {
+              "title": "Request",
+              "type": "string"
+            },
+            "depends_on": {
+              "items": {
+                "type": "string"
+              },
+              "title": "Depends On",
+              "type": "array"
+            },
+            "product_from": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Product From"
+            },
+            "limit": {
+              "default": 4,
+              "maximum": 4,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            },
+            "recommendation": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/RecommendationOptions"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null
+            },
+            "knowledge_from": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Knowledge From"
+            },
+            "tea_scope": {
+              "items": {
+                "type": "string"
+              },
+              "maxItems": 6,
+              "title": "Tea Scope",
+              "type": "array"
+            },
+            "purchase_intent": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/RecommendationIntent"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null
+            },
+            "order_query": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/OrderQuery"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null
+            },
+            "reference_turn_id": {
+              "anyOf": [
+                {
+                  "maxLength": 80,
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Reference Turn Id"
+            },
+            "reference_position": {
+              "anyOf": [
+                {
+                  "maximum": 12,
+                  "minimum": 1,
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Reference Position"
+            },
+            "reference_bundle_position": {
+              "anyOf": [
+                {
+                  "maximum": 3,
+                  "minimum": 1,
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Reference Bundle Position"
+            }
+          },
+          "required": [
+            "id",
+            "intent",
+            "tool",
+            "request"
+          ],
+          "title": "TaskStep",
+          "type": "object"
+        },
+        "ToolResult": {
+          "properties": {
+            "step_id": {
+              "title": "Step Id",
+              "type": "string"
+            },
+            "tool": {
+              "title": "Tool",
+              "type": "string"
+            },
+            "status": {
+              "enum": [
+                "success",
+                "no_match",
+                "needs_clarification",
+                "error",
+                "skipped"
+              ],
+              "title": "Status",
+              "type": "string"
+            },
+            "data": {
+              "additionalProperties": true,
+              "title": "Data",
+              "type": "object"
+            },
+            "sources": {
+              "items": {},
+              "title": "Sources",
+              "type": "array"
+            },
+            "unmet_requirements": {
+              "items": {},
+              "title": "Unmet Requirements",
+              "type": "array"
+            }
+          },
+          "required": [
+            "step_id",
+            "tool",
+            "status"
+          ],
+          "title": "ToolResult",
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "properties": {
+        "step": {
+          "$ref": "#/$defs/TaskStep"
+        },
+        "completed": {
+          "additionalProperties": {
+            "$ref": "#/$defs/ToolResult"
+          },
+          "maxProperties": 5,
+          "title": "Completed",
+          "type": "object"
+        }
+      },
+      "required": [
+        "step"
+      ],
+      "title": "Explanation",
+      "type": "object"
+    }
+  },
+  "search_knowledge": {
+    "description": "Retrieve published, ACL-filtered evidence using bounded hybrid recall and reranking.",
+    "input": {
+      "additionalProperties": false,
+      "properties": {
+        "query": {
+          "maxLength": 1600,
+          "minLength": 1,
+          "title": "Query",
+          "type": "string"
+        },
+        "category": {
+          "anyOf": [
+            {
+              "maxLength": 40,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Category"
+        },
+        "scope": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 6,
+          "title": "Scope",
+          "type": "array"
+        }
+      },
+      "required": [
+        "query"
+      ],
+      "title": "Knowledge",
+      "type": "object"
+    }
+  }
+}

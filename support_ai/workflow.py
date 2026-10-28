@@ -184,10 +184,7 @@ def build_graph(model, knowledge_search=None, tool_factory=None):
             handlers = tool_factory(state)
         else:
             def introduce(step, completed):
-                evidence = knowledge_search(state['resolved_question'], state.get('owner_id')) if knowledge_search else []
-                data, sources = generate_grounded_answer(model, step.request, evidence)
-                return ToolResult(step_id=step.id, tool=step.tool, status='success' if data['grounding']['claims'] else 'no_match',
-                                  data=data, sources=sources)
+                raise RuntimeError('Data tools require an authenticated MCP tool factory')
             def clarify(step, completed):
                 return ToolResult(step_id=step.id, tool=step.tool, status='needs_clarification',
                                   data={'answer': state.get('clarification_question') or FALLBACK})
@@ -258,7 +255,9 @@ def build_graph(model, knowledge_search=None, tool_factory=None):
                     'recommendations': cards, 'knowledge_sources': sources,
                     'memory_used': any(r['data'].get('memory_used', False) for r in results),
                     'clarification_required': any(r['status'] == 'needs_clarification' for r in results),
-                    'tasks': [{'id': r['step_id'], 'tool': r['tool'], 'status': r['status']} for r in results],
+                    'tasks': [dict(id=r['step_id'], tool=r['tool'], status=r['status'],
+                        **({'error_code':r['data']['error_code'], 'retryable':r['data'].get('retryable',False)}
+                           if r['data'].get('error_code') else {})) for r in results],
                     'task_plan': state['plan'],
                     'unmet_requirements': [u for r in results for u in r['unmet_requirements']]}
         response['grounding'] = {'knowledge': knowledge,
@@ -267,6 +266,7 @@ def build_graph(model, knowledge_search=None, tool_factory=None):
         response['compliance_blocked'] = state.get('compliance_blocked', False)
         response['explained_categories'] = list(dict.fromkeys(c for r in results for c in r['data'].get('explained_categories', [])))
         order_result = next((r for r in results if r['tool'] == 'get_order_status'), None)
+        response['completion_status'] = 'partial' if any(r['status'] in ('error','skipped') for r in results) else 'complete'
         if order_result:
             response['order_result'] = {'status': order_result['status'], **{
                 key: order_result['data'].get(key) for key in ('orders', 'queried_at', 'query',
