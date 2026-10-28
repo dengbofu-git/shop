@@ -51,7 +51,7 @@ git diff --check -- [本轮路径]
 
 最终MySQL原始记录：[mysql-tests.txt](mysql-tests.txt)。临时服务脚本和私有运行文件留在忽略目录 `.scratch/product-import/`；数据库测试进程结束时已销毁测试库。收尾停止本轮临时浏览器服务与MySQL容器并移除专用网络，不删除其他进程/容器/工作树。
 
-`run-test.ps1` 实际运行 `docker run --rm --name tea-saas-import-app-check-20261028 --network tea-saas-import-check-20261028 --read-only --tmpfs /tmp:rw,size=128m -e PYTHONPATH=/deps:/app/.scratch/product-import -e PYTHONDONTWRITEBYTECODE=1 -e LOG_TO_FILE=false -v E:/django/dadashop:/app:ro -v E:/miniconda/envs/dadashop/Lib/site-packages/openpyxl:/deps/openpyxl:ro -v E:/miniconda/envs/dadashop/Lib/site-packages/et_xmlfile:/deps/et_xmlfile:ro -v E:/miniconda/envs/dadashop/Lib/site-packages/defusedxml:/deps/defusedxml:ro -w /app tea_saas-knowledge-worker-knowledge-worker python manage.py test goods.test_product_import --settings=mysql_test_settings --noinput --verbosity=2`。设置文件强制隔离连接边界；执行脚本与设置的SHA256一并记录于manifest，未将真实凭据写入证据。
+`run-test.ps1` 实际运行 `docker run --rm --name tea-saas-import-app-check-20261028 --network tea-saas-import-check-20261028 --read-only --tmpfs /tmp:rw,size=128m -e PYTHONPATH=/deps:/app/.scratch/product-import -e PYTHONDONTWRITEBYTECODE=1 -e LOG_TO_FILE=false -v ${PROJECT_ROOT}:/app:ro -v ${PYTHON_ENV_ROOT}/Lib/site-packages/openpyxl:/deps/openpyxl:ro -v ${PYTHON_ENV_ROOT}/Lib/site-packages/et_xmlfile:/deps/et_xmlfile:ro -v ${PYTHON_ENV_ROOT}/Lib/site-packages/defusedxml:/deps/defusedxml:ro -w /app tea_saas-knowledge-worker-knowledge-worker python manage.py test goods.test_product_import --settings=mysql_test_settings --noinput --verbosity=2`。设置文件强制隔离连接边界；执行脚本与设置的SHA256一并记录于manifest，未将真实凭据写入证据。
 
 ## 交付与启用边界
 

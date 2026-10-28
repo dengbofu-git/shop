@@ -44,12 +44,17 @@
     "docs/sdd/evidence/2026-10-28-product-import/preview.png": "6060f8ac4ae16e5b86a45bca8705fc6c502c25e08dd4668e2a6c1bf52203ca03",
     "docs/sdd/evidence/2026-10-28-product-import/products.png": "e6545f0ce73e4c96fb1eaf1af115a4820ada9d8914abb82e090e4ad9b8c87bf9",
     "docs/sdd/evidence/2026-10-28-product-import/success.png": "acbbec07c1909679ce44035a3e09e67956e97fe6f8c823d7d4707fdd6fe62d5f",
-    "docs/sdd/evidence/2026-10-28-product-import/verification.md": "9643f07bc6283d4f843c680f9d1212e152c22cf04ecec1351d00c4e8a10d854c"
+    "docs/sdd/evidence/2026-10-28-product-import/verification.md": "55e0585248f9ad14a121bb06d6bc83067919652533e66cfa7d318a81e0858223"
   },
   "local_harness_sha256": {
     ".scratch/product-import/browser_service.py": "01698a09f8d2336aa2d0a070e39b12280f90007535b498111ffc64a926c6c91d",
     ".scratch/product-import/mysql_test_settings.py": "3720ba9a25f90179262ebef050ab221891597a958c68aad48bb09337adc15921",
     ".scratch/product-import/run-test.ps1": "532f5d687fb6d9dbfa9d48d9c83646a218c33aff4ae7c11e3c67ce739ec21ed2",
     ".scratch/product-import/start-test.ps1": "d2d1346eb80b218ac3b16067d5f790314ec6352b92363154d72715ddd95f6afc"
+  },
+  "public_report_normalization": {
+    "original_sha256": "9643f07bc6283d4f843c680f9d1212e152c22cf04ecec1351d00c4e8a10d854c",
+    "reason": "Replace machine-specific workspace and Python-environment paths with PROJECT_ROOT and PYTHON_ENV_ROOT placeholders; test results and raw logs unchanged",
+    "original_git_commit": "ce5b8299010c1cf95a0e065fb59e3113b0c5780c"
   }
 }
