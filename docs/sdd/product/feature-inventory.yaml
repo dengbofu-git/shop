@@ -617,26 +617,6 @@ features:
   - support_ai/planning.py
   specification: docs/sdd/modules/ai-support/current-agent.md
   observation: implemented-with-historical-followup-quality-gaps
-- id: FEAT-032
-  name: 商家智能助手入口与初始化状态
-  primaryCapability: CAP-MER-004
-  relatedCapabilities:
-  - CAP-IAM-003
-  - CAP-PLAT-002
-  perspectives:
-  - merchant
-  pages:
-  - merchant_assistant.html
-  - merchant_dashboard.html
-  apiPrefixes:
-  - /v1/merchant-ai/status/
-  codePaths:
-  - merchant_ai/services.py
-  - merchant_ai/views.py
-  - merchant_ai/urls.py
-  - merchant_ai/tests.py
-  specification: docs/sdd/modules/merchant-operations/assistant-entry.md
-  observation: initialized-entry-only-chat-and-model-disabled-no-upload-or-business-tools
 - id: FEAT-033
   name: 本地 MCP 公开商品详情
   primaryCapability: CAP-AI-001

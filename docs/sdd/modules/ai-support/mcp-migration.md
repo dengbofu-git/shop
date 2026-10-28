@@ -4,7 +4,7 @@
 
 ## 实施前架构
 
-买家客服使用 `support_ai/views.py → workflow.py → tool_services.py`，经本地函数读数据。`views.py` 先直接读取历史和长期偏好，再把 `KnowledgeRetriever` 回调注入工具处理器。MCP Server 目前只提供 `get_product_details`，调用固定管理命令后复用详情业务函数；站内客服没有因此改为 MCP Client。商家 `merchant_ai` 只有禁用聊天的状态入口，没有第二条运行中的模型 Agent 链路。
+买家客服使用 `support_ai/views.py → workflow.py → tool_services.py`，经本地函数读数据。`views.py` 先直接读取历史和长期偏好，再把 `KnowledgeRetriever` 回调注入工具处理器。MCP Server 目前只提供 `get_product_details`，调用固定管理命令后复用详情业务函数；站内客服没有因此改为 MCP Client。
 
 ## 必须修改的运行路径
 
@@ -28,7 +28,6 @@
 | P2 观测与配置 | `configuration.py`、`model_client.py`、`telemetry.py`、`tea_saas/settings.py` 无统一 Agent MCP 运行配置 | 拟新增受控服务定位、解释器／传输、版本、超时和凭据引用；配置不可由用户／模型覆盖。记录 request／tool／耗时／状态／预算，不记录令牌、原始订单或私有正文 |
 | P2 部署与依赖 | `tools/tea_saas_mcp/requirements.txt` 独立 SDK 环境；现有 `compose.*.yml` 主要部署存储、检索、OCR和Worker | 先确定受支持传输与进程隔离，再补宿主启动、服务健康／readiness、连接回收和故障观测。不要把 MCP SDK 直接塞进旧 Django 环境；健康检查区分公共目录、私有业务与知识依赖，不使可选偏好故障阻断全站 |
 | P2 测试与文档 | `tools/tea_saas_mcp/test_server.py` 只覆盖现有详情；客服测试大量注入本地函数 | 扩展协议、身份、DTO、预算及旁路防回归，更新当前运行说明、工具清单和必要 CAP 契约；不能仅 mock 本地函数就声称 MCP 已验收 |
-| 后续 商家助手 | `merchant_ai/services.py/views.py`、`docs/sdd/modules/merchant-operations/assistant-entry.md` 仅状态与边界 | 记录未来同样经 MCP；若开放经营能力另定商家作用域、权限、工具及验收。本轮不新增聊天、模型或写工具，也不共享买家私有记忆 |
 
 `search_products` 的平铺搜索草案见[专项设计](search-products-design.md)；它只覆盖上述推荐迁移的一部分，分组／组合和私有上下文必须补充独立契约。不得将该草案的“不含长期记忆”理解为整个客服不再使用本人偏好；偏好由宿主经独立 MCP 工具取得并按现有来源规则处理。
 
@@ -51,7 +50,7 @@
 4. **RAG**：迁移完整受控检索，落地跨进程预算和证据缓存语义；覆盖发布 ACL、向量空间、混合召回、重排、补检与引用核验，复用 JSON／PDF 质量评测集验证质量不退化。
 5. **统一入口和交付**：HTTP／预览／当前验收场景全部切换，移除 Agent 本地降级和旧直调路径；执行访问规范的 AC-AI-MCP-001 至 AC-AI-MCP-006，检查部署凭据和进程隔离后再启用。旧版本回退须明确撤销该架构符合性，不能自动隐藏回退。
 
-以上顺序不代表已完成这些阶段。迁移默认无需业务数据搬迁；若私有结果映射或预算账本采用新表，单独设计 Migration，并在实际数据库后端的隔离测试库验证。实现时分别评估 core（工具／配置）、support_ai、ai_storage、merchant_ai、web 的版本及 changelog；本次纯文档不升实现模块版本。
+以上顺序不代表已完成这些阶段。迁移默认无需业务数据搬迁；若私有结果映射或预算账本采用新表，单独设计 Migration，并在实际数据库后端的隔离测试库验证。实现时分别评估 core（工具／配置）、support_ai、ai_storage、web 的版本及 changelog；本次纯文档不升实现模块版本。
 
 ## 本次静态检查记录
 

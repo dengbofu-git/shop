@@ -3,7 +3,7 @@
   "modules": {
     "core": {
       "title": "项目核心",
-      "version": "0.11.0",
+      "version": "0.11.1",
       "paths": [
         "README.md",
         "CONTEXT.md",
@@ -203,19 +203,6 @@
         "ai_storage"
       ]
     },
-    "merchant_ai": {
-      "title": "商家智能助手",
-      "version": "0.1.0",
-      "paths": [
-        "merchant_ai/",
-        "docs/商家智能助手.md",
-        "versions/changelogs/merchant_ai.md"
-      ],
-      "dependencies": [
-        "core",
-        "users"
-      ]
-    },
     "ai_storage": {
       "title": "AI 记忆与知识存储",
       "version": "0.7.2",
@@ -243,7 +230,7 @@
     },
     "web": {
       "title": "页面与前端资源",
-      "version": "0.33.1",
+      "version": "0.33.2",
       "paths": [
         "client/",
         "templates/",
@@ -263,7 +250,6 @@
         "supplier",
         "admin_panel",
         "support_ai",
-        "merchant_ai",
         "engagement"
       ]
     },

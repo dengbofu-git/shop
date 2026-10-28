@@ -56,7 +56,6 @@ INSTALLED_APPS = [
     'supplier',
     'admin_panel',
     'support_ai',
-    'merchant_ai.apps.MerchantAiConfig',
     'ai_storage',
 ]
 MIDDLEWARE = [

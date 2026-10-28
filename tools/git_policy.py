@@ -86,6 +86,48 @@ def forbidden(path):
                 any(part in ('node_modules', '__pycache__', '.venv', 'venv') for part in p.parts))
 
 
+def check_retirements(base, revision, old_modules, modules, paths, changes):
+    """Only permit recorded, complete retirement of modules without migrations."""
+    retired = set(old_modules) - set(modules)
+    if not retired:
+        return retired
+    previous_paths = files_at(base)
+    statuses = dict((path, status) for status, path in changes)
+    for name in sorted(retired):
+        record_path = 'versions/retirements/' + name + '.json'
+        if record_path not in paths or statuses.get(record_path) != 'A':
+            raise ValueError('移除已登记模块须新增受控退役记录：' + name)
+        try:
+            record = json.loads(blob(revision, record_path).decode('utf-8'))
+        except (ValueError, UnicodeError) as exc:
+            raise ValueError('模块退役记录格式错误：' + name) from exc
+        required = {'schema_version', 'module', 'reason', 'authorization',
+                    'data_policy', 'deleted_paths'}
+        if (not isinstance(record, dict) or set(record) != required
+                or record['schema_version'] != 1 or record['module'] != name
+                or record['data_policy'] != 'no-database-migrations'
+                or any(not isinstance(record[key], str) or not record[key].strip()
+                       for key in ('reason', 'authorization'))):
+            raise ValueError('模块退役记录字段无效：' + name)
+        owned = sorted(path for path in previous_paths if owner(path, old_modules) == name)
+        if any(MIGRATION.fullmatch(path) for path in owned):
+            raise ValueError('有历史 Django Migration 的模块不能使用无数据退役流程：' + name)
+        if record['deleted_paths'] != owned:
+            raise ValueError('模块退役记录须精确列出原模块全部文件：' + name)
+        if (any(statuses.get(path) != 'D' for path in owned)
+                or any(owner(path, old_modules) == name for path in paths)):
+            raise ValueError('模块退役必须完整删除原有归属文件，不能重新归属或残留：' + name)
+        if any(name in module['dependencies'] for module in modules.values()):
+            raise ValueError('模块退役仍有依赖残留：' + name)
+        record_owner = owner(record_path, modules)
+        if (record_owner not in old_modules
+                or tuple(map(int, modules[record_owner]['version'].split('.'))) <= tuple(
+                    map(int, old_modules[record_owner]['version'].split('.')))
+                or statuses.get('versions/changelogs/' + record_owner + '.md') not in ('A', 'M')):
+            raise ValueError('模块退役须升级记录所属模块并更新 changelog：' + name)
+    return retired
+
+
 def check(base='HEAD', revision='', syntax=False):
     if output('ls-files', '--unmerged'):
         raise ValueError('存在未解决的合并冲突。')
@@ -94,8 +136,7 @@ def check(base='HEAD', revision='', syntax=False):
     modules = registry(revision)
     paths = files_at(revision)
     old_modules = registry(base)
-    if set(old_modules) - set(modules):
-        raise ValueError('移除已登记模块须由维护者单独制定迁移方案。')
+    retired = check_retirements(base, revision, old_modules, modules, paths, changes)
     all_paths = set(paths)
     changed_names = {path for _, path in changes}
     migration_numbers = set()
@@ -125,7 +166,7 @@ def check(base='HEAD', revision='', syntax=False):
             raise ValueError('禁止修改、删除或重命名已有 Django Migration：' + path)
         module = owner(path, modules) or owner(path, old_modules)
         # Documentation and version metadata do not independently require a release bump.
-        if PurePosixPath(path).suffix in ('.py', '.js', '.css', '.html', '.sh', '.ps1', '.yml', '.yaml'):
+        if module not in retired and PurePosixPath(path).suffix in ('.py', '.js', '.css', '.html', '.sh', '.ps1', '.yml', '.yaml'):
             if module in old_modules and modules[module]['version'] == old_modules[module]['version']:
                 raise ValueError('实现变更须升级模块版本：' + module)
             if 'versions/changelogs/' + module + '.md' not in changed_names:

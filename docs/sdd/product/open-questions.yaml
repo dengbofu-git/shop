@@ -181,14 +181,3 @@ questions:
   recommendation: 区分真实商家订单聚合和hash分区/常量或公式推算指标；不能把商家权限接口作为独立平台统计服务。
   resolveWith: 指标口径、来源、刷新频率、岗位范围和真实／演示标签；当前代码观察见docs/sdd/product/current-state.md。
   observedEvidence: 2026-10-18平台与商家销售额已共用已付订单条件，见modules/platform/sales-reconciliation.md；hash地区等推算指标仍需真实来源，问题不整体关闭。
-- id: Q-015
-  status: open
-  question: 商家助手后续先交付哪些经营能力，文件／素材归属、库存事务、确认和幂等、生成任务及费用如何定义？
-  affectedCapabilities:
-  - CAP-MER-004
-  - CAP-CAT-002
-  - CAP-FUL-001
-  blockingFrom: SPEC_REVIEW
-  decisionOwner: null
-  recommendation: 保持0.1只开放入口；批量导入、文案／图片／视频和经营工具作为独立切片确认，不将方案讨论当成写入授权。
-  resolveWith: 首个经营切片范围、对象权限、草稿确认契约、隔离测试数据及失败恢复标准。

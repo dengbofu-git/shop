@@ -61,7 +61,6 @@ modules:
   - CAP-MER-001
   - CAP-MER-002
   - CAP-MER-003
-  - CAP-MER-004
   - CAP-MER-005
   - CAP-MER-006
   boundary: 商家履约协作、经营指标和结算展示；订单状态及库存规则引用 TRD/FUL。
@@ -135,11 +134,6 @@ implementationModuleMapping:
   - MOD-AI
 - implementationModule: support_ai
   primaryBusinessModule: MOD-AI
-- implementationModule: merchant_ai
-  primaryBusinessModule: MOD-MER
-  relatedBusinessModules:
-  - MOD-AI
-  - MOD-IAM
 - implementationModule: ai_storage
   primaryBusinessModule: MOD-KNOW
 - implementationModule: web
@@ -365,19 +359,6 @@ capabilities:
   assessment:
     specStatus: unreviewed
     implementationStatus: source-observed
-    verificationStatus: not-run
-    deploymentStatus: unverified
-- id: CAP-MER-004
-  moduleId: MOD-MER
-  name: 商家智能助手入口与受控经营能力
-  priority: P2
-  sourceFeatureIds:
-  - FEAT-032
-  specification: docs/sdd/modules/merchant-operations/assistant-entry.md
-  legacyStage: candidate
-  assessment:
-    specStatus: unreviewed
-    implementationStatus: entry-only
     verificationStatus: not-run
     deploymentStatus: unverified
 - id: CAP-MER-005
