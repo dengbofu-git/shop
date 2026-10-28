@@ -12,7 +12,7 @@ from contextlib import contextmanager, ExitStack
 @contextmanager
 def mysql_database():
     """A new labelled container, existing image only, no mounts or business credentials."""
-    import pymysql
+    import MySQLdb
     nonce = uuid.uuid4().hex[:12]
     name = 'tea-saas-mcp-test-' + nonce
     password = uuid.uuid4().hex
@@ -29,11 +29,11 @@ def mysql_database():
         deadline = time.monotonic() + 60
         while True:
             try:
-                connection = pymysql.connect(host='127.0.0.1',port=port,user='mcp_fixture',password=password,
-                                             database='test_mcp',connect_timeout=2)
+                connection = MySQLdb.connect(host='127.0.0.1',port=port,user='mcp_fixture',passwd=password,
+                                             db='test_mcp',connect_timeout=2)
                 connection.close()
                 break
-            except pymysql.MySQLError:
+            except MySQLdb.Error:
                 if time.monotonic() >= deadline:
                     raise RuntimeError('Disposable MySQL did not become ready') from None
                 time.sleep(1)

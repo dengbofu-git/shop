@@ -1,2 +1,1 @@
-import pymysql
-pymysql.install_as_MySQLdb()
+"""Project package. Django's MySQL backend uses mysqlclient directly."""

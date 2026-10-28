@@ -1,0 +1,11 @@
+.git
+.env
+.env.*
+.scratch
+logs
+reports
+media
+app_key
+**/__pycache__
+**/*.pyc
+**/.venv

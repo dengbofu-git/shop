@@ -1,0 +1,198 @@
+{
+  "base_sha": "63fa850843771dde21c7bd49ed9bc98019e5d24a",
+  "tested_state": "working tree; not committed",
+  "files": {
+    ".gitignore": "38dd5cd451c0d37dbdc8754f5811aefbcd443d717b0af40e1c5649b64d269b02",
+    ".python-version": "02e735b3dfe1c32833eb550b7ff8ffa17f5f2bc3fa1e7bae61a8f5a3883ce398",
+    ".dockerignore": "86dd8c7b69aebfaeb7ba8b6805625da13a51e39dbffc3205b6d654dc3191c0da",
+    "constraints-py313.txt": "8413f22d1e3591410ffda34c11ba18f95b3e2b37afe19ff32e0a39b0b4805c6f",
+    "requirements.txt": "8573825be0f8a57cc166fa4649b1ad432ed040b085f1dd139fcd0526d6cd02dc",
+    ".github/workflows/git-policy.yml": "830f428cceb375687d431198b4162320a1c08eb51eb1680df5f0028e1227e978",
+    "tea_saas/__init__.py": "0f80ff1fe42612381f489afa8e343650e0b86a1230bfdb034ba3acdc865e7463",
+    "tea_saas/settings.py": "e80428c41955139a3e7599bcb23ecb0e0489d18a0a3cec47b50fc8ce5d822bec",
+    "support_ai/order_queries.py": "2325cd8dc58d979b3bd498bb52bbae68e33831eb280a9ac38f3ccbad2ba9616f",
+    "support_ai/pg_test_settings.py": "d1d82f134d3b2a2d47d8ae6f3cbe9f9fb5163c876ac56e7cdf94fedf1594eb92",
+    "support_ai/mcp_client.py": "4a06b6a2be41b11116c5db6970a5d2dec10534f4ef2c1172f292e84f4e459517",
+    "goods/test_mysql_settings.py": "80f7745e7f467ec88023eef9bbd260cad10aaae62f297411525b103297601fb5",
+    "engagement/test_mysql_settings.py": "1f5be35cd9b127b1c01867155fa92aa89b679199e0c415ac821e38593c3a5ee4",
+    "ai_storage/test_paddle_document.py": "c2acae6fdf115eeeeed2cd6eb10d8e2ddfc18efe95e964b84152000f714718f1",
+    "deploy/knowledge-worker/Dockerfile": "556a11d8ad5bd29861e879eab8ec2ee1c1e4a00b75b363c785cc1ad28af3d6e8",
+    "tools/runtime/preview.ps1": "055f77dea6bcdd61b2e4d3af910d5ed201a166e6189f982e98341eef857f377c",
+    "tools/tea_saas_mcp/requirements.txt": "929c61ef8d464a3baa4bad83061444175fb379587f41b6fd1aafb54401de3473",
+    "tools/tea_saas_mcp/agent_integration.py": "0873ababb45f008be3e0515b8e254afa87bfb2dc473fa9d559b92f5baa502e27",
+    "tools/tea_saas_mcp/test_settings.py": "2ff634ae378ddc764c612e6418fd64e870ef561d9f7bf56ddccefaf00ed3c2cd",
+    "tools/tea_saas_mcp/agent_pg_test_settings.py": "ef15468c7fadab871b028c8cd899b4369d7792220ed04e7b8258263d32ccb45b",
+    "README.md": "f7c147ae1ed0bdf6fe51ccd85e5b712c235cc19a38c6ebfd1e98185816766d80",
+    "docs/MCP与Skill接入.md": "177d316121ba66b9d78031b208d2da82607336eb571cd9060d66e38e114d7686",
+    "docs/Python与Django升级.md": "617c9d07f58ad0f5e8cc184091c6f7cc31e96dadc7d1c25c55e6eb541531d681",
+    "versions/modules.json": "9e78ae5b3a68b9bb2855894c7ef17d1f7841afb0f348c21328fe8d11a37f4c39",
+    "versions/README.md": "7ac3a0a63ba6da4be4d3ab7fb2bb07a2fea14e836f0627897bc46cbb0c2b208f",
+    "versions/changelogs/core.md": "0a2be1e54f87a1853ab70a1226a7f831aebca8112acd47f81985412d7d694594",
+    "versions/changelogs/support_ai.md": "4155192a11299173b56e276209cebfad570939a3ebc940730b882ef1732e4978",
+    "versions/changelogs/goods.md": "f5077733f8867ccdcfbc82209d88053e1ff1eb335fbee49ef8a2974f9162ce1e",
+    "versions/changelogs/engagement.md": "ac0505cce3a35ebd6e50790e5923816a13432163f390e68c4d819c055c9754a1",
+    "versions/changelogs/ai_storage.md": "67f08e56464365921ad89922a5c49c5715839842358607a046be58d8fbc5994a"
+  },
+  "local_log_hashes": {
+    "ai-ai-parser-fixtures.log": {
+      "sha256": "77e22787b5b5a88a0825b0a9702387ca8592d41b982b296de5501d5936c80f2d",
+      "bytes": 2088
+    },
+    "dependency-check.log": {
+      "sha256": "c805a3a6f2e548751a84ef43c420f3283fb37dc01675d335294cd99f45379ad8",
+      "bytes": 129
+    },
+    "django-business-tests.log": {
+      "sha256": "df91c1b35d3f2d3699595daf1dcfe9a45318712972095ff404c09a97b722cd92",
+      "bytes": 305648
+    },
+    "django-migration-drift.log": {
+      "sha256": "93e6e2d5be3c054add80c0f19101608803f7ca8a7df1fa41f76bbb9a1f570f4a",
+      "bytes": 21
+    },
+    "django-system-check.log": {
+      "sha256": "f87ceb15410bde28ff826ce26228e0576558258fa64d145847921a593a61ee63",
+      "bytes": 49
+    },
+    "governance-governance.log": {
+      "sha256": "7271a8c45e24d2ae28186ac3b2c3ac2bf72d4e354628b3bf121559801e373eeb",
+      "bytes": 5315
+    },
+    "linux-business-tests.log": {
+      "sha256": "08896d0fc7e10e5e74454314d740fe6779a9cde6600f9d403d9f8dc421ec653e",
+      "bytes": 293933
+    },
+    "mcp-integration-final.log": {
+      "sha256": "ee7bd8f208508b2eea3b15d488adc11b10ef20f15163764c8a9c24223fffd3cf",
+      "bytes": 1808
+    },
+    "mcp-integration.log": {
+      "sha256": "106c519baf9ea5141b3fa9603a1c8152d3488ebac5dac953125044ccd44c62ea",
+      "bytes": 1808
+    },
+    "mysql-isolated-mysql.log": {
+      "sha256": "fc67bb373bd8fe97fd2cc2524a80a8c34b189ea6dbcc2a5ad6f8a82af7015df5",
+      "bytes": 173808
+    },
+    "node-admin-shell.test.log": {
+      "sha256": "30b63d0d22824df0f216c26bdebe35147819466afb899e31fec8d0f35146d050",
+      "bytes": 336
+    },
+    "node-auth-storage.test.log": {
+      "sha256": "ed89aca1848fee9c995033e4543f333a43c575a840df8a54b213fb02cef564b4",
+      "bytes": 348
+    },
+    "node-buyer-carousel.test.log": {
+      "sha256": "45bca9e25679d67851e8fcbd22ab3e87e0e4e01fbd242967ca2f2d42df63d40a",
+      "bytes": 425
+    },
+    "node-buyer-catalog-preview.test.log": {
+      "sha256": "328da088389c5aa1c2c44d7680650db0d8c2fded617646520981746337c381fe",
+      "bytes": 398
+    },
+    "node-buyer-entry-split.test.log": {
+      "sha256": "4b5e223b588d1f52be21e67900e2676e608f69c0df5424d38c8b2b9e8566215d",
+      "bytes": 550
+    },
+    "node-buyer-order-support-links.test.log": {
+      "sha256": "aa1b84b56551d465700d9b41cdc00bf3fa63d4b9843b6a1c90f144e272f36dd6",
+      "bytes": 759
+    },
+    "node-buyer-products-pagination.test.log": {
+      "sha256": "8728c9e56e1453411e4d150cd2a10bdd27fed090261a2cddcd2852b1d956c7f8",
+      "bytes": 456
+    },
+    "node-buyer-support-quantity.test.log": {
+      "sha256": "3f7b9e4cf6693901a23c5b2393ba918314fd6cd16b735885f6e56c8a871a861c",
+      "bytes": 701
+    },
+    "node-cart-currency.test.log": {
+      "sha256": "ddcacc1a4a79bb1ad83e04bcdf149b706743b8b398b1c46685cd31ac047e0213",
+      "bytes": 368
+    },
+    "node-checkout.test.log": {
+      "sha256": "38bed479a452d15178b163fe890dc3a847d6e763c032d493e4e39db3628ea44a",
+      "bytes": 357
+    },
+    "node-engagement-messages.test.log": {
+      "sha256": "6dfd67e4e55a3cd0aa3becf92680869b78ca9f1e222b5add70239340295554ab",
+      "bytes": 6859
+    },
+    "node-engagement.test.log": {
+      "sha256": "9b9a4fc84c0dff2eb3cbe1c6958842091d6ff4ecdf4f40a56e810f8636af4a1f",
+      "bytes": 1186
+    },
+    "node-merchant-insights.test.log": {
+      "sha256": "ead6bd61f20d34f76fc04826543ea48e9da3c6b4199fe343e46ed49b4cebc87f",
+      "bytes": 2147
+    },
+    "node-merchant-orders.test.log": {
+      "sha256": "037a7e8f315bd6c5c2ca676c5218793350f78f772469b469e10487240087da39",
+      "bytes": 406
+    },
+    "node-merchant-overview.test.log": {
+      "sha256": "d9ab49b48f1b3fbbcff4083fd28bdcc82735b3a8a95c206b419266eab128ee73",
+      "bytes": 795
+    },
+    "node-merchant-product-preview.test.log": {
+      "sha256": "530b6aaacfb32619420e9762fa7dfa3b3a607f07c47ac7c20ad74489891c041d",
+      "bytes": 365
+    },
+    "node-merchant-workbench-feed.test.log": {
+      "sha256": "3ff6dcf9057034bf7106bd5875400460a4d3f912c4b966e211023b2704c926a4",
+      "bytes": 1349
+    },
+    "node-operations-dashboard.test.log": {
+      "sha256": "97dd4df39fc742fbc6ed29dcffef4f484598ec8d775eeb41fee182fc0dc6d9d4",
+      "bytes": 453
+    },
+    "node-product-detail-summary.test.log": {
+      "sha256": "d79037ed7259726819e4b9ac3fbd97f4c7a1de410c9e2fee886525039ec9cc88",
+      "bytes": 2308
+    },
+    "node-product-import.test.log": {
+      "sha256": "40a1d5159e1da34ca3c5651aacbd529169c0c0c0d30156042dd9002157e5b107",
+      "bytes": 672
+    },
+    "node-profile-nickname.test.log": {
+      "sha256": "1887ea33fef8dc59f1a363035d7f103e787535544c2eb72b5ad9f17ca5f778f8",
+      "bytes": 1243
+    },
+    "node-reservation-checkout.test.log": {
+      "sha256": "870c8fcef03223ad7da3f972c8574c6af46e728f3832d5f7a025b4eefb3f0863",
+      "bytes": 1158
+    },
+    "node-storefront.test.log": {
+      "sha256": "d698e6cc20a4856b842935cdd736a81528edb2968fef15c50bb15b0decd00dd5",
+      "bytes": 292
+    },
+    "node-tea-saas-brand.test.log": {
+      "sha256": "a140d03dabc2c0e26529dd14d4ba51ae405bbd535c103052207d4b36a0248368",
+      "bytes": 359
+    },
+    "node-unified-login.test.log": {
+      "sha256": "83584b9f1cb0253f69df27d98669450f01e4d3679e468717be11d0ead9383160",
+      "bytes": 355
+    },
+    "postgres-isolated-postgres.log": {
+      "sha256": "c8eca37ad477f1a9c5436b1799631fce7c642a6083fd250f9530346e15609836",
+      "bytes": 287
+    },
+    "worker-base-pull.log": {
+      "sha256": "ee9834452937944db394e5a6af0f2f52a1bc1ba1a60568a8e8374fe4f8da9c8a",
+      "bytes": 787
+    },
+    "worker-build-ecr.log": {
+      "sha256": "5a243f1e85476e17a2e598fa2680e97ff6f3f646ac9d3516fc635481c803564c",
+      "bytes": 86154
+    },
+    "worker-build.log": {
+      "sha256": "00cae09d21ffb616c145f9b0d92ac683f44ee002e4cf38d500d080fdd139dff3",
+      "bytes": 1232
+    },
+    "worker-final-build.log": {
+      "sha256": "09ba310fbb1008920713afbd5812b01e77969b0673ebc1da5de732a97eff65df",
+      "bytes": 33597
+    }
+  }
+}
