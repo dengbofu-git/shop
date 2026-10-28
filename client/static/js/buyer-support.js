@@ -35,6 +35,7 @@
     var identityToken = AuthStorage.getToken();
     var identityUser = AuthStorage.getUser();
     var identityCleared = false;
+    var cartOperations = Object.create(null);
     var historyCursor = null;
     var olderCursor = null;
     var historyLoaded = false;
@@ -57,6 +58,7 @@
         if (!identityCleared) {
             identityCleared = true;
             drafts = Object.create(null);
+            cartOperations = Object.create(null);
             conversation = pending = null;
             selectedBundle = null;
             historyCursor = olderCursor = null;
@@ -266,7 +268,11 @@
                 reason.textContent = (product.reasons || []).join('、');
                 info.appendChild(reason);
                 card.appendChild(info);
-                cards.appendChild(card);
+                var entry = document.createElement('div'); entry.className = 'bs-product-entry';
+                entry.appendChild(card);
+                var action = cartAction(result, {sku_id: product.sku_id}, '加入采购车', 1, true);
+                if (action) entry.appendChild(action);
+                cards.appendChild(entry);
             });
             bubble.parentNode.appendChild(cards);
         }
@@ -277,6 +283,75 @@
         var selected = document.getElementById('currency-select').value;
         if (currency === 'CNY' && selected !== 'CNY') text += '（参考 ' + TeaMoney.format(amount, selected) + '）';
         return text;
+    }
+
+    function cartAction(result, selection, label, initialQuantity, editable) {
+        // 旧记录没有可信请求引用时，不提供无法绑定来源的写操作。
+        if (!result.request_id || !/^[0-9a-f-]{32,36}$/i.test(result.request_id)) return null;
+        var group = document.createElement('div');
+        group.className = 'bs-cart-actions';
+        var quantity;
+        if (editable) {
+            var quantityLabel = document.createElement('label');
+            quantityLabel.textContent = '本次加入件数 ';
+            quantity = document.createElement('input');
+            quantity.type = 'number'; quantity.min = '1'; quantity.max = '999999999'; quantity.step = '1';
+            quantity.value = String(initialQuantity || 1);
+            quantity.setAttribute('aria-label', '本次加入采购车的件数');
+            quantityLabel.appendChild(quantity); group.appendChild(quantityLabel);
+        }
+        var button = document.createElement('button');
+        button.type = 'button'; button.textContent = label;
+        var status = document.createElement('span'); status.setAttribute('role', 'status');
+        var link = document.createElement('a'); link.href = '/cart.html'; link.textContent = '查看采购车';
+        group.appendChild(button); group.appendChild(link); group.appendChild(status);
+        if (quantity) quantity.addEventListener('input', function () { button.disabled = false; button.textContent = label; status.textContent = ''; });
+        button.addEventListener('click', async function () {
+            if (button.disabled || !ensureIdentity()) return;
+            var count = quantity ? Number(quantity.value) : null;
+            if (quantity && (!Number.isInteger(count) || count < 1 || count > 999999999)) {
+                status.textContent = '购买件数必须为正整数。'; return;
+            }
+            var payload = Object.assign({recommendation_request_id: result.request_id}, selection);
+            if (quantity) payload.count = count;
+            var actionKey = JSON.stringify(payload);
+            var operation = cartOperations[actionKey];
+            if (!operation) operation = cartOperations[actionKey] = {id: uuid(), complete: false, busy: false};
+            if (operation.busy) return;
+            if (operation.complete) { status.textContent = '本次操作已加入采购车。'; button.disabled = true; return; }
+            operation.busy = true; button.disabled = true; if (quantity) quantity.disabled = true;
+            payload.request_id = operation.id;
+            status.textContent = '正在核查商品并加入采购车…';
+            try {
+                checkIdentity();
+                var response = await fetch('/v1/carts/' + encodeURIComponent(identityUser) + '/recommendations', {
+                    method: 'POST', headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + identityToken},
+                    body: JSON.stringify(payload)
+                });
+                var data = await response.json(); checkIdentity();
+                if (!response.ok || data.code !== 200) throw new Error(data.error || '加入失败，请重试同一次操作。');
+                syncCartCount(data.data && data.data.carts_count);
+                operation.complete = true; button.textContent = '已加入';
+                status.textContent = data.replayed ? '已确认此前加入成功，没有重复添加。' : '已加入本人采购车，未下单、未锁定库存。';
+            } catch (error) {
+                if (sameIdentity()) status.textContent = error.message || '结果尚未确认，请重试同一次操作。';
+            } finally {
+                operation.busy = false; button.disabled = operation.complete;
+                if (quantity) quantity.disabled = false;
+            }
+        });
+        return group;
+    }
+
+    function syncCartCount(count) {
+        if (count === null || count === undefined) return;
+        var value = Number(count);
+        if (!Number.isSafeInteger(value) || value < 0) return;
+        // 后端返回采购车商品种类数；存储受限时仍即时更新当前页图标。
+        try { if (typeof AuthStorage !== 'undefined' && AuthStorage.setCount) AuthStorage.setCount(value); } catch (_) {}
+        if (document.querySelectorAll) document.querySelectorAll('#cart-count,.my_cart_count').forEach(function (node) {
+            node.textContent = String(value);
+        });
     }
 
     function amountCents(value) {
@@ -386,7 +461,11 @@
                     info.appendChild(reason);
                 }
                 card.appendChild(info);
-                cards.appendChild(card);
+                var entry = document.createElement('div'); entry.className = 'bs-product-entry';
+                entry.appendChild(card);
+                var action = cartAction(result, {bundle_id: bundle.bundle_id, sku_id: item.sku_id}, '仅加入这款', item.quantity, true);
+                if (action) entry.appendChild(action);
+                cards.appendChild(entry);
             });
             panel.appendChild(cards);
             var total = document.createElement('p');
@@ -394,6 +473,9 @@
             total.textContent = '商品合计 ' + shownMoney(bundle.subtotal, bundle.currency);
             if (amountCents(bundle.remaining_budget) !== null) total.textContent += ' · 预算余量 ' + shownMoney(bundle.remaining_budget, bundle.currency);
             panel.appendChild(total);
+            var units = bundle.items.reduce(function (sum, item) { return sum + item.quantity; }, 0);
+            var addBundle = cartAction(result, {bundle_id: bundle.bundle_id}, '整套加入采购车，共' + units + '件', null, false);
+            if (addBundle) panel.appendChild(addBundle);
             var notice = document.createElement('small');
             notice.textContent = result.bundle_notice || '商品合计不含运费、税费，价格及可购买状态以下单校验为准。';
             panel.appendChild(notice);

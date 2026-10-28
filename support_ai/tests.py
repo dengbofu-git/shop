@@ -263,6 +263,7 @@ class RecommendationIntegrationTests(DatabaseTestCase):
         self.other = UserProfile.objects.create(username='other-buyer', password='test', email='other@test.com', phone='', is_active=True)
         self.auth = {'HTTP_AUTHORIZATION': 'Bearer ' + jwt_encode({'id': self.user.pk})}
         self.request_id = str(uuid.uuid4())
+        self.seller = UserProfile.objects.create(username='synthetic-active-shop', user_type='merchant', is_active=True)
         brand = Brand.objects.create(name='测试品牌', first_letter='T')
         red = Catalog.objects.create(name='红茶')
         green = Catalog.objects.create(name='绿茶')
@@ -272,7 +273,7 @@ class RecommendationIntegrationTests(DatabaseTestCase):
             ('绿茶高价', green, '100', 10, True), ('绿茶无货', green, '30', 0, True),
             ('绿茶下架', green, '30', 10, False), ('绿茶预留', green, '30', 10, True),
         ):
-            spu = SPU.objects.create(name=name, catalog=category, brand=brand)
+            spu = SPU.objects.create(name=name, catalog=category, brand=brand, merchant=self.seller)
             self.skus.append(SKU.objects.create(name=name, caption='', spu=spu, price=Decimal(price),
                                                 cost_price=Decimal(price), market_price=Decimal(price),
                                                 stock=stock, is_launched=launched))
@@ -334,24 +335,26 @@ class RecommendationIntegrationTests(DatabaseTestCase):
         self.assertEqual(self.client.get('/v1/support/conversations/{}/'.format(foreign.pk), **self.auth).status_code, 404)
         self.assertEqual(self.client.get('/v1/support/preferences/', **self.auth).json()['preferences']['categories'], [])
 
-    def test_unrepairable_provenance_and_provider_failure_do_not_commit(self):
+    def test_unrepairable_provenance_clarifies_and_provider_failure_does_not_commit(self):
         from .models import SupportConversation, SupportTurn
         bad = self.model({'action': 'SEARCH', 'required': {'categories': ['绿茶']}})
         with patch('support_ai.mcp_backend.match_products') as query:
             data = self.post_chat(bad, message='推荐测试品牌绿茶')
         query.assert_not_called()
-        self.assertEqual(data.status_code, 503)
+        self.assertEqual(data.status_code, 200)
+        self.assertTrue(data.json()['clarification_required'])
         from .models import AgentSpan
         completed = AgentSpan.objects.get(name='support.chat')
-        self.assertEqual(completed.status, 'ERROR')
-        self.assertEqual(SupportTurn.objects.filter(user=self.user).count(), 0)
-        self.assertEqual(SupportConversation.objects.filter(user=self.user).count(), 0)
+        self.assertEqual(completed.status, 'OK')
+        self.assertEqual(SupportTurn.objects.filter(user=self.user).count(), 1)
+        self.assertEqual(SupportConversation.objects.filter(user=self.user).count(), 1)
         with patch('support_ai.model_client.configured_model', side_effect=TimeoutError):
             import json
             response = self.client.post('/v1/support/chat/', data=json.dumps({'message': '帮我比较品牌A与品牌B的绿茶再挑一款'}),
                                         content_type='application/json', **self.auth)
         self.assertEqual(response.status_code, 503)
-        self.assertEqual(SupportTurn.objects.filter(user=self.user).count(), 0)
+        self.assertEqual(SupportTurn.objects.filter(user=self.user).count(), 1)
+        self.assertEqual(SupportTurn.objects.filter(user=self.user).count(), 1)
 
     def test_retry_payload_conflict_and_conversation_revision_conflict(self):
         import json

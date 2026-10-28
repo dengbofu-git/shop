@@ -75,12 +75,15 @@ for (const authenticated of [false, true]) {
 }
 
 const remembered = harness(true, 'SAR');
-assert.equal(remembered.$('#currency-select').value, 'SAR');
-assert.equal(remembered.$('.susum,.susumOne').content, 'SAR 10.40');
+assert.equal(remembered.$('#currency-select').value, 'CNY');
+assert.equal(remembered.storage.buyer_cart_currency, 'CNY');
+assert.equal(remembered.$('.susum,.susumOne').content, '¥20.00');
 const blocked = harness(true, 'AED', true);
 blocked.switchTo('AED');
 assert.equal(blocked.$('.susum,.susumOne').content, 'AED 10.20');
 const guest = harness(false, 'AED');
+assert.equal(guest.$('#currency-select').value, 'CNY');
+guest.switchTo('AED');
 guest.$('#allcheck').props.checked = true;
 guest.$('#allcheck').events.change.call(guest.$('#allcheck'));
 assert.equal(guest.$('.susum,.susumOne').content, 'AED 11.73', 'selection update preserves active currency');
@@ -89,3 +92,9 @@ guest.$('#cart_imfor').events['click:.reduc,.add'].call(add);
 assert.equal(guest.$('.susum,.susumOne').content, 'AED 16.83', 'quantity update preserves active currency');
 assert.equal(JSON.parse(guest.storage.cart)[0].unit_price, 10);
 console.log('PASS: guest/server cart currency, headers, totals, selection, quantity, persistence and raw-price integrity');
+
+for (const oldCurrency of ['USD', 'EUR', 'SAR', 'AED', 'invalid']) {
+    const page = harness(true, oldCurrency);
+    assert.equal(page.$('#currency-select').value, 'CNY');
+    assert.equal(page.$('.susum,.susumOne').content, '¥20.00');
+}

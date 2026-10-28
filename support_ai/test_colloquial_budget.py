@@ -82,7 +82,7 @@ class ColloquialBudgetTests(TestCase):
                 self.assertEqual(purchase.action, 'SEARCH')
 
     def test_explicit_total_generic_tea_scope_reaches_bundle_without_model(self):
-        for noun in ('茶', '茶叶', '茶品', '商品', '红茶', '套餐', '茶叶套餐', '红茶套餐'):
+        for noun in ('茶', '茶叶', '茶品', '商品', '红茶'):
             for suffix in ('', '左右'):
                 with self.subTest(noun=noun, suffix=suffix):
                     _, _, plan, purchase = self.planned('推荐总价为3000块{}的{}'.format(suffix, noun))

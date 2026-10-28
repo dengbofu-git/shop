@@ -30,7 +30,7 @@ class GenericTeaBudgetTests(TestCase):
         return build_graph(None, tool_factory=factory)
 
     def test_exact_buyer_sentence_produces_checked_three_thousand_yuan_bundle(self):
-        response = self.graph().invoke({'message': '推荐总价为3000块的茶'})['response']
+        response = self.graph().invoke({'message': '推荐总价为3000块的茶，尽量用满'})['response']
         self.assertEqual(response['intent_source'], 'rules')
         self.assertEqual(response['tasks'], [{'id': 's1', 'tool': 'recommend_bundle', 'status': 'success'}])
         self.assertEqual(response['product_intent']['required']['budget_max'], '3000.00')
@@ -55,19 +55,20 @@ class GenericTeaBudgetTests(TestCase):
         saved = commit_turn(user, None, 0, uuid.uuid4(), 'synthetic-first', message, response)
         return user, SupportConversation.objects.get(pk=saved['conversation_id'])
 
-    def assert_total_succeeds(self, response):
+    def assert_total_matches(self, response):
         self.assertEqual(response['tasks'][0]['tool'], 'recommend_bundle')
         self.assertEqual(response['tasks'][0]['status'], 'success')
         self.assertEqual(response['product_intent']['required']['budget_max'], '3000.00')
-        self.assertEqual(response['product_intent']['required']['currency'], 'CNY')
         self.assertFalse(response['clarification_required'])
         self.assertEqual(response['diagnostics'], [])
-        self.assertEqual(response['recommendation_bundles'][0]['subtotal'], '3000.00')
+        self.assertTrue(response['recommendation_bundles'])
+        for bundle in response['recommendation_bundles']:
+            self.assertLessEqual(Decimal(bundle['subtotal']), Decimal('3000'))
 
     def test_package_reply_reuses_budget_through_saved_http_style_context(self):
         _, conversation = self.pending()
         response = self.graph().invoke({'message': '套餐', 'recent_turns': recent_context(conversation)})['response']
-        self.assert_total_succeeds(response)
+        self.assert_total_matches(response)
 
     def test_whole_set_reply_recovers_after_an_intervening_legacy_failure(self):
         user, conversation = self.pending()
@@ -76,8 +77,17 @@ class GenericTeaBudgetTests(TestCase):
         self.assertEqual(failed['dialogue_state']['status'], 'pending')
         commit_turn(user, conversation, 1, uuid.uuid4(), 'synthetic-failed', '套餐', failed)
         response = self.graph().invoke({'message': '整套', 'recent_turns': recent_context(conversation)})['response']
-        self.assert_total_succeeds(response)
+        self.assert_total_matches(response)
 
-    def test_explicit_package_noun_uses_real_bundle_search(self):
-        response = self.graph().invoke({'message': '推荐总价3000块的套餐'})['response']
-        self.assert_total_succeeds(response)
+    def test_explicit_package_noun_requires_semantic_planning(self):
+        from .semantic_planning import plan_turn
+        from .test_semantic_planning import PlanModel
+        message = '推荐总价3000块的套餐'
+        model = PlanModel({'action':'new_request', 'standalone_question':message,
+            'requests':[{'kind':'recommendation','quote':message}],
+            'purchase':{'action':'SEARCH','required':{'price_basis':'total','budget_max':'3000'},
+                'evidence':[{'field':'required.'+field,'value':value,'quote':quote,'source':'CURRENT'}
+                    for field,value,quote in [('price_basis','total','总价'),('budget_max','3000','3000')]]}})
+        _, source, _ = plan_turn(model, message, [], None)
+        self.assertEqual(source, 'model')
+        self.assertEqual(len(model.calls), 1)

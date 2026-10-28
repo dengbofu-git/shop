@@ -2,7 +2,8 @@
 from decimal import Decimal
 from hashlib import sha256
 
-from .budget_combinations import Candidate, MAX_CANDIDATES, search_bundles
+from .budget_combinations import Candidate, MAX_CANDIDATES
+from .bundle_optimizer import optimize_bundles as search_bundles
 from .contracts import canonicalize_total_budget, validate_recommendation_branch
 from .pii import redact
 from .recommendations import CATEGORY_ALIASES, CLARIFICATIONS, product_cards, ranked_products
@@ -64,7 +65,8 @@ def recommend_bundle(intent, *, category_scope=None):
 
     if intent.action == 'CLARIFY':
         return dict(empty, recommendation_status='CLARIFY', bundle_missing_fields=intent.missing_fields,
-                    answer=' '.join(CLARIFICATIONS[f] for f in intent.missing_fields))
+                    answer=' '.join(CLARIFICATIONS['bundle_quantity' if f == 'purchase_quantity' else f]
+                                    for f in intent.missing_fields))
     hard = intent.required
     if hard.price_basis != 'total':
         raise ValueError('recommend_bundle requires a total budget')
@@ -79,7 +81,7 @@ def recommend_bundle(intent, *, category_scope=None):
         categories = [c for c in scope if not categories or c in categories]
         if not categories:
             return dict(empty, recommendation_status='NO_MATCH', answer='茶类说明范围与购买条件没有交集，暂无法搭配。')
-    count = hard.distinct_count
+    count = 1 if hard.composition == 'single' else hard.distinct_count
     if len(categories) > (count or 4):
         return clarify('bundle_constraints')
     requested_currency = currency(hard.currency)
@@ -101,6 +103,7 @@ def recommend_bundle(intent, *, category_scope=None):
     def search(rows):
         return search_bundles([_candidate(p) for p in rows], budget_cents=budget, minimum_cents=minimum,
                               categories=categories, quantity=quantity, distinct_count=count,
+                              minimum_distinct=2 if hard.composition == 'multiple' else 1,
                               preference_max=preference_max, prefer_near=hard.budget_mode in ('near', 'exact'))
 
     searched = search(selected)
@@ -122,7 +125,7 @@ def recommend_bundle(intent, *, category_scope=None):
                                'conversion_kind': 'reference' if requested_currency != BASE_CURRENCY else 'none'},
                 bundle_assumptions={'quantity_per_product': quantity, 'quantity_mode': 'fixed' if quantity is not None else 'automatic',
                                     'automatic_quantity_cap': None, 'quantity_bound': 'budget_and_available_stock',
-                                    'min_distinct_products': count or 1,
+                                    'min_distinct_products': count or (2 if hard.composition == 'multiple' else 1),
                                     'max_distinct_products': count or 4, 'shipping_and_tax_included': False})
     bundles = []
     seen_combinations = set()
@@ -149,10 +152,16 @@ def recommend_bundle(intent, *, category_scope=None):
                         'currency': BASE_CURRENCY, 'within_budget': True, 'near_budget': plan['near_budget'],
                         'display_currency': requested_currency,
                         'display_subtotal': format(display(Decimal(subtotal) / 100, requested_currency), '.2f'),
-                        'quality_score': plan['quality_score']})
+                        'quality_score': plan['quality_score'],
+                        'solver_status': plan.get('solver_status'),
+                        'objective_value': plan.get('objective_value'),
+                        'best_objective_bound': plan.get('best_objective_bound')})
         bundles[-1]['summary'] = bundle_summary(bundles[-1], money(budget), automatic=quantity is None)
         if len(bundles) == 3:
             break
+    if not bundles and searched.get('termination_status') == 'UNKNOWN':
+        return dict(base, recommendation_status='ERROR',
+                    answer='套餐计算在本次时限内尚未找到可验证方案，请稍后重试或缩小条件。')
     if not bundles:
         return dict(base, recommendation_status='NO_MATCH',
                     answer='在当前候选范围内，未找到同时满足总预算、茶类覆盖和商品数量的搭配。'

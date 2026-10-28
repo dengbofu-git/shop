@@ -14,7 +14,7 @@ class BudgetCombinationTests(TestCase):
     def test_exact_cap_categories_quantity_and_product_uniqueness(self):
         rows=[Candidate(1,1,'绿茶',6000,2),Candidate(2,2,'白茶',4000,2),
               Candidate(3,1,'绿茶',1000,20),Candidate(4,4,'红茶',10000,0)]
-        result=search_bundles(rows,budget_cents=20000,categories=['绿茶','白茶'],quantity=2)
+        result=search_bundles(rows,budget_cents=20000,categories=['绿茶','白茶'],quantity=2,prefer_near=True)
         self.assertEqual(result['plans'][0]['subtotal_cents'],20000)
         self.assertEqual(result['plans'][0]['sku_ids'],[1,2])
         for plan in result['plans']:
@@ -37,7 +37,8 @@ class BudgetCombinationTests(TestCase):
                             continue
                         quality=(8000+20*(len({r.category for r in selected})*100//size))//100
                         ids=tuple(r.sku_id for r in selected)
-                        rank=(-quality,cap-total,2*size,size,tuple((pk,2) for pk in ids))
+                        rank=((-quality,cap-total,2*size,size,tuple((pk,2) for pk in ids)) if near
+                              else (-quality,2*size,size,total,tuple((pk,2) for pk in ids)))
                         if near: rank=(0 if total>=(cap*95+99)//100 else 1,)+rank
                         expected.append((rank,ids,total))
                 expected.sort()

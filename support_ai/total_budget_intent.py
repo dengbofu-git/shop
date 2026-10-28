@@ -121,4 +121,7 @@ def simple_total_intent(message, *, allow_supplement=False):
         remaining = ''
     if remaining or not hard or (not budgets and not allow_supplement and hard.get('price_basis') != 'total'):
         return None
+    if re.search(r'尽量用满', message):
+        hard['quantity_policy'] = 'automatic'
+        evidence('quantity_policy', 'automatic', '尽量用满')
     return RecommendationIntent.model_validate(data)

@@ -1,0 +1,11 @@
+{
+  "support_ai/contracts.py": "1257267e68fa48b1b25411b1d605b8adc38c43c8ce9d680ad3335edb644376ef",
+  "support_ai/semantic_planning.py": "68e228c55ff2bda506f5285da41537b8f330368ea1413374fa24d8f9a82d2f3d",
+  "support_ai/total_budget_intent.py": "1b998dc90c67b4dc66b0750a39f3d25d898f5a4a1ed644fcfc9fa04afcd659bb",
+  "support_ai/budget_combinations.py": "4a62d52cbfe2e020f2fcf66c41c7ed6c6961ca42c2733649dcff73bcc827824e",
+  "support_ai/bundle_recommendations.py": "d9576d3e5111fa66df25e9ca07ff0bb309f2a3f8fb5f09cf923fb03b7b31c0b1",
+  "support_ai/recommendations.py": "98177e269d45609cdd5e6c32e980fb003a4d0e15e6d5447af82f9f7815d07eab",
+  "support_ai/tool_services.py": "cc96ce33d87d7923d039ef14905b3b391e085c572a112d65651320bf68155d59",
+  "support_ai/test_bundle_intent_boundary.py": "fb4fdc5d2f1b20e81910c69cffaf64aa83346178846a4c69a557089858a68ef8",
+  "tools/tea_saas_mcp/agent_schemas.json": "fafbee16fc5806cb1e2d38d04cf54faecf5b9a3dc1a5f06682587c0f339a7fda"
+}

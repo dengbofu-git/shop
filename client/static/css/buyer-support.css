@@ -83,3 +83,12 @@
 .bs-product:focus-visible, .bs-preferences button:focus-visible, .bs-new-conversation:focus-visible { outline: 2px solid #1a5d1a; outline-offset: 3px; }
 .bs-preferences button:disabled, .bs-new-conversation:disabled { opacity: .6; cursor: wait; }
 @media (max-width: 760px) { .bs-panel { min-height: 520px; } .bs-messages { max-height: 54vh; padding: 14px; } .bs-message { max-width: 94%; } .bs-compose { padding: 12px; } .bs-notice { padding: 0 12px 14px; } }
+
+.bs-product-entry { min-width: 0; }
+.bs-cart-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding: 10px 4px; font-size: 13px; }
+.bs-cart-actions button { min-height: 40px; padding: 8px 14px; background: #195c3d; border: 1px solid #195c3d; border-radius: 8px; color: #fff; cursor: pointer; font: inherit; }
+.bs-cart-actions button:disabled { opacity: .65; cursor: default; }
+.bs-cart-actions input { width: 85px; min-height: 36px; box-sizing: border-box; border: 1px solid #b8cbb2; border-radius: 5px; padding: 4px; font: inherit; }
+.bs-cart-actions [role="status"] { flex-basis: 100%; color: #435b4c; overflow-wrap: anywhere; }
+.bs-cart-actions a { color: #195c3d; }
+.bs-cart-actions button:focus-visible, .bs-cart-actions input:focus-visible { outline: 2px solid #1a5d1a; outline-offset: 3px; }

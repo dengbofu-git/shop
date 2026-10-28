@@ -6,6 +6,27 @@ from .contracts import IntentEvidence, _value_supported
 from .total_budget_intent import AMOUNT
 
 
+def normalize_planned_defaults(purchase, message):
+    """所有规划动作统一消除非用户事实的空值标记及默认预算上限。"""
+    result = purchase.model_copy(deep=True)
+    removable = set()
+    hard = result.required
+    if hard.budget_mode == 'cap' and not _value_supported('required.budget_mode', 'cap', message):
+        proofs = [e for e in result.evidence if e.field == 'required.budget_mode']
+        if all(e.source == 'CURRENT' and e.source_id is None and e.context_turn_id is None for e in proofs):
+            hard.budget_mode = None
+            removable.add('required.budget_mode')
+    for field, marker in [('composition', 'unspecified'), ('quantity_policy', 'clarify')]:
+        if field == 'quantity_policy' and re.search(r'(?:不要|不允许|禁止|不用|不想).{0,4}(?:自动|配量)', message):
+            continue
+        if getattr(hard, field) == marker:
+            proofs = [e for e in result.evidence if e.field == 'required.' + field]
+            if all(e.source == 'CURRENT' and e.source_id is None and e.context_turn_id is None for e in proofs):
+                removable.add('required.' + field)
+    result.evidence = [e for e in result.evidence if e.field not in removable]
+    return result
+
+
 def reconcile_initial_purchase(purchase, message):
     """Keep explicit money without guessing scope, changing tasks or prior state."""
     result = purchase.model_copy(deep=True)

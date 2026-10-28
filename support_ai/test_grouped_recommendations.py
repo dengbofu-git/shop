@@ -66,10 +66,12 @@ class GroupedRecommendationTests(TestCase):
 
     def setUp(self):
         from goods.models import Catalog, SPU, SKU
+        from users.models import UserProfile
+        merchant = UserProfile.objects.create(username='synthetic-grouped-shop', user_type='merchant', is_active=True)
         self.skus = {}
         for i, category in enumerate(BASIC_TEA_TYPES):
             catalog = Catalog.objects.create(name=category)
-            spu = SPU.objects.create(name=category + '测试商品', catalog=catalog)
+            spu = SPU.objects.create(name=category + '测试商品', catalog=catalog, merchant=merchant)
             self.skus[category] = [SKU.objects.create(name='规格' + str(n), caption='', spu=spu,
                                     price=str(10 + i + n * 10), cost_price='5', market_price='50', stock=10)
                                    for n in range(2)]

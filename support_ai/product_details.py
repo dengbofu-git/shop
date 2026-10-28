@@ -51,7 +51,7 @@ def get_product_details(sku_id):
         'currency': BASE_CURRENCY, 'price_basis': 'unit',
         'currency_source': 'configured_base_currency',
         'available_stock': sku.available_stock,
-        'stock_source': 'inventory_ledger' if sku.ledger_count else 'sku_stock_fallback',
+        'stock_source': 'inventory_ledger' if sku.stock_has_ledger else 'sku_stock_fallback',
         'attributes': json.loads(json.dumps(attributes, default=str)),
     })
     if not attributes:

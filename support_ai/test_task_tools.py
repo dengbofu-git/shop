@@ -62,7 +62,8 @@ class TaskToolIntegrationTests(TestCase):
         self.user = UserProfile.objects.create(username='plan-buyer', password='unused', email='planner@test.invalid', phone='', is_active=True)
         self.auth = {'HTTP_AUTHORIZATION': 'Bearer ' + jwt_encode({'id': self.user.pk})}
         category = Catalog.objects.create(name='绿茶')
-        spu = SPU.objects.create(name='可验证绿茶', catalog=category)
+        merchant = UserProfile.objects.create(username='plan-seller', user_type='merchant', is_active=True)
+        spu = SPU.objects.create(name='可验证绿茶', catalog=category, merchant=merchant)
         self.skus = [SKU.objects.create(name='规格' + str(i), caption='', spu=spu, price='50',
                                        cost_price='40', market_price='60', stock=10) for i in range(2)]
 
@@ -97,13 +98,17 @@ class TaskToolIntegrationTests(TestCase):
         self.assertEqual(len(data['recommendations']), 1)
         self.assertTrue(data['knowledge_sources'])
 
-    def test_unrepairable_model_provenance_does_not_query_or_commit(self):
+    def test_unrepairable_model_provenance_clarifies_without_product_query(self):
         from .models import SupportTurn
         with patch('support_ai.mcp_backend.match_products') as query:
             response = self.chat('推荐测试品牌绿茶', {'action': 'SEARCH', 'required': {'categories': ['绿茶']}})
         query.assert_not_called()
-        self.assertEqual(response.status_code, 503)
-        self.assertEqual(SupportTurn.objects.count(), 0)
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        self.assertTrue(data['clarification_required'])
+        self.assertFalse(data['recommendations'])
+        self.assertEqual([t['tool'] for t in data['tasks']], ['ask_clarification'])
+        self.assertEqual(SupportTurn.objects.count(), 1)
 
     def test_saved_preference_quote_is_canonicalized_only_after_owner_verification(self):
         from ai_storage.models import BuyerMemory
