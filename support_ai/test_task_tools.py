@@ -54,6 +54,8 @@ class TaskToolIntegrationTests(TestCase):
     databases = {'default', 'ai_storage'}
 
     def setUp(self):
+        from .mcp_testing import enable_synthetic_mcp
+        enable_synthetic_mcp(self)
         from users.models import UserProfile
         from goods.models import Catalog, SPU, SKU
         from tea_saas.utils import jwt_encode
@@ -97,7 +99,7 @@ class TaskToolIntegrationTests(TestCase):
 
     def test_unrepairable_model_provenance_does_not_query_or_commit(self):
         from .models import SupportTurn
-        with patch('support_ai.tool_services.match_products') as query:
+        with patch('support_ai.mcp_backend.match_products') as query:
             response = self.chat('推荐测试品牌绿茶', {'action': 'SEARCH', 'required': {'categories': ['绿茶']}})
         query.assert_not_called()
         self.assertEqual(response.status_code, 503)
@@ -138,7 +140,7 @@ class TaskToolIntegrationTests(TestCase):
         self.assertEqual(data['product_intent']['required']['categories'], [])
 
     def test_missing_saved_preference_requests_details_without_product_query(self):
-        with patch('support_ai.tool_services.match_products') as query:
+        with patch('support_ai.mcp_backend.match_products') as query:
             data = self.chat('推荐我偏好的商品').json()
         query.assert_not_called()
         self.assertTrue(data['clarification_required'])

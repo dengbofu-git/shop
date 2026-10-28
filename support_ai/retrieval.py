@@ -389,4 +389,4 @@ def _retrieve_single(query, owner_id, config):
             return matches
     except Exception as exc:
         logger.warning('support.retrieval.unavailable', extra={'error_type': type(exc).__name__})
-        return []
+        raise RetrievalUnavailable('Knowledge retrieval is unavailable') from None

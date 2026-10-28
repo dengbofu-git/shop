@@ -2,6 +2,7 @@ import json
 import logging
 import hashlib
 import uuid
+import re
 from functools import wraps
 
 from django.conf import settings
@@ -16,12 +17,14 @@ from ai_storage.models import BuyerMemory
 
 from .contracts import Preferences
 from .context import (ConversationConflict, PreferenceStorageUnavailable, commit_turn,
-                      recent_context, replay, saved_preferences, HISTORY_TURNS, select_bundle_context)
+                      replay, saved_preferences, HISTORY_TURNS)
 from .models import SupportConversation
 from .conversation_history import list_conversations, conversation_page
 from .order_contracts import prepare_order_input
 from .order_queries import OrderQueryContext, attach_order_links
 from pydantic import ValidationError
+from .mcp_client import AgentDataAccess, McpServiceError
+from .planning import explicit_requests
 
 
 logger = logging.getLogger(__name__)
@@ -118,47 +121,42 @@ def chat(request):
         revision = conversation.revision if conversation else 0
         if expected is not None and expected != revision:
             raise ConversationConflict('会话已更新，请重新读取后再提交')
-        history = recent_context(conversation)
-        if selection is not None and not select_bundle_context(user, conversation, history, selection):
-            return _response({'error': '所选方案不在当前咨询的近期记录中，请重新选择或获取搭配。'}, 404)
         # Keep authentication, ownership, revision and idempotency checks, while
         # skipping model configuration, PostgreSQL memory and business tools.
         from .workflow import fixed_result
-        fixed = fixed_result(message, history)
+        fixed = fixed_result(message) if selection is None else None
         if fixed is not None:
             response = dict(fixed['response'], pii_redacted=fixed.get('pii_redacted', False))
             response = commit_turn(user, conversation, revision, request_id, request_hash,
                                    fixed['safe_message'], response)
             return _response(response, 200)
-        memory = saved_preferences(user)
     except ConversationConflict as exc:
         return _response({'error': str(exc)}, 409)
-    if not settings.SUPPORT_API_KEY:
-        return _response({'error': '智能客服尚未配置模型服务，请联系管理员。'}, 503)
-
     safe_message, references = prepare_order_input(message)
     order_query_context = OrderQueryContext(owner_id=user.pk,
         conversation_id=conversation.pk if conversation else None, references=references)
     observation = None
+    data_access = None
     try:
         from .workflow import build_graph
-        from .model_client import configured_model
+        from .model_client import lazy_configured_model
         from .configuration import effective_configuration
         from .telemetry import observe_agent
-        from .retrieval import KnowledgeRetriever
         from .tool_services import create_tool_handlers
         agent_config = effective_configuration()
+        data_access = AgentDataAccess(config=agent_config, message=safe_message, owner_id=user.pk,
+            conversation=conversation, references=references, selection=selection, order_context=order_query_context)
+        history = data_access.history() if conversation or selection else []
+        memory = load_agent_preferences(data_access, safe_message, history)
         with observe_agent(agent_config) as observation:
-            model = configured_model(agent_config)
-            retriever = KnowledgeRetriever(user.pk, agent_config)
+            model = lazy_configured_model(agent_config)
             graph = build_graph(model, tool_factory=lambda state: create_tool_handlers(
-                model, retriever.search,
+                model, data_access.search,
                 state['safe_message'], state['resolved_question'], state.get('recent_turns', []),
                 memory,
                 knowledge_context_chars=agent_config.retrieval_context_chars,
-                scoped_knowledge_search=retriever.scoped_search,
-                knowledge_notes=retriever.notes,
                 order_query_context=order_query_context,
+                data_access=data_access,
             ))
             result = graph.invoke({
                 'message': safe_message, 'recent_turns': history, 'memory': memory,
@@ -167,10 +165,11 @@ def chat(request):
             observation.finish(result)
             if order_query_context.conversation_missing:
                 raise ConversationConflict('咨询已删除，请开始新对话')
+            if order_query_context.not_queryable and not any(
+                    r['status'] in ('success','no_match','needs_clarification') for r in result['tool_results']):
+                return _response({'error': '未找到可查询的订单。', 'error_code': 'ORDER_NOT_QUERYABLE'}, 404)
             if result['tool_results'] and all(r['status'] in ('error', 'skipped') for r in result['tool_results']):
                 raise RuntimeError('All Agent tools failed')
-            if order_query_context.not_queryable:
-                return _response({'error': '未找到可查询的订单。', 'error_code': 'ORDER_NOT_QUERYABLE'}, 404)
             response = dict(result['response'], pii_redacted=safe_message != message.strip() or result.get('pii_redacted', False))
             response = attach_order_links(response, order_query_context)
             if observation.trace_id:
@@ -181,6 +180,13 @@ def chat(request):
             )
     except ConversationConflict as exc:
         return _response({'error': str(exc)}, 409)
+    except McpServiceError as exc:
+        if exc.code == 'CONVERSATION_CONFLICT':
+            return _response({'error': '会话已更新，请重新读取后再提交。', 'error_code': exc.code}, 409)
+        if exc.code == 'ACCESS_DENIED':
+            return _response({'error': '会话或所选对象不存在或无权访问。', 'error_code': exc.code}, 404)
+        return _response({'error': '智能客服数据服务暂不可用，请稍后重试。',
+                          'error_code': exc.code, 'retryable': exc.retryable}, 503)
     except Exception as exc:
         trace_id = observation.trace_id if observation else ''
         logger.exception('support.workflow.failed')
@@ -188,7 +194,27 @@ def chat(request):
         if trace_id:
             error_response['trace_id'] = trace_id
         return _response(error_response, 503)
+    finally:
+        if data_access is not None:
+            data_access.close()
     return _response(response, 200)
+
+
+def load_agent_preferences(data_access, message, history):
+    """Only explicit preference tasks require memory; other recommendations may omit it."""
+    explicit = bool(re.search(r'偏好|长期记忆|保存的喜好|saved preferences|my preferences', message, re.I))
+    anchors = explicit_requests(message)
+    recommendation = any(r.kind == 'recommendation' for r in anchors)
+    pending = bool(history and (history[-1].get('dialogue_state') or {}).get('task') == 'recommendation' and not anchors)
+    if not (explicit or recommendation or pending):
+        return None
+    try:
+        return data_access.preferences()
+    except McpServiceError as exc:
+        if explicit or exc.code in ('ACCESS_DENIED','CONVERSATION_CONFLICT'):
+            raise
+        data_access.preference_unavailable = True
+        return None
 
 
 @require_http_methods(['GET', 'PUT', 'DELETE'])

@@ -198,7 +198,7 @@ class TeaGroundingTests(TestCase):
     def test_valid_quote_but_unsupported_tea_claim_does_not_unlock_recommendation(self):
         from .test_mixed_tea import ExplanationModel, evidence_search, QUESTION
         from .tea_explanation import TeaExplanation
-        from .tool_services import create_tool_handlers
+        from .mcp_testing import create_tool_handlers
         from .planning import build_plan, explicit_requests
         from .execution import execute_plan
         model = ExplanationModel()
@@ -218,7 +218,7 @@ class TeaGroundingTests(TestCase):
 
     def test_review_failure_is_error_and_independent_tasks_can_continue(self):
         from .test_mixed_tea import ExplanationModel, evidence_search, QUESTION
-        from .tool_services import create_tool_handlers
+        from .mcp_testing import create_tool_handlers
         from .planning import build_plan, explicit_requests
         from .execution import execute_plan
         message = QUESTION
@@ -339,18 +339,20 @@ class GraphFactConsistencyTests(TestCase):
         self.assertFalse(result['response']['grounding']['business_facts']['rewrite_rejected'])
         self.assertEqual(calls, [])
 
-    def test_empty_knowledge_cannot_produce_a_model_invented_answer(self):
+    def test_missing_mcp_factory_is_a_tool_failure_not_an_empty_knowledge_result(self):
         model = FakeModel({'recommendation':.1,'question_answering':.9,'after_sales':.1})
         result = build_graph(model).invoke({'message':'介绍绿茶'})
-        self.assertEqual(result['response']['tasks'][0]['status'],'no_match')
+        self.assertEqual(result['response']['tasks'][0]['status'],'error')
         self.assertFalse(result['response']['knowledge_sources'])
-        self.assertEqual(result['response']['grounding']['knowledge'][0]['claims'],[])
+        self.assertEqual(result['response']['grounding']['knowledge'],[])
 
 
 class GroundedHttpTests(DatabaseTestCase):
     databases = {'default','ai_storage'}
 
     def setUp(self):
+        from .mcp_testing import enable_synthetic_mcp
+        enable_synthetic_mcp(self)
         from users.models import UserProfile
         from tea_saas.utils import jwt_encode
         self.user = UserProfile.objects.create(username='grounding-buyer',is_active=True)

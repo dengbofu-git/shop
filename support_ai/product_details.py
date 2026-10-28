@@ -15,7 +15,7 @@ PUBLIC_ATTRIBUTES = (
     '净含量（克）', '包装形式', '配料', '口感', '香气', '产地',
     '模拟配料', '模拟口感', '模拟香气', '模拟产地国家', '模拟产区',
 )
-MISSING_ATTRIBUTES = '该商品未配置可验证的风味、用途等公开结构化属性。'
+from .catalog_terms import MISSING_ATTRIBUTES
 LIMITATIONS = [
     '基础价格统一为人民币（CNY）；外币仅按参考比例显示，不代表实际外币扣款。',
     '库存为查询时读取值，不预留库存；价格与库存以下单时校验为准。',

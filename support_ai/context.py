@@ -187,13 +187,17 @@ def context_from_turns(turns):
 def current_order_context(user, conversation, message):
     """Legacy adapter for old local callers; HTTP/preview use lazy order tools."""
     from .order_contracts import prepare_order_input, rule_order_query
-    from .order_queries import OrderQueryContext, query_orders
+    from .order_queries import OrderQueryContext
+    from .mcp_client import AgentDataAccess
+    from .configuration import effective_configuration
     safe, references = prepare_order_input(message)
     context = OrderQueryContext(owner_id=user.pk, references=references,
         conversation_id=getattr(conversation, 'pk', None),
         active_order_id=getattr(conversation, 'active_order_id', ''),
         active_order_at=getattr(conversation, 'active_order_at', None))
-    queried = query_orders(rule_order_query(safe), context, safe)
+    with AgentDataAccess(config=effective_configuration(), message=safe, owner_id=user.pk,
+                         conversation=conversation, references=references, order_context=context) as access:
+        queried = access.call('get_order_status', query=rule_order_query(safe), request=safe)
     return safe, json.dumps(queried['data']['orders'], ensure_ascii=False), context.selected_order_id
 
 

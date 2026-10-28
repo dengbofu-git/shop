@@ -136,12 +136,54 @@ class RequestBudget:
                         'calls': self.policy.max_calls, 'input_tokens': self.policy.max_input_tokens,
                         'output_tokens': self.policy.max_output_tokens}}
 
+    def delegate(self):
+        """Reserve all remaining capacity while a synchronous remote tool runs."""
+        with self.lock:
+            calls = max(0, self.policy.max_calls - self.calls)
+            inputs = max(0, self.policy.max_input_tokens - self.input_tokens - self.reserved_input)
+            outputs = max(0, self.policy.max_output_tokens - self.output_tokens - self.reserved_output)
+            if self.provider_overrun_calls:
+                calls = inputs = outputs = 0
+            self.calls += calls
+            self.reserved_input += inputs
+            self.reserved_output += outputs
+            return {'policy': {'max_calls': calls, 'max_input_tokens': inputs, 'max_output_tokens': outputs},
+                    'stage_policy': dict(self.stage_policy)}
+
+    def settle_delegation(self, allocation, usage):
+        policy = allocation['policy']
+        with self.lock:
+            self.reserved_input -= policy['max_input_tokens']
+            self.reserved_output -= policy['max_output_tokens']
+            if usage is None:
+                # A killed backend may already have incurred provider cost.
+                self.input_tokens += policy['max_input_tokens']
+                self.output_tokens += policy['max_output_tokens']
+                self.unknown_usage_calls += policy['max_calls']
+                return
+            self.calls -= policy['max_calls'] - usage['calls']
+            self.input_tokens += usage['input_tokens']
+            self.output_tokens += usage['output_tokens']
+            for key in ('unknown_usage_calls', 'rejected_calls', 'provider_overrun_calls'):
+                setattr(self, key, getattr(self, key) + usage[key])
+            for key, value in usage['stages'].items():
+                self.stages[key] = self.stages.get(key, 0) + value
+
 
 _budget = ContextVar('support_model_budget', default=None)
 
 
 def current_budget():
     return _budget.get()
+
+
+@contextmanager
+def bind_budget(budget):
+    token = _budget.set(budget)
+    try:
+        yield
+    finally:
+        _budget.reset(token)
 
 
 @contextmanager
