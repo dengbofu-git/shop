@@ -1,0 +1,22 @@
+.product-import { width: min(1120px, calc(100vw - 32px)); max-height: calc(100vh - 40px); box-sizing: border-box; padding: 28px; border: 1px solid #d7e5db; border-radius: 16px; color: #173d2b; background: #fff; overflow: auto; }
+.product-import::backdrop { background: rgba(18, 40, 30, .45); }
+.import-heading, .import-tools, .import-upload, .import-review-tools, .import-pagination, .import-footer { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; }
+.import-heading, .import-review-tools { justify-content: space-between; }
+.import-heading h2 { font-size: 24px; margin: 4px 0 12px; }
+.import-eyebrow { font-size: 12px; color: #6d8074; margin: 0; }
+.import-note { font-size: 13px; line-height: 1.8; color: #63796c; }
+.import-upload { border: 1px dashed #b5cdbd; background: #f5faf6; border-radius: 10px; padding: 18px; margin-top: 18px; }
+.import-upload input { min-width: 0; flex: 1; }
+.import-message { padding: 12px 14px; background: #eff6f0; border-radius: 8px; line-height: 1.7; overflow-wrap: anywhere; }
+.import-message[data-error="true"] { color: #8e3027; background: #fff1ed; }
+.import-table-wrap { overflow: auto; margin: 16px 0; border: 1px solid #dce7df; border-radius: 8px; max-height: 360px; }
+.import-table { min-width: 1000px; }
+.import-table td { white-space: pre-wrap; overflow-wrap: anywhere; max-width: 200px; }
+.import-table th { position: sticky; top: 0; background: #f3f8f3; }
+.import-row-error td:last-child { color: #a23c2e; }
+.import-confirm-label { display: block; padding: 12px 0; line-height: 1.8; }
+.import-footer { justify-content: flex-end; padding-top: 12px; border-top: 1px solid #e1e9e3; }
+.product-import [hidden] { display: none !important; }
+.import-pagination { justify-content: flex-end; }
+.import-pagination span { margin-right: auto; color: #63796c; font-size: 13px; }
+@media (max-width: 600px) { .product-import { padding: 18px; } .import-upload { align-items: stretch; flex-direction: column; } .import-heading h2 { font-size: 20px; } .import-footer .btn { flex: 1; } }

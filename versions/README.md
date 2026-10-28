@@ -8,9 +8,9 @@
 
 | 模块 | 当前版本 | 当前核对状态 | 完整变更记录 |
 | --- | --- | --- | --- |
-| core · 项目核心 | 0.8.3 | 装配独立 engagement 模块及双端咨询／评价／运营治理页面和 API；不复用 AI 私有会话。 | [core](changelogs/core.md) |
+| core · 项目核心 | 0.8.4 | 保留现有装配；新增商品表格解析的固定 openpyxl／defusedxml 依赖。 | [core](changelogs/core.md) |
 | users · 用户与权限 | 0.4.2 | 统一登录与权限分流、平台联合鉴权、会话权限、品牌与旧入口清理 | [users](changelogs/users.md) |
-| goods · 商品管理 | 0.6.3 | 有购买／评价记录的商品或商品系列删除返回409并提示下架，配合订单历史保护。 | [goods](changelogs/goods.md) |
+| goods · 商品管理 | 0.7.1 | 表格导入仅采集商品资料，移除内部进价；保留隔离与幂等，0012尚未在业务库启用。 | [goods](changelogs/goods.md) |
 | carts · 购物车 | 0.2.1 | 保持采购车及商品图片基线；本轮仅web调整币种展示 | [carts](changelogs/carts.md) |
 | orders · 订单管理 | 0.4.3 | 库存预留及本人订单能力；列表增加匿名客服定位引用，保留身份与隐藏过滤；本轮无Migration | [orders](changelogs/orders.md) |
 | pays · 支付 | 0.2.1 | 保持已有支付基线；验签、金额与回调幂等仍待专项完善 | [pays](changelogs/pays.md) |
@@ -22,7 +22,7 @@
 | support_ai · 智能客服 | 0.23.2 | 首轮预算证据与金额保真修复，自动件数按预算及可售数量求解；本轮验证与真实模型失败范围见SDD证据，未宣称生产准确率 | [support_ai](changelogs/support_ai.md) |
 | merchant_ai · 商家智能助手 | 0.1.0 | 入口与初始化状态，聊天／模型／上传／经营工具未接入 | [merchant_ai](changelogs/merchant_ai.md) |
 | ai_storage · AI 记忆与知识存储 | 0.7.1 | 保持查询改写所用知识／向量与短Embedding超时基线 | [ai_storage](changelogs/ai_storage.md) |
-| web · 页面与前端资源 | 0.31.9 | 客服方案及金额同步；订单查看按钮定位本人订单，可返回全部，3项脚本VM测试通过，未做浏览器视觉验收 | [web](changelogs/web.md) |
+| web · 页面与前端资源 | 0.32.1 | 商品导入模板与预览移除进价，价格区仅显示售价和市场价；旧任务提示重传。 | [web](changelogs/web.md) |
 | engagement · 站内咨询与商品评价 | 0.2.2 | 本地咨询与评价已启用；已完成历史商品按日志核验归属后补齐快照，保留角色隔离。 | [engagement](changelogs/engagement.md) |
 
 买家评价仅从“我的订单”的对应商品进入，查看／提交绑定该订单商品；不提供独立“我的评价”导航和跨订单评价列表。

@@ -230,6 +230,7 @@ capabilities:
 - id: CAP-CAT-002
   moduleId: MOD-CAT
   name: 商家商品维护与上下架
+  productImportSpec: docs/sdd/modules/catalog-content/product-import.md
   priority: P2
   sourceFeatureIds:
   - FEAT-005
