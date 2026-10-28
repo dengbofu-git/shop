@@ -1,0 +1,98 @@
+{
+  "grouped_budget": {
+    "input_usd": 12,
+    "current_cny_upper_bound": "85.71",
+    "returned_categories": [
+      "绿茶",
+      "白茶",
+      "乌龙茶",
+      "黄茶",
+      "黑茶"
+    ],
+    "red_excluded": true
+  },
+  "mixed_budget": {
+    "input_usd": 10,
+    "current_cny_upper_bound": "71.42",
+    "returned_categories": [
+      "绿茶",
+      "红茶"
+    ],
+    "original_budget_preserved": true
+  },
+  "matching_budget": {
+    "usd_50_returns_cny_prices": [
+      "40.00",
+      "100.00"
+    ],
+    "cny_50_returns_cny_prices": [
+      "40.00"
+    ],
+    "cny_10": "NO_MATCH",
+    "hidden_and_exhausted_products_excluded": true
+  },
+  "currency_supplement": {
+    "source": "rules",
+    "model_calls": 0,
+    "conditions": {
+      "action": "SEARCH",
+      "required": {
+        "categories": [
+          "绿茶"
+        ],
+        "brands": [],
+        "keywords": [],
+        "price_min": null,
+        "price_max": "50.00",
+        "budget_min": null,
+        "budget_max": null,
+        "quantity_per_product": null,
+        "distinct_count": null,
+        "currency": "USD",
+        "price_basis": "unit"
+      },
+      "preferred": {
+        "categories": [],
+        "brands": [],
+        "keywords": []
+      },
+      "excluded": {
+        "categories": [],
+        "brands": [],
+        "keywords": []
+      },
+      "evidence": [
+        {
+          "field": "required.categories",
+          "value": "绿茶",
+          "source": "CONTEXT",
+          "source_id": "t1",
+          "quote": "绿茶"
+        },
+        {
+          "field": "required.price_max",
+          "value": "50",
+          "source": "CONTEXT",
+          "source_id": "t1",
+          "quote": "每盒不超过50"
+        },
+        {
+          "field": "required.price_basis",
+          "value": "unit",
+          "source": "CONTEXT",
+          "source_id": "t1",
+          "quote": "每盒"
+        },
+        {
+          "field": "required.currency",
+          "value": "USD",
+          "source": "CURRENT",
+          "source_id": null,
+          "quote": "美元"
+        }
+      ],
+      "missing_fields": []
+    },
+    "count_preserved": 2
+  }
+}

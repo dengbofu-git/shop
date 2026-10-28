@@ -1,0 +1,2 @@
+from support_ai.pg_test_settings import *
+DATABASES['ai_storage']['TEST'] = {'NAME': 'test_rag_hybrid_20261026', 'DEPENDENCIES': []}

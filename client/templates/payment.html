@@ -15,9 +15,10 @@
         .buyer-workbench.checkout-page .okPay a { color: #1a1a1a; font-weight: 700; }
     </style>
 {% include "shared/system_theme.html" %}
+<link rel="stylesheet" href="/static/css/reservation-checkout.css?v=20261022-stock">
 </head>
 
-<body class="ds-page-payment ds-theme buyer-workbench checkout-page storefront-page" id="buyer-body">
+<body data-reservation-mode="create" class="ds-page-payment ds-theme buyer-workbench checkout-page storefront-page" id="buyer-body">
     <div class="buyer-layout">
         {% include 'buyer_sidebar.html' with active='cart' fixed_currency=True %}
 
@@ -48,7 +49,7 @@
         <div id="container" class="clearfix">
             <!-- 支付订单信息-->
             <div class="pay_info">
-                <b>订单金额：<i id="total_amount"></i></b><input type="hidden" name="payment" value="0.01" />
+                <b>订单金额：<i id="total_amount"></i></b>
                 <span id="order_id"></span> <span id="saller"></span> <input type="hidden" name="orderId" />
             </div>
             <!--支付方式-->
@@ -103,126 +104,7 @@
         </div>
     </div>
     <script src="/static/js/jquery-3.1.1.min.js"></script>
-    <script src="/static/js/buyer-workbench.js?v=20261018-platform-name"></script>
-    <script>
-    </script>
-    <script>
-        var canvas = document.getElementById("canvas_gray");
-        var cxt = canvas.getContext("2d");
-        var gray = cxt.createLinearGradient(10, 0, 10, 38);
-        gray.addColorStop(0, '#f5f4f5');
-        gray.addColorStop(1, '#e6e6e5');
-        cxt.beginPath();
-        cxt.fillStyle = gray;
-        cxt.moveTo(20, 19);
-        cxt.lineTo(0, 38);
-        cxt.lineTo(0, 0);
-        cxt.fill();
-        cxt.closePath();
-        var canvas = document.getElementById("canvas_blue");
-        var cxt = canvas.getContext("2d");
-        var blue = cxt.createLinearGradient(10, 0, 10, 38);
-        blue.addColorStop(0, '#185c3b');
-        blue.addColorStop(1, '#185c3b');
-        cxt.beginPath();
-        cxt.fillStyle = blue;
-        cxt.moveTo(20, 19);
-        cxt.lineTo(0, 38);
-        cxt.lineTo(0, 0);
-        cxt.fill();
-        cxt.closePath();
-    </script>
-    <script>
-    </script>
-    <script src="../static/js/jquery.cookie.js"></script>
-    <script>
-        function orders() {
-                    (function ($) {
-                        $.getUrlParam = function (name) {
-                            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
-                            var r = window.location.search.substr(1).match(reg);
-                            if (r != null) return r;
-                            return null;
-                        }
-                    })(jQuery);
-                    var address_id = $.getUrlParam('address_id')[2]
-                    var settlement_type= $.getUrlParam('settlement_type')[2]
-                    var buy_count = $.getUrlParam('buy_count')?$.getUrlParam('buy_count')[2]:0
-                    var sku_id = $.getUrlParam('sku_id')?$.getUrlParam('sku_id')[2]:0
-                    var token=AuthStorage.getToken();
-                    var username = AuthStorage.getUser();
-                    if(buy_count!=0&&sku_id!=0){
-                        var data={
-                            "address_id":address_id,
-                            "settlement_type":settlement_type,
-                            "buy_count":buy_count,
-                            'sku_id':sku_id
-                        }
-                    }else {
-                        var data={
-                            "address_id":address_id,
-                            "settlement_type":settlement_type
-                        }
-                    }
-
-                    if (settlement_type==0){
-                        push_ajax(0,data)
-                    }else if (settlement_type==1){
-                        push_ajax(1,data)
-                    }
-                    function push_ajax(settlement_type,data){
-                        $.ajax({
-                        type: 'post',
-                        url: baseUrl+'/v1/orders/'+username,
-                        contentType:'application/json',
-                        beforeSend:function(request){
-                        request.setRequestHeader("authorization",token)
-                        },
-                        data:JSON.stringify(data),
-                        datatype: 'json',
-                        async: false,
-                        success: function (response) {
-                            var result = JSON.stringify(response)
-                            var results = JSON.parse(result)
-                            console.log(results.code)
-                            if(results.code == 403){
-							alert('用户认证已过期，请重新登录');
-							AuthStorage.clear();
-							location.href = 'login.html'
-						}
-				            if(results.code == 200 || results.code == '200'){
-                            console.log(results.data)
-                            console.log(results.data.order_id)
-                            AuthStorage.setCount(results.data.carts_count);
-                            $('.my_cart_count').html(results.data.carts_count)
-                            $("#total_amount").html(results.data.total_amount+"元")
-                            $("#order_id").html("支付订单:"+results.data.order_id)
-                            $("#saller").html("收款方:"+results.data.saller+"&nbsp&nbsp")
-                            $(".pay_leftTime").html("总金额(含运费):"+results.data.total_amount)
-                            var pay_url = results.data.pay_url
-                            $(function(){
-                                console.log("测试１")
-                                $("#pay_now").click(function () {
-                                    console.log("测试2")
-                                    window.location = pay_url
-                })
-        })
-				}else{
-				alert(results.errmsg)
-				window.location.href = 'orderConfirm.html'
-				}
-                    }
-                }
-            )
-                    }
-}
-
-
-
-window.onload = function () {
-    orders()
-}
-    </script>
+    <script src="/static/js/buyer-workbench.js?v=20261022-account-menu"></script>
+    <script src="/static/js/reservation-checkout.js?v=20261022-stock"></script>
 </body>
-
 </html>

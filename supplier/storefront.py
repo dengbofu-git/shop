@@ -71,9 +71,8 @@ def public_merchant(spu):
 
 
 def public_products(merchant):
-    # Match the platform index eligibility without changing existing inventory semantics.
-    return SKU.objects.filter(spu__merchant=merchant, is_launched=True, stock__gt=0).select_related(
-        'spu__catalog', 'spu__merchant__store_page')
+    from inventory.availability import with_availability
+    return with_availability(SKU.objects.filter(spu__merchant=merchant,is_launched=True).select_related('spu__catalog','spu__merchant__store_page')).filter(sellable_stock__gt=0)
 
 
 def product_row(sku):

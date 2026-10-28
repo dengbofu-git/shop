@@ -1,33 +1,42 @@
 openapi: 3.0.3
 info:
   title: tea_saas 本人订单客服查询契约
-  version: "0.1.0"
-  description: CAP-AI-003 规格0.2.0的目标契约草案。保留现有路径和成功响应；新增错误代码及订单不可见404尚待实现，不能当作当前服务已支持。
+  version: 0.2.0
+  description: 目标规格0.3.0；R01/R02/R09业务规则已确认，契约技术设计及兼容实现待评审。当前实际协议见api-observed.yaml。
 x-capability-id: CAP-AI-003
-x-spec-version: "0.2.0"
-x-status: proposed
+x-spec-version: 0.3.0
+x-status: business-rules-accepted-technical-contract-pending
 x-observed-contract: api-observed.yaml
-x-reconciliation-evidence: docs/sdd/evidence/2026-10-18-project-chat-sdd/manifest.json
+x-reconciliation-evidence: docs/sdd/rule-review.md
 x-historical-evidence: docs/sdd/evidence/2026-10-16-sdd-reconciliation/manifest.json
-x-implementation-status: 目标404/error_code/完整英文引用与重放投影/本地空结果短路尚未实施；历史列表和详情分页及有限读取脱敏已增量实施，当前行为见api-observed.yaml。
+x-implementation-status: 既有订单工具／分页／部分错误码已存在；按任务依赖、部分完成、位置映射及本契约新增字段尚待实现验证。
 x-cache-policy: 所有应用JSON响应均为Cache-Control=no-store；框架405不作此保证。
 x-compatibility:
-  preserved: [现有URL, Bearer认证, 直接JSON成功响应, request_id与revision行为, 既有成功重放结果]
-  additions: [错误JSON中的error_code, 历史列表与sequence分页增量]
-  behaviorChange: 明确的不可查询订单在模型和成功会话提交前返回404，不再作为200成功聊天。
-  rollout: 先部署服务端新增错误代码及404，再部署识别代码的前端；旧客户端仍可读取error文案。
-  mixedTasks: 包含明确不可查询订单引用的整次新chat请求返回404，其他任务不先执行或提交；不在本切片增加部分成功协议。
+  preserved:
+  - 现有URL
+  - Bearer认证
+  - 直接JSON成功响应
+  - request_id与revision行为
+  - 既有成功重放结果
+  additions:
+  - completion_status
+  - warnings
+  - tasks[].error_code及安全任务状态
+  - order_result分页／查询时间及匿名业务DTO
+  behaviorChange: 必要依赖按任务检查；纯订单不可见404保持；混合任务可200部分完成。旧响应字段保留，新增字段先兼容后启用新页面。
+  rollout: 服务端先兼容增加完成范围与任务状态；页面识别后再启用部分完成显示；记录协议和运行配置的兼容版本，不把仅更新契约当作启用。
+  mixedTasks: 请求级身份／会话越权先整轮拒绝；任务级不可见仅阻断该步骤与依赖步骤，独立任务继续。
 x-error-precedence:
-  - method-check
-  - authenticate-buyer
-  - validate-size-json-and-identifiers
-  - replay-existing-success-or-request-id-conflict
-  - authorize-conversation-and-check-revision
-  - read-history-and-preferences-or-503
-  - check-model-configuration-or-503
-  - resolve-owned-order-or-order-404-or-read-503
-  - run-sanitized-workflow-or-503
-  - commit-with-revision-recheck-or-409
+- method-check
+- authenticate-active-buyer
+- validate-input
+- replay-or-request-id-conflict
+- authorize-conversation-and-revision
+- sanitize-and-plan
+- load-only-task-required-dependencies
+- execute-owned-tools-with-dependency-skips
+- aggregate-complete-partial-or-whole-request-error
+- safe-projection-and-atomic-revision-commit
 x-request-semantics:
   size: 原始请求体最多10000字节；message原始字符串最多1000个Python字符且strip后非空。
   encoding: 客户端发送UTF-8 application/json；本次不新增415或改变既有Content-Type宽松处理。
@@ -36,8 +45,8 @@ x-request-semantics:
   fingerprint: 沿用当前json.dumps(body,ensure_ascii=False,sort_keys=True)后SHA-256；不增加默认字段、不先脱敏或规范化值。
   exactRetry: 省略字段与显式null、消息空白差异等会影响指纹；客户端保留同一pending对象重试。
   replayOrder: 已有成功重放先于会话revision、偏好库和新订单读取；仍重新认证当前买家，不承诺刷新订单状态。
-  legacyPrivacy: 已有成功结果或历史包含敏感文本时只做确定性读取脱敏投影，不刷新业务事实；安全的新响应重试保持相同内容。
-  unsuccessful: 404和503不创建成功轮次、request_id记录或新会话，不增加revision或更新active_order；同ID重试会重新执行。
+  legacyPrivacy: 完整／部分成功重放和历史使用确定性安全投影，不刷新业务状态或重排历史页。
+  unsuccessful: 没有可提交业务结果的404/503不写成功轮次；部分完成HTTP200按一轮原子提交真实任务状态，失败订单不建立成功事实或所选绑定。
   concurrency: 最终commit在MySQL事务中锁用户和会话并再次核对；并发相同成功请求回放，其他过期提交409。
 x-application-results:
   empty:
@@ -45,45 +54,81 @@ x-application-results:
     httpStatus: 200
     responseFields:
       intent: after_sales
-      intents: [after_sales]
+      intents:
+      - after_sales
       clarification_required: false
-      tasks: [{id: s1, tool: get_order_status, status: no_match}]
+      tasks:
+      - id: s1
+        tool: get_order_status
+        status: no_match
     note: 使用本地空结果模板并正常提交成功轮次；不需要模型猜测无结果。通用成功字段仍必须完整。
   clarification:
     condition: 应用可本地确认仅为订单查询，多编号/格式不完整/对象歧义而不能唯一选择
     httpStatus: 200
     responseFields:
       intent: clarification
-      intents: [clarification]
+      intents:
+      - clarification
       clarification_required: true
-      tasks: [{id: s1, tool: ask_clarification, status: needs_clarification}]
+      tasks:
+      - id: s1
+        tool: ask_clarification
+        status: needs_clarification
     note: 使用本地澄清模板并正常提交成功轮次，应用构造合法的白名单任务计划；不提供任何可见性差异。
+  partial:
+    condition: 部分任务失败／不可查询／依赖跳过，且另有独立任务产出明确业务结果
+    httpStatus: 200
+    completion_status: partial
+    persist: one-atomic-turn-with-truthful-task-statuses
+  dependency_failure:
+    condition: 仅必要技术依赖失败且没有可提交业务结果
+    httpStatus: 503
+    persist: false
 security:
-  - BuyerBearer: []
+- BuyerBearer: []
 paths:
   /v1/support/chat/:
     post:
       operationId: queryBuyerOrderInChat
       summary: 在客服会话中查询本人订单
-      x-traceability: [REQ-AI-003-01, REQ-AI-003-02, REQ-AI-003-03, REQ-AI-003-06, REQ-AI-003-07, AC-AI-003-03, AC-AI-003-08]
+      x-traceability:
+      - REQ-AI-003-01
+      - REQ-AI-003-02
+      - REQ-AI-003-03
+      - REQ-AI-003-06
+      - REQ-AI-003-07
+      - AC-AI-003-03
+      - AC-AI-003-08
       requestBody:
         required: true
         content:
           application/json:
-            schema: {$ref: '#/components/schemas/ChatRequest'}
+            schema:
+              $ref: '#/components/schemas/ChatRequest'
             examples:
               recentOrders:
-                value: {message: 我的订单现在是什么状态？, request_id: 11111111-1111-4111-8111-111111111111}
+                value:
+                  message: 我的订单现在是什么状态？
+                  request_id: 11111111-1111-4111-8111-111111111111
               followup:
-                value: {message: 那现在呢？, request_id: 22222222-2222-4222-8222-222222222222, conversation_id: 33333333-3333-4333-8333-333333333333, expected_revision: 1}
+                value:
+                  message: 那现在呢？
+                  request_id: 22222222-2222-4222-8222-222222222222
+                  conversation_id: 33333333-3333-4333-8333-333333333333
+                  expected_revision: 1
       responses:
         '200':
-          description: 成功提交或已有成功重放。无本人订单但未指定编号、对象歧义的澄清也是200；成功不保证实时性，重放和历史需单独呈现。
+          description: 完整或部分完成、正常无结果或澄清，均保留真实任务状态。
           headers:
-            Cache-Control: {schema: {type: string, enum: [no-store]}}
+            Cache-Control:
+              schema:
+                type: string
+                enum:
+                - no-store
           content:
             application/json:
-              schema: {$ref: '#/components/schemas/ChatSuccess'}
+              schema:
+                $ref: '#/components/schemas/ChatSuccess'
               examples:
                 orderReply:
                   value:
@@ -93,39 +138,76 @@ paths:
                     request_id: 11111111-1111-4111-8111-111111111111
                     revision: 1
                     pii_redacted: false
-                    intents: [after_sales]
+                    intents:
+                    - after_sales
                     confidence: null
                     recommendations: []
                     knowledge_sources: []
                     memory_used: false
                     clarification_required: false
-        '400': {$ref: '#/components/responses/JsonError'}
-        '401': {$ref: '#/components/responses/JsonError'}
-        '403': {$ref: '#/components/responses/JsonError'}
+                    completion_status: complete
+                    tasks:
+                    - id: s1
+                      tool: get_order_status
+                      status: success
+        '400':
+          $ref: '#/components/responses/JsonError'
+        '401':
+          $ref: '#/components/responses/JsonError'
+        '403':
+          $ref: '#/components/responses/JsonError'
         '404':
           description: 按error_code区分不可查询订单与不可访问会话。不存在和外人对象使用相同响应，不在error中插入编号。
           headers:
-            Cache-Control: {schema: {type: string, enum: [no-store]}}
+            Cache-Control:
+              schema:
+                type: string
+                enum:
+                - no-store
           content:
             application/json:
-              schema: {$ref: '#/components/schemas/ApiError'}
+              schema:
+                $ref: '#/components/schemas/ApiError'
               examples:
                 invisibleOrder:
-                  value: {error: 未找到可查询的订单, error_code: ORDER_NOT_QUERYABLE}
+                  value:
+                    error: 未找到可查询的订单
+                    error_code: ORDER_NOT_QUERYABLE
                 invisibleConversation:
-                  value: {error: 会话不存在或无权访问。, error_code: CONVERSATION_NOT_FOUND}
-        '405': {$ref: '#/components/responses/MethodNotAllowed'}
-        '409': {$ref: '#/components/responses/JsonError'}
-        '413': {$ref: '#/components/responses/JsonError'}
-        '503': {$ref: '#/components/responses/JsonError'}
+                  value:
+                    error: 会话不存在或无权访问。
+                    error_code: CONVERSATION_NOT_FOUND
+        '405':
+          $ref: '#/components/responses/MethodNotAllowed'
+        '409':
+          $ref: '#/components/responses/JsonError'
+        '413':
+          $ref: '#/components/responses/JsonError'
+        '503':
+          $ref: '#/components/responses/JsonError'
       x-error-map:
-        '400': [INVALID_REQUEST]
-        '401': [AUTH_REQUIRED, AUTH_INVALID]
-        '403': [BUYER_REQUIRED]
-        '404': [ORDER_NOT_QUERYABLE, CONVERSATION_NOT_FOUND]
-        '409': [REQUEST_ID_CONFLICT, REVISION_CONFLICT]
-        '413': [PAYLOAD_TOO_LARGE]
-        '503': [SUPPORT_UNAVAILABLE]
+        '400':
+        - INVALID_REQUEST
+        '401':
+        - AUTH_REQUIRED
+        - AUTH_INVALID
+        '403':
+        - BUYER_REQUIRED
+        '404':
+        - ORDER_NOT_QUERYABLE
+        - CONVERSATION_NOT_FOUND
+        '409':
+        - REQUEST_ID_CONFLICT
+        - REVISION_CONFLICT
+        '413':
+        - PAYLOAD_TOO_LARGE
+        '503':
+        - SUPPORT_UNAVAILABLE
+        - SUPPORT_STORAGE_UNAVAILABLE
+        - MEMORY_STORAGE_UNAVAILABLE
+        - MEMORY_STORAGE_CONFIGURATION_ERROR
+        - REQUIRED_DEPENDENCY_UNAVAILABLE
+      description: 目标协议；先处理请求级拒绝，再按依赖执行工具。纯订单不可见404；独立任务部分完成200并明确completion_status。
   /v1/support/conversations/:
     get:
       operationId: listBuyerSupportConversations
@@ -133,8 +215,18 @@ paths:
       x-authorized-increment: docs/sdd/modules/ai-support/conversation-history.md
       description: 活跃买家本人范围；每次默认20项、最多50项，签名游标绑定用户和更新时间／UUID，有效期24小时；不扩大模型上下文。
       parameters:
-        - {name: limit, in: query, schema: {type: integer, minimum: 1, maximum: 50, default: 20}}
-        - {name: cursor, in: query, schema: {type: string, maxLength: 1000}}
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 50
+          default: 20
+      - name: cursor
+        in: query
+        schema:
+          type: string
+          maxLength: 1000
       responses:
         '200':
           description: 非空咨询列表，更新时间与UUID降序；Cache-Control为no-store。
@@ -142,169 +234,466 @@ paths:
             application/json:
               schema:
                 type: object
-                required: [conversations, has_more, next_cursor]
+                required:
+                - conversations
+                - has_more
+                - next_cursor
                 properties:
-                  conversations: {type: array, maxItems: 50, items: {$ref: '#/components/schemas/ConversationSummary'}}
-                  has_more: {type: boolean}
-                  next_cursor: {type: string, nullable: true}
-        '400': {$ref: '#/components/responses/JsonError'}
-        '401': {$ref: '#/components/responses/JsonError'}
-        '403': {$ref: '#/components/responses/JsonError'}
-        '503': {$ref: '#/components/responses/JsonError'}
+                  conversations:
+                    type: array
+                    maxItems: 50
+                    items:
+                      $ref: '#/components/schemas/ConversationSummary'
+                  has_more:
+                    type: boolean
+                  next_cursor:
+                    type: string
+                    nullable: true
+        '400':
+          $ref: '#/components/responses/JsonError'
+        '401':
+          $ref: '#/components/responses/JsonError'
+        '403':
+          $ref: '#/components/responses/JsonError'
+        '503':
+          $ref: '#/components/responses/JsonError'
   /v1/support/conversations/{conversation_id}/:
     get:
       operationId: getBuyerSupportConversation
       summary: 恢复本人会话中的历史成功轮次
-      x-traceability: [REQ-AI-003-01, REQ-AI-003-08, AC-AI-003-02, AC-AI-003-10]
+      x-traceability:
+      - REQ-AI-003-01
+      - REQ-AI-003-08
+      - AC-AI-003-02
+      - AC-AI-003-10
       parameters:
-        - name: conversation_id
-          in: path
-          required: true
-          schema: {type: string, format: uuid}
-        - {name: limit, in: query, schema: {type: integer, minimum: 1, maximum: 50, default: 6}}
-        - {name: before_sequence, in: query, schema: {type: integer, minimum: 1, maximum: 2147483647}}
+      - name: conversation_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 50
+          default: 6
+      - name: before_sequence
+        in: query
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 2147483647
       responses:
         '200':
           description: 默认最近6个成功轮次以兼容旧客户端，新页面请求20轮、最多50轮，支持sequence向前分页；按sequence升序返回，不刷新订单或执行模型。历史展示不受模型24小时窗口限制。
           headers:
-            Cache-Control: {schema: {type: string, enum: [no-store]}}
+            Cache-Control:
+              schema:
+                type: string
+                enum:
+                - no-store
           content:
             application/json:
-              schema: {$ref: '#/components/schemas/ConversationHistory'}
+              schema:
+                $ref: '#/components/schemas/ConversationHistory'
               examples:
                 emptyHistory:
-                  value: {conversation_id: 33333333-3333-4333-8333-333333333333, revision: 0, turns: []}
-        '400': {$ref: '#/components/responses/JsonError'}
-        '401': {$ref: '#/components/responses/JsonError'}
-        '403': {$ref: '#/components/responses/JsonError'}
-        '404': {$ref: '#/components/responses/JsonError'}
-        '405': {$ref: '#/components/responses/MethodNotAllowed'}
-        '503': {$ref: '#/components/responses/JsonError'}
+                  value:
+                    conversation_id: 33333333-3333-4333-8333-333333333333
+                    revision: 0
+                    turns: []
+        '400':
+          $ref: '#/components/responses/JsonError'
+        '401':
+          $ref: '#/components/responses/JsonError'
+        '403':
+          $ref: '#/components/responses/JsonError'
+        '404':
+          $ref: '#/components/responses/JsonError'
+        '405':
+          $ref: '#/components/responses/MethodNotAllowed'
+        '503':
+          $ref: '#/components/responses/JsonError'
       x-error-map:
-        '401': [AUTH_REQUIRED, AUTH_INVALID]
-        '403': [BUYER_REQUIRED]
-        '404': [CONVERSATION_NOT_FOUND]
-        '400': [INVALID_REQUEST]
-        '503': [SUPPORT_UNAVAILABLE]
+        '401':
+        - AUTH_REQUIRED
+        - AUTH_INVALID
+        '403':
+        - BUYER_REQUIRED
+        '404':
+        - CONVERSATION_NOT_FOUND
+        '400':
+        - INVALID_REQUEST
+        '503':
+        - SUPPORT_UNAVAILABLE
       x-router-caveat: 非UUID路径由现有Django路由直接404，可能是HTML且无error_code；客户端按历史读取上下文处理，不回显原始响应。
 components:
   securitySchemes:
-    BuyerBearer: {type: http, scheme: bearer, bearerFormat: JWT}
+    BuyerBearer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
   responses:
     JsonError:
       description: 具体HTTP状态和允许的错误代码见对应操作的x-error-map。正文保留现有error并新增error_code，不返回conversation_id、revision或请求原文。
       headers:
-        Cache-Control: {schema: {type: string, enum: [no-store]}}
+        Cache-Control:
+          schema:
+            type: string
+            enum:
+            - no-store
       content:
         application/json:
-          schema: {$ref: '#/components/schemas/ApiError'}
+          schema:
+            $ref: '#/components/schemas/ApiError'
     MethodNotAllowed:
       description: 保留Django方法检查；可能为非JSON，不要求error_code。
       headers:
-        Allow: {schema: {type: string}}
+        Allow:
+          schema:
+            type: string
       content:
-        text/html: {schema: {type: string}}
-        text/plain: {schema: {type: string}}
+        text/html:
+          schema:
+            type: string
+        text/plain:
+          schema:
+            type: string
   schemas:
     ChatRequest:
       type: object
       additionalProperties: false
-      required: [message]
+      required:
+      - message
       properties:
-        message: {type: string, minLength: 1, maxLength: 1000, description: strip后必须非空；长度按未经strip的原值检查。}
-        request_id: {type: string, format: uuid, description: 可省略由服务端生成；新页面必须发送，以支持未知提交结果的重试；显式null无效。}
-        conversation_id: {type: string, format: uuid, nullable: true, description: 省略或null表示新会话；新页面不发送空字符串。}
-        expected_revision: {type: integer, minimum: 0, nullable: true, description: 可省略或null；新页面继续会话时必须发送上次确认值。新会话若填写则只能为0，否则409。}
+        message:
+          type: string
+          minLength: 1
+          maxLength: 1000
+          description: strip后必须非空；长度按未经strip的原值检查。
+        request_id:
+          type: string
+          format: uuid
+          description: 可省略由服务端生成；新页面必须发送，以支持未知提交结果的重试；显式null无效。
+        conversation_id:
+          type: string
+          format: uuid
+          nullable: true
+          description: 省略或null表示新会话；新页面不发送空字符串。
+        expected_revision:
+          type: integer
+          minimum: 0
+          nullable: true
+          description: 可省略或null；新页面继续会话时必须发送上次确认值。新会话若填写则只能为0，否则409。
+        bundle_selection:
+          type: object
+          nullable: true
+          additionalProperties: false
+          required: [request_id, bundle_id]
+          description: 可选商品方案引用；仅接受本人同一会话近期上下文中已保存方案。非法格式400，不可访问或已过窗口统一404。参与原幂等请求指纹，不接受客户端商品或金额。
+          properties:
+            request_id:
+              type: string
+              format: uuid
+              description: 被选择的推荐轮次的请求ID。
+            bundle_id:
+              type: string
+              pattern: '^bundle-[0-9a-f]{12}$'
     ChatSuccess:
       type: object
       additionalProperties: true
-      required: [answer, intent, conversation_id, request_id, revision, pii_redacted]
+      required:
+      - answer
+      - intent
+      - conversation_id
+      - request_id
+      - revision
+      - pii_redacted
+      - completion_status
+      - tasks
       properties:
-        answer: {type: string, minLength: 1}
-        intent: {type: string, enum: [recommendation, question_answering, product_details, after_sales, clarification, multi_intent]}
-        conversation_id: {type: string, format: uuid}
-        request_id: {type: string, format: uuid}
-        revision: {type: integer, minimum: 1}
-        pii_redacted: {type: boolean}
-        trace_id: {type: string, pattern: '^[0-9a-f]{32}$', description: 监控开启且可用时提供；缺少时不影响成功。}
-        intents: {type: array, items: {type: string}}
-        confidence: {type: number, nullable: true, enum: [null]}
-        intent_source: {type: string, enum: [rules, context_rule, model, clarification]}
-        recommendations: {type: array, items: {type: object, additionalProperties: true}}
-        knowledge_sources: {type: array, items: {type: object, additionalProperties: true}}
-        memory_used: {type: boolean}
-        clarification_required: {type: boolean}
-        compliance_blocked: {type: boolean}
-        unmet_requirements: {type: array, items: {type: string}}
-        task_plan: {type: object, additionalProperties: true, description: 保留现有任务计划，所有文本必须脱敏；不在本能力重新定义其他任务的业务结构。}
-        tasks: {type: array, items: {type: object, additionalProperties: true}}
-        diagnostics: {type: array, items: {type: object, additionalProperties: true, description: 只允许安全诊断字段，不回传异常原文或编号。}}
-        recommendation_groups: {type: array, items: {type: object, additionalProperties: true}, description: 当前分组推荐扩展字段，由CAP-AI-001定义，不在订单切片删减。}
-        recommendation_options: {type: object, nullable: true, additionalProperties: true}
-        explained_categories: {type: array, items: {type: string}, description: 当前已校验茶类说明范围，由CAP-AI-002定义。}
+        answer:
+          type: string
+          minLength: 1
+        intent:
+          type: string
+          enum:
+          - recommendation
+          - recommendation_explanation
+          - question_answering
+          - product_details
+          - after_sales
+          - clarification
+          - multi_intent
+          - greeting
+          - system_help
+        conversation_id:
+          type: string
+          format: uuid
+        request_id:
+          type: string
+          format: uuid
+        revision:
+          type: integer
+          minimum: 1
+        pii_redacted:
+          type: boolean
+        trace_id:
+          type: string
+          pattern: ^[0-9a-f]{32}$
+          description: 监控开启且可用时提供；缺少时不影响成功。
+        intents:
+          type: array
+          items:
+            type: string
+        confidence:
+          type: number
+          nullable: true
+          enum:
+          - null
+        intent_source:
+          type: string
+          enum:
+          - rules
+          - context_rule
+          - model
+          - clarification
+        recommendations:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+        knowledge_sources:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+        memory_used:
+          type: boolean
+        clarification_required:
+          type: boolean
+        compliance_blocked:
+          type: boolean
+        unmet_requirements:
+          type: array
+          items:
+            type: string
+        task_plan:
+          type: object
+          additionalProperties: true
+          description: 保留现有任务计划，所有文本必须脱敏；不在本能力重新定义其他任务的业务结构。
+        tasks:
+          type: array
+          maxItems: 5
+          items:
+            type: object
+            required:
+            - id
+            - tool
+            - status
+            properties:
+              id:
+                type: string
+              tool:
+                type: string
+              status:
+                type: string
+                enum:
+                - success
+                - no_match
+                - needs_clarification
+                - not_queryable
+                - error
+                - skipped
+              error_code:
+                type: string
+              message:
+                type: string
+        diagnostics:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+            description: 只允许安全诊断字段，不回传异常原文或编号。
+        recommendation_groups:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+          description: 当前分组推荐扩展字段，由CAP-AI-001定义，不在订单切片删减。
+        recommendation_options:
+          type: object
+          nullable: true
+          additionalProperties: true
+        explained_categories:
+          type: array
+          items:
+            type: string
+          description: 当前已校验茶类说明范围，由CAP-AI-002定义。
+        completion_status:
+          type: string
+          enum:
+          - complete
+          - partial
+          description: 完成范围；no_match／needs_clarification为明确业务结果，不能据HTTP200声称有订单事实。
+        warnings:
+          type: array
+          items:
+            type: object
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+              message:
+                type: string
+          description: 例如普通推荐未使用可选偏好；禁止异常原文。
+        order_result:
+          type: object
+          additionalProperties: true
+          description: 匿名reference/业务状态/创建日期/查询时间及页控制；成功订单可带orders[].detail_url，值为固定同源buyer_orders.html及按买家绑定的匿名定位片段，只在模型与遥测完成后投影。不含真实ID或私有位置映射，链接本身不授权访问。
     ApiError:
       type: object
       additionalProperties: false
-      required: [error, error_code]
+      required:
+      - error
+      - error_code
       properties:
-        error: {type: string, minLength: 1}
+        error:
+          type: string
+          minLength: 1
         error_code:
           type: string
-          enum: [INVALID_REQUEST, AUTH_REQUIRED, AUTH_INVALID, BUYER_REQUIRED, ORDER_NOT_QUERYABLE, CONVERSATION_NOT_FOUND, REQUEST_ID_CONFLICT, REVISION_CONFLICT, PAYLOAD_TOO_LARGE, SUPPORT_UNAVAILABLE]
-        trace_id: {type: string, pattern: '^[0-9a-f]{32}$'}
+          enum:
+          - INVALID_REQUEST
+          - AUTH_REQUIRED
+          - AUTH_INVALID
+          - BUYER_REQUIRED
+          - ORDER_NOT_QUERYABLE
+          - CONVERSATION_NOT_FOUND
+          - REQUEST_ID_CONFLICT
+          - REVISION_CONFLICT
+          - PAYLOAD_TOO_LARGE
+          - SUPPORT_UNAVAILABLE
+          - SUPPORT_STORAGE_UNAVAILABLE
+          - MEMORY_STORAGE_UNAVAILABLE
+          - MEMORY_STORAGE_CONFIGURATION_ERROR
+          - REQUIRED_DEPENDENCY_UNAVAILABLE
+        trace_id:
+          type: string
+          pattern: ^[0-9a-f]{32}$
+        retryable:
+          type: boolean
+          description: 仅表达依赖恢复后能否重试，不承诺请求已提交或未提交。
     ConversationSummary:
       type: object
-      required: [conversation_id, title, turn_count, created_at, updated_at]
+      required:
+      - conversation_id
+      - title
+      - turn_count
+      - created_at
+      - updated_at
       properties:
-        conversation_id: {type: string, format: uuid}
-        title: {type: string}
-        turn_count: {type: integer, minimum: 0}
-        created_at: {type: string, format: date-time}
-        updated_at: {type: string, format: date-time}
+        conversation_id:
+          type: string
+          format: uuid
+        title:
+          type: string
+        turn_count:
+          type: integer
+          minimum: 0
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
     ConversationHistory:
       type: object
       additionalProperties: false
-      required: [conversation_id, revision, turns]
+      required:
+      - conversation_id
+      - revision
+      - turns
       properties:
-        conversation_id: {type: string, format: uuid}
-        revision: {type: integer, minimum: 0}
-        title: {type: string}
-        turn_count: {type: integer, minimum: 0}
-        created_at: {type: string, format: date-time}
-        updated_at: {type: string, format: date-time}
-        has_more: {type: boolean}
-        next_before_sequence: {type: integer, nullable: true}
+        conversation_id:
+          type: string
+          format: uuid
+        revision:
+          type: integer
+          minimum: 0
+        title:
+          type: string
+        turn_count:
+          type: integer
+          minimum: 0
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        has_more:
+          type: boolean
+        next_before_sequence:
+          type: integer
+          nullable: true
         turns:
           type: array
           maxItems: 50
           items:
             type: object
             additionalProperties: false
-            required: [message, response]
+            required:
+            - message
+            - response
             properties:
-              sequence: {type: integer, minimum: 1}
-              created_at: {type: string, format: date-time}
-              message: {type: string}
+              sequence:
+                type: integer
+                minimum: 1
+              created_at:
+                type: string
+                format: date-time
+              message:
+                type: string
               response:
                 type: object
-                required: [answer]
+                required:
+                - answer
                 additionalProperties: true
                 properties:
-                  answer: {type: string}
+                  answer:
+                    type: string
                 description: 兼容旧轮次响应，不强制要求新增字段；展示前执行本版本输出脱敏，不据此改写原存储或计算新订单状态。
 x-contract-examples:
-  - id: EX-AI-003-01
-    scenario: 无可查询的明确编号
-    httpStatus: 404
-    body: {error: 未找到可查询的订单, error_code: ORDER_NOT_QUERYABLE}
-    covers: [AC-AI-003-03]
-  - id: EX-AI-003-02
-    scenario: 会话冲突
-    httpStatus: 409
-    body: {error: 会话已更新，请重新读取后再提交, error_code: REVISION_CONFLICT}
-    covers: [AC-AI-003-08]
-  - id: EX-AI-003-03
-    scenario: 偏好库不可用
-    httpStatus: 503
-    body: {error: 客服数据库服务暂不可用，请稍后再试。, error_code: SUPPORT_UNAVAILABLE}
-    covers: [AC-AI-003-09]
+- id: EX-AI-003-01
+  scenario: 纯查询不可见编号
+  httpStatus: 404
+  body:
+    error: 未找到可查询的订单
+    error_code: ORDER_NOT_QUERYABLE
+- id: EX-AI-003-02
+  scenario: 不可见订单加独立介绍
+  httpStatus: 200
+  body:
+    completion_status: partial
+    tasks:
+    - id: s1
+      tool: get_order_status
+      status: not_queryable
+      error_code: ORDER_NOT_QUERYABLE
+    - id: s2
+      tool: introduce_tea
+      status: success
+  note: 仅展示新增任务字段，正常成功响应仍包含全部required字段
+- id: EX-AI-003-03
+  scenario: 仅明确偏好任务的必要依赖失败
+  httpStatus: 503
+  body:
+    error: 偏好服务暂不可用
+    error_code: MEMORY_STORAGE_UNAVAILABLE
+    retryable: true

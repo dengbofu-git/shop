@@ -1,0 +1,343 @@
+{
+  "model": "deepseek-flash",
+  "data_scope": "synthetic-only",
+  "rows": [
+    {
+      "question": "给出3000块的茶叶推荐",
+      "amount": null,
+      "currency": "CNY",
+      "price_basis": "unknown",
+      "missing_fields": [],
+      "passed": false,
+      "usage": {
+        "calls": 1,
+        "input_tokens": 4053,
+        "output_tokens": 273,
+        "unknown_usage_calls": 0,
+        "rejected_calls": 0,
+        "provider_overrun_calls": 0,
+        "stages": {
+          "planning": 1
+        },
+        "stage_policy": {
+          "scope": {
+            "thinking": "disabled",
+            "max_tokens": 192
+          },
+          "planning": {
+            "thinking": "disabled",
+            "max_tokens": 1400
+          },
+          "extraction": {
+            "thinking": "disabled",
+            "max_tokens": 1600
+          },
+          "rewrite": {
+            "thinking": "disabled",
+            "max_tokens": 512
+          },
+          "knowledge": {
+            "thinking": "disabled",
+            "max_tokens": 2400
+          },
+          "verification": {
+            "thinking": "disabled",
+            "max_tokens": 768
+          },
+          "compliance": {
+            "thinking": "disabled",
+            "max_tokens": 512
+          }
+        },
+        "limits": {
+          "calls": 2,
+          "input_tokens": 65536,
+          "output_tokens": 8192
+        }
+      }
+    },
+    {
+      "question": "我想买点茶叶，3000元预算，帮我选选",
+      "amount": "3000.00",
+      "currency": "CNY",
+      "price_basis": "unknown",
+      "missing_fields": [
+        "budget_scope"
+      ],
+      "passed": true,
+      "usage": {
+        "calls": 1,
+        "input_tokens": 4060,
+        "output_tokens": 316,
+        "unknown_usage_calls": 0,
+        "rejected_calls": 0,
+        "provider_overrun_calls": 0,
+        "stages": {
+          "planning": 1
+        },
+        "stage_policy": {
+          "scope": {
+            "thinking": "disabled",
+            "max_tokens": 192
+          },
+          "planning": {
+            "thinking": "disabled",
+            "max_tokens": 1400
+          },
+          "extraction": {
+            "thinking": "disabled",
+            "max_tokens": 1600
+          },
+          "rewrite": {
+            "thinking": "disabled",
+            "max_tokens": 512
+          },
+          "knowledge": {
+            "thinking": "disabled",
+            "max_tokens": 2400
+          },
+          "verification": {
+            "thinking": "disabled",
+            "max_tokens": 768
+          },
+          "compliance": {
+            "thinking": "disabled",
+            "max_tokens": 512
+          }
+        },
+        "limits": {
+          "calls": 2,
+          "input_tokens": 65536,
+          "output_tokens": 8192
+        }
+      }
+    },
+    {
+      "question": "预算3000块，推荐茶叶",
+      "amount": "3000.00",
+      "currency": "CNY",
+      "price_basis": "unknown",
+      "missing_fields": [
+        "budget_scope"
+      ],
+      "passed": true,
+      "usage": {
+        "calls": 2,
+        "input_tokens": 5053,
+        "output_tokens": 381,
+        "unknown_usage_calls": 0,
+        "rejected_calls": 0,
+        "provider_overrun_calls": 0,
+        "stages": {
+          "planning": 1,
+          "extraction": 1
+        },
+        "stage_policy": {
+          "scope": {
+            "thinking": "disabled",
+            "max_tokens": 192
+          },
+          "planning": {
+            "thinking": "disabled",
+            "max_tokens": 1400
+          },
+          "extraction": {
+            "thinking": "disabled",
+            "max_tokens": 1600
+          },
+          "rewrite": {
+            "thinking": "disabled",
+            "max_tokens": 512
+          },
+          "knowledge": {
+            "thinking": "disabled",
+            "max_tokens": 2400
+          },
+          "verification": {
+            "thinking": "disabled",
+            "max_tokens": 768
+          },
+          "compliance": {
+            "thinking": "disabled",
+            "max_tokens": 512
+          }
+        },
+        "limits": {
+          "calls": 2,
+          "input_tokens": 65536,
+          "output_tokens": 8192
+        }
+      }
+    },
+    {
+      "question": "帮我看看3000块能选哪些茶叶",
+      "amount": null,
+      "currency": "CNY",
+      "price_basis": "unknown",
+      "missing_fields": [],
+      "passed": false,
+      "usage": {
+        "calls": 1,
+        "input_tokens": 4056,
+        "output_tokens": 368,
+        "unknown_usage_calls": 0,
+        "rejected_calls": 0,
+        "provider_overrun_calls": 0,
+        "stages": {
+          "planning": 1
+        },
+        "stage_policy": {
+          "scope": {
+            "thinking": "disabled",
+            "max_tokens": 192
+          },
+          "planning": {
+            "thinking": "disabled",
+            "max_tokens": 1400
+          },
+          "extraction": {
+            "thinking": "disabled",
+            "max_tokens": 1600
+          },
+          "rewrite": {
+            "thinking": "disabled",
+            "max_tokens": 512
+          },
+          "knowledge": {
+            "thinking": "disabled",
+            "max_tokens": 2400
+          },
+          "verification": {
+            "thinking": "disabled",
+            "max_tokens": 768
+          },
+          "compliance": {
+            "thinking": "disabled",
+            "max_tokens": 512
+          }
+        },
+        "limits": {
+          "calls": 2,
+          "input_tokens": 65536,
+          "output_tokens": 8192
+        }
+      }
+    },
+    {
+      "question": "茶叶推荐一下，金额3000元",
+      "amount": "3000.00",
+      "currency": "CNY",
+      "price_basis": "unknown",
+      "missing_fields": [
+        "budget_scope"
+      ],
+      "passed": true,
+      "usage": {
+        "calls": 1,
+        "input_tokens": 4055,
+        "output_tokens": 338,
+        "unknown_usage_calls": 0,
+        "rejected_calls": 0,
+        "provider_overrun_calls": 0,
+        "stages": {
+          "planning": 1
+        },
+        "stage_policy": {
+          "scope": {
+            "thinking": "disabled",
+            "max_tokens": 192
+          },
+          "planning": {
+            "thinking": "disabled",
+            "max_tokens": 1400
+          },
+          "extraction": {
+            "thinking": "disabled",
+            "max_tokens": 1600
+          },
+          "rewrite": {
+            "thinking": "disabled",
+            "max_tokens": 512
+          },
+          "knowledge": {
+            "thinking": "disabled",
+            "max_tokens": 2400
+          },
+          "verification": {
+            "thinking": "disabled",
+            "max_tokens": 768
+          },
+          "compliance": {
+            "thinking": "disabled",
+            "max_tokens": 512
+          }
+        },
+        "limits": {
+          "calls": 2,
+          "input_tokens": 65536,
+          "output_tokens": 8192
+        }
+      }
+    },
+    {
+      "question": "我准备花3000块买茶，有什么推荐",
+      "amount": "3000.00",
+      "currency": "CNY",
+      "price_basis": "unknown",
+      "missing_fields": [
+        "budget_scope"
+      ],
+      "passed": true,
+      "usage": {
+        "calls": 2,
+        "input_tokens": 5059,
+        "output_tokens": 363,
+        "unknown_usage_calls": 0,
+        "rejected_calls": 0,
+        "provider_overrun_calls": 0,
+        "stages": {
+          "planning": 1,
+          "extraction": 1
+        },
+        "stage_policy": {
+          "scope": {
+            "thinking": "disabled",
+            "max_tokens": 192
+          },
+          "planning": {
+            "thinking": "disabled",
+            "max_tokens": 1400
+          },
+          "extraction": {
+            "thinking": "disabled",
+            "max_tokens": 1600
+          },
+          "rewrite": {
+            "thinking": "disabled",
+            "max_tokens": 512
+          },
+          "knowledge": {
+            "thinking": "disabled",
+            "max_tokens": 2400
+          },
+          "verification": {
+            "thinking": "disabled",
+            "max_tokens": 768
+          },
+          "compliance": {
+            "thinking": "disabled",
+            "max_tokens": 512
+          }
+        },
+        "limits": {
+          "calls": 2,
+          "input_tokens": 65536,
+          "output_tokens": 8192
+        }
+      }
+    }
+  ],
+  "passed": 4,
+  "total": 6,
+  "calls": 8
+}

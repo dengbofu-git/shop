@@ -14,11 +14,11 @@ class InventoryService:
     def get_available_quantity(sku_id, warehouse_id=None):
         """获取可用库存数量"""
         if warehouse_id:
-            inventory = Inventory.objects.filter(sku_id=sku_id, warehouse_id=warehouse_id).first()
+            inventory = Inventory.objects.filter(sku_id=sku_id, warehouse_id=warehouse_id, warehouse__is_active=True).first()
             return inventory.available_quantity if inventory else 0
         else:
             # 获取所有仓库的可用库存总和
-            total = Inventory.objects.filter(sku_id=sku_id).aggregate(
+            total = Inventory.objects.filter(sku_id=sku_id, warehouse__is_active=True).aggregate(
                 total=Sum('available_quantity')
             )['total']
             return total or 0
@@ -26,6 +26,8 @@ class InventoryService:
     @staticmethod
     def reserve_inventory(sku_id, warehouse_id, quantity, order_id=None, remark=''):
         """预留库存"""
+        if isinstance(quantity, bool) or not isinstance(quantity, int) or quantity <= 0:
+            raise ValueError('数量必须为正整数')
         with transaction.atomic():
             inventory = Inventory.objects.select_for_update().get(
                 sku_id=sku_id,
@@ -55,6 +57,8 @@ class InventoryService:
     @staticmethod
     def release_inventory(sku_id, warehouse_id, quantity, order_id=None, remark=''):
         """释放预留库存"""
+        if isinstance(quantity, bool) or not isinstance(quantity, int) or quantity <= 0:
+            raise ValueError('数量必须为正整数')
         with transaction.atomic():
             inventory = Inventory.objects.select_for_update().get(
                 sku_id=sku_id,
@@ -84,6 +88,8 @@ class InventoryService:
     @staticmethod
     def deduct_inventory(sku_id, warehouse_id, quantity, order_id=None, remark=''):
         """扣减库存（支付后）"""
+        if isinstance(quantity, bool) or not isinstance(quantity, int) or quantity <= 0:
+            raise ValueError('数量必须为正整数')
         with transaction.atomic():
             inventory = Inventory.objects.select_for_update().get(
                 sku_id=sku_id,
@@ -152,40 +158,62 @@ class InventoryService:
         return inventories
 
     @staticmethod
-    def ship_deduct_sku(sku_id, quantity, order_id=None, remark='商家发货出库'):
-        """
-        发货扣减：同步减少 SKU.stock 与仓库 Inventory（若有）。
-        商品管理页展示 sku.stock，必须在发货时扣减。
-        """
-        if quantity <= 0:
-            return
-        with transaction.atomic():
-            sku = SKU.objects.select_for_update().get(id=sku_id)
-            if sku.stock < quantity:
-                raise ValueError(f'「{sku.name}」库存不足，当前 {sku.stock}，需发 {quantity}')
-            SKU.objects.filter(id=sku_id).update(stock=F('stock') - quantity)
+    def locked_ledgers(sku):
+        """Caller holds this SKU row. A legacy SKU initializes exactly once."""
+        if not Inventory.objects.filter(sku=sku).exists():
+            warehouse, _ = Warehouse.objects.get_or_create(code='DEFAULT', defaults={'name':'默认','address':'默认仓库'})
+            Inventory.objects.create(sku=sku, warehouse=warehouse, quantity=max(0,sku.stock))
+        return list(Inventory.objects.select_for_update().filter(sku=sku).select_related('warehouse').order_by('pk'))
 
-            remain = quantity
-            inventories = (
-                Inventory.objects.select_for_update()
-                .filter(sku_id=sku_id, quantity__gt=0)
-                .order_by('-quantity')
-            )
-            for inv in inventories:
-                if remain <= 0:
-                    break
-                take = min(inv.quantity, remain)
-                before = inv.quantity
-                inv.quantity -= take
-                inv.available_quantity = max(0, inv.quantity - inv.reserved_quantity)
-                inv.save(update_fields=['quantity', 'available_quantity', 'updated_time'])
-                InventoryLog.objects.create(
-                    sku_id=sku_id,
-                    warehouse_id=inv.warehouse_id,
-                    log_type='out',
-                    quantity=take,
-                    before_quantity=before,
-                    after_quantity=inv.quantity,
-                    remark=f'{remark}: {order_id or ""}'.strip(),
-                )
-                remain -= take
+    @staticmethod
+    def sync_stock(sku):
+        # SKU.stock is physical total, never the sellable source when a ledger exists.
+        total = Inventory.objects.filter(sku=sku).aggregate(total=Sum('quantity'))['total'] or 0
+        SKU.objects.filter(pk=sku.pk).update(stock=total)
+        sku.stock = total
+
+    @staticmethod
+    def adjust_stock(sku_id, quantity, warehouse_name=None):
+        if isinstance(quantity,bool) or not isinstance(quantity,int) or quantity < 0:
+            raise ValueError('库存数量必须为非负整数')
+        with transaction.atomic():
+            sku = SKU.objects.select_for_update().get(pk=sku_id)
+            rows = InventoryService.locked_ledgers(sku)
+            if warehouse_name is None:
+                if len(rows) != 1:
+                    raise ValueError('多仓库存请在库存页面按仓库调整')
+                inv = rows[0]
+            else:
+                candidates = [r for r in rows if (r.warehouse.code=='DEFAULT' if warehouse_name=='默认' else r.warehouse.name==warehouse_name)]
+                if len(candidates) != 1:
+                    raise ValueError('仓库不存在或名称不唯一')
+                inv = candidates[0]
+            if quantity < inv.reserved_quantity:
+                raise ValueError('新库存不能低于已预留数量，请先处理关联订单')
+            before = inv.quantity
+            inv.quantity=quantity
+            inv.save(update_fields=['quantity','available_quantity','updated_time'])
+            InventoryLog.objects.create(sku=sku,warehouse=inv.warehouse,log_type='adjust',quantity=abs(quantity-before),before_quantity=before,after_quantity=quantity,remark='商家调整库存')
+            InventoryService.sync_stock(sku)
+            return sku.stock
+
+    @staticmethod
+    def ship_deduct_sku(sku_id, quantity, order_id=None, remark='历史订单发货出库'):
+        """Legacy orders may consume only unreserved stock; managed orders use their holds."""
+        if isinstance(quantity,bool) or not isinstance(quantity,int) or quantity <= 0:
+            raise ValueError('数量必须为正整数')
+        with transaction.atomic():
+            sku=SKU.objects.select_for_update().get(pk=sku_id)
+            rows=InventoryService.locked_ledgers(sku)
+            if sum(r.available_quantity for r in rows if r.warehouse.is_active) < quantity:
+                raise ValueError('库存不足，不能占用其他订单已预留的库存')
+            remain=quantity
+            for inv in rows:
+                if not inv.warehouse.is_active:continue
+                take=min(inv.available_quantity,remain)
+                if not take:continue
+                before=inv.quantity;inv.quantity-=take
+                inv.save(update_fields=['quantity','available_quantity','updated_time'])
+                InventoryLog.objects.create(sku=sku,warehouse=inv.warehouse,log_type='out',quantity=take,before_quantity=before,after_quantity=inv.quantity,remark='%s: %s'%(remark,order_id or ''))
+                remain-=take
+            InventoryService.sync_stock(sku)

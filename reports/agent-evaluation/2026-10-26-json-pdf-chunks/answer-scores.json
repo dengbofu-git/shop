@@ -1,0 +1,2184 @@
+{
+  "review_method": "Assistant inspection of all accepted claim texts against source-transcribed gold; not expert double-blind; score only declared target facts, not every extra assertion.",
+  "system_generation_first_run": {
+    "json": {
+      "first_run_responses": 12,
+      "answerable_questions": 11,
+      "answerable_labels": {
+        "full_correct": 8,
+        "safe_insufficient": 3
+      },
+      "target_facts_covered": 11,
+      "target_facts_required": 18,
+      "safe_refusals": 1,
+      "median_generation_seconds": 5.174451264500021
+    },
+    "native": {
+      "first_run_responses": 12,
+      "answerable_questions": 11,
+      "answerable_labels": {
+        "safe_insufficient": 7,
+        "partial_correct": 1,
+        "full_correct": 3
+      },
+      "target_facts_covered": 5,
+      "target_facts_required": 18,
+      "safe_refusals": 1,
+      "median_generation_seconds": 2.3467121900002894
+    },
+    "ocr": {
+      "first_run_responses": 12,
+      "answerable_questions": 11,
+      "answerable_labels": {
+        "safe_insufficient": 6,
+        "partial_correct": 1,
+        "full_correct": 4
+      },
+      "target_facts_covered": 9,
+      "target_facts_required": 18,
+      "safe_refusals": 1,
+      "median_generation_seconds": 21.697970590000295
+    }
+  },
+  "all_groups_first_run": {
+    "json": {
+      "first_run_responses": 12,
+      "answerable_questions": 11,
+      "answerable_labels": {
+        "full_correct": 8,
+        "safe_insufficient": 3
+      },
+      "target_facts_covered": 11,
+      "target_facts_required": 18,
+      "safe_refusals": 1,
+      "median_generation_seconds": 5.174451264500021
+    },
+    "native": {
+      "first_run_responses": 12,
+      "answerable_questions": 11,
+      "answerable_labels": {
+        "safe_insufficient": 7,
+        "partial_correct": 1,
+        "full_correct": 3
+      },
+      "target_facts_covered": 5,
+      "target_facts_required": 18,
+      "safe_refusals": 1,
+      "median_generation_seconds": 2.3467121900002894
+    },
+    "ocr": {
+      "first_run_responses": 12,
+      "answerable_questions": 11,
+      "answerable_labels": {
+        "safe_insufficient": 6,
+        "partial_correct": 1,
+        "full_correct": 4
+      },
+      "target_facts_covered": 9,
+      "target_facts_required": 18,
+      "safe_refusals": 1,
+      "median_generation_seconds": 21.697970590000295
+    },
+    "paragraph": {
+      "first_run_responses": 6,
+      "answerable_questions": 5,
+      "answerable_labels": {
+        "partial_correct": 1,
+        "full_correct": 4
+      },
+      "target_facts_covered": 9,
+      "target_facts_required": 10,
+      "safe_refusals": 1,
+      "median_generation_seconds": 13.930982162000873
+    },
+    "fixed": {
+      "first_run_responses": 6,
+      "answerable_questions": 5,
+      "answerable_labels": {
+        "safe_insufficient": 4,
+        "full_correct": 1
+      },
+      "target_facts_covered": 2,
+      "target_facts_required": 10,
+      "safe_refusals": 1,
+      "median_generation_seconds": 19.63976882249972
+    }
+  },
+  "pure_generation_first_run": {
+    "paragraph": {
+      "responses": 6,
+      "labels": {
+        "safe_refusal": 1,
+        "partial_correct": 1,
+        "full_correct": 4
+      }
+    },
+    "native": {
+      "responses": 6,
+      "labels": {
+        "safe_refusal": 1,
+        "partial_correct": 1,
+        "full_correct": 1,
+        "safe_insufficient": 3
+      }
+    },
+    "fixed": {
+      "responses": 6,
+      "labels": {
+        "safe_refusal": 1,
+        "safe_insufficient": 4,
+        "full_correct": 1
+      }
+    }
+  },
+  "repeat_same_outcome": 9,
+  "repeat_pairs": 12,
+  "repeats": [
+    {
+      "group": "json",
+      "question_id": "actual_2025",
+      "first": "safe_refusal",
+      "repeat": "safe_refusal",
+      "same_target_outcome": true
+    },
+    {
+      "group": "json",
+      "question_id": "index",
+      "first": "safe_insufficient",
+      "repeat": "safe_insufficient",
+      "same_target_outcome": true
+    },
+    {
+      "group": "json",
+      "question_id": "iran_pair",
+      "first": "full_correct",
+      "repeat": "full_correct",
+      "same_target_outcome": true
+    },
+    {
+      "group": "json",
+      "question_id": "saudi_arabia_pair",
+      "first": "full_correct",
+      "repeat": "full_correct",
+      "same_target_outcome": true
+    },
+    {
+      "group": "native",
+      "question_id": "actual_2025",
+      "first": "safe_refusal",
+      "repeat": "safe_refusal",
+      "same_target_outcome": true
+    },
+    {
+      "group": "native",
+      "question_id": "index",
+      "first": "partial_correct",
+      "repeat": "full_correct",
+      "same_target_outcome": false
+    },
+    {
+      "group": "native",
+      "question_id": "iran_pair",
+      "first": "safe_insufficient",
+      "repeat": "safe_insufficient",
+      "same_target_outcome": true
+    },
+    {
+      "group": "native",
+      "question_id": "saudi_arabia_pair",
+      "first": "safe_insufficient",
+      "repeat": "safe_insufficient",
+      "same_target_outcome": true
+    },
+    {
+      "group": "ocr",
+      "question_id": "actual_2025",
+      "first": "safe_refusal",
+      "repeat": "safe_refusal",
+      "same_target_outcome": true
+    },
+    {
+      "group": "ocr",
+      "question_id": "index",
+      "first": "partial_correct",
+      "repeat": "full_correct",
+      "same_target_outcome": false
+    },
+    {
+      "group": "ocr",
+      "question_id": "iran_pair",
+      "first": "safe_insufficient",
+      "repeat": "safe_insufficient",
+      "same_target_outcome": true
+    },
+    {
+      "group": "ocr",
+      "question_id": "saudi_arabia_pair",
+      "first": "full_correct",
+      "repeat": "safe_insufficient",
+      "same_target_outcome": false
+    }
+  ],
+  "usage": {
+    "calls": 119,
+    "input_tokens": 209221,
+    "output_tokens": 166067,
+    "total_tokens": 375288
+  },
+  "technical_errors": 0,
+  "verbatim_citations": {
+    "passed": 42,
+    "total": 42,
+    "interpretation": "Production invariant rechecked; exact substring does not establish table row relation or source truth."
+  },
+  "records": [
+    {
+      "case": "fixed-actual_2025-1",
+      "group": "fixed",
+      "question_id": "actual_2025",
+      "category": "unanswerable",
+      "repeat": 1,
+      "label": "safe_refusal",
+      "required_target_facts": 1,
+      "covered_target_facts": 1,
+      "review_note": "",
+      "accepted_claim_texts": [],
+      "production_grounding_status": "insufficient",
+      "rejected_count": 0,
+      "usage": {
+        "calls": 1,
+        "input_tokens": 3121,
+        "output_tokens": 162,
+        "total_tokens": 3283,
+        "errors": []
+      },
+      "seconds": 1.9304925630003709,
+      "citation_checks": [],
+      "raw_record_sha256": "a0f14ae58266323a830297d60504396719671ed6964c255c479c6ae7593a0808"
+    },
+    {
+      "case": "fixed-index-1",
+      "group": "fixed",
+      "question_id": "index",
+      "category": "pdf_only",
+      "repeat": 1,
+      "label": "safe_insufficient",
+      "required_target_facts": 2,
+      "covered_target_facts": 0,
+      "review_note": "",
+      "accepted_claim_texts": [],
+      "production_grounding_status": "insufficient",
+      "rejected_count": 3,
+      "usage": {
+        "calls": 2,
+        "input_tokens": 4165,
+        "output_tokens": 4039,
+        "total_tokens": 8204,
+        "errors": []
+      },
+      "seconds": 23.719079488000716,
+      "citation_checks": [],
+      "raw_record_sha256": "ebab9f9e10a9a9a4b8101011bdac8a1d2c66d7c3aedcd8384f73b5ac9de3d019"
+    },
+    {
+      "case": "fixed-iran_nature-1",
+      "group": "fixed",
+      "question_id": "iran_nature",
+      "category": "shared",
+      "repeat": 1,
+      "label": "safe_insufficient",
+      "required_target_facts": 1,
+      "covered_target_facts": 0,
+      "review_note": "",
+      "accepted_claim_texts": [],
+      "production_grounding_status": "insufficient",
+      "rejected_count": 3,
+      "usage": {
+        "calls": 3,
+        "input_tokens": 8084,
+        "output_tokens": 8780,
+        "total_tokens": 16864,
+        "errors": []
+      },
+      "seconds": 45.57346531799885,
+      "citation_checks": [],
+      "raw_record_sha256": "5f8830c88852c8f0aef659f520f59fbffea0630694ebe4367647e1b4962bb8b8"
+    },
+    {
+      "case": "fixed-iran_pair-1",
+      "group": "fixed",
+      "question_id": "iran_pair",
+      "category": "shared",
+      "repeat": 1,
+      "label": "safe_insufficient",
+      "required_target_facts": 2,
+      "covered_target_facts": 0,
+      "review_note": "",
+      "accepted_claim_texts": [],
+      "production_grounding_status": "insufficient",
+      "rejected_count": 2,
+      "usage": {
+        "calls": 2,
+        "input_tokens": 6354,
+        "output_tokens": 3350,
+        "total_tokens": 9704,
+        "errors": []
+      },
+      "seconds": 19.21205388599992,
+      "citation_checks": [],
+      "raw_record_sha256": "e8e2011d4f77035177c26fb9187631412d952185c1abb6368fa383c6b1610a56"
+    },
+    {
+      "case": "fixed-macro-1",
+      "group": "fixed",
+      "question_id": "macro",
+      "category": "pdf_only",
+      "repeat": 1,
+      "label": "safe_insufficient",
+      "required_target_facts": 3,
+      "covered_target_facts": 0,
+      "review_note": "",
+      "accepted_claim_texts": [],
+      "production_grounding_status": "insufficient",
+      "rejected_count": 0,
+      "usage": {
+        "calls": 1,
+        "input_tokens": 3096,
+        "output_tokens": 89,
+        "total_tokens": 3185,
+        "errors": []
+      },
+      "seconds": 2.511315169000227,
+      "citation_checks": [],
+      "raw_record_sha256": "600730e3a8ecbda28bc4acf669f1bc38b5644858c85acd0b5121ff19b0bda5f6"
+    },
+    {
+      "case": "fixed-saudi_arabia_pair-1",
+      "group": "fixed",
+      "question_id": "saudi_arabia_pair",
+      "category": "shared",
+      "repeat": 1,
+      "label": "full_correct",
+      "required_target_facts": 2,
+      "covered_target_facts": 2,
+      "review_note": "",
+      "accepted_claim_texts": [
+        "In FAO Table 9, Black Tea: Consumption, Saudi Arabia's estimated black-tea consumption in 2013 was 30,350 tonnes and its projected black-tea consumption in 2023 was 44,999 tonnes."
+      ],
+      "production_grounding_status": "verified",
+      "rejected_count": 0,
+      "usage": {
+        "calls": 2,
+        "input_tokens": 4913,
+        "output_tokens": 3585,
+        "total_tokens": 8498,
+        "errors": []
+      },
+      "seconds": 20.067483758999515,
+      "citation_checks": [
+        {
+          "source_id": "e1",
+          "chunk_id": 200,
+          "exact_substring": true,
+          "start": 74,
+          "length": 31,
+          "quote_sha256": "5f4c50e81722d0626dcb1847363aa988fb3b700498407399c55612825dffccd2",
+          "page_start": 25,
+          "page_end": 27
+        },
+        {
+          "source_id": "e1",
+          "chunk_id": 200,
+          "exact_substring": true,
+          "start": 196,
+          "length": 116,
+          "quote_sha256": "8668e8569bfafc45adb490434134d96b035eaaed5112095a0af0136c4f266d7a",
+          "page_start": 25,
+          "page_end": 27
+        },
+        {
+          "source_id": "e1",
+          "chunk_id": 200,
+          "exact_substring": true,
+          "start": 1437,
+          "length": 36,
+          "quote_sha256": "ff335add1a90f6b956c61904243dfe1d01d44101009761ea28eb6fe43604abca",
+          "page_start": 25,
+          "page_end": 27
+        }
+      ],
+      "raw_record_sha256": "c1aa3a3a85d4619e36356ef22c6ad5b727fcb7d5650ee5b080654d26ef6f7deb"
+    },
+    {
+      "case": "json-actual_2025-1",
+      "group": "json",
+      "question_id": "actual_2025",
+      "category": "unanswerable",
+      "repeat": 1,
+      "label": "safe_refusal",
+      "required_target_facts": 1,
+      "covered_target_facts": 1,
+      "review_note": "",
+      "accepted_claim_texts": [],
+      "production_grounding_status": "insufficient",
+      "rejected_count": 0,
+      "usage": {
+        "calls": 1,
+        "input_tokens": 916,
+        "output_tokens": 63,
+        "total_tokens": 979,
+        "errors": []
+      },
+      "seconds": 1.2501783140014595,
+      "citation_checks": [],
+      "raw_record_sha256": "5f1449e5ee19fdec8d55ddffa1a1178dc59be57d921e7767b125fcb0fef3aa13"
+    },
+    {
+      "case": "json-actual_2025-2",
+      "group": "json",
+      "question_id": "actual_2025",
+      "category": "unanswerable",
+      "repeat": 2,
+      "label": "safe_refusal",
+      "required_target_facts": 1,
+      "covered_target_facts": 1,
+      "review_note": "",
+      "accepted_claim_texts": [],
+      "production_grounding_status": "insufficient",
+      "rejected_count": 0,
+      "usage": {
+        "calls": 1,
+        "input_tokens": 916,
+        "output_tokens": 172,
+        "total_tokens": 1088,
+        "errors": []
+      },
+      "seconds": 1.9561417360000632,
+      "citation_checks": [],
+      "raw_record_sha256": "cbdbf550c04500c9c842aa2ba350e9792c7d3036caa8614f825a2f1db4e4a881"
+    },
+    {
+      "case": "json-egypt_pair-1",
+      "group": "json",
+      "question_id": "egypt_pair",
+      "category": "shared",
+      "repeat": 1,
+      "label": "full_correct",
+      "required_target_facts": 2,
+      "covered_target_facts": 2,
+      "review_note": "",
+      "accepted_claim_texts": [
+        "FAO's 2014 medium-term outlook estimated Egypt's black-tea consumption at 97,304 tonnes in 2013 and projected 135,243 tonnes for 2023; the 2023 figure is a forecast, not a verified actual consumption value."
+      ],
+      "production_grounding_status": "verified",
+      "rejected_count": 0,
+      "usage": {
+        "calls": 2,
+        "input_tokens": 1637,
+        "output_tokens": 891,
+        "total_tokens": 2528,
+        "errors": []
+      },
+      "seconds": 6.408218174001377,
+      "citation_checks": [
+        {
+          "source_id": "e1",
+          "chunk_id": 7,
+          "exact_substring": true,
+          "start": 0,
+          "length": 230,
+          "quote_sha256": "54fbbf8e4b5099ce4df503846fedfe44d23c97ecb388f6c5b8899b5d9ff10e85",
+          "page_start": 27,
+          "page_end": 27
+        }
+      ],
+      "raw_record_sha256": "71a3fe6c92d862fa143a0d217d2c6e225bcefbc4fb6e497a081a750b4c33ae6d"
+    },
+    {
+      "case": "json-index-1",
+      "group": "json",
+      "question_id": "index",
+      "category": "pdf_only",
+      "repeat": 1,
+      "label": "safe_insufficient",
+      "required_target_facts": 2,
+      "covered_target_facts": 0,
+      "review_note": "",
+      "accepted_claim_texts": [],
+      "production_grounding_status": "insufficient",
+      "rejected_count": 0,
+      "usage": {
+        "calls": 1,
+        "input_tokens": 965,
+        "output_tokens": 103,
+        "total_tokens": 1068,
+        "errors": []
+      },
+      "seconds": 1.459855940000125,
+      "citation_checks": [],
+      "raw_record_sha256": "6cd637e1f7adc3b16d26125a285da91a255d0344fbddaffbd44e7b96ef5d7d54"
+    },
+    {
+      "case": "json-index-2",
+      "group": "json",
+      "question_id": "index",
+      "category": "pdf_only",
+      "repeat": 2,
+      "label": "safe_insufficient",
+      "required_target_facts": 2,
+      "covered_target_facts": 0,
+      "review_note": "",
+      "accepted_claim_texts": [],
+      "production_grounding_status": "insufficient",
+      "rejected_count": 0,
+      "usage": {
+        "calls": 1,
+        "input_tokens": 965,
+        "output_tokens": 92,
+        "total_tokens": 1057,
+        "errors": []
+      },
+      "seconds": 1.4124292470005457,
+      "citation_checks": [],
+      "raw_record_sha256": "921c28671b27c1ba85fe3f3e33b39c39f8cf1cc11657b1c2fb04e07db1837027"
+    },
+    {
+      "case": "json-iran_nature-1",
+      "group": "json",
+      "question_id": "iran_nature",
+      "category": "shared",
+      "repeat": 1,
+      "label": "full_correct",
+      "required_target_facts": 1,
+      "covered_target_facts": 1,
+      "review_note": "",
+      "accepted_claim_texts": [
+        "The 2023 black-tea consumption figure for Iran of 115,808 tonnes is a projection made in FAO's 2014 medium-term outlook, not a verified 2023 observation."
+      ],
+      "production_grounding_status": "verified",
+      "rejected_count": 0,
+      "usage": {
+        "calls": 2,
+        "input_tokens": 1645,
+        "output_tokens": 669,
+        "total_tokens": 2314,
+        "errors": []
+      },
+      "seconds": 4.756948033000299,
+      "citation_checks": [
+        {
+          "source_id": "e1",
+          "chunk_id": 1,
+          "exact_substring": true,
+          "start": 25,
+          "length": 267,
+          "quote_sha256": "35b12fb9014ea3d587a7e0e77bba863ac04fbe5fb50cd66bef941903c10967b1",
+          "page_start": 27,
+          "page_end": 27
+        }
+      ],
+      "raw_record_sha256": "11ce8bed659892691025bb8c51cde5cfbf638acfddcb2a423a7af6c8cf910312"
+    },
+    {
+      "case": "json-iran_pair-1",
+      "group": "json",
+      "question_id": "iran_pair",
+      "category": "shared",
+      "repeat": 1,
+      "label": "full_correct",
+      "required_target_facts": 2,
+      "covered_target_facts": 2,
+      "review_note": "",
+      "accepted_claim_texts": [
+        "FAO's 2014 medium-term outlook estimated Iran's black-tea consumption at 83,000 tonnes in 2013 and projected 115,808 tonnes for 2023; the 2023 figure is a forecast made in 2014, not a subsequently verified actual consumption value."
+      ],
+      "production_grounding_status": "verified",
+      "rejected_count": 0,
+      "usage": {
+        "calls": 2,
+        "input_tokens": 1686,
+        "output_tokens": 1104,
+        "total_tokens": 2790,
+        "errors": []
+      },
+      "seconds": 7.0337131380001665,
+      "citation_checks": [
+        {
+          "source_id": "e1",
+          "chunk_id": 1,
+          "exact_substring": true,
+          "start": 0,
+          "length": 292,
+          "quote_sha256": "0cb2d7a90904bfb7cd341b7bc5196d6761b04804b89ed9df2b9ecc94d5d1cecf",
+          "page_start": 27,
+          "page_end": 27
+        }
+      ],
+      "raw_record_sha256": "74e01bc0b4183c3ab10e73d8ac3464ecfef13f387217923fd10a0d853ddd3af4"
+    },
+    {
+      "case": "json-iran_pair-2",
+      "group": "json",
+      "question_id": "iran_pair",
+      "category": "shared",
+      "repeat": 2,
+      "label": "full_correct",
+      "required_target_facts": 2,
+      "covered_target_facts": 2,
+      "review_note": "",
+      "accepted_claim_texts": [
+        "FAO's 2014 medium-term outlook estimated Iran's black-tea consumption at 83,000 tonnes in 2013 and projected 115,808 tonnes for 2023; the 2023 figure was a forecast made in 2014, not a subsequently verified 2023 observation."
+      ],
+      "production_grounding_status": "verified",
+      "rejected_count": 0,
+      "usage": {
+        "calls": 2,
+        "input_tokens": 1687,
+        "output_tokens": 1208,
+        "total_tokens": 2895,
+        "errors": []
+      },
+      "seconds": 7.981841659999191,
+      "citation_checks": [
+        {
+          "source_id": "e1",
+          "chunk_id": 1,
+          "exact_substring": true,
+          "start": 0,
+          "length": 292,
+          "quote_sha256": "0cb2d7a90904bfb7cd341b7bc5196d6761b04804b89ed9df2b9ecc94d5d1cecf",
+          "page_start": 27,
+          "page_end": 27
+        }
+      ],
+      "raw_record_sha256": "60d6795026ae9a524dea7a89b24c1702869bdb875bd3d58f106766163634c103"
+    },
+    {
+      "case": "json-jordan_forecast-1",
+      "group": "json",
+      "question_id": "jordan_forecast",
+      "category": "shared",
+      "repeat": 1,
+      "label": "full_correct",
+      "required_target_facts": 1,
+      "covered_target_facts": 1,
+      "review_note": "",
+      "accepted_claim_texts": [
+        "FAO's 2014 medium-term outlook projected Jordan's black-tea consumption at 5,886 tonnes for 2023; this figure is a forecast from 2014, not a measured 2023 observation."
+      ],
+      "production_grounding_status": "verified",
+      "rejected_count": 0,
+      "usage": {
+        "calls": 2,
+        "input_tokens": 1585,
+        "output_tokens": 859,
+        "total_tokens": 2444,
+        "errors": []
+      },
+      "seconds": 5.959082141000181,
+      "citation_checks": [
+        {
+          "source_id": "e1",
+          "chunk_id": 8,
+          "exact_substring": true,
+          "start": 0,
+          "length": 220,
+          "quote_sha256": "3a83220995cb5f5a636bdc94f3809cdaeea8efa2e6c8464c831492874d378b85",
+          "page_start": 27,
+          "page_end": 27
+        }
+      ],
+      "raw_record_sha256": "68f3e43240056bf4742e516c9dfdd717b55eb4f1162a9676da0bb684d1829418"
+    },
+    {
+      "case": "json-macro-1",
+      "group": "json",
+      "question_id": "macro",
+      "category": "pdf_only",
+      "repeat": 1,
+      "label": "safe_insufficient",
+      "required_target_facts": 3,
+      "covered_target_facts": 0,
+      "review_note": "",
+      "accepted_claim_texts": [],
+      "production_grounding_status": "insufficient",
+      "rejected_count": 0,
+      "usage": {
+        "calls": 1,
+        "input_tokens": 908,
+        "output_tokens": 71,
+        "total_tokens": 979,
+        "errors": []
+      },
+      "seconds": 1.461058722999951,
+      "citation_checks": [],
+      "raw_record_sha256": "38a1cb02fe68a6fd5d7c7772e44e3b5b665d574b2a9c651d93df6e7ba99a06b4"
+    },
+    {
+      "case": "json-production-1",
+      "group": "json",
+      "question_id": "production",
+      "category": "pdf_only",
+      "repeat": 1,
+      "label": "safe_insufficient",
+      "required_target_facts": 2,
+      "covered_target_facts": 0,
+      "review_note": "",
+      "accepted_claim_texts": [],
+      "production_grounding_status": "insufficient",
+      "rejected_count": 0,
+      "usage": {
+        "calls": 1,
+        "input_tokens": 925,
+        "output_tokens": 52,
+        "total_tokens": 977,
+        "errors": []
+      },
+      "seconds": 1.2161517550011922,
+      "citation_checks": [],
+      "raw_record_sha256": "2a667a98a8b04e45d0312a529ff5753b9e595d1936960f34ec4a35964b28da0d"
+    },
+    {
+      "case": "json-saudi_arabia_nature-1",
+      "group": "json",
+      "question_id": "saudi_arabia_nature",
+      "category": "shared",
+      "repeat": 1,
+      "label": "full_correct",
+      "required_target_facts": 1,
+      "covered_target_facts": 1,
+      "review_note": "",
+      "accepted_claim_texts": [
+        "The provided source characterizes the 2023 Saudi Arabia black-tea consumption figure as a historical forecast from FAO's 2014 medium-term outlook, not as measured 2023 consumption."
+      ],
+      "production_grounding_status": "verified",
+      "rejected_count": 0,
+      "usage": {
+        "calls": 3,
+        "input_tokens": 2650,
+        "output_tokens": 1580,
+        "total_tokens": 4230,
+        "errors": []
+      },
+      "seconds": 10.159076956000717,
+      "citation_checks": [
+        {
+          "source_id": "e1",
+          "chunk_id": 4,
+          "exact_substring": true,
+          "start": 0,
+          "length": 227,
+          "quote_sha256": "7434b9b895f3665cc7f8631092956772d187d27532a3c05a6414bd717eeca462",
+          "page_start": 27,
+          "page_end": 27
+        }
+      ],
+      "raw_record_sha256": "5c99d8146509f89a62695bfc06fbc4477b236ac0b8ae546dd6831a06072fbb55"
+    },
+    {
+      "case": "json-saudi_arabia_pair-1",
+      "group": "json",
+      "question_id": "saudi_arabia_pair",
+      "category": "shared",
+      "repeat": 1,
+      "label": "full_correct",
+      "required_target_facts": 2,
+      "covered_target_facts": 2,
+      "review_note": "",
+      "accepted_claim_texts": [
+        "FAO's 2014 medium-term outlook estimated Saudi Arabia's black-tea consumption at 30,350 tonnes in 2013 and projected 44,999 tonnes for 2023; the 2023 figure is a forecast, not measured consumption."
+      ],
+      "production_grounding_status": "verified",
+      "rejected_count": 0,
+      "usage": {
+        "calls": 2,
+        "input_tokens": 1633,
+        "output_tokens": 1106,
+        "total_tokens": 2739,
+        "errors": []
+      },
+      "seconds": 7.078534882000895,
+      "citation_checks": [
+        {
+          "source_id": "e1",
+          "chunk_id": 4,
+          "exact_substring": true,
+          "start": 25,
+          "length": 202,
+          "quote_sha256": "08683fe81198525ce06e8539ad45586df2c5a99a4720aa6d7d6d8f530abe1654",
+          "page_start": 27,
+          "page_end": 27
+        }
+      ],
+      "raw_record_sha256": "e8136686dd9ba8714c5aa90398e161ce05ee36cccca94bd6e0594b1c8053f7b1"
+    },
+    {
+      "case": "json-saudi_arabia_pair-2",
+      "group": "json",
+      "question_id": "saudi_arabia_pair",
+      "category": "shared",
+      "repeat": 2,
+      "label": "full_correct",
+      "required_target_facts": 2,
+      "covered_target_facts": 2,
+      "review_note": "",
+      "accepted_claim_texts": [
+        "FAO's 2014 medium-term outlook estimated Saudi Arabia's black-tea consumption at 30,350 tonnes in 2013.",
+        "FAO's 2014 medium-term outlook projected Saudi Arabia's black-tea consumption at 44,999 tonnes for 2023; this 2023 figure was a forecast, not measured consumption."
+      ],
+      "production_grounding_status": "verified",
+      "rejected_count": 0,
+      "usage": {
+        "calls": 2,
+        "input_tokens": 1715,
+        "output_tokens": 2245,
+        "total_tokens": 3960,
+        "errors": []
+      },
+      "seconds": 12.86363490900112,
+      "citation_checks": [
+        {
+          "source_id": "e1",
+          "chunk_id": 4,
+          "exact_substring": true,
+          "start": 25,
+          "length": 102,
+          "quote_sha256": "2ee6ccc7e0b998a6374977cce30c415140b98a1f7b3da418380c077b44c258e8",
+          "page_start": 27,
+          "page_end": 27
+        },
+        {
+          "source_id": "e1",
+          "chunk_id": 4,
+          "exact_substring": true,
+          "start": 25,
+          "length": 202,
+          "quote_sha256": "08683fe81198525ce06e8539ad45586df2c5a99a4720aa6d7d6d8f530abe1654",
+          "page_start": 27,
+          "page_end": 27
+        }
+      ],
+      "raw_record_sha256": "75c8eb1aaaf89fcc6fd48e533c8b527a74e85ff5c06087b9a451bb5073cee4cc"
+    },
+    {
+      "case": "json-turkey_forecast-1",
+      "group": "json",
+      "question_id": "turkey_forecast",
+      "category": "shared",
+      "repeat": 1,
+      "label": "full_correct",
+      "required_target_facts": 1,
+      "covered_target_facts": 1,
+      "review_note": "",
+      "accepted_claim_texts": [
+        "FAO's 2014 medium-term outlook projected Türkiye's black-tea consumption at 259,503 tonnes for 2023; the figure is a forecast, not a verified actual value."
+      ],
+      "production_grounding_status": "verified",
+      "rejected_count": 0,
+      "usage": {
+        "calls": 2,
+        "input_tokens": 1648,
+        "output_tokens": 661,
+        "total_tokens": 2309,
+        "errors": []
+      },
+      "seconds": 5.16035932900013,
+      "citation_checks": [
+        {
+          "source_id": "e2",
+          "chunk_id": 2,
+          "exact_substring": true,
+          "start": 25,
+          "length": 208,
+          "quote_sha256": "baab9b4e42f8502cb19fda25501a1c289534cd19fd28f97dfcaa2a66191f7a13",
+          "page_start": 27,
+          "page_end": 27
+        }
+      ],
+      "raw_record_sha256": "99156bb5837b275f4670e23404bf458fbc05b6ed1149ae50f480cba13526f7b4"
+    },
+    {
+      "case": "json-united_arab_emirates_forecast-1",
+      "group": "json",
+      "question_id": "united_arab_emirates_forecast",
+      "category": "shared",
+      "repeat": 1,
+      "label": "full_correct",
+      "required_target_facts": 1,
+      "covered_target_facts": 1,
+      "review_note": "",
+      "accepted_claim_texts": [
+        "FAO's 2014 medium-term outlook projected United Arab Emirates black-tea consumption at 63,394 tonnes for 2023."
+      ],
+      "production_grounding_status": "verified",
+      "rejected_count": 0,
+      "usage": {
+        "calls": 2,
+        "input_tokens": 1563,
+        "output_tokens": 528,
+        "total_tokens": 2091,
+        "errors": []
+      },
+      "seconds": 5.188543199999913,
+      "citation_checks": [
+        {
+          "source_id": "e1",
+          "chunk_id": 6,
+          "exact_substring": true,
+          "start": 25,
+          "length": 129,
+          "quote_sha256": "1d64a2111315b3968ab1a76df57fd98b2ee617ccc2cfbde23ccf21de21402f04",
+          "page_start": 27,
+          "page_end": 27
+        }
+      ],
+      "raw_record_sha256": "43c16d5fd383b348f0954fe6a690f103aaf6a54b0ffd2d4305b2e8c4a63a1df7"
+    },
+    {
+      "case": "native-actual_2025-1",
+      "group": "native",
+      "question_id": "actual_2025",
+      "category": "unanswerable",
+      "repeat": 1,
+      "label": "safe_refusal",
+      "required_target_facts": 1,
+      "covered_target_facts": 1,
+      "review_note": "",
+      "accepted_claim_texts": [],
+      "production_grounding_status": "insufficient",
+      "rejected_count": 0,
+      "usage": {
+        "calls": 1,
+        "input_tokens": 1987,
+        "output_tokens": 159,
+        "total_tokens": 2146,
+        "errors": []
+      },
+      "seconds": 1.9760546170000453,
+      "citation_checks": [],
+      "raw_record_sha256": "8ca9c57717f71f12eb2fa88d5ca83ae125422945a9b4e0bdc68efa53be68aa3f"
+    },
+    {
+      "case": "native-actual_2025-2",
+      "group": "native",
+      "question_id": "actual_2025",
+      "category": "unanswerable",
+      "repeat": 2,
+      "label": "safe_refusal",
+      "required_target_facts": 1,
+      "covered_target_facts": 1,
+      "review_note": "",
+      "accepted_claim_texts": [],
+      "production_grounding_status": "insufficient",
+      "rejected_count": 0,
+      "usage": {
+        "calls": 1,
+        "input_tokens": 1987,
+        "output_tokens": 136,
+        "total_tokens": 2123,
+        "errors": []
+      },
+      "seconds": 2.6889164520016493,
+      "citation_checks": [],
+      "raw_record_sha256": "af4f145ae567194504be714a5d363f2004129ea3d1192beca9e3307e87875b5f"
+    },
+    {
+      "case": "native-egypt_pair-1",
+      "group": "native",
+      "question_id": "egypt_pair",
+      "category": "shared",
+      "repeat": 1,
+      "label": "safe_insufficient",
+      "required_target_facts": 2,
+      "covered_target_facts": 0,
+      "review_note": "",
+      "accepted_claim_texts": [],
+      "production_grounding_status": "insufficient",
+      "rejected_count": 0,
+      "usage": {
+        "calls": 1,
+        "input_tokens": 1716,
+        "output_tokens": 79,
+        "total_tokens": 1795,
+        "errors": []
+      },
+      "seconds": 1.3684185439997236,
+      "citation_checks": [],
+      "raw_record_sha256": "0511595a6d41921d7f244368719c95cd68112c6839fc86c2574ff0b2cece1d0c"
+    },
+    {
+      "case": "native-index-1",
+      "group": "native",
+      "question_id": "index",
+      "category": "pdf_only",
+      "repeat": 1,
+      "label": "partial_correct",
+      "required_target_facts": 2,
+      "covered_target_facts": 1,
+      "review_note": "Excludes green tea correctly, omits black-tea-only scope.",
+      "accepted_claim_texts": [
+        "The FAO Tea Composite Price does not include green tea prices because consistent, credible green tea prices are difficult to obtain on a consistent basis."
+      ],
+      "production_grounding_status": "partial",
+      "rejected_count": 1,
+      "usage": {
+        "calls": 3,
+        "input_tokens": 4848,
+        "output_tokens": 2562,
+        "total_tokens": 7410,
+        "errors": []
+      },
+      "seconds": 15.976673006000055,
+      "citation_checks": [
+        {
+          "source_id": "e1",
+          "chunk_id": 61,
+          "exact_substring": true,
+          "start": 621,
+          "length": 126,
+          "quote_sha256": "1b9dcfc4497d933e4126d49baa0cb4505946df8c8119726e49a67fb5ae06e708",
+          "page_start": 3,
+          "page_end": 4
+        }
+      ],
+      "raw_record_sha256": "36f6a9d505db0ac5b6b91d35d14c3a85be1c2aa717d262cb53f08827611798d8"
+    },
+    {
+      "case": "native-index-2",
+      "group": "native",
+      "question_id": "index",
+      "category": "pdf_only",
+      "repeat": 2,
+      "label": "full_correct",
+      "required_target_facts": 2,
+      "covered_target_facts": 2,
+      "review_note": "",
+      "accepted_claim_texts": [
+        "The FAO Tea Composite Price is a weighted average price index for black tea only.",
+        "The FAO Tea Composite Price does not include green tea prices because consistent, credible green tea prices are difficult to obtain on a consistent basis."
+      ],
+      "production_grounding_status": "verified",
+      "rejected_count": 0,
+      "usage": {
+        "calls": 3,
+        "input_tokens": 4890,
+        "output_tokens": 2581,
+        "total_tokens": 7471,
+        "errors": []
+      },
+      "seconds": 16.18278744700001,
+      "citation_checks": [
+        {
+          "source_id": "e1",
+          "chunk_id": 61,
+          "exact_substring": true,
+          "start": 501,
+          "length": 117,
+          "quote_sha256": "72aadfdae80d715e25ba70af8f6f91e351f95bb2cde0422577d1c00560a40e0a",
+          "page_start": 3,
+          "page_end": 4
+        },
+        {
+          "source_id": "e1",
+          "chunk_id": 61,
+          "exact_substring": true,
+          "start": 621,
+          "length": 126,
+          "quote_sha256": "1b9dcfc4497d933e4126d49baa0cb4505946df8c8119726e49a67fb5ae06e708",
+          "page_start": 3,
+          "page_end": 4
+        }
+      ],
+      "raw_record_sha256": "9bbf0b1d5d18c2ffe66cdc4d24fb5a51f61983993c8a36aaa2ff144a82313ef5"
+    },
+    {
+      "case": "native-iran_nature-1",
+      "group": "native",
+      "question_id": "iran_nature",
+      "category": "shared",
+      "repeat": 1,
+      "label": "full_correct",
+      "required_target_facts": 1,
+      "covered_target_facts": 1,
+      "review_note": "Correct projection-versus-observation conclusion from the global Table 9 projection description; precise country quantity is not supplied. Extra import statements are outside the target fact score.",
+      "accepted_claim_texts": [
+        "The FAO excerpt states that black tea consumption will grow at 3 percent annually to reach 4.14 million tonnes in 2023 and cites Figure 7 and Table 9; Figure 7 is titled “Projected Consumption: Black Tea,” so the excerpt presents the 2023 black tea consumption figure as a projection.",
+        "The Iran-specific 2023 tea datum in the provided evidence is a merchandise import statistic under HS 0902, reported as US$415.812 million and 65,021.5 tonnes, and the source says the statistic is not a direct measure of domestic consumption.",
+        "The provided evidence does not cite an Iran-specific 2023 black tea consumption figure from FAO Table 9; the Table 9-related black tea consumption statement in the evidence is projected, while the Iran-specific 2023 tea statistic is an import trade measure rather than a consumption measure."
+      ],
+      "production_grounding_status": "verified",
+      "rejected_count": 0,
+      "usage": {
+        "calls": 4,
+        "input_tokens": 4621,
+        "output_tokens": 8662,
+        "total_tokens": 13283,
+        "errors": []
+      },
+      "seconds": 49.488478359999135,
+      "citation_checks": [
+        {
+          "source_id": "e2",
+          "chunk_id": 70,
+          "exact_substring": true,
+          "start": 392,
+          "length": 116,
+          "quote_sha256": "c838f75ffa10e495f6e4d1df652b8fc55af38ef99153c04596a65cf72f37ce19",
+          "page_start": 9,
+          "page_end": 10
+        },
+        {
+          "source_id": "e2",
+          "chunk_id": 70,
+          "exact_substring": true,
+          "start": 651,
+          "length": 44,
+          "quote_sha256": "d364e6846ecf488e9332875948e42d380a3e3c90674ab998838a6971da7f22b6",
+          "page_start": 9,
+          "page_end": 10
+        },
+        {
+          "source_id": "e1",
+          "chunk_id": 10,
+          "exact_substring": true,
+          "start": 0,
+          "length": 345,
+          "quote_sha256": "36f37a4d1d8cdaf02c5199bf1d1d67349acb23a868dbea573c351e7968b5866e",
+          "page_start": null,
+          "page_end": null
+        },
+        {
+          "source_id": "e2",
+          "chunk_id": 70,
+          "exact_substring": true,
+          "start": 392,
+          "length": 116,
+          "quote_sha256": "c838f75ffa10e495f6e4d1df652b8fc55af38ef99153c04596a65cf72f37ce19",
+          "page_start": 9,
+          "page_end": 10
+        },
+        {
+          "source_id": "e1",
+          "chunk_id": 10,
+          "exact_substring": true,
+          "start": 191,
+          "length": 154,
+          "quote_sha256": "dd7f0ec997c381ec2120e0a59118ed0c93686f1a7b2598d7d9a5cd05ddd261c5",
+          "page_start": null,
+          "page_end": null
+        }
+      ],
+      "raw_record_sha256": "cd690e5fc8b90f3de9287b0ef409677f7809e5bfdcbef09a6be6f35ace5f4179"
+    },
+    {
+      "case": "native-iran_pair-1",
+      "group": "native",
+      "question_id": "iran_pair",
+      "category": "shared",
+      "repeat": 1,
+      "label": "safe_insufficient",
+      "required_target_facts": 2,
+      "covered_target_facts": 0,
+      "review_note": "",
+      "accepted_claim_texts": [],
+      "production_grounding_status": "insufficient",
+      "rejected_count": 0,
+      "usage": {
+        "calls": 1,
+        "input_tokens": 2250,
+        "output_tokens": 134,
+        "total_tokens": 2384,
+        "errors": []
+      },
+      "seconds": 1.4583539890008979,
+      "citation_checks": [],
+      "raw_record_sha256": "4d0cf2c2ffea951fe4259a7758feb34071f700f436191bb04e5cabe74801ec7b"
+    },
+    {
+      "case": "native-iran_pair-2",
+      "group": "native",
+      "question_id": "iran_pair",
+      "category": "shared",
+      "repeat": 2,
+      "label": "safe_insufficient",
+      "required_target_facts": 2,
+      "covered_target_facts": 0,
+      "review_note": "",
+      "accepted_claim_texts": [],
+      "production_grounding_status": "insufficient",
+      "rejected_count": 0,
+      "usage": {
+        "calls": 1,
+        "input_tokens": 2250,
+        "output_tokens": 148,
+        "total_tokens": 2398,
+        "errors": []
+      },
+      "seconds": 1.8989766470003815,
+      "citation_checks": [],
+      "raw_record_sha256": "7a1af2baa9d3d03084b2fd2229cfc608f5063cb594faa60312a4dfb99c6a3139"
+    },
+    {
+      "case": "native-jordan_forecast-1",
+      "group": "native",
+      "question_id": "jordan_forecast",
+      "category": "shared",
+      "repeat": 1,
+      "label": "safe_insufficient",
+      "required_target_facts": 1,
+      "covered_target_facts": 0,
+      "review_note": "",
+      "accepted_claim_texts": [],
+      "production_grounding_status": "insufficient",
+      "rejected_count": 0,
+      "usage": {
+        "calls": 1,
+        "input_tokens": 1104,
+        "output_tokens": 62,
+        "total_tokens": 1166,
+        "errors": []
+      },
+      "seconds": 1.0124545489998127,
+      "citation_checks": [],
+      "raw_record_sha256": "9545eb3331643d3144eda4f5b36181bd17f63feebdc581544e8115c70d4c6af7"
+    },
+    {
+      "case": "native-macro-1",
+      "group": "native",
+      "question_id": "macro",
+      "category": "pdf_only",
+      "repeat": 1,
+      "label": "safe_insufficient",
+      "required_target_facts": 3,
+      "covered_target_facts": 0,
+      "review_note": "",
+      "accepted_claim_texts": [],
+      "production_grounding_status": "insufficient",
+      "rejected_count": 1,
+      "usage": {
+        "calls": 2,
+        "input_tokens": 5505,
+        "output_tokens": 672,
+        "total_tokens": 6177,
+        "errors": []
+      },
+      "seconds": 4.983320938999896,
+      "citation_checks": [],
+      "raw_record_sha256": "8a0ef394cac4d9352c8b45fd294b5f80cfe00524ce940805ab7e23832807fd1e"
+    },
+    {
+      "case": "native-production-1",
+      "group": "native",
+      "question_id": "production",
+      "category": "pdf_only",
+      "repeat": 1,
+      "label": "full_correct",
+      "required_target_facts": 2,
+      "covered_target_facts": 2,
+      "review_note": "",
+      "accepted_claim_texts": [
+        "According to the report, world tea production (black, green and instant) increased significantly by 6 percent to 5.07 million tonnes in 2013."
+      ],
+      "production_grounding_status": "verified",
+      "rejected_count": 0,
+      "usage": {
+        "calls": 3,
+        "input_tokens": 4982,
+        "output_tokens": 1935,
+        "total_tokens": 6917,
+        "errors": []
+      },
+      "seconds": 12.883383747999687,
+      "citation_checks": [
+        {
+          "source_id": "e5",
+          "chunk_id": 57,
+          "exact_substring": true,
+          "start": 1548,
+          "length": 128,
+          "quote_sha256": "19352d1632cd8523f313b4100b8d7f01ca1d9e948d1819407064e7ed39691c70",
+          "page_start": 1,
+          "page_end": 2
+        }
+      ],
+      "raw_record_sha256": "c8867f8417938bbbb149d2a56c7d61401f6a92a17029636b8a6694e5467e6f54"
+    },
+    {
+      "case": "native-saudi_arabia_nature-1",
+      "group": "native",
+      "question_id": "saudi_arabia_nature",
+      "category": "shared",
+      "repeat": 1,
+      "label": "full_correct",
+      "required_target_facts": 1,
+      "covered_target_facts": 1,
+      "review_note": "Correct projection-versus-observation conclusion from the global Table 9 projection description; precise country quantity is not supplied. Extra import statements are outside the target fact score.",
+      "accepted_claim_texts": [
+        "The 2023 black tea consumption figure referenced with Table 9 is presented as projected consumption, not as a verified 2023 observation."
+      ],
+      "production_grounding_status": "verified",
+      "rejected_count": 0,
+      "usage": {
+        "calls": 4,
+        "input_tokens": 3973,
+        "output_tokens": 5261,
+        "total_tokens": 9234,
+        "errors": []
+      },
+      "seconds": 32.594526695998866,
+      "citation_checks": [
+        {
+          "source_id": "e2",
+          "chunk_id": 70,
+          "exact_substring": true,
+          "start": 392,
+          "length": 116,
+          "quote_sha256": "c838f75ffa10e495f6e4d1df652b8fc55af38ef99153c04596a65cf72f37ce19",
+          "page_start": 9,
+          "page_end": 10
+        },
+        {
+          "source_id": "e2",
+          "chunk_id": 70,
+          "exact_substring": true,
+          "start": 651,
+          "length": 44,
+          "quote_sha256": "d364e6846ecf488e9332875948e42d380a3e3c90674ab998838a6971da7f22b6",
+          "page_start": 9,
+          "page_end": 10
+        }
+      ],
+      "raw_record_sha256": "0da49d9a7880c57ee52c23386645dec7239b9239599fcdb2b35be8b4e1e7505c"
+    },
+    {
+      "case": "native-saudi_arabia_pair-1",
+      "group": "native",
+      "question_id": "saudi_arabia_pair",
+      "category": "shared",
+      "repeat": 1,
+      "label": "safe_insufficient",
+      "required_target_facts": 2,
+      "covered_target_facts": 0,
+      "review_note": "",
+      "accepted_claim_texts": [],
+      "production_grounding_status": "insufficient",
+      "rejected_count": 0,
+      "usage": {
+        "calls": 1,
+        "input_tokens": 2251,
+        "output_tokens": 295,
+        "total_tokens": 2546,
+        "errors": []
+      },
+      "seconds": 2.7173697630005336,
+      "citation_checks": [],
+      "raw_record_sha256": "7e0ed0aa2fdbac40de15166414f944f6ee4f0bc81da2826bae91766a44159f01"
+    },
+    {
+      "case": "native-saudi_arabia_pair-2",
+      "group": "native",
+      "question_id": "saudi_arabia_pair",
+      "category": "shared",
+      "repeat": 2,
+      "label": "safe_insufficient",
+      "required_target_facts": 2,
+      "covered_target_facts": 0,
+      "review_note": "",
+      "accepted_claim_texts": [],
+      "production_grounding_status": "insufficient",
+      "rejected_count": 0,
+      "usage": {
+        "calls": 1,
+        "input_tokens": 2251,
+        "output_tokens": 283,
+        "total_tokens": 2534,
+        "errors": []
+      },
+      "seconds": 2.7066742419992806,
+      "citation_checks": [],
+      "raw_record_sha256": "3b9ddf64af69feebdebb93733d9447766a523002f09cf9b3d8f2c2e9f396ecdb"
+    },
+    {
+      "case": "native-turkey_forecast-1",
+      "group": "native",
+      "question_id": "turkey_forecast",
+      "category": "shared",
+      "repeat": 1,
+      "label": "safe_insufficient",
+      "required_target_facts": 1,
+      "covered_target_facts": 0,
+      "review_note": "",
+      "accepted_claim_texts": [],
+      "production_grounding_status": "insufficient",
+      "rejected_count": 0,
+      "usage": {
+        "calls": 1,
+        "input_tokens": 1619,
+        "output_tokens": 83,
+        "total_tokens": 1702,
+        "errors": []
+      },
+      "seconds": 1.5037490279992198,
+      "citation_checks": [],
+      "raw_record_sha256": "2cda7b8241b46571ebb21a369987c5e5ded2f8830070a6a0d592a5b6c880d3e9"
+    },
+    {
+      "case": "native-united_arab_emirates_forecast-1",
+      "group": "native",
+      "question_id": "united_arab_emirates_forecast",
+      "category": "shared",
+      "repeat": 1,
+      "label": "safe_insufficient",
+      "required_target_facts": 1,
+      "covered_target_facts": 0,
+      "review_note": "",
+      "accepted_claim_texts": [],
+      "production_grounding_status": "insufficient",
+      "rejected_count": 0,
+      "usage": {
+        "calls": 1,
+        "input_tokens": 1717,
+        "output_tokens": 133,
+        "total_tokens": 1850,
+        "errors": []
+      },
+      "seconds": 1.655327964999742,
+      "citation_checks": [],
+      "raw_record_sha256": "92abe15c4bd2dfc8758ee0d72aa492e5db087b32c27d5a5095b1fb0d43b69955"
+    },
+    {
+      "case": "ocr-actual_2025-1",
+      "group": "ocr",
+      "question_id": "actual_2025",
+      "category": "unanswerable",
+      "repeat": 1,
+      "label": "safe_refusal",
+      "required_target_facts": 1,
+      "covered_target_facts": 1,
+      "review_note": "",
+      "accepted_claim_texts": [],
+      "production_grounding_status": "insufficient",
+      "rejected_count": 0,
+      "usage": {
+        "calls": 1,
+        "input_tokens": 2623,
+        "output_tokens": 149,
+        "total_tokens": 2772,
+        "errors": []
+      },
+      "seconds": 1.9139591019993532,
+      "citation_checks": [],
+      "raw_record_sha256": "9b5553fa9258492d8a7a0a73c36addb92f91ffd58df0e82b79653b8a2fd4b161"
+    },
+    {
+      "case": "ocr-actual_2025-2",
+      "group": "ocr",
+      "question_id": "actual_2025",
+      "category": "unanswerable",
+      "repeat": 2,
+      "label": "safe_refusal",
+      "required_target_facts": 1,
+      "covered_target_facts": 1,
+      "review_note": "",
+      "accepted_claim_texts": [],
+      "production_grounding_status": "insufficient",
+      "rejected_count": 0,
+      "usage": {
+        "calls": 1,
+        "input_tokens": 2623,
+        "output_tokens": 318,
+        "total_tokens": 2941,
+        "errors": []
+      },
+      "seconds": 2.8748721459996887,
+      "citation_checks": [],
+      "raw_record_sha256": "0045c1017fc1a3dfbac8c41f112158ca376f56c38d2588b1bef30566fb9a6538"
+    },
+    {
+      "case": "ocr-egypt_pair-1",
+      "group": "ocr",
+      "question_id": "egypt_pair",
+      "category": "shared",
+      "repeat": 1,
+      "label": "safe_insufficient",
+      "required_target_facts": 2,
+      "covered_target_facts": 0,
+      "review_note": "",
+      "accepted_claim_texts": [],
+      "production_grounding_status": "insufficient",
+      "rejected_count": 1,
+      "usage": {
+        "calls": 2,
+        "input_tokens": 5472,
+        "output_tokens": 9857,
+        "total_tokens": 15329,
+        "errors": []
+      },
+      "seconds": 52.847079555000164,
+      "citation_checks": [],
+      "raw_record_sha256": "a8149e8cf00a25d3940f7d3b9db16bbd6f76d5913d98e2bb3e2001528fd8d2ff"
+    },
+    {
+      "case": "ocr-index-1",
+      "group": "ocr",
+      "question_id": "index",
+      "category": "pdf_only",
+      "repeat": 1,
+      "label": "partial_correct",
+      "required_target_facts": 2,
+      "covered_target_facts": 1,
+      "review_note": "Excludes green tea correctly, omits black-tea-only scope.",
+      "accepted_claim_texts": [
+        "The FAO Tea Composite Price does not include green tea prices because consistent, credible green tea prices are difficult to obtain on a consistent basis."
+      ],
+      "production_grounding_status": "partial",
+      "rejected_count": 1,
+      "usage": {
+        "calls": 4,
+        "input_tokens": 6496,
+        "output_tokens": 1995,
+        "total_tokens": 8491,
+        "errors": []
+      },
+      "seconds": 14.330774918000316,
+      "citation_checks": [
+        {
+          "source_id": "e2",
+          "chunk_id": 95,
+          "exact_substring": true,
+          "start": 1705,
+          "length": 125,
+          "quote_sha256": "851e04f55754141643c217d6ce6aa08a11389ec00150d1b2de3ee89c432139a9",
+          "page_start": 2,
+          "page_end": 4
+        }
+      ],
+      "raw_record_sha256": "27098051929a3238f3609d9e8b24200c7d90ef061685246b81016d211acb3555"
+    },
+    {
+      "case": "ocr-index-2",
+      "group": "ocr",
+      "question_id": "index",
+      "category": "pdf_only",
+      "repeat": 2,
+      "label": "full_correct",
+      "required_target_facts": 2,
+      "covered_target_facts": 2,
+      "review_note": "",
+      "accepted_claim_texts": [
+        "The FAO Tea Composite Price is a weighted average price index for black tea only.",
+        "The FAO Tea Composite Price does not include green tea prices because consistent, credible green tea prices are difficult to obtain on a consistent basis."
+      ],
+      "production_grounding_status": "verified",
+      "rejected_count": 0,
+      "usage": {
+        "calls": 3,
+        "input_tokens": 5983,
+        "output_tokens": 3570,
+        "total_tokens": 9553,
+        "errors": []
+      },
+      "seconds": 20.922255560999474,
+      "citation_checks": [
+        {
+          "source_id": "e2",
+          "chunk_id": 95,
+          "exact_substring": true,
+          "start": 1625,
+          "length": 77,
+          "quote_sha256": "0a25a33f5315ca5e3ce83d6d80106e0fcef3d500ad7b9f69ca7a338ae90f1c55",
+          "page_start": 2,
+          "page_end": 4
+        },
+        {
+          "source_id": "e1",
+          "chunk_id": 96,
+          "exact_substring": true,
+          "start": 0,
+          "length": 125,
+          "quote_sha256": "851e04f55754141643c217d6ce6aa08a11389ec00150d1b2de3ee89c432139a9",
+          "page_start": 4,
+          "page_end": 5
+        }
+      ],
+      "raw_record_sha256": "0fda79f267b965c213ee15c78770c81a22fffdc731f2111eac8604c4c0cd6b77"
+    },
+    {
+      "case": "ocr-iran_nature-1",
+      "group": "ocr",
+      "question_id": "iran_nature",
+      "category": "shared",
+      "repeat": 1,
+      "label": "safe_insufficient",
+      "required_target_facts": 1,
+      "covered_target_facts": 0,
+      "review_note": "",
+      "accepted_claim_texts": [],
+      "production_grounding_status": "insufficient",
+      "rejected_count": 4,
+      "usage": {
+        "calls": 4,
+        "input_tokens": 8409,
+        "output_tokens": 9705,
+        "total_tokens": 18114,
+        "errors": []
+      },
+      "seconds": 52.79821757500031,
+      "citation_checks": [],
+      "raw_record_sha256": "21c3f31f0bb06028b968172e64e13bc34ea37442d314b23450125680cae17653"
+    },
+    {
+      "case": "ocr-iran_pair-1",
+      "group": "ocr",
+      "question_id": "iran_pair",
+      "category": "shared",
+      "repeat": 1,
+      "label": "safe_insufficient",
+      "required_target_facts": 2,
+      "covered_target_facts": 0,
+      "review_note": "",
+      "accepted_claim_texts": [],
+      "production_grounding_status": "insufficient",
+      "rejected_count": 1,
+      "usage": {
+        "calls": 2,
+        "input_tokens": 5510,
+        "output_tokens": 6410,
+        "total_tokens": 11920,
+        "errors": []
+      },
+      "seconds": 34.79473700700146,
+      "citation_checks": [],
+      "raw_record_sha256": "2084b3963488c7d286d5d425f5b35d8f030b6523ee2d9827f9adf5e6b87a24ca"
+    },
+    {
+      "case": "ocr-iran_pair-2",
+      "group": "ocr",
+      "question_id": "iran_pair",
+      "category": "shared",
+      "repeat": 2,
+      "label": "safe_insufficient",
+      "required_target_facts": 2,
+      "covered_target_facts": 0,
+      "review_note": "",
+      "accepted_claim_texts": [],
+      "production_grounding_status": "insufficient",
+      "rejected_count": 1,
+      "usage": {
+        "calls": 2,
+        "input_tokens": 5460,
+        "output_tokens": 8825,
+        "total_tokens": 14285,
+        "errors": []
+      },
+      "seconds": 45.78359372900013,
+      "citation_checks": [],
+      "raw_record_sha256": "deef6b43ba799247844a98b3445f7713a05c871c9753ec152ede89aad7bf8a23"
+    },
+    {
+      "case": "ocr-jordan_forecast-1",
+      "group": "ocr",
+      "question_id": "jordan_forecast",
+      "category": "shared",
+      "repeat": 1,
+      "label": "safe_insufficient",
+      "required_target_facts": 1,
+      "covered_target_facts": 0,
+      "review_note": "",
+      "accepted_claim_texts": [],
+      "production_grounding_status": "insufficient",
+      "rejected_count": 0,
+      "usage": {
+        "calls": 1,
+        "input_tokens": 2416,
+        "output_tokens": 61,
+        "total_tokens": 2477,
+        "errors": []
+      },
+      "seconds": 2.2959588930007158,
+      "citation_checks": [],
+      "raw_record_sha256": "028017786502ea00c3a41437e5d358ee08558208f672361e08d0bf9df9d3ac2d"
+    },
+    {
+      "case": "ocr-macro-1",
+      "group": "ocr",
+      "question_id": "macro",
+      "category": "pdf_only",
+      "repeat": 1,
+      "label": "full_correct",
+      "required_target_facts": 3,
+      "covered_target_facts": 3,
+      "review_note": "",
+      "accepted_claim_texts": [
+        "The FAO report states that macro-economic data for its tea medium-term projections were sourced from the International Monetary Fund (IMF), World Bank and Organization for Economic Cooperation and Development (OECD)."
+      ],
+      "production_grounding_status": "verified",
+      "rejected_count": 0,
+      "usage": {
+        "calls": 2,
+        "input_tokens": 4078,
+        "output_tokens": 742,
+        "total_tokens": 4820,
+        "errors": []
+      },
+      "seconds": 5.710383817999173,
+      "citation_checks": [
+        {
+          "source_id": "e1",
+          "chunk_id": 93,
+          "exact_substring": true,
+          "start": 836,
+          "length": 213,
+          "quote_sha256": "d4afc1138949e225c074c7d073a2f36576407821b8721d69664b1e52912b13f0",
+          "page_start": 1,
+          "page_end": 2
+        }
+      ],
+      "raw_record_sha256": "f5375bdddc69e61bb6759bc0acb08204e10b06d9892e11aea05c33cb8ec8536c"
+    },
+    {
+      "case": "ocr-production-1",
+      "group": "ocr",
+      "question_id": "production",
+      "category": "pdf_only",
+      "repeat": 1,
+      "label": "full_correct",
+      "required_target_facts": 2,
+      "covered_target_facts": 2,
+      "review_note": "",
+      "accepted_claim_texts": [
+        "World tea production (black, green and instant) increased significantly by 6 percent to 5.07 million tonnes in 2013."
+      ],
+      "production_grounding_status": "verified",
+      "rejected_count": 0,
+      "usage": {
+        "calls": 3,
+        "input_tokens": 6921,
+        "output_tokens": 2160,
+        "total_tokens": 9081,
+        "errors": []
+      },
+      "seconds": 13.454702578999786,
+      "citation_checks": [
+        {
+          "source_id": "e1",
+          "chunk_id": 94,
+          "exact_substring": true,
+          "start": 169,
+          "length": 115,
+          "quote_sha256": "c7ae2e940ddf5c040a9365dd7fee35a74315292d53fb648065410472de44082d",
+          "page_start": 1,
+          "page_end": 3
+        }
+      ],
+      "raw_record_sha256": "4f37c3b4cf2f5e2e57e32627577289ff2d88d1b032d895fcf4f31f677d9a4646"
+    },
+    {
+      "case": "ocr-saudi_arabia_nature-1",
+      "group": "ocr",
+      "question_id": "saudi_arabia_nature",
+      "category": "shared",
+      "repeat": 1,
+      "label": "full_correct",
+      "required_target_facts": 1,
+      "covered_target_facts": 1,
+      "review_note": "",
+      "accepted_claim_texts": [
+        "The report states that black tea consumption will reach 4.14 million tonnes in 2023 and cites Figure 7 and Table 9 for that projected consumption series.",
+        "Saudi Arabia appears as a listed country in FAO Table 9’s black-tea consumption table, and the table’s 2023 consumption column is the projected 2023 series."
+      ],
+      "production_grounding_status": "partial",
+      "rejected_count": 1,
+      "usage": {
+        "calls": 4,
+        "input_tokens": 9986,
+        "output_tokens": 19917,
+        "total_tokens": 29903,
+        "errors": []
+      },
+      "seconds": 107.58004159899974,
+      "citation_checks": [
+        {
+          "source_id": "e2",
+          "chunk_id": 104,
+          "exact_substring": true,
+          "start": 565,
+          "length": 115,
+          "quote_sha256": "275028be819158a509ae28111afb7a8744b5afb6165b179be408fbf5933a314d",
+          "page_start": 9,
+          "page_end": 11
+        },
+        {
+          "source_id": "e1",
+          "chunk_id": 117,
+          "exact_substring": true,
+          "start": 20,
+          "length": 222,
+          "quote_sha256": "c0c8b046e678d471420a643818da0cc042e837faec42c5658a2134dda5f1f848",
+          "page_start": 26,
+          "page_end": 28
+        },
+        {
+          "source_id": "e1",
+          "chunk_id": 117,
+          "exact_substring": true,
+          "start": 1117,
+          "length": 82,
+          "quote_sha256": "6d03fc6ab70f860fa5ee016220d7e7597cb2e42c467756eedb61da6d416114fa",
+          "page_start": 26,
+          "page_end": 28
+        }
+      ],
+      "raw_record_sha256": "5d358ab56f37ff1bf239de1bfbd61ec6efd3df9051472d65f07bb6c1f894b526"
+    },
+    {
+      "case": "ocr-saudi_arabia_pair-1",
+      "group": "ocr",
+      "question_id": "saudi_arabia_pair",
+      "category": "shared",
+      "repeat": 1,
+      "label": "full_correct",
+      "required_target_facts": 2,
+      "covered_target_facts": 2,
+      "review_note": "Target values agree with visual source, but OCR text does not preserve row adjacency; repeat returned insufficient. Do not infer reliable table entailment.",
+      "accepted_claim_texts": [
+        "FAO Table 9 lists Saudi Arabia’s black tea consumption as 30,350 tonnes estimated for 2013 and 44,999 tonnes projected for 2023."
+      ],
+      "production_grounding_status": "verified",
+      "rejected_count": 0,
+      "usage": {
+        "calls": 2,
+        "input_tokens": 4204,
+        "output_tokens": 5426,
+        "total_tokens": 9630,
+        "errors": []
+      },
+      "seconds": 29.065166262000275,
+      "citation_checks": [
+        {
+          "source_id": "e2",
+          "chunk_id": 117,
+          "exact_substring": true,
+          "start": 852,
+          "length": 445,
+          "quote_sha256": "fcc7c607afa40131efb0c2bcb3bad30aa7ca4849fc7939b04189f50239876054",
+          "page_start": 26,
+          "page_end": 28
+        }
+      ],
+      "raw_record_sha256": "230749ea079e0967f8fb68a1e072e164bdd25c370ebf5b589448c7afcf9e27b6"
+    },
+    {
+      "case": "ocr-saudi_arabia_pair-2",
+      "group": "ocr",
+      "question_id": "saudi_arabia_pair",
+      "category": "shared",
+      "repeat": 2,
+      "label": "safe_insufficient",
+      "required_target_facts": 2,
+      "covered_target_facts": 0,
+      "review_note": "",
+      "accepted_claim_texts": [],
+      "production_grounding_status": "insufficient",
+      "rejected_count": 1,
+      "usage": {
+        "calls": 2,
+        "input_tokens": 5531,
+        "output_tokens": 15623,
+        "total_tokens": 21154,
+        "errors": []
+      },
+      "seconds": 81.091257398999,
+      "citation_checks": [],
+      "raw_record_sha256": "049e475bffcb4b6ef3a30c0b47ef78db178c25703f87034e403b8caa2550deb9"
+    },
+    {
+      "case": "ocr-turkey_forecast-1",
+      "group": "ocr",
+      "question_id": "turkey_forecast",
+      "category": "shared",
+      "repeat": 1,
+      "label": "safe_insufficient",
+      "required_target_facts": 1,
+      "covered_target_facts": 0,
+      "review_note": "",
+      "accepted_claim_texts": [],
+      "production_grounding_status": "insufficient",
+      "rejected_count": 0,
+      "usage": {
+        "calls": 1,
+        "input_tokens": 1941,
+        "output_tokens": 338,
+        "total_tokens": 2279,
+        "errors": []
+      },
+      "seconds": 2.8873633309995057,
+      "citation_checks": [],
+      "raw_record_sha256": "6f243340e15ab230960ab99f49831992cc803eac989c42a6f832be85d835a217"
+    },
+    {
+      "case": "ocr-united_arab_emirates_forecast-1",
+      "group": "ocr",
+      "question_id": "united_arab_emirates_forecast",
+      "category": "shared",
+      "repeat": 1,
+      "label": "safe_insufficient",
+      "required_target_facts": 1,
+      "covered_target_facts": 0,
+      "review_note": "",
+      "accepted_claim_texts": [],
+      "production_grounding_status": "insufficient",
+      "rejected_count": 1,
+      "usage": {
+        "calls": 2,
+        "input_tokens": 5411,
+        "output_tokens": 9760,
+        "total_tokens": 15171,
+        "errors": []
+      },
+      "seconds": 49.93796161600039,
+      "citation_checks": [],
+      "raw_record_sha256": "517f75ef535c3e19ac35cc17c534758e4a96ca293d28e62e9f9f8ef719a08175"
+    },
+    {
+      "case": "paragraph-actual_2025-1",
+      "group": "paragraph",
+      "question_id": "actual_2025",
+      "category": "unanswerable",
+      "repeat": 1,
+      "label": "safe_refusal",
+      "required_target_facts": 1,
+      "covered_target_facts": 1,
+      "review_note": "",
+      "accepted_claim_texts": [],
+      "production_grounding_status": "insufficient",
+      "rejected_count": 0,
+      "usage": {
+        "calls": 1,
+        "input_tokens": 1793,
+        "output_tokens": 198,
+        "total_tokens": 1991,
+        "errors": []
+      },
+      "seconds": 2.001372018999973,
+      "citation_checks": [],
+      "raw_record_sha256": "ab4196eb34c918c436f14e970651f22d4bb74f191c00a81b983563779534e275"
+    },
+    {
+      "case": "paragraph-index-1",
+      "group": "paragraph",
+      "question_id": "index",
+      "category": "pdf_only",
+      "repeat": 1,
+      "label": "partial_correct",
+      "required_target_facts": 2,
+      "covered_target_facts": 1,
+      "review_note": "Excludes green tea correctly, omits black-tea-only scope.",
+      "accepted_claim_texts": [
+        "The FAO Tea Composite Price does not include green tea prices as consistent, credible green tea prices are difficult to obtain on a consistent basis."
+      ],
+      "production_grounding_status": "partial",
+      "rejected_count": 1,
+      "usage": {
+        "calls": 3,
+        "input_tokens": 3646,
+        "output_tokens": 2420,
+        "total_tokens": 6066,
+        "errors": []
+      },
+      "seconds": 15.074838718001047,
+      "citation_checks": [
+        {
+          "source_id": "e1",
+          "chunk_id": 132,
+          "exact_substring": true,
+          "start": 527,
+          "length": 126,
+          "quote_sha256": "1b9dcfc4497d933e4126d49baa0cb4505946df8c8119726e49a67fb5ae06e708",
+          "page_start": 4,
+          "page_end": 4
+        }
+      ],
+      "raw_record_sha256": "37f97b2a14063bcffc3d842f7b625bb2e2807a5c39f86aac54ea472ba162c822"
+    },
+    {
+      "case": "paragraph-iran_nature-1",
+      "group": "paragraph",
+      "question_id": "iran_nature",
+      "category": "shared",
+      "repeat": 1,
+      "label": "full_correct",
+      "required_target_facts": 1,
+      "covered_target_facts": 1,
+      "review_note": "",
+      "accepted_claim_texts": [
+        "The 2023 black tea consumption figure for Iran Islamic Rep. of in FAO Table 9 is a projection for 2023 rather than a verified 2023 observation.",
+        "The FAO figure covering black tea consumption is titled \"Projected Consumption: Black Tea\", and the accompanying text presents the 2023 level of 4.14 million tonnes as projected growth."
+      ],
+      "production_grounding_status": "partial",
+      "rejected_count": 4,
+      "usage": {
+        "calls": 4,
+        "input_tokens": 5378,
+        "output_tokens": 7436,
+        "total_tokens": 12814,
+        "errors": []
+      },
+      "seconds": 42.756028503999914,
+      "citation_checks": [
+        {
+          "source_id": "e1",
+          "chunk_id": 176,
+          "exact_substring": true,
+          "start": 144,
+          "length": 89,
+          "quote_sha256": "8cd095ad290cd4544eaa91bbfb4c8e7150b02ccc2cddbd687be86f074ed2d549",
+          "page_start": 27,
+          "page_end": 27
+        },
+        {
+          "source_id": "e2",
+          "chunk_id": 146,
+          "exact_substring": true,
+          "start": 308,
+          "length": 116,
+          "quote_sha256": "c838f75ffa10e495f6e4d1df652b8fc55af38ef99153c04596a65cf72f37ce19",
+          "page_start": 10,
+          "page_end": 10
+        },
+        {
+          "source_id": "e2",
+          "chunk_id": 146,
+          "exact_substring": true,
+          "start": 565,
+          "length": 44,
+          "quote_sha256": "d364e6846ecf488e9332875948e42d380a3e3c90674ab998838a6971da7f22b6",
+          "page_start": 10,
+          "page_end": 10
+        },
+        {
+          "source_id": "e2",
+          "chunk_id": 146,
+          "exact_substring": true,
+          "start": 308,
+          "length": 116,
+          "quote_sha256": "c838f75ffa10e495f6e4d1df652b8fc55af38ef99153c04596a65cf72f37ce19",
+          "page_start": 10,
+          "page_end": 10
+        }
+      ],
+      "raw_record_sha256": "2ac0c56020474e0ed836f11cf713bdc145398fa155c91d6d997c89d9583c4a80"
+    },
+    {
+      "case": "paragraph-iran_pair-1",
+      "group": "paragraph",
+      "question_id": "iran_pair",
+      "category": "shared",
+      "repeat": 1,
+      "label": "full_correct",
+      "required_target_facts": 2,
+      "covered_target_facts": 2,
+      "review_note": "",
+      "accepted_claim_texts": [
+        "In FAO Table 9, black tea consumption for Iran Islamic Rep. of was estimated at 83000 tonnes in 2013 and projected at 115808 tonnes in 2023."
+      ],
+      "production_grounding_status": "verified",
+      "rejected_count": 0,
+      "usage": {
+        "calls": 3,
+        "input_tokens": 4610,
+        "output_tokens": 2606,
+        "total_tokens": 7216,
+        "errors": []
+      },
+      "seconds": 16.611266747000627,
+      "citation_checks": [
+        {
+          "source_id": "e1",
+          "chunk_id": 176,
+          "exact_substring": true,
+          "start": 22,
+          "length": 343,
+          "quote_sha256": "09dac2dfffee7da928ddd58e4d6024bbc1a799a874d41a7fbd36612bbbde1355",
+          "page_start": 27,
+          "page_end": 27
+        }
+      ],
+      "raw_record_sha256": "a7c3235130321d3df8865b09015c889b8a5ee51ddae48ffc698791644f488a79"
+    },
+    {
+      "case": "paragraph-macro-1",
+      "group": "paragraph",
+      "question_id": "macro",
+      "category": "pdf_only",
+      "repeat": 1,
+      "label": "full_correct",
+      "required_target_facts": 3,
+      "covered_target_facts": 3,
+      "review_note": "",
+      "accepted_claim_texts": [
+        "Macro-economic data used in the medium term tea projections in the FAO document were sourced from the International Monetary Fund (IMF), the World Bank and the Organization for Economic Cooperation and Development (OECD)."
+      ],
+      "production_grounding_status": "verified",
+      "rejected_count": 0,
+      "usage": {
+        "calls": 3,
+        "input_tokens": 6697,
+        "output_tokens": 1873,
+        "total_tokens": 8570,
+        "errors": []
+      },
+      "seconds": 12.7871256060007,
+      "citation_checks": [
+        {
+          "source_id": "e1",
+          "chunk_id": 125,
+          "exact_substring": true,
+          "start": 350,
+          "length": 215,
+          "quote_sha256": "0b2a38a486697b2f8b8470780bc16ad264c79427afd5ac696087272ec5632cc1",
+          "page_start": 1,
+          "page_end": 1
+        }
+      ],
+      "raw_record_sha256": "046cf78c0c5594204fcda6a53ebf398fe4ba424bc4c4c0e4fe941b70ec54e3cd"
+    },
+    {
+      "case": "paragraph-saudi_arabia_pair-1",
+      "group": "paragraph",
+      "question_id": "saudi_arabia_pair",
+      "category": "shared",
+      "repeat": 1,
+      "label": "full_correct",
+      "required_target_facts": 2,
+      "covered_target_facts": 2,
+      "review_note": "",
+      "accepted_claim_texts": [
+        "FAO Table 9 reports Saudi Arabia black-tea consumption estimated at 30,350 tonnes in 2013 and projected at 44,999 tonnes in 2023."
+      ],
+      "production_grounding_status": "verified",
+      "rejected_count": 0,
+      "usage": {
+        "calls": 2,
+        "input_tokens": 3305,
+        "output_tokens": 2084,
+        "total_tokens": 5389,
+        "errors": []
+      },
+      "seconds": 11.02076352199947,
+      "citation_checks": [
+        {
+          "source_id": "e1",
+          "chunk_id": 176,
+          "exact_substring": true,
+          "start": 22,
+          "length": 447,
+          "quote_sha256": "4060f0e88cc6adf023f648fb80a6b4ab5e983468b33fddfb0eb722ab236c16b8",
+          "page_start": 27,
+          "page_end": 27
+        }
+      ],
+      "raw_record_sha256": "c2332a490ccd61c637c1cd3a2532ea2bd10eb5db99c31f5b32448d2a5d034b88"
+    }
+  ]
+}

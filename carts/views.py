@@ -9,29 +9,36 @@ from django_redis import get_redis_connection
 
 
 def get_available_stock(sku):
-    """
-    获取 SKU 的可用库存数量。
-    取 Inventory 多仓库汇总 与 sku.stock 的较大值，与商品详情逻辑一致。
-    """
-    sku_stock = int(sku.stock) if sku.stock is not None else 0
-    try:
-        from inventory.models import Inventory
-        from inventory.services import InventoryService
-        inv_total = InventoryService.get_available_quantity(sku.id)
-        return max(inv_total, sku_stock)
-    except Exception:
-        pass
-    return sku_stock
+    from inventory.availability import available_quantity
+    return available_quantity(sku)
 
 
 class CartsView(View):
     def __init__(self):
         self.conn = get_redis_connection(alias='carts')
 
+    def dispatch(self,request,username,*args,**kwargs):
+        from users.decorators import get_user_from_request
+        from users.access import account_access
+        user,error=get_user_from_request(request)
+        if error is not None:return error
+        if not user.is_active:return JsonResponse({'code':401,'error':'账号已停用'},status=401)
+        if user.username!=username or account_access(user)['redirect_url']!='/buyer_dashboard.html':
+            return JsonResponse({'code':403,'error':'只能操作本人的采购车'},status=403)
+        if request.method in ('POST','PUT','DELETE'):
+            try:
+                if not isinstance(json.loads(request.body),dict):raise ValueError()
+            except (ValueError,UnicodeDecodeError):return JsonResponse({'code':400,'error':'请求格式无效'},status=400)
+        return super().dispatch(request,username,*args,**kwargs)
+
+
     def post(self, request, username):
         data = json.loads(request.body)
         sku_id = data.get('sku_id')
-        count = data.get('count')
+        count=data.get('count')
+        if isinstance(count,bool) or not 1<=len(str(count))<=9 or not str(count).isascii() or not str(count).isdigit() or int(count)<1:
+            return JsonResponse({'code':400,'error':'数量必须为正整数'},status=400)
+        count=int(count)
         try:
             sku = SKU.objects.get(id=sku_id)
         except Exception as e:

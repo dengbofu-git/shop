@@ -1,0 +1,229 @@
+{
+  "raw": {
+    "page_index": null,
+    "page_count": null,
+    "width": 1389,
+    "height": 1667,
+    "model_settings": {
+      "use_doc_preprocessor": false,
+      "use_layout_detection": true,
+      "use_chart_recognition": false,
+      "use_seal_recognition": false,
+      "use_ocr_for_image_block": false,
+      "format_block_content": false,
+      "merge_layout_blocks": true,
+      "markdown_ignore_labels": [
+        "number",
+        "footnote",
+        "header",
+        "header_image",
+        "footer",
+        "footer_image",
+        "aside_text"
+      ],
+      "return_layout_polygon_points": true
+    },
+    "parsing_res_list": [
+      {
+        "block_label": "paragraph_title",
+        "block_content": "Tea procurement reference",
+        "block_bbox": [
+          119,
+          124,
+          735,
+          180
+        ],
+        "block_id": 0,
+        "block_order": 1,
+        "group_id": 0,
+        "block_polygon_points": [
+          [
+            119.0,
+            124.0
+          ],
+          [
+            735.0,
+            124.0
+          ],
+          [
+            735.0,
+            180.0
+          ],
+          [
+            119.0,
+            180.0
+          ]
+        ]
+      },
+      {
+        "block_label": "table",
+        "block_content": "<table><tr><td>Tea type</td><td>Origin</td><td>Quantity (kg)</td></tr><tr><td>Black tea</td><td>Kenya</td><td>120</td></tr><tr><td>Green tea</td><td>China</td><td>80</td></tr></table>",
+        "block_bbox": [
+          120,
+          301,
+          1292,
+          640
+        ],
+        "block_id": 1,
+        "block_order": null,
+        "group_id": 1,
+        "block_polygon_points": [
+          [
+            120.0,
+            301.0
+          ],
+          [
+            1292.0,
+            301.0
+          ],
+          [
+            1292.0,
+            640.0
+          ],
+          [
+            120.0,
+            640.0
+          ]
+        ]
+      },
+      {
+        "block_label": "text",
+        "block_content": "Quantities refer to the sample purchase order.",
+        "block_bbox": [
+          119,
+          746,
+          809,
+          790
+        ],
+        "block_id": 2,
+        "block_order": 2,
+        "group_id": 2,
+        "block_polygon_points": [
+          [
+            119.0,
+            746.0
+          ],
+          [
+            809.0,
+            746.0
+          ],
+          [
+            809.0,
+            790.0
+          ],
+          [
+            119.0,
+            790.0
+          ]
+        ]
+      }
+    ],
+    "layout_det_res": {
+      "input_path": null,
+      "page_index": null,
+      "boxes": [
+        {
+          "cls_id": 17,
+          "label": "paragraph_title",
+          "score": 0.781677782535553,
+          "coordinate": [
+            119,
+            124,
+            735,
+            180
+          ],
+          "order": 1,
+          "polygon_points": [
+            [
+              119.0,
+              124.0
+            ],
+            [
+              735.0,
+              124.0
+            ],
+            [
+              735.0,
+              180.0
+            ],
+            [
+              119.0,
+              180.0
+            ]
+          ]
+        },
+        {
+          "cls_id": 21,
+          "label": "table",
+          "score": 0.9623066782951355,
+          "coordinate": [
+            120,
+            301,
+            1292,
+            640
+          ],
+          "order": null,
+          "polygon_points": [
+            [
+              120.0,
+              301.0
+            ],
+            [
+              1292.0,
+              301.0
+            ],
+            [
+              1292.0,
+              640.0
+            ],
+            [
+              120.0,
+              640.0
+            ]
+          ]
+        },
+        {
+          "cls_id": 22,
+          "label": "text",
+          "score": 0.8478410243988037,
+          "coordinate": [
+            119,
+            746,
+            809,
+            790
+          ],
+          "order": 2,
+          "polygon_points": [
+            [
+              119.0,
+              746.0
+            ],
+            [
+              809.0,
+              746.0
+            ],
+            [
+              809.0,
+              790.0
+            ],
+            [
+              119.0,
+              790.0
+            ]
+          ]
+        }
+      ]
+    }
+  },
+  "identity": {
+    "model": "PaddleOCR-VL-1.6-0.9B",
+    "revision": "04f1b01c5f0c89cb35fcd105ada6edfee747087511f0855133401a47fb634d57",
+    "contract_version": "paddle-document-v1",
+    "pipeline_version": "v1.6",
+    "weights": {
+      "layout": "70bd316b0582769ec968829fd1feb1a6a58b7c941b938327e551b6b12b45c137",
+      "recognition": "85a479d506a11e724e7285d395c551be69f41dbc16b6342d3cacfb189aed71db"
+    }
+  },
+  "warnings": []
+}

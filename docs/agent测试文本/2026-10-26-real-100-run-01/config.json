@@ -1,0 +1,17 @@
+{
+  "model": "deepseek-flash",
+  "thinking": "enabled",
+  "telemetry_enabled": true,
+  "export_enabled": true,
+  "otlp_endpoint": "http://127.0.0.1:4318",
+  "revision": 5,
+  "rerank_enabled": true,
+  "rerank_model": "BAAI/bge-reranker-v2-m3",
+  "retrieval_candidates": 30,
+  "retrieval_top_k": 5,
+  "retrieval_per_document": 2,
+  "retrieval_context_chars": 12000,
+  "rerank_timeout_ms": 30000,
+  "rerank_min_score": null,
+  "rerank_fallback": true
+}

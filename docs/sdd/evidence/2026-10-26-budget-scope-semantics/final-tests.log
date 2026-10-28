@@ -1,0 +1,12 @@
+{"timestamp": "2026-10-26T09:30:49.455+00:00", "level": "WARNING", "service": "tea_saas", "logger": "py.warnings", "event": "runtime.warning"}
+Creating test database for alias 'default'...
+
+System check identified no issues (0 silenced).
+.......{"timestamp": "2026-10-26T09:30:57.507+00:00", "level": "WARNING", "service": "tea_saas", "logger": "support_ai.workflow", "event": "support.planning.unavailable", "error_type": "ValueError"}
+..{"timestamp": "2026-10-26T09:30:57.603+00:00", "level": "WARNING", "service": "tea_saas", "logger": "support_ai.workflow", "event": "support.planning.unavailable", "error_type": "ValueError"}
+.........................................
+----------------------------------------------------------------------
+Ran 50 tests in 13.777s
+
+OK
+Destroying test database for alias 'default'...

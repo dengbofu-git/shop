@@ -1,0 +1,12 @@
+{
+  "target": "goods.0011_merchantfavorite",
+  "database": "<local-business-database>",
+  "port": 3306,
+  "user_authorized": true,
+  "migration_applied": true,
+  "table_present": true,
+  "new_tables": ["goods_merchant_favorite"],
+  "unique_pair_verified": true,
+  "unrelated_migrations_applied": false,
+  "result": "success"
+}

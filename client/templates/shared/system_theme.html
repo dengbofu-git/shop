@@ -1,4 +1,6 @@
 {% load static %}
 {% include "shared/favicon.html" %}
+{{ tea_currency|json_script:"tea-currency-config" }}
+<script src="{% static 'js/currency.js' %}?v=20261022-cny"></script>
 <link rel="stylesheet" href="{% static 'css/design-tokens.css' %}?v=20261018-tea-saas">
-<link rel="stylesheet" href="{% static 'css/system-theme.css' %}?v=20261018-tea-saas">
+<link rel="stylesheet" href="{% static 'css/system-theme.css' %}?v=20261022-sidebar-alignment">

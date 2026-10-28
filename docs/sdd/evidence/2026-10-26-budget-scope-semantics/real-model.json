@@ -1,0 +1,102 @@
+{
+  "model": "deepseek-flash",
+  "data_scope": "synthetic-only",
+  "rows": [
+    {
+      "message": "总的",
+      "expected": "total",
+      "actual": "total",
+      "source": "model",
+      "preserved_amount": "3000.00",
+      "passed": true
+    },
+    {
+      "message": "全部加起来",
+      "expected": "total",
+      "actual": "total",
+      "source": "model",
+      "preserved_amount": "3000.00",
+      "passed": true
+    },
+    {
+      "message": "后一种",
+      "expected": "total",
+      "actual": "total",
+      "source": "model",
+      "preserved_amount": "3000.00",
+      "passed": true
+    },
+    {
+      "message": "一件的",
+      "expected": "unit",
+      "actual": "unit",
+      "source": "model",
+      "preserved_amount": "3000.00",
+      "passed": true
+    },
+    {
+      "message": "都可以",
+      "expected": "uncertain",
+      "actual": "uncertain",
+      "source": "model",
+      "preserved_amount": "3000.00",
+      "passed": true
+    },
+    {
+      "message": "不是每件，是全部算在一起",
+      "expected": "total",
+      "actual": "total",
+      "source": "model",
+      "preserved_amount": "3000.00",
+      "passed": true
+    }
+  ],
+  "usage": {
+    "calls": 6,
+    "input_tokens": 3022,
+    "output_tokens": 301,
+    "unknown_usage_calls": 0,
+    "rejected_calls": 0,
+    "provider_overrun_calls": 0,
+    "stages": {
+      "scope": 6
+    },
+    "stage_policy": {
+      "scope": {
+        "thinking": "disabled",
+        "max_tokens": 192
+      },
+      "planning": {
+        "thinking": "disabled",
+        "max_tokens": 1400
+      },
+      "extraction": {
+        "thinking": "disabled",
+        "max_tokens": 1600
+      },
+      "rewrite": {
+        "thinking": "disabled",
+        "max_tokens": 512
+      },
+      "knowledge": {
+        "thinking": "disabled",
+        "max_tokens": 2400
+      },
+      "verification": {
+        "thinking": "disabled",
+        "max_tokens": 768
+      },
+      "compliance": {
+        "thinking": "disabled",
+        "max_tokens": 512
+      }
+    },
+    "limits": {
+      "calls": 6,
+      "input_tokens": 65536,
+      "output_tokens": 8192
+    }
+  },
+  "passed": 6,
+  "total": 6
+}

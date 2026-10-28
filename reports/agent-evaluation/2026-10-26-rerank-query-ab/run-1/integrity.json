@@ -1,0 +1,40 @@
+{
+  "checks": {
+    "cases_unchanged": true,
+    "translations_unchanged": true,
+    "each_arm_request_identical_across_repeats": true,
+    "same_candidate_ids_in_all_arms": true,
+    "source_files_unchanged": true,
+    "measured_requests_unique": true,
+    "counter_window_counts_match_successful_inference": true
+  },
+  "final_evaluation_script_hashes": {
+    "analyze.py": "dd36d31cfa526d1a99228699ab87c20312488ffdfe7bf0801c11207ad85d0df8",
+    "count_work.py": "5b8b32100c63d9d2d4135cead5dcc1733ee013a9d3ec387e966c967c45fa4e16",
+    "experiment.py": "c62a887afccc956db0c3cb9194add397875548309dee188680ea4c6c04ab62fd",
+    "finish_report.py": "63cd7aab0d43e4ec48da0047bff77a39d16215fbeeb214ff4fbdde3fd71c4081"
+  },
+  "files_sha256": {
+    "answer-review.json": "9595a2482516d31fc0a901b562e8ed4ed8412589dcccc9e3ad032877037dcb80",
+    "answer-rubric.json": "859c87570f1b60c3579187f108c7e87ccda505610e07781ffa15238aa61947d5",
+    "answers.jsonl": "19b02b1c86716a88c59c7d7dcd8e6731aa3caf443de0c9739cb1abc15bc0d88a",
+    "answers.md": "3bd8de8b628f5d92221662a1c0093e513ac96930e379787ed6befce8d6bc93dd",
+    "api-calls.jsonl": "3a875623998b63aeb569a0269023a0f8bd7060314bc2ccac134e833558e20bad",
+    "cases.json": "248024261a91862721f761ce5fee989a7caec6efaced68e49433735d8d7b8080",
+    "comparison.png": "5111a555d003e2f989aae820fcde630760f91e0cfcd769d9349d18588259f606",
+    "corpus.json": "e576428d784026d699eb1f11346a3aded6e0b695a55ef3ca657eb73f59ab8987",
+    "manifest.json": "63c8f6ffa0849a74585ef9106b2d2e4baafcafe0ef5baa97b67b14aca5535502",
+    "monitoring-errors.jsonl": "032955c2ee7e39cf00213ec52b20c663dcab5a72bf6925442f886406bfd92765",
+    "per-case.csv": "83fa487bb65d76eaa62edaf9308903be71ad64cc0ffb891cbf44e1db43667edc",
+    "procedures.zip": "d2d82eec6ab9f42bb5cf25282e5bd946deb4b77a75c77f4c73b4e039e6b961c3",
+    "report.md": "4775119fae0e2237ce56ec554838fc027d6036abc12401b1b08a2b664ba90976",
+    "rerank-results.jsonl": "fe1725db75de17824c59283842b2f8dae8e086409a2c4b5ad820ff1b99b71d2f",
+    "run-interruption.json": "c7e973377480265b49cbc1bace09072a5dd6fb31a15a03c346c50f7073af694b",
+    "summary.json": "985062995941e1837f831ad80959734dac84dbed5935d31f62e58b93e33276bd",
+    "tokenizer-work.json": "ac7ba157771ec8de2bd64810d9016550ea29326c59bfc919922d266a6f3e8934",
+    "translation-review.json": "d87b12bc13ba832466e66e7647742d8473837f7ed9122b85b75b0247499380f5",
+    "translations-frozen.json": "32fde9d469a9c671d89ae125dd37d757d39c09aad8f3fe9593a3544f5ab3a354",
+    "translations.jsonl": "2b3758065e2b05415b83dfb3face172f5fe766c38d387f085493bcdb594d9080",
+    "warmups.jsonl": "21ca3e260810cd431e0e71116885b14da821c262e65fa56535d08d3d0322f10a"
+  }
+}

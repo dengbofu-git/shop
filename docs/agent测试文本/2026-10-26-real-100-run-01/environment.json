@@ -1,0 +1,42 @@
+{
+  "python": "3.9.25 (main, Nov  3 2025, 22:44:01) [MSC v.1929 64 bit (AMD64)]",
+  "django": "3.2.12",
+  "platform": "Windows-10-10.0.26200-SP0",
+  "machine": "AMD64",
+  "query_policy": {
+    "enabled": true,
+    "max_queries": 4,
+    "max_model_calls": 2,
+    "model_timeout": 5.0,
+    "retry_enabled": true,
+    "budget_seconds": 25.0,
+    "weak_score": 0.1,
+    "languages": [
+      "zh",
+      "en"
+    ]
+  },
+  "reranker_health": {
+    "status": "ready",
+    "model": "BAAI/bge-reranker-v2-m3",
+    "revision": "953dc6f6f85a1b2dbfca4c34a2796e7dde08d41e",
+    "device": "cpu"
+  },
+  "embedding_model": "bge-m3",
+  "embedding_space": "bge-m3-1024-v1",
+  "rerank_revision": "953dc6f6f85a1b2dbfca4c34a2796e7dde08d41e",
+  "docker_metrics_sample": "{\"BlockIO\":\"2.91GB / 8.19kB\",\"CPUPerc\":\"0.18%\",\"Container\":\"dadashop-reranker-reranker-1\",\"ID\":\"d1deed0f0d37\",\"MemPerc\":\"18.03%\",\"MemUsage\":\"1.082GiB / 6GiB\",\"Name\":\"dadashop-reranker-reranker-1\",\"NetIO\":\"2.29MB / 2.09MB\",\"PIDs\":\"23\"}\n{\"BlockIO\":\"2.57GB / 1.9MB\",\"CPUPerc\":\"796.91%\",\"Container\":\"dadashop-ai-storage-ollama-1\",\"ID\":\"403e8ffd7a29\",\"MemPerc\":\"14.14%\",\"MemUsage\":\"2.19GiB / 15.49GiB\",\"Name\":\"dadashop-ai-storage-ollama-1\",\"NetIO\":\"272kB / 2.69MB\",\"PIDs\":\"44\"}\n",
+  "packages": {
+    "openai": "1.109.1",
+    "langchain": "0.3.27",
+    "langchain-core": "0.3.86",
+    "langchain-openai": "0.2.14",
+    "langgraph": "0.2.76",
+    "pydantic": "2.13.5",
+    "pgvector": "0.4.1",
+    "psycopg": null,
+    "requests": "2.28.1",
+    "httpx": "0.28.1"
+  },
+  "requirements_sha256": "6f26e3935bbe3c04a9e4749ad542d99af2e3a3dec2b4df178f68b8cb0f54b31d"
+}

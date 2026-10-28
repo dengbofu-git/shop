@@ -1,0 +1,1106 @@
+{
+  "summary": {
+    "json": {
+      "shared": 27,
+      "pdf_only": 0
+    },
+    "native": {
+      "shared": 27,
+      "pdf_only": 6
+    },
+    "ocr": {
+      "shared": 8,
+      "pdf_only": 6
+    },
+    "paragraph": {
+      "shared": 27,
+      "pdf_only": 6
+    },
+    "fixed": {
+      "shared": 27,
+      "pdf_only": 6
+    }
+  },
+  "cases": [
+    {
+      "group": "fixed",
+      "question_id": "actual_2023",
+      "category": "unanswerable",
+      "full_candidate_coverage": null
+    },
+    {
+      "group": "fixed",
+      "question_id": "actual_2025",
+      "category": "unanswerable",
+      "full_candidate_coverage": null
+    },
+    {
+      "group": "fixed",
+      "question_id": "cause",
+      "category": "pdf_only",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "fixed",
+      "question_id": "egypt_forecast",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "fixed",
+      "question_id": "egypt_nature",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "fixed",
+      "question_id": "egypt_pair",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "fixed",
+      "question_id": "horizon",
+      "category": "pdf_only",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "fixed",
+      "question_id": "index",
+      "category": "pdf_only",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "fixed",
+      "question_id": "iran_forecast",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "fixed",
+      "question_id": "iran_nature",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "fixed",
+      "question_id": "iran_pair",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "fixed",
+      "question_id": "iraq_forecast",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "fixed",
+      "question_id": "iraq_nature",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "fixed",
+      "question_id": "iraq_pair",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "fixed",
+      "question_id": "israel_forecast",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "fixed",
+      "question_id": "israel_nature",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "fixed",
+      "question_id": "israel_pair",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "fixed",
+      "question_id": "jordan_forecast",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "fixed",
+      "question_id": "jordan_nature",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "fixed",
+      "question_id": "jordan_pair",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "fixed",
+      "question_id": "live_sku",
+      "category": "unanswerable",
+      "full_candidate_coverage": null
+    },
+    {
+      "group": "fixed",
+      "question_id": "macro",
+      "category": "pdf_only",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "fixed",
+      "question_id": "price",
+      "category": "pdf_only",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "fixed",
+      "question_id": "production",
+      "category": "pdf_only",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "fixed",
+      "question_id": "saudi_arabia_forecast",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "fixed",
+      "question_id": "saudi_arabia_nature",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "fixed",
+      "question_id": "saudi_arabia_pair",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "fixed",
+      "question_id": "syria_forecast",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "fixed",
+      "question_id": "syria_nature",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "fixed",
+      "question_id": "syria_pair",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "fixed",
+      "question_id": "turkey_forecast",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "fixed",
+      "question_id": "turkey_nature",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "fixed",
+      "question_id": "turkey_pair",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "fixed",
+      "question_id": "united_arab_emirates_forecast",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "fixed",
+      "question_id": "united_arab_emirates_nature",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "fixed",
+      "question_id": "united_arab_emirates_pair",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "json",
+      "question_id": "actual_2023",
+      "category": "unanswerable",
+      "full_candidate_coverage": null
+    },
+    {
+      "group": "json",
+      "question_id": "actual_2025",
+      "category": "unanswerable",
+      "full_candidate_coverage": null
+    },
+    {
+      "group": "json",
+      "question_id": "cause",
+      "category": "pdf_only",
+      "full_candidate_coverage": false
+    },
+    {
+      "group": "json",
+      "question_id": "egypt_forecast",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "json",
+      "question_id": "egypt_nature",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "json",
+      "question_id": "egypt_pair",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "json",
+      "question_id": "horizon",
+      "category": "pdf_only",
+      "full_candidate_coverage": false
+    },
+    {
+      "group": "json",
+      "question_id": "index",
+      "category": "pdf_only",
+      "full_candidate_coverage": false
+    },
+    {
+      "group": "json",
+      "question_id": "iran_forecast",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "json",
+      "question_id": "iran_nature",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "json",
+      "question_id": "iran_pair",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "json",
+      "question_id": "iraq_forecast",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "json",
+      "question_id": "iraq_nature",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "json",
+      "question_id": "iraq_pair",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "json",
+      "question_id": "israel_forecast",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "json",
+      "question_id": "israel_nature",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "json",
+      "question_id": "israel_pair",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "json",
+      "question_id": "jordan_forecast",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "json",
+      "question_id": "jordan_nature",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "json",
+      "question_id": "jordan_pair",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "json",
+      "question_id": "live_sku",
+      "category": "unanswerable",
+      "full_candidate_coverage": null
+    },
+    {
+      "group": "json",
+      "question_id": "macro",
+      "category": "pdf_only",
+      "full_candidate_coverage": false
+    },
+    {
+      "group": "json",
+      "question_id": "price",
+      "category": "pdf_only",
+      "full_candidate_coverage": false
+    },
+    {
+      "group": "json",
+      "question_id": "production",
+      "category": "pdf_only",
+      "full_candidate_coverage": false
+    },
+    {
+      "group": "json",
+      "question_id": "saudi_arabia_forecast",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "json",
+      "question_id": "saudi_arabia_nature",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "json",
+      "question_id": "saudi_arabia_pair",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "json",
+      "question_id": "syria_forecast",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "json",
+      "question_id": "syria_nature",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "json",
+      "question_id": "syria_pair",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "json",
+      "question_id": "turkey_forecast",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "json",
+      "question_id": "turkey_nature",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "json",
+      "question_id": "turkey_pair",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "json",
+      "question_id": "united_arab_emirates_forecast",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "json",
+      "question_id": "united_arab_emirates_nature",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "json",
+      "question_id": "united_arab_emirates_pair",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "native",
+      "question_id": "actual_2023",
+      "category": "unanswerable",
+      "full_candidate_coverage": null
+    },
+    {
+      "group": "native",
+      "question_id": "actual_2025",
+      "category": "unanswerable",
+      "full_candidate_coverage": null
+    },
+    {
+      "group": "native",
+      "question_id": "cause",
+      "category": "pdf_only",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "native",
+      "question_id": "egypt_forecast",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "native",
+      "question_id": "egypt_nature",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "native",
+      "question_id": "egypt_pair",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "native",
+      "question_id": "horizon",
+      "category": "pdf_only",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "native",
+      "question_id": "index",
+      "category": "pdf_only",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "native",
+      "question_id": "iran_forecast",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "native",
+      "question_id": "iran_nature",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "native",
+      "question_id": "iran_pair",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "native",
+      "question_id": "iraq_forecast",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "native",
+      "question_id": "iraq_nature",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "native",
+      "question_id": "iraq_pair",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "native",
+      "question_id": "israel_forecast",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "native",
+      "question_id": "israel_nature",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "native",
+      "question_id": "israel_pair",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "native",
+      "question_id": "jordan_forecast",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "native",
+      "question_id": "jordan_nature",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "native",
+      "question_id": "jordan_pair",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "native",
+      "question_id": "live_sku",
+      "category": "unanswerable",
+      "full_candidate_coverage": null
+    },
+    {
+      "group": "native",
+      "question_id": "macro",
+      "category": "pdf_only",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "native",
+      "question_id": "price",
+      "category": "pdf_only",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "native",
+      "question_id": "production",
+      "category": "pdf_only",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "native",
+      "question_id": "saudi_arabia_forecast",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "native",
+      "question_id": "saudi_arabia_nature",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "native",
+      "question_id": "saudi_arabia_pair",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "native",
+      "question_id": "syria_forecast",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "native",
+      "question_id": "syria_nature",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "native",
+      "question_id": "syria_pair",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "native",
+      "question_id": "turkey_forecast",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "native",
+      "question_id": "turkey_nature",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "native",
+      "question_id": "turkey_pair",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "native",
+      "question_id": "united_arab_emirates_forecast",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "native",
+      "question_id": "united_arab_emirates_nature",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "native",
+      "question_id": "united_arab_emirates_pair",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "ocr",
+      "question_id": "actual_2023",
+      "category": "unanswerable",
+      "full_candidate_coverage": null
+    },
+    {
+      "group": "ocr",
+      "question_id": "actual_2025",
+      "category": "unanswerable",
+      "full_candidate_coverage": null
+    },
+    {
+      "group": "ocr",
+      "question_id": "cause",
+      "category": "pdf_only",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "ocr",
+      "question_id": "egypt_forecast",
+      "category": "shared",
+      "full_candidate_coverage": false
+    },
+    {
+      "group": "ocr",
+      "question_id": "egypt_nature",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "ocr",
+      "question_id": "egypt_pair",
+      "category": "shared",
+      "full_candidate_coverage": false
+    },
+    {
+      "group": "ocr",
+      "question_id": "horizon",
+      "category": "pdf_only",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "ocr",
+      "question_id": "index",
+      "category": "pdf_only",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "ocr",
+      "question_id": "iran_forecast",
+      "category": "shared",
+      "full_candidate_coverage": false
+    },
+    {
+      "group": "ocr",
+      "question_id": "iran_nature",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "ocr",
+      "question_id": "iran_pair",
+      "category": "shared",
+      "full_candidate_coverage": false
+    },
+    {
+      "group": "ocr",
+      "question_id": "iraq_forecast",
+      "category": "shared",
+      "full_candidate_coverage": false
+    },
+    {
+      "group": "ocr",
+      "question_id": "iraq_nature",
+      "category": "shared",
+      "full_candidate_coverage": false
+    },
+    {
+      "group": "ocr",
+      "question_id": "iraq_pair",
+      "category": "shared",
+      "full_candidate_coverage": false
+    },
+    {
+      "group": "ocr",
+      "question_id": "israel_forecast",
+      "category": "shared",
+      "full_candidate_coverage": false
+    },
+    {
+      "group": "ocr",
+      "question_id": "israel_nature",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "ocr",
+      "question_id": "israel_pair",
+      "category": "shared",
+      "full_candidate_coverage": false
+    },
+    {
+      "group": "ocr",
+      "question_id": "jordan_forecast",
+      "category": "shared",
+      "full_candidate_coverage": false
+    },
+    {
+      "group": "ocr",
+      "question_id": "jordan_nature",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "ocr",
+      "question_id": "jordan_pair",
+      "category": "shared",
+      "full_candidate_coverage": false
+    },
+    {
+      "group": "ocr",
+      "question_id": "live_sku",
+      "category": "unanswerable",
+      "full_candidate_coverage": null
+    },
+    {
+      "group": "ocr",
+      "question_id": "macro",
+      "category": "pdf_only",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "ocr",
+      "question_id": "price",
+      "category": "pdf_only",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "ocr",
+      "question_id": "production",
+      "category": "pdf_only",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "ocr",
+      "question_id": "saudi_arabia_forecast",
+      "category": "shared",
+      "full_candidate_coverage": false
+    },
+    {
+      "group": "ocr",
+      "question_id": "saudi_arabia_nature",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "ocr",
+      "question_id": "saudi_arabia_pair",
+      "category": "shared",
+      "full_candidate_coverage": false
+    },
+    {
+      "group": "ocr",
+      "question_id": "syria_forecast",
+      "category": "shared",
+      "full_candidate_coverage": false
+    },
+    {
+      "group": "ocr",
+      "question_id": "syria_nature",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "ocr",
+      "question_id": "syria_pair",
+      "category": "shared",
+      "full_candidate_coverage": false
+    },
+    {
+      "group": "ocr",
+      "question_id": "turkey_forecast",
+      "category": "shared",
+      "full_candidate_coverage": false
+    },
+    {
+      "group": "ocr",
+      "question_id": "turkey_nature",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "ocr",
+      "question_id": "turkey_pair",
+      "category": "shared",
+      "full_candidate_coverage": false
+    },
+    {
+      "group": "ocr",
+      "question_id": "united_arab_emirates_forecast",
+      "category": "shared",
+      "full_candidate_coverage": false
+    },
+    {
+      "group": "ocr",
+      "question_id": "united_arab_emirates_nature",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "ocr",
+      "question_id": "united_arab_emirates_pair",
+      "category": "shared",
+      "full_candidate_coverage": false
+    },
+    {
+      "group": "paragraph",
+      "question_id": "actual_2023",
+      "category": "unanswerable",
+      "full_candidate_coverage": null
+    },
+    {
+      "group": "paragraph",
+      "question_id": "actual_2025",
+      "category": "unanswerable",
+      "full_candidate_coverage": null
+    },
+    {
+      "group": "paragraph",
+      "question_id": "cause",
+      "category": "pdf_only",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "paragraph",
+      "question_id": "egypt_forecast",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "paragraph",
+      "question_id": "egypt_nature",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "paragraph",
+      "question_id": "egypt_pair",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "paragraph",
+      "question_id": "horizon",
+      "category": "pdf_only",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "paragraph",
+      "question_id": "index",
+      "category": "pdf_only",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "paragraph",
+      "question_id": "iran_forecast",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "paragraph",
+      "question_id": "iran_nature",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "paragraph",
+      "question_id": "iran_pair",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "paragraph",
+      "question_id": "iraq_forecast",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "paragraph",
+      "question_id": "iraq_nature",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "paragraph",
+      "question_id": "iraq_pair",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "paragraph",
+      "question_id": "israel_forecast",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "paragraph",
+      "question_id": "israel_nature",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "paragraph",
+      "question_id": "israel_pair",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "paragraph",
+      "question_id": "jordan_forecast",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "paragraph",
+      "question_id": "jordan_nature",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "paragraph",
+      "question_id": "jordan_pair",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "paragraph",
+      "question_id": "live_sku",
+      "category": "unanswerable",
+      "full_candidate_coverage": null
+    },
+    {
+      "group": "paragraph",
+      "question_id": "macro",
+      "category": "pdf_only",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "paragraph",
+      "question_id": "price",
+      "category": "pdf_only",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "paragraph",
+      "question_id": "production",
+      "category": "pdf_only",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "paragraph",
+      "question_id": "saudi_arabia_forecast",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "paragraph",
+      "question_id": "saudi_arabia_nature",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "paragraph",
+      "question_id": "saudi_arabia_pair",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "paragraph",
+      "question_id": "syria_forecast",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "paragraph",
+      "question_id": "syria_nature",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "paragraph",
+      "question_id": "syria_pair",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "paragraph",
+      "question_id": "turkey_forecast",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "paragraph",
+      "question_id": "turkey_nature",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "paragraph",
+      "question_id": "turkey_pair",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "paragraph",
+      "question_id": "united_arab_emirates_forecast",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "paragraph",
+      "question_id": "united_arab_emirates_nature",
+      "category": "shared",
+      "full_candidate_coverage": true
+    },
+    {
+      "group": "paragraph",
+      "question_id": "united_arab_emirates_pair",
+      "category": "shared",
+      "full_candidate_coverage": true
+    }
+  ]
+}

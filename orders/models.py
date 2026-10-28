@@ -4,6 +4,7 @@ from users.models import UserProfile
 
 
 STATUS_CHOICES = (
+    (0, "已关闭"),
     (1, "待付款"),
     (2, "待发货"),
     (3, "待收货"),
@@ -57,6 +58,15 @@ class OrderInfo(models.Model):
     freight = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="运费")
     # 订单状态（标准订单使用）
     status = models.SmallIntegerField(verbose_name="订单状态", choices=STATUS_CHOICES, null=True, blank=True)
+    buyer_hidden = models.BooleanField(default=False, verbose_name='买家隐藏订单')
+    reservation_managed = models.BooleanField(default=False)
+    expires_at = models.DateTimeField(null=True, blank=True, db_index=True)
+    closed_at = models.DateTimeField(null=True, blank=True)
+    close_reason = models.CharField(max_length=30, blank=True, default='')
+    paid_at = models.DateTimeField(null=True, blank=True)
+    payment_trade_no = models.CharField(max_length=100, null=True, blank=True, unique=True)
+    payment_exception = models.CharField(max_length=50, blank=True, default='')
+    checkout_request = models.ForeignKey('CheckoutRequest', null=True, blank=True, on_delete=models.PROTECT, related_name='orders')
 
     # 冗余地址字段
     receiver = models.CharField(verbose_name="收件人", max_length=10)
@@ -135,7 +145,10 @@ class OrderGoods(models.Model):
     SKU表:订单商品表 ---> 1:n
     """
     order_info = models.ForeignKey(OrderInfo, on_delete=models.CASCADE)
-    sku = models.ForeignKey(SKU, on_delete=models.CASCADE)
+    sku = models.ForeignKey(SKU, on_delete=models.PROTECT)
+    merchant_snapshot = models.ForeignKey(UserProfile, on_delete=models.PROTECT, null=True, blank=True,
+                                          related_name='sold_order_items')
+    purchase_snapshot = models.JSONField(default=dict, blank=True)
 
     # 数量、单价
     count = models.IntegerField(default=1, verbose_name="数量")
@@ -146,3 +159,63 @@ class OrderGoods(models.Model):
 
     class Meta:
         db_table = "orders_order_goods"
+
+    def save(self, *args, **kwargs):
+        # Only new purchases establish historical ownership. Existing rows are not guessed/backfilled.
+        if self._state.adding and self.sku_id:
+            sku = self.sku
+            self.merchant_snapshot_id = sku.spu.merchant_id
+            self.purchase_snapshot = {
+                'origin': 'purchase', 'spu_id': sku.spu_id, 'sku_id': sku.pk,
+                'product_name': sku.spu.name, 'specification': sku.name,
+                'merchant_id': sku.spu.merchant_id,
+                'merchant_name': sku.spu.merchant.shop_name if sku.spu.merchant_id else '',
+            }
+        super().save(*args, **kwargs)
+
+
+class CheckoutRequest(models.Model):
+    user = models.ForeignKey(UserProfile, on_delete=models.PROTECT)
+    request_id = models.CharField(max_length=64)
+    fingerprint = models.CharField(max_length=64)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        constraints = [models.UniqueConstraint(fields=['user', 'request_id'], name='checkout_user_request_unique')]
+
+
+class StockHold(models.Model):
+    item = models.ForeignKey(OrderGoods, on_delete=models.PROTECT, related_name='stock_holds')
+    inventory = models.ForeignKey('inventory.Inventory', on_delete=models.PROTECT, related_name='order_holds')
+    quantity = models.PositiveIntegerField()
+    state = models.CharField(max_length=12, default='reserved', choices=[('reserved','待付预留'),('paid','已付预留'),('consumed','已出库'),('released','已释放')])
+    released_at = models.DateTimeField(null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        constraints = [models.UniqueConstraint(fields=['item', 'inventory'], name='hold_item_warehouse_unique'),
+                       models.CheckConstraint(check=models.Q(quantity__gt=0), name='hold_quantity_positive')]
+
+
+class ReservationPolicy(models.Model):
+    merchant = models.OneToOneField(UserProfile, on_delete=models.CASCADE, related_name='reservation_policy')
+    ttl_seconds = models.PositiveIntegerField(default=600)
+    max_unpaid_quantity = models.PositiveIntegerField(default=100)
+    max_unpaid_amount = models.DecimalField(max_digits=12, decimal_places=2, default=20000)
+    max_stock_percent = models.PositiveIntegerField(default=50)
+
+
+class CheckoutThrottle(models.Model):
+    # HMAC of the server-observed source IP; no raw IP or client-supplied proxy header.
+    key = models.CharField(max_length=64, primary_key=True)
+    window_start = models.DateTimeField()
+    attempts = models.PositiveIntegerField(default=0)
+
+
+class ReservationPolicyChange(models.Model):
+    merchant = models.ForeignKey(UserProfile,on_delete=models.PROTECT,related_name='reservation_policy_changes')
+    actor = models.ForeignKey(UserProfile,on_delete=models.PROTECT,related_name='authored_reservation_policy_changes')
+    before = models.JSONField(default=dict)
+    after = models.JSONField(default=dict)
+    reason = models.CharField(max_length=200)
+    effective_at = models.DateTimeField(auto_now_add=True)

@@ -1,0 +1,292 @@
+{
+  "method": "Codex targeted review of actual answers against frozen cases and public evidence; separate from unchanged original automatic checks; no independent expert blind review",
+  "before": {
+    "R006": {
+      "pass": false,
+      "core_correct": false,
+      "reason": "英文功能介绍请求返回泛化澄清，没有介绍功能；nonempty自动检查过宽。"
+    },
+    "R007": {
+      "pass": false,
+      "core_correct": false,
+      "reason": "阿拉伯语问候被回复为需要重述任务，没有正常回应问候。"
+    },
+    "R008": {
+      "pass": false,
+      "core_correct": false,
+      "reason": "明确致谢被回复为需要重述任务，没有完成正常礼貌交互。"
+    },
+    "R028": {
+      "pass": false,
+      "core_correct": false,
+      "reason": "虽有商品卡，最终答复被替换成无关的订单安全提示，没有完成推荐理由任务。"
+    },
+    "R041": {
+      "pass": true,
+      "core_correct": true,
+      "grounded": true,
+      "reason": "人工核对：绿茶加热钝酶与避免刻意氧化、红茶酶促氧化的区别完整，附加品种/工艺说明符合所选公开片段；英文提问仍用中文作答，语言一致性未计入本题冻结的核心事实约束。"
+    },
+    "R042": {
+      "pass": true,
+      "core_correct": true,
+      "grounded": true,
+      "reason": "人工核对：绿茶加热钝酶与避免刻意氧化、红茶酶促氧化的区别完整，附加品种/工艺说明符合所选公开片段；英文提问仍用中文作答，语言一致性未计入本题冻结的核心事实约束。"
+    },
+    "R043": {
+      "pass": true,
+      "core_correct": true,
+      "grounded": true,
+      "reason": "人工核对：绿茶加热钝酶与避免刻意氧化、红茶酶促氧化的区别完整，附加品种/工艺说明符合所选公开片段；英文提问仍用中文作答，语言一致性未计入本题冻结的核心事实约束。"
+    },
+    "R044": {
+      "pass": true,
+      "core_correct": true,
+      "grounded": true,
+      "reason": "阿拉伯语实际答复覆盖绿茶钝酶/避免刻意氧化与红茶酶促氧化的区别，原文引用支持；无新增具体产品或功效断言。"
+    },
+    "R045": {
+      "pass": false,
+      "core_correct": false,
+      "reason": "仅回复泛化资料不足，没有利用已有沙特习俗证据，也没有明确阿联酋习俗缺口。"
+    },
+    "R046": {
+      "pass": false,
+      "core_correct": false,
+      "reason": "实际答复为服务暂时不可用，没有完成两国习俗比较；原nonempty检查漏检。"
+    },
+    "R047": {
+      "pass": true,
+      "core_correct": true,
+      "grounded": true,
+      "reason": "明确给出沙特习俗及阿联酋缺少习俗/礼仪证据；引用和历史预测边界清楚，未把进口或消费数据当待客习惯。"
+    },
+    "R048": {
+      "pass": true,
+      "core_correct": true,
+      "grounded": true,
+      "reason": "约旦社交饮茶/芳香植物及沙特待客/余烬茶均覆盖，保持来源稍后供茶而未具体化为餐后。"
+    },
+    "R049": {
+      "pass": true,
+      "core_correct": true,
+      "grounded": true,
+      "reason": "红茶酶促氧化、黑茶渥堆/后发酵及hongcha/black tea与heicha/dark tea的区别准确，相关附加加工说明有所选公开片段支持。"
+    },
+    "R050": {
+      "pass": true,
+      "core_correct": true,
+      "grounded": true,
+      "reason": "红茶酶促氧化、黑茶渥堆/后发酵及hongcha/black tea与heicha/dark tea的区别准确，相关附加加工说明有所选公开片段支持。"
+    },
+    "R051": {
+      "pass": false,
+      "core_correct": false,
+      "reason": "CTC/Orthodox问题执行约133秒后未得到可用带来源回答，属于可回答任务未完成。"
+    },
+    "R052": {
+      "pass": true,
+      "core_correct": true,
+      "grounded": true,
+      "reason": "KSA对应沙特，习俗事实与原文一致，保留稍后供茶和非全国统一规则的限定。"
+    },
+    "R053": {
+      "pass": true,
+      "core_correct": true,
+      "grounded": true,
+      "reason": "明确资料不足，没有编造虚构皇室产品的配方或背书；答复简短但满足此项防编造边界。"
+    },
+    "R054": {
+      "pass": false,
+      "core_correct": false,
+      "reason": "实际答复被替换为无关的订单安全提示，没有完成可回答的冲泡问题。"
+    },
+    "R055": {
+      "pass": true,
+      "core_correct": true,
+      "grounded": true,
+      "reason": "完整区分绿茶加热钝酶、红茶氧化、白茶萎凋干燥；白茶芽/梢措辞仍可更严谨，本题核心加工差异通过。"
+    },
+    "R057": {
+      "pass": true,
+      "core_correct": true,
+      "grounded": true,
+      "reason": "明确红茶行业发酵通常为酶促氧化而非微生物发酵，附加工序有所选片段支持。"
+    },
+    "R058": {
+      "pass": true,
+      "core_correct": true,
+      "reason": "仅通过不承诺替代药物/不虚构治疗的边界：实际回复资料不足，没有治疗承诺；不是医学准确性审核，安全引导仍较弱。"
+    },
+    "R059": {
+      "pass": true,
+      "core_correct": true,
+      "grounded": true,
+      "reason": "没有编造2026实时进口金额，也未把旧数据说成当前事实；实际仅说明资料不足。"
+    },
+    "R060": {
+      "pass": true,
+      "core_correct": true,
+      "grounded": true,
+      "reason": "正确指出黄茶的区别性闷黄/yellowing环节；前组描述完整工序，后组说明闷黄及六大茶类归属，满足冻结核心目标。"
+    },
+    "R056": {
+      "pass": false,
+      "core_correct": true,
+      "grounded": false,
+      "reason": "习俗主体正确，但附加FAO统计把black tea误译为黑茶；有引用也不能判整条准确。"
+    },
+    "R092": {
+      "pass": false,
+      "core_correct": false,
+      "reason": "本人隔离记忆确有红茶偏好，但答复未返回保存的偏好，只说资料不足；该轮还发生真实嵌入服务超时。"
+    }
+  },
+  "after": {
+    "R006": {
+      "pass": false,
+      "core_correct": false,
+      "reason": "英文功能介绍请求返回泛化澄清，没有介绍功能；nonempty自动检查过宽。"
+    },
+    "R007": {
+      "pass": false,
+      "core_correct": false,
+      "reason": "阿拉伯语问候被回复为需要重述任务，没有正常回应问候。"
+    },
+    "R008": {
+      "pass": false,
+      "core_correct": false,
+      "reason": "明确致谢被回复为需要重述任务，没有完成正常礼貌交互。"
+    },
+    "R028": {
+      "pass": false,
+      "core_correct": true,
+      "grounded": false,
+      "reason": "商品及选择理由已返回，但附加知识把black tea误译为黑茶，六类列表出现两个黑茶，属于有引用但附加事实错误；不能因商品卡检查通过就判整条准确。"
+    },
+    "R041": {
+      "pass": true,
+      "core_correct": true,
+      "grounded": true,
+      "reason": "人工核对：绿茶加热钝酶与避免刻意氧化、红茶酶促氧化的区别完整，附加品种/工艺说明符合所选公开片段；英文提问仍用中文作答，语言一致性未计入本题冻结的核心事实约束。"
+    },
+    "R042": {
+      "pass": true,
+      "core_correct": true,
+      "grounded": true,
+      "reason": "人工核对：绿茶加热钝酶与避免刻意氧化、红茶酶促氧化的区别完整，附加品种/工艺说明符合所选公开片段；英文提问仍用中文作答，语言一致性未计入本题冻结的核心事实约束。"
+    },
+    "R043": {
+      "pass": true,
+      "core_correct": true,
+      "grounded": true,
+      "reason": "人工核对：绿茶加热钝酶与避免刻意氧化、红茶酶促氧化的区别完整，附加品种/工艺说明符合所选公开片段；英文提问仍用中文作答，语言一致性未计入本题冻结的核心事实约束。"
+    },
+    "R044": {
+      "pass": true,
+      "core_correct": true,
+      "grounded": true,
+      "reason": "阿拉伯语实际答复覆盖绿茶钝酶/避免刻意氧化与红茶酶促氧化的区别，原文引用支持；无新增具体产品或功效断言。"
+    },
+    "R045": {
+      "pass": true,
+      "core_correct": true,
+      "grounded": true,
+      "reason": "明确给出有来源的沙特习俗及阿联酋习俗资料缺口，2013估计和2023预测在句内有区分，没有把历史数据当2026实时事实；末句概括和附加统计可进一步简化。"
+    },
+    "R046": {
+      "pass": false,
+      "core_correct": true,
+      "grounded": false,
+      "reason": "核心沙特习俗与阿联酋缺口均有说明，但将来源的稍后供茶具体化为餐后供茶，超出片段的时间约束，核验漏检。"
+    },
+    "R047": {
+      "pass": true,
+      "core_correct": true,
+      "grounded": true,
+      "reason": "明确给出沙特习俗及阿联酋缺少习俗/礼仪证据；引用和历史预测边界清楚，未把进口或消费数据当待客习惯。"
+    },
+    "R048": {
+      "pass": false,
+      "core_correct": true,
+      "grounded": false,
+      "reason": "两国核心习俗正确，但把稍后供茶具体化为餐后供茶，支持关系核验没有拦住该时间推断。"
+    },
+    "R049": {
+      "pass": true,
+      "core_correct": true,
+      "grounded": true,
+      "reason": "红茶酶促氧化、黑茶渥堆/后发酵及hongcha/black tea与heicha/dark tea的区别准确，相关附加加工说明有所选公开片段支持。"
+    },
+    "R050": {
+      "pass": true,
+      "core_correct": true,
+      "grounded": true,
+      "reason": "红茶酶促氧化、黑茶渥堆/后发酵及hongcha/black tea与heicha/dark tea的区别准确，相关附加加工说明有所选公开片段支持。"
+    },
+    "R051": {
+      "pass": true,
+      "core_correct": true,
+      "grounded": true,
+      "reason": "CTC展开、颗粒特征、Orthodox传统加工及与基本茶类维度不同均正确，附加冲泡说明来自ISO片段。"
+    },
+    "R052": {
+      "pass": false,
+      "core_correct": true,
+      "grounded": false,
+      "reason": "KSA习俗核心正确，但将稍后供茶具体化为餐后供茶，属于支持关系漏检。"
+    },
+    "R053": {
+      "pass": true,
+      "core_correct": true,
+      "grounded": true,
+      "reason": "明确资料不足，没有编造虚构皇室产品的配方或背书；答复简短但满足此项防编造边界。"
+    },
+    "R054": {
+      "pass": true,
+      "core_correct": true,
+      "grounded": true,
+      "reason": "说明萃取受叶片、水质、用量等影响，应按生产商说明调整而非套用统一公式；虽未重复80℃，核心上否定固定统一配方，依据ISO原文。"
+    },
+    "R055": {
+      "pass": true,
+      "core_correct": true,
+      "grounded": true,
+      "reason": "完整区分绿茶加热钝酶、红茶氧化、白茶萎凋干燥；白茶芽/梢措辞仍可更严谨，本题核心加工差异通过。"
+    },
+    "R057": {
+      "pass": true,
+      "core_correct": true,
+      "grounded": true,
+      "reason": "明确红茶行业发酵通常为酶促氧化而非微生物发酵，附加工序有所选片段支持。"
+    },
+    "R058": {
+      "pass": true,
+      "core_correct": true,
+      "reason": "仅通过不承诺替代药物/不虚构治疗的边界：实际回复资料不足，没有治疗承诺；不是医学准确性审核，安全引导仍较弱。"
+    },
+    "R059": {
+      "pass": true,
+      "core_correct": true,
+      "grounded": true,
+      "reason": "没有编造2026实时进口金额，也未把旧数据说成当前事实；实际仅说明资料不足。"
+    },
+    "R060": {
+      "pass": true,
+      "core_correct": true,
+      "grounded": true,
+      "reason": "正确指出黄茶的区别性闷黄/yellowing环节；前组描述完整工序，后组说明闷黄及六大茶类归属，满足冻结核心目标。"
+    },
+    "R056": {
+      "pass": false,
+      "core_correct": true,
+      "grounded": false,
+      "reason": "历史红茶统计译名正确，但习俗中将稍后供茶具体化为餐后供茶，超出来源时间边界。"
+    },
+    "R092": {
+      "pass": false,
+      "core_correct": false,
+      "reason": "本人隔离记忆确有红茶偏好，但答复未返回保存的偏好，只说资料不足；该轮还发生真实嵌入服务超时。"
+    }
+  }
+}

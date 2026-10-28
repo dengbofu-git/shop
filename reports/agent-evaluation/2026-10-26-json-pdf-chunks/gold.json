@@ -1,0 +1,55 @@
+{
+  "source_sha256": "64c7d46f7f2cdbf71f1bbaf3b4526efc368c5f654639e0790446347d6c9bd508",
+  "page": 27,
+  "2013_status": "estimated",
+  "2023_status": "projected",
+  "unit": "tonnes",
+  "countries": [
+    {
+      "country": "Iran",
+      "estimated_2013": 83000,
+      "projected_2023": 115808
+    },
+    {
+      "country": "Turkey",
+      "estimated_2013": 228026,
+      "projected_2023": 259503
+    },
+    {
+      "country": "Iraq",
+      "estimated_2013": 34000,
+      "projected_2023": 34123
+    },
+    {
+      "country": "Saudi Arabia",
+      "estimated_2013": 30350,
+      "projected_2023": 44999
+    },
+    {
+      "country": "Syria",
+      "estimated_2013": 28000,
+      "projected_2023": 31225
+    },
+    {
+      "country": "United Arab Emirates",
+      "estimated_2013": 40000,
+      "projected_2023": 63394
+    },
+    {
+      "country": "Egypt",
+      "estimated_2013": 97304,
+      "projected_2023": 135243
+    },
+    {
+      "country": "Jordan",
+      "estimated_2013": 5327,
+      "projected_2023": 5886
+    },
+    {
+      "country": "Israel",
+      "estimated_2013": 1537,
+      "projected_2023": 1555
+    }
+  ],
+  "annotation": "Transcribed against PDF page 27 visual table, before reading group model outputs; no expert double-blind review."
+}

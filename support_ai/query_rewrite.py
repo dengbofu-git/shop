@@ -114,7 +114,7 @@ class QueryTranslations(BaseModel):
 class QueryPolicy:
     enabled: bool = True
     max_queries: int = 4
-    max_model_calls: int = 2
+    max_model_calls: int = 1
     model_timeout: float = 5.0
     retry_enabled: bool = True
     budget_seconds: float = 25.0
@@ -126,7 +126,7 @@ class QueryPolicy:
         return cls(
             enabled=getattr(settings, 'SUPPORT_RAG_QUERY_ENABLED', True),
             max_queries=max(1, min(4, getattr(settings, 'SUPPORT_RAG_MAX_QUERIES', 4))),
-            max_model_calls=max(0, min(2, getattr(settings, 'SUPPORT_RAG_REWRITE_CALLS', 2))),
+            max_model_calls=max(0, min(1, getattr(settings, 'SUPPORT_RAG_REWRITE_CALLS', 1))),
             model_timeout=max(1, min(10, getattr(settings, 'SUPPORT_RAG_REWRITE_TIMEOUT', 5.0))),
             retry_enabled=getattr(settings, 'SUPPORT_RAG_RETRY_ENABLED', True),
             budget_seconds=max(5, min(60, getattr(settings, 'SUPPORT_RAG_BUDGET_SECONDS', 25.0))),
@@ -173,13 +173,17 @@ def insufficiency(query, evidence, config, policy):
     reasons = []
     if not evidence:
         reasons.append('no_evidence')
-    elif len(evidence) < min(2, config.retrieval_top_k):
-        reasons.append('few_passages')
     scores = [e['rerank_score'] for e in evidence if 'rerank_score' in e]
     if scores and max(scores) < policy.weak_score:
         reasons.append('weak_rerank')
     if coverage_missing(query, evidence):
         reasons.append('subject_topic_gap')
+    facets = set(concepts(query, FACETS))
+    if facets and not any(facets <= set(concepts(item['text'], FACETS)) for item in evidence):
+        reasons.append('topic_gap')
+    years = set(re.findall(r'\b(?:19|20)\d{2}\b', query))
+    if years and not years <= set(re.findall(r'\b(?:19|20)\d{2}\b', ' '.join(item['text'] for item in evidence))):
+        reasons.append('year_gap')
     return reasons
 
 

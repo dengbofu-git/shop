@@ -25,7 +25,7 @@
         } else line.appendChild(text('span', 'store-muted', t('soon')));
         return line;
     }
-    function hero(root, content) {
+    function hero(root, content, actions) {
         root.replaceChildren();
         var banner = text('div', 'store-banner');
         if (content.banner_url) {
@@ -45,7 +45,9 @@
         copy.appendChild(text('h1', '', content.name || '我的店铺'));
         copy.appendChild(text('p', 'store-summary', content.summary || '商家正在完善店铺介绍。'));
         if (content.banner_url && content.welcome) copy.appendChild(text('p', 'store-welcome', content.welcome));
-        identity.append(logo, copy); root.append(banner, identity);
+        identity.append(logo, copy);
+        if (actions) identity.appendChild(actions);
+        root.append(banner, identity);
     }
     function card(item, preview) {
         var node = text('article', 'product-card store-product-card');
@@ -60,13 +62,10 @@
         var titleLink = text(preview ? 'span' : 'a', '', item.product_name || item.spu_name || item.name);
         if (!preview) titleLink.href = '/product_details.html?skuid=' + id;
         title.appendChild(titleLink);
-        var price = text('div', 'product-price', '$' + Number(item.price || 0).toFixed(2));
-        price.setAttribute('data-usd', String(item.price || 0));
-        price.setAttribute('data-aed', (Number(item.price || 0) * 3.67).toFixed(2));
-        price.setAttribute('data-sar', (Number(item.price || 0) * 3.75).toFixed(2));
+        var price = text('div', 'product-price');
+        price.setAttribute('data-cny', String(item.price || 0));
         var currency = document.getElementById('currency-select');
-        if (currency && currency.value === 'AED') price.textContent = 'AED ' + price.getAttribute('data-aed');
-        if (currency && currency.value === 'SAR') price.textContent = 'SAR ' + price.getAttribute('data-sar');
+        price.textContent = TeaMoney.format(item.price || 0, currency && currency.value);
         var actions = text('div', 'product-actions-row');
         var add = text('button', 'btn-add-cart', preview ? '预览 · 不可采购' : t('add'));
         add.type = 'button'; add.disabled = !!preview; actions.appendChild(add);

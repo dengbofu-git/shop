@@ -1,0 +1,58 @@
+[
+  {
+    "sha256": "d7b130bb328c3f0f1636b1f525709265d816bd2f66fe41c75d2f194c9851b358",
+    "path": "ai_storage/pdf_pipeline/page_ir.py"
+  },
+  {
+    "sha256": "740c314fe5ed7327c3167ff2a7e90c12cc586e7cde7a216335d6bef97180bd09",
+    "path": "ai_storage/pdf_pipeline/paddleocr.py"
+  },
+  {
+    "sha256": "dc87d8d111f787f79ab6497fd9e8523bc339714a490c32cea1b9ba595dbfc173",
+    "path": "ai_storage/pdf_pipeline/parser.py"
+  },
+  {
+    "sha256": "4e7f843422ce017cb7b6ef6c9625f962ca0c95c1eab93da09459bbd365834a00",
+    "path": "ai_storage/pdf_pipeline/service.py"
+  },
+  {
+    "sha256": "9d0a2fdecb3ed6d7dab34f8f68488b98ebacba41ad4b49ff64f49ffbfa65f83e",
+    "path": "ai_storage/management/commands/knowledge_pdf.py"
+  },
+  {
+    "sha256": "55e87a88486a58f2bcbeadc416732e636f3bdf709ce61343085f469f4452200b",
+    "path": "ai_storage/test_paddle_document.py"
+  },
+  {
+    "sha256": "6759d96d5874111171b3c5dcf125644524855d66bf489c8acc43cf7dc92aafe5",
+    "path": "ai_storage/test_paddle_document_database.py"
+  },
+  {
+    "sha256": "f9e33eb1e34d876fe3ba4408c0f5ff87e232c6231e8a13fdb37822a5c2371f6a",
+    "path": "deploy/paddleocr/server.py"
+  },
+  {
+    "sha256": "72057b7cc3bcdc913600d1481668fc04ec971ae6dc387b8b29b2d959cadb0aed",
+    "path": "deploy/paddleocr/healthcheck.py"
+  },
+  {
+    "sha256": "7da99799dc016a57d0831964bec5485f349e44acd840ec0fd78342e18c3f35d1",
+    "path": "deploy/paddleocr/configure-client.ps1"
+  },
+  {
+    "sha256": "04e9c41c5a4bae998ce9564e4b716e82c41879605e40efa368899a89d55d7f5c",
+    "path": "compose.paddleocr.yml"
+  },
+  {
+    "sha256": "09004f771dab0475e217f9c9558296809a6868f9e41f13d54005d120d64d08a7",
+    "path": "compose.knowledge-paddleocr.yml"
+  },
+  {
+    "sha256": "85f262c20976ed94a36684aa2765d855692887553c09d994b9b7bcf24a592d80",
+    "path": "docs\\sdd\\evidence\\2026-10-28-paddleocr-stage1\\sample-input.pdf"
+  },
+  {
+    "sha256": "cf8dd89573846d0d4fd2ef3c90938050adf86e4e75b76a4f347931be3c3bef57",
+    "path": "docs\\sdd\\evidence\\2026-10-28-paddleocr-stage1\\scan-ground-truth.png"
+  }
+]

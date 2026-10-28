@@ -1,0 +1,96 @@
+{
+  "started_at": "2026-10-26T04:54:46.623904+00:00",
+  "source_head": "25a08ee29e23ce1bd479951e5860b44c9dfb2a89",
+  "configuration": {
+    "model": "deepseek-flash",
+    "thinking": "disabled",
+    "telemetry_enabled": false,
+    "export_enabled": false,
+    "otlp_endpoint": "http://127.0.0.1:4318",
+    "revision": 5,
+    "rerank_enabled": true,
+    "rerank_model": "BAAI/bge-reranker-v2-m3",
+    "retrieval_candidates": 30,
+    "retrieval_top_k": 5,
+    "retrieval_per_document": 2,
+    "retrieval_context_chars": 12000,
+    "rerank_timeout_ms": 30000,
+    "rerank_min_score": null,
+    "rerank_fallback": false
+  },
+  "serving_config_revision": 5,
+  "serving_thinking": "enabled",
+  "reranker": {
+    "status": "ready",
+    "model": "BAAI/bge-reranker-v2-m3",
+    "revision": "953dc6f6f85a1b2dbfca4c34a2796e7dde08d41e",
+    "device": "cpu"
+  },
+  "protocol": {
+    "design": "15 fixed public regression cases; A=original; B=original | direct translation; 3 paired rounds; case order fixed shuffled seed 20261026; AB/BA alternates by case and round",
+    "candidate_policy": "Identical ordered 30-candidate pool per case from archived public single-query recall; no retrieval calls, no gold injection; identical pool across all arms and repeats",
+    "labels": "Pre-output exhaustive 0/1/2 grades across 50 frozen chunks: 2 directly supports a requested core fact, 1 useful background, 0 irrelevant; agent annotated against corpus, no independent expert adjudication; historical support groups separately preserved",
+    "isolated_variable": "Only reranker query string differs; same weights, tokenizer, server, candidate order, timeout=30000ms, source diversity=2, top_k=5, char_budget=12000; fallback/retry OFF in experiment",
+    "generation": "Generate one fresh actual answer per arm/case from the earliest successful paired repeat; fixed prompt/temperature0/thinking disabled; up to30 calls.",
+    "translation": "Reuse previously reviewed direct translations as frozen experimental inputs, zero new translation calls; do not reuse any prior ranking, timing, generation, or cost observations.",
+    "cost": "Per-request wall/server seconds, cgroup CPU seconds and RSS/cgroup memory samples; exact reranker tokenizer workload collected separately; actual provider usage for translation/generation, estimated USD off-peak/peak range, excludes hardware/electricity and unpriced failures",
+    "budget": "90 new measured rerank calls plus2 new warmups, up to30 new generation calls; zero new translation calls. No serving configuration mutation.",
+    "limits": "Small existing regression set, English public corpus snapshot from 2026-10-16; not current-corpus recall test, not independent held-out evaluation, not universal multilingual accuracy",
+    "failure_handling": "No reruns or replacements; all attempts count toward availability/wall/CPU; ranking quality restricted to complete successful pairs, missing pairs disclosed.",
+    "monitoring": "One persistent Docker resource-probe process, synchronous snapshots before/after timed inference. Same probe for both arms. Windows keep-awake active only while benchmark process lives; 1s heartbeat logs gaps>3s.",
+    "environment_failure": "Pause after any heartbeat gap>3s, lost resource sampler, HTTP429 or network ReadTimeout; preserve all attempts and never automatically rerun failed keys. HTTP504 is measured at the unchanged30s budget, not silently retried."
+  },
+  "case_order": [
+    2,
+    13,
+    4,
+    11,
+    3,
+    8,
+    7,
+    15,
+    1,
+    14,
+    5,
+    12,
+    10,
+    6,
+    9
+  ],
+  "source_fingerprints": {
+    "support_ai/retrieval.py": "7841cad837a94be9236b3d085ed24b54ca1401f4ca2dfdabed5ec02753d346b9",
+    "support_ai/query_rewrite.py": "fd0443c9421977d3277971ee332de6f30452b32c3b537174a5b4dd8dfd04702e",
+    "ai_storage/reranking.py": "b9e60bb6929351f9f819e991c29a9ad0b936258c94af33350ca70c6498fde540",
+    "deploy/reranker/server.py": "7b0f66c600205f7278bbac0ed4eb1657c4554c1b62be276947a7ffab5ebb609f",
+    "support_ai/evaluation/rag_rewrite_cases.json": "a16cdf1845f46dc887c77bb5c57c4a5215e0d47766b788ec68b95cf30747f900"
+  },
+  "prices_usd_per_million": {
+    "off_peak": {
+      "cached_input": 0.003,
+      "uncached_input": 0.15,
+      "output": 0.6
+    },
+    "peak": {
+      "cached_input": 0.006,
+      "uncached_input": 0.3,
+      "output": 1.2
+    }
+  },
+  "pricing_source": "https://api-docs.deepseek.com/quick_start/pricing/",
+  "pricing_read_on": "2026-10-26",
+  "frozen_input_source": "E:\\django\\dadashop\\reports\\agent-evaluation\\2026-10-26-rerank-query-ab\\run-1",
+  "frozen_input_sha256": {
+    "cases.json": "248024261a91862721f761ce5fee989a7caec6efaced68e49433735d8d7b8080",
+    "corpus.json": "e576428d784026d699eb1f11346a3aded6e0b695a55ef3ca657eb73f59ab8987",
+    "translations-frozen.json": "32fde9d469a9c671d89ae125dd37d757d39c09aad8f3fe9593a3544f5ab3a354",
+    "answer-rubric.json": "859c87570f1b60c3579187f108c7e87ccda505610e07781ffa15238aa61947d5"
+  },
+  "run2_harness_fingerprints": {
+    "restart.py": "baf7b0ddf48f748dfc3b5f675ca1de05083911de344fd12d84a03b5f90631927",
+    "experiment.py": "c62a887afccc956db0c3cb9194add397875548309dee188680ea4c6c04ab62fd",
+    "pipeline2.py": "b81a01457dc2f5a74230b9a8ed4a8ad9b85b195c8f9e48813ef0462d1c6c22fd",
+    "analyze.py": "dd36d31cfa526d1a99228699ab87c20312488ffdfe7bf0801c11207ad85d0df8",
+    "count_work.py": "5b8b32100c63d9d2d4135cead5dcc1733ee013a9d3ec387e966c967c45fa4e16"
+  },
+  "provenance_note": "Inherited protocol and frozen public inputs only. No old rankings, answers, API observations, timing or resource samples copied."
+}

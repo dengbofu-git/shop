@@ -1,0 +1,316 @@
+{
+  "migration": {
+    "before": {
+      "documents": 12,
+      "chunks": 50,
+      "memories": 1
+    },
+    "after": {
+      "documents": 12,
+      "chunks": 50,
+      "memories": 1
+    },
+    "applied": [
+      "0001_initial",
+      "0002_embedding_validation",
+      "0003_pdf_import_pipeline"
+    ],
+    "backup_sha256": "30947bbd9e53205cf488ced9ed7b0b466ecb9ef25a06502a079822e022e8e1b3",
+    "backup_bytes": 283969,
+    "business_migration": "applied",
+    "rollback_executed": false
+  },
+  "backup_restore": {
+    "isolated_database": "pdf_restore_check_47c53d52e9294128",
+    "restorable": true,
+    "counts": {
+      "documents": 12,
+      "chunks": 50,
+      "memories": 1
+    }
+  },
+  "cases": [
+    {
+      "pages": 28,
+      "chunks": 42,
+      "vectors": 42,
+      "methods": [
+        "native"
+      ],
+      "max_tokens": 500,
+      "warnings": [
+        {
+          "page": 1,
+          "codes": [
+            "image_without_text"
+          ]
+        },
+        {
+          "page": 2,
+          "codes": [
+            "image_without_text"
+          ]
+        },
+        {
+          "page": 3,
+          "codes": [
+            "image_without_text"
+          ]
+        },
+        {
+          "page": 9,
+          "codes": [
+            "image_without_text"
+          ]
+        },
+        {
+          "page": 10,
+          "codes": [
+            "image_without_text"
+          ]
+        },
+        {
+          "page": 11,
+          "codes": [
+            "image_without_text"
+          ]
+        },
+        {
+          "page": 23,
+          "codes": [
+            "table_layout_requires_review"
+          ]
+        },
+        {
+          "page": 24,
+          "codes": [
+            "table_layout_requires_review"
+          ]
+        },
+        {
+          "page": 25,
+          "codes": [
+            "table_layout_requires_review"
+          ]
+        },
+        {
+          "page": 26,
+          "codes": [
+            "table_layout_requires_review"
+          ]
+        },
+        {
+          "page": 27,
+          "codes": [
+            "table_layout_requires_review"
+          ]
+        },
+        {
+          "page": 28,
+          "codes": [
+            "table_layout_requires_review"
+          ]
+        }
+      ],
+      "attempt": 2,
+      "mappings_valid": true,
+      "kind": "native",
+      "document_id": "6c22ffa5-ed87-48c3-a1cd-b1c1e1bf7d0b",
+      "http": 200,
+      "cited_pages": [
+        [
+          1,
+          2
+        ]
+      ],
+      "claim_count": 1,
+      "seconds": 36.19,
+      "download_sha256": "matched",
+      "draft_isolation": true,
+      "foreign_isolation": true,
+      "replay": true,
+      "history": true,
+      "withdrawn": true
+    },
+    {
+      "pages": 1,
+      "chunks": 1,
+      "vectors": 1,
+      "methods": [
+        "ocr"
+      ],
+      "max_tokens": 382,
+      "warnings": [],
+      "attempt": 2,
+      "mappings_valid": true,
+      "kind": "scan",
+      "document_id": "fe440e79-aa9f-4feb-820a-9d597472e865",
+      "http": 200,
+      "cited_pages": [
+        [
+          1,
+          1
+        ]
+      ],
+      "claim_count": 2,
+      "seconds": 0.16,
+      "download_sha256": "matched",
+      "draft_isolation": true,
+      "foreign_isolation": true,
+      "replay": true,
+      "history": true,
+      "withdrawn": true
+    },
+    {
+      "pages": 1,
+      "chunks": 8,
+      "vectors": 8,
+      "methods": [
+        "native",
+        "ocr"
+      ],
+      "max_tokens": 473,
+      "warnings": [
+        {
+          "page": 1,
+          "codes": [
+            "image_without_text"
+          ]
+        }
+      ],
+      "attempt": 2,
+      "mappings_valid": true,
+      "kind": "mixed",
+      "document_id": "2135fec1-fa7a-4394-bef9-94fa52a9e943",
+      "http": 200,
+      "cited_pages": [
+        [
+          1,
+          1
+        ]
+      ],
+      "claim_count": 1,
+      "seconds": 45.34,
+      "download_sha256": "matched",
+      "draft_isolation": true,
+      "foreign_isolation": true,
+      "replay": true,
+      "history": true,
+      "withdrawn": true
+    }
+  ],
+  "version": {
+    "deduplicated_submit": true,
+    "old_remains_while_new_draft": true,
+    "atomic_version_switch": true,
+    "mixed_ocr_answer_cited": true,
+    "old_version_republish_rejected": true,
+    "new_download_matches": true,
+    "withdrawn": true,
+    "first_job": "9a8b040c-b74d-409c-88ef-b2ea70a0630e",
+    "second_job": "56fdaf30-df13-4e1e-b5a2-73b2a9f592e5",
+    "versions": [
+      1,
+      2
+    ]
+  },
+  "resume": {
+    "job_id": "2a8aa67c-3cb0-4a36-9fc8-83ba4499f18b",
+    "partial_pages_preserved": 2,
+    "total_pages": 28,
+    "attempts": 2,
+    "resumed_without_changing_completed_pages": true,
+    "vectors": 42,
+    "final_status": "cancelled",
+    "published": false
+  },
+  "cleanup": {
+    "fixture_user_disabled": true,
+    "fixture_turns_removed": 5,
+    "fixture_conversations_removed": 5,
+    "published_documents": 12,
+    "published_chunks": 50,
+    "memories": 1,
+    "qa_documents": 6,
+    "qa_chunks": 102,
+    "qa_document_states": [
+      "withdrawn",
+      "withdrawn",
+      "withdrawn",
+      "withdrawn",
+      "withdrawn",
+      "draft"
+    ],
+    "worker_running": true,
+    "worker_restart_policy": "unless-stopped",
+    "worker_restart_count": 0,
+    "queue_pending": 0,
+    "inactive_fixture_http": 401
+  },
+  "grounding_outcomes": {
+    "native": [
+      {
+        "status": "verified",
+        "rejected_count": 0,
+        "attempts": 1
+      }
+    ],
+    "scan": [
+      {
+        "status": "verified",
+        "rejected_count": 0,
+        "attempts": 2
+      }
+    ],
+    "mixed": [
+      {
+        "status": "verified",
+        "rejected_count": 0,
+        "attempts": 1
+      }
+    ],
+    "native-initial-insufficient": [
+      {
+        "status": "insufficient",
+        "rejected_count": 1,
+        "attempts": 2
+      }
+    ],
+    "version-two": [
+      {
+        "status": "verified",
+        "rejected_count": 0,
+        "attempts": 2
+      }
+    ]
+  },
+  "source": {
+    "url": "https://www.fao.org/fileadmin/templates/est/meetings/IGGtea21/14-Inf3-CurrentSituation.pdf",
+    "sha256": "64c7d46f7f2cdbf71f1bbaf3b4526efc368c5f654639e0790446347d6c9bd508",
+    "bytes": 603979,
+    "source": "FAO October 2014 CCP:TE 14/Inf.3"
+  },
+  "inputs": {
+    "native": {
+      "sha256": "64c7d46f7f2cdbf71f1bbaf3b4526efc368c5f654639e0790446347d6c9bd508",
+      "pages": 28,
+      "native_characters": 42464
+    },
+    "scan": {
+      "sha256": "c00b1d421931dc7e3bb55ffbad1c7e8fd6146394cb88621c5bd444cf59ffeba2",
+      "pages": 1,
+      "native_characters": 0
+    },
+    "mixed": {
+      "sha256": "53ad03e1fa3960a7887795e536fede1c5d33a647cef911d9d2e59f2391ba42f9",
+      "pages": 1,
+      "native_characters": 1675
+    }
+  },
+  "model": {
+    "model": "deepseek-flash",
+    "thinking": "enabled",
+    "config_revision": 5,
+    "rerank_enabled": true
+  }
+}

@@ -1,0 +1,10 @@
+{"timestamp": "2026-10-26T05:59:28.007+00:00", "level": "WARNING", "service": "tea_saas", "logger": "py.warnings", "event": "runtime.warning"}
+{"timestamp": "2026-10-26T05:59:40.766+00:00", "level": "WARNING", "service": "tea_saas", "logger": "support_ai.workflow", "event": "support.planning.unavailable", "error_type": "ValueError"}
+{"timestamp": "2026-10-26T05:59:49.452+00:00", "level": "WARNING", "service": "tea_saas", "logger": "support_ai.workflow", "event": "support.planning.unavailable", "error_type": "ValueError"}
+{"timestamp": "2026-10-26T05:59:52.332+00:00", "level": "WARNING", "service": "tea_saas", "logger": "support_ai.workflow", "event": "support.planning.unavailable", "error_type": "ValueError"}
+{"timestamp": "2026-10-26T06:10:59.156+00:00", "level": "WARNING", "service": "tea_saas", "logger": "support_ai.workflow", "event": "support.planning.unavailable", "error_type": "ValueError"}
+{"timestamp": "2026-10-26T06:18:11.001+00:00", "level": "WARNING", "service": "tea_saas", "logger": "support_ai.retrieval", "event": "support.query_rewrite.unavailable", "error_type": "APITimeoutError"}
+{"timestamp": "2026-10-26T06:41:18.033+00:00", "level": "WARNING", "service": "tea_saas", "logger": "support_ai.workflow", "event": "support.planning.unavailable", "error_type": "ValueError"}
+{"timestamp": "2026-10-26T06:42:23.171+00:00", "level": "WARNING", "service": "tea_saas", "logger": "support_ai.workflow", "event": "support.planning.unavailable", "error_type": "ValueError"}
+{"timestamp": "2026-10-26T06:45:38.554+00:00", "level": "WARNING", "service": "tea_saas", "logger": "support_ai.workflow", "event": "support.planning.unavailable", "error_type": "ValueError"}
+{"timestamp": "2026-10-26T06:48:22.828+00:00", "level": "WARNING", "service": "tea_saas", "logger": "support_ai.workflow", "event": "support.planning.unavailable", "error_type": "ValueError"}

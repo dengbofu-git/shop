@@ -49,6 +49,7 @@
                     return;
                 }
                 $('#pf-username').val(res.data.username || '');
+                if (typeof res.data.shop_name === 'string') $('#pf-shop').val(res.data.shop_name || '—');
                 $('#pf-email').val(res.data.email || '');
                 $('#pf-phone').val(res.data.phone || '');
             },

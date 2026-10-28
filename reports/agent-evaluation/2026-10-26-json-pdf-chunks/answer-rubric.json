@@ -1,0 +1,19 @@
+{
+  "reviewer": "assistant source-based review; not an external expert or blinded human study",
+  "units": {
+    "pair": "two country/year/value/tonnes facts; 2013 estimated and 2023 projected",
+    "forecast": "one country/2023/value/tonnes fact, explicitly projected",
+    "nature": "2023 is a projection, not a verified actual observation",
+    "orgs": "IMF, World Bank, OECD (3 facts)",
+    "index": "black tea only; excludes green tea (2 facts)",
+    "production": "2013 world total 5.07 million tonnes; increase 6 percent (2 facts)",
+    "refuse": "no unsupported actual-2025 fact; empty claims is a safe refusal"
+  },
+  "full_correct": "all required facts with correct entity/year/value/unit and forecast/actual distinction; no materially false extra claim",
+  "partial_correct": "some required facts correct, no materially false extra claim",
+  "safe_insufficient": "no substantive answer where source has the requested facts; completeness failure, not a hallucination",
+  "wrong": "any materially false entity/year/value/unit or asserting forecast as observed actual",
+  "technical_error": "provider/schema/runtime failure; distinct from a safe refusal",
+  "citation_metrics": "verbatim stored-evidence substring check plus whether supplied PDF page range includes source gold page; neither alone proves entailment",
+  "repeat_metric": "same source-based correctness outcome, not byte-identical wording"
+}

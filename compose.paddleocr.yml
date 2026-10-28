@@ -1,0 +1,45 @@
+name: dadashop-paddleocr
+services:
+  paddleocr:
+    image: ccr-2vdh3abv-pub.cnc.bj.baidubce.com/paddlepaddle/paddleocr-vl@sha256:ad0b1f056a76967f9191cd06398e8babb21b49a4673a28c3de5fd31f481884db
+    entrypoint: [python, -u, /service/server.py]
+    init: true
+    restart: unless-stopped
+    user: root
+    shm_size: 1gb
+    ports:
+      - "127.0.0.1:18080:8080"
+    volumes:
+      - ./deploy/paddleocr:/service:ro
+      - paddle-cache:/home/paddleocr/.paddlex
+      - paddle-general-cache:/home/paddleocr/.cache
+    secrets:
+      - paddleocr_api_key
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              device_ids: ["0"]
+              capabilities: [gpu]
+    networks:
+      - document-parser
+    healthcheck:
+      test: [CMD, python, /service/healthcheck.py]
+      interval: 30s
+      timeout: 5s
+      start_period: 180s
+      retries: 3
+secrets:
+  paddleocr_api_key:
+    file: ./.scratch/paddleocr/api-key
+volumes:
+  paddle-cache:
+    external: true
+    name: paddleocr-vl-paddlex-cache
+  paddle-general-cache:
+    external: true
+    name: paddleocr-vl-general-cache
+networks:
+  document-parser:
+    name: dadashop-document-parser

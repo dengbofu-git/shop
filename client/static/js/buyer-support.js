@@ -16,6 +16,7 @@
     var storageKey = 'support-conversation:' + (AuthStorage.getUser() || '');
     var conversation = null;
     var pending = null;
+    var selectedBundle = null;
     var busy = false;
     var composing = false;
     var initialMessage = messages.innerHTML;
@@ -26,6 +27,9 @@
     var historyRefresh = document.getElementById('bs-history-refresh');
     var historyMore = document.getElementById('bs-history-more');
     var historyOlder = document.getElementById('bs-history-older');
+    var historyMenu = document.getElementById('bs-history-menu');
+    var historyDelete = document.getElementById('bs-history-delete');
+    var menuConversation = null;
     var currentLabel = document.getElementById('bs-current-conversation');
     var conversationStatus = document.getElementById('bs-conversation-status');
     var identityToken = AuthStorage.getToken();
@@ -37,6 +41,12 @@
     var restoreBlocked = false;
     var sessionTitle = '';
     var drafts = Object.create(null);
+    var hiddenHistoryKey = 'support-hidden-history:' + (identityUser || '');
+    var hiddenHistory = new Set();
+    try {
+        var savedHidden = JSON.parse(localStorage.getItem(hiddenHistoryKey) || '[]');
+        if (Array.isArray(savedHidden)) savedHidden.forEach(function (id) { if (typeof id === 'string') hiddenHistory.add(id); });
+    } catch (_) { /* An unavailable browser store must not affect server history. */ }
 
     function sameIdentity() {
         return identityToken === AuthStorage.getToken() && identityUser === AuthStorage.getUser();
@@ -48,6 +58,7 @@
             identityCleared = true;
             drafts = Object.create(null);
             conversation = pending = null;
+            selectedBundle = null;
             historyCursor = olderCursor = null;
             input.value = '';
             fillPreferences({});
@@ -90,9 +101,37 @@
         if (!response.ok) {
             var error = new Error(result.error || '暂时无法回答，请稍后重试。');
             error.status = response.status;
+            error.errorCode = result.error_code || '';
             throw error;
         }
         return result;
+    }
+
+    async function downloadKnowledgePdf(event, url, link, label) {
+        event.preventDefault();
+        if (link.dataset.loading === 'true') return;
+        link.dataset.loading = 'true';
+        try {
+            checkIdentity();
+            var response = await fetch(url.href, {
+                headers: { Authorization: 'Bearer ' + identityToken }, redirect: 'error', cache: 'no-store'
+            });
+            checkIdentity();
+            if (!response.ok) throw new Error(response.status === 503 ? '资料服务暂不可用' : '资料不可访问或已撤回');
+            var blob = await response.blob();
+            checkIdentity();
+            var objectUrl = URL.createObjectURL(blob);
+            var download = document.createElement('a');
+            download.href = objectUrl;
+            download.download = 'knowledge-' + url.pathname.split('/')[5] + '.pdf';
+            document.body.appendChild(download);
+            download.click();
+            download.remove();
+            window.setTimeout(function () { URL.revokeObjectURL(objectUrl); }, 60000);
+            link.textContent = label;
+        } catch (error) {
+            if (sameIdentity()) link.textContent = label + '（' + (error.message || '下载失败') + '）';
+        } finally { delete link.dataset.loading; }
     }
 
     function uuid() {
@@ -106,6 +145,7 @@
 
     function setBusy(value) {
         busy = value || !sameIdentity();
+        if (busy) closeHistoryMenu(false);
         send.disabled = busy || restoreBlocked;
         newConversation.disabled = busy;
         historyToggle.disabled = busy;
@@ -113,6 +153,7 @@
         historyMore.disabled = busy;
         historyOlder.disabled = busy;
         historyList.querySelectorAll('button').forEach(function (button) { button.disabled = busy; });
+        messages.querySelectorAll('.bs-bundle-tabs button').forEach(function (button) { button.disabled = busy; });
     }
 
     function addMessage(text, kind, container) {
@@ -144,14 +185,26 @@
             sources.appendChild(document.createTextNode('参考资料：'));
             result.knowledge_sources.forEach(function (source, index) {
                 try {
-                    var sourceUrl = new URL(source.url);
-                    if (sourceUrl.protocol !== 'https:') return;
+                    var sourceUrl = new URL(source.url, window.location.origin);
+                    if (sourceUrl.username || sourceUrl.password) return;
+                    var localPdf = sourceUrl.origin === window.location.origin &&
+                        /^\/v1\/support\/knowledge\/documents\/[a-f0-9-]{36}\/file$/i.test(sourceUrl.pathname) &&
+                        !sourceUrl.search && !sourceUrl.hash;
+                    if (!localPdf && (sourceUrl.protocol !== 'https:' || !/^https:\/\//i.test(source.url))) return;
                     if (index) sources.appendChild(document.createTextNode(' · '));
                     var link = document.createElement('a');
                     link.href = sourceUrl.href;
                     link.target = '_blank';
                     link.rel = 'noopener noreferrer';
                     link.textContent = source.title + (source.year ? ' (' + source.year + ')' : '');
+                    if (localPdf) {
+                        link.removeAttribute('target');
+                        var sourceLabel = link.textContent + ' · 第' + source.page_start + '—' + source.page_end + '页（下载PDF）';
+                        link.textContent = sourceLabel;
+                        link.addEventListener('click', function (event) {
+                            downloadKnowledgePdf(event, sourceUrl, link, sourceLabel);
+                        });
+                    }
                     sources.appendChild(link);
                 } catch (error) {
                     // Ignore malformed source URLs in response data.
@@ -159,6 +212,22 @@
             });
             bubble.parentNode.appendChild(sources);
         }
+        if (result.compliance_blocked) return;
+        if (result.order_result && Array.isArray(result.order_result.orders)) {
+            var orderActions = document.createElement('div');
+            orderActions.className = 'bs-order-actions';
+            result.order_result.orders.forEach(function (order) {
+                if (typeof order.detail_url !== 'string' || !/^\/buyer_orders\.html#support-order=os-[a-p]{64}$/.test(order.detail_url)) return;
+                var link = document.createElement('a');
+                link.className = 'bs-order-link';
+                link.href = order.detail_url;
+                link.textContent = '查看' + order.reference;
+                link.setAttribute('aria-label', '查看' + order.reference + '的订单详情');
+                orderActions.appendChild(link);
+            });
+            if (orderActions.children.length) bubble.parentNode.appendChild(orderActions);
+        }
+        if (showBundles(bubble, result, historicalAt)) return;
         if (result.recommendations && result.recommendations.length) {
             var cards = document.createElement('div');
             cards.className = 'bs-products';
@@ -182,7 +251,16 @@
                     info.appendChild(specification);
                 }
                 var price = document.createElement('p');
-                price.textContent = 'USD $' + product.price + ' · ' + product.category;
+                if (historicalAt && !product.currency) {
+                    price.textContent = '原记录金额 ' + product.price + '（币种未记录） · ' + product.category;
+                } else if (!product.currency || product.currency === 'CNY') {
+                    price.dataset.basePrice = product.price;
+                    price.dataset.category = product.category || '';
+                    price.textContent = shownMoney(product.price, 'CNY') + ' · ' + (product.category || '');
+                } else {
+                    // Old snapshots keep the currency recorded at that time.
+                    price.textContent = product.currency + ' ' + product.price + ' · ' + product.category;
+                }
                 info.appendChild(price);
                 var reason = document.createElement('p');
                 reason.textContent = (product.reasons || []).join('、');
@@ -194,15 +272,225 @@
         }
     }
 
+    function shownMoney(amount, currency) {
+        var text = currency === 'CNY' ? TeaMoney.format(amount, 'CNY') : currency + ' ' + amount;
+        var selected = document.getElementById('currency-select').value;
+        if (currency === 'CNY' && selected !== 'CNY') text += '（参考 ' + TeaMoney.format(amount, selected) + '）';
+        return text;
+    }
+
+    function amountCents(value) {
+        if (!/^\d+(?:\.\d{1,2})?$/.test(String(value))) return null;
+        var parts = String(value).split('.');
+        var cents = Number(parts[0]) * 100 + Number(((parts[1] || '') + '00').slice(0, 2));
+        return Number.isSafeInteger(cents) ? cents : null;
+    }
+
+    function showBundles(bubble, result, historicalAt) {
+        if (!Array.isArray(result.recommendation_bundles) || !result.recommendation_bundles.length) return false;
+        var bundles = result.recommendation_bundles.slice(0, 3);
+        // Reject a whole malformed plan rather than silently dropping a priced line.
+        var valid = bundles.every(function (bundle) {
+            if (!/^bundle-[0-9a-f]{12}$/.test(bundle.bundle_id) || !Array.isArray(bundle.items) ||
+                !bundle.items.length || bundle.items.length > 4 || typeof bundle.currency !== 'string') return false;
+            var sum = 0;
+            var good = bundle.items.every(function (item) {
+                var price = amountCents(item.price), subtotal = amountCents(item.line_subtotal);
+                if (!Number.isInteger(item.sku_id) || item.sku_id <= 0 || !Number.isSafeInteger(item.quantity) ||
+                    item.quantity < 1 || price === null || subtotal === null ||
+                    price * item.quantity !== subtotal || (item.currency && item.currency !== bundle.currency)) return false;
+                sum += subtotal;
+                return Number.isSafeInteger(sum);
+            });
+            return good && sum === amountCents(bundle.subtotal);
+        });
+        if (!valid) {
+            var warning = document.createElement('small');
+            warning.textContent = '方案明细暂无法完整展示，请重新获取搭配。';
+            bubble.parentNode.appendChild(warning);
+            return true;
+        }
+        var section = document.createElement('section');
+        section.className = 'bs-bundles';
+        section.setAttribute('aria-label', '总价搭配方案');
+        var tabs = document.createElement('div');
+        tabs.className = 'bs-bundle-tabs';
+        tabs.setAttribute('role', 'group');
+        tabs.setAttribute('aria-label', '切换搭配方案');
+        var panel = document.createElement('div');
+        panel.className = 'bs-bundle-panel';
+        panel.setAttribute('aria-live', 'polite');
+        section.appendChild(tabs);
+        section.appendChild(panel);
+        bubble.parentNode.appendChild(section);
+        var active = Math.max(0, bundles.findIndex(function (bundle) { return bundle.bundle_id === result.primary_bundle_id; }));
+        var buttons = bundles.map(function (bundle, index) {
+            var button = document.createElement('button');
+            button.type = 'button';
+            button.textContent = '方案' + (bundle.position || index + 1);
+            button.disabled = busy;
+            button.addEventListener('click', function () {
+                if (busy || !ensureIdentity()) return;
+                active = index;
+                render();
+                if (conversation && result.conversation_id === conversation.conversation_id && result.request_id) {
+                    selectedBundle = { request_id: result.request_id, bundle_id: bundle.bundle_id };
+                    conversationStatus.textContent = '已选择方案' + (bundle.position || index + 1) + '，接下来的商品追问将按这套方案理解。';
+                }
+            });
+            tabs.appendChild(button);
+            return button;
+        });
+        function render() {
+            var bundle = bundles[active];
+            buttons.forEach(function (button, index) { button.setAttribute('aria-pressed', String(index === active)); });
+            panel.textContent = '';
+            // A mixed reply may also contain a knowledge/order answer. Keep it intact.
+            if (result.presentation_version === 'bundles-v2' && bundle.summary) {
+                var summary = bundle.summary;
+                if (bundles.length > 1) summary += '\n可以切换下方方案，比较商品和购买件数。';
+                if (result.bundle_primary_answer && result.answer.indexOf(result.bundle_primary_answer) !== -1) {
+                    bubble.textContent = result.answer.replace(result.bundle_primary_answer, summary);
+                } else if (result.intent === 'recommendation') bubble.textContent = summary;
+            }
+            var cards = document.createElement('div');
+            cards.className = 'bs-products';
+            bundle.items.forEach(function (item) {
+                var card = document.createElement('a');
+                card.className = 'bs-product';
+                card.href = '/product_details.html?skuid=' + item.sku_id;
+                var image = document.createElement('img');
+                image.src = '/v1/goods/sku/' + item.sku_id + '/image';
+                image.alt = item.product_name || item.name || '';
+                image.loading = 'lazy';
+                card.appendChild(image);
+                var info = document.createElement('div');
+                var title = document.createElement('strong');
+                title.textContent = item.product_name || item.name;
+                info.appendChild(title);
+                if (item.name && item.name !== item.product_name) {
+                    var specification = document.createElement('p');
+                    specification.textContent = item.name;
+                    info.appendChild(specification);
+                }
+                var quantity = document.createElement('p');
+                quantity.className = 'bs-bundle-quantity';
+                quantity.textContent = shownMoney(item.price, bundle.currency) + ' / 件 × ' + item.quantity + '件';
+                info.appendChild(quantity);
+                var subtotal = document.createElement('p');
+                subtotal.textContent = '小计 ' + shownMoney(item.line_subtotal, bundle.currency);
+                info.appendChild(subtotal);
+                if (item.reasons && item.reasons.length) {
+                    var reason = document.createElement('p');
+                    reason.textContent = item.reasons.slice(0, 2).join('，');
+                    info.appendChild(reason);
+                }
+                card.appendChild(info);
+                cards.appendChild(card);
+            });
+            panel.appendChild(cards);
+            var total = document.createElement('p');
+            total.className = 'bs-bundle-total';
+            total.textContent = '商品合计 ' + shownMoney(bundle.subtotal, bundle.currency);
+            if (amountCents(bundle.remaining_budget) !== null) total.textContent += ' · 预算余量 ' + shownMoney(bundle.remaining_budget, bundle.currency);
+            panel.appendChild(total);
+            var notice = document.createElement('small');
+            notice.textContent = result.bundle_notice || '商品合计不含运费、税费，价格及可购买状态以下单校验为准。';
+            panel.appendChild(notice);
+        }
+        section.addEventListener('support-currency-change', render);
+        render();
+        return true;
+    }
+
     function displayTime(value) {
         var date = new Date(value);
         return Number.isNaN(date.getTime()) ? '时间未知' : date.toLocaleString('zh-CN', { hour12: false });
     }
 
     function closeHistory() {
+        closeHistoryMenu(false);
         historyPanel.hidden = true;
         historyToggle.setAttribute('aria-expanded', 'false');
     }
+
+    function closeHistoryMenu(restoreFocus) {
+        var target = menuConversation;
+        menuConversation = null;
+        historyMenu.hidden = true;
+        if (target) {
+            target.button.setAttribute('aria-expanded', 'false');
+            if (restoreFocus && target.button.isConnected) target.button.focus();
+        }
+    }
+
+    function openHistoryMenu(event, item, button, keyboard) {
+        if (busy || !ensureIdentity()) return;
+        event.preventDefault();
+        closeHistoryMenu(false);
+        menuConversation = { id: item.conversation_id, title: item.title, button: button };
+        button.setAttribute('aria-expanded', 'true');
+        historyMenu.hidden = false;
+        var rect = button.getBoundingClientRect();
+        var x = keyboard ? rect.left : event.clientX;
+        var y = keyboard ? rect.bottom : event.clientY;
+        historyMenu.style.left = Math.max(8, Math.min(x, window.innerWidth - historyMenu.offsetWidth - 8)) + 'px';
+        historyMenu.style.top = Math.max(8, Math.min(y, window.innerHeight - historyMenu.offsetHeight - 8)) + 'px';
+        historyDelete.focus();
+    }
+
+    historyDelete.addEventListener('click', async function () {
+        var target = menuConversation;
+        if (!target || busy || !ensureIdentity()) return;
+        closeHistoryMenu(true);
+        setBusy(true);
+        historyStatus.textContent = '正在删除咨询…';
+        try {
+            var nextHidden = new Set(hiddenHistory); nextHidden.add(target.id);
+            localStorage.setItem(hiddenHistoryKey, JSON.stringify(Array.from(nextHidden)));
+            hiddenHistory = nextHidden;
+            delete drafts[target.id];
+            var deletingCurrent = conversation && conversation.conversation_id === target.id;
+            if (!conversation) {
+                try {
+                    var saved = JSON.parse(sessionStorage.getItem(storageKey) || 'null');
+                    deletingCurrent = saved && saved.conversation_id === target.id;
+                } catch (error) { /* An invalid saved reference is not an active conversation. */ }
+            }
+            if (deletingCurrent) {
+                conversation = pending = null;
+                restoreBlocked = false;
+                olderCursor = null;
+                sessionTitle = '';
+                input.value = '';
+                messages.innerHTML = initialMessage;
+                sessionStorage.removeItem(storageKey);
+                conversationStatus.textContent = '可开始新咨询。';
+            }
+            historyList.querySelectorAll('[data-conversation-id]').forEach(function (row) {
+                if (row.dataset.conversationId === target.id) row.remove();
+            });
+            updateSession();
+            historyStatus.textContent = historyList.children.length ? '对话已移出列表。' :
+                (historyCursor ? '本页咨询已删除，可加载更多咨询。' : '还没有已保存的咨询。');
+        } catch (error) {
+            if (sameIdentity()) historyStatus.textContent = error.message || '删除失败，请稍后重试。';
+        } finally {
+            setBusy(false);
+            if (sameIdentity()) historyRefresh.focus();
+        }
+    });
+    historyMenu.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape' || event.key === 'Tab') {
+            if (event.key === 'Escape') event.preventDefault();
+            closeHistoryMenu(true);
+        }
+    });
+    document.addEventListener('pointerdown', function (event) {
+        if (!historyMenu.contains(event.target)) closeHistoryMenu(false);
+    });
+    window.addEventListener('resize', function () { closeHistoryMenu(false); });
+    document.addEventListener('scroll', function () { closeHistoryMenu(false); }, true);
 
     function updateSession() {
         currentLabel.textContent = conversation ? '当前咨询：' + (sessionTitle || '历史咨询') : '当前：新咨询';
@@ -236,6 +524,7 @@
         var draft = drafts[result.conversation_id];
         input.value = draft ? draft.text : '';
         pending = draft ? draft.pending : null;
+        selectedBundle = null;
         sessionStorage.setItem(storageKey, JSON.stringify(conversation));
         olderCursor = result.next_before_sequence || null;
         restoreBlocked = false;
@@ -269,11 +558,15 @@
             var result = await api(path);
             if (reset) historyList.textContent = '';
             result.conversations.forEach(function (item) {
+                if (hiddenHistory.has(item.conversation_id)) return;
                 if (Array.from(historyList.children).some(function (row) { return row.dataset.conversationId === item.conversation_id; })) return;
                 var button = document.createElement('button');
                 button.type = 'button';
                 button.className = 'bs-history-item';
                 button.dataset.conversationId = item.conversation_id;
+                button.setAttribute('aria-haspopup', 'menu');
+                button.setAttribute('aria-controls', 'bs-history-menu');
+                button.setAttribute('aria-expanded', 'false');
                 var title = document.createElement('strong');
                 title.textContent = item.title;
                 var detail = document.createElement('small');
@@ -281,6 +574,12 @@
                 button.appendChild(title);
                 button.appendChild(detail);
                 button.addEventListener('click', function () { switchConversation(item.conversation_id); });
+                button.addEventListener('contextmenu', function (event) { openHistoryMenu(event, item, button, false); });
+                button.addEventListener('keydown', function (event) {
+                    if (event.key === 'ContextMenu' || (event.shiftKey && event.key === 'F10')) {
+                        openHistoryMenu(event, item, button, true);
+                    }
+                });
                 historyList.appendChild(button);
             });
             historyCursor = result.next_cursor || null;
@@ -321,6 +620,7 @@
         try { saved = JSON.parse(sessionStorage.getItem(storageKey) || 'null'); }
         catch (error) { sessionStorage.removeItem(storageKey); return; }
         if (!saved || !saved.conversation_id) return;
+        if (hiddenHistory.has(saved.conversation_id)) { sessionStorage.removeItem(storageKey); return; }
         try {
             await loadConversation(saved.conversation_id);
         } catch (error) {
@@ -362,6 +662,7 @@
                 if (conversation) {
                     pending.conversation_id = conversation.conversation_id;
                     pending.expected_revision = conversation.revision;
+                    if (selectedBundle) pending.bundle_selection = Object.assign({}, selectedBundle);
                 }
             }
             var result = await api('chat/', 'POST', pending);
@@ -369,6 +670,7 @@
             conversation = { conversation_id: result.conversation_id, revision: result.revision };
             sessionStorage.setItem(storageKey, JSON.stringify(conversation));
             pending = null;
+            selectedBundle = null;
             showResult(waiting, result);
             updateSession();
             conversationStatus.textContent = '咨询已保存，可在“历史咨询”中找回。';
@@ -377,6 +679,13 @@
             if (!sameIdentity()) return;
             waiting.textContent = error.message || '网络连接失败，请稍后重试。';
             input.value = question;
+            conversationStatus.textContent = (error.errorCode || '').indexOf('MEMORY_STORAGE_') === 0 ?
+                '长期偏好服务异常；恢复后可继续当前咨询，无须新建对话。' :
+                '本轮未收到成功回复，可重试原问题或输入新问题。';
+            // Keep the ID only for uncertain network/5xx outcomes, so a retry
+            // can replay a possibly committed response without adding a turn.
+            if (error.status && error.status < 500) pending = null;
+            if (error.status === 404) selectedBundle = null;
             if (error.status === 409) {
                 pending = null;
                 try { await restoreConversation(); addMessage('会话已刷新，请重新发送问题。', 'assistant'); }
@@ -395,6 +704,7 @@
         saveDraft();
         conversation = null;
         pending = null;
+        selectedBundle = null;
         restoreBlocked = false;
         sessionStorage.removeItem(storageKey);
         messages.innerHTML = initialMessage;
@@ -458,5 +768,11 @@
         api('preferences/').then(function (result) { fillPreferences(result.preferences); })
             .catch(function (error) { preferenceStatus.textContent = error.message; });
     }
+    document.getElementById('currency-select').addEventListener('change', function () {
+        messages.querySelectorAll('[data-base-price]').forEach(function (node) {
+            node.textContent = shownMoney(node.dataset.basePrice, 'CNY') + ' · ' + node.dataset.category;
+        });
+        messages.querySelectorAll('.bs-bundles').forEach(function (node) { node.dispatchEvent(new Event('support-currency-change')); });
+    });
     updateSession();
 })();

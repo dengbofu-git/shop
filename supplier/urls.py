@@ -1,8 +1,14 @@
 from django.urls import path
 from . import views
 from . import store_views
+from .workbench import workbench_feed
+from .insights import supplier_insights
+from orders.checkout_views import reservation_policy
 
 urlpatterns = [
+    path('reservation-policy', reservation_policy),
+    path('insights', supplier_insights, name='supplier_insights'),
+    path('workbench-feed', workbench_feed, name='supplier_workbench_feed'),
     path('store-page', store_views.manage, name='merchant_store_config'),
     path('store-page/image', store_views.upload, name='merchant_store_image'),
     path('analytics', views.SupplierAnalyticsView.as_view(), name='supplier_analytics'),

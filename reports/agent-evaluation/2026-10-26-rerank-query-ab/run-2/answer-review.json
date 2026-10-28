@@ -1,0 +1,278 @@
+{
+  "reviewer": "Codex逐条对照本轮新答案、冻结语料和预先rubric审核；非独立专家复核。",
+  "note": "没有沿用run-1判定。核心正确不等于全文事实无误；共同语义收窄只记证据风险；引用ID有效不等于每条主张均被支持。",
+  "cases": [
+    {
+      "case_id": 1,
+      "arm": "A",
+      "core_correct": true,
+      "grounded": true,
+      "confirmed_factual_error": false,
+      "citation_valid": true,
+      "note": "本轮核心目标与所给证据一致；未发现明确附加事实错误。"
+    },
+    {
+      "case_id": 1,
+      "arm": "B",
+      "core_correct": true,
+      "grounded": true,
+      "confirmed_factual_error": false,
+      "citation_valid": true,
+      "note": "本轮核心目标与所给证据一致；未发现明确附加事实错误。"
+    },
+    {
+      "case_id": 2,
+      "arm": "A",
+      "core_correct": true,
+      "grounded": true,
+      "confirmed_factual_error": false,
+      "citation_valid": true,
+      "note": "本轮核心目标与所给证据一致；未发现明确附加事实错误。"
+    },
+    {
+      "case_id": 2,
+      "arm": "B",
+      "core_correct": true,
+      "grounded": true,
+      "confirmed_factual_error": false,
+      "citation_valid": true,
+      "note": "本轮核心目标与所给证据一致；未发现明确附加事实错误。"
+    },
+    {
+      "case_id": 3,
+      "arm": "A",
+      "core_correct": true,
+      "grounded": true,
+      "confirmed_factual_error": false,
+      "citation_valid": true,
+      "note": "本轮核心目标与所给证据一致；未发现明确附加事实错误。"
+    },
+    {
+      "case_id": 3,
+      "arm": "B",
+      "core_correct": true,
+      "grounded": true,
+      "confirmed_factual_error": false,
+      "citation_valid": true,
+      "note": "本轮核心目标与所给证据一致；未发现明确附加事实错误。"
+    },
+    {
+      "case_id": 4,
+      "arm": "A",
+      "core_correct": true,
+      "grounded": true,
+      "confirmed_factual_error": false,
+      "citation_valid": true,
+      "note": "本轮核心目标与所给证据一致；未发现明确附加事实错误。",
+      "format_note": "两臂均用阿拉伯语回答，偏离中文格式提示；事实核心评分不因该格式偏差判错。"
+    },
+    {
+      "case_id": 4,
+      "arm": "B",
+      "core_correct": true,
+      "grounded": true,
+      "confirmed_factual_error": false,
+      "citation_valid": true,
+      "note": "本轮核心目标与所给证据一致；未发现明确附加事实错误。",
+      "format_note": "两臂均用阿拉伯语回答，偏离中文格式提示；事实核心评分不因该格式偏差判错。"
+    },
+    {
+      "case_id": 5,
+      "arm": "A",
+      "core_correct": true,
+      "grounded": true,
+      "confirmed_factual_error": false,
+      "citation_valid": true,
+      "note": "本轮核心目标与所给证据一致；未发现明确附加事实错误。"
+    },
+    {
+      "case_id": 5,
+      "arm": "B",
+      "core_correct": true,
+      "grounded": true,
+      "confirmed_factual_error": false,
+      "citation_valid": true,
+      "note": "本轮核心目标与所给证据一致；未发现明确附加事实错误。"
+    },
+    {
+      "case_id": 6,
+      "arm": "A",
+      "core_correct": true,
+      "grounded": false,
+      "confirmed_factual_error": true,
+      "citation_valid": true,
+      "note": "核心资料缺口判断正确；附加数据将FAO对2013年的历史估计一并称为预测，混淆estimated2013与projected2023的数据性质。"
+    },
+    {
+      "case_id": 6,
+      "arm": "B",
+      "core_correct": true,
+      "grounded": false,
+      "confirmed_factual_error": true,
+      "citation_valid": true,
+      "note": "核心缺口或拒答正确；附加背景将片段53或51的black tea译为黑茶，应为红茶。第6题还把2013历史估计与2023预测合称预测。"
+    },
+    {
+      "case_id": 7,
+      "arm": "A",
+      "core_correct": true,
+      "grounded": false,
+      "confirmed_factual_error": true,
+      "citation_valid": true,
+      "note": "核心习俗和缺口正确；附加背景将片段53的black tea译为黑茶，应为红茶。"
+    },
+    {
+      "case_id": 7,
+      "arm": "B",
+      "core_correct": true,
+      "grounded": true,
+      "confirmed_factual_error": false,
+      "citation_valid": true,
+      "note": "本轮核心目标与所给证据一致；未发现明确附加事实错误。"
+    },
+    {
+      "case_id": 8,
+      "arm": "A",
+      "core_correct": true,
+      "grounded": true,
+      "confirmed_factual_error": false,
+      "citation_valid": true,
+      "note": "本轮核心目标与所给证据一致；未发现明确附加事实错误。"
+    },
+    {
+      "case_id": 8,
+      "arm": "B",
+      "core_correct": true,
+      "grounded": true,
+      "confirmed_factual_error": false,
+      "citation_valid": true,
+      "note": "本轮核心目标与所给证据一致；未发现明确附加事实错误。"
+    },
+    {
+      "case_id": 9,
+      "arm": "A",
+      "core_correct": true,
+      "grounded": true,
+      "confirmed_factual_error": false,
+      "citation_valid": true,
+      "note": "本轮核心目标与所给证据一致；未发现明确附加事实错误。"
+    },
+    {
+      "case_id": 9,
+      "arm": "B",
+      "core_correct": true,
+      "grounded": true,
+      "confirmed_factual_error": false,
+      "citation_valid": true,
+      "note": "本轮核心目标与所给证据一致；未发现明确附加事实错误。"
+    },
+    {
+      "case_id": 10,
+      "arm": "A",
+      "core_correct": true,
+      "grounded": true,
+      "confirmed_factual_error": false,
+      "citation_valid": true,
+      "note": "本轮核心目标与所给证据一致；未发现明确附加事实错误。"
+    },
+    {
+      "case_id": 10,
+      "arm": "B",
+      "core_correct": true,
+      "grounded": true,
+      "confirmed_factual_error": false,
+      "citation_valid": true,
+      "note": "本轮核心目标与所给证据一致；未发现明确附加事实错误。"
+    },
+    {
+      "case_id": 11,
+      "arm": "A",
+      "core_correct": true,
+      "grounded": true,
+      "confirmed_factual_error": false,
+      "citation_valid": true,
+      "note": "本轮核心目标与所给证据一致；未发现明确附加事实错误。"
+    },
+    {
+      "case_id": 11,
+      "arm": "B",
+      "core_correct": true,
+      "grounded": true,
+      "confirmed_factual_error": false,
+      "citation_valid": true,
+      "note": "本轮核心目标与所给证据一致；未发现明确附加事实错误。"
+    },
+    {
+      "case_id": 12,
+      "arm": "A",
+      "core_correct": true,
+      "grounded": false,
+      "confirmed_factual_error": false,
+      "citation_valid": true,
+      "note": "共同证据收窄风险：片段59只说有午晚餐场合可能稍后供应茶，答案写成餐后奉茶；不据此声称外部事实已证伪。"
+    },
+    {
+      "case_id": 12,
+      "arm": "B",
+      "core_correct": true,
+      "grounded": false,
+      "confirmed_factual_error": false,
+      "citation_valid": true,
+      "note": "共同证据收窄风险：片段59只说有午晚餐场合可能稍后供应茶，答案写成餐后奉茶；不据此声称外部事实已证伪。"
+    },
+    {
+      "case_id": 13,
+      "arm": "A",
+      "core_correct": true,
+      "grounded": true,
+      "confirmed_factual_error": false,
+      "citation_valid": true,
+      "note": "本轮核心目标与所给证据一致；未发现明确附加事实错误。"
+    },
+    {
+      "case_id": 13,
+      "arm": "B",
+      "core_correct": true,
+      "grounded": false,
+      "confirmed_factual_error": true,
+      "citation_valid": true,
+      "note": "拒答核心正确；附加背景把片段53/51的black tea误译为黑茶，应为红茶。"
+    },
+    {
+      "case_id": 14,
+      "arm": "A",
+      "core_correct": true,
+      "grounded": true,
+      "confirmed_factual_error": false,
+      "citation_valid": true,
+      "note": "本轮核心目标与所给证据一致；未发现明确附加事实错误。"
+    },
+    {
+      "case_id": 14,
+      "arm": "B",
+      "core_correct": false,
+      "grounded": true,
+      "confirmed_factual_error": false,
+      "citation_valid": true,
+      "note": "忠实说明当前输入证据不足，但未完成原本可回答的目标；候选74被排到第3并在来源优先规则中挤掉。"
+    },
+    {
+      "case_id": 15,
+      "arm": "A",
+      "core_correct": true,
+      "grounded": true,
+      "confirmed_factual_error": false,
+      "citation_valid": true,
+      "note": "本轮核心目标与所给证据一致；未发现明确附加事实错误。"
+    },
+    {
+      "case_id": 15,
+      "arm": "B",
+      "core_correct": true,
+      "grounded": true,
+      "confirmed_factual_error": false,
+      "citation_valid": true,
+      "note": "本轮核心目标与所给证据一致；未发现明确附加事实错误。"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "answer-rubric.json": "648642acdfd281fc4f66be2075810e1789753806bbb5f6ed96509ff2ce550921",
+  "answer-scores.json": "23571ca78df2305fbf7857c254c0f08a7c8d4dd6f3de4c91f58154658d765ad5",
+  "candidate-scores.json": "31a95b2971c5cdd9a8ace8349d8a365be335fb7200ca5fe59713bc88002b7dbb",
+  "cleanup.json": "f2c0d3dbfcc21cb72fc25a9c8df4274f2894dc37c3bc06b78dfd59b5183cac6f",
+  "corpus-stats.json": "2b300197f2d99c74323e8a224eaf3a2a3b9db567603ad88a06380dfa06ec5534",
+  "environment.json": "56e074b732fd82e1d445b4f76d34eba52ac5cd99942024445745baec62218831",
+  "gold.json": "0f4eb17d23350baf38a3b5935869e81b67cf252499bc5fb299ab22f4ae6b76dd",
+  "manifest.json": "7ee9684589240cc1d23ab397e3c32d47c72ebd631153cd1a4a61550418213473",
+  "ocr-numeric-cells.json": "3dd918adf08eabe8437c7e439a0c21ee635db861442ab91b897f085af3913cda",
+  "pilot-rerank-summary.json": "aae7b8602eca90f14ae4a09cb3e2587df1e63fdc610cfea9c3e3a348d2bc0a85",
+  "plan.json": "904335699e78647e92bb84c0cae5d0eb5614f83b1c250a32b2fb51341d67c0e8",
+  "query-variants.json": "58fabb32df1c872f17555b12e63e1252785b4f89fc1fe9e1e945c8ee8cc43502",
+  "questions.json": "03fdbe1c6597a4afa7c289ef197397509016913724547ae42a901433e0bd44f1",
+  "rerank-diagnostic-summary.json": "a361c2b5b4b8fef3e6c6cf18fd784b1d85695d3e050263b6605b49206515b475",
+  "results.json": "8f24d0f57f17729c270f0e580f2ec06965da49631d6af1743fe5ff21c7327b3d",
+  "retrieval-scores.json": "6e12a634a65b08c082364307eaaaf2424285d463acdd0e726df0455247645bf7"
+}

@@ -1,0 +1,50 @@
+{
+  "groups": {
+    "json": {
+      "chunks": 9,
+      "tokens": 558,
+      "median_tokens": 60,
+      "max_tokens": 73,
+      "characters": 2146
+    },
+    "common": {
+      "chunks": 41,
+      "tokens": 3381,
+      "median_tokens": 80,
+      "max_tokens": 122,
+      "characters": 14190
+    },
+    "native": {
+      "chunks": 42,
+      "tokens": 10892,
+      "median_tokens": 248.5,
+      "max_tokens": 500,
+      "characters": 43378
+    },
+    "ocr": {
+      "chunks": 26,
+      "tokens": 11710,
+      "median_tokens": 469.5,
+      "max_tokens": 499,
+      "characters": 43517
+    },
+    "paragraph": {
+      "chunks": 59,
+      "tokens": 10339,
+      "median_tokens": 138,
+      "max_tokens": 495,
+      "characters": 41014
+    },
+    "fixed": {
+      "chunks": 24,
+      "tokens": 11810,
+      "median_tokens": 500.0,
+      "max_tokens": 501,
+      "characters": 46896
+    }
+  },
+  "parse_seconds": {
+    "native": 8.085,
+    "ocr": 57.072
+  }
+}

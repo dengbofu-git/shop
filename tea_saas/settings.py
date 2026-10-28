@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'users',
     'carts',
     'orders',
+    'engagement.apps.EngagementConfig',
     'pays',
     'news',
     'inventory',
@@ -83,6 +84,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'tea_saas.currency.template_context',
             ],
         },
     },
@@ -101,6 +103,7 @@ DATABASES = {
         'HOST': os.environ['DB_HOST'],
         'PORT': int(os.environ['DB_PORT']),
         'NAME': os.environ['DB_NAME'],
+        'OPTIONS': {'charset': 'utf8mb4'},
     }
 }
 DATABASES['ai_storage'] = {
@@ -206,11 +209,17 @@ SUPPORT_THINKING = os.environ.get('SUPPORT_THINKING', '')
 SUPPORT_RAG_QUERY_ENABLED = os.getenv('SUPPORT_RAG_QUERY_ENABLED', 'true').lower() == 'true'
 SUPPORT_RAG_QUERY_LANGUAGES = tuple(v.strip() for v in os.getenv('SUPPORT_RAG_QUERY_LANGUAGES', 'zh,en').split(',') if v.strip())
 SUPPORT_RAG_MAX_QUERIES = int(os.getenv('SUPPORT_RAG_MAX_QUERIES', '4'))
-SUPPORT_RAG_REWRITE_CALLS = int(os.getenv('SUPPORT_RAG_REWRITE_CALLS', '2'))
+SUPPORT_RAG_REWRITE_CALLS = int(os.getenv('SUPPORT_RAG_REWRITE_CALLS', '1'))
 SUPPORT_RAG_REWRITE_TIMEOUT = float(os.getenv('SUPPORT_RAG_REWRITE_TIMEOUT', '5'))
 SUPPORT_RAG_RETRY_ENABLED = os.getenv('SUPPORT_RAG_RETRY_ENABLED', 'true').lower() == 'true'
 SUPPORT_RAG_BUDGET_SECONDS = float(os.getenv('SUPPORT_RAG_BUDGET_SECONDS', '25'))
 SUPPORT_RAG_WEAK_SCORE = float(os.getenv('SUPPORT_RAG_WEAK_SCORE', '0.1'))
+SUPPORT_RAG_HYBRID_ENABLED = os.getenv('SUPPORT_RAG_HYBRID_ENABLED', 'true').lower() == 'true'
+SUPPORT_RAG_RERANK_CANDIDATES = int(os.getenv('SUPPORT_RAG_RERANK_CANDIDATES', '20'))
+SUPPORT_RAG_CACHE_ENABLED = os.getenv('SUPPORT_RAG_CACHE_ENABLED', 'true').lower() == 'true'
+SUPPORT_RAG_CACHE_TTL = int(os.getenv('SUPPORT_RAG_CACHE_TTL', '300'))
+SUPPORT_RAG_SINGLE_CONTEXT_CHARS = int(os.getenv('SUPPORT_RAG_SINGLE_CONTEXT_CHARS', '3000'))
+SUPPORT_RAG_MULTI_CONTEXT_CHARS = int(os.getenv('SUPPORT_RAG_MULTI_CONTEXT_CHARS', '8000'))
 ADMIN_INITIAL_PASSWORD = os.environ['ADMIN_INITIAL_PASSWORD']
 # Compatibility only for the immutable users/0007 data migration; no active feature.
 CUSTOMS_INITIAL_PASSWORD = os.environ.get('CUSTOMS_INITIAL_PASSWORD', ADMIN_INITIAL_PASSWORD)

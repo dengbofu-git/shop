@@ -77,7 +77,14 @@
     font-weight: 600;
 }
 
-.nav-icon {
+.buyer-sidebar .nav-icon {
+    display: inline-flex;
+    flex: 0 0 24px;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    line-height: 1;
     font-size: 18px;
 }
 
@@ -177,7 +184,7 @@
 
 .topbar-logo {
     border-radius: 8px;
-    object-fit: cover;
+    object-fit: contain;
 }
 
 .topbar-tools {
@@ -260,13 +267,6 @@
 }
 
 .cart-page .topbar-link[href="cart.html"] {
-    color: var(--buyer-primary);
-    font-weight: 600;
-}
-
-.buyer-account-page .user-item[href="buyer_profile.html"],
-.buyer-account-page .user-item[href="buyer_password.html"] {
-    background: rgba(26, 93, 26, 0.08);
     color: var(--buyer-primary);
     font-weight: 600;
 }

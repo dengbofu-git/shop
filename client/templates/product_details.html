@@ -16,7 +16,8 @@
 {% include "shared/system_theme.html" %}
     <link rel="stylesheet" href="/static/css/product-detail-content.css?v=20261018-detail-theme">
     <link rel="stylesheet" href="/static/css/store-pages.css?v=1">
-    <script src="/static/js/storefront.js?v=1"></script>
+    <link rel="stylesheet" href="/static/css/product-detail-summary.css?v=20261022-quantity">
+    <script src="/static/js/storefront.js?v=20261022-cny"></script>
 </head>
 
 <body class="ds-page-product_details ds-theme buyer-workbench product-detail-page storefront-page" id="buyer-body">
@@ -55,7 +56,7 @@
             <!-- <h3></h3>-->
             <!-- 价格部分-->
             <div class="price">
-                <div id="pro_price"><b>地标茶价：</b><span>¥299</span></div>
+                <div id="pro_price"><b>参考价格：</b><span id="detail-price-value">—</span></div>
                 <div class="promise">
                     <b>服务承诺：</b>
                     <span>*退货补运费</span>
@@ -78,19 +79,22 @@
             <!-- 未选择规格，颜色时状态-->
             <div class="message"></div>
             <!-- 数量-->
-            <p class="accountChose">
-                <s>数量：</s>
-                <button type="button" class="numberMinus">-</button>
-                <input type="text" value="1" class="number" id="buy-num" readonly>
-                <button type="button" class="numberAdd">+</button>
-                <span id="stock-info" class="stock-info" style="margin-left:12px;color:#666;"></span>
-            </p>
+            <div class="accountChose">
+                <label for="buy-num" id="detail-quantity-label">数量：</label>
+                <div class="detail-quantity" role="group" aria-labelledby="detail-quantity-label">
+                    <button type="button" class="numberMinus" id="detail-quantity-minus" aria-label="减少数量" disabled>−</button>
+                    <input type="text" value="1" class="number" id="buy-num" inputmode="numeric" pattern="[0-9]*" maxlength="12" autocomplete="off" role="spinbutton" aria-label="购买数量" aria-valuemin="1" aria-describedby="stock-info" disabled>
+                    <button type="button" class="numberAdd" id="detail-quantity-plus" aria-label="增加数量" disabled>+</button>
+                </div>
+                <span id="stock-info" class="stock-info"></span>
+            </div>
             <!-- 购买部分-->
             <div class="shops">
                 <a href="#" class="buy lf" id="buy_now">立即购买</a>
                 <a href="#" class="shop lf" id="add_cart">加入购物车</a>
             </div>
             <div class="detail-favorite">
+                <a id="eng-contact" class="eng-card" href="buyer_messages.html" data-eng-text="contact">联系商家</a>
                 <button type="button" id="favorite-toggle" aria-pressed="false" disabled>收藏商品</button>
                 <span id="favorite-message" role="status" aria-live="polite"></span>
             </div>
@@ -104,7 +108,7 @@
     <section id="iteminfo" aria-label="商品详细信息">
         <nav class="detail-tabs" aria-label="商品详情导航">
             <a class="detail-tab active" href="#specification_parameter" aria-current="location">商品详情</a>
-            <a class="detail-tab" href="lookforward.html">商品评价</a>
+            <a class="detail-tab" href="#eng-product-reviews" data-eng-text="reviews">商品评价</a>
             <a class="detail-back-top" href="#buyer-body">返回顶部 ↑</a>
         </nav>
         <div class="detail-content-layout">
@@ -117,6 +121,7 @@
                     <h2 id="introduction-title">商品介绍</h2>
                     <div id="product_intro_content"><!-- 由接口数据动态填充 --></div>
                 </section>
+                {% include 'shared/product_reviews.html' %}
                 <section id="sale_protection" class="detail-section" aria-labelledby="protection-title">
                     <h2 id="protection-title">售后保障</h2>
                     <div class="detail-service">
@@ -168,9 +173,10 @@
         </div>
     </div>
     <script src="/static/js/jquery-3.1.1.min.js"></script>
-    <script src="/static/js/buyer-workbench.js?v=20261020-store-pages"></script>
+    <script src="/static/js/buyer-workbench.js?v=20261022-account-menu"></script>
     <script src="/static/js/lozad.js"></script>
-    <script src="/static/js/buyer-activity.js?v=20261018-platform-name"></script>
+    <script src="/static/js/buyer-activity.js?v=20261022-cny"></script>
+    <script src="/static/js/product-detail-summary.js?v=20261022-cny"></script>
     <script>
         $(function() {
           (function ($) {
@@ -227,9 +233,9 @@
                     // 商品名称用 SPU 名称，规格/副标题用 SKU 名称和 caption
                     var productName = result.data.product_name || result.data.spu_name || result.data.name;
                     var specDesc = result.data.name + (result.data.caption ? ' ' + result.data.caption : '');
-                    $('.right_detail').children('h1').html(productName);
-                    $('.right_detail').children('h3').html(specDesc);
-                    $('#pro_price').children('span').html(result.data.price);
+                    $('.right_detail').children('h1').text(productName);
+                    $('.right_detail').children('h3').text(specDesc);
+                    window.ProductDetailSummary.render(result.data);
                     var stock = result.data.stock != null ? result.data.stock : 0;
                     window._detailStock = stock;
                     $('#stock-info').html('库存：' + stock + ' 件').show();
@@ -237,25 +243,6 @@
 
 
                     $('#shop_detail').attr('data-id',result.data.spu);
-
-                    var html = '';
-                    var attr_names = result.data.sku_sale_attr_names;
-                    var attr_id = result.data.sku_sale_attr_id;
-                    var sale_attr_id = result.data.sku_sale_attr_val_id;
-                    var all_sale_attr_id = result.data.sku_all_sale_attr_vals_id;
-                    var all_attr_names = result.data.sku_all_sale_attr_vals_name;
-                    for(var i=0;i<attr_names.length;i++){
-                    html += '<p class="style"><s class="spu_name" data-id='+attr_id[i]+'>'+attr_names[i]+'：</s>'
-                        for (var j=0;j<all_attr_names[attr_id[i]].length;j++){
-                            if (sale_attr_id[i] == all_sale_attr_id[attr_id[i]][j]){
-                               html += '<input type="button" data-id='+all_sale_attr_id[attr_id[i]][j]+' class="spu_check spu_value l'+i+'" value='+all_attr_names[attr_id[i]][j]+' title='+all_attr_names[attr_id[i]][j]+' />'
-                            }else {
-                                html += '<input type="button" data-id='+all_sale_attr_id[attr_id[i]][j]+' class="spu_value l'+i+'" value='+all_attr_names[attr_id[i]][j]+' title='+all_attr_names[attr_id[i]][j]+' />'
-                            }
-                        }
-                        html += '</p>'
-                    }
-                    $('#sku').html(html);
 
                     // 规格参数：使用真实数据
                     var specList = result.data.spec_list || [];
@@ -274,7 +261,7 @@
                     console.log( err)
                }
             }).then(() => {
-               $('.l0,.l1').click(function(){
+               $('#sku button.spu_value').click(function(){
 
                    $(this).addClass("spu_check");
                    $(this).siblings().removeClass("spu_check");
@@ -303,7 +290,6 @@
 							location.href = 'login.html'
 						}
                            if (result.code==200) {
-                               alert('product_details.html?skuid=' + result.data);
                                location.href = 'product_details.html?skuid=' + result.data
                            }
                            else {
@@ -331,33 +317,10 @@
                     })
                 })
             });
-        $(document).on('click', '.numberMinus', function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-            var $input = $(".accountChose input.number, #buy-num").first();
-            var n = parseInt($input.val(), 10);
-            if (isNaN(n) || n < 1) n = 1;
-            var minQty = 1;
-            if (typeof window._detailStock !== 'undefined' && window._detailStock === 0) minQty = 0;
-            if (n > minQty) $input.val(n - 1);
-        });
-        $(document).on('click', '.numberAdd', function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-            var $input = $(".accountChose input.number, #buy-num").first();
-            var n = parseInt($input.val(), 10);
-            if (isNaN(n) || n < 0) n = 0;
-            var maxStock = 999;
-            if (typeof window._detailStock !== 'undefined' && window._detailStock != null) maxStock = window._detailStock;
-            if (maxStock === 0) maxStock = 1;
-            if (n < maxStock) $input.val(n + 1);
-        });
-
-
         $(document).on('click', '#add_cart', function (e) {
             e.preventDefault();
             e.stopPropagation();
-            var buyNum = parseInt($(".accountChose input.number, #buy-num").first().val(), 10) || 0;
+            var buyNum = window.ProductDetailSummary.quantity();
             if (buyNum < 1) {
                 alert('请至少选择 1 件商品');
                 return;
@@ -421,7 +384,7 @@
                         var valueArr = [];
                         $(".spu_value").each(function() {
                              if ($(this).hasClass('spu_check')){
-                                valueArr.push($(this).val());
+                                valueArr.push($(this).attr('data-value') || $(this).val());
                             }
                         });
                         var sku_data = {
@@ -429,7 +392,8 @@
                             count: $(".accountChose input.number, #buy-num").first().val(),
                             name: $('.right_detail').children('h3').html(),
                             default_image_url:$('#mImg').attr('src').replace(imgUrl,''),
-			                price:parseInt($('#pro_price').children('span').html()) ,
+                            price:window.ProductDetailSummary.basePrice(),
+                            unit_price:window.ProductDetailSummary.basePrice(),
                             selected: true,
                             sku_sale_attr_name:nameArr,
                             sku_sale_attr_val:valueArr
@@ -482,7 +446,7 @@
         $(document).on('click', '#buy_now', function(e){
             e.preventDefault();
             e.stopPropagation();
-            var buyNum = parseInt($(".accountChose input.number, #buy-num").first().val(), 10) || 0;
+            var buyNum = window.ProductDetailSummary.quantity();
             if (buyNum < 1) {
                 alert('请至少选择 1 件商品');
                 return;
@@ -502,5 +466,6 @@
     </script>
 
 
+<script defer src="/static/js/engagement-product-reviews.js?v=20261021"></script>
 </body>
 </html>

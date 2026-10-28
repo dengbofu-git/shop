@@ -1,9 +1,11 @@
 <link rel="stylesheet" href="/static/css/buyer-favorites.css?v=20261018-procurement-grid5">
+<link rel="stylesheet" href="/static/css/buyer-account-menu.css?v=20261022-menu">
 <script defer src="/static/js/buyer-favorites.js?v=20261018-trace-disabled"></script>
+{% include 'shared/engagement_assets.html' %}
 <header class="buyer-topbar" id="buyer-topbar">
     <div class="topbar-row topbar-row-main">
         <a class="topbar-brand" href="buyer_dashboard.html" title="tea_saas">
-            <img src="/static/images/header/logo.png" alt="" class="topbar-logo" width="36" height="36">
+            <img src="/static/images/tea_saas/tea_saas-logo.png" alt="" class="topbar-logo" width="36" height="36">
             <span class="topbar-brand-text" data-i18n="brand_name">tea_saas</span>
         </a>
         <a href="https://wa.me/8613800138000" class="whatsapp-btn" target="_blank" rel="noopener" data-i18n="whatsapp_lbl">💬 WhatsApp 客服</a>
@@ -21,13 +23,11 @@
             <a href="recent.html" class="topbar-link topbar-ico" id="link-recent" title="最近浏览">👁️ <span data-i18n="recent">最近浏览</span></a>
             <a href="cart.html" class="topbar-link topbar-ico" title="采购车">🛒 <span data-i18n="cart">采购车</span> <span class="cart-badge my_cart_count" id="cart-count">0</span></a>
             <div class="user-menu" id="user-menu">
-                <button type="button" class="user-trigger" id="user-trigger" aria-haspopup="true" aria-expanded="false" title="账户">
+                <button type="button" class="user-trigger" id="user-trigger" aria-haspopup="menu" aria-controls="user-dropdown" aria-expanded="false" title="账户">
                     <span class="user-av">👤</span>
                 </button>
-                <div class="user-dropdown" id="user-dropdown" style="display:none;" role="menu">
+                <div class="user-dropdown" id="user-dropdown" aria-labelledby="user-trigger" aria-hidden="true" inert role="menu">
                     <a href="buyer_profile.html" class="user-item" role="menuitem" data-i18n="menu_personal">个人信息</a>
-                    <a href="buyer_products.html" class="user-item" role="menuitem" data-i18n="nav_procure">商品采购</a>
-                    <a href="buyer_orders.html" class="user-item" role="menuitem" data-i18n="nav_orders">我的订单</a>
                     <a href="buyer_password.html" class="user-item" role="menuitem" data-i18n="menu_settings">账户设置</a>
                     <a href="#" class="user-item user-item-danger" id="buyer-btn-logout" role="menuitem" data-i18n="menu_logout">退出登录</a>
                 </div>

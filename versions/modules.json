@@ -3,7 +3,7 @@
   "modules": {
     "core": {
       "title": "项目核心",
-      "version": "0.5.0",
+      "version": "0.7.1",
       "paths": [
         "README.md",
         "CONTEXT.md",
@@ -30,7 +30,7 @@
     },
     "users": {
       "title": "用户与权限",
-      "version": "0.3.0",
+      "version": "0.4.1",
       "paths": [
         "users/",
         "versions/changelogs/users.md"
@@ -41,15 +41,15 @@
     },
     "goods": {
       "title": "商品管理",
-      "version": "0.5.0",
+      "version": "0.6.2",
       "paths": [
         "goods/",
-        "goods_data.json",
         "media/",
         "docs/虚拟商品数据.md",
         "reports/virtual-products/",
         "reports/tea-images/",
-        "versions/changelogs/goods.md"
+        "versions/changelogs/goods.md",
+        "reports/archive/legacy-catalog/"
       ],
       "dependencies": [
         "core",
@@ -60,7 +60,7 @@
     },
     "carts": {
       "title": "购物车",
-      "version": "0.1.2",
+      "version": "0.2.0",
       "paths": [
         "carts/",
         "versions/changelogs/carts.md"
@@ -68,12 +68,13 @@
       "dependencies": [
         "core",
         "users",
-        "goods"
+        "goods",
+        "inventory"
       ]
     },
     "orders": {
       "title": "订单管理",
-      "version": "0.1.7",
+      "version": "0.4.2",
       "paths": [
         "orders/",
         "versions/changelogs/orders.md"
@@ -81,12 +82,14 @@
       "dependencies": [
         "core",
         "users",
-        "goods"
+        "goods",
+        "engagement",
+        "inventory"
       ]
     },
     "pays": {
       "title": "支付",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "paths": [
         "pays/",
         "app_key/",
@@ -99,7 +102,7 @@
     },
     "news": {
       "title": "内容资讯",
-      "version": "0.1.1",
+      "version": "0.1.2",
       "paths": [
         "news/",
         "versions/changelogs/news.md"
@@ -111,7 +114,7 @@
     },
     "inventory": {
       "title": "库存管理",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "paths": [
         "inventory/",
         "versions/changelogs/inventory.md"
@@ -124,7 +127,7 @@
     },
     "logistics": {
       "title": "物流",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "paths": [
         "logistics/",
         "versions/changelogs/logistics.md"
@@ -137,7 +140,7 @@
     },
     "supplier": {
       "title": "商家与结算",
-      "version": "0.3.0",
+      "version": "0.4.1",
       "paths": [
         "supplier/",
         "versions/changelogs/supplier.md"
@@ -147,7 +150,9 @@
         "users",
         "goods",
         "orders",
-        "inventory"
+        "inventory",
+        "logistics",
+        "engagement"
       ]
     },
     "admin_panel": {
@@ -166,10 +171,11 @@
     },
     "support_ai": {
       "title": "智能客服",
-      "version": "0.12.4",
+      "version": "0.23.1",
       "paths": [
         "support_ai/",
         "docs/客服商品推荐设计.md",
+        "docs/sdd/modules/ai-support/total-budget-recommendation.md",
         "docs/Agent监控与模型设置.md",
         "docs/Agent多轮对话.md",
         "docs/Agent任务模板与对照评测.md",
@@ -208,7 +214,7 @@
     },
     "ai_storage": {
       "title": "AI 记忆与知识存储",
-      "version": "0.3.3",
+      "version": "0.7.0",
       "paths": [
         "ai_storage/",
         "deploy/postgres/",
@@ -218,6 +224,12 @@
         "versions/changelogs/ai_storage.md",
         "compose.reranker.yml",
         "deploy/reranker/",
+        "deploy/knowledge-worker/",
+        "compose.knowledge-worker.yml",
+        "compose.knowledge-paddleocr.yml",
+        "compose.paddleocr.yml",
+        "deploy/paddleocr/",
+        "docs/sdd/modules/ai-support/pdf-ingestion.md",
         "docs/本地重排序.md"
       ],
       "dependencies": [
@@ -227,7 +239,7 @@
     },
     "web": {
       "title": "页面与前端资源",
-      "version": "0.23.2",
+      "version": "0.31.8",
       "paths": [
         "client/",
         "templates/",
@@ -247,7 +259,22 @@
         "supplier",
         "admin_panel",
         "support_ai",
-        "merchant_ai"
+        "merchant_ai",
+        "engagement"
+      ]
+    },
+    "engagement": {
+      "title": "站内咨询与商品评价",
+      "version": "0.2.1",
+      "paths": [
+        "engagement/",
+        "versions/changelogs/engagement.md"
+      ],
+      "dependencies": [
+        "core",
+        "users",
+        "goods",
+        "orders"
       ]
     }
   }

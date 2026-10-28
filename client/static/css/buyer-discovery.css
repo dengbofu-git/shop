@@ -1,0 +1,28 @@
+/* Discovery and procurement share tokens, but have distinct information density. */
+.buyer-workbench .tea-discovery { margin: 32px 0 38px; }
+.buyer-workbench .tea-guide-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(135px, 1fr)); gap: 16px; }
+.buyer-workbench .tea-guide { display: flex; align-items: center; gap: 14px; padding: 14px; background: var(--surface, #fff); border: 1px solid var(--border, #dce7df); border-radius: 14px; color: var(--buyer-primary, #185c3d); text-decoration: none; font-weight: 600; transition: border-color .2s, transform .2s; }
+.buyer-workbench .tea-guide img { width: 56px; height: 56px; object-fit: cover; border-radius: 50%; }
+.buyer-workbench .tea-guide:hover { transform: translateY(-3px); border-color: #7fa58b; }
+.buyer-workbench .tea-guide:focus-visible, .buyer-workbench .procurement-pagination button:focus-visible { outline: 3px solid #7fa58b; outline-offset: 3px; }
+.buyer-workbench .procurement-heading { margin: 8px 0 28px; }
+.buyer-workbench .procurement-eyebrow { color: var(--buyer-primary, #185c3d); letter-spacing: .16em; font-size: 12px; }
+.buyer-workbench .procurement-heading h1 { font-size: clamp(26px, 2.2vw, 36px); margin: 8px 0 12px; }
+.buyer-workbench .procurement-heading > p:last-child, .buyer-workbench .procurement-note { color: #607669; line-height: 1.7; }
+.buyer-workbench .procurement-filters { padding: 22px; border: 1px solid var(--border, #dce7df); background: var(--surface, #fff); border-radius: 16px; }
+.buyer-workbench .procurement-filters fieldset { border: 0; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; min-width: 0; }
+.buyer-workbench .procurement-filters label { display: flex; flex-direction: column; gap: 8px; font-size: 13px; min-width: 0; }
+.buyer-workbench .procurement-filters input, .buyer-workbench .procurement-filters select { width: 100%; min-width: 0; box-sizing: border-box; height: 42px; padding: 8px 12px; border: 1px solid #cadbd0; background: var(--surface, #fff); color: inherit; border-radius: 8px; font: inherit; }
+.buyer-workbench .procurement-keyword, .buyer-workbench .procurement-store { grid-column: span 2; }
+.buyer-workbench .procurement-filter-actions { display: flex; align-items: end; gap: 10px; }
+.buyer-workbench .procurement-filter-actions button { min-height: 42px; margin: 0; }
+.buyer-workbench .procurement-note { font-size: 13px; margin: 14px 0 20px; }
+.buyer-workbench #procurement-results { scroll-margin-top: 95px; }
+.buyer-workbench .procurement-pagination:not([hidden]) { display: flex; gap: 10px; align-items: center; justify-content: center; flex-wrap: wrap; padding: 28px 0; }
+.buyer-workbench .procurement-pagination button[aria-current="page"] { background: #185c3d; color: #fff; border-color: #185c3d; }
+.buyer-workbench .procurement-pagination button:disabled { opacity: .45; cursor: default; }
+.buyer-workbench #procurement-empty { padding: 52px 24px; text-align: center; background: var(--surface, #fff); border-radius: 16px; }
+.buyer-workbench .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+@media (max-width: 1100px) { .buyer-workbench .procurement-filters fieldset { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 600px) { .buyer-workbench .procurement-filters { padding: 16px; } .buyer-workbench .procurement-filters fieldset { grid-template-columns: minmax(0, 1fr); } .buyer-workbench .procurement-keyword, .buyer-workbench .procurement-store { grid-column: auto; } .buyer-workbench .tea-guide-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; } .buyer-workbench .tea-guide { flex-direction: column; gap: 8px; } }
+@media (prefers-reduced-motion: reduce) { .buyer-workbench .tea-guide { transition: none; } .buyer-workbench .tea-guide:hover { transform: none; } }

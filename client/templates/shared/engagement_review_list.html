@@ -1,0 +1,11 @@
+<div class="eng-heading"><h1 data-eng-text="{% if review_role == 'buyer' %}orderReview{% else %}reviews{% endif %}">商品评价</h1><div class="eng-languages"><button type="button" data-eng-lang="zh">中文</button><button type="button" data-eng-lang="en">EN</button><button type="button" data-eng-lang="ar">العربية</button><button type="button" id="eng-refresh" data-eng-text="refresh">刷新</button></div></div>
+{% if review_role == 'buyer' %}<a class="eng-toolbar" href="buyer_orders.html" data-eng-text="backOrders">返回我的订单</a>{% endif %}
+<form class="eng-toolbar" id="eng-filters"{% if review_role == 'buyer' %} hidden{% endif %}>
+    <input type="search" id="eng-query" data-eng-placeholder="query" aria-label="搜索商品或评价内容" maxlength="200">
+    <select id="eng-rating" aria-label="评分筛选"><option value="" data-eng-text="allRatings">全部星级</option><option value="5">5 ★</option><option value="4">4 ★</option><option value="3">3 ★</option><option value="2">2 ★</option><option value="1">1 ★</option></select>
+    <label{% if review_role != 'merchant' %} hidden{% endif %}><input type="checkbox" id="eng-unreplied"><span data-eng-text="unreplied">仅未回复</span></label>
+    <label{% if review_role != 'platform' %} hidden{% endif %}><input type="checkbox" id="eng-reported"><span data-eng-text="reports">举报记录</span></label>
+    <button type="submit" data-eng-text="refresh">刷新</button>
+</form>
+<p class="eng-status" id="eng-status" role="status" aria-live="polite"></p>
+<section class="eng-panel" id="eng-review-list" aria-label="评价列表"></section><nav class="eng-pager" id="eng-pager" aria-label="评价分页"></nav>

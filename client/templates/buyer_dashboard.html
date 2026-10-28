@@ -13,7 +13,8 @@
 {% include "shared/system_theme.html" %}
     <link href="../static/css/buyer-carousel.css?v=20261020-immersive" rel="stylesheet">
     <link rel="stylesheet" href="/static/css/store-pages.css?v=1">
-    <script src="/static/js/storefront.js?v=1"></script>
+    <link rel="stylesheet" href="/static/css/buyer-discovery.css?v=20261020-discovery">
+    <script src="/static/js/storefront.js?v=20261022-cny"></script>
 </head>
 <body class="ds-page-buyer_dashboard ds-theme buyer-workbench" id="buyer-body">
     <div class="buyer-layout">
@@ -40,14 +41,18 @@
                     <span class="carousel-hint" id="buyer-carousel-hint" data-carousel-hint>自动展示精选茶品，悬停或聚焦暂停，可用左右方向键或横滑切换。</span>
                 </section>
 
-                <!-- 商品分类 + 商品卡片 -->
+                <section class="tea-discovery" aria-labelledby="tea-discovery-title">
+                    <h2 class="section-title-inline" id="tea-discovery-title" data-i18n="section_categories">从一类茶开始</h2>
+                    <p class="section-lead muted" data-i18n="section_categories_sub">发现不同茶类，进入商品采购查看对应茶品。</p>
+                    <div class="tea-guide-grid" id="featured-tea-tabs"></div>
+                </section>
+
+                <!-- 固定精选，完整目录由商品采购承载 -->
                 <section class="products-section" id="buyer-featured">
                     <div class="section-head">
                         <h2 class="section-title-inline" data-i18n="section_featured">精选商品</h2>
                     </div>
-                    <p class="section-lead muted" data-i18n="section_featured_sub">按茶类浏览在售商品，每页10件，可翻页查看全部商品。</p>
-                    <div class="tea-type-row" id="featured-tea-tabs" role="group" aria-label="tea categories"></div>
-                    <p class="muted featured-summary" id="featured-summary" role="status" aria-live="polite"></p>
+                    <p class="section-lead muted" data-i18n="section_featured_sub">从不同茶类均衡选取10件在售茶品，发现下一款好茶。</p>
                     <p class="grid-empty" id="product-grid-empty" style="display:none;" data-i18n="grid_empty">该茶类暂无可售商品，请查看其他分类。</p>
                     <p class="grid-area-msg" id="product-grid-msg" style="display:none;" data-i18n="grid_loading_err">无法加载茶类商品，请检查网络或重新加载。</p>
                     <button type="button" class="tea-tab" id="featured-retry" hidden data-i18n="grid_retry">重新加载</button>
@@ -56,7 +61,6 @@
                             <p class="muted" data-i18n="grid_loading">正在加载精选商品…</p>
                         </div>
                     </div>
-                    <nav class="featured-pagination" id="featured-pagination" aria-label="商品分页" hidden></nav>
                 </section>
 
                 <footer class="buyer-footer" id="buyer-home-footer" role="contentinfo">
@@ -89,8 +93,9 @@
         </div>
     </div>
 
-    <script src="../static/js/buyer-catalog-preview.js?v=20261020-no-view-all"></script>
+    <script src="../static/js/buyer-catalog-model.js?v=20261022-cny"></script>
+    <script src="../static/js/buyer-catalog-preview.js?v=20261020-discovery"></script>
     <script src="../static/js/buyer-carousel.js?v=20261020-immersive"></script>
-    <script src="../static/js/buyer-workbench.js?v=20261020-store-pages"></script>
+    <script src="../static/js/buyer-workbench.js?v=20261022-account-menu"></script>
 </body>
 </html>

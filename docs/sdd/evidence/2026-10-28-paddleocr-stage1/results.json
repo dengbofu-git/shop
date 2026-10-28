@@ -1,0 +1,54 @@
+{
+  "job_id": "718b4cb8-f9b2-4d89-9028-33befd266b75",
+  "document_id": "06eac962-6a45-4636-a5e1-0625faf8a192",
+  "status": "awaiting_review",
+  "stage": "review",
+  "document_status": "draft",
+  "version": 1,
+  "total_pages": 2,
+  "processed_pages": 2,
+  "attempt": 1,
+  "error_code": "",
+  "warnings": [
+    {
+      "page": 2,
+      "codes": [
+        "document_model_output_requires_review",
+        "document_table_order_requires_review"
+      ]
+    }
+  ],
+  "chunk_count": 4,
+  "embedded_chunks": 4,
+  "database": "paddle_document_test_c12d8650eb8c401696ab562e",
+  "elapsed_seconds": 17.792,
+  "identity_validation": "fixture operator; business MySQL explicitly forbidden",
+  "real_ocr_calls": [
+    {
+      "seconds": 9.177,
+      "image_sha256": "ea67c5ae510d8617f15ada5880ad3b03a5219ed318bf348f6a64a45b5f0fb5fb"
+    }
+  ],
+  "real_embedding_provider": "local Ollama bge-m3",
+  "pages": [
+    {
+      "number": 1,
+      "method": "native",
+      "block_count": 5
+    },
+    {
+      "number": 2,
+      "method": "paddleocr_vl",
+      "block_count": 3
+    }
+  ],
+  "chunks": 4,
+  "mappings_checked": 10,
+  "dimensions": 1024,
+  "table_rows_verified": true,
+  "draft_excluded_from_retrieval": true,
+  "retry_reused_pages_and_vectors": true,
+  "final_status": "awaiting_review",
+  "final_document_status": "draft",
+  "published": false
+}

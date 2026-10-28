@@ -5,7 +5,7 @@
 (function() {
     'use strict';
 
-    var currentCurrency = 'USD';
+    var currentCurrency = 'CNY';
 
     var i18n = {
         zh: {
@@ -29,7 +29,9 @@
             my_orders: '我的最近订单',
             orders_all: '查看全部',
             section_featured: '精选商品',
-            section_featured_sub: '按茶类浏览在售商品，每页10件，可翻页查看全部商品。',
+            section_featured_sub: '从不同茶类均衡选取10件在售茶品，发现下一款好茶。',
+            section_categories: '从一类茶开始',
+            section_categories_sub: '发现不同茶类，进入商品采购查看对应茶品。',
             view_all: '查看全部',
             grid_empty: '该茶类暂无可售商品，请查看其他分类。',
             grid_summary: '当前显示 {start}–{end} 件，共 {total} 件可售商品',
@@ -40,10 +42,10 @@
             brand_short: 'tea_saas',
             banner1_title: '开斋节礼盒促销',
             banner1_desc: '英德红茶礼盒 · 清真认证',
-            banner1_price: '$68 起',
+            banner1_price: '¥68 起',
             banner2_title: '2024 明前龙井新茶',
             banner2_desc: '地理标志 · 产地可溯',
-            banner2_price: '$45 起',
+            banner2_price: '¥45 起',
             banner3_title: '大宗采购阶梯优惠',
             banner3_desc: '100件以上 15% off · 500件以上 25% off',
             banner3_price: '询盘报价',
@@ -151,7 +153,9 @@
             my_orders: 'My Recent Orders',
             orders_all: 'View all',
             section_featured: 'Featured',
-            section_featured_sub: 'Browse 10 products per page by tea category. Use pagination to see every product.',
+            section_featured_sub: 'Discover ten available teas selected across different categories.',
+            section_categories: 'Start with a tea category',
+            section_categories_sub: 'Explore a category to find its teas in the procurement catalog.',
             view_all: 'View all',
             grid_empty: 'No available products in this category. Try another category.',
             grid_summary: 'Showing {start}–{end} of {total} available products',
@@ -162,10 +166,10 @@
             brand_short: 'tea_saas',
             banner1_title: 'Eid Gift Box',
             banner1_desc: 'Yingde black tea gift box · Halal certified',
-            banner1_price: 'From $68',
+            banner1_price: 'From ¥68',
             banner2_title: '2024 Pre-Qingming Longjing',
             banner2_desc: 'Geographic indication · traceable origin',
-            banner2_price: 'From $45',
+            banner2_price: 'From ¥45',
             banner3_title: 'Bulk tier discount',
             banner3_desc: '100+ units: 15% off · 500+ units: 25% off',
             banner3_price: 'Request quote',
@@ -273,7 +277,9 @@
             my_orders: 'طلباتي الأخيرة',
             orders_all: 'عرض الكل',
             section_featured: 'مميز',
-            section_featured_sub: 'تصفح 10 منتجات في كل صفحة حسب فئة الشاي. تنقل بين الصفحات لعرض جميع المنتجات.',
+            section_featured_sub: 'اكتشف عشرة منتجات شاي متوفرة مختارة من فئات متنوعة.',
+            section_categories: 'ابدأ بفئة من الشاي',
+            section_categories_sub: 'اختر فئة لاستعراض منتجاتها في صفحة المشتريات.',
             view_all: 'عرض الكل',
             grid_empty: 'لا توجد منتجات متاحة في هذه الفئة. اختر فئة أخرى.',
             grid_summary: 'عرض {start}–{end} من أصل {total} منتجاً متاحاً',
@@ -284,10 +290,10 @@
             brand_short: 'tea_saas',
             banner1_title: 'صندوق هدايا العيد',
             banner1_desc: 'شاي ينغدي · معتمد حلال',
-            banner1_price: 'من 68$',
+            banner1_price: 'من 68¥',
             banner2_title: 'لونججينغ 2024',
             banner2_desc: 'علامة جغرافية · أصل قابل للتتبع',
-            banner2_price: 'من 45$',
+            banner2_price: 'من 45¥',
             banner3_title: 'خصم بالجملة',
             banner3_desc: '100+ وحدة: 15% · 500+ وحدة: 25%',
             banner3_price: 'طلب عرض سعر',
@@ -392,10 +398,9 @@
         var c = parseFloat(cny);
         if (isNaN(c)) c = 0;
         el.setAttribute('data-cny', c.toFixed(2));
-        el.setAttribute('data-usd', (c * 0.14).toFixed(0));
-        el.setAttribute('data-aed', (c * 0.51).toFixed(0));
-        el.setAttribute('data-sar', (c * 0.52).toFixed(0));
-        el.setAttribute('data-eur', (c * 0.13).toFixed(0));
+        Object.keys(TeaMoney.rates).forEach(function (code) {
+            el.setAttribute('data-' + code.toLowerCase(), TeaMoney.amount(c, code).toFixed(2));
+        });
     }
 
     function addToCartFromCard(card) {
@@ -517,10 +522,9 @@
             catalogPreview = BuyerCatalogPreview.start({
                 url: getApiBase() + '/v1/goods/index',
                 tabs: document.getElementById('featured-tea-tabs'), grid: gGrid,
-                summary: document.getElementById('featured-summary'), error: gErr,
+                error: gErr,
                 retry: document.getElementById('featured-retry'),
                 empty: document.getElementById('product-grid-empty'),
-                pager: document.getElementById('featured-pagination'), section: document.getElementById('buyer-featured'),
                 labels: function() { return getT(localStorage.getItem('buyer_lang') || 'zh'); },
                 render: function(rows) { buildProductGrid(rows, gGrid, gSk, gErr); }
             });
@@ -678,14 +682,11 @@
 
     function formatDisplayPrice(value) {
         var amount = parseFloat(value) || 0;
-        var rates = {CNY: 1, USD: 0.14, AED: 0.51, SAR: 0.52, EUR: 0.13};
-        var symbols = {CNY: '¥', USD: '$', AED: 'AED ', SAR: 'SAR ', EUR: '€'};
-        var currency = Object.prototype.hasOwnProperty.call(rates, currentCurrency) ? currentCurrency : 'CNY';
-        return symbols[currency] + (amount * rates[currency]).toFixed(2);
+        return TeaMoney.format(amount, currentCurrency);
     }
 
     function updatePrices() {
-        document.querySelectorAll('.product-price').forEach(function(el) {
+        document.querySelectorAll('.product-price,[data-currency-price]').forEach(function(el) {
             if (el.getAttribute('data-cny') !== null) {
                 el.textContent = formatDisplayPrice(el.getAttribute('data-cny'));
                 return;
@@ -707,7 +708,11 @@
     function openUserMenu(open) {
         var d = document.getElementById('user-dropdown');
         var tr = document.getElementById('user-trigger');
-        if (d) d.style.display = open ? 'block' : 'none';
+        if (d) {
+            d.classList.toggle('is-open', open);
+            d.setAttribute('aria-hidden', open ? 'false' : 'true');
+            d.inert = !open;
+        }
         if (tr) tr.setAttribute('aria-expanded', open ? 'true' : 'false');
     }
 
@@ -781,12 +786,19 @@
             });
         }
 
+        function submitProductSearch(q) {
+            if (document.getElementById('procurement-filters')) {
+                document.dispatchEvent(new CustomEvent('buyer:catalog-search', {detail: q}));
+            } else if (q) {
+                location.href = 'buyer_products.html?q=' + encodeURIComponent(q);
+            }
+        }
         var btnSearch = document.getElementById('btn-search') || document.querySelector('.btn-search');
         if (btnSearch) {
             btnSearch.addEventListener('click', function() {
                 var q = (document.getElementById('search-input') && document.getElementById('search-input').value) || '';
                 q = q.trim();
-                if (q) location.href = 'search_list.html?keyword=' + encodeURIComponent(q);
+                submitProductSearch(q);
             });
         }
 
@@ -795,7 +807,7 @@
             searchInput.addEventListener('keypress', function(e) {
                 if (e.key === 'Enter') {
                     var q = this.value.trim();
-                    if (q) location.href = 'search_list.html?keyword=' + encodeURIComponent(q);
+                    submitProductSearch(q);
                 }
             });
         }
@@ -812,14 +824,37 @@
         var userTrigger = document.getElementById('user-trigger');
         var userDropdown = document.getElementById('user-dropdown');
         if (userTrigger && userDropdown) {
+            var userItems = Array.from(userDropdown.querySelectorAll('[role="menuitem"]'));
+            userItems.forEach(function(item) {
+                if (new URL(item.href, location.href).pathname === location.pathname && item.id !== 'buyer-btn-logout') item.setAttribute('aria-current', 'page');
+                else item.removeAttribute('aria-current');
+            });
+            openUserMenu(false);
             userTrigger.addEventListener('click', function(e) {
                 e.stopPropagation();
-                var hidden = userDropdown.style.display === 'none' ||
-                    window.getComputedStyle(userDropdown).display === 'none';
-                openUserMenu(hidden);
+                openUserMenu(userTrigger.getAttribute('aria-expanded') !== 'true');
             });
-            document.addEventListener('click', function() {
-                openUserMenu(false);
+            userTrigger.addEventListener('keydown', function(e) {
+                if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+                    e.preventDefault(); openUserMenu(true);
+                    userItems[e.key === 'ArrowDown' ? 0 : userItems.length - 1].focus();
+                }
+            });
+            document.addEventListener('click', function(e) { if (!e.target.closest('#user-menu')) openUserMenu(false); });
+            document.addEventListener('focusin', function(e) { if (!e.target.closest('#user-menu')) openUserMenu(false); });
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && userTrigger.getAttribute('aria-expanded') === 'true') {
+                    e.preventDefault(); openUserMenu(false); userTrigger.focus();
+                }
+            });
+            userDropdown.addEventListener('keydown', function(e) {
+                var index = userItems.indexOf(document.activeElement), next;
+                if (e.key === 'ArrowDown') next = (index + 1) % userItems.length;
+                else if (e.key === 'ArrowUp') next = (index - 1 + userItems.length) % userItems.length;
+                else if (e.key === 'Home') next = 0;
+                else if (e.key === 'End') next = userItems.length - 1;
+                else return;
+                e.preventDefault(); userItems[next].focus();
             });
             userDropdown.addEventListener('click', function(e) {
                 e.stopPropagation();

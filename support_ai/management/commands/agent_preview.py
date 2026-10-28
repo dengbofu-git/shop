@@ -107,6 +107,20 @@ class Command(BaseCommand):
             return
         response = record['response']
         self.stdout.write('\nAgent > ' + response['answer'])
+        if not record.get('compliance_blocked'):
+            bundles = response.get('recommendation_bundles', [])
+            if bundles:
+                for bundle in bundles:
+                    self.stdout.write('\n方案{} · 商品合计 {} {}'.format(
+                        bundle['position'], bundle['currency'], bundle['subtotal']))
+                    for item in bundle['items']:
+                        self.stdout.write('  {} · {} · {} {} × {}件 = {} {}'.format(
+                            item['product_name'], item['name'], bundle['currency'], item['price'],
+                            item['quantity'], bundle['currency'], item['line_subtotal']))
+            else:
+                for item in response.get('recommendations', []):
+                    self.stdout.write('  {} · {} · {} {}'.format(
+                        item['product_name'], item['name'], item.get('currency', 'CNY'), item['price']))
         self.stdout.write('\n[分析] 意图：{}；来源：{}；上下文：{} 轮；耗时：{}s'.format(
             ' → '.join(response['intents']), response['intent_source'], record['context_turns'], record['elapsed_seconds']))
         self.stdout.write('[任务] ' + ' → '.join('{} ({})'.format(t['tool'], t['status']) for t in response['tasks']))

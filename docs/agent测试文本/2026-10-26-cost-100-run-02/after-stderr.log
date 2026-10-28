@@ -1,0 +1,95 @@
+{"timestamp": "2026-10-26T07:58:56.288+00:00", "level": "WARNING", "service": "tea_saas", "logger": "py.warnings", "event": "runtime.warning"}
+{"timestamp": "2026-10-26T07:59:16.484+00:00", "level": "WARNING", "service": "tea_saas", "logger": "support_ai.workflow", "event": "support.planning.unavailable", "error_type": "ValueError"}
+{"timestamp": "2026-10-26T07:59:19.072+00:00", "level": "WARNING", "service": "tea_saas", "logger": "support_ai.workflow", "event": "support.planning.unavailable", "error_type": "ValueError"}
+{"timestamp": "2026-10-26T07:59:26.192+00:00", "level": "WARNING", "service": "tea_saas", "logger": "support_ai.workflow", "event": "support.planning.unavailable", "error_type": "ValueError"}
+{"timestamp": "2026-10-26T07:59:59.413+00:00", "level": "WARNING", "service": "tea_saas", "logger": "support_ai.workflow", "event": "support.planning.unavailable", "error_type": "ValueError"}
+{"timestamp": "2026-10-26T08:00:45.723+00:00", "level": "WARNING", "service": "tea_saas", "logger": "support_ai.workflow", "event": "support.planning.unavailable", "error_type": "ValueError"}
+{"timestamp": "2026-10-26T08:02:19.173+00:00", "level": "WARNING", "service": "tea_saas", "logger": "support_ai.workflow", "event": "support.planning.unavailable", "error_type": "ValueError"}
+{"timestamp": "2026-10-26T08:07:22.972+00:00", "level": "WARNING", "service": "tea_saas", "logger": "support_ai.workflow", "event": "support.planning.unavailable", "error_type": "ValueError"}
+{"timestamp": "2026-10-26T08:32:23.270+00:00", "level": "WARNING", "service": "tea_saas", "logger": "support_ai.workflow", "event": "support.planning.unavailable", "error_type": "ValueError"}
+{"timestamp": "2026-10-26T08:32:36.059+00:00", "level": "WARNING", "service": "tea_saas", "logger": "support_ai.retrieval", "event": "support.query_route.unavailable", "error_type": "ReadTimeout"}
+{"timestamp": "2026-10-26T08:32:44.081+00:00", "level": "WARNING", "service": "tea_saas", "logger": "support_ai.retrieval", "event": "support.query_route.unavailable", "error_type": "ReadTimeout"}
+{"timestamp": "2026-10-26T08:32:50.649+00:00", "level": "WARNING", "service": "tea_saas", "logger": "support_ai.retrieval", "event": "support.query_route.unavailable", "error_type": "ReadTimeout"}
+{"timestamp": "2026-10-26T08:34:08.606+00:00", "level": "WARNING", "service": "tea_saas", "logger": "support_ai.retrieval", "event": "support.query_route.unavailable", "error_type": "ReadTimeout"}
+{"timestamp": "2026-10-26T08:34:16.632+00:00", "level": "WARNING", "service": "tea_saas", "logger": "support_ai.retrieval", "event": "support.query_route.unavailable", "error_type": "ReadTimeout"}
+{"timestamp": "2026-10-26T08:34:23.484+00:00", "level": "WARNING", "service": "tea_saas", "logger": "support_ai.retrieval", "event": "support.query_route.unavailable", "error_type": "ReadTimeout"}
+{"timestamp": "2026-10-26T08:34:57.271+00:00", "level": "WARNING", "service": "tea_saas", "logger": "support_ai.workflow", "event": "support.planning.unavailable", "error_type": "ValidationError"}
+{"timestamp": "2026-10-26T08:36:40.620+00:00", "level": "WARNING", "service": "tea_saas", "logger": "support_ai.retrieval", "event": "support.query_route.unavailable", "error_type": "ReadTimeout"}
+{"timestamp": "2026-10-26T08:36:48.638+00:00", "level": "WARNING", "service": "tea_saas", "logger": "support_ai.retrieval", "event": "support.query_route.unavailable", "error_type": "ReadTimeout"}
+{"timestamp": "2026-10-26T08:36:55.172+00:00", "level": "WARNING", "service": "tea_saas", "logger": "support_ai.retrieval", "event": "support.query_route.unavailable", "error_type": "ReadTimeout"}
+Traceback (most recent call last):
+  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\backends\base\base.py", line 242, in _commit
+    return self.connection.commit()
+psycopg2.OperationalError: server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\transaction.py", line 246, in __exit__
+    connection.commit()
+  File "E:\miniconda\envs\dadashop\lib\site-packages\django\utils\asyncio.py", line 33, in inner
+    return func(*args, **kwargs)
+  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\backends\base\base.py", line 266, in commit
+    self._commit()
+  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\backends\base\base.py", line 242, in _commit
+    return self.connection.commit()
+  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\utils.py", line 90, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\backends\base\base.py", line 242, in _commit
+    return self.connection.commit()
+django.db.utils.OperationalError: server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\backends\base\base.py", line 219, in ensure_connection
+    self.connect()
+  File "E:\miniconda\envs\dadashop\lib\site-packages\django\utils\asyncio.py", line 33, in inner
+    return func(*args, **kwargs)
+  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\backends\base\base.py", line 200, in connect
+    self.connection = self.get_new_connection(conn_params)
+  File "E:\miniconda\envs\dadashop\lib\site-packages\django\utils\asyncio.py", line 33, in inner
+    return func(*args, **kwargs)
+  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\backends\postgresql\base.py", line 187, in get_new_connection
+    connection = Database.connect(**conn_params)
+  File "E:\miniconda\envs\dadashop\lib\site-packages\psycopg2\__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+psycopg2.OperationalError: connection to server at "127.0.0.1", port 5433 failed: Connection refused (0x0000274D/10061)
+	Is the server running on that host and accepting TCP/IP connections?
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "E:\django\dadashop\.scratch\cost-100-ab-20261026\worker.py", line 156, in <module>
+    result=ask(command);print(json.dumps(result),flush=True)
+  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\transaction.py", line 290, in __exit__
+    connection.set_autocommit(True)
+  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\backends\base\base.py", line 405, in set_autocommit
+    self.ensure_connection()
+  File "E:\miniconda\envs\dadashop\lib\site-packages\django\utils\asyncio.py", line 33, in inner
+    return func(*args, **kwargs)
+  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\backends\base\base.py", line 219, in ensure_connection
+    self.connect()
+  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\utils.py", line 90, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\backends\base\base.py", line 219, in ensure_connection
+    self.connect()
+  File "E:\miniconda\envs\dadashop\lib\site-packages\django\utils\asyncio.py", line 33, in inner
+    return func(*args, **kwargs)
+  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\backends\base\base.py", line 200, in connect
+    self.connection = self.get_new_connection(conn_params)
+  File "E:\miniconda\envs\dadashop\lib\site-packages\django\utils\asyncio.py", line 33, in inner
+    return func(*args, **kwargs)
+  File "E:\miniconda\envs\dadashop\lib\site-packages\django\db\backends\postgresql\base.py", line 187, in get_new_connection
+    connection = Database.connect(**conn_params)
+  File "E:\miniconda\envs\dadashop\lib\site-packages\psycopg2\__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+django.db.utils.OperationalError: connection to server at "127.0.0.1", port 5433 failed: Connection refused (0x0000274D/10061)
+	Is the server running on that host and accepting TCP/IP connections?

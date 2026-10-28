@@ -1,0 +1,375 @@
+[
+  {
+    "ordinal": 0,
+    "text": "Tea storage reference\n\nKeep tea sealed in a dry place away from sunlight.\n\nStore black tea and green tea in separate containers.\n\nThe next page lists quantities for a sample purchase order.\n\nThis synthetic document is used only for pipeline acceptance.",
+    "metadata": {
+      "mappings": [
+        {
+          "bbox": [
+            45.0,
+            40.650001525878906,
+            222.083984375,
+            65.38200378417969
+          ],
+          "page": 1,
+          "method": "native",
+          "block_id": "p1-b1",
+          "block_end": 21,
+          "chunk_end": 21,
+          "confidence": null,
+          "block_start": 0,
+          "chunk_start": 0
+        },
+        {
+          "bbox": [
+            45.0,
+            97.0999984741211,
+            313.1279296875,
+            113.58799743652344
+          ],
+          "page": 1,
+          "method": "native",
+          "block_id": "p1-b2",
+          "block_end": 50,
+          "chunk_end": 73,
+          "confidence": null,
+          "block_start": 0,
+          "chunk_start": 23
+        },
+        {
+          "bbox": [
+            45.0,
+            127.0999984741211,
+            327.15594482421875,
+            143.58799743652344
+          ],
+          "page": 1,
+          "method": "native",
+          "block_id": "p1-b3",
+          "block_end": 53,
+          "chunk_end": 128,
+          "confidence": null,
+          "block_start": 0,
+          "chunk_start": 75
+        },
+        {
+          "bbox": [
+            45.0,
+            157.10000610351562,
+            357.1439514160156,
+            173.58799743652344
+          ],
+          "page": 1,
+          "method": "native",
+          "block_id": "p1-b4",
+          "block_end": 59,
+          "chunk_end": 189,
+          "confidence": null,
+          "block_start": 0,
+          "chunk_start": 130
+        },
+        {
+          "bbox": [
+            45.0,
+            187.10000610351562,
+            371.1479187011719,
+            203.58799743652344
+          ],
+          "page": 1,
+          "method": "native",
+          "block_id": "p1-b5",
+          "block_end": 61,
+          "chunk_end": 252,
+          "confidence": null,
+          "block_start": 0,
+          "chunk_start": 191
+        }
+      ],
+      "page_end": 1,
+      "page_start": 1,
+      "token_count": 54,
+      "section_path": [
+        "Tea storage reference"
+      ],
+      "chunker_version": "structure-token-v2"
+    },
+    "embedding_dimensions": 1024
+  },
+  {
+    "ordinal": 1,
+    "text": "Tea procurement reference",
+    "metadata": {
+      "mappings": [
+        {
+          "bbox": [
+            42.83657307415407,
+            44.631073785242954,
+            264.57883369330455,
+            64.78704259148171
+          ],
+          "page": 2,
+          "method": "paddleocr_vl",
+          "block_id": "p2-pd1",
+          "block_end": 25,
+          "chunk_end": 25,
+          "confidence": null,
+          "extraction": {
+            "model": "PaddleOCR-VL-1.6-0.9B",
+            "weights": {
+              "layout": "70bd316b0582769ec968829fd1feb1a6a58b7c941b938327e551b6b12b45c137",
+              "recognition": "85a479d506a11e724e7285d395c551be69f41dbc16b6342d3cacfb189aed71db"
+            },
+            "provider": "paddleocr",
+            "raw_text": "Tea procurement reference",
+            "revision": "04f1b01c5f0c89cb35fcd105ada6edfee747087511f0855133401a47fb634d57",
+            "cache_digest": "2205c56a1539bb147d103663bcee76b73c43e28cb9d7b95f696c3a34b4a05092",
+            "input_sha256": "ea67c5ae510d8617f15ada5880ad3b03a5219ed318bf348f6a64a45b5f0fb5fb",
+            "scale_to_pdf": [
+              0.3599712023038157,
+              0.3599280143971206
+            ],
+            "source_label": "paragraph_title",
+            "source_order": 1,
+            "rendered_size": [
+              1389,
+              1667
+            ],
+            "schema_version": "page-ir-v1",
+            "confidence_kind": "not_provided",
+            "source_block_id": 0,
+            "source_sequence": 0,
+            "contract_version": "paddle-document-v1",
+            "coordinate_space": "unrotated_pdf_points",
+            "pipeline_version": "v1.6"
+          },
+          "block_start": 0,
+          "chunk_start": 0
+        }
+      ],
+      "page_end": 2,
+      "page_start": 2,
+      "token_count": 4,
+      "section_path": [
+        "Tea procurement reference"
+      ],
+      "chunker_version": "structure-token-v2"
+    },
+    "embedding_dimensions": 1024
+  },
+  {
+    "ordinal": 2,
+    "text": "| Tea type | Origin | Quantity (kg) |\n| --- | --- | --- |\n| Black tea | Kenya | 120 |\n| Green tea | China | 80 |",
+    "metadata": {
+      "mappings": [
+        {
+          "bbox": [
+            43.19654427645788,
+            108.33833233353329,
+            465.0827933765299,
+            230.35392921415718
+          ],
+          "page": 2,
+          "method": "paddleocr_vl",
+          "block_id": "p2-pd2",
+          "block_end": 57,
+          "chunk_end": 57,
+          "confidence": null,
+          "extraction": {
+            "model": "PaddleOCR-VL-1.6-0.9B",
+            "weights": {
+              "layout": "70bd316b0582769ec968829fd1feb1a6a58b7c941b938327e551b6b12b45c137",
+              "recognition": "85a479d506a11e724e7285d395c551be69f41dbc16b6342d3cacfb189aed71db"
+            },
+            "provider": "paddleocr",
+            "raw_text": "<table><tr><td>Tea type</td><td>Origin</td><td>Quantity (kg)</td></tr><tr><td>Black tea</td><td>Kenya</td><td>120</td></tr><tr><td>Green tea</td><td>China</td><td>80</td></tr></table>",
+            "revision": "04f1b01c5f0c89cb35fcd105ada6edfee747087511f0855133401a47fb634d57",
+            "cache_digest": "2205c56a1539bb147d103663bcee76b73c43e28cb9d7b95f696c3a34b4a05092",
+            "input_sha256": "ea67c5ae510d8617f15ada5880ad3b03a5219ed318bf348f6a64a45b5f0fb5fb",
+            "scale_to_pdf": [
+              0.3599712023038157,
+              0.3599280143971206
+            ],
+            "source_label": "table",
+            "source_order": null,
+            "rendered_size": [
+              1389,
+              1667
+            ],
+            "schema_version": "page-ir-v1",
+            "confidence_kind": "not_provided",
+            "source_block_id": 1,
+            "source_sequence": 1,
+            "contract_version": "paddle-document-v1",
+            "coordinate_space": "unrotated_pdf_points",
+            "pipeline_version": "v1.6",
+            "text_representation": "canonical_table_not_pdf_verbatim"
+          },
+          "block_start": 0,
+          "chunk_start": 0
+        },
+        {
+          "bbox": [
+            43.19654427645788,
+            108.33833233353329,
+            465.0827933765299,
+            230.35392921415718
+          ],
+          "page": 2,
+          "method": "paddleocr_vl",
+          "block_id": "p2-pd2",
+          "block_end": 85,
+          "chunk_end": 85,
+          "confidence": null,
+          "extraction": {
+            "model": "PaddleOCR-VL-1.6-0.9B",
+            "weights": {
+              "layout": "70bd316b0582769ec968829fd1feb1a6a58b7c941b938327e551b6b12b45c137",
+              "recognition": "85a479d506a11e724e7285d395c551be69f41dbc16b6342d3cacfb189aed71db"
+            },
+            "provider": "paddleocr",
+            "raw_text": "<table><tr><td>Tea type</td><td>Origin</td><td>Quantity (kg)</td></tr><tr><td>Black tea</td><td>Kenya</td><td>120</td></tr><tr><td>Green tea</td><td>China</td><td>80</td></tr></table>",
+            "revision": "04f1b01c5f0c89cb35fcd105ada6edfee747087511f0855133401a47fb634d57",
+            "cache_digest": "2205c56a1539bb147d103663bcee76b73c43e28cb9d7b95f696c3a34b4a05092",
+            "input_sha256": "ea67c5ae510d8617f15ada5880ad3b03a5219ed318bf348f6a64a45b5f0fb5fb",
+            "scale_to_pdf": [
+              0.3599712023038157,
+              0.3599280143971206
+            ],
+            "source_label": "table",
+            "source_order": null,
+            "rendered_size": [
+              1389,
+              1667
+            ],
+            "schema_version": "page-ir-v1",
+            "confidence_kind": "not_provided",
+            "source_block_id": 1,
+            "source_sequence": 1,
+            "contract_version": "paddle-document-v1",
+            "coordinate_space": "unrotated_pdf_points",
+            "pipeline_version": "v1.6",
+            "text_representation": "canonical_table_not_pdf_verbatim"
+          },
+          "block_start": 58,
+          "chunk_start": 58
+        },
+        {
+          "bbox": [
+            43.19654427645788,
+            108.33833233353329,
+            465.0827933765299,
+            230.35392921415718
+          ],
+          "page": 2,
+          "method": "paddleocr_vl",
+          "block_id": "p2-pd2",
+          "block_end": 112,
+          "chunk_end": 112,
+          "confidence": null,
+          "extraction": {
+            "model": "PaddleOCR-VL-1.6-0.9B",
+            "weights": {
+              "layout": "70bd316b0582769ec968829fd1feb1a6a58b7c941b938327e551b6b12b45c137",
+              "recognition": "85a479d506a11e724e7285d395c551be69f41dbc16b6342d3cacfb189aed71db"
+            },
+            "provider": "paddleocr",
+            "raw_text": "<table><tr><td>Tea type</td><td>Origin</td><td>Quantity (kg)</td></tr><tr><td>Black tea</td><td>Kenya</td><td>120</td></tr><tr><td>Green tea</td><td>China</td><td>80</td></tr></table>",
+            "revision": "04f1b01c5f0c89cb35fcd105ada6edfee747087511f0855133401a47fb634d57",
+            "cache_digest": "2205c56a1539bb147d103663bcee76b73c43e28cb9d7b95f696c3a34b4a05092",
+            "input_sha256": "ea67c5ae510d8617f15ada5880ad3b03a5219ed318bf348f6a64a45b5f0fb5fb",
+            "scale_to_pdf": [
+              0.3599712023038157,
+              0.3599280143971206
+            ],
+            "source_label": "table",
+            "source_order": null,
+            "rendered_size": [
+              1389,
+              1667
+            ],
+            "schema_version": "page-ir-v1",
+            "confidence_kind": "not_provided",
+            "source_block_id": 1,
+            "source_sequence": 1,
+            "contract_version": "paddle-document-v1",
+            "coordinate_space": "unrotated_pdf_points",
+            "pipeline_version": "v1.6",
+            "text_representation": "canonical_table_not_pdf_verbatim"
+          },
+          "block_start": 86,
+          "chunk_start": 86
+        }
+      ],
+      "page_end": 2,
+      "page_start": 2,
+      "token_count": 51,
+      "content_kind": "table",
+      "section_path": [
+        "Tea procurement reference"
+      ],
+      "chunker_version": "structure-token-v2"
+    },
+    "embedding_dimensions": 1024
+  },
+  {
+    "ordinal": 3,
+    "text": "Quantities refer to the sample purchase order.",
+    "metadata": {
+      "mappings": [
+        {
+          "bbox": [
+            42.83657307415407,
+            268.50629874025196,
+            291.2167026637869,
+            284.34313137372527
+          ],
+          "page": 2,
+          "method": "paddleocr_vl",
+          "block_id": "p2-pd3",
+          "block_end": 46,
+          "chunk_end": 46,
+          "confidence": null,
+          "extraction": {
+            "model": "PaddleOCR-VL-1.6-0.9B",
+            "weights": {
+              "layout": "70bd316b0582769ec968829fd1feb1a6a58b7c941b938327e551b6b12b45c137",
+              "recognition": "85a479d506a11e724e7285d395c551be69f41dbc16b6342d3cacfb189aed71db"
+            },
+            "provider": "paddleocr",
+            "raw_text": "Quantities refer to the sample purchase order.",
+            "revision": "04f1b01c5f0c89cb35fcd105ada6edfee747087511f0855133401a47fb634d57",
+            "cache_digest": "2205c56a1539bb147d103663bcee76b73c43e28cb9d7b95f696c3a34b4a05092",
+            "input_sha256": "ea67c5ae510d8617f15ada5880ad3b03a5219ed318bf348f6a64a45b5f0fb5fb",
+            "scale_to_pdf": [
+              0.3599712023038157,
+              0.3599280143971206
+            ],
+            "source_label": "text",
+            "source_order": 2,
+            "rendered_size": [
+              1389,
+              1667
+            ],
+            "schema_version": "page-ir-v1",
+            "confidence_kind": "not_provided",
+            "source_block_id": 2,
+            "source_sequence": 2,
+            "contract_version": "paddle-document-v1",
+            "coordinate_space": "unrotated_pdf_points",
+            "pipeline_version": "v1.6"
+          },
+          "block_start": 0,
+          "chunk_start": 0
+        }
+      ],
+      "page_end": 2,
+      "page_start": 2,
+      "token_count": 9,
+      "section_path": [
+        "Tea procurement reference"
+      ],
+      "chunker_version": "structure-token-v2"
+    },
+    "embedding_dimensions": 1024
+  }
+]

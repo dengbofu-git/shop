@@ -1,0 +1,16 @@
+{
+  "before": {
+    "reviewed": 20,
+    "core_correct": 19,
+    "strict_pass": 14,
+    "unsupported_claim_cases": 6,
+    "temporal_ambiguity_cases": 0
+  },
+  "after": {
+    "reviewed": 20,
+    "core_correct": 19,
+    "strict_pass": 14,
+    "unsupported_claim_cases": 1,
+    "temporal_ambiguity_cases": 4
+  }
+}

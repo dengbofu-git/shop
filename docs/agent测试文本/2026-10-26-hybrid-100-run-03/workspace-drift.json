@@ -1,0 +1,14 @@
+{
+  "frozen_workspace_version": "0.23.0",
+  "post_run_workspace_version": "0.23.0",
+  "changed_source_files_since_freeze": [
+    "support_ai\\budget_combinations.py",
+    "support_ai\\bundle_recommendations.py",
+    "support_ai\\bundle_references.py",
+    "support_ai\\contracts.py",
+    "support_ai\\cost_control.py",
+    "support_ai\\diagnostics.py",
+    "support_ai\\semantic_planning.py"
+  ],
+  "scope": "Only frozen source defines tested code; unrelated later changes are not validated"
+}

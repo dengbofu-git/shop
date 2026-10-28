@@ -1,0 +1,470 @@
+{
+  "baseline": {
+    "scope": "15 pre-labelled knowledge questions; selected evidence after real retrieval; missing retrieval counts as zero; pooled unique selected IDs in request order; labels from earlier frozen public corpus; not raw reranker-only scores",
+    "cases": [
+      {
+        "id": "R041",
+        "selected_ids": [
+          65,
+          81,
+          64,
+          78,
+          79
+        ],
+        "retrieval_entered": true,
+        "relevant_precision": 0.6,
+        "support_coverage": 1.0,
+        "ndcg_at_5": 0.8453596772450139,
+        "answer_goal": "解释绿茶加热钝化酶、红茶酶促氧化的区别。"
+      },
+      {
+        "id": "R042",
+        "selected_ids": [
+          65,
+          81,
+          64,
+          78,
+          79
+        ],
+        "retrieval_entered": true,
+        "relevant_precision": 0.6,
+        "support_coverage": 1.0,
+        "ndcg_at_5": 0.8453596772450139,
+        "answer_goal": "解释绿茶加热钝化酶、红茶酶促氧化的区别。"
+      },
+      {
+        "id": "R043",
+        "selected_ids": [
+          65,
+          81,
+          64,
+          78,
+          79
+        ],
+        "retrieval_entered": true,
+        "relevant_precision": 0.6,
+        "support_coverage": 1.0,
+        "ndcg_at_5": 0.8453596772450139,
+        "answer_goal": "理解混合语言，比较绿茶与红茶加工。"
+      },
+      {
+        "id": "R044",
+        "selected_ids": [
+          65,
+          81,
+          68,
+          78,
+          79
+        ],
+        "retrieval_entered": true,
+        "relevant_precision": 0.4,
+        "support_coverage": 1.0,
+        "ndcg_at_5": 0.6595245679994903,
+        "answer_goal": "识别阿拉伯文绿茶、红茶，比较制造工艺；回答可使用中文。"
+      },
+      {
+        "id": "R045",
+        "selected_ids": [
+          59,
+          51,
+          53,
+          35,
+          58
+        ],
+        "retrieval_entered": true,
+        "relevant_precision": 0.2,
+        "support_coverage": 1.0,
+        "ndcg_at_5": 1.0,
+        "answer_goal": "有依据介绍沙特；明确缺少阿联酋习惯资料，不以贸易/预测数据替代习惯。"
+      },
+      {
+        "id": "R046",
+        "selected_ids": [
+          59,
+          51,
+          53,
+          35,
+          34
+        ],
+        "retrieval_entered": true,
+        "relevant_precision": 0.2,
+        "support_coverage": 1.0,
+        "ndcg_at_5": 1.0,
+        "answer_goal": "有依据介绍沙特；明确缺少阿联酋习惯资料，不以贸易/预测数据替代习惯。"
+      },
+      {
+        "id": "R047",
+        "selected_ids": [
+          59,
+          34,
+          51,
+          35,
+          53
+        ],
+        "retrieval_entered": true,
+        "relevant_precision": 0.2,
+        "support_coverage": 1.0,
+        "ndcg_at_5": 1.0,
+        "answer_goal": "理解国名与缩写；有依据介绍沙特，承认阿联酋习惯资料缺口。"
+      },
+      {
+        "id": "R048",
+        "selected_ids": [
+          59,
+          60,
+          34,
+          51,
+          55
+        ],
+        "retrieval_entered": true,
+        "relevant_precision": 0.4,
+        "support_coverage": 1.0,
+        "ndcg_at_5": 1.0,
+        "answer_goal": "分别以约旦日常聚会/芳香植物和沙特待客/炭火茶资料进行比较，不能拿消费预测替代。"
+      },
+      {
+        "id": "R049",
+        "selected_ids": [
+          81,
+          65,
+          64,
+          78,
+          79
+        ],
+        "retrieval_entered": true,
+        "relevant_precision": 0.4,
+        "support_coverage": 1.0,
+        "ndcg_at_5": 0.557505327736571,
+        "answer_goal": "区分红茶酶促氧化与黑茶渥堆/后发酵，不能将黑茶和红茶混为一类。"
+      },
+      {
+        "id": "R050",
+        "selected_ids": [
+          76,
+          65,
+          81,
+          64,
+          78
+        ],
+        "retrieval_entered": true,
+        "relevant_precision": 0.6,
+        "support_coverage": 1.0,
+        "ndcg_at_5": 0.7175749781746813,
+        "answer_goal": "明确hongcha=红茶=black tea，heicha=黑茶=dark tea，二者不同。"
+      },
+      {
+        "id": "R051",
+        "selected_ids": [
+          79,
+          80,
+          65,
+          70,
+          81
+        ],
+        "retrieval_entered": true,
+        "relevant_precision": 0.2,
+        "support_coverage": 1.0,
+        "ndcg_at_5": 0.7959761332981399,
+        "answer_goal": "解释CTC是crush tear curl，Orthodox和CTC是制造方式，不是基本茶类；不编造未配置的完整生产步骤。"
+      },
+      {
+        "id": "R052",
+        "selected_ids": [
+          59,
+          57,
+          51,
+          66,
+          63
+        ],
+        "retrieval_entered": true,
+        "relevant_precision": 0.2,
+        "support_coverage": 1.0,
+        "ndcg_at_5": 1.0,
+        "answer_goal": "理解KSA为沙特，有依据介绍待客饮茶而不是仅报告进口量。"
+      },
+      {
+        "id": "R053",
+        "selected_ids": [
+          35,
+          70,
+          68,
+          51,
+          53
+        ],
+        "retrieval_entered": true,
+        "relevant_precision": 0.0,
+        "support_coverage": null,
+        "ndcg_at_5": null,
+        "answer_goal": "明确无此具体产品或官方配方证据，不能从一般茶知识编造配料、比例或皇室背书。"
+      },
+      {
+        "id": "R054",
+        "selected_ids": [
+          65,
+          68,
+          61,
+          57,
+          81
+        ],
+        "retrieval_entered": true,
+        "relevant_precision": 0.0,
+        "support_coverage": 0.0,
+        "ndcg_at_5": 0.0,
+        "answer_goal": "说明茶类不规定统一冲泡温度，依产品、叶片、水质、用量和口味调整；不能断言所有绿茶必须80度。"
+      },
+      {
+        "id": "R055",
+        "selected_ids": [
+          65,
+          66,
+          81,
+          78,
+          79
+        ],
+        "retrieval_entered": true,
+        "relevant_precision": 0.6,
+        "support_coverage": 1.0,
+        "ndcg_at_5": 0.7714160225925204,
+        "answer_goal": "同时介绍绿茶加热、红茶氧化、白茶萎凋/干燥，不能漏掉一类或用泛泛分类清单代替工艺。"
+      }
+    ],
+    "retrieval_entered": 15,
+    "mean_precision": 0.3466666666666667,
+    "mean_support_coverage": 0.9285714285714286,
+    "mean_ndcg_at_5": 0.7884340043954603
+  },
+  "current": {
+    "scope": "15 pre-labelled knowledge questions; selected evidence after real retrieval; missing retrieval counts as zero; pooled unique selected IDs in request order; labels from earlier frozen public corpus; not raw reranker-only scores",
+    "cases": [
+      {
+        "id": "R041",
+        "selected_ids": [
+          65,
+          81,
+          68,
+          78,
+          79
+        ],
+        "retrieval_entered": true,
+        "relevant_precision": 0.4,
+        "support_coverage": 1.0,
+        "ndcg_at_5": 0.6595245679994903,
+        "answer_goal": "解释绿茶加热钝化酶、红茶酶促氧化的区别。"
+      },
+      {
+        "id": "R042",
+        "selected_ids": [
+          65,
+          81,
+          63,
+          78,
+          79
+        ],
+        "retrieval_entered": true,
+        "relevant_precision": 0.4,
+        "support_coverage": 1.0,
+        "ndcg_at_5": 0.7214696044146649,
+        "answer_goal": "解释绿茶加热钝化酶、红茶酶促氧化的区别。"
+      },
+      {
+        "id": "R043",
+        "selected_ids": [
+          65,
+          81,
+          78,
+          79,
+          73
+        ],
+        "retrieval_entered": true,
+        "relevant_precision": 0.4,
+        "support_coverage": 1.0,
+        "ndcg_at_5": 0.6681130542686281,
+        "answer_goal": "理解混合语言，比较绿茶与红茶加工。"
+      },
+      {
+        "id": "R044",
+        "selected_ids": [
+          65,
+          81,
+          64,
+          78,
+          79
+        ],
+        "retrieval_entered": true,
+        "relevant_precision": 0.6,
+        "support_coverage": 1.0,
+        "ndcg_at_5": 0.8453596772450139,
+        "answer_goal": "识别阿拉伯文绿茶、红茶，比较制造工艺；回答可使用中文。"
+      },
+      {
+        "id": "R045",
+        "selected_ids": [
+          59,
+          51,
+          58,
+          53,
+          57
+        ],
+        "retrieval_entered": true,
+        "relevant_precision": 0.2,
+        "support_coverage": 1.0,
+        "ndcg_at_5": 1.0,
+        "answer_goal": "有依据介绍沙特；明确缺少阿联酋习惯资料，不以贸易/预测数据替代习惯。"
+      },
+      {
+        "id": "R046",
+        "selected_ids": [
+          59,
+          34,
+          51,
+          35,
+          53
+        ],
+        "retrieval_entered": true,
+        "relevant_precision": 0.2,
+        "support_coverage": 1.0,
+        "ndcg_at_5": 1.0,
+        "answer_goal": "有依据介绍沙特；明确缺少阿联酋习惯资料，不以贸易/预测数据替代习惯。"
+      },
+      {
+        "id": "R047",
+        "selected_ids": [
+          59,
+          34,
+          51,
+          35,
+          53
+        ],
+        "retrieval_entered": true,
+        "relevant_precision": 0.2,
+        "support_coverage": 1.0,
+        "ndcg_at_5": 1.0,
+        "answer_goal": "理解国名与缩写；有依据介绍沙特，承认阿联酋习惯资料缺口。"
+      },
+      {
+        "id": "R048",
+        "selected_ids": [
+          59,
+          60,
+          34,
+          51,
+          55
+        ],
+        "retrieval_entered": true,
+        "relevant_precision": 0.4,
+        "support_coverage": 1.0,
+        "ndcg_at_5": 1.0,
+        "answer_goal": "分别以约旦日常聚会/芳香植物和沙特待客/炭火茶资料进行比较，不能拿消费预测替代。"
+      },
+      {
+        "id": "R049",
+        "selected_ids": [
+          81,
+          65,
+          69,
+          78,
+          76
+        ],
+        "retrieval_entered": true,
+        "relevant_precision": 0.4,
+        "support_coverage": 1.0,
+        "ndcg_at_5": 0.6054325501994834,
+        "answer_goal": "区分红茶酶促氧化与黑茶渥堆/后发酵，不能将黑茶和红茶混为一类。"
+      },
+      {
+        "id": "R050",
+        "selected_ids": [
+          76,
+          65,
+          81,
+          78,
+          64
+        ],
+        "retrieval_entered": true,
+        "relevant_precision": 0.6,
+        "support_coverage": 1.0,
+        "ndcg_at_5": 0.7012869951253081,
+        "answer_goal": "明确hongcha=红茶=black tea，heicha=黑茶=dark tea，二者不同。"
+      },
+      {
+        "id": "R051",
+        "selected_ids": [
+          79,
+          80,
+          74,
+          77,
+          65
+        ],
+        "retrieval_entered": true,
+        "relevant_precision": 0.2,
+        "support_coverage": 1.0,
+        "ndcg_at_5": 1.0,
+        "answer_goal": "解释CTC是crush tear curl，Orthodox和CTC是制造方式，不是基本茶类；不编造未配置的完整生产步骤。"
+      },
+      {
+        "id": "R052",
+        "selected_ids": [
+          59,
+          57,
+          58,
+          61,
+          60
+        ],
+        "retrieval_entered": true,
+        "relevant_precision": 0.2,
+        "support_coverage": 1.0,
+        "ndcg_at_5": 1.0,
+        "answer_goal": "理解KSA为沙特，有依据介绍待客饮茶而不是仅报告进口量。"
+      },
+      {
+        "id": "R053",
+        "selected_ids": [
+          35,
+          70,
+          68,
+          60,
+          34
+        ],
+        "retrieval_entered": true,
+        "relevant_precision": 0.0,
+        "support_coverage": null,
+        "ndcg_at_5": null,
+        "answer_goal": "明确无此具体产品或官方配方证据，不能从一般茶知识编造配料、比例或皇室背书。"
+      },
+      {
+        "id": "R054",
+        "selected_ids": [
+          74,
+          65,
+          81,
+          79,
+          58
+        ],
+        "retrieval_entered": true,
+        "relevant_precision": 0.2,
+        "support_coverage": 1.0,
+        "ndcg_at_5": 1.0,
+        "answer_goal": "说明茶类不规定统一冲泡温度，依产品、叶片、水质、用量和口味调整；不能断言所有绿茶必须80度。"
+      },
+      {
+        "id": "R055",
+        "selected_ids": [
+          65,
+          66,
+          81,
+          78,
+          79
+        ],
+        "retrieval_entered": true,
+        "relevant_precision": 0.6,
+        "support_coverage": 1.0,
+        "ndcg_at_5": 0.7714160225925204,
+        "answer_goal": "同时介绍绿茶加热、红茶氧化、白茶萎凋/干燥，不能漏掉一类或用泛泛分类清单代替工艺。"
+      }
+    ],
+    "retrieval_entered": 15,
+    "mean_precision": 0.3333333333333333,
+    "mean_support_coverage": 1.0,
+    "mean_ndcg_at_5": 0.8551858908460792
+  }
+}

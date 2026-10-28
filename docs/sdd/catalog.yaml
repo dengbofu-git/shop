@@ -1,136 +1,524 @@
-schemaVersion: "0.1"
+schemaVersion: '0.1'
 project: tea_saas
-updatedAt: "2026-10-18"
-documentStatus: proposed
-mappingStatus: initial-source-map
+updatedAt: '2026-10-23'
+documentStatus: current-rules-with-implementation-gaps
+mappingStatus: source-map-with-open-scope
 mappingComplete: false
-implementationReconciliation:
-  date: "2026-10-18"
-  report: docs/sdd/reconciliation-2026-10-18.md
-  evidence: docs/sdd/evidence/2026-10-18-project-chat-sdd/manifest.json
-  scope: 项目聊天涉及增量与当前源码对账；8域25能力34功能15实现模块，仅静态同步，不提升验收状态。
-  historicalReport: docs/sdd/reconciliation.md
 authority:
   features: docs/sdd/product/feature-inventory.yaml
   sources: docs/sdd/product/source-manifest.yaml
   questions: docs/sdd/product/open-questions.yaml
   workflow: docs/sdd/governance/workflow.md
   implementationVersions: versions/modules.json
-
-# 业务域是规则归属；不要求按此重组 Django App。
 modules:
-  - id: MOD-IAM
-    slug: identity
-    name: 身份与访问
-    stage: REGISTERED
-    owner: null
-    capabilityIds: [CAP-IAM-001, CAP-IAM-002, CAP-IAM-003]
-    boundary: 身份、资料地址、角色权限及对象级访问规则；消费者仍需执行对象过滤。
-  - id: MOD-CAT
-    slug: catalog-content
-    name: 商品与内容
-    stage: REGISTERED
-    owner: null
-    capabilityIds: [CAP-CAT-001, CAP-CAT-002, CAP-CAT-003, CAP-CAT-004]
-    boundary: 商品可售事实、商家商品维护、已发布资讯的登录态阅读；库存变动归 FUL，现有库存读口径尚不统一。
-  - id: MOD-TRD
-    slug: trade
-    name: 交易与支付
-    stage: REGISTERED
-    owner: null
-    capabilityIds: [CAP-TRD-001, CAP-TRD-002, CAP-TRD-003]
-    boundary: 购物车结算、订单类型与状态、可信支付确认；不拥有物流事实。
-  - id: MOD-FUL
-    slug: fulfillment
-    name: 库存与物流
-    stage: REGISTERED
-    owner: null
-    capabilityIds: [CAP-FUL-001, CAP-FUL-002]
-    boundary: 库存、预留释放扣减、仓库、物流及轨迹的事实和变更契约。
-  - id: MOD-MER
-    slug: merchant-operations
-    name: 商家经营
-    stage: REGISTERED
-    owner: null
-    capabilityIds: [CAP-MER-001, CAP-MER-002, CAP-MER-003, CAP-MER-004, CAP-MER-005]
-    boundary: 商家履约协作、经营指标和结算展示；订单状态及库存规则引用 TRD/FUL。
-  - id: MOD-AI
-    slug: ai-support
-    name: 智能客服与 Agent 运营
-    stage: REGISTERED
-    owner: null
-    capabilityIds: [CAP-AI-001, CAP-AI-002, CAP-AI-003, CAP-AI-004]
-    boundary: 受控任务编排、推荐表达、证据问答、本人订单查询和模型运营；不拥有交易或商品事实。
-  - id: MOD-KNOW
-    slug: knowledge-memory
-    name: 知识与偏好
-    stage: REGISTERED
-    owner: null
-    capabilityIds: [CAP-KNOW-001, CAP-KNOW-002]
-    boundary: 显式买家偏好、知识可见范围、向量空间、召回及重排序。
-  - id: MOD-PLAT
-    slug: platform
-    name: 平台与交互支撑
-    stage: REGISTERED
-    owner: null
-    capabilityIds: [CAP-PLAT-001, CAP-PLAT-002, CAP-PLAT-003]
-    boundary: 运营用户管理、共用页面外壳、环境和交付；聚合展示不复制领域规则。
-
-# primaryBusinessModule 是本次规划归属，不修改实现版本登记的 paths。
+- id: MOD-IAM
+  slug: identity
+  name: 身份与访问
+  stage: REGISTERED
+  owner: null
+  capabilityIds:
+  - CAP-IAM-001
+  - CAP-IAM-002
+  - CAP-IAM-003
+  boundary: 身份、资料地址、角色权限及对象级访问规则；消费者仍需执行对象过滤。
+- id: MOD-CAT
+  slug: catalog-content
+  name: 商品与内容
+  stage: REGISTERED
+  owner: null
+  capabilityIds:
+  - CAP-CAT-001
+  - CAP-CAT-002
+  - CAP-CAT-003
+  - CAP-CAT-004
+  - CAP-CAT-005
+  boundary: 商品可售事实、商家商品维护、已发布资讯的登录态阅读；库存变动归 FUL，现有库存读口径尚不统一。
+- id: MOD-TRD
+  slug: trade
+  name: 交易与支付
+  stage: REGISTERED
+  owner: null
+  capabilityIds:
+  - CAP-TRD-001
+  - CAP-TRD-002
+  - CAP-TRD-003
+  boundary: 购物车结算、订单类型与状态、可信支付确认；不拥有物流事实。
+- id: MOD-FUL
+  slug: fulfillment
+  name: 库存与物流
+  stage: REGISTERED
+  owner: null
+  capabilityIds:
+  - CAP-FUL-001
+  - CAP-FUL-002
+  boundary: 库存、预留释放扣减、仓库、物流及轨迹的事实和变更契约。
+- id: MOD-MER
+  slug: merchant-operations
+  name: 商家经营
+  stage: REGISTERED
+  owner: null
+  capabilityIds:
+  - CAP-MER-001
+  - CAP-MER-002
+  - CAP-MER-003
+  - CAP-MER-004
+  - CAP-MER-005
+  - CAP-MER-006
+  boundary: 商家履约协作、经营指标和结算展示；订单状态及库存规则引用 TRD/FUL。
+- id: MOD-AI
+  slug: ai-support
+  name: 智能客服与 Agent 运营
+  stage: REGISTERED
+  owner: null
+  capabilityIds:
+  - CAP-AI-001
+  - CAP-AI-002
+  - CAP-AI-003
+  - CAP-AI-004
+  boundary: 受控任务编排、推荐表达、证据问答、本人订单查询和模型运营；不拥有交易或商品事实。
+- id: MOD-KNOW
+  slug: knowledge-memory
+  name: 知识与偏好
+  stage: REGISTERED
+  owner: null
+  capabilityIds:
+  - CAP-KNOW-001
+  - CAP-KNOW-002
+  boundary: 显式买家偏好、知识可见范围、向量空间、召回及重排序。
+- id: MOD-PLAT
+  slug: platform
+  name: 平台与交互支撑
+  stage: REGISTERED
+  owner: null
+  capabilityIds:
+  - CAP-PLAT-001
+  - CAP-PLAT-002
+  - CAP-PLAT-003
+  boundary: 运营用户管理、共用页面外壳、环境和交付；聚合展示不复制领域规则。
 implementationModuleMapping:
-  - {implementationModule: core, primaryBusinessModule: MOD-PLAT}
-  - {implementationModule: users, primaryBusinessModule: MOD-IAM}
-  - {implementationModule: goods, primaryBusinessModule: MOD-CAT}
-  - {implementationModule: carts, primaryBusinessModule: MOD-TRD}
-  - {implementationModule: orders, primaryBusinessModule: MOD-TRD, relatedBusinessModules: [MOD-MER, MOD-AI]}
-  - {implementationModule: pays, primaryBusinessModule: MOD-TRD}
-  - {implementationModule: news, primaryBusinessModule: MOD-CAT}
-  - {implementationModule: inventory, primaryBusinessModule: MOD-FUL}
-  - {implementationModule: logistics, primaryBusinessModule: MOD-FUL}
-  - {implementationModule: supplier, primaryBusinessModule: MOD-MER, relatedBusinessModules: [MOD-TRD, MOD-FUL]}
-  - {implementationModule: admin_panel, primaryBusinessModule: MOD-PLAT, relatedBusinessModules: [MOD-AI]}
-  - {implementationModule: support_ai, primaryBusinessModule: MOD-AI}
-  - {implementationModule: merchant_ai, primaryBusinessModule: MOD-MER, relatedBusinessModules: [MOD-AI, MOD-IAM]}
-  - {implementationModule: ai_storage, primaryBusinessModule: MOD-KNOW}
-  - {implementationModule: web, primaryBusinessModule: MOD-PLAT, relatedBusinessModules: [MOD-IAM, MOD-CAT, MOD-TRD, MOD-FUL, MOD-MER, MOD-AI]}
-
-# candidate 不表示业务已确认或交付承诺。活动能力的状态需与 manifest 一致。
+- implementationModule: engagement
+  primaryBusinessModule: MOD-MER
+  relatedBusinessModules:
+  - MOD-CAT
+  - MOD-TRD
+  - MOD-IAM
+  - MOD-PLAT
+- implementationModule: core
+  primaryBusinessModule: MOD-PLAT
+- implementationModule: users
+  primaryBusinessModule: MOD-IAM
+- implementationModule: goods
+  primaryBusinessModule: MOD-CAT
+- implementationModule: carts
+  primaryBusinessModule: MOD-TRD
+- implementationModule: orders
+  primaryBusinessModule: MOD-TRD
+  relatedBusinessModules:
+  - MOD-MER
+  - MOD-AI
+- implementationModule: pays
+  primaryBusinessModule: MOD-TRD
+- implementationModule: news
+  primaryBusinessModule: MOD-CAT
+- implementationModule: inventory
+  primaryBusinessModule: MOD-FUL
+- implementationModule: logistics
+  primaryBusinessModule: MOD-FUL
+- implementationModule: supplier
+  primaryBusinessModule: MOD-MER
+  relatedBusinessModules:
+  - MOD-TRD
+  - MOD-FUL
+- implementationModule: admin_panel
+  primaryBusinessModule: MOD-PLAT
+  relatedBusinessModules:
+  - MOD-AI
+- implementationModule: support_ai
+  primaryBusinessModule: MOD-AI
+- implementationModule: merchant_ai
+  primaryBusinessModule: MOD-MER
+  relatedBusinessModules:
+  - MOD-AI
+  - MOD-IAM
+- implementationModule: ai_storage
+  primaryBusinessModule: MOD-KNOW
+- implementationModule: web
+  primaryBusinessModule: MOD-PLAT
+  relatedBusinessModules:
+  - MOD-IAM
+  - MOD-CAT
+  - MOD-TRD
+  - MOD-FUL
+  - MOD-MER
+  - MOD-AI
 capabilities:
-  - {id: CAP-IAM-001, moduleId: MOD-IAM, name: 注册登录与凭据恢复, status: candidate, priority: P2, sourceFeatureIds: [FEAT-001]}
-  - {id: CAP-IAM-002, moduleId: MOD-IAM, name: 本人资料与收货地址, status: candidate, priority: P2, sourceFeatureIds: [FEAT-002]}
-  - {id: CAP-IAM-003, moduleId: MOD-IAM, name: 角色权限与对象访问范围, status: candidate, priority: P0, sourceFeatureIds: [FEAT-003]}
-  - {id: CAP-CAT-001, moduleId: MOD-CAT, name: 买家商品浏览与详情, status: candidate, priority: P2, sourceFeatureIds: [FEAT-004]}
-  - {id: CAP-CAT-002, moduleId: MOD-CAT, name: 商家商品维护与上下架, status: candidate, priority: P2, sourceFeatureIds: [FEAT-005, FEAT-028]}
-  - {id: CAP-CAT-003, moduleId: MOD-CAT, name: 资讯发布与登录态阅读, status: candidate, priority: P3, sourceFeatureIds: [FEAT-006]}
-  - id: CAP-CAT-004
-    moduleId: MOD-CAT
-    name: 买家收藏与浏览足迹
-    status: IMPLEMENTING
-    priority: P2
-    sourceFeatureIds: [FEAT-029]
-    manifest: docs/sdd/modules/catalog-content/capabilities/CAP-CAT-004/capability.yaml
-  - {id: CAP-TRD-001, moduleId: MOD-TRD, name: 购物车与创建订单, status: candidate, priority: P1, sourceFeatureIds: [FEAT-007]}
-  - {id: CAP-TRD-002, moduleId: MOD-TRD, name: 订单类型查询与生命周期, status: candidate, priority: P1, sourceFeatureIds: [FEAT-008]}
-  - {id: CAP-TRD-003, moduleId: MOD-TRD, name: 支付发起与可信回调, status: candidate, priority: P0, sourceFeatureIds: [FEAT-009]}
-  - {id: CAP-FUL-001, moduleId: MOD-FUL, name: 库存与仓库数量变动, status: candidate, priority: P1, sourceFeatureIds: [FEAT-010]}
-  - {id: CAP-FUL-002, moduleId: MOD-FUL, name: 物流单与轨迹查询, status: candidate, priority: P0, sourceFeatureIds: [FEAT-011]}
-  - {id: CAP-MER-001, moduleId: MOD-MER, name: 商家订单处理与发货协作, status: candidate, priority: P1, sourceFeatureIds: [FEAT-012]}
-  - {id: CAP-MER-002, moduleId: MOD-MER, name: 经营指标与看板, status: candidate, priority: P3, sourceFeatureIds: [FEAT-013]}
-  - {id: CAP-MER-003, moduleId: MOD-MER, name: 商家结算展示与对账, status: candidate, priority: P3, sourceFeatureIds: [FEAT-014]}
-  - {id: CAP-MER-004, moduleId: MOD-MER, name: 商家智能助手入口与受控经营能力, status: candidate, priority: P2, sourceFeatureIds: [FEAT-032], implementationState: entry-only, specification: docs/sdd/modules/merchant-operations/assistant-entry.md}
-  - {id: CAP-MER-005, moduleId: MOD-MER, name: 商家店铺主页与页面管理, status: candidate, priority: P2, sourceFeatureIds: [FEAT-036], specification: docs/sdd/modules/merchant-operations/store-pages.md}
-  - {id: CAP-AI-001, moduleId: MOD-AI, name: 商品推荐与指代详情, status: candidate, priority: P2, sourceFeatureIds: [FEAT-016, FEAT-025, FEAT-031, FEAT-033]}
-  - {id: CAP-AI-002, moduleId: MOD-AI, name: 有证据的茶叶知识问答, status: candidate, priority: P2, sourceFeatureIds: [FEAT-017, FEAT-026]}
-  - id: CAP-AI-003
-    moduleId: MOD-AI
-    name: 买家通过 AI 客服查询本人订单
-    status: SPEC_REVIEW
-    priority: P1
-    sourceFeatureIds: [FEAT-018, FEAT-030]
-    manifest: docs/sdd/modules/ai-support/capabilities/CAP-AI-003/capability.yaml
-  - {id: CAP-AI-004, moduleId: MOD-AI, name: Agent 模型配置与监控, status: candidate, priority: P2, sourceFeatureIds: [FEAT-019, FEAT-027]}
-  - {id: CAP-KNOW-001, moduleId: MOD-KNOW, name: 买家显式偏好管理, status: candidate, priority: P2, sourceFeatureIds: [FEAT-020]}
-  - {id: CAP-KNOW-002, moduleId: MOD-KNOW, name: 知识入库与可见范围检索, status: candidate, priority: P2, sourceFeatureIds: [FEAT-021]}
-  - {id: CAP-PLAT-001, moduleId: MOD-PLAT, name: 平台用户管理, status: candidate, priority: P2, sourceFeatureIds: [FEAT-022]}
-  - {id: CAP-PLAT-002, moduleId: MOD-PLAT, name: 多角色页面外壳与导航, status: candidate, priority: P2, sourceFeatureIds: [FEAT-023, FEAT-035]}
-  - {id: CAP-PLAT-003, moduleId: MOD-PLAT, name: 环境运行与模块交付支撑, status: candidate, priority: P2, sourceFeatureIds: [FEAT-024, FEAT-034]}
+- id: CAP-MER-006
+  moduleId: MOD-MER
+  name: 买卖双方站内咨询
+  priority: P2
+  sourceFeatureIds:
+  - FEAT-037
+  specification: docs/sdd/modules/merchant-operations/buyer-merchant-conversations.md
+  legacyStage: candidate
+  assessment:
+    specStatus: unreviewed
+    implementationStatus: source-observed
+    verificationStatus: not-run
+    deploymentStatus: unverified
+- id: CAP-CAT-005
+  moduleId: MOD-CAT
+  name: 购买后商品评价与评分
+  priority: P2
+  sourceFeatureIds:
+  - FEAT-038
+  specification: docs/sdd/modules/catalog-content/purchase-reviews.md
+  legacyStage: candidate
+  assessment:
+    specStatus: unreviewed
+    implementationStatus: source-observed
+    verificationStatus: not-run
+    deploymentStatus: unverified
+- id: CAP-IAM-001
+  moduleId: MOD-IAM
+  name: 注册登录与本人密码维护
+  priority: P2
+  sourceFeatureIds:
+  - FEAT-001
+  legacyStage: candidate
+  assessment:
+    specStatus: unreviewed
+    implementationStatus: source-observed
+    verificationStatus: not-run
+    deploymentStatus: unverified
+- id: CAP-IAM-002
+  moduleId: MOD-IAM
+  name: 本人资料与收货地址
+  priority: P2
+  sourceFeatureIds:
+  - FEAT-002
+  legacyStage: candidate
+  assessment:
+    specStatus: unreviewed
+    implementationStatus: source-observed
+    verificationStatus: not-run
+    deploymentStatus: unverified
+- id: CAP-IAM-003
+  moduleId: MOD-IAM
+  name: 角色权限与对象访问范围
+  priority: P0
+  sourceFeatureIds:
+  - FEAT-003
+  legacyStage: candidate
+  assessment:
+    specStatus: unreviewed
+    implementationStatus: source-observed
+    verificationStatus: not-run
+    deploymentStatus: unverified
+- id: CAP-CAT-001
+  moduleId: MOD-CAT
+  name: 买家商品浏览与详情
+  priority: P2
+  sourceFeatureIds:
+  - FEAT-004
+  legacyStage: candidate
+  assessment:
+    specStatus: rules-accepted
+    implementationStatus: partial
+    verificationStatus: not-run
+    deploymentStatus: unverified
+    scope: 仅R01—R11对应规则已确认，其他未决范围不据此批准
+- id: CAP-CAT-002
+  moduleId: MOD-CAT
+  name: 商家商品维护与上下架
+  priority: P2
+  sourceFeatureIds:
+  - FEAT-005
+  - FEAT-028
+  legacyStage: candidate
+  assessment:
+    specStatus: unreviewed
+    implementationStatus: source-observed
+    verificationStatus: not-run
+    deploymentStatus: unverified
+- id: CAP-CAT-003
+  moduleId: MOD-CAT
+  name: 资讯发布与登录态阅读
+  priority: P3
+  sourceFeatureIds:
+  - FEAT-006
+  legacyStage: candidate
+  assessment:
+    specStatus: unreviewed
+    implementationStatus: source-observed
+    verificationStatus: not-run
+    deploymentStatus: unverified
+- id: CAP-CAT-004
+  moduleId: MOD-CAT
+  name: 买家商品／商家收藏与浏览足迹
+  priority: P2
+  sourceFeatureIds:
+  - FEAT-029
+  manifest: docs/sdd/modules/catalog-content/capabilities/CAP-CAT-004/capability.yaml
+  legacyStage: IMPLEMENTING
+  assessment:
+    specStatus: in-review
+    implementationStatus: source-observed
+    verificationStatus: historical-evidence
+    deploymentStatus: local-recorded
+    scope: 商品／商家收藏已有资产和原日期启用记录；本轮同步AC未重跑
+- id: CAP-TRD-001
+  moduleId: MOD-TRD
+  name: 购物车与创建订单
+  priority: P1
+  sourceFeatureIds:
+  - FEAT-007
+  legacyStage: candidate
+  assessment:
+    specStatus: rules-accepted
+    implementationStatus: partial
+    verificationStatus: not-run
+    deploymentStatus: unverified
+    scope: 仅R01—R11对应规则已确认，其他未决范围不据此批准
+- id: CAP-TRD-002
+  moduleId: MOD-TRD
+  name: 订单类型查询与生命周期
+  priority: P1
+  sourceFeatureIds:
+  - FEAT-008
+  legacyStage: candidate
+  assessment:
+    specStatus: rules-accepted
+    implementationStatus: partial
+    verificationStatus: not-run
+    deploymentStatus: unverified
+    scope: 仅R01—R11对应规则已确认，其他未决范围不据此批准
+- id: CAP-TRD-003
+  moduleId: MOD-TRD
+  name: 支付发起与可信回调
+  priority: P0
+  sourceFeatureIds:
+  - FEAT-009
+  legacyStage: candidate
+  assessment:
+    specStatus: unreviewed
+    implementationStatus: source-observed
+    verificationStatus: not-run
+    deploymentStatus: unverified
+- id: CAP-FUL-001
+  moduleId: MOD-FUL
+  name: 库存与仓库数量变动
+  priority: P1
+  sourceFeatureIds:
+  - FEAT-010
+  legacyStage: candidate
+  assessment:
+    specStatus: rules-accepted
+    implementationStatus: partial
+    verificationStatus: not-run
+    deploymentStatus: unverified
+    scope: 仅R01—R11对应规则已确认，其他未决范围不据此批准
+- id: CAP-FUL-002
+  moduleId: MOD-FUL
+  name: 物流单与轨迹查询
+  priority: P0
+  sourceFeatureIds:
+  - FEAT-011
+  legacyStage: candidate
+  assessment:
+    specStatus: unreviewed
+    implementationStatus: source-observed
+    verificationStatus: not-run
+    deploymentStatus: unverified
+- id: CAP-MER-001
+  moduleId: MOD-MER
+  name: 商家订单处理与发货协作
+  priority: P1
+  sourceFeatureIds:
+  - FEAT-012
+  legacyStage: candidate
+  assessment:
+    specStatus: rules-accepted
+    implementationStatus: partial
+    verificationStatus: not-run
+    deploymentStatus: unverified
+    scope: 仅R01—R11对应规则已确认，其他未决范围不据此批准
+- id: CAP-MER-002
+  moduleId: MOD-MER
+  name: 经营指标与看板
+  priority: P3
+  sourceFeatureIds:
+  - FEAT-013
+  legacyStage: candidate
+  assessment:
+    specStatus: unreviewed
+    implementationStatus: source-observed
+    verificationStatus: not-run
+    deploymentStatus: unverified
+- id: CAP-MER-003
+  moduleId: MOD-MER
+  name: 商家结算展示与对账
+  priority: P3
+  sourceFeatureIds:
+  - FEAT-014
+  legacyStage: candidate
+  assessment:
+    specStatus: unreviewed
+    implementationStatus: source-observed
+    verificationStatus: not-run
+    deploymentStatus: unverified
+- id: CAP-MER-004
+  moduleId: MOD-MER
+  name: 商家智能助手入口与受控经营能力
+  priority: P2
+  sourceFeatureIds:
+  - FEAT-032
+  specification: docs/sdd/modules/merchant-operations/assistant-entry.md
+  legacyStage: candidate
+  assessment:
+    specStatus: unreviewed
+    implementationStatus: entry-only
+    verificationStatus: not-run
+    deploymentStatus: unverified
+- id: CAP-MER-005
+  moduleId: MOD-MER
+  name: 商家店铺主页与页面管理
+  priority: P2
+  sourceFeatureIds:
+  - FEAT-036
+  specification: docs/sdd/modules/merchant-operations/store-pages.md
+  legacyStage: candidate
+  assessment:
+    specStatus: unreviewed
+    implementationStatus: source-observed
+    verificationStatus: not-run
+    deploymentStatus: unverified
+- id: CAP-AI-001
+  moduleId: MOD-AI
+  name: 商品推荐与指代详情
+  priority: P2
+  sourceFeatureIds:
+  - FEAT-016
+  - FEAT-025
+  - FEAT-031
+  - FEAT-033
+  legacyStage: candidate
+  assessment:
+    specStatus: rules-accepted
+    implementationStatus: partial
+    verificationStatus: not-run
+    deploymentStatus: unverified
+    scope: 仅R01—R11对应规则已确认，其他未决范围不据此批准
+- id: CAP-AI-002
+  moduleId: MOD-AI
+  name: 有证据的茶叶知识问答
+  priority: P2
+  sourceFeatureIds:
+  - FEAT-017
+  - FEAT-026
+  legacyStage: candidate
+  assessment:
+    specStatus: unreviewed
+    implementationStatus: source-observed
+    verificationStatus: not-run
+    deploymentStatus: unverified
+- id: CAP-AI-003
+  moduleId: MOD-AI
+  name: 买家通过 AI 客服查询本人订单
+  priority: P1
+  sourceFeatureIds:
+  - FEAT-018
+  - FEAT-030
+  manifest: docs/sdd/modules/ai-support/capabilities/CAP-AI-003/capability.yaml
+  legacyStage: SPEC_REVIEW
+  assessment:
+    specStatus: rules-accepted
+    implementationStatus: partial
+    verificationStatus: not-run
+    deploymentStatus: unverified
+    scope: R01/R02/R09新规则及本版本AC；已有源码与历史证据不提升新状态
+- id: CAP-AI-004
+  moduleId: MOD-AI
+  name: Agent 模型配置与监控
+  priority: P2
+  sourceFeatureIds:
+  - FEAT-019
+  - FEAT-027
+  legacyStage: candidate
+  assessment:
+    specStatus: unreviewed
+    implementationStatus: source-observed
+    verificationStatus: not-run
+    deploymentStatus: unverified
+- id: CAP-KNOW-001
+  moduleId: MOD-KNOW
+  name: 买家显式偏好管理
+  priority: P2
+  sourceFeatureIds:
+  - FEAT-020
+  legacyStage: candidate
+  assessment:
+    specStatus: unreviewed
+    implementationStatus: source-observed
+    verificationStatus: not-run
+    deploymentStatus: unverified
+- id: CAP-KNOW-002
+  moduleId: MOD-KNOW
+  name: 知识入库与可见范围检索
+  priority: P2
+  sourceFeatureIds:
+  - FEAT-021
+  legacyStage: candidate
+  assessment:
+    specStatus: unreviewed
+    implementationStatus: source-observed
+    verificationStatus: not-run
+    deploymentStatus: unverified
+- id: CAP-PLAT-001
+  moduleId: MOD-PLAT
+  name: 平台用户管理
+  priority: P2
+  sourceFeatureIds:
+  - FEAT-022
+  legacyStage: candidate
+  assessment:
+    specStatus: unreviewed
+    implementationStatus: source-observed
+    verificationStatus: not-run
+    deploymentStatus: unverified
+- id: CAP-PLAT-002
+  moduleId: MOD-PLAT
+  name: 多角色页面外壳与导航
+  priority: P2
+  sourceFeatureIds:
+  - FEAT-023
+  - FEAT-035
+  legacyStage: candidate
+  assessment:
+    specStatus: unreviewed
+    implementationStatus: source-observed
+    verificationStatus: not-run
+    deploymentStatus: unverified
+- id: CAP-PLAT-003
+  moduleId: MOD-PLAT
+  name: 环境运行与模块交付支撑
+  priority: P2
+  sourceFeatureIds:
+  - FEAT-024
+  - FEAT-034
+  legacyStage: candidate
+  assessment:
+    specStatus: unreviewed
+    implementationStatus: source-observed
+    verificationStatus: not-run
+    deploymentStatus: unverified
+currentAssessment:
+  report: docs/sdd/product/current-state.md
+  ruleDecisions: docs/sdd/rule-review.md
+  scope: 静态核查与已确认规则修订；没有运行、部署或数据库验证
+  counts:
+    businessModules: 8
+    capabilities: 28
+    features: 37
+    implementationModules: 16
+historicalEvidence:
+- docs/sdd/evidence/2026-10-18-project-chat-sdd/manifest.json

@@ -8,9 +8,11 @@ from django.views import View
 import json
 from tea_saas.utils import jwt_encode, jwt_decode
 from django.views.decorators.cache import never_cache
+from django.utils.decorators import method_decorator
 from django_redis import get_redis_connection
 import re
 import logging
+import unicodedata
 
 logger = logging.getLogger(__name__)
 
@@ -329,7 +331,7 @@ def password_change(request, username):
 
 
 class UserProfileView(View):
-    """买家账户基本信息（邮箱、手机）"""
+    """本人账户资料；买家昵称独立保存，商家身份使用店铺名称。"""
 
     def get(self, request, username):
         payload = check(request)
@@ -345,6 +347,8 @@ class UserProfileView(View):
             'code': 200,
             'data': {
                 'username': user.username,
+                'nickname': user.nickname,
+                'shop_name': user.shop_name or '',
                 'email': user.email,
                 'phone': user.phone,
                 'user_type': user.user_type,
@@ -378,6 +382,27 @@ class UserProfileView(View):
             return JsonResponse({'code': 10008, 'error': '该手机号已被使用'})
         UserProfile.objects.filter(pk=user.pk).update(email=email, phone=phone)
         return JsonResponse({'code': 200, 'data': '保存成功'})
+
+    @method_decorator(never_cache)
+    def patch(self, request, username):
+        user, error = get_user_from_request(request)
+        if error is not None or not user.is_active:
+            return JsonResponse({'code': 401, 'error': '请先登录有效账号'}, status=401)
+        if user.username != username:
+            return JsonResponse({'code': 403, 'error': '只能修改本人的昵称'}, status=403)
+        if account_access(user)['redirect_url'] != '/buyer_dashboard.html':
+            return JsonResponse({'code': 403, 'error': '仅买家可设置昵称，商家使用店铺名称'}, status=403)
+        try:
+            data = json.loads(request.body)
+        except (ValueError, UnicodeDecodeError):
+            return JsonResponse({'code': 400, 'error': '请求数据格式不正确'}, status=400)
+        if not isinstance(data, dict) or set(data) != {'nickname'} or not isinstance(data['nickname'], str):
+            return JsonResponse({'code': 400, 'error': '仅支持修改昵称文本'}, status=400)
+        nickname = data['nickname'].strip()
+        if len(nickname) > 30 or any(unicodedata.category(char) == 'Cc' for char in nickname):
+            return JsonResponse({'code': 400, 'error': '昵称最多30个字符，不能包含换行或控制字符'}, status=400)
+        UserProfile.objects.filter(pk=user.pk).update(nickname=nickname)
+        return JsonResponse({'code': 200, 'data': {'nickname': nickname}})
 
 
 class AddressView(View):

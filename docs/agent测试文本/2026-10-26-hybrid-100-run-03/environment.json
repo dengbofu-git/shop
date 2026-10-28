@@ -1,0 +1,72 @@
+{
+  "python": "3.9.25 (main, Nov  3 2025, 22:44:01) [MSC v.1929 64 bit (AMD64)]",
+  "platform": "Windows-10-10.0.26200-SP0",
+  "packages": {
+    "Django": "3.2.12",
+    "openai": "1.109.1",
+    "langchain-core": "0.3.86",
+    "langchain-openai": "0.2.14",
+    "langgraph": "0.2.76",
+    "pydantic": "2.13.5",
+    "httpx": "0.28.1",
+    "requests": "2.28.1",
+    "pgvector": "0.4.1"
+  },
+  "after_policy": {
+    "calls": 0,
+    "input_tokens": 0,
+    "output_tokens": 0,
+    "unknown_usage_calls": 0,
+    "rejected_calls": 0,
+    "provider_overrun_calls": 0,
+    "stages": {},
+    "stage_policy": {
+      "scope": {
+        "thinking": "disabled",
+        "max_tokens": 192
+      },
+      "planning": {
+        "thinking": "disabled",
+        "max_tokens": 1400
+      },
+      "extraction": {
+        "thinking": "disabled",
+        "max_tokens": 1600
+      },
+      "rewrite": {
+        "thinking": "disabled",
+        "max_tokens": 512
+      },
+      "knowledge": {
+        "thinking": "disabled",
+        "max_tokens": 2400
+      },
+      "verification": {
+        "thinking": "disabled",
+        "max_tokens": 768
+      },
+      "compliance": {
+        "thinking": "disabled",
+        "max_tokens": 512
+      }
+    },
+    "limits": {
+      "calls": 8,
+      "input_tokens": 65536,
+      "output_tokens": 8192
+    }
+  },
+  "pricing": {
+    "source": "https://api-docs.deepseek.com/quick_start/pricing/",
+    "checked_date": "2026-10-26",
+    "model": "deepseek-flash",
+    "offpeak_usd_per_million": {
+      "cache_hit": 0.003,
+      "cache_miss": 0.15,
+      "output": 0.6
+    },
+    "peak_multiplier": 2
+  },
+  "cache_policy": "disabled for both primary arms; separate warm-cache retrieval-only benchmark",
+  "stage_policy_scope": "same defaults disabled thinking and request/stage budgets in both arms"
+}

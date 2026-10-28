@@ -1,0 +1,38 @@
+{
+  "started_at": "2026-10-26T02:10:59.129513+00:00",
+  "head": "25a08ee29e23ce1bd479951e5860b44c9dfb2a89",
+  "configuration": {
+    "model": "deepseek-flash",
+    "thinking": "enabled",
+    "configuration_revision": 5,
+    "provider_hostname": "api.deepseek.com",
+    "api_key_present": true,
+    "data_scope": "Synthetic fixtures only; no buyer histories, orders, preferences or knowledge database are read",
+    "configuration_scope": "One read of AgentConfiguration; no configuration changes"
+  },
+  "adapter_overrides": {
+    "max_retries": 0,
+    "timeout_seconds": 60,
+    "max_tokens": 4096
+  },
+  "source_sha256": {
+    "support_ai/grounding.py": "9c30cbbf6db41ed5e8a1cca714a70415926c15844ad8cb0d9d8307ba57d3bee7",
+    "support_ai/business_grounding.py": "74091ea12b785fd854d7ae28b28b7a048e3e52000a7ce4926d92dd2ebc64ff26",
+    "support_ai/tea_explanation.py": "ea145ea13ffaf479534da5ac03225696f83c93c05c4185a7b60289b791dc1e70",
+    "support_ai/workflow.py": "458f60e8d7249e215b9e8abadf5e696dabd3a6589753aa33202e45fd11450651",
+    "support_ai/model_client.py": "08f4601f749240cfb5812d19d37b9d82e9186938fac6873242c1d07a51e9d7bc",
+    "support_ai/tool_services.py": "460db66d2267d4eabb3ad2b564018d15c5f97207eaea64cb7972add6214f5bdf",
+    "versions/modules.json": "ffacc100c02c3c0a1ca63fe1adc645cdd734775756d44f9ea96cc0d2d5e16035"
+  },
+  "cases": [
+    "B01 currency, amount and stock corruption",
+    "B02 swapped product prices",
+    "B03 false payment/shipping and delivery promise"
+  ],
+  "additional_cases": [],
+  "limits": {
+    "max_real_model_calls": 3
+  },
+  "database_access_after_preflight": "Forbidden by cursor wrappers",
+  "procedure_sha256": "1ff6dbbca6e14aaf825dc756580b8d61247f3238400f6e5d8ff576f201319237"
+}

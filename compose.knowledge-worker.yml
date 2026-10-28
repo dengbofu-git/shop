@@ -1,0 +1,33 @@
+name: tea_saas-knowledge-worker
+services:
+  knowledge-worker:
+    build:
+      context: .
+      dockerfile: deploy/knowledge-worker/Dockerfile
+    working_dir: /app
+    init: true
+    restart: unless-stopped
+    # Django reads existing .env/.env.postgres from the read-only /app mount.
+    # Do not let Compose reinterpret passwords or preserve dotenv quote syntax.
+    environment:
+      DB_HOST: host.docker.internal
+      AI_POSTGRES_HOST: host.docker.internal
+      AI_OLLAMA_BASE_URL: http://host.docker.internal:11434
+      AI_PDF_STORAGE_ROOT: /knowledge
+      AI_PDF_TOKENIZER_PATH: /models/bge-m3/tokenizer.json
+      LOG_TO_FILE: "false"
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    volumes:
+      - .:/app:ro
+      - ${AI_PDF_HOST_STORAGE:-./.scratch/knowledge-files}:/knowledge
+      - ${AI_PDF_INPUT_DIR:-./.scratch/knowledge-input}:/input:ro
+    tmpfs:
+      - /tmp:size=256m,mode=1777
+    read_only: true
+    security_opt:
+      - no-new-privileges:true
+    cap_drop: [ALL]
+    mem_limit: 3g
+    cpus: 2
+    pids_limit: 128

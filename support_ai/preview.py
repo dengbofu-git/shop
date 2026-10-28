@@ -13,15 +13,17 @@ from django.utils import timezone
 from langchain_core.callbacks import BaseCallbackHandler
 
 from .configuration import effective_configuration
-from .context import HISTORY_HOURS, HISTORY_TURNS, context_from_turns, current_order_context, saved_preferences
-from .execution import ToolResult
+from .context import HISTORY_HOURS, HISTORY_TURNS, context_from_turns, saved_preferences
 from .model_client import configured_model
 from .pii import redact
 from .retrieval import KnowledgeRetriever
 from .query_rewrite import QueryPolicy
 from .telemetry import observe_agent
 from .tool_services import create_tool_handlers
-from .workflow import build_graph
+from .workflow import build_graph, fixed_result
+from .cost_control import CostPolicy, STAGES, stage_options
+from .order_contracts import prepare_order_input
+from .order_queries import OrderQueryContext
 
 PREVIEW_RUNTIME_VERSION = '0.10.0'
 
@@ -63,8 +65,7 @@ class PreviewSession:
         self.telemetry = telemetry
         self.log_dir = Path(log_dir or settings.BASE_DIR / 'reports' / 'agent-preview').resolve()
         self.log_dir.mkdir(parents=True, exist_ok=True)
-        # Fail before showing readiness if the current runtime is not configured.
-        configured_model(self.configuration())
+        # Model configuration is validated when a request actually needs it.
         self.new()
 
     def configuration(self):
@@ -78,6 +79,9 @@ class PreviewSession:
                 'retrieval_candidates': config.retrieval_candidates, 'retrieval_top_k': config.retrieval_top_k,
                 'scope': 'selected_buyer' if self.user else 'public', 'telemetry': config.telemetry_enabled,
                 'rag_query_rewrite': asdict(QueryPolicy.current()),
+                'model_cost_policy': {'limits': asdict(CostPolicy.current()), 'stages': {
+                    stage: {'thinking': stage_options(stage)[0], 'max_tokens': stage_options(stage)[1]}
+                    for stage in STAGES}},
                 'history_turns': HISTORY_TURNS, 'log_file': str(self.log_path) if hasattr(self, 'log_path') else None}
 
     def _append(self, record):
@@ -104,46 +108,51 @@ class PreviewSession:
             raise ValueError('请输入 1 至 1000 字的问题。')
         close_old_connections()
         started = time.perf_counter()
-        safe_message = redact(message.strip())
+        safe_message, references = prepare_order_input(message)
         history = self.history()
-        selected_order = ''
+        order_query_context = OrderQueryContext(owner_id=self.user.pk if self.user else None,
+            references=references, active_order_id=self.order_binding.active_order_id,
+            active_order_at=self.order_binding.active_order_at,
+            previous_page=next((turn.response['order_result'] for turn in reversed(self.turns)
+                if turn.created_at >= timezone.now() - timedelta(hours=HISTORY_HOURS)
+                and turn.response.get('order_result')), {}))
         usage = Usage()
         result = None
         retriever = None
         self.last_error = None
         try:
             config = self.configuration()
-            memory, orders = None, '[]'
-            if self.user:
-                memory = saved_preferences(self.user)
-                safe_message, orders, selected_order = current_order_context(self.user, self.order_binding, message)
-            with observe_agent(config) as observation:
-                model = configured_model(config)
-                retriever = KnowledgeRetriever(self.user.pk if self.user else None, config)
+            result = fixed_result(safe_message, history)
+            if result is None:
+                memory = None
+                if self.user:
+                    memory = saved_preferences(self.user)
+                with observe_agent(config) as observation:
+                    model = configured_model(config)
+                    retriever = KnowledgeRetriever(self.user.pk if self.user else None, config)
 
-                def tool_factory(state):
-                    handlers = create_tool_handlers(
-                        model, retriever.search,
-                        state['safe_message'], state['resolved_question'], state.get('recent_turns', []), memory, orders,
-                        knowledge_context_chars=config.retrieval_context_chars,
-                        scoped_knowledge_search=retriever.scoped_search, knowledge_notes=retriever.notes)
-                    if self.user is None:
-                        handlers['get_order_status'] = lambda step, completed: ToolResult(
-                            step_id=step.id, tool=step.tool, status='needs_clarification',
-                            data={'answer': '公开预览未绑定买家，无法查询订单。订单测试请使用 --user-id 指定买家后重新启动。'})
-                    return handlers
+                    def tool_factory(state):
+                        handlers = create_tool_handlers(
+                            model, retriever.search,
+                            state['safe_message'], state['resolved_question'], state.get('recent_turns', []), memory,
+                            knowledge_context_chars=config.retrieval_context_chars,
+                            scoped_knowledge_search=retriever.scoped_search, knowledge_notes=retriever.notes,
+                            order_query_context=order_query_context)
+                        return handlers
 
-                graph = build_graph(model, tool_factory=tool_factory)
-                callbacks = [usage] + ([observation.callback] if observation.callback else [])
-                result = graph.invoke({'message': safe_message, 'recent_turns': history, 'memory': memory,
-                                       'order_context': orders, 'owner_id': self.user.pk if self.user else None},
-                                      config={'callbacks': callbacks})
-                observation.finish(result)
-                if result['tool_results'] and all(r['status'] in ('error', 'skipped') for r in result['tool_results']):
-                    raise RuntimeError('All Agent tools failed')
+                    graph = build_graph(model, tool_factory=tool_factory)
+                    callbacks = [usage] + ([observation.callback] if observation.callback else [])
+                    result = graph.invoke({'message': safe_message, 'recent_turns': history, 'memory': memory,
+                                           'owner_id': self.user.pk if self.user else None},
+                                          config={'callbacks': callbacks})
+                    observation.finish(result)
+                    if result['tool_results'] and all(r['status'] in ('error', 'skipped') for r in result['tool_results']):
+                        raise RuntimeError('All Agent tools failed')
+                    response = dict(result['response'], pii_redacted=safe_message != message.strip())
+                    if observation.trace_id:
+                        response['trace_id'] = observation.trace_id
+            else:
                 response = dict(result['response'], pii_redacted=safe_message != message.strip())
-                if observation.trace_id:
-                    response['trace_id'] = observation.trace_id
             self.sequence += 1
             record = safe_record({'event': 'turn', 'session_id': self.session_id, 'sequence': self.sequence,
                                   'created_at': timezone.now().isoformat(), 'message': safe_message,
@@ -153,14 +162,15 @@ class PreviewSession:
                                   'elapsed_seconds': round(time.perf_counter() - started, 3),
                                   'model_calls': usage.calls, 'input_tokens': usage.input_tokens,
                                   'output_tokens': usage.output_tokens, 'response': response,
-                                  'retrieval': retriever.audit})
+                                  'retrieval': retriever.audit if retriever else []})
             # Persist before advancing session memory. Never call commit_turn().
             self._append(record)
             self.turns.append(SimpleNamespace(pk='preview-' + str(self.sequence), user_text=safe_message,
                                              answer=response['answer'], intent=response['intent'],
                                              response=response, created_at=timezone.now()))
             self.turns = self.turns[-HISTORY_TURNS:]
-            if 'after_sales' in result['intents'] and self.user:
+            if order_query_context.binding_changed and self.user:
+                selected_order = order_query_context.selected_order_id
                 self.order_binding = SimpleNamespace(active_order_id=selected_order,
                                                      active_order_at=timezone.now() if selected_order else None)
             self.last_record = record

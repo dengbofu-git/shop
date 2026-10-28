@@ -1,0 +1,16 @@
+{
+  "support_ai/contracts.py": "f86c7207d001c6c291174a0af945208ccddf13a14d86178f013ab47f9b306128",
+  "support_ai/semantic_planning.py": "ea586235e17eed7d1f1b039dcb3a758a26a50b3e0d83f1d1c05a80cc5f17bbea",
+  "support_ai/diagnostics.py": "c42d66d41f38b19dab685823150d4c07fb8d216882602ad3ef0168a6052d6447",
+  "support_ai/condition_evidence.py": "705d220d9a80c0620402e664b27f922a980507654a9682166511128826471b13",
+  "support_ai/initial_purchase.py": "7a5e5589333375d331322f60e6ee50391d535658e65bb47efba8cc768c88320d",
+  "support_ai/budget_combinations.py": "e37e62a11950f09ed8748c2f8eba96b149fdefde4329f7561e0eaf04730ce8be",
+  "support_ai/bundle_recommendations.py": "669c13c2beabebc521f88c72110e576ec09ffc4036d2d0d13f909cf253256160",
+  "support_ai/bundle_references.py": "5c019151624d8ef96de1ed15d5a926d3f2ff5a82dfd4c45151023049693a72e7",
+  "support_ai/cost_control.py": "40f92ac9436c5102f4a9f167bf92b7634880f1749a6bbe4d8b2607cd0d3c429f",
+  "support_ai/test_initial_budget_evidence.py": "dadf146e0967da0110bee8b9b94f334eafff6b0bc067047c036ea2d3983768f3",
+  "support_ai/test_budget_quantities.py": "82d7e1818898076ff52cff26e8f6f626335aa0abb5ab6d3fa97286495fc366ff",
+  "client/static/js/buyer-support.js": "6ed935b3d29849ae967c8ed5701229bf99757b61c767242ac092d7381e95e67c",
+  "client/tests/buyer-support-quantity.test.js": "46066a75cebb7736a512c8d507cfa647b8ce69f7f639f4439fa7ed4a49698fa2",
+  "client/templates/buyer_support.html": "4f0f7281cda69894f3cee9a2034292211527aef4e655089d8f1d6f3a7717fc36"
+}

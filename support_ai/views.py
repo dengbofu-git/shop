@@ -5,7 +5,7 @@ import uuid
 from functools import wraps
 
 from django.conf import settings
-from django.db import DatabaseError
+from django.db import DatabaseError, InterfaceError
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from django.views.decorators.http import require_http_methods
@@ -15,10 +15,12 @@ from users.models import UserProfile
 from ai_storage.models import BuyerMemory
 
 from .contracts import Preferences
-from .context import (ConversationConflict, commit_turn, current_order_context,
-                      recent_context, replay, saved_preferences, HISTORY_TURNS)
+from .context import (ConversationConflict, PreferenceStorageUnavailable, commit_turn,
+                      recent_context, replay, saved_preferences, HISTORY_TURNS, select_bundle_context)
 from .models import SupportConversation
 from .conversation_history import list_conversations, conversation_page
+from .order_contracts import prepare_order_input
+from .order_queries import OrderQueryContext, attach_order_links
 from pydantic import ValidationError
 
 
@@ -36,9 +38,19 @@ def _storage_errors(view):
     def guarded(request, *args, **kwargs):
         try:
             return view(request, *args, **kwargs)
-        except DatabaseError as exc:
+        except PreferenceStorageUnavailable as exc:
             logger.exception('support.storage.failed')
-            return _response({'error': '客服数据库服务暂不可用，请稍后再试。'}, 503)
+            configuration = exc.configuration_error
+            return _response({
+                'error': ('长期偏好数据库连接或表结构异常，请联系管理员检查配置。' if configuration else
+                          '长期偏好服务暂不可用，请稍后重试；服务恢复后可继续当前咨询。'),
+                'error_code': 'MEMORY_STORAGE_CONFIGURATION_ERROR' if configuration else 'MEMORY_STORAGE_UNAVAILABLE',
+                'retryable': not configuration,
+            }, 503)
+        except (DatabaseError, InterfaceError) as exc:
+            logger.exception('support.storage.failed')
+            return _response({'error': '客服数据库服务暂不可用，请稍后再试。',
+                              'error_code': 'SUPPORT_STORAGE_UNAVAILABLE', 'retryable': True}, 503)
     return guarded
 
 
@@ -49,9 +61,11 @@ def _buyer(request):
     try:
         payload = jwt_decode(header[7:])
         user = UserProfile.objects.get(id=payload.get('id'))
-    except DatabaseError:
+    except (DatabaseError, InterfaceError):
         raise
     except Exception:
+        return None, _response({'error': '登录状态已失效，请重新登录。'}, 401)
+    if not user.is_active:
         return None, _response({'error': '登录状态已失效，请重新登录。'}, 401)
     if not user.is_customer():
         return None, _response({'error': '此入口仅供买家使用。'}, 403)
@@ -68,9 +82,17 @@ def chat(request):
         return _response({'error': '消息过长，请缩短后重试。'}, 413)
     try:
         body = json.loads(request.body)
-        if not isinstance(body, dict) or set(body) - {'message', 'conversation_id', 'request_id', 'expected_revision'}:
+        if not isinstance(body, dict) or set(body) - {'message', 'conversation_id', 'request_id', 'expected_revision', 'bundle_selection'}:
             raise ValueError('unknown input')
         message = body.get('message', '')
+        selection = body.get('bundle_selection')
+        if selection is not None:
+            from .bundle_references import BUNDLE_ID
+            if (not isinstance(selection, dict) or set(selection) != {'request_id', 'bundle_id'}
+                    or not isinstance(selection['request_id'], str)
+                    or not isinstance(selection['bundle_id'], str) or not BUNDLE_ID.fullmatch(selection['bundle_id'])):
+                raise ValueError('invalid bundle selection')
+            uuid.UUID(selection['request_id'])
     except (ValueError, TypeError, AttributeError):
         return _response({'error': '请求格式无效。'}, 400)
     if not isinstance(message, str) or not message.strip() or len(message) > 1000:
@@ -97,13 +119,26 @@ def chat(request):
         if expected is not None and expected != revision:
             raise ConversationConflict('会话已更新，请重新读取后再提交')
         history = recent_context(conversation)
+        if selection is not None and not select_bundle_context(user, conversation, history, selection):
+            return _response({'error': '所选方案不在当前咨询的近期记录中，请重新选择或获取搭配。'}, 404)
+        # Keep authentication, ownership, revision and idempotency checks, while
+        # skipping model configuration, PostgreSQL memory and business tools.
+        from .workflow import fixed_result
+        fixed = fixed_result(message, history)
+        if fixed is not None:
+            response = dict(fixed['response'], pii_redacted=fixed.get('pii_redacted', False))
+            response = commit_turn(user, conversation, revision, request_id, request_hash,
+                                   fixed['safe_message'], response)
+            return _response(response, 200)
         memory = saved_preferences(user)
     except ConversationConflict as exc:
         return _response({'error': str(exc)}, 409)
     if not settings.SUPPORT_API_KEY:
         return _response({'error': '智能客服尚未配置模型服务，请联系管理员。'}, 503)
 
-    safe_message, order_context, selected_order_id = current_order_context(user, conversation, message)
+    safe_message, references = prepare_order_input(message)
+    order_query_context = OrderQueryContext(owner_id=user.pk,
+        conversation_id=conversation.pk if conversation else None, references=references)
     observation = None
     try:
         from .workflow import build_graph
@@ -119,24 +154,30 @@ def chat(request):
             graph = build_graph(model, tool_factory=lambda state: create_tool_handlers(
                 model, retriever.search,
                 state['safe_message'], state['resolved_question'], state.get('recent_turns', []),
-                memory, order_context,
+                memory,
                 knowledge_context_chars=agent_config.retrieval_context_chars,
                 scoped_knowledge_search=retriever.scoped_search,
                 knowledge_notes=retriever.notes,
+                order_query_context=order_query_context,
             ))
             result = graph.invoke({
-                'message': safe_message, 'recent_turns': history, 'memory': memory, 'order_context': order_context,
+                'message': safe_message, 'recent_turns': history, 'memory': memory,
                 'owner_id': user.pk,
             }, config={'callbacks': [observation.callback] if observation.callback else []})
             observation.finish(result)
+            if order_query_context.conversation_missing:
+                raise ConversationConflict('咨询已删除，请开始新对话')
             if result['tool_results'] and all(r['status'] in ('error', 'skipped') for r in result['tool_results']):
                 raise RuntimeError('All Agent tools failed')
+            if order_query_context.not_queryable:
+                return _response({'error': '未找到可查询的订单。', 'error_code': 'ORDER_NOT_QUERYABLE'}, 404)
             response = dict(result['response'], pii_redacted=safe_message != message.strip() or result.get('pii_redacted', False))
+            response = attach_order_links(response, order_query_context)
             if observation.trace_id:
                 response['trace_id'] = observation.trace_id
             response = commit_turn(
                 user, conversation, revision, request_id, request_hash, safe_message, response,
-                order_id=selected_order_id if 'after_sales' in result['intents'] else None,
+                order_id=order_query_context.selected_order_id if order_query_context.binding_changed else None,
             )
     except ConversationConflict as exc:
         return _response({'error': str(exc)}, 409)

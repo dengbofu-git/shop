@@ -15,7 +15,7 @@
 </head>
 <body class="ds-page-buyer_orders ds-theme buyer-workbench buyer-orders-page" id="buyer-body">
     <div class="buyer-layout">
-        {% include 'buyer_sidebar.html' with active='orders' fixed_currency=True %}
+        {% include 'buyer_sidebar.html' with active='orders' %}
         <main class="buyer-main">
             {% include 'buyer_header.html' %}
             <div class="buyer-content bo-content">
@@ -23,7 +23,7 @@
                     <div>
                         <span class="bo-eyebrow">BUYER WORKBENCH</span>
                         <h1>我的订单</h1>
-                        <p>查看采购进度、订单商品和收货信息。</p>
+                        <p>查看采购进度、订单商品和收货信息。金额以人民币记录，外币显示仅供参考。</p>
                     </div>
                     <a class="bo-primary-link" href="buyer_products.html">继续采购</a>
                 </div>
@@ -35,17 +35,18 @@
                             <button type="button" class="bo-tab" data-status="2">待发货</button>
                             <button type="button" class="bo-tab" data-status="3">待收货</button>
                             <button type="button" class="bo-tab" data-status="4">已完成</button>
+                            <button type="button" class="bo-tab" data-status="review" data-eng-text="pending">待评价</button>
                         </div>
                         <input id="bo-search" type="search" placeholder="搜索订单号、商品名称或规格" aria-label="搜索订单">
                     </div>
-                    <div class="bo-results-head"><span id="bo-count">正在加载订单…</span><button type="button" id="bo-refresh">刷新</button></div>
+                    <div class="bo-results-head"><span id="bo-count">正在加载订单…</span><button type="button" id="bo-all-orders" hidden>查看全部订单</button><button type="button" id="bo-refresh">刷新</button></div>
                     <div id="bo-list" class="bo-list" aria-live="polite"></div>
                 </section>
             </div>
             <footer class="bo-footer">© 2026 tea_saas · 中国地标茶出海中东</footer>
         </main>
     </div>
-    <script src="/static/js/buyer-workbench.js?v=20261018-platform-name"></script>
-    <script src="/static/js/buyer-orders.js?v=20261020-product-name"></script>
+    <script src="/static/js/buyer-workbench.js?v=20261022-account-menu"></script>
+    <script src="/static/js/buyer-orders.js?v=20261026-support-link"></script>
 </body>
 </html>

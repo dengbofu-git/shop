@@ -1,15 +1,17 @@
-schemaVersion: "0.1"
+schemaVersion: '0.1'
 id: CAP-AI-003
 moduleId: MOD-AI
 name: 买家通过 AI 客服查询本人订单
-specVersion: "0.2.0"
-status: SPEC_REVIEW
-documentStatus: in-review
-designVersion: "0.1.0"
+specVersion: 0.3.0
+documentStatus: business-rules-accepted-design-pending
+designVersion: 0.2.0
 owner: dengbofu
 technicalReviewer: null
-sourceFeatureIds: [FEAT-018, FEAT-030]
-journeyIds: [JOURNEY-AI-001]
+sourceFeatureIds:
+- FEAT-018
+- FEAT-030
+journeyIds:
+- JOURNEY-AI-001
 files:
   requirements: requirements.md
   acceptance: acceptance.yaml
@@ -23,7 +25,8 @@ files:
 clientParticipation:
   buyer:
     status: involved
-    pages: [buyer_support.html]
+    pages:
+    - buyer_support.html
     responsibility: 提交本人订单问题、阅读状态、追问与处理错误。
   merchant:
     status: not-involved
@@ -32,76 +35,170 @@ clientParticipation:
     status: not-involved
     reason: 此入口不允许运营代查买家订单；配置与监控归 CAP-AI-004。
 dependencies:
-  - target: CAP-IAM-001
-    type: platform-runtime
-    purpose: 当前请求的真实认证买家；核实其最小身份契约。
-  - target: CAP-TRD-002
-    type: data-owner
-    purpose: 本人订单归属、类型和实时状态；不重新定义交易状态机。
-  - target: CAP-PLAT-002
-    type: platform-runtime
-    purpose: 复用现有客服页面并评审其状态反馈。
-  - target: CAP-AI-004
-    type: optional-runtime
-    purpose: 建议监控关联失败不改变订单查询事实；实际退化行为待故障设计确认。
+- target: CAP-IAM-001
+  type: platform-runtime
+  purpose: 当前请求的真实认证买家；核实其最小身份契约。
+- target: CAP-TRD-002
+  type: data-owner
+  purpose: 本人订单归属、类型和实时状态；不重新定义交易状态机。
+- target: CAP-PLAT-002
+  type: platform-runtime
+  purpose: 复用现有客服页面并评审其状态反馈。
+- target: CAP-AI-004
+  type: optional-runtime
+  purpose: 建议监控关联失败不改变订单查询事实；实际退化行为待故障设计确认。
 traceability:
-  requirements: [REQ-AI-003-01, REQ-AI-003-02, REQ-AI-003-03, REQ-AI-003-04, REQ-AI-003-05, REQ-AI-003-06, REQ-AI-003-07, REQ-AI-003-08]
-  rules: [RULE-AI-003-01, RULE-AI-003-02, RULE-AI-003-03, RULE-AI-003-04, RULE-AI-003-05, RULE-AI-003-06, RULE-AI-003-07]
-  acceptance: [AC-AI-003-01, AC-AI-003-02, AC-AI-003-03, AC-AI-003-04, AC-AI-003-05, AC-AI-003-06, AC-AI-003-07, AC-AI-003-08, AC-AI-003-09, AC-AI-003-10, AC-AI-003-11]
-openQuestions: [Q-011, Q-013]
-resolvedQuestionsForThisCapability: [Q-001, Q-002, Q-003, Q-012]
+  requirements: &id001
+  - REQ-AI-003-01
+  - REQ-AI-003-02
+  - REQ-AI-003-03
+  - REQ-AI-003-04
+  - REQ-AI-003-05
+  - REQ-AI-003-06
+  - REQ-AI-003-07
+  - REQ-AI-003-08
+  - REQ-AI-003-09
+  rules:
+  - RULE-AI-003-01
+  - RULE-AI-003-02
+  - RULE-AI-003-03
+  - RULE-AI-003-04
+  - RULE-AI-003-05
+  - RULE-AI-003-06
+  - RULE-AI-003-07
+  - RULE-AI-003-08
+  - RULE-AI-003-09
+  - RULE-AI-003-10
+  acceptance: &id002
+  - AC-AI-003-01
+  - AC-AI-003-02
+  - AC-AI-003-03
+  - AC-AI-003-04
+  - AC-AI-003-05
+  - AC-AI-003-06
+  - AC-AI-003-07
+  - AC-AI-003-08
+  - AC-AI-003-09
+  - AC-AI-003-10
+  - AC-AI-003-11
+  - AC-AI-003-12
+  - AC-AI-003-13
+  - AC-AI-003-14
+  - AC-AI-003-15
+openQuestions:
+- Q-011
+- Q-013
+resolvedQuestionsForThisCapability:
+- Q-001
+- Q-002
+- Q-003
+- Q-012
 gateAssessment:
-  target: PROTOTYPE_READY
+  target: BUILD_READY
   result: blocked
-  blockingQuestions: []
-  reason: 核心业务选项已确认，接口/脱敏/页面状态草案已补齐；完整规格与当前版本页面设计尚未评审通过。
-  missingArtifacts: [current-version-spec-review, screen-state-review]
-  futureBlockingQuestions: [Q-011, Q-013]
+  blockingQuestions:
+  - Q-011
+  - Q-013
+  missingArtifacts:
+  - technical-contract-review
+  - private-result-mapping-design
+  - new-ac-execution-plan
+  reason: 业务规则确认不替代技术设计、数据保留和新AC验收
 designAssessment:
-  status: proposed
-  implemented: false
+  status: technical-review-pending
+  implementationStatus: partial
   runtimeVerified: false
-  pendingReviews: [full-requirements-and-acceptance, api-and-redaction-design, screen-states, technical-review]
+  pendingReviews:
+  - private-result-mapping-storage
+  - partial-turn-compatibility
+  - retention-and-access
 designTraceability:
   apiContract:
-    requirements: [REQ-AI-003-01, REQ-AI-003-02, REQ-AI-003-03, REQ-AI-003-06, REQ-AI-003-07]
-    acceptance: [AC-AI-003-01, AC-AI-003-02, AC-AI-003-03, AC-AI-003-05, AC-AI-003-08, AC-AI-003-09]
+    requirements: *id001
+    acceptance: *id002
   redaction:
-    requirements: [REQ-AI-003-01, REQ-AI-003-02, REQ-AI-003-05, REQ-AI-003-08]
-    acceptance: [AC-AI-003-03, AC-AI-003-07, AC-AI-003-11]
+    requirements:
+    - REQ-AI-003-01
+    - REQ-AI-003-02
+    - REQ-AI-003-05
+    - REQ-AI-003-08
+    acceptance:
+    - AC-AI-003-03
+    - AC-AI-003-07
+    - AC-AI-003-11
+    - AC-AI-003-14
+    - AC-AI-003-15
   screenSpec:
-    requirements: [REQ-AI-003-02, REQ-AI-003-03, REQ-AI-003-04, REQ-AI-003-06, REQ-AI-003-07, REQ-AI-003-08]
-    acceptance: [AC-AI-003-01, AC-AI-003-04, AC-AI-003-05, AC-AI-003-06, AC-AI-003-08, AC-AI-003-09, AC-AI-003-10]
-approvals: []
+    requirements:
+    - REQ-AI-003-02
+    - REQ-AI-003-03
+    - REQ-AI-003-04
+    - REQ-AI-003-06
+    - REQ-AI-003-07
+    - REQ-AI-003-08
+    acceptance:
+    - AC-AI-003-01
+    - AC-AI-003-04
+    - AC-AI-003-05
+    - AC-AI-003-06
+    - AC-AI-003-08
+    - AC-AI-003-09
+    - AC-AI-003-10
+    - AC-AI-003-12
+    - AC-AI-003-13
+    - AC-AI-003-14
+    - AC-AI-003-15
+approvals:
+- type: business-rule-change
+  by: user
+  date: '2026-10-23'
+  scope:
+  - R01
+  - R02
+  - R09
+  source: 审查R01—R11后用户回复执行
+  record: docs/sdd/rule-review.md
+  excludes:
+  - technical-acceptance
+  - deployment
+  - release
 evidenceManifests: []
 discoveryEvidence:
-  - docs/sdd/evidence/2026-10-16-ai-003-discovery/baseline-manifest.json
-  - docs/sdd/evidence/2026-10-16-ai-003-discovery/baseline-recheck-manifest.json
-  - docs/sdd/evidence/2026-10-16-ai-003-discovery/probes-manifest.json
+- docs/sdd/evidence/2026-10-16-ai-003-discovery/baseline-manifest.json
+- docs/sdd/evidence/2026-10-16-ai-003-discovery/baseline-recheck-manifest.json
+- docs/sdd/evidence/2026-10-16-ai-003-discovery/probes-manifest.json
 businessDecisions:
-  confirmedBy: dengbofu
-  confirmedOn: "2026-10-16"
-  record: review.md
-  scope: 负责人、三类订单/三笔/24小时、偏好库失败策略、模型数据范围、无可见订单404；不是 BUILD_READY 或全量 AC 批准。
+  confirmedBy: user
+  confirmedOn: '2026-10-23'
+  record: docs/sdd/rule-review.md
+  scope: 执行已审查R01—R11；本能力涉及依赖、部分成功和序号追问；不代填技术验收或发布批准
+  superseded: 已替换旧偏好异常整轮503及混合订单不可见整轮404规则，不另存旧规格
 existingAssets:
-  - support_ai/conversation_history.py
-  - support_ai/context.py
-  - support_ai/views.py
-  - support_ai/tool_services.py
-  - support_ai/workflow.py
-  - support_ai/test_task_tools.py
-  - client/templates/buyer_support.html
-  - client/static/js/buyer-support.js
-implementationObservation: current-source-reconciled-with-historical-runtime-evidence-and-known-gaps
-implementationReconciliation:
-  date: "2026-10-18"
-  registeredVersion: "0.11.1"
-  report: docs/sdd/reconciliation-2026-10-18.md
-  evidence: docs/sdd/evidence/2026-10-18-project-chat-sdd/manifest.json
-  historicalEvidence: docs/sdd/evidence/2026-10-16-sdd-reconciliation/manifest.json
-  target404: not-implemented
-  targetErrorCodes: not-implemented
-  targetHistoryProjection: partially-implemented-get-redaction-replay-gap
-  targetTemporaryContextIds: not-implemented
-  targetFullScreenStates: partially-implemented
-  historyListAndPaging: implemented-source-observed-not-interaction-verified
+- support_ai/conversation_history.py
+- support_ai/context.py
+- support_ai/views.py
+- support_ai/tool_services.py
+- support_ai/workflow.py
+- support_ai/test_task_tools.py
+- client/templates/buyer_support.html
+- client/static/js/buyer-support.js
+implementationObservation:
+  date: '2026-10-23'
+  report: docs/sdd/product/current-state.md
+  assets:
+  - 受控本人订单工具与明确订单404
+  - recent3／all20每页及上海时区包含首尾日期筛选
+  - 只读状态解释及有限历史投影
+  gaps:
+  - 共享偏好前置读取待隔离
+  - 混合订单错误仍整轮失败
+  - 当前展示页私有位置映射待设计实施
+  - 新AC未运行
+  verificationStatus: not-run
+legacyStage: SPEC_REVIEW
+assessment:
+  specStatus: rules-accepted
+  implementationStatus: partial
+  verificationStatus: not-run
+  deploymentStatus: unverified
+  scope: R01/R02/R09新规则及本版本AC；已有源码与历史证据不提升新状态

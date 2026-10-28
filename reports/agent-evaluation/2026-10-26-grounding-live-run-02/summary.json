@@ -1,0 +1,12 @@
+{
+  "finished_at": "2026-10-26T02:11:06.358936+00:00",
+  "total_cases": 3,
+  "passed": 3,
+  "failed_ids": [],
+  "model_calls": 3,
+  "actual_chat_calls": 3,
+  "input_tokens": 1064,
+  "output_tokens": 526,
+  "total_case_seconds": 5.467,
+  "source_changes": []
+}

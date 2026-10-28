@@ -1,0 +1,11 @@
+{"timestamp": "2026-10-26T07:41:57.065+00:00", "level": "WARNING", "service": "tea_saas", "logger": "py.warnings", "event": "runtime.warning"}
+System check identified no issues (0 silenced).
+{"timestamp": "2026-10-26T07:42:02.616+00:00", "level": "ERROR", "service": "tea_saas", "logger": "support_ai.views", "event": "support.workflow.failed", "http_request_id": "d82d29086909455d8e6e1c7ddbf6aaf7", "trace_id": "cf9f04532311c02db1e52ef75bdef3ac", "span_id": "ab210074bd6ddd0a", "method": "POST", "route": "v1/support/chat/", "error_type": "RuntimeError", "stack": [{"file": "views.py", "function": "chat", "line": 171}]}
+{"timestamp": "2026-10-26T07:42:02.618+00:00", "level": "ERROR", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "d82d29086909455d8e6e1c7ddbf6aaf7", "trace_id": "cf9f04532311c02db1e52ef75bdef3ac", "span_id": "ab210074bd6ddd0a", "method": "POST", "route": "v1/support/chat/", "http_status": 503, "duration_ms": 62.19, "outcome": "server_error"}
+{"timestamp": "2026-10-26T07:42:02.653+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "5c83890c967549b499cf4c5df5f5b470", "trace_id": "009f764b1fdb93ded93472605d5b85a1", "span_id": "2db70324fbce4932", "method": "POST", "route": "v1/support/chat/", "http_status": 200, "duration_ms": 32.92, "outcome": "success"}
+{"timestamp": "2026-10-26T07:42:02.685+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "7ac82923f0014959af88bff70aeb68e1", "trace_id": "afe0acf6ef05e852ebd78e274cdd0643", "span_id": "4a620a49ccc986d7", "method": "POST", "route": "v1/support/chat/", "http_status": 200, "duration_ms": 29.87, "outcome": "success"}
+{"timestamp": "2026-10-26T07:42:02.688+00:00", "level": "INFO", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "1380bc22060443fe96df87c4bee55a65", "method": "POST", "route": "v1/support/chat/", "http_status": 200, "duration_ms": 2.0, "outcome": "success"}
+----------------------------------------------------------------------
+Ran 48 tests in 8.529s
+
+OK

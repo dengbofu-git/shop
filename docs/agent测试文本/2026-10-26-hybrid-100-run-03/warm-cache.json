@@ -1,0 +1,1176 @@
+{
+  "scope": "retrieval-only; 5 public questions x cold + two warm attempts; no generation; rewrite disabled; isolated LocMemCache; no primary-result replacement",
+  "public_corpus_sha256": "0fb3054f00942af6814f59b3959afc9c261d14a27a2fc365d427aea688fe0a9a",
+  "corpus_unchanged": true,
+  "records": [
+    {
+      "query": "Black tea manufacturing process",
+      "round": 0,
+      "seconds": 5.6548709,
+      "client_cpu_seconds": 0.046875,
+      "selected_ids": [
+        69,
+        64,
+        62,
+        81,
+        79
+      ],
+      "audit": [
+        {
+          "original_query": "Black tea manufacturing process",
+          "rewrite_status": [
+            "deferred"
+          ],
+          "rewrite_error_types": [],
+          "rejected_variants": 0,
+          "queries": [
+            {
+              "round": 0,
+              "channel": "keyword",
+              "limit": 15,
+              "hits": 15,
+              "status": "success"
+            },
+            {
+              "round": 0,
+              "channel": "vector",
+              "query": "Black tea manufacturing process",
+              "limit": 7,
+              "hits": 7,
+              "status": "success"
+            },
+            {
+              "round": 0,
+              "channel": "vector",
+              "query": "Black tea manufacturing process | 红茶 加工 processing",
+              "limit": 8,
+              "hits": 8,
+              "status": "success"
+            }
+          ],
+          "rerank_status": [
+            "success"
+          ],
+          "retry": false,
+          "retry_adopted": false,
+          "retry_reasons": [],
+          "selected_ids": [
+            "69",
+            "64",
+            "62",
+            "81",
+            "79"
+          ],
+          "cache_status": "miss",
+          "hybrid_status": "enabled",
+          "remaining_issues": [],
+          "missing_subjects": [],
+          "coverage": {
+            "covered_subjects": [
+              "black_tea"
+            ],
+            "missing_subjects": [],
+            "missing_facets": []
+          }
+        }
+      ],
+      "local_calls": [
+        {
+          "service": "embedding",
+          "http_status": 200,
+          "seconds": 0.04998800000000014
+        },
+        {
+          "service": "embedding",
+          "http_status": 200,
+          "seconds": 0.07170100000000001
+        },
+        {
+          "service": "rerank",
+          "http_status": 200,
+          "seconds": 5.4564547
+        }
+      ]
+    },
+    {
+      "query": "Black tea manufacturing process",
+      "round": 1,
+      "seconds": 0.003057700000000274,
+      "client_cpu_seconds": 0.0,
+      "selected_ids": [
+        69,
+        64,
+        62,
+        81,
+        79
+      ],
+      "audit": [
+        {
+          "original_query": "Black tea manufacturing process",
+          "rewrite_status": [
+            "deferred"
+          ],
+          "rewrite_error_types": [],
+          "rejected_variants": 0,
+          "queries": [
+            {
+              "round": 0,
+              "channel": "keyword",
+              "limit": 15,
+              "hits": 15,
+              "status": "success"
+            },
+            {
+              "round": 0,
+              "channel": "vector",
+              "query": "Black tea manufacturing process",
+              "limit": 7,
+              "hits": 7,
+              "status": "success"
+            },
+            {
+              "round": 0,
+              "channel": "vector",
+              "query": "Black tea manufacturing process | 红茶 加工 processing",
+              "limit": 8,
+              "hits": 8,
+              "status": "success"
+            }
+          ],
+          "rerank_status": [
+            "success"
+          ],
+          "retry": false,
+          "retry_adopted": false,
+          "retry_reasons": [],
+          "selected_ids": [
+            "69",
+            "64",
+            "62",
+            "81",
+            "79"
+          ],
+          "cache_status": "hit",
+          "hybrid_status": "enabled",
+          "remaining_issues": [],
+          "missing_subjects": [],
+          "coverage": {
+            "covered_subjects": [
+              "black_tea"
+            ],
+            "missing_subjects": [],
+            "missing_facets": []
+          }
+        }
+      ],
+      "local_calls": []
+    },
+    {
+      "query": "Black tea manufacturing process",
+      "round": 2,
+      "seconds": 0.003092099999999931,
+      "client_cpu_seconds": 0.0,
+      "selected_ids": [
+        69,
+        64,
+        62,
+        81,
+        79
+      ],
+      "audit": [
+        {
+          "original_query": "Black tea manufacturing process",
+          "rewrite_status": [
+            "deferred"
+          ],
+          "rewrite_error_types": [],
+          "rejected_variants": 0,
+          "queries": [
+            {
+              "round": 0,
+              "channel": "keyword",
+              "limit": 15,
+              "hits": 15,
+              "status": "success"
+            },
+            {
+              "round": 0,
+              "channel": "vector",
+              "query": "Black tea manufacturing process",
+              "limit": 7,
+              "hits": 7,
+              "status": "success"
+            },
+            {
+              "round": 0,
+              "channel": "vector",
+              "query": "Black tea manufacturing process | 红茶 加工 processing",
+              "limit": 8,
+              "hits": 8,
+              "status": "success"
+            }
+          ],
+          "rerank_status": [
+            "success"
+          ],
+          "retry": false,
+          "retry_adopted": false,
+          "retry_reasons": [],
+          "selected_ids": [
+            "69",
+            "64",
+            "62",
+            "81",
+            "79"
+          ],
+          "cache_status": "hit",
+          "hybrid_status": "enabled",
+          "remaining_issues": [],
+          "missing_subjects": [],
+          "coverage": {
+            "covered_subjects": [
+              "black_tea"
+            ],
+            "missing_subjects": [],
+            "missing_facets": []
+          }
+        }
+      ],
+      "local_calls": []
+    },
+    {
+      "query": "Green tea manufacturing process",
+      "round": 0,
+      "seconds": 5.732344899999999,
+      "client_cpu_seconds": 0.03125,
+      "selected_ids": [
+        65,
+        81,
+        79,
+        63,
+        78
+      ],
+      "audit": [
+        {
+          "original_query": "Green tea manufacturing process",
+          "rewrite_status": [
+            "deferred"
+          ],
+          "rewrite_error_types": [],
+          "rejected_variants": 0,
+          "queries": [
+            {
+              "round": 0,
+              "channel": "keyword",
+              "limit": 15,
+              "hits": 15,
+              "status": "success"
+            },
+            {
+              "round": 0,
+              "channel": "vector",
+              "query": "Green tea manufacturing process",
+              "limit": 7,
+              "hits": 7,
+              "status": "success"
+            },
+            {
+              "round": 0,
+              "channel": "vector",
+              "query": "Green tea manufacturing process | 绿茶 加工 processing",
+              "limit": 8,
+              "hits": 8,
+              "status": "success"
+            }
+          ],
+          "rerank_status": [
+            "success"
+          ],
+          "retry": false,
+          "retry_adopted": false,
+          "retry_reasons": [],
+          "selected_ids": [
+            "65",
+            "81",
+            "79",
+            "63",
+            "78"
+          ],
+          "cache_status": "miss",
+          "hybrid_status": "enabled",
+          "remaining_issues": [],
+          "missing_subjects": [],
+          "coverage": {
+            "covered_subjects": [
+              "green_tea"
+            ],
+            "missing_subjects": [],
+            "missing_facets": []
+          }
+        }
+      ],
+      "local_calls": [
+        {
+          "service": "embedding",
+          "http_status": 200,
+          "seconds": 0.033733400000000024
+        },
+        {
+          "service": "embedding",
+          "http_status": 200,
+          "seconds": 0.07494850000000053
+        },
+        {
+          "service": "rerank",
+          "http_status": 200,
+          "seconds": 5.568556399999999
+        }
+      ]
+    },
+    {
+      "query": "Green tea manufacturing process",
+      "round": 1,
+      "seconds": 0.003682500000000033,
+      "client_cpu_seconds": 0.0,
+      "selected_ids": [
+        65,
+        81,
+        79,
+        63,
+        78
+      ],
+      "audit": [
+        {
+          "original_query": "Green tea manufacturing process",
+          "rewrite_status": [
+            "deferred"
+          ],
+          "rewrite_error_types": [],
+          "rejected_variants": 0,
+          "queries": [
+            {
+              "round": 0,
+              "channel": "keyword",
+              "limit": 15,
+              "hits": 15,
+              "status": "success"
+            },
+            {
+              "round": 0,
+              "channel": "vector",
+              "query": "Green tea manufacturing process",
+              "limit": 7,
+              "hits": 7,
+              "status": "success"
+            },
+            {
+              "round": 0,
+              "channel": "vector",
+              "query": "Green tea manufacturing process | 绿茶 加工 processing",
+              "limit": 8,
+              "hits": 8,
+              "status": "success"
+            }
+          ],
+          "rerank_status": [
+            "success"
+          ],
+          "retry": false,
+          "retry_adopted": false,
+          "retry_reasons": [],
+          "selected_ids": [
+            "65",
+            "81",
+            "79",
+            "63",
+            "78"
+          ],
+          "cache_status": "hit",
+          "hybrid_status": "enabled",
+          "remaining_issues": [],
+          "missing_subjects": [],
+          "coverage": {
+            "covered_subjects": [
+              "green_tea"
+            ],
+            "missing_subjects": [],
+            "missing_facets": []
+          }
+        }
+      ],
+      "local_calls": []
+    },
+    {
+      "query": "Green tea manufacturing process",
+      "round": 2,
+      "seconds": 0.002599599999999924,
+      "client_cpu_seconds": 0.0,
+      "selected_ids": [
+        65,
+        81,
+        79,
+        63,
+        78
+      ],
+      "audit": [
+        {
+          "original_query": "Green tea manufacturing process",
+          "rewrite_status": [
+            "deferred"
+          ],
+          "rewrite_error_types": [],
+          "rejected_variants": 0,
+          "queries": [
+            {
+              "round": 0,
+              "channel": "keyword",
+              "limit": 15,
+              "hits": 15,
+              "status": "success"
+            },
+            {
+              "round": 0,
+              "channel": "vector",
+              "query": "Green tea manufacturing process",
+              "limit": 7,
+              "hits": 7,
+              "status": "success"
+            },
+            {
+              "round": 0,
+              "channel": "vector",
+              "query": "Green tea manufacturing process | 绿茶 加工 processing",
+              "limit": 8,
+              "hits": 8,
+              "status": "success"
+            }
+          ],
+          "rerank_status": [
+            "success"
+          ],
+          "retry": false,
+          "retry_adopted": false,
+          "retry_reasons": [],
+          "selected_ids": [
+            "65",
+            "81",
+            "79",
+            "63",
+            "78"
+          ],
+          "cache_status": "hit",
+          "hybrid_status": "enabled",
+          "remaining_issues": [],
+          "missing_subjects": [],
+          "coverage": {
+            "covered_subjects": [
+              "green_tea"
+            ],
+            "missing_subjects": [],
+            "missing_facets": []
+          }
+        }
+      ],
+      "local_calls": []
+    },
+    {
+      "query": "Saudi Arabia tea drinking customs",
+      "round": 0,
+      "seconds": 5.752080900000001,
+      "client_cpu_seconds": 0.046875,
+      "selected_ids": [
+        59,
+        34,
+        51,
+        35,
+        57
+      ],
+      "audit": [
+        {
+          "original_query": "Saudi Arabia tea drinking customs",
+          "rewrite_status": [
+            "deferred"
+          ],
+          "rewrite_error_types": [],
+          "rejected_variants": 0,
+          "queries": [
+            {
+              "round": 0,
+              "channel": "keyword",
+              "limit": 15,
+              "hits": 15,
+              "status": "success"
+            },
+            {
+              "round": 0,
+              "channel": "vector",
+              "query": "Saudi Arabia tea drinking customs",
+              "limit": 7,
+              "hits": 7,
+              "status": "success"
+            },
+            {
+              "round": 0,
+              "channel": "vector",
+              "query": "Saudi Arabia tea drinking customs | 沙特阿拉伯 饮茶习惯",
+              "limit": 8,
+              "hits": 8,
+              "status": "success"
+            }
+          ],
+          "rerank_status": [
+            "success"
+          ],
+          "retry": false,
+          "retry_adopted": false,
+          "retry_reasons": [],
+          "selected_ids": [
+            "59",
+            "34",
+            "51",
+            "35",
+            "57"
+          ],
+          "cache_status": "miss",
+          "hybrid_status": "enabled",
+          "remaining_issues": [],
+          "missing_subjects": [],
+          "coverage": {
+            "covered_subjects": [
+              "saudi_arabia"
+            ],
+            "missing_subjects": [],
+            "missing_facets": []
+          }
+        }
+      ],
+      "local_calls": [
+        {
+          "service": "embedding",
+          "http_status": 200,
+          "seconds": 0.05359159999999896
+        },
+        {
+          "service": "embedding",
+          "http_status": 200,
+          "seconds": 0.066609699999999
+        },
+        {
+          "service": "rerank",
+          "http_status": 200,
+          "seconds": 5.577073200000001
+        }
+      ]
+    },
+    {
+      "query": "Saudi Arabia tea drinking customs",
+      "round": 1,
+      "seconds": 0.0031448999999987848,
+      "client_cpu_seconds": 0.0,
+      "selected_ids": [
+        59,
+        34,
+        51,
+        35,
+        57
+      ],
+      "audit": [
+        {
+          "original_query": "Saudi Arabia tea drinking customs",
+          "rewrite_status": [
+            "deferred"
+          ],
+          "rewrite_error_types": [],
+          "rejected_variants": 0,
+          "queries": [
+            {
+              "round": 0,
+              "channel": "keyword",
+              "limit": 15,
+              "hits": 15,
+              "status": "success"
+            },
+            {
+              "round": 0,
+              "channel": "vector",
+              "query": "Saudi Arabia tea drinking customs",
+              "limit": 7,
+              "hits": 7,
+              "status": "success"
+            },
+            {
+              "round": 0,
+              "channel": "vector",
+              "query": "Saudi Arabia tea drinking customs | 沙特阿拉伯 饮茶习惯",
+              "limit": 8,
+              "hits": 8,
+              "status": "success"
+            }
+          ],
+          "rerank_status": [
+            "success"
+          ],
+          "retry": false,
+          "retry_adopted": false,
+          "retry_reasons": [],
+          "selected_ids": [
+            "59",
+            "34",
+            "51",
+            "35",
+            "57"
+          ],
+          "cache_status": "hit",
+          "hybrid_status": "enabled",
+          "remaining_issues": [],
+          "missing_subjects": [],
+          "coverage": {
+            "covered_subjects": [
+              "saudi_arabia"
+            ],
+            "missing_subjects": [],
+            "missing_facets": []
+          }
+        }
+      ],
+      "local_calls": []
+    },
+    {
+      "query": "Saudi Arabia tea drinking customs",
+      "round": 2,
+      "seconds": 0.0026514999999989186,
+      "client_cpu_seconds": 0.015625,
+      "selected_ids": [
+        59,
+        34,
+        51,
+        35,
+        57
+      ],
+      "audit": [
+        {
+          "original_query": "Saudi Arabia tea drinking customs",
+          "rewrite_status": [
+            "deferred"
+          ],
+          "rewrite_error_types": [],
+          "rejected_variants": 0,
+          "queries": [
+            {
+              "round": 0,
+              "channel": "keyword",
+              "limit": 15,
+              "hits": 15,
+              "status": "success"
+            },
+            {
+              "round": 0,
+              "channel": "vector",
+              "query": "Saudi Arabia tea drinking customs",
+              "limit": 7,
+              "hits": 7,
+              "status": "success"
+            },
+            {
+              "round": 0,
+              "channel": "vector",
+              "query": "Saudi Arabia tea drinking customs | 沙特阿拉伯 饮茶习惯",
+              "limit": 8,
+              "hits": 8,
+              "status": "success"
+            }
+          ],
+          "rerank_status": [
+            "success"
+          ],
+          "retry": false,
+          "retry_adopted": false,
+          "retry_reasons": [],
+          "selected_ids": [
+            "59",
+            "34",
+            "51",
+            "35",
+            "57"
+          ],
+          "cache_status": "hit",
+          "hybrid_status": "enabled",
+          "remaining_issues": [],
+          "missing_subjects": [],
+          "coverage": {
+            "covered_subjects": [
+              "saudi_arabia"
+            ],
+            "missing_subjects": [],
+            "missing_facets": []
+          }
+        }
+      ],
+      "local_calls": []
+    },
+    {
+      "query": "White tea manufacturing process",
+      "round": 0,
+      "seconds": 5.402944899999998,
+      "client_cpu_seconds": 0.03125,
+      "selected_ids": [
+        66,
+        63,
+        79,
+        81,
+        78
+      ],
+      "audit": [
+        {
+          "original_query": "White tea manufacturing process",
+          "rewrite_status": [
+            "deferred"
+          ],
+          "rewrite_error_types": [],
+          "rejected_variants": 0,
+          "queries": [
+            {
+              "round": 0,
+              "channel": "keyword",
+              "limit": 15,
+              "hits": 15,
+              "status": "success"
+            },
+            {
+              "round": 0,
+              "channel": "vector",
+              "query": "White tea manufacturing process",
+              "limit": 7,
+              "hits": 7,
+              "status": "success"
+            },
+            {
+              "round": 0,
+              "channel": "vector",
+              "query": "White tea manufacturing process | 白茶 加工 processing",
+              "limit": 8,
+              "hits": 8,
+              "status": "success"
+            }
+          ],
+          "rerank_status": [
+            "success"
+          ],
+          "retry": false,
+          "retry_adopted": false,
+          "retry_reasons": [],
+          "selected_ids": [
+            "66",
+            "63",
+            "79",
+            "81",
+            "78"
+          ],
+          "cache_status": "miss",
+          "hybrid_status": "enabled",
+          "remaining_issues": [],
+          "missing_subjects": [],
+          "coverage": {
+            "covered_subjects": [
+              "white_tea"
+            ],
+            "missing_subjects": [],
+            "missing_facets": []
+          }
+        }
+      ],
+      "local_calls": [
+        {
+          "service": "embedding",
+          "http_status": 200,
+          "seconds": 0.03684810000000027
+        },
+        {
+          "service": "embedding",
+          "http_status": 200,
+          "seconds": 0.06619039999999998
+        },
+        {
+          "service": "rerank",
+          "http_status": 200,
+          "seconds": 5.243155100000003
+        }
+      ]
+    },
+    {
+      "query": "White tea manufacturing process",
+      "round": 1,
+      "seconds": 0.003827300000001088,
+      "client_cpu_seconds": 0.0,
+      "selected_ids": [
+        66,
+        63,
+        79,
+        81,
+        78
+      ],
+      "audit": [
+        {
+          "original_query": "White tea manufacturing process",
+          "rewrite_status": [
+            "deferred"
+          ],
+          "rewrite_error_types": [],
+          "rejected_variants": 0,
+          "queries": [
+            {
+              "round": 0,
+              "channel": "keyword",
+              "limit": 15,
+              "hits": 15,
+              "status": "success"
+            },
+            {
+              "round": 0,
+              "channel": "vector",
+              "query": "White tea manufacturing process",
+              "limit": 7,
+              "hits": 7,
+              "status": "success"
+            },
+            {
+              "round": 0,
+              "channel": "vector",
+              "query": "White tea manufacturing process | 白茶 加工 processing",
+              "limit": 8,
+              "hits": 8,
+              "status": "success"
+            }
+          ],
+          "rerank_status": [
+            "success"
+          ],
+          "retry": false,
+          "retry_adopted": false,
+          "retry_reasons": [],
+          "selected_ids": [
+            "66",
+            "63",
+            "79",
+            "81",
+            "78"
+          ],
+          "cache_status": "hit",
+          "hybrid_status": "enabled",
+          "remaining_issues": [],
+          "missing_subjects": [],
+          "coverage": {
+            "covered_subjects": [
+              "white_tea"
+            ],
+            "missing_subjects": [],
+            "missing_facets": []
+          }
+        }
+      ],
+      "local_calls": []
+    },
+    {
+      "query": "White tea manufacturing process",
+      "round": 2,
+      "seconds": 0.004200600000000776,
+      "client_cpu_seconds": 0.0,
+      "selected_ids": [
+        66,
+        63,
+        79,
+        81,
+        78
+      ],
+      "audit": [
+        {
+          "original_query": "White tea manufacturing process",
+          "rewrite_status": [
+            "deferred"
+          ],
+          "rewrite_error_types": [],
+          "rejected_variants": 0,
+          "queries": [
+            {
+              "round": 0,
+              "channel": "keyword",
+              "limit": 15,
+              "hits": 15,
+              "status": "success"
+            },
+            {
+              "round": 0,
+              "channel": "vector",
+              "query": "White tea manufacturing process",
+              "limit": 7,
+              "hits": 7,
+              "status": "success"
+            },
+            {
+              "round": 0,
+              "channel": "vector",
+              "query": "White tea manufacturing process | 白茶 加工 processing",
+              "limit": 8,
+              "hits": 8,
+              "status": "success"
+            }
+          ],
+          "rerank_status": [
+            "success"
+          ],
+          "retry": false,
+          "retry_adopted": false,
+          "retry_reasons": [],
+          "selected_ids": [
+            "66",
+            "63",
+            "79",
+            "81",
+            "78"
+          ],
+          "cache_status": "hit",
+          "hybrid_status": "enabled",
+          "remaining_issues": [],
+          "missing_subjects": [],
+          "coverage": {
+            "covered_subjects": [
+              "white_tea"
+            ],
+            "missing_subjects": [],
+            "missing_facets": []
+          }
+        }
+      ],
+      "local_calls": []
+    },
+    {
+      "query": "Oxidation and fermentation in tea processing",
+      "round": 0,
+      "seconds": 7.043068099999999,
+      "client_cpu_seconds": 0.03125,
+      "selected_ids": [
+        64,
+        81,
+        69,
+        62,
+        75
+      ],
+      "audit": [
+        {
+          "original_query": "Oxidation and fermentation in tea processing",
+          "rewrite_status": [
+            "deferred"
+          ],
+          "rewrite_error_types": [],
+          "rejected_variants": 0,
+          "queries": [
+            {
+              "round": 0,
+              "channel": "keyword",
+              "limit": 15,
+              "hits": 15,
+              "status": "success"
+            },
+            {
+              "round": 0,
+              "channel": "vector",
+              "query": "Oxidation and fermentation in tea processing",
+              "limit": 7,
+              "hits": 7,
+              "status": "success"
+            },
+            {
+              "round": 0,
+              "channel": "vector",
+              "query": "Oxidation and fermentation in tea processing | 加工 氧化 发酵",
+              "limit": 8,
+              "hits": 8,
+              "status": "success"
+            }
+          ],
+          "rerank_status": [
+            "success"
+          ],
+          "retry": false,
+          "retry_adopted": false,
+          "retry_reasons": [],
+          "selected_ids": [
+            "64",
+            "81",
+            "69",
+            "62",
+            "75"
+          ],
+          "cache_status": "miss",
+          "hybrid_status": "enabled",
+          "remaining_issues": [],
+          "missing_subjects": [],
+          "coverage": {
+            "covered_subjects": [],
+            "missing_subjects": [],
+            "missing_facets": []
+          }
+        }
+      ],
+      "local_calls": [
+        {
+          "service": "embedding",
+          "http_status": 200,
+          "seconds": 0.0708625000000005
+        },
+        {
+          "service": "embedding",
+          "http_status": 200,
+          "seconds": 0.09296059999999784
+        },
+        {
+          "service": "rerank",
+          "http_status": 200,
+          "seconds": 6.817569900000002
+        }
+      ]
+    },
+    {
+      "query": "Oxidation and fermentation in tea processing",
+      "round": 1,
+      "seconds": 0.003775700000002047,
+      "client_cpu_seconds": 0.0,
+      "selected_ids": [
+        64,
+        81,
+        69,
+        62,
+        75
+      ],
+      "audit": [
+        {
+          "original_query": "Oxidation and fermentation in tea processing",
+          "rewrite_status": [
+            "deferred"
+          ],
+          "rewrite_error_types": [],
+          "rejected_variants": 0,
+          "queries": [
+            {
+              "round": 0,
+              "channel": "keyword",
+              "limit": 15,
+              "hits": 15,
+              "status": "success"
+            },
+            {
+              "round": 0,
+              "channel": "vector",
+              "query": "Oxidation and fermentation in tea processing",
+              "limit": 7,
+              "hits": 7,
+              "status": "success"
+            },
+            {
+              "round": 0,
+              "channel": "vector",
+              "query": "Oxidation and fermentation in tea processing | 加工 氧化 发酵",
+              "limit": 8,
+              "hits": 8,
+              "status": "success"
+            }
+          ],
+          "rerank_status": [
+            "success"
+          ],
+          "retry": false,
+          "retry_adopted": false,
+          "retry_reasons": [],
+          "selected_ids": [
+            "64",
+            "81",
+            "69",
+            "62",
+            "75"
+          ],
+          "cache_status": "hit",
+          "hybrid_status": "enabled",
+          "remaining_issues": [],
+          "missing_subjects": [],
+          "coverage": {
+            "covered_subjects": [],
+            "missing_subjects": [],
+            "missing_facets": []
+          }
+        }
+      ],
+      "local_calls": []
+    },
+    {
+      "query": "Oxidation and fermentation in tea processing",
+      "round": 2,
+      "seconds": 0.003421700000000527,
+      "client_cpu_seconds": 0.0,
+      "selected_ids": [
+        64,
+        81,
+        69,
+        62,
+        75
+      ],
+      "audit": [
+        {
+          "original_query": "Oxidation and fermentation in tea processing",
+          "rewrite_status": [
+            "deferred"
+          ],
+          "rewrite_error_types": [],
+          "rejected_variants": 0,
+          "queries": [
+            {
+              "round": 0,
+              "channel": "keyword",
+              "limit": 15,
+              "hits": 15,
+              "status": "success"
+            },
+            {
+              "round": 0,
+              "channel": "vector",
+              "query": "Oxidation and fermentation in tea processing",
+              "limit": 7,
+              "hits": 7,
+              "status": "success"
+            },
+            {
+              "round": 0,
+              "channel": "vector",
+              "query": "Oxidation and fermentation in tea processing | 加工 氧化 发酵",
+              "limit": 8,
+              "hits": 8,
+              "status": "success"
+            }
+          ],
+          "rerank_status": [
+            "success"
+          ],
+          "retry": false,
+          "retry_adopted": false,
+          "retry_reasons": [],
+          "selected_ids": [
+            "64",
+            "81",
+            "69",
+            "62",
+            "75"
+          ],
+          "cache_status": "hit",
+          "hybrid_status": "enabled",
+          "remaining_issues": [],
+          "missing_subjects": [],
+          "coverage": {
+            "covered_subjects": [],
+            "missing_subjects": [],
+            "missing_facets": []
+          }
+        }
+      ],
+      "local_calls": []
+    }
+  ]
+}
