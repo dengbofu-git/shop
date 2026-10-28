@@ -1,7 +1,7 @@
 {
   "baseline_head": "63fa850843771dde21c7bd49ed9bc98019e5d24a",
   "recorded_at": "2026-10-28T04:04:17.365329+00:00",
-  "state": "isolated MCP-only delivery; shared version metadata excludes the separate goods-import task",
+  "state": "MCP-only delivery after normal merge of main; all runtime checks rerun on validated_source_sha",
   "files": {
     "support_ai/catalog_terms.py": "f799124e643b534edd35d72504f4cafa0d6d608e1ba2239379352bfccc3bcfed",
     "support_ai/context.py": "82f2c06a27f3dde201c949dbaba6c1b55a612378b6d6837a3ed5d1ce97d91709",
@@ -44,9 +44,10 @@
     "tools/tea_saas_mcp/server.py": "ab18d0123a93748a41afd144f356995957e26896c5aab883c3a7337633dc3523",
     "tools/tea_saas_mcp/test_server.py": "5e7b9a13e851ed9a7e70fafd9dcc7f60186d9de3b63af63a78d25a4bd0034e11",
     "tools/tea_saas_mcp/test_settings.py": "ee8d5c4214bdf9c7d62badab4c5c083bd9bbd9578c6db1fac0d55693f6cfd963",
-    "versions/changelogs/core.md": "4885f58cec44e2d96fb958911743a6653945c1ad97be216609143b2ad0dcb55a",
+    "versions/changelogs/core.md": "6fe0d1d4f312ff3538d7e9fd1ad6d1b7cad8a3383ff1c456b2d6348624ab0767",
     "versions/changelogs/support_ai.md": "4ec4e16d356fd8afe09a720ab000bf8195ceeaf3612aa634d684ea009c095375",
-    "versions/modules.json": "dd2f8a7e4c450abb63d75e340be56f51ffb8b5860d003f713dce79bad7675b7e"
+    "versions/modules.json": "824ef94d9422b097d770fc002ceeb1dda7c1381a1e6f4329febcf985f902401d"
   },
-  "delivery_base": "609f5967362ad505b892f21469ff8ca7a2e46ab6"
+  "delivery_base": "412c7ed1a7206b49d2f9c5363b8110a0a52018c1",
+  "validated_source_sha": "bb65d3a009b0b5e136a8c1765935026dcff4cc01"
 }
