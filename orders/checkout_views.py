@@ -48,12 +48,18 @@ def submit_order(request,username,cart):
         elif kind=='0':
             all_items=cart.hgetall('carts_'+username)
             selected=payload.get('sku_list')
-            ids=None if not selected else {positive(i.get('id') or i.get('sku_id')) for i in selected if isinstance(i,dict)}
+            if selected is not None and (not isinstance(selected,list) or any(not isinstance(i,dict) for i in selected)):
+                raise ReservationError('INVALID_CART','采购车商品格式不正确',400)
+            requested=None if not selected else [positive(i.get('id') or i.get('sku_id')) for i in selected]
+            if requested is not None and len(requested)!=len(set(requested)):
+                raise ReservationError('INVALID_CART','采购车商品重复，请重新加载',400)
+            ids=None if requested is None else set(requested)
             items={}
             for key,value in all_items.items():
                 sid=positive(key.decode() if isinstance(key,bytes) else key)
                 row=json.loads(value)
-                if row.get('status') and (ids is None or sid in ids):items[sid]=positive(row.get('count'));consumed[sid]=value
+                if not isinstance(row,dict):raise ReservationError('INVALID_CART','采购车已变化',400)
+                if row.get('status') is True and (ids is None or sid in ids):items[sid]=positive(row.get('count'));consumed[sid]=value
             if ids and set(items)!=ids:raise ReservationError('CART_CHANGED','采购车已变化，请返回重新选择',409)
         else:raise ReservationError('INVALID_SETTLEMENT','结算类型无效',400)
         orders=create_orders(user,request_id,digest,positive(payload.get('address_id')),items,request.META.get('REMOTE_ADDR'))

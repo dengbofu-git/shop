@@ -3,8 +3,8 @@
   "test_database": "support_ai.test_settings: default and ai_storage are SQLite in-memory; LocMem caches",
   "model": "Synthetic test doubles; no real model requests",
   "environment_overrides": {
-    "TEMP": "E:\\django\\dadashop\\.scratch\\support-grounding-20261026\\tmp",
-    "TMP": "E:\\django\\dadashop\\.scratch\\support-grounding-20261026\\tmp",
+    "TEMP": "<workspace>\\.scratch\\support-grounding-20261026\\tmp",
+    "TMP": "<workspace>\\.scratch\\support-grounding-20261026\\tmp",
     "PYTHONUTF8": "1",
     "LOG_TO_FILE": "false",
     "LOG_LEVEL": "ERROR"
@@ -13,7 +13,7 @@
     {
       "name": "django-check",
       "command": [
-        "E:\\miniconda\\envs\\dadashop\\python.exe",
+        "python",
         "manage.py",
         "check",
         "--settings=support_ai.test_settings"
@@ -25,7 +25,7 @@
     {
       "name": "focused-tests",
       "command": [
-        "E:\\miniconda\\envs\\dadashop\\python.exe",
+        "python",
         "manage.py",
         "test",
         "support_ai.test_grounding",
@@ -43,7 +43,7 @@
     {
       "name": "module-regression",
       "command": [
-        "E:\\miniconda\\envs\\dadashop\\python.exe",
+        "python",
         "manage.py",
         "test",
         "support_ai",
@@ -59,7 +59,7 @@
     {
       "name": "module-ownership",
       "command": [
-        "E:\\miniconda\\envs\\dadashop\\python.exe",
+        "python",
         "tools/module_versions.py",
         "check"
       ],

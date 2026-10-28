@@ -177,6 +177,28 @@ class ReservationTests(Fixtures,TestCase):
         self.assertEqual(first.json(),retry.json());item=OrderGoods.objects.get()
         self.assertEqual((item.count,item.price),(12,Decimal('10')))
 
+    def test_legacy_cart_input_guards_survive_reservation_checkout(self):
+        class Cart:
+            rows={}
+            def hgetall(self,key):return self.rows
+            def eval(self,*args):raise AssertionError('Invalid checkout must not clear cart')
+        cart=Cart()
+        payload={'settlement_type':'0','address_id':self.addresses[0].pk,'request_id':uuid.uuid4().hex}
+        sku=self.skus[0].pk
+        with patch('orders.views.get_redis_connection',return_value=cart):
+            url='/v1/orders/'+self.buyers[0].username
+            cart.rows={str(sku):json.dumps({'count':2,'status':True})}
+            for selected in ('wrong',[None],[{'id':sku}]*2):
+                with self.subTest(selected=selected):
+                    response=self.client.post(url,{**payload,'sku_list':selected},content_type='application/json',**self.headers(self.buyers[0]))
+                    self.assertEqual(response.status_code,400)
+            for value in ('broken','[]','null',json.dumps({'count':2,'status':'true'})):
+                with self.subTest(value=value):
+                    cart.rows={str(sku):value}
+                    self.assertEqual(self.client.post(url,payload,content_type='application/json',**self.headers(self.buyers[0])).status_code,400)
+        self.assertFalse(OrderInfo.objects.exists())
+        self.assertFalse(StockHold.objects.exists())
+
     def test_cart_and_merchant_adjustment_routes_enforce_ownership_and_reservation(self):
         with patch('carts.views.get_redis_connection'):
             self.assertEqual(self.client.post('/v1/carts/'+self.buyers[0].username,{'sku_id':self.skus[0].pk,'count':1},content_type='application/json',**self.headers(self.buyers[1])).status_code,403)

@@ -28,7 +28,7 @@
 ## 定向检查
 
 - `node --test client/tests/engagement.test.js client/tests/engagement-messages.test.js`：21通过，包括回车发送、输入法保护、多会话切换及刷新恢复。
-- `E:/miniconda/envs/dadashop/python.exe -X utf8 -c ...`：使用`support_ai.test_settings`渲染买家／商家消息模板，确认布局类及CSS引用；三个评价页未使用消息布局类；Django静态资源查找通过。未连接业务数据库。
+- `python -X utf8 -c ...`：使用`support_ai.test_settings`渲染买家／商家消息模板，确认布局类及CSS引用；三个评价页未使用消息布局类；Django静态资源查找通过。未连接业务数据库。
 - `python tools/module_versions.py check`：通过，16模块，工作区文件均有归属。
 - `git -c core.safecrlf=false diff --check`：通过。
 

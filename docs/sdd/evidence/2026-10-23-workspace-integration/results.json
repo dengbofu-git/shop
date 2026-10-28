@@ -1,0 +1,291 @@
+{
+  "django": [
+    {
+      "name": "django-check",
+      "exit_code": 0,
+      "seconds": 1.53,
+      "raw_log_sha256": "f87ceb15410bde28ff826ce26228e0576558258fa64d145847921a593a61ee63"
+    },
+    {
+      "name": "django-tests",
+      "exit_code": 0,
+      "seconds": 22.99,
+      "raw_log_sha256": "09616e3086dd319a8fd118f8f419c63ede5bcceaed0da7c657854621721b3c1c"
+    }
+  ],
+  "mysql": [
+    {
+      "name": "mysql-integration",
+      "exit_code": 0,
+      "seconds": 56.69,
+      "raw_log_sha256": "7ae6d79cbe5e1cd8230be65141a14a510da6499240b7ab7c3650d4a8b13f9242"
+    }
+  ],
+  "node": [
+    {
+      "name": "admin-shell.test",
+      "exit_code": 0,
+      "seconds": 0.06,
+      "raw_log_sha256": "98eeb9ba8fb50cc557e9a5d367e8012154e34f138a00283cf560ba893f44bbd3"
+    },
+    {
+      "name": "auth-storage.test",
+      "exit_code": 0,
+      "seconds": 0.05,
+      "raw_log_sha256": "3a042b20fe1765ea99161bca8e376ea57009d41df9de4fedf3507110baf8116d"
+    },
+    {
+      "name": "buyer-carousel.test",
+      "exit_code": 0,
+      "seconds": 0.08,
+      "raw_log_sha256": "28f426ee5e705e7fe8ae4bddf03b8ddd1750ae7d4c5dc72e998395386939ae11"
+    },
+    {
+      "name": "buyer-catalog-preview.test",
+      "exit_code": 0,
+      "seconds": 0.06,
+      "raw_log_sha256": "1b2d553ce2bbbf0b634eba99b2a346904de5fa7d5cb5f5a630278a70a2d2a619"
+    },
+    {
+      "name": "buyer-entry-split.test",
+      "exit_code": 0,
+      "seconds": 0.08,
+      "raw_log_sha256": "82b6390bcebd86ee14e5d31f87921a0d0340dd6a71ce4ff96fb2240ec5cc96da"
+    },
+    {
+      "name": "buyer-products-pagination.test",
+      "exit_code": 0,
+      "seconds": 0.06,
+      "raw_log_sha256": "0c0abc821ec977e9b19a5c06cf70b53c762c2acc78108c09780cf39f4a82c210"
+    },
+    {
+      "name": "cart-currency.test",
+      "exit_code": 0,
+      "seconds": 0.06,
+      "raw_log_sha256": "6183b7b37ec48182eb4ff8b90a86fd266f7c13b73e9c5ce949af1a20a0ea5fdb"
+    },
+    {
+      "name": "checkout.test",
+      "exit_code": 0,
+      "seconds": 0.06,
+      "raw_log_sha256": "71ce1e3daa372d50d61cfbef4c7c131ba3cd1c388fad49291b5b03dc7bbe115a"
+    },
+    {
+      "name": "engagement-messages.test",
+      "exit_code": 0,
+      "seconds": 0.14,
+      "raw_log_sha256": "3cc49c58956614270d187e076ed00a7fca15806884c486e05c69605a4d191908"
+    },
+    {
+      "name": "engagement.test",
+      "exit_code": 0,
+      "seconds": 0.08,
+      "raw_log_sha256": "1f5ff58c7eb12668a08e7afbff2a6d41527db23fc94ea360c23ce55f79fd5b91"
+    },
+    {
+      "name": "merchant-insights.test",
+      "exit_code": 0,
+      "seconds": 0.09,
+      "raw_log_sha256": "6aae76ea75e50456067c74f0c26e423d95789ed6778e9f217832a121c435ed3a"
+    },
+    {
+      "name": "merchant-orders.test",
+      "exit_code": 0,
+      "seconds": 0.06,
+      "raw_log_sha256": "69001c9b169a8143f1d71914618d9c9bce4c87f6dbe442ae38d5cb69277d100e"
+    },
+    {
+      "name": "merchant-overview.test",
+      "exit_code": 0,
+      "seconds": 0.08,
+      "raw_log_sha256": "1123e8dd427ae4d4e700d45345af2a6ac8a639f7148d7701471e3a9a3880e4bd"
+    },
+    {
+      "name": "merchant-product-preview.test",
+      "exit_code": 0,
+      "seconds": 0.05,
+      "raw_log_sha256": "6333fc0cc2f5de42b5d9879ec3431f66a1d919d67c45633b7dd76f7f58051fdb"
+    },
+    {
+      "name": "merchant-workbench-feed.test",
+      "exit_code": 0,
+      "seconds": 0.09,
+      "raw_log_sha256": "f252ffc5a89d67e4d64dfd09c8b7b640808db2a15d1791d4e15a684cc85e4bff"
+    },
+    {
+      "name": "operations-dashboard.test",
+      "exit_code": 0,
+      "seconds": 0.06,
+      "raw_log_sha256": "add550db614a6c4b6119a5e51a6cc7b4d954b690312fc41608855fc461a2abea"
+    },
+    {
+      "name": "product-detail-summary.test",
+      "exit_code": 0,
+      "seconds": 0.08,
+      "raw_log_sha256": "8b04421e4a5c4dba9125523a8713d85686524ffc375a8a30bfb2393cab92ed47"
+    },
+    {
+      "name": "profile-nickname.test",
+      "exit_code": 0,
+      "seconds": 0.06,
+      "raw_log_sha256": "22e3579b364bf8d07deeeebb32768c9e81fe4b45f03a9e8002ea89df0f076c4a"
+    },
+    {
+      "name": "reservation-checkout.test",
+      "exit_code": 0,
+      "seconds": 0.09,
+      "raw_log_sha256": "b8b962d8f8bf7c978a0279d072dca82b1124024c275ec1acafe85497322ee7d5"
+    },
+    {
+      "name": "storefront.test",
+      "exit_code": 0,
+      "seconds": 0.06,
+      "raw_log_sha256": "c15ebb40795f6756be995b4ae5b1131b30cad65b1128259fc69f7cadcee6e0ce"
+    },
+    {
+      "name": "tea-saas-brand.test",
+      "exit_code": 0,
+      "seconds": 0.05,
+      "raw_log_sha256": "877a9afb3f7973a297911c116a9e1afff3bc8e538607c2d210add791d7a5fe4e"
+    },
+    {
+      "name": "unified-login.test",
+      "exit_code": 0,
+      "seconds": 0.08,
+      "raw_log_sha256": "fc1c2840b71244974b8bb14dd04b06b3dce62dcdc27ca52a8eca5ba36613311b"
+    }
+  ],
+  "contract": [
+    {
+      "name": "merchant-orders",
+      "exit_code": 0,
+      "seconds": 4.52,
+      "raw_log_sha256": "cc8a2ca352896f686d897b5c2c90a36ffb1c69b86bd3cf200b70ca5824e97804"
+    },
+    {
+      "name": "merchant-overview",
+      "exit_code": 0,
+      "seconds": 4.91,
+      "raw_log_sha256": "0cb3848c659bc932801a7b89b636ef8abe13d9b655d8382453f3bb40d7a98818"
+    },
+    {
+      "name": "catalog-preview",
+      "exit_code": 0,
+      "seconds": 5.17,
+      "raw_log_sha256": "0f34799b5c3a35fe537f336309d7fd1cba25b5898552a364f005481d58d6872e"
+    },
+    {
+      "name": "catalog-response-node",
+      "exit_code": 0,
+      "seconds": 0.11,
+      "raw_log_sha256": "1b2d553ce2bbbf0b634eba99b2a346904de5fa7d5cb5f5a630278a70a2d2a619"
+    },
+    {
+      "name": "overview-response-node",
+      "exit_code": 0,
+      "seconds": 0.14,
+      "raw_log_sha256": "692f4d64f3135260391b664a49c4fccf861e1b2b98528405daf1c19fecc70cb4"
+    },
+    {
+      "name": "carousel",
+      "exit_code": 0,
+      "seconds": 4.19,
+      "raw_log_sha256": "226ae09055de770c798591e00443082ed64f4018be1c2162ae683b9080db3a39"
+    },
+    {
+      "name": "namespace",
+      "exit_code": 0,
+      "seconds": 1.05,
+      "raw_log_sha256": "cb29984a7010d5f907b30a8c26c71fbc4d78790827e4ea3d67cabede66325d99"
+    },
+    {
+      "name": "governance",
+      "exit_code": 0,
+      "seconds": 10.38,
+      "raw_log_sha256": "82ea3f44cedaece86a3d2328537faed542629ad51ddeb63f04b5ff2e432fde88"
+    },
+    {
+      "name": "migration-drift",
+      "exit_code": 0,
+      "seconds": 1.94,
+      "raw_log_sha256": "93e6e2d5be3c054add80c0f19101608803f7ca8a7df1fa41f76bbb9a1f570f4a"
+    }
+  ],
+  "templates": {
+    "compiled": [
+      "buyer_activity.html",
+      "buyer_dashboard.html",
+      "buyer_messages.html",
+      "buyer_orders.html",
+      "buyer_products.html",
+      "buyer_reviews.html",
+      "buyer_sidebar.html",
+      "buyer_support.html",
+      "gopay.html",
+      "merchant_dashboard.html",
+      "merchant_inventory.html",
+      "merchant_messages.html",
+      "merchant_orders.html",
+      "payment.html",
+      "product_details.html",
+      "shared/engagement_assets.html",
+      "shared/engagement_messages.html",
+      "shared/system_theme.html",
+      "store.html"
+    ],
+    "rendered": [
+      "buyer_activity.html",
+      "buyer_dashboard.html",
+      "buyer_messages.html",
+      "buyer_orders.html",
+      "buyer_products.html",
+      "buyer_reviews.html",
+      "buyer_support.html",
+      "gopay.html",
+      "merchant_dashboard.html",
+      "merchant_inventory.html",
+      "merchant_messages.html",
+      "merchant_orders.html",
+      "payment.html",
+      "product_details.html",
+      "store.html"
+    ],
+    "assets": [
+      "css/buyer-activity.css",
+      "css/buyer-discovery.css",
+      "css/buyer-orders.css",
+      "css/buyer-storefront.css",
+      "css/buyer-support.css",
+      "css/buyer-workbench.css",
+      "css/design-tokens.css",
+      "css/engagement-inbox.css",
+      "css/engagement.css",
+      "css/payment.css",
+      "css/pro_details.css",
+      "css/product-detail-content.css",
+      "css/product-detail-summary.css",
+      "css/reservation-checkout.css",
+      "css/rtl.css",
+      "css/store-pages.css",
+      "js/auth-storage.js",
+      "js/buyer-activity.js",
+      "js/buyer-orders.js",
+      "js/buyer-support.js",
+      "js/buyer-workbench.js",
+      "js/engagement-messages.js",
+      "js/engagement-product-reviews.js",
+      "js/engagement-reviews.js",
+      "js/engagement-shell.js",
+      "js/engagement.js",
+      "js/init.js",
+      "js/jquery-3.1.1.min.js",
+      "js/lozad.js",
+      "js/product-detail-summary.js",
+      "js/reservation-checkout.js",
+      "js/reservation-policy.js",
+      "js/store-page.js",
+      "js/storefront.js"
+    ],
+    "failures": []
+  }
+}

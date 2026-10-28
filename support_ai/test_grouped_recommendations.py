@@ -91,7 +91,7 @@ class GroupedRecommendationTests(TestCase):
         self.assertEqual([p['category'] for p in result.data['recommendations']], list(BASIC_TEA_TYPES))
         self.assertEqual(result.data['product_intent']['required']['categories'], [])
         self.assertIn('推荐依据', result.data['answer'])
-        self.assertIn('尚无可验证的风味', result.data['answer'])
+        self.assertIn('尚不能据此认定某款最适合您的口味', result.data['answer'])
 
     def test_per_group_two_and_total_limit(self):
         result = self.run_tool('按不同茶类每类推荐两款，并给出理由')
@@ -104,11 +104,11 @@ class GroupedRecommendationTests(TestCase):
     def test_explicit_subset_and_budget_and_exclusion_are_retained(self):
         subset = self.run_tool('绿茶和红茶各推荐一款，并给出理由')
         self.assertEqual([p['category'] for p in subset.data['recommendations']], ['绿茶', '红茶'])
-        message = '按不同茶类推荐，每盒不超过12美元，不要红茶'
+        message = '按不同茶类推荐，每盒不超过12元，不要红茶'
         evidence = lambda field, value: {'field': field, 'value': value, 'source': 'CURRENT', 'quote': message}
-        payload = {'action': 'SEARCH', 'required': {'price_max': '12', 'currency': 'USD', 'price_basis': 'unit'},
+        payload = {'action': 'SEARCH', 'required': {'price_max': '12', 'currency': 'CNY', 'price_basis': 'unit'},
                    'excluded': {'categories': ['红茶']}, 'evidence': [evidence('required.price_max', '12'),
-                       evidence('required.currency', 'USD'), evidence('required.price_basis', 'unit'),
+                       evidence('required.currency', 'CNY'), evidence('required.price_basis', 'unit'),
                        evidence('excluded.categories', '红茶')]}
         result = self.run_tool(message, payload)
         self.assertEqual([p['category'] for p in result.data['recommendations']], ['绿茶', '白茶'])
@@ -158,7 +158,7 @@ class GroupedRecommendationTests(TestCase):
         self.assertEqual(result.status, 'error')
         self.assertEqual(result.data['recommendation_status'], 'ERROR')
         self.assertFalse(result.data['recommendations'])
-        self.assertEqual(result.data['diagnostics'][0]['error_type'], 'ValueError')
+        self.assertEqual(result.data['diagnostics'][0]['error_type'], 'IntentEvidenceError')
 
     def test_model_schema_failure_errors_and_reports_field(self):
         result = self.run_tool('推荐测试品牌绿茶', {'action': 'SEARCH', 'required': {'categories': ['茶'] * 13}})

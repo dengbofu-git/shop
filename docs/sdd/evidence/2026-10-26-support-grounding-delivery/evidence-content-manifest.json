@@ -1,0 +1,166 @@
+{
+  "normalization": "Only documented physical-path display substitutions and CRLF/LF text normalization",
+  "files": [
+    {
+      "path": "docs/sdd/evidence/2026-10-26-support-grounding/baseline-tests.log",
+      "original_worktree_sha256": "0b79e7867a8f19533edd526fe66fa95756a19b5f1b369c4c423b9b87d1b94ed4",
+      "published_worktree_sha256": "30d2a35bc5cc7151aa998c8a50d48276b691b165a04a21b5b696b7fd022743de",
+      "published_lf_sha256": "30d2a35bc5cc7151aa998c8a50d48276b691b165a04a21b5b696b7fd022743de",
+      "expected_git_blob_lf": "83c71240aedc05d9aa65b91b936da65ee546968a"
+    },
+    {
+      "path": "docs/sdd/evidence/2026-10-26-support-grounding/commands.json",
+      "original_worktree_sha256": "76f9ce22275f9ad5f1e38f652ea6c41d2a52525ae1187654f7c3711414be7d4c",
+      "published_worktree_sha256": "78ef06a7e6c8a8de9db36dff3d46acf5a802dca42076705e4ca203984dc05f0d",
+      "published_lf_sha256": "775e4cd4a57ccab37722ea2ba74d0c5ae2a3dc3e414b6ad78f03e719ca451051",
+      "expected_git_blob_lf": "5189decbfeab01cd1ac70be463d40201e3084d39"
+    },
+    {
+      "path": "docs/sdd/evidence/2026-10-26-support-grounding/diff-check.log",
+      "original_worktree_sha256": "9c85785cd7588085e4ac6bda703c7da0d6ed6ef8bdb9fc5f8fb60224d9a83f98",
+      "published_worktree_sha256": "9c85785cd7588085e4ac6bda703c7da0d6ed6ef8bdb9fc5f8fb60224d9a83f98",
+      "published_lf_sha256": "9c85785cd7588085e4ac6bda703c7da0d6ed6ef8bdb9fc5f8fb60224d9a83f98",
+      "expected_git_blob_lf": "f83c0f9d152c33f3e24881374415f1e307bd1ed3"
+    },
+    {
+      "path": "docs/sdd/evidence/2026-10-26-support-grounding/django-check.log",
+      "original_worktree_sha256": "f87ceb15410bde28ff826ce26228e0576558258fa64d145847921a593a61ee63",
+      "published_worktree_sha256": "1e3e63f221bde88816c4a4ef7367691607b20cc1d194028a02ec9ae0586cf9b1",
+      "published_lf_sha256": "1e3e63f221bde88816c4a4ef7367691607b20cc1d194028a02ec9ae0586cf9b1",
+      "expected_git_blob_lf": "7883fe46f105a9220370c1e6d26f0a1a6665783d"
+    },
+    {
+      "path": "docs/sdd/evidence/2026-10-26-support-grounding/focused-tests.log",
+      "original_worktree_sha256": "3d17836a1e10859a4267ac76fdd000cd65abe3f17ac92057708d6aeaff0ebdb0",
+      "published_worktree_sha256": "21380105ead930ab45e06a232044a3cca1604a6de3bccf7e4dcbaf26523f471d",
+      "published_lf_sha256": "21380105ead930ab45e06a232044a3cca1604a6de3bccf7e4dcbaf26523f471d",
+      "expected_git_blob_lf": "1b1eccab04ad99b6372b2dd6cab71cfa0391d939"
+    },
+    {
+      "path": "docs/sdd/evidence/2026-10-26-support-grounding/module-ownership.log",
+      "original_worktree_sha256": "89483c47e7db0bdddec741f658e73483787f76de022eff7b2ee13955f729d0cc",
+      "published_worktree_sha256": "724f40f65e8a02a0ec6c464f33d849489090114e0a5057cb16bfb6071819ddb3",
+      "published_lf_sha256": "724f40f65e8a02a0ec6c464f33d849489090114e0a5057cb16bfb6071819ddb3",
+      "expected_git_blob_lf": "60194099d561267078314a0e1474600863d8a268"
+    },
+    {
+      "path": "docs/sdd/evidence/2026-10-26-support-grounding/module-regression.log",
+      "original_worktree_sha256": "d9da63e84b33516a3cfc1110dbf9b24d197d46557b1333f63ee1b4725c4cd0c7",
+      "published_worktree_sha256": "d0c00090d9e6fb6ee23dcc9dc80462c27913c576815e06d2e26e59a307713723",
+      "published_lf_sha256": "d0c00090d9e6fb6ee23dcc9dc80462c27913c576815e06d2e26e59a307713723",
+      "expected_git_blob_lf": "92505fe695319fe76c0fb23e11d74588b222126b"
+    },
+    {
+      "path": "docs/sdd/evidence/2026-10-26-support-grounding/source-manifest.json",
+      "original_worktree_sha256": "15696236709859cc9da1c036593b66eb1306c40f2cafb841d2c7f537ae46b5b5",
+      "published_worktree_sha256": "15696236709859cc9da1c036593b66eb1306c40f2cafb841d2c7f537ae46b5b5",
+      "published_lf_sha256": "e50a3ded226e244915eee7d9493971ce697f34ffd40b0aa147d8ce13276f2feb",
+      "expected_git_blob_lf": "2236e14db86675889cdacf1c6a6c52939ab40608"
+    },
+    {
+      "path": "docs/sdd/evidence/2026-10-26-support-grounding/task-patch.json",
+      "original_worktree_sha256": "05969164941cf551bf584fe72dba55b258b09215372e337886340b7fb85797f2",
+      "published_worktree_sha256": "d777f51c416bebb7ef91747de06fd83fdadf7f92fbb4c6ccac568cb4abb91126",
+      "published_lf_sha256": "d777f51c416bebb7ef91747de06fd83fdadf7f92fbb4c6ccac568cb4abb91126",
+      "expected_git_blob_lf": "1a0056690ddf2513ae5dfb2267a60a5d8b18567f"
+    },
+    {
+      "path": "docs/sdd/evidence/2026-10-26-support-grounding/verification.md",
+      "original_worktree_sha256": "9236ea95effa383b2277f6820c760c49fed8b12cb67f91520f7fc95aab986411",
+      "published_worktree_sha256": "ee31a39f743e2733246997c45b3bc8e13e6b28018f54d47d9dc9185974cce8f7",
+      "published_lf_sha256": "ee31a39f743e2733246997c45b3bc8e13e6b28018f54d47d9dc9185974cce8f7",
+      "expected_git_blob_lf": "c7ec4316726fac31eec61abe2c209e58ed1839eb"
+    },
+    {
+      "path": "docs/sdd/evidence/2026-10-26-support-grounding-live/summary.json",
+      "original_worktree_sha256": "eac5c28012beb41c388387bb13299be73510789dc5f7a7d1a41af4336d6ac33c",
+      "published_worktree_sha256": "eac5c28012beb41c388387bb13299be73510789dc5f7a7d1a41af4336d6ac33c",
+      "published_lf_sha256": "84892c2253166e624558890c39ab3df2bb5b99fb61079fbbf59955d9f9f0faea",
+      "expected_git_blob_lf": "bfaa946aab9fabb3de12f79bcee078c2a854ee7e"
+    },
+    {
+      "path": "docs/sdd/evidence/2026-10-26-support-grounding-live/verification.md",
+      "original_worktree_sha256": "c6ff7164793d9453929c314916a1b76ba7377e7bf027527c8a6005ffe1e921de",
+      "published_worktree_sha256": "c6ff7164793d9453929c314916a1b76ba7377e7bf027527c8a6005ffe1e921de",
+      "published_lf_sha256": "c6ff7164793d9453929c314916a1b76ba7377e7bf027527c8a6005ffe1e921de",
+      "expected_git_blob_lf": "2d980026e1cca2eafe7ae5972263b75f8423f9c8"
+    },
+    {
+      "path": "reports/agent-evaluation/2026-10-26-grounding-live-run-01/manifest.json",
+      "original_worktree_sha256": "474df1bb372db0519b2a6f4d37703d8c877e724e4f57462884f6edae51d09e36",
+      "published_worktree_sha256": "474df1bb372db0519b2a6f4d37703d8c877e724e4f57462884f6edae51d09e36",
+      "published_lf_sha256": "791c7b9129430614c88d56d4c2c6d51e227c7b8cd3498e2a79a9e96899d315ac",
+      "expected_git_blob_lf": "8ee284c343fd76e459146ee4a489da39595b7817"
+    },
+    {
+      "path": "reports/agent-evaluation/2026-10-26-grounding-live-run-01/procedure-sha256.json",
+      "original_worktree_sha256": "43321c0ce3d743d9ac3043316c5659121d7a688c432b0d04a954492b4d691545",
+      "published_worktree_sha256": "43321c0ce3d743d9ac3043316c5659121d7a688c432b0d04a954492b4d691545",
+      "published_lf_sha256": "5e1ca87cc6fb1ba3b79689401b0022c0923a7b483f883d2dffea88bf3a970d5e",
+      "expected_git_blob_lf": "5e1f0dee5d4cd00d0adde92d04808edae32bf7f5"
+    },
+    {
+      "path": "reports/agent-evaluation/2026-10-26-grounding-live-run-01/procedure.md",
+      "original_worktree_sha256": "badf42082d7cab3c1f2d5ba24734d3ad2aaa7a5954e06328a345d61329f1ef3a",
+      "published_worktree_sha256": "badf42082d7cab3c1f2d5ba24734d3ad2aaa7a5954e06328a345d61329f1ef3a",
+      "published_lf_sha256": "265db082c6e9361d9ad5c7f75537f9494ab8797e783510910d0df21c9e733e8b",
+      "expected_git_blob_lf": "f8ed8c154d36a4026338133238c15149812e0ee9"
+    },
+    {
+      "path": "reports/agent-evaluation/2026-10-26-grounding-live-run-01/README.md",
+      "original_worktree_sha256": "12718f4ad2cbd6eeca90315900e32634f964466a6f1b7244244973aceb31f7aa",
+      "published_worktree_sha256": "12718f4ad2cbd6eeca90315900e32634f964466a6f1b7244244973aceb31f7aa",
+      "published_lf_sha256": "12718f4ad2cbd6eeca90315900e32634f964466a6f1b7244244973aceb31f7aa",
+      "expected_git_blob_lf": "937f7f926c69ec6528f439e10ae18f5f51ce2df5"
+    },
+    {
+      "path": "reports/agent-evaluation/2026-10-26-grounding-live-run-01/results.jsonl",
+      "original_worktree_sha256": "352f2385f9adcc30b1717ada8f33a9be392ab55d8a41d2ad4225ae7e696c018b",
+      "published_worktree_sha256": "352f2385f9adcc30b1717ada8f33a9be392ab55d8a41d2ad4225ae7e696c018b",
+      "published_lf_sha256": "beb41516369c0e560f514fab0099e9363bcd0f709c1df5950b44091ef0088951",
+      "expected_git_blob_lf": "1b5cac6b89e4ce8d6347acd08ebb96916cd758f8"
+    },
+    {
+      "path": "reports/agent-evaluation/2026-10-26-grounding-live-run-01/summary.json",
+      "original_worktree_sha256": "787d790a90d3467556e543bcceab17cdac09e8f8e175d3e1116901018190fdc2",
+      "published_worktree_sha256": "787d790a90d3467556e543bcceab17cdac09e8f8e175d3e1116901018190fdc2",
+      "published_lf_sha256": "41c4fd7064270725ccc3608a76ef847a07d0c8b6625800ecaf20082c3c448508",
+      "expected_git_blob_lf": "3c1de77cfd6a7ca9fc60e40b90c7c5e8d5a77e36"
+    },
+    {
+      "path": "reports/agent-evaluation/2026-10-26-grounding-live-run-02/manifest.json",
+      "original_worktree_sha256": "81310719b6c681da752bd27d95f3681037f3f5dda8bee9500d35f70ad6047b4f",
+      "published_worktree_sha256": "81310719b6c681da752bd27d95f3681037f3f5dda8bee9500d35f70ad6047b4f",
+      "published_lf_sha256": "70fff3d4c28c25618b6d5afdbc9de2e6967df6c2948812c89a65068e98ee9441",
+      "expected_git_blob_lf": "bdf80d6d9cf17713a4a1c9803d3e8712b62be2f7"
+    },
+    {
+      "path": "reports/agent-evaluation/2026-10-26-grounding-live-run-02/procedure.md",
+      "original_worktree_sha256": "1d5b42e31837cd5fc43f55c6c151f1ea4a7367addc3bd1103bd42d32f85d9f22",
+      "published_worktree_sha256": "1d5b42e31837cd5fc43f55c6c151f1ea4a7367addc3bd1103bd42d32f85d9f22",
+      "published_lf_sha256": "96758065fa7fdd3829132e1b5d7684d132be12aadaeb8e683506415821a7af16",
+      "expected_git_blob_lf": "de0f93b9c4fe49a515a97aceda0f015142f09442"
+    },
+    {
+      "path": "reports/agent-evaluation/2026-10-26-grounding-live-run-02/README.md",
+      "original_worktree_sha256": "3b62f3b59767507c615b6e44a732e425b88b2ea24ef90ae59c9bf34a17a1c931",
+      "published_worktree_sha256": "3b62f3b59767507c615b6e44a732e425b88b2ea24ef90ae59c9bf34a17a1c931",
+      "published_lf_sha256": "3b62f3b59767507c615b6e44a732e425b88b2ea24ef90ae59c9bf34a17a1c931",
+      "expected_git_blob_lf": "1fda0c536716c0412e84f8f86ad273dce9ce9c4b"
+    },
+    {
+      "path": "reports/agent-evaluation/2026-10-26-grounding-live-run-02/results.jsonl",
+      "original_worktree_sha256": "02da2eacd85e060a738c4e311948c2abeb76130331b610b14a23f5cf47ab3a87",
+      "published_worktree_sha256": "02da2eacd85e060a738c4e311948c2abeb76130331b610b14a23f5cf47ab3a87",
+      "published_lf_sha256": "cb463ca9ed9a03737f6ccdda31fc3e4687a1834b07f0e0c4b4057e64c04fa0a3",
+      "expected_git_blob_lf": "cecd00421936bd15136dd07ac63db9293663c799"
+    },
+    {
+      "path": "reports/agent-evaluation/2026-10-26-grounding-live-run-02/summary.json",
+      "original_worktree_sha256": "cec85ba5bb7e19db0b10bf95ea504dec472dd2d1793b26c54f0299049d825a1b",
+      "published_worktree_sha256": "cec85ba5bb7e19db0b10bf95ea504dec472dd2d1793b26c54f0299049d825a1b",
+      "published_lf_sha256": "c1c35c90beb3e741402841af7e90f5de214064c76214b5365f708491843e85e3",
+      "expected_git_blob_lf": "c673a82396df9ad481ca746cbef68705e77a4a1d"
+    }
+  ]
+}

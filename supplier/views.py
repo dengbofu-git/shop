@@ -4,6 +4,7 @@ from django.utils.decorators import method_decorator
 from django.db import transaction
 from users.decorators import login_required, role_required
 from orders.models import OrderInfo
+from orders.lifecycle import can_delete, can_ship, merchant_ids, state_record, status_filter
 from goods.models import SPU, SKU
 from inventory.models import Inventory, Warehouse
 from inventory.services import InventoryService
@@ -39,28 +40,27 @@ class SupplierOrderListView(View):
         skus = SKU.objects.filter(spu__in=spus)
         
         # 获取包含这些SKU的订单
-        from .workbench import owned_items,waiting_shipment
+        from .workbench import owned_items
         from orders.reservations import merchant_actions
         from orders.models import OrderGoods
-        ownership=owned_items(user)
-        orders=OrderInfo.objects.filter(pk__in=OrderGoods.objects.filter(ownership).values('order_info_id')).distinct().order_by('-created_time')
+        owned = OrderGoods.objects.filter(owned_items(user))
+        orders = OrderInfo.objects.filter(pk__in=owned.values('order_info_id')).distinct().select_related('trialorder', 'presaleorder').order_by('-created_time')
         
         if status:
-            if status.isdigit():
-                orders = orders.filter(status=int(status))
-            elif status == 'unshipped':
-                orders = orders.filter(waiting_shipment())
-            elif status == 'unpaid':
-                orders = orders.filter(status=1)
-            else:
-                orders = orders.filter(status=status)
+            value = {'unshipped': 2, 'unpaid': 1}.get(status)
+            if status.isdigit() and int(status) in (0, 1, 2, 3, 4):
+                value = int(status)
+            if value is None:
+                return JsonResponse({'code': 400, 'error': '订单状态筛选不正确'}, status=400)
+            orders = orders.filter(status_filter(value))
         if limit and str(limit).isdigit():
             orders = orders[: int(limit)]
         
         data = []
         for order in orders:
-            order_goods = order.ordergoods_set.filter(ownership)
+            order_goods = order.ordergoods_set.filter(owned_items(user))
             total_amount = sum([og.count * og.price for og in order_goods])
+            owned_only = merchant_ids(order) == {user.pk}
             
             data.append({
                 'order_id': order.order_id,
@@ -68,6 +68,8 @@ class SupplierOrderListView(View):
                 'status': order.status,
                 'status_text': order.get_status_display_text(),
                 **merchant_actions(order,user),
+                'can_delete': owned_only and can_delete(order),
+                'requires_merchant_split': not owned_only,
                 'total_amount': float(total_amount),
                 'total_count': sum([og.count for og in order_goods]),
                 'receiver': order.receiver,
@@ -100,19 +102,26 @@ class SupplierOrderShipView(View):
 @method_decorator(login_required, name='dispatch')
 @method_decorator(role_required('supplier'), name='dispatch')
 class SupplierOrderDeleteView(View):
-    """商家取消未付款普通订单；不删除交易记录"""
-    
-    def post(self,request):
-        from orders.reservations import cancel_by_merchant,ReservationError
+    """Retained endpoint cancels an unpaid standard order without deleting history."""
+    def post(self, request):
+        from orders.reservations import cancel_by_merchant, ReservationError
         from orders.checkout_views import error_response
+        from orders.lifecycle import require_single_merchant, OrderActionError
+        user=request.user_profile
+        if not user.is_active:return JsonResponse({'code':403,'error':'当前账号已停用'},status=403)
         try:
             data=json.loads(request.body)
-            if not isinstance(data,dict) or not data.get('order_id'):
-                return JsonResponse({'code':400,'error':'缺少订单号'},status=400)
-            cancel_by_merchant(data['order_id'],request.user_profile)
-            return JsonResponse({'code':200,'msg':'订单已取消，记录保留'})
+            if not isinstance(data,dict) or not isinstance(data.get('order_id'),str) or not data['order_id']:
+                raise ValueError()
+            order=OrderInfo.objects.get(pk=data['order_id'])
+            require_single_merchant(order,user)
+            if not can_delete(order):return JsonResponse({'code':409,'error':'当前订单须保留履约和交易记录，不能删除'},status=409)
+            cancel_by_merchant(order.pk,user)
+            return JsonResponse({'code':200,'msg':'订单已取消，库存已释放，记录保留'})
+        except OrderInfo.DoesNotExist:return JsonResponse({'code':404,'error':'订单不存在'},status=404)
+        except OrderActionError as exc:return JsonResponse({'code':exc.status,'error':str(exc)},status=exc.status)
         except ReservationError as exc:return error_response(exc)
-        except (ValueError,TypeError):return JsonResponse({'code':400,'error':'请求格式无效'},status=400)
+        except (ValueError,TypeError,AttributeError):return JsonResponse({'code':400,'error':'请求数据格式错误'},status=400)
 
 
 @method_decorator(login_required, name='dispatch')

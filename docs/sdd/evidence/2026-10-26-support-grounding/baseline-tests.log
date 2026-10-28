@@ -256,7 +256,7 @@ test_redacts_order_phone_email_name_and_address (support_ai.tests.PiiTests) ... 
 ERROR: test_order_followup_reloads_status_and_keeps_identity_private (support_ai.test_task_tools.TaskToolIntegrationTests)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "E:\django\dadashop\support_ai\test_task_tools.py", line 163, in test_order_followup_reloads_status_and_keeps_identity_private
+  File "<workspace>\support_ai\test_task_tools.py", line 163, in test_order_followup_reloads_status_and_keeps_identity_private
     self.assertEqual(json.loads(context)[0]['status'], '待发货')
 KeyError: 'status'
 
@@ -264,7 +264,7 @@ KeyError: 'status'
 FAIL: test_explicit_subset_and_budget_and_exclusion_are_retained (support_ai.test_grouped_recommendations.GroupedRecommendationTests)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "E:\django\dadashop\support_ai\test_grouped_recommendations.py", line 114, in test_explicit_subset_and_budget_and_exclusion_are_retained
+  File "<workspace>\support_ai\test_grouped_recommendations.py", line 114, in test_explicit_subset_and_budget_and_exclusion_are_retained
     self.assertEqual([p['category'] for p in result.data['recommendations']], ['绿茶', '白茶'])
 AssertionError: Lists differ: ['绿茶', '白茶', '乌龙茶', '黄茶', '黑茶'] != ['绿茶', '白茶']
 
@@ -279,7 +279,7 @@ First extra element 2:
 FAIL: test_budget_still_applies_to_knowledge_bound_groups (support_ai.test_mixed_tea.MixedTeaIntegrationTests)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "E:\django\dadashop\support_ai\test_mixed_tea.py", line 207, in test_budget_still_applies_to_knowledge_bound_groups
+  File "<workspace>\support_ai\test_mixed_tea.py", line 207, in test_budget_still_applies_to_knowledge_bound_groups
     self.assertEqual([p['category'] for p in data['recommendations']], ['绿茶'])
 AssertionError: Lists differ: ['绿茶', '红茶'] != ['绿茶']
 
@@ -294,7 +294,7 @@ First extra element 1:
 FAIL: test_matching_enforces_budget_launch_and_inventory_without_popular_fallback (support_ai.tests.RecommendationIntegrationTests)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "E:\django\dadashop\support_ai\tests.py", line 272, in test_matching_enforces_budget_launch_and_inventory_without_popular_fallback
+  File "<workspace>\support_ai\tests.py", line 272, in test_matching_enforces_budget_launch_and_inventory_without_popular_fallback
     self.assertEqual([card['sku_id'] for card in result['recommendations']], [self.skus[1].pk])
 AssertionError: Lists differ: [2, 3] != [2]
 
@@ -309,7 +309,7 @@ First extra element 1:
 FAIL: test_currency_supplement_preserves_budget_category_count_and_evidence (support_ai.test_semantic_planning.SemanticPlanningTests)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "E:\django\dadashop\support_ai\test_semantic_planning.py", line 50, in test_currency_supplement_preserves_budget_category_count_and_evidence
+  File "<workspace>\support_ai\test_semantic_planning.py", line 50, in test_currency_supplement_preserves_budget_category_count_and_evidence
     self.assertEqual(source, 'model')
 AssertionError: 'rules' != 'model'
 - rules
@@ -320,7 +320,7 @@ AssertionError: 'rules' != 'model'
 FAIL: test_each_specialist_reaches_summary_and_compliance (support_ai.tests.GraphTests) (intent='after_sales')
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "E:\django\dadashop\support_ai\tests.py", line 128, in test_each_specialist_reaches_summary_and_compliance
+  File "<workspace>\support_ai\tests.py", line 128, in test_each_specialist_reaches_summary_and_compliance
     self.assertEqual(len([call for call in model.calls if call[0] == 'structured']), 1)
 AssertionError: 0 != 1
 
@@ -328,7 +328,7 @@ AssertionError: 0 != 1
 FAIL: test_order_context_is_loaded_only_for_after_sales (support_ai.tests.GraphTests)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "E:\django\dadashop\support_ai\tests.py", line 115, in test_order_context_is_loaded_only_for_after_sales
+  File "<workspace>\support_ai\tests.py", line 115, in test_order_context_is_loaded_only_for_after_sales
     self.assertTrue(any(context.replace(' ', '') in text.replace(' ', '') for _, text in after_sales.calls))
 AssertionError: False is not true
 

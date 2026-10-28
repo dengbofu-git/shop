@@ -3,7 +3,7 @@
   "modules": {
     "core": {
       "title": "项目核心",
-      "version": "0.7.1",
+      "version": "0.8.3",
       "paths": [
         "README.md",
         "CONTEXT.md",
@@ -30,7 +30,7 @@
     },
     "users": {
       "title": "用户与权限",
-      "version": "0.4.1",
+      "version": "0.4.2",
       "paths": [
         "users/",
         "versions/changelogs/users.md"
@@ -41,7 +41,7 @@
     },
     "goods": {
       "title": "商品管理",
-      "version": "0.6.2",
+      "version": "0.6.3",
       "paths": [
         "goods/",
         "media/",
@@ -60,7 +60,7 @@
     },
     "carts": {
       "title": "购物车",
-      "version": "0.2.0",
+      "version": "0.2.1",
       "paths": [
         "carts/",
         "versions/changelogs/carts.md"
@@ -74,7 +74,7 @@
     },
     "orders": {
       "title": "订单管理",
-      "version": "0.4.2",
+      "version": "0.4.3",
       "paths": [
         "orders/",
         "versions/changelogs/orders.md"
@@ -89,7 +89,7 @@
     },
     "pays": {
       "title": "支付",
-      "version": "0.2.0",
+      "version": "0.2.1",
       "paths": [
         "pays/",
         "app_key/",
@@ -114,7 +114,7 @@
     },
     "inventory": {
       "title": "库存管理",
-      "version": "0.2.0",
+      "version": "0.2.1",
       "paths": [
         "inventory/",
         "versions/changelogs/inventory.md"
@@ -140,7 +140,7 @@
     },
     "supplier": {
       "title": "商家与结算",
-      "version": "0.4.1",
+      "version": "0.4.2",
       "paths": [
         "supplier/",
         "versions/changelogs/supplier.md"
@@ -171,7 +171,7 @@
     },
     "support_ai": {
       "title": "智能客服",
-      "version": "0.23.1",
+      "version": "0.23.2",
       "paths": [
         "support_ai/",
         "docs/客服商品推荐设计.md",
@@ -224,13 +224,13 @@
         "versions/changelogs/ai_storage.md",
         "compose.reranker.yml",
         "deploy/reranker/",
+        "docs/本地重排序.md",
         "deploy/knowledge-worker/",
         "compose.knowledge-worker.yml",
         "compose.knowledge-paddleocr.yml",
         "compose.paddleocr.yml",
         "deploy/paddleocr/",
-        "docs/sdd/modules/ai-support/pdf-ingestion.md",
-        "docs/本地重排序.md"
+        "docs/sdd/modules/ai-support/pdf-ingestion.md"
       ],
       "dependencies": [
         "core",
@@ -239,7 +239,7 @@
     },
     "web": {
       "title": "页面与前端资源",
-      "version": "0.31.8",
+      "version": "0.31.9",
       "paths": [
         "client/",
         "templates/",
@@ -265,7 +265,7 @@
     },
     "engagement": {
       "title": "站内咨询与商品评价",
-      "version": "0.2.1",
+      "version": "0.2.2",
       "paths": [
         "engagement/",
         "versions/changelogs/engagement.md"

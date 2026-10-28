@@ -1,5 +1,4 @@
 Creating test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
-
 Operations to perform:
   Synchronize unmigrated apps: admin_panel, corsheaders, merchant_ai, messages, staticfiles
   Apply all migrations: admin, ai_storage, auth, contenttypes, engagement, goods, inventory, logistics, news, orders, sessions, supplier, support_ai, users
@@ -64,7 +63,6 @@ Running migrations:
   Applying support_ai.0003_agent_reranking... OK
   Applying support_ai.0004_conversation_order_context... OK
 Creating test database for alias 'ai_storage' ('file:memorydb_ai_storage?mode=memory&cache=shared')...
-
 Operations to perform:
   Synchronize unmigrated apps: admin_panel, corsheaders, merchant_ai, messages, staticfiles
   Apply all migrations: admin, ai_storage, auth, contenttypes, engagement, goods, inventory, logistics, news, orders, sessions, supplier, support_ai, users
@@ -181,5 +179,4 @@ Ran 44 tests in 0.490s
 
 OK
 Destroying test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
-
 Destroying test database for alias 'ai_storage' ('file:memorydb_ai_storage?mode=memory&cache=shared')...

@@ -5,7 +5,7 @@
     {
       "name": "django-check",
       "command": [
-        "E:\\miniconda\\envs\\dadashop\\python.exe",
+        "<PYTHON_ENV>\\python.exe",
         "manage.py",
         "check",
         "--settings=support_ai.test_settings"
@@ -21,7 +21,7 @@
     {
       "name": "related-regression",
       "command": [
-        "E:\\miniconda\\envs\\dadashop\\python.exe",
+        "<PYTHON_ENV>\\python.exe",
         "manage.py",
         "test",
         "support_ai",
@@ -43,7 +43,7 @@
     {
       "name": "archive-contract",
       "command": [
-        "E:\\miniconda\\envs\\dadashop\\python.exe",
+        "<PYTHON_ENV>\\python.exe",
         "client/tests/repository-cleanup-contract.py",
         "RepositoryCleanupTests.test_historical_git_content_is_identical_and_complete",
         "RepositoryCleanupTests.test_current_comparison_defaults_have_their_historical_inputs",
@@ -60,7 +60,7 @@
     {
       "name": "related-regression-local-temp",
       "command": [
-        "E:\\miniconda\\envs\\dadashop\\python.exe",
+        "<PYTHON_ENV>\\python.exe",
         "manage.py",
         "test",
         "support_ai",
@@ -76,8 +76,8 @@
       "log": "related-regression-local-temp.log",
       "environment": {
         "DJANGO_SETTINGS_MODULE": "support_ai.test_settings",
-        "TEMP": "E:\\django\\dadashop\\.scratch\\reports-baseline-20261022\\tmp",
-        "TMP": "E:\\django\\dadashop\\.scratch\\reports-baseline-20261022\\tmp",
+        "TEMP": "<WORKSPACE>\\.scratch\\reports-baseline-20261022\\tmp",
+        "TMP": "<WORKSPACE>\\.scratch\\reports-baseline-20261022\\tmp",
         "LOG_TO_FILE": "false",
         "LOG_LEVEL": "ERROR",
         "network": "Blocked for custom probes; existing regression uses test doubles"
@@ -86,7 +86,7 @@
     {
       "name": "current-probes",
       "command": [
-        "E:\\miniconda\\envs\\dadashop\\python.exe",
+        "<PYTHON_ENV>\\python.exe",
         ".scratch/reports-baseline-20261022/probe_reports.py"
       ],
       "exit_code": 0,
@@ -94,8 +94,8 @@
       "log": "current-probes.log",
       "environment": {
         "DJANGO_SETTINGS_MODULE": "support_ai.test_settings",
-        "TEMP": "E:\\django\\dadashop\\.scratch\\reports-baseline-20261022\\tmp",
-        "TMP": "E:\\django\\dadashop\\.scratch\\reports-baseline-20261022\\tmp",
+        "TEMP": "<WORKSPACE>\\.scratch\\reports-baseline-20261022\\tmp",
+        "TMP": "<WORKSPACE>\\.scratch\\reports-baseline-20261022\\tmp",
         "LOG_TO_FILE": "false",
         "LOG_LEVEL": "ERROR",
         "network": "Blocked for custom probes; existing regression uses test doubles"
@@ -104,7 +104,7 @@
     {
       "name": "current-contract",
       "command": [
-        "E:\\miniconda\\envs\\dadashop\\python.exe",
+        "<PYTHON_ENV>\\python.exe",
         ".scratch/reports-baseline-20261022/probe_current_contract.py"
       ],
       "exit_code": 0,
@@ -112,8 +112,8 @@
       "log": "current-contract.log",
       "environment": {
         "DJANGO_SETTINGS_MODULE": "support_ai.test_settings",
-        "TEMP": "E:\\django\\dadashop\\.scratch\\reports-baseline-20261022\\tmp",
-        "TMP": "E:\\django\\dadashop\\.scratch\\reports-baseline-20261022\\tmp",
+        "TEMP": "<WORKSPACE>\\.scratch\\reports-baseline-20261022\\tmp",
+        "TMP": "<WORKSPACE>\\.scratch\\reports-baseline-20261022\\tmp",
         "LOG_TO_FILE": "false",
         "LOG_LEVEL": "ERROR",
         "network": "Blocked for custom probes; existing regression uses test doubles"
@@ -122,7 +122,7 @@
     {
       "name": "final-buyer-shell",
       "command": [
-        "E:\\miniconda\\envs\\dadashop\\python.exe",
+        "<PYTHON_ENV>\\python.exe",
         "manage.py",
         "test",
         "support_ai.tests.BuyerShellTests",
@@ -136,8 +136,8 @@
       "log": "final-buyer-shell.log",
       "environment": {
         "DJANGO_SETTINGS_MODULE": "support_ai.test_settings",
-        "TEMP": "E:\\django\\dadashop\\.scratch\\reports-baseline-20261022\\tmp",
-        "TMP": "E:\\django\\dadashop\\.scratch\\reports-baseline-20261022\\tmp",
+        "TEMP": "<WORKSPACE>\\.scratch\\reports-baseline-20261022\\tmp",
+        "TMP": "<WORKSPACE>\\.scratch\\reports-baseline-20261022\\tmp",
         "LOG_TO_FILE": "false",
         "LOG_LEVEL": "ERROR",
         "network": "Blocked for custom probes; existing regression uses test doubles"
@@ -146,7 +146,7 @@
     {
       "name": "module-ownership",
       "command": [
-        "E:\\miniconda\\envs\\dadashop\\python.exe",
+        "<PYTHON_ENV>\\python.exe",
         "tools/module_versions.py",
         "check"
       ],
@@ -155,8 +155,8 @@
       "log": "module-ownership.log",
       "environment": {
         "DJANGO_SETTINGS_MODULE": "support_ai.test_settings",
-        "TEMP": "E:\\django\\dadashop\\.scratch\\reports-baseline-20261022\\tmp",
-        "TMP": "E:\\django\\dadashop\\.scratch\\reports-baseline-20261022\\tmp",
+        "TEMP": "<WORKSPACE>\\.scratch\\reports-baseline-20261022\\tmp",
+        "TMP": "<WORKSPACE>\\.scratch\\reports-baseline-20261022\\tmp",
         "LOG_TO_FILE": "false",
         "LOG_LEVEL": "ERROR",
         "network": "Blocked for custom probes; existing regression uses test doubles"
@@ -177,8 +177,8 @@
       "log": "index-diff-check.log",
       "environment": {
         "DJANGO_SETTINGS_MODULE": "support_ai.test_settings",
-        "TEMP": "E:\\django\\dadashop\\.scratch\\reports-baseline-20261022\\tmp",
-        "TMP": "E:\\django\\dadashop\\.scratch\\reports-baseline-20261022\\tmp",
+        "TEMP": "<WORKSPACE>\\.scratch\\reports-baseline-20261022\\tmp",
+        "TMP": "<WORKSPACE>\\.scratch\\reports-baseline-20261022\\tmp",
         "LOG_TO_FILE": "false",
         "LOG_LEVEL": "ERROR",
         "network": "Blocked for custom probes; existing regression uses test doubles"

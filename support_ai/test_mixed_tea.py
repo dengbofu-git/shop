@@ -35,13 +35,13 @@ class ExplanationModel(Runnable):
                 message = text.split('本轮原话：')[1].split('\n')[0]
                 introduction, recommendation = message.split('，', 1)
                 purchase = RecommendationIntent(action='SEARCH')
-                match = re.search(r'每盒不超过(\d+)美元', message)
+                match = re.search(r'每盒不超过(\d+)元', message)
                 if match:
                     purchase = RecommendationIntent(action='SEARCH',
-                        required={'price_max': match[1], 'currency': 'USD', 'price_basis': 'unit'},
+                        required={'price_max': match[1], 'currency': 'CNY', 'price_basis': 'unit'},
                         evidence=[{'field': 'required.' + field, 'value': value,
                                    'source': 'CURRENT', 'quote': match[0]}
-                                  for field, value in [('price_max', match[1]), ('currency', 'USD'), ('price_basis', 'unit')]])
+                                  for field, value in [('price_max', match[1]), ('currency', 'CNY'), ('price_basis', 'unit')]])
                 return SemanticPlan(action='new_request', standalone_question=message,
                     requests=[{'kind': 'question_answering', 'quote': introduction},
                               {'kind': 'recommendation', 'quote': recommendation}], purchase=purchase)
@@ -65,12 +65,12 @@ class ExplanationModel(Runnable):
             if schema is DialogueResolution:
                 return DialogueResolution(standalone_question=text.split('本轮：')[1].split('\n')[0], source_turn_ids=[], needs_clarification=False)
             if schema is RecommendationIntent:
-                match = re.search(r'每盒不超过(\d+)美元', text)
+                match = re.search(r'每盒不超过(\d+)元', text)
                 if not match:
                     raise AssertionError('Unexpected model condition extraction')
-                return RecommendationIntent(action='SEARCH', required={'price_max': match[1], 'currency': 'USD', 'price_basis': 'unit'},
+                return RecommendationIntent(action='SEARCH', required={'price_max': match[1], 'currency': 'CNY', 'price_basis': 'unit'},
                     evidence=[{'field': 'required.' + field, 'value': value, 'source': 'CURRENT', 'quote': match[0]}
-                              for field, value in [('price_max', match[1]), ('currency', 'USD'), ('price_basis', 'unit')]])
+                              for field, value in [('price_max', match[1]), ('currency', 'CNY'), ('price_basis', 'unit')]])
             if schema is ComplianceVerdict:
                 # A "safe" rewrite that drops sections must not erase the
                 # deterministic explanation + matching product layout.
@@ -142,7 +142,7 @@ class MixedPlanningTests(UnitTestCase):
 
     def test_constraints_and_negative_clauses_do_not_add_model_tasks(self):
         model = Mock()
-        for question in ('每盒预算15美元，推荐绿茶', '不要推荐商品，只介绍绿茶', '推荐绿茶，并给出理由'):
+        for question in ('每盒预算15元，推荐绿茶', '不要推荐商品，只介绍绿茶', '推荐绿茶，并给出理由'):
             extract_requests(model, question, question, [])
         model.with_structured_output.assert_not_called()
 
@@ -207,7 +207,7 @@ class MixedTeaIntegrationTests(TestCase):
         self.assertFalse(result.data['recommendations'])
 
     def test_budget_still_applies_to_knowledge_bound_groups(self):
-        data = self.run_graph('说明绿茶和红茶的区别，并推荐对应商品，每盒不超过10美元')['response']
+        data = self.run_graph('说明绿茶和红茶的区别，并推荐对应商品，每盒不超过10元')['response']
         self.assertEqual(data['explained_categories'], ['绿茶', '红茶'])
         self.assertEqual([p['category'] for p in data['recommendations']], ['绿茶'])
         self.assertEqual(data['recommendation_groups'][1]['status'], 'no_match')

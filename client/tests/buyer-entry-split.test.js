@@ -18,7 +18,8 @@ function renderOrders(goods, completed=true) {
     $.ajax=()=>({done(callback){callback({code:200,data:{orders_list:[{order_id:'test-order',order_type:'standard',
         order_time:'2026-10-22',status:completed?4:1,is_completed:completed,order_total_amount:28.11,
         order_total_count:1,order_freight:0,order_sku:goods}]}});return this;},fail(){return this;}});
-    const context={$,window:{},document:{},AuthStorage:{getUser:()=>'testbuyer',getToken:()=>'synthetic'},console};
+    const context={TeaMoney:require('../static/js/currency.js'),$,window:{location:{hash:''},addEventListener(){}},
+        document:{getElementById:()=>({hidden:true})},AuthStorage:{getUser:()=>'testbuyer',getToken:()=>'synthetic'},console};
     vm.runInNewContext(fs.readFileSync(path.join(__dirname,'../static/js/buyer-orders.js'),'utf8'),context);
     return nodes.get('#bo-list').markup;
 }

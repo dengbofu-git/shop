@@ -1,6 +1,5 @@
 # 报告与历史归档
 
-- [2026-10-26 JSON与PDF切片对照评测](agent-evaluation/2026-10-26-json-pdf-chunks/README.md)：180组检索、60次真实回答及重复/重排诊断；保留重排失败与无重排实验边界。
 - [2026-10-26 Grounding真实模型实测](../docs/sdd/evidence/2026-10-26-support-grounding-live/verification.md)：当前DeepSeek配置下的固定合成资料/业务场景，22项符合预期；保留实际输出、用量、耗时和验证边界。
 - [2026-10-22 当前工作区基线核验](agent-evaluation/2026-10-22-reports-baseline/README.md)：重新运行相关回归，核对预览日志、HTTP接口、图片清单和历史评测工具的实际关联；包含未通过项与覆盖限制。
 - [2026-10-16 Agent 历史归档](archive/2026-10-16/README.md)：六批评测、修改前源码和当天终端记录。

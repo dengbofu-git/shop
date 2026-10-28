@@ -10,7 +10,7 @@ HEAD 为 `25a08ee29e23ce1bd479951e5860b44c9dfb2a89`，分支 `codex/orders-merch
 
 收尾检测到 9 个范围外路径在核验期间发生变化：站内咨询 CSS/JS、买家与商家消息页、共用 engagement_assets、对应 SDD 以及版本说明/清单/changelog；web 增至 0.29.5。本批没有写入这些路径，保持其现场，并记录前后指纹。support_ai、goods、客服页面/脚本等本次关联源码及原始 reports 载荷均未变化，暂存区与 HEAD 未变化。针对共用页面资产变化，最后另跑 BuyerShellTests 3 项通过；不据此声称整仓所有文件保持基线一致。
 
-使用 `E:/miniconda/envs/dadashop/python.exe`（Python 3.9.25 / Django 3.2.12）。数据库配置明确指定 `support_ai.test_settings`，default 与 ai_storage 均为隔离 SQLite 内存库，缓存为 LocMem；图片注册只写测试库并只读现有 media 文件。合成探针禁止 socket 连接，模型路径使用测试替身或固定问候回复。业务 MySQL、AI PostgreSQL、真实用户历史及真实模型质量不在本批动态验证范围。
+使用 `<PYTHON_ENV>/python.exe`（Python 3.9.25 / Django 3.2.12）。数据库配置明确指定 `support_ai.test_settings`，default 与 ai_storage 均为隔离 SQLite 内存库，缓存为 LocMem；图片注册只写测试库并只读现有 media 文件。合成探针禁止 socket 连接，模型路径使用测试替身或固定问候回复。业务 MySQL、AI PostgreSQL、真实用户历史及真实模型质量不在本批动态验证范围。
 
 ## 实际关联
 
@@ -90,3 +90,5 @@ reports/agent-evaluation/2026-10-16-grouping/before/20261016-114613-cf6a9b60bb80
 未执行真实模型/重排序/向量库质量评测、MySQL 造数或迁移、真实订单/支付流程、浏览器端到端验收、远端同步、Git 提交、推送、PR 或部署。动态检查使用 Django test client 与测试模型替身；代码关联和文件存在不能当作整站业务验收。
 
 本轮已证明 reports 部分内容确有工具用途，同时确认了历史工具关联未完整更新。不能据此直接将整个 reports 删除；清理历史材料前，应先处理仍引用它们的工具与文档，并保留需要复核的历史证据。
+
+2026-10-23交付整理：公开副本仅将本机绝对路径规范化为 `<WORKSPACE>`／`<PYTHON_ENV>`，未改变命令参数、时间、失败结果及测试结论；原始字节和SHA256保存在本地交付备份。此历史结果不作为本轮通过证据。

@@ -1,0 +1,40 @@
+{
+  "records": [
+    {
+      "path": "docs/sdd/evidence/2026-10-26-support-grounding/baseline-tests.log",
+      "original_sha256": "0b79e7867a8f19533edd526fe66fa95756a19b5f1b369c4c423b9b87d1b94ed4",
+      "published_worktree_sha256": "30d2a35bc5cc7151aa998c8a50d48276b691b165a04a21b5b696b7fd022743de",
+      "published_lf_sha256": "30d2a35bc5cc7151aa998c8a50d48276b691b165a04a21b5b696b7fd022743de",
+      "changes": "Documented physical-path labels and Windows newline normalization; result values unchanged"
+    },
+    {
+      "path": "docs/sdd/evidence/2026-10-26-support-grounding/commands.json",
+      "original_sha256": "76f9ce22275f9ad5f1e38f652ea6c41d2a52525ae1187654f7c3711414be7d4c",
+      "published_worktree_sha256": "78ef06a7e6c8a8de9db36dff3d46acf5a802dca42076705e4ca203984dc05f0d",
+      "published_lf_sha256": "775e4cd4a57ccab37722ea2ba74d0c5ae2a3dc3e414b6ad78f03e719ca451051",
+      "changes": "Documented physical-path labels and Windows newline normalization; result values unchanged"
+    },
+    {
+      "path": "docs/sdd/evidence/2026-10-26-support-grounding/module-regression.log",
+      "original_sha256": "d9da63e84b33516a3cfc1110dbf9b24d197d46557b1333f63ee1b4725c4cd0c7",
+      "published_worktree_sha256": "d0c00090d9e6fb6ee23dcc9dc80462c27913c576815e06d2e26e59a307713723",
+      "published_lf_sha256": "d0c00090d9e6fb6ee23dcc9dc80462c27913c576815e06d2e26e59a307713723",
+      "changes": "Documented physical-path labels and Windows newline normalization; result values unchanged"
+    },
+    {
+      "path": "docs/sdd/evidence/2026-10-26-support-grounding/verification.md",
+      "original_sha256": "9236ea95effa383b2277f6820c760c49fed8b12cb67f91520f7fc95aab986411",
+      "published_worktree_sha256": "ee31a39f743e2733246997c45b3bc8e13e6b28018f54d47d9dc9185974cce8f7",
+      "published_lf_sha256": "ee31a39f743e2733246997c45b3bc8e13e6b28018f54d47d9dc9185974cce8f7",
+      "changes": "Documented physical-path labels and Windows newline normalization; result values unchanged"
+    },
+    {
+      "path": "docs/sdd/evidence/2026-10-26-support-grounding-delivery/commands.json",
+      "original_sha256": "7849b84e4762a9a59cad07a8a32b0db64ee497ab9d5683187c002c0ae010190b",
+      "published_worktree_sha256": "ce8c1ec39a40d6f6219ef8adae83803d49bfd89b617752ce39b303f2d71cc099",
+      "published_lf_sha256": "4bd6a39e98b9eb8c34b4d583060a1c55277aea2fbb4bbbef3b97dedf387e6893",
+      "changes": "Documented physical-path labels and Windows newline normalization; result values unchanged"
+    }
+  ],
+  "originals": "Preserved outside Git in the original workspace task scratch; source worktree evidence remains intact"
+}

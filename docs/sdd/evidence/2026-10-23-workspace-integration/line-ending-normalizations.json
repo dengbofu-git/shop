@@ -1,0 +1,44 @@
+[
+  {
+    "path": "reports/agent-evaluation/2026-10-22-reports-baseline/checks.json",
+    "original_sha256": "d94aded4478a6e00542da221b744ffc77c6ebe6d420afdee3406605caf95255a",
+    "published_sha256": "90e914680edd0a41c3d77ca07de2c7e4b82fd2efbf6d425b10160ddb74fa1161",
+    "scope": "line_endings_and_final_blank_lines_only; historical_results_unchanged"
+  },
+  {
+    "path": "reports/agent-evaluation/2026-10-22-reports-baseline/current-contract.log",
+    "original_sha256": "dc6776106948e4d5bae941e91ed0a521d3cb47cca5639b69b0e3a04647010be8",
+    "published_sha256": "35088eb6a6a01fd1041c37a2278720ce8e5bea94e2e74cdc497ac7eba33b2e1b",
+    "scope": "line_endings_and_final_blank_lines_only; historical_results_unchanged"
+  },
+  {
+    "path": "reports/agent-evaluation/2026-10-22-reports-baseline/current-probes.log",
+    "original_sha256": "3a2f05f4e58b8acf2ba17a8cd8f1945480fb905a672213ce14110618a65b69db",
+    "published_sha256": "282b5f69b7a10caa78a53f2ece6989f77e0da6ab2798da4d349da22e83047341",
+    "scope": "line_endings_and_final_blank_lines_only; historical_results_unchanged"
+  },
+  {
+    "path": "reports/agent-evaluation/2026-10-22-reports-baseline/preview-command/20261022-171258-3f252587c6b841aca2cc0c3de5e004b8.jsonl",
+    "original_sha256": "c6abe7c4f79e5358444c85257c9ff7bc620b4e90651d0d2a6a48e42f920b87d6",
+    "published_sha256": "33c98b6d5cede27f77e279f69ef6ba00e9d57748c5a687fff160eb0084c45573",
+    "scope": "line_endings_and_final_blank_lines_only; historical_results_unchanged"
+  },
+  {
+    "path": "reports/agent-evaluation/2026-10-22-reports-baseline/procedures.md",
+    "original_sha256": "30bb9630db09fbc2969f8a1aa3630b18fe256128535caabf0c68c61ce0fc7b5d",
+    "published_sha256": "3126c95d047f0b6e40688b33b2dcabef82ed32783a05870a2a16025bd9f7ed2d",
+    "scope": "line_endings_and_final_blank_lines_only; historical_results_unchanged"
+  },
+  {
+    "path": "reports/agent-evaluation/2026-10-22-reports-baseline/related-regression-local-temp.log",
+    "original_sha256": "a6600974fbf14847869125ce53bc076d3277d951aab1382ceb4928a50b5efa33",
+    "published_sha256": "ee651096d13a9dd2359e7b842c2ce44771569db810016de3b477936e99c65d47",
+    "scope": "line_endings_and_final_blank_lines_only; historical_results_unchanged"
+  },
+  {
+    "path": "reports/agent-evaluation/2026-10-22-reports-baseline/related-regression.log",
+    "original_sha256": "51787ae34fd2729f8636a37a96b3bff06efe8064cf9984497d9a5eddb103af9f",
+    "published_sha256": "8bce40325c372244f0e90274a961529936eeabbb7c87acba117031da98edebce",
+    "scope": "line_endings_and_final_blank_lines_only; historical_results_unchanged"
+  }
+]

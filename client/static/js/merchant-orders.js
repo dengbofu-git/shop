@@ -17,6 +17,11 @@
             return {'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c];
         });
     }
+    function allowed(order, action) {
+        var flag = order['can_' + action];
+        if (typeof flag === 'boolean') return flag;
+        return false; // Missing authenticated capability flags cannot enable a mutation.
+    }
     function categories(orders) {
         var counts = new Map(standard.map(function (name) { return [name, 0]; }));
         orders.forEach(function (order) {
@@ -40,9 +45,9 @@
             '</tr></thead><tbody>' + orders.map(function (o) {
                 var id = escape(o.order_id || '-'), state = statusOf(o), status = Number(o.status);
                 var actions = '';
-                // Actions follow the existing supplier API's base-status checks.
-                if (o.can_ship === true) actions += '<button type="button" class="btn-ship" data-action="ship" data-order-id="' + id + '">发货</button>';
-                if (o.can_cancel === true) actions += '<button type="button" class="btn-delete-order" data-action="delete" data-order-id="' + id + '">取消订单</button>';
+                if (allowed(o, 'ship')) actions += '<button type="button" class="btn-ship" data-action="ship" data-order-id="' + id + '">发货</button>';
+                if (allowed(o, 'cancel')) actions += '<button type="button" class="btn-delete-order" data-action="delete" data-order-id="' + id + '">取消订单</button>';
+                if (o.requires_merchant_split) actions = '<span>需平台处理商家拆分</span>';
                 var tone = standard.indexOf(state);
                 var amount = Number(o.total_amount);
                 return '<tr><td>' + id + '</td><td><span class="order-status-badge order-status-' + tone + '">' + escape(state) + '</span></td>' +
@@ -76,8 +81,7 @@
             if (busy || loading || (action !== 'ship' && action !== 'delete')) return;
             var order = orders.find(function (o) { return String(o.order_id) === id; });
             if (!order) return;
-            if (action === 'ship' && order.can_ship !== true) return;
-            if (action === 'delete' && order.can_cancel !== true) return;
+            if (!allowed(order, action === 'delete' ? 'cancel' : action)) return;
             if (action === 'delete' && !deps.confirm('确定取消订单 ' + id + ' 并释放库存吗？交易记录将保留。')) return;
             busy = true; error = ''; render();
             try {

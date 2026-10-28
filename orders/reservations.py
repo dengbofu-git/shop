@@ -84,13 +84,16 @@ def _release_locked(order,reason,now):
     order.save(update_fields=['status','closed_at','close_reason','updated_time'])
 
 
-def close_order(order_id, user_id=None, reason='user_cancel', expired_only=False):
+def close_order(order_id, user_id=None, reason='user_cancel', expired_only=False, merchant_id=None):
     owner=OrderInfo.objects.filter(pk=order_id).values_list('user_profile_id',flat=True).first()
     if owner is None:raise ReservationError('ORDER_NOT_FOUND','订单不存在',404)
     if user_id is not None and owner!=user_id:raise ReservationError('ORDER_NOT_FOUND','订单不存在',404)
     with transaction.atomic():
         UserProfile.objects.select_for_update().get(pk=owner)
         order=OrderInfo.objects.select_for_update().get(pk=order_id)
+        if merchant_id is not None:
+            from .lifecycle import require_single_merchant
+            require_single_merchant(order,UserProfile.objects.get(pk=merchant_id))
         if order.status==0:return order
         if expired_only and (not order.reservation_managed or order.status!=1 or order.expires_at>timezone.now()):return order
         if order.status!=1 or order.paid_at:raise ReservationError('ORDER_NOT_CANCELLABLE','当前订单不能取消')
@@ -278,12 +281,32 @@ def ship_order(order_id,merchant):
         UserProfile.objects.select_for_update().get(pk=owner)
         order=OrderInfo.objects.select_for_update().get(pk=order_id)
         items=list(order.ordergoods_set.select_related('sku__spu').order_by('sku_id'))
-        if not items or any((i.merchant_snapshot_id or i.sku.spu.merchant_id)!=merchant.pk for i in items):
-            raise ReservationError('FORBIDDEN','订单含其他商家商品，不能整单发货',403)
-        detail,ready,shipped=_shipment_state(order,lock=True)
-        if detail is None or order.payment_exception:raise ReservationError('ORDER_NOT_SHIPPABLE','子订单或付款状态未通过核验，不能发货')
-        if detail.status==shipped:return order
-        if detail.status!=ready:raise ReservationError('ORDER_NOT_SHIPPABLE','当前订单不能发货')
+        if not merchant.is_active:raise ReservationError('FORBIDDEN','当前账号已停用',403)
+        from .lifecycle import require_single_merchant, OrderActionError
+        try:require_single_merchant(order,merchant)
+        except OrderActionError as exc:raise ReservationError('MERCHANT_BOUNDARY',str(exc),exc.status)
+        if not items:raise ReservationError('EMPTY_ORDER','订单商品缺失')
+        if order.order_type!='standard':
+            # Legacy subtype fulfillment uses its own state and only unreserved
+            # stock. It can never consume a normal order's paid holds.
+            from .lifecycle import state_record, can_ship
+            record=state_record(order)
+            if record is None:raise ReservationError('ORDER_TYPE_REQUIRES_REVIEW','订单子类型记录不完整，需人工核验')
+            record=type(record).objects.select_for_update().get(pk=record.pk)
+            setattr(order,'trialorder' if order.order_type=='trial' else 'presaleorder',record)
+            shipped=3 if order.order_type=='trial' else 5
+            if order.reservation_managed or order.payment_exception:
+                raise ReservationError('ORDER_TYPE_REQUIRES_REVIEW','试单／预售预留或付款记录需专用核验')
+            if record.status==shipped:return order
+            if not can_ship(order):raise ReservationError('ORDER_NOT_SHIPPABLE','子类型尚未付款或不在待发货状态')
+            if any(i.count<=0 for i in items):raise ReservationError('INVALID_QUANTITY','历史订单商品数量异常')
+            _lock_stock(order)
+            for item in items:InventoryService.ship_deduct_sku(item.sku_id,item.count,order_id=order.pk)
+            record.status=shipped;record.save(update_fields=['status'])
+            order.save(update_fields=['updated_time'])
+            return order
+        if order.status==3:return order
+        if order.status!=2 or order.payment_exception:raise ReservationError('ORDER_NOT_SHIPPABLE','当前订单不能发货')
         skus,ledgers=_lock_stock(order)
         if order.reservation_managed:
             holds=list(StockHold.objects.select_for_update().filter(item__order_info=order).order_by('pk'))
@@ -299,9 +322,5 @@ def ship_order(order_id,merchant):
             for sku in skus:InventoryService.sync_stock(sku)
         else:
             for item in items:InventoryService.ship_deduct_sku(item.sku_id,item.count,order_id=order.pk)
-        detail.status=shipped
-        if detail is order:order.save(update_fields=['status','updated_time'])
-        else:
-            detail.save(update_fields=['status'])
-            order.save(update_fields=['updated_time'])
+        order.status=3;order.save(update_fields=['status','updated_time'])
         return order

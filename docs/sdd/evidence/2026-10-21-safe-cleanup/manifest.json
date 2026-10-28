@@ -1115,10 +1115,11 @@
   },
   "local_backup": ".scratch/safe-cleanup-20261021/original-files.zip",
   "module_versions": {
-    "web": "0.24.2",
-    "goods": "0.5.2",
+    "web": "0.23.3",
+    "goods": "0.5.1",
     "inventory": "0.1.1",
     "logistics": "0.1.1",
     "news": "0.1.2"
-  }
+  },
+  "delivery_base_commit": "2d8ccf9fc936ca4efeb36cadb797342d0b16e461"
 }

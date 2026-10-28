@@ -93,7 +93,7 @@ class GraphTests(TestCase):
                     evidence = [{'text': '绿茶加工包括杀青和干燥。', 'source_title': '测试资料', 'source_reference': ''}]
                     data, sources = generate_grounded_answer(model, step.request, evidence)
                     return ToolResult(step_id=step.id, tool=step.tool, status='success', data=data, sources=sources)
-                data = {'answer': '当前所选订单：待付款。'} if step.intent == 'after_sales' else {'answer': FALLBACK}
+                data = {'answer': '当前所选订单：待发货。', 'orders': [{'order_status': '待发货'}]} if step.intent == 'after_sales' else {'answer': FALLBACK}
                 return ToolResult(step_id=step.id, tool=step.tool, status='success', data=data)
             return {name: handler for name in ('introduce_tea', 'get_order_status', 'ask_clarification')}
         return build_graph(model, tool_factory=factory)
@@ -120,16 +120,18 @@ class GraphTests(TestCase):
         for _, content in model.calls:
             self.assertNotIn('private@example.com', content)
 
-    def test_legacy_order_context_is_not_forwarded_to_models(self):
+    def test_legacy_order_context_is_not_used_as_live_fact(self):
         context = '[{"status":"待付款"}]'
         qa = FakeModel({'recommendation': .1, 'question_answering': .9, 'after_sales': .1})
         self.graph(qa).invoke({'message': '如何查看订单？', 'order_context': context})
         self.assertFalse(any(context in text for _, text in qa.calls))
         after_sales = FakeModel({'recommendation': .1, 'question_answering': .1, 'after_sales': .9})
-        self.graph(after_sales).invoke({'message': '订单售后问题', 'order_context': context})
+        result=self.graph(after_sales).invoke({'message': '订单售后问题', 'order_context': context})
         self.assertFalse(any(context.replace(' ', '') in text.replace(' ', '') for _, text in after_sales.calls))
+        self.assertIn('待发货',result['answer'])
+        self.assertEqual(result['response']['order_result']['orders'],[{'order_status':'待发货'}])
 
-    def test_each_specialist_preserves_grounded_output(self):
+    def test_knowledge_uses_model_and_order_tool_preserves_deterministic_answer(self):
         for intent in ('question_answering', 'after_sales'):
             with self.subTest(intent=intent):
                 scores = dict.fromkeys(('recommendation', 'question_answering', 'after_sales'), .1)
@@ -138,8 +140,14 @@ class GraphTests(TestCase):
                 message = '介绍绿茶' if intent == 'question_answering' else '我的订单状态'
                 result = self.graph(model).invoke({'message': message})
                 self.assertEqual(result['intent'], intent)
-                self.assertIn('杀青' if intent == 'question_answering' else '待付款', result['answer'])
-                self.assertFalse([call for call in model.calls if call[0] == 'text'])
+                if intent == 'after_sales':
+                    self.assertEqual(result['answer'],'当前所选订单：待发货。')
+                    self.assertEqual(model.calls,[])
+                    self.assertEqual(result['response']['tasks'][0]['tool'],'get_order_status')
+                else:
+                    self.assertIn('杀青', result['answer'])
+                    self.assertFalse([call for call in model.calls if call[0] == 'text'])
+                    self.assertEqual(result['response']['grounding']['knowledge'][0]['status'], 'verified')
                 self.assertIn('grounding', result['response'])
 
 
@@ -170,7 +178,7 @@ class BuyerShellTests(SimpleTestCase):
 
 class ModelConfigurationTests(SimpleTestCase):
     def test_model_uses_configured_deepseek_options(self):
-        with patch('support_ai.model_client.ChatOpenAI') as chat_model:
+        with patch('support_ai.model_client.SupportChatOpenAI') as chat_model:
             configured_model()
         options = chat_model.call_args.kwargs
         self.assertEqual(options['model'], settings.SUPPORT_MODEL)
@@ -282,7 +290,7 @@ class RecommendationIntegrationTests(DatabaseTestCase):
     def test_matching_enforces_budget_launch_and_inventory_without_popular_fallback(self):
         from .recommendations import match_products
         intent = RecommendationIntent(action='SEARCH', required={'categories': ['绿茶'], 'price_max': '50',
-                                                                'currency': 'USD', 'price_basis': 'unit'})
+                                                                'currency': 'CNY', 'price_basis': 'unit'})
         result = match_products(intent)
         self.assertEqual([card['sku_id'] for card in result['recommendations']], [self.skus[1].pk])
         self.assertEqual(result['recommendations'][0]['price'], '40.00')
@@ -323,28 +331,24 @@ class RecommendationIntegrationTests(DatabaseTestCase):
         self.assertEqual(self.client.get('/v1/support/conversations/{}/'.format(foreign.pk), **self.auth).status_code, 404)
         self.assertEqual(self.client.get('/v1/support/preferences/', **self.auth).json()['preferences']['categories'], [])
 
-    def test_invalid_conditions_clarify_but_provider_failure_does_not_commit(self):
+    def test_unrepairable_provenance_and_provider_failure_do_not_commit(self):
         from .models import SupportConversation, SupportTurn
         bad = self.model({'action': 'SEARCH', 'required': {'categories': ['绿茶']}})
         with patch('support_ai.tool_services.match_products') as query:
             data = self.post_chat(bad, message='推荐测试品牌绿茶')
         query.assert_not_called()
-        self.assertEqual(data.status_code, 200)
-        self.assertTrue(data.json()['clarification_required'])
-        self.assertEqual([(t['tool'], t['status']) for t in data.json()['tasks']],
-                         [('ask_clarification', 'needs_clarification')])
-        self.assertFalse(data.json()['recommendations'])
+        self.assertEqual(data.status_code, 503)
         from .models import AgentSpan
         completed = AgentSpan.objects.get(name='support.chat')
-        self.assertEqual(completed.status, 'OK')
-        self.assertEqual(SupportTurn.objects.filter(user=self.user).count(), 1)
-        self.assertEqual(SupportConversation.objects.filter(user=self.user).count(), 1)
+        self.assertEqual(completed.status, 'ERROR')
+        self.assertEqual(SupportTurn.objects.filter(user=self.user).count(), 0)
+        self.assertEqual(SupportConversation.objects.filter(user=self.user).count(), 0)
         with patch('support_ai.model_client.configured_model', side_effect=TimeoutError):
             import json
             response = self.client.post('/v1/support/chat/', data=json.dumps({'message': '推荐茶'}),
                                         content_type='application/json', **self.auth)
         self.assertEqual(response.status_code, 503)
-        self.assertEqual(SupportTurn.objects.filter(user=self.user).count(), 1)
+        self.assertEqual(SupportTurn.objects.filter(user=self.user).count(), 0)
 
     def test_retry_payload_conflict_and_conversation_revision_conflict(self):
         import json

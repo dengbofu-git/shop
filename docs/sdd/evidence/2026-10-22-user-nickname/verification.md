@@ -19,7 +19,17 @@
 
 首次MySQL回归暴露表情写入失败；新增列显式utf8mb4后仍需将Django连接从默认utf8改为utf8mb4。迁移DDL另暴露事务限制，通过 `Migration.atomic=False` 修正。最终真实MySQL全部通过。失败建库留下的唯一临时测试库经名称、建库时间、迁移及测试用户核对后清理；未操作业务库。
 
-## 浏览器与业务库边界
+## 同步main后的精确交付复验
+
+交付分支正常同步 `cf13522` 后，仅整理27个昵称相关文件；未混入其他工作区的Enter发送、聊天布局、采购页、清理或CNY计价实现。重新执行：
+
+- `python .scratch/user-nickname-20261022/delivery_checks.py sqlite`：65项，64通过、1项MySQL专用跳过。
+- `python .scratch/user-nickname-20261022/delivery_checks.py mysql`：65项全部通过，随机MySQL隔离测试库正常销毁。
+- `python .scratch/user-nickname-20261022/delivery_checks.py check`：系统检查通过、makemigrations无变化、5个模板实际渲染通过、昵称脚本可定位。私有runner从原工作区加载本机环境变量，导入和验证均来自交付Worktree；运行器及凭据不入库。
+- `node --test client/tests/profile-nickname.test.js client/tests/engagement-messages.test.js client/tests/engagement.test.js`：**20项通过**。上表26项为实现工作区之前的回归，交付分支不含并行任务的额外6项前端用例，不混算结果。
+- `python tools/module_versions.py check`：16模块及文件归属通过；`git diff --check`通过。最终提交及主干SHA、完整Git门禁结果记录在PR正文。
+
+## 浏览器与业务库边界（详细）
 
 - 8873隔离预览使用独立SQLite、专用测试账号及签名密钥。真实页面完成登录、空联系方式单独保存昵称、清空恢复、再次修改、刷新后持久化，并验证商家会话列表和标题显示“春山茶客🍃 · #1”；另一个会话保留独立编号。
 - 页面截图与运行日志保存在本机 `.scratch/user-nickname-20261022/`，均为模拟数据；未向真实商家发送咨询或修改真实账号昵称。

@@ -18,15 +18,15 @@ for (let page = 1; page <= 11; page++) {
 assert.equal(new Set(seen).size, 103); assert.equal(seen.length, 103);
 assert.equal(model.query(cats, {...state, page: 999}).page, 11);
 assert.equal(model.query(cats, {...state, catalog_id: '2'}).total, 21);
-let query = model.read('?q=250g&min_price=14&max_price=28&min_stock=12&merchant_id=1&sort=price_desc&page=4&currency=USD');
+let query = model.read('?q=250g&min_price=120&max_price=200&store_q=West&sort=price_desc&page=4&currency=CNY');
 let result = model.query(cats, query);
 assert.deepEqual(result.rows.map(row => row.skuid), [20, 18, 16, 14, 12]);
 assert.equal(result.page, 1);
 assert.deepEqual(model.read(model.search(query)), query, 'URL round trip retains every filter and currency');
 assert.equal(model.query(cats, model.read('?q=west')).total, 51);
-assert.equal(model.query(cats, model.read('?min_price=14&max_price=14')).rows[0].skuid, 10, 'inclusive price bounds use displayed USD amount');
+assert.equal(model.query(cats, model.read('?min_price=14&max_price=14&currency=USD')).rows[0].skuid, 10, 'inclusive price bounds use displayed USD amount');
 assert.equal(model.query(cats, model.read('?q=no-such-product')).total, 0);
-assert.equal(model.read('?min_price=-1&max_price=Infinity&currency=invalid&page=-5').currency, 'USD');
+assert.equal(model.read('?min_price=-1&max_price=Infinity&currency=invalid&page=-5').currency, 'CNY');
 assert.equal(model.read('?min_price=-1').min_price, '');
 
 // Execute the real page controller, including generated cards, events and browser history.
@@ -57,7 +57,7 @@ const history = {state: {procurementScrollY: 420}, entries: [],
     replaceState(value, title, url) { this.state = value; navigate(url); },
     pushState(value, title, url) { this.entries.push({url: win.location.href, state: this.state}); this.state = value; navigate(url); }};
 const contract = process.argv[2] ? JSON.parse(fs.readFileSync(process.argv[2])) : {code: 200, data: groups};
-const context = {window: win, document: doc, history, URLSearchParams, baseUrl: 'http://fixture',
+const context = {TeaMoney:require('../static/js/currency.js'),window: win, document: doc, history, URLSearchParams, baseUrl: 'http://fixture',
     localStorage: {getItem: () => language}, $: fn => ready.push(fn),
     fetch: async () => { fetchCount++; if (fail) throw Error('offline'); return {ok: true, json: async () => contract}; }};
 vm.runInNewContext(fs.readFileSync(require.resolve('../static/js/buyer-products.js'), 'utf8'), context);
@@ -72,7 +72,7 @@ async function main() {
     const sampleRow = contract.data.flatMap(cat => cat.sku).find(row => String(row.skuid) === String(sample.dataset.skuid));
     assert.equal(sample.children.find(item => item.className === 'product-name').children[0].textContent,
         sampleRow.spu_name || sampleRow.product_name || sampleRow.name, 'title uses product name rather than specification');
-    assert.equal(sample.children.find(item => item.className === 'product-stock').textContent, '库存 ' + sampleRow.stock + ' 件');
+    assert.equal(sample.children.some(item => item.className === 'product-stock'), false, 'public catalog does not expose stock filters or counts');
     const expected = model.interleave(model.normalize(contract.data)).map(row => String(row.skuid)).sort();
     navigate('/buyer_products.html'); history.state = {}; win.events.popstate();
     const actual = [];

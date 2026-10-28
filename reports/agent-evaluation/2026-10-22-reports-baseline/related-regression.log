@@ -1,5 +1,4 @@
 Creating test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
-
 Operations to perform:
   Synchronize unmigrated apps: admin_panel, corsheaders, merchant_ai, messages, staticfiles
   Apply all migrations: admin, ai_storage, auth, contenttypes, engagement, goods, inventory, logistics, news, orders, sessions, supplier, support_ai, users
@@ -60,7 +59,6 @@ Running migrations:
   Applying support_ai.0004_conversation_order_context... OK
   Applying users.0008_userprofile_nickname... OK
 Creating test database for alias 'ai_storage' ('file:memorydb_ai_storage?mode=memory&cache=shared')...
-
 Operations to perform:
   Synchronize unmigrated apps: admin_panel, corsheaders, merchant_ai, messages, staticfiles
   Apply all migrations: admin, ai_storage, auth, contenttypes, engagement, goods, inventory, logistics, news, orders, sessions, supplier, support_ai, users
@@ -267,11 +265,11 @@ test_redacts_order_phone_email_name_and_address (support_ai.tests.PiiTests) ... 
 ERROR: test_broken_default_and_first_gallery_do_not_hide_valid_gallery (goods.test_images.CatalogImageTests)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "E:\django\dadashop\goods\test_images.py", line 32, in setUp
+  File "<WORKSPACE>\goods\test_images.py", line 32, in setUp
     self.write('tea_categories/black.png')
-  File "E:\django\dadashop\goods\test_images.py", line 39, in write
+  File "<WORKSPACE>\goods\test_images.py", line 39, in write
     file.parent.mkdir(parents=True, exist_ok=True)
-  File "E:\miniconda\envs\dadashop\lib\pathlib.py", line 1251, in mkdir
+  File "<PYTHON_ENV>\lib\pathlib.py", line 1251, in mkdir
     self._accessor.mkdir(self, mode)
 PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\dbf\\AppData\\Local\\Packages\\sandbox.{4d4dbf91-43a2-4bea-9913-8b4528041fa9}\\AC\\Temp\\tea-images-test-w0vdmef1\\tea_categories'
 
@@ -279,26 +277,26 @@ PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\dbf\\AppData\\Local\\
 ERROR: test_broken_default_and_first_gallery_do_not_hide_valid_gallery (goods.test_images.CatalogImageTests)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "E:\miniconda\envs\dadashop\lib\shutil.py", line 631, in _rmtree_unsafe
+  File "<PYTHON_ENV>\lib\shutil.py", line 631, in _rmtree_unsafe
     os.rmdir(path)
 PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\dbf\\AppData\\Local\\Packages\\sandbox.{4d4dbf91-43a2-4bea-9913-8b4528041fa9}\\AC\\Temp\\tea-images-test-w0vdmef1'
 
 During handling of the above exception, another exception occurred:
 
 Traceback (most recent call last):
-  File "E:\miniconda\envs\dadashop\lib\tempfile.py", line 843, in cleanup
+  File "<PYTHON_ENV>\lib\tempfile.py", line 843, in cleanup
     self._rmtree(self.name)
-  File "E:\miniconda\envs\dadashop\lib\tempfile.py", line 825, in _rmtree
+  File "<PYTHON_ENV>\lib\tempfile.py", line 825, in _rmtree
     _shutil.rmtree(name, onerror=onerror)
-  File "E:\miniconda\envs\dadashop\lib\shutil.py", line 759, in rmtree
+  File "<PYTHON_ENV>\lib\shutil.py", line 759, in rmtree
     return _rmtree_unsafe(path, onerror)
-  File "E:\miniconda\envs\dadashop\lib\shutil.py", line 633, in _rmtree_unsafe
+  File "<PYTHON_ENV>\lib\shutil.py", line 633, in _rmtree_unsafe
     onerror(os.rmdir, path, sys.exc_info())
-  File "E:\miniconda\envs\dadashop\lib\tempfile.py", line 811, in onerror
+  File "<PYTHON_ENV>\lib\tempfile.py", line 811, in onerror
     _resetperms(path)
-  File "E:\miniconda\envs\dadashop\lib\tempfile.py", line 285, in _resetperms
+  File "<PYTHON_ENV>\lib\tempfile.py", line 285, in _resetperms
     _dont_follow_symlinks(_os.chmod, path, 0o700)
-  File "E:\miniconda\envs\dadashop\lib\tempfile.py", line 276, in _dont_follow_symlinks
+  File "<PYTHON_ENV>\lib\tempfile.py", line 276, in _dont_follow_symlinks
     func(path, *args)
 PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\dbf\\AppData\\Local\\Packages\\sandbox.{4d4dbf91-43a2-4bea-9913-8b4528041fa9}\\AC\\Temp\\tea-images-test-w0vdmef1'
 
@@ -306,11 +304,11 @@ PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\dbf\\AppData\\Local\\
 ERROR: test_cart_uses_fallback_with_fake_redis (goods.test_images.CatalogImageTests)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "E:\django\dadashop\goods\test_images.py", line 32, in setUp
+  File "<WORKSPACE>\goods\test_images.py", line 32, in setUp
     self.write('tea_categories/black.png')
-  File "E:\django\dadashop\goods\test_images.py", line 39, in write
+  File "<WORKSPACE>\goods\test_images.py", line 39, in write
     file.parent.mkdir(parents=True, exist_ok=True)
-  File "E:\miniconda\envs\dadashop\lib\pathlib.py", line 1251, in mkdir
+  File "<PYTHON_ENV>\lib\pathlib.py", line 1251, in mkdir
     self._accessor.mkdir(self, mode)
 PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\dbf\\AppData\\Local\\Packages\\sandbox.{4d4dbf91-43a2-4bea-9913-8b4528041fa9}\\AC\\Temp\\tea-images-test-7we6tlgr\\tea_categories'
 
@@ -318,26 +316,26 @@ PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\dbf\\AppData\\Local\\
 ERROR: test_cart_uses_fallback_with_fake_redis (goods.test_images.CatalogImageTests)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "E:\miniconda\envs\dadashop\lib\shutil.py", line 631, in _rmtree_unsafe
+  File "<PYTHON_ENV>\lib\shutil.py", line 631, in _rmtree_unsafe
     os.rmdir(path)
 PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\dbf\\AppData\\Local\\Packages\\sandbox.{4d4dbf91-43a2-4bea-9913-8b4528041fa9}\\AC\\Temp\\tea-images-test-7we6tlgr'
 
 During handling of the above exception, another exception occurred:
 
 Traceback (most recent call last):
-  File "E:\miniconda\envs\dadashop\lib\tempfile.py", line 843, in cleanup
+  File "<PYTHON_ENV>\lib\tempfile.py", line 843, in cleanup
     self._rmtree(self.name)
-  File "E:\miniconda\envs\dadashop\lib\tempfile.py", line 825, in _rmtree
+  File "<PYTHON_ENV>\lib\tempfile.py", line 825, in _rmtree
     _shutil.rmtree(name, onerror=onerror)
-  File "E:\miniconda\envs\dadashop\lib\shutil.py", line 759, in rmtree
+  File "<PYTHON_ENV>\lib\shutil.py", line 759, in rmtree
     return _rmtree_unsafe(path, onerror)
-  File "E:\miniconda\envs\dadashop\lib\shutil.py", line 633, in _rmtree_unsafe
+  File "<PYTHON_ENV>\lib\shutil.py", line 633, in _rmtree_unsafe
     onerror(os.rmdir, path, sys.exc_info())
-  File "E:\miniconda\envs\dadashop\lib\tempfile.py", line 811, in onerror
+  File "<PYTHON_ENV>\lib\tempfile.py", line 811, in onerror
     _resetperms(path)
-  File "E:\miniconda\envs\dadashop\lib\tempfile.py", line 285, in _resetperms
+  File "<PYTHON_ENV>\lib\tempfile.py", line 285, in _resetperms
     _dont_follow_symlinks(_os.chmod, path, 0o700)
-  File "E:\miniconda\envs\dadashop\lib\tempfile.py", line 276, in _dont_follow_symlinks
+  File "<PYTHON_ENV>\lib\tempfile.py", line 276, in _dont_follow_symlinks
     func(path, *args)
 PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\dbf\\AppData\\Local\\Packages\\sandbox.{4d4dbf91-43a2-4bea-9913-8b4528041fa9}\\AC\\Temp\\tea-images-test-7we6tlgr'
 
@@ -345,11 +343,11 @@ PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\dbf\\AppData\\Local\\
 ERROR: test_catalogs_are_isolated_and_missing_files_use_generic_placeholder (goods.test_images.CatalogImageTests)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "E:\django\dadashop\goods\test_images.py", line 32, in setUp
+  File "<WORKSPACE>\goods\test_images.py", line 32, in setUp
     self.write('tea_categories/black.png')
-  File "E:\django\dadashop\goods\test_images.py", line 39, in write
+  File "<WORKSPACE>\goods\test_images.py", line 39, in write
     file.parent.mkdir(parents=True, exist_ok=True)
-  File "E:\miniconda\envs\dadashop\lib\pathlib.py", line 1251, in mkdir
+  File "<PYTHON_ENV>\lib\pathlib.py", line 1251, in mkdir
     self._accessor.mkdir(self, mode)
 PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\dbf\\AppData\\Local\\Packages\\sandbox.{4d4dbf91-43a2-4bea-9913-8b4528041fa9}\\AC\\Temp\\tea-images-test-6w1fbc47\\tea_categories'
 
@@ -357,26 +355,26 @@ PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\dbf\\AppData\\Local\\
 ERROR: test_catalogs_are_isolated_and_missing_files_use_generic_placeholder (goods.test_images.CatalogImageTests)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "E:\miniconda\envs\dadashop\lib\shutil.py", line 631, in _rmtree_unsafe
+  File "<PYTHON_ENV>\lib\shutil.py", line 631, in _rmtree_unsafe
     os.rmdir(path)
 PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\dbf\\AppData\\Local\\Packages\\sandbox.{4d4dbf91-43a2-4bea-9913-8b4528041fa9}\\AC\\Temp\\tea-images-test-6w1fbc47'
 
 During handling of the above exception, another exception occurred:
 
 Traceback (most recent call last):
-  File "E:\miniconda\envs\dadashop\lib\tempfile.py", line 843, in cleanup
+  File "<PYTHON_ENV>\lib\tempfile.py", line 843, in cleanup
     self._rmtree(self.name)
-  File "E:\miniconda\envs\dadashop\lib\tempfile.py", line 825, in _rmtree
+  File "<PYTHON_ENV>\lib\tempfile.py", line 825, in _rmtree
     _shutil.rmtree(name, onerror=onerror)
-  File "E:\miniconda\envs\dadashop\lib\shutil.py", line 759, in rmtree
+  File "<PYTHON_ENV>\lib\shutil.py", line 759, in rmtree
     return _rmtree_unsafe(path, onerror)
-  File "E:\miniconda\envs\dadashop\lib\shutil.py", line 633, in _rmtree_unsafe
+  File "<PYTHON_ENV>\lib\shutil.py", line 633, in _rmtree_unsafe
     onerror(os.rmdir, path, sys.exc_info())
-  File "E:\miniconda\envs\dadashop\lib\tempfile.py", line 811, in onerror
+  File "<PYTHON_ENV>\lib\tempfile.py", line 811, in onerror
     _resetperms(path)
-  File "E:\miniconda\envs\dadashop\lib\tempfile.py", line 285, in _resetperms
+  File "<PYTHON_ENV>\lib\tempfile.py", line 285, in _resetperms
     _dont_follow_symlinks(_os.chmod, path, 0o700)
-  File "E:\miniconda\envs\dadashop\lib\tempfile.py", line 276, in _dont_follow_symlinks
+  File "<PYTHON_ENV>\lib\tempfile.py", line 276, in _dont_follow_symlinks
     func(path, *args)
 PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\dbf\\AppData\\Local\\Packages\\sandbox.{4d4dbf91-43a2-4bea-9913-8b4528041fa9}\\AC\\Temp\\tea-images-test-6w1fbc47'
 
@@ -384,11 +382,11 @@ PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\dbf\\AppData\\Local\\
 ERROR: test_real_sibling_and_legacy_photos_take_priority (goods.test_images.CatalogImageTests)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "E:\django\dadashop\goods\test_images.py", line 32, in setUp
+  File "<WORKSPACE>\goods\test_images.py", line 32, in setUp
     self.write('tea_categories/black.png')
-  File "E:\django\dadashop\goods\test_images.py", line 39, in write
+  File "<WORKSPACE>\goods\test_images.py", line 39, in write
     file.parent.mkdir(parents=True, exist_ok=True)
-  File "E:\miniconda\envs\dadashop\lib\pathlib.py", line 1251, in mkdir
+  File "<PYTHON_ENV>\lib\pathlib.py", line 1251, in mkdir
     self._accessor.mkdir(self, mode)
 PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\dbf\\AppData\\Local\\Packages\\sandbox.{4d4dbf91-43a2-4bea-9913-8b4528041fa9}\\AC\\Temp\\tea-images-test-j0q1dmp_\\tea_categories'
 
@@ -396,26 +394,26 @@ PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\dbf\\AppData\\Local\\
 ERROR: test_real_sibling_and_legacy_photos_take_priority (goods.test_images.CatalogImageTests)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "E:\miniconda\envs\dadashop\lib\shutil.py", line 631, in _rmtree_unsafe
+  File "<PYTHON_ENV>\lib\shutil.py", line 631, in _rmtree_unsafe
     os.rmdir(path)
 PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\dbf\\AppData\\Local\\Packages\\sandbox.{4d4dbf91-43a2-4bea-9913-8b4528041fa9}\\AC\\Temp\\tea-images-test-j0q1dmp_'
 
 During handling of the above exception, another exception occurred:
 
 Traceback (most recent call last):
-  File "E:\miniconda\envs\dadashop\lib\tempfile.py", line 843, in cleanup
+  File "<PYTHON_ENV>\lib\tempfile.py", line 843, in cleanup
     self._rmtree(self.name)
-  File "E:\miniconda\envs\dadashop\lib\tempfile.py", line 825, in _rmtree
+  File "<PYTHON_ENV>\lib\tempfile.py", line 825, in _rmtree
     _shutil.rmtree(name, onerror=onerror)
-  File "E:\miniconda\envs\dadashop\lib\shutil.py", line 759, in rmtree
+  File "<PYTHON_ENV>\lib\shutil.py", line 759, in rmtree
     return _rmtree_unsafe(path, onerror)
-  File "E:\miniconda\envs\dadashop\lib\shutil.py", line 633, in _rmtree_unsafe
+  File "<PYTHON_ENV>\lib\shutil.py", line 633, in _rmtree_unsafe
     onerror(os.rmdir, path, sys.exc_info())
-  File "E:\miniconda\envs\dadashop\lib\tempfile.py", line 811, in onerror
+  File "<PYTHON_ENV>\lib\tempfile.py", line 811, in onerror
     _resetperms(path)
-  File "E:\miniconda\envs\dadashop\lib\tempfile.py", line 285, in _resetperms
+  File "<PYTHON_ENV>\lib\tempfile.py", line 285, in _resetperms
     _dont_follow_symlinks(_os.chmod, path, 0o700)
-  File "E:\miniconda\envs\dadashop\lib\tempfile.py", line 276, in _dont_follow_symlinks
+  File "<PYTHON_ENV>\lib\tempfile.py", line 276, in _dont_follow_symlinks
     func(path, *args)
 PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\dbf\\AppData\\Local\\Packages\\sandbox.{4d4dbf91-43a2-4bea-9913-8b4528041fa9}\\AC\\Temp\\tea-images-test-j0q1dmp_'
 
@@ -423,11 +421,11 @@ PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\dbf\\AppData\\Local\\
 ERROR: test_real_upload_immediately_overrides_virtual_and_delete_restores_fallback (goods.test_images.CatalogImageTests)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "E:\django\dadashop\goods\test_images.py", line 32, in setUp
+  File "<WORKSPACE>\goods\test_images.py", line 32, in setUp
     self.write('tea_categories/black.png')
-  File "E:\django\dadashop\goods\test_images.py", line 39, in write
+  File "<WORKSPACE>\goods\test_images.py", line 39, in write
     file.parent.mkdir(parents=True, exist_ok=True)
-  File "E:\miniconda\envs\dadashop\lib\pathlib.py", line 1251, in mkdir
+  File "<PYTHON_ENV>\lib\pathlib.py", line 1251, in mkdir
     self._accessor.mkdir(self, mode)
 PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\dbf\\AppData\\Local\\Packages\\sandbox.{4d4dbf91-43a2-4bea-9913-8b4528041fa9}\\AC\\Temp\\tea-images-test-d6k4jenp\\tea_categories'
 
@@ -435,26 +433,26 @@ PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\dbf\\AppData\\Local\\
 ERROR: test_real_upload_immediately_overrides_virtual_and_delete_restores_fallback (goods.test_images.CatalogImageTests)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "E:\miniconda\envs\dadashop\lib\shutil.py", line 631, in _rmtree_unsafe
+  File "<PYTHON_ENV>\lib\shutil.py", line 631, in _rmtree_unsafe
     os.rmdir(path)
 PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\dbf\\AppData\\Local\\Packages\\sandbox.{4d4dbf91-43a2-4bea-9913-8b4528041fa9}\\AC\\Temp\\tea-images-test-d6k4jenp'
 
 During handling of the above exception, another exception occurred:
 
 Traceback (most recent call last):
-  File "E:\miniconda\envs\dadashop\lib\tempfile.py", line 843, in cleanup
+  File "<PYTHON_ENV>\lib\tempfile.py", line 843, in cleanup
     self._rmtree(self.name)
-  File "E:\miniconda\envs\dadashop\lib\tempfile.py", line 825, in _rmtree
+  File "<PYTHON_ENV>\lib\tempfile.py", line 825, in _rmtree
     _shutil.rmtree(name, onerror=onerror)
-  File "E:\miniconda\envs\dadashop\lib\shutil.py", line 759, in rmtree
+  File "<PYTHON_ENV>\lib\shutil.py", line 759, in rmtree
     return _rmtree_unsafe(path, onerror)
-  File "E:\miniconda\envs\dadashop\lib\shutil.py", line 633, in _rmtree_unsafe
+  File "<PYTHON_ENV>\lib\shutil.py", line 633, in _rmtree_unsafe
     onerror(os.rmdir, path, sys.exc_info())
-  File "E:\miniconda\envs\dadashop\lib\tempfile.py", line 811, in onerror
+  File "<PYTHON_ENV>\lib\tempfile.py", line 811, in onerror
     _resetperms(path)
-  File "E:\miniconda\envs\dadashop\lib\tempfile.py", line 285, in _resetperms
+  File "<PYTHON_ENV>\lib\tempfile.py", line 285, in _resetperms
     _dont_follow_symlinks(_os.chmod, path, 0o700)
-  File "E:\miniconda\envs\dadashop\lib\tempfile.py", line 276, in _dont_follow_symlinks
+  File "<PYTHON_ENV>\lib\tempfile.py", line 276, in _dont_follow_symlinks
     func(path, *args)
 PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\dbf\\AppData\\Local\\Packages\\sandbox.{4d4dbf91-43a2-4bea-9913-8b4528041fa9}\\AC\\Temp\\tea-images-test-d6k4jenp'
 
@@ -462,11 +460,11 @@ PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\dbf\\AppData\\Local\\
 ERROR: test_registration_previews_applies_idempotently_and_validates_hash (goods.test_images.CatalogImageTests)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "E:\django\dadashop\goods\test_images.py", line 32, in setUp
+  File "<WORKSPACE>\goods\test_images.py", line 32, in setUp
     self.write('tea_categories/black.png')
-  File "E:\django\dadashop\goods\test_images.py", line 39, in write
+  File "<WORKSPACE>\goods\test_images.py", line 39, in write
     file.parent.mkdir(parents=True, exist_ok=True)
-  File "E:\miniconda\envs\dadashop\lib\pathlib.py", line 1251, in mkdir
+  File "<PYTHON_ENV>\lib\pathlib.py", line 1251, in mkdir
     self._accessor.mkdir(self, mode)
 PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\dbf\\AppData\\Local\\Packages\\sandbox.{4d4dbf91-43a2-4bea-9913-8b4528041fa9}\\AC\\Temp\\tea-images-test-7sod2k0h\\tea_categories'
 
@@ -474,26 +472,26 @@ PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\dbf\\AppData\\Local\\
 ERROR: test_registration_previews_applies_idempotently_and_validates_hash (goods.test_images.CatalogImageTests)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "E:\miniconda\envs\dadashop\lib\shutil.py", line 631, in _rmtree_unsafe
+  File "<PYTHON_ENV>\lib\shutil.py", line 631, in _rmtree_unsafe
     os.rmdir(path)
 PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\dbf\\AppData\\Local\\Packages\\sandbox.{4d4dbf91-43a2-4bea-9913-8b4528041fa9}\\AC\\Temp\\tea-images-test-7sod2k0h'
 
 During handling of the above exception, another exception occurred:
 
 Traceback (most recent call last):
-  File "E:\miniconda\envs\dadashop\lib\tempfile.py", line 843, in cleanup
+  File "<PYTHON_ENV>\lib\tempfile.py", line 843, in cleanup
     self._rmtree(self.name)
-  File "E:\miniconda\envs\dadashop\lib\tempfile.py", line 825, in _rmtree
+  File "<PYTHON_ENV>\lib\tempfile.py", line 825, in _rmtree
     _shutil.rmtree(name, onerror=onerror)
-  File "E:\miniconda\envs\dadashop\lib\shutil.py", line 759, in rmtree
+  File "<PYTHON_ENV>\lib\shutil.py", line 759, in rmtree
     return _rmtree_unsafe(path, onerror)
-  File "E:\miniconda\envs\dadashop\lib\shutil.py", line 633, in _rmtree_unsafe
+  File "<PYTHON_ENV>\lib\shutil.py", line 633, in _rmtree_unsafe
     onerror(os.rmdir, path, sys.exc_info())
-  File "E:\miniconda\envs\dadashop\lib\tempfile.py", line 811, in onerror
+  File "<PYTHON_ENV>\lib\tempfile.py", line 811, in onerror
     _resetperms(path)
-  File "E:\miniconda\envs\dadashop\lib\tempfile.py", line 285, in _resetperms
+  File "<PYTHON_ENV>\lib\tempfile.py", line 285, in _resetperms
     _dont_follow_symlinks(_os.chmod, path, 0o700)
-  File "E:\miniconda\envs\dadashop\lib\tempfile.py", line 276, in _dont_follow_symlinks
+  File "<PYTHON_ENV>\lib\tempfile.py", line 276, in _dont_follow_symlinks
     func(path, *args)
 PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\dbf\\AppData\\Local\\Packages\\sandbox.{4d4dbf91-43a2-4bea-9913-8b4528041fa9}\\AC\\Temp\\tea-images-test-7sod2k0h'
 
@@ -501,11 +499,11 @@ PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\dbf\\AppData\\Local\\
 ERROR: test_storefront_and_order_dtos_use_resolved_paths (goods.test_images.CatalogImageTests)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "E:\django\dadashop\goods\test_images.py", line 32, in setUp
+  File "<WORKSPACE>\goods\test_images.py", line 32, in setUp
     self.write('tea_categories/black.png')
-  File "E:\django\dadashop\goods\test_images.py", line 39, in write
+  File "<WORKSPACE>\goods\test_images.py", line 39, in write
     file.parent.mkdir(parents=True, exist_ok=True)
-  File "E:\miniconda\envs\dadashop\lib\pathlib.py", line 1251, in mkdir
+  File "<PYTHON_ENV>\lib\pathlib.py", line 1251, in mkdir
     self._accessor.mkdir(self, mode)
 PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\dbf\\AppData\\Local\\Packages\\sandbox.{4d4dbf91-43a2-4bea-9913-8b4528041fa9}\\AC\\Temp\\tea-images-test-v1moi52s\\tea_categories'
 
@@ -513,26 +511,26 @@ PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\dbf\\AppData\\Local\\
 ERROR: test_storefront_and_order_dtos_use_resolved_paths (goods.test_images.CatalogImageTests)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "E:\miniconda\envs\dadashop\lib\shutil.py", line 631, in _rmtree_unsafe
+  File "<PYTHON_ENV>\lib\shutil.py", line 631, in _rmtree_unsafe
     os.rmdir(path)
 PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\dbf\\AppData\\Local\\Packages\\sandbox.{4d4dbf91-43a2-4bea-9913-8b4528041fa9}\\AC\\Temp\\tea-images-test-v1moi52s'
 
 During handling of the above exception, another exception occurred:
 
 Traceback (most recent call last):
-  File "E:\miniconda\envs\dadashop\lib\tempfile.py", line 843, in cleanup
+  File "<PYTHON_ENV>\lib\tempfile.py", line 843, in cleanup
     self._rmtree(self.name)
-  File "E:\miniconda\envs\dadashop\lib\tempfile.py", line 825, in _rmtree
+  File "<PYTHON_ENV>\lib\tempfile.py", line 825, in _rmtree
     _shutil.rmtree(name, onerror=onerror)
-  File "E:\miniconda\envs\dadashop\lib\shutil.py", line 759, in rmtree
+  File "<PYTHON_ENV>\lib\shutil.py", line 759, in rmtree
     return _rmtree_unsafe(path, onerror)
-  File "E:\miniconda\envs\dadashop\lib\shutil.py", line 633, in _rmtree_unsafe
+  File "<PYTHON_ENV>\lib\shutil.py", line 633, in _rmtree_unsafe
     onerror(os.rmdir, path, sys.exc_info())
-  File "E:\miniconda\envs\dadashop\lib\tempfile.py", line 811, in onerror
+  File "<PYTHON_ENV>\lib\tempfile.py", line 811, in onerror
     _resetperms(path)
-  File "E:\miniconda\envs\dadashop\lib\tempfile.py", line 285, in _resetperms
+  File "<PYTHON_ENV>\lib\tempfile.py", line 285, in _resetperms
     _dont_follow_symlinks(_os.chmod, path, 0o700)
-  File "E:\miniconda\envs\dadashop\lib\tempfile.py", line 276, in _dont_follow_symlinks
+  File "<PYTHON_ENV>\lib\tempfile.py", line 276, in _dont_follow_symlinks
     func(path, *args)
 PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\dbf\\AppData\\Local\\Packages\\sandbox.{4d4dbf91-43a2-4bea-9913-8b4528041fa9}\\AC\\Temp\\tea-images-test-v1moi52s'
 
@@ -540,11 +538,11 @@ PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\dbf\\AppData\\Local\\
 ERROR: test_virtual_image_served_and_upload_field_remains_empty (goods.test_images.CatalogImageTests)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "E:\django\dadashop\goods\test_images.py", line 32, in setUp
+  File "<WORKSPACE>\goods\test_images.py", line 32, in setUp
     self.write('tea_categories/black.png')
-  File "E:\django\dadashop\goods\test_images.py", line 39, in write
+  File "<WORKSPACE>\goods\test_images.py", line 39, in write
     file.parent.mkdir(parents=True, exist_ok=True)
-  File "E:\miniconda\envs\dadashop\lib\pathlib.py", line 1251, in mkdir
+  File "<PYTHON_ENV>\lib\pathlib.py", line 1251, in mkdir
     self._accessor.mkdir(self, mode)
 PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\dbf\\AppData\\Local\\Packages\\sandbox.{4d4dbf91-43a2-4bea-9913-8b4528041fa9}\\AC\\Temp\\tea-images-test-m3aasi4x\\tea_categories'
 
@@ -552,26 +550,26 @@ PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\dbf\\AppData\\Local\\
 ERROR: test_virtual_image_served_and_upload_field_remains_empty (goods.test_images.CatalogImageTests)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "E:\miniconda\envs\dadashop\lib\shutil.py", line 631, in _rmtree_unsafe
+  File "<PYTHON_ENV>\lib\shutil.py", line 631, in _rmtree_unsafe
     os.rmdir(path)
 PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\dbf\\AppData\\Local\\Packages\\sandbox.{4d4dbf91-43a2-4bea-9913-8b4528041fa9}\\AC\\Temp\\tea-images-test-m3aasi4x'
 
 During handling of the above exception, another exception occurred:
 
 Traceback (most recent call last):
-  File "E:\miniconda\envs\dadashop\lib\tempfile.py", line 843, in cleanup
+  File "<PYTHON_ENV>\lib\tempfile.py", line 843, in cleanup
     self._rmtree(self.name)
-  File "E:\miniconda\envs\dadashop\lib\tempfile.py", line 825, in _rmtree
+  File "<PYTHON_ENV>\lib\tempfile.py", line 825, in _rmtree
     _shutil.rmtree(name, onerror=onerror)
-  File "E:\miniconda\envs\dadashop\lib\shutil.py", line 759, in rmtree
+  File "<PYTHON_ENV>\lib\shutil.py", line 759, in rmtree
     return _rmtree_unsafe(path, onerror)
-  File "E:\miniconda\envs\dadashop\lib\shutil.py", line 633, in _rmtree_unsafe
+  File "<PYTHON_ENV>\lib\shutil.py", line 633, in _rmtree_unsafe
     onerror(os.rmdir, path, sys.exc_info())
-  File "E:\miniconda\envs\dadashop\lib\tempfile.py", line 811, in onerror
+  File "<PYTHON_ENV>\lib\tempfile.py", line 811, in onerror
     _resetperms(path)
-  File "E:\miniconda\envs\dadashop\lib\tempfile.py", line 285, in _resetperms
+  File "<PYTHON_ENV>\lib\tempfile.py", line 285, in _resetperms
     _dont_follow_symlinks(_os.chmod, path, 0o700)
-  File "E:\miniconda\envs\dadashop\lib\tempfile.py", line 276, in _dont_follow_symlinks
+  File "<PYTHON_ENV>\lib\tempfile.py", line 276, in _dont_follow_symlinks
     func(path, *args)
 PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\dbf\\AppData\\Local\\Packages\\sandbox.{4d4dbf91-43a2-4bea-9913-8b4528041fa9}\\AC\\Temp\\tea-images-test-m3aasi4x'
 
@@ -579,7 +577,7 @@ PermissionError: [WinError 5] 拒绝访问。: 'C:\\Users\\dbf\\AppData\\Local\\
 FAIL: test_explicit_subset_and_budget_and_exclusion_are_retained (support_ai.test_grouped_recommendations.GroupedRecommendationTests)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "E:\django\dadashop\support_ai\test_grouped_recommendations.py", line 114, in test_explicit_subset_and_budget_and_exclusion_are_retained
+  File "<WORKSPACE>\support_ai\test_grouped_recommendations.py", line 114, in test_explicit_subset_and_budget_and_exclusion_are_retained
     self.assertEqual([p['category'] for p in result.data['recommendations']], ['绿茶', '白茶'])
 AssertionError: Lists differ: ['绿茶', '白茶', '乌龙茶', '黄茶', '黑茶'] != ['绿茶', '白茶']
 
@@ -594,7 +592,7 @@ First extra element 2:
 FAIL: test_budget_still_applies_to_knowledge_bound_groups (support_ai.test_mixed_tea.MixedTeaIntegrationTests)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "E:\django\dadashop\support_ai\test_mixed_tea.py", line 207, in test_budget_still_applies_to_knowledge_bound_groups
+  File "<WORKSPACE>\support_ai\test_mixed_tea.py", line 207, in test_budget_still_applies_to_knowledge_bound_groups
     self.assertEqual([p['category'] for p in data['recommendations']], ['绿茶'])
 AssertionError: Lists differ: ['绿茶', '红茶'] != ['绿茶']
 
@@ -609,7 +607,7 @@ First extra element 1:
 FAIL: test_matching_enforces_budget_launch_and_inventory_without_popular_fallback (support_ai.tests.RecommendationIntegrationTests)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "E:\django\dadashop\support_ai\tests.py", line 272, in test_matching_enforces_budget_launch_and_inventory_without_popular_fallback
+  File "<WORKSPACE>\support_ai\tests.py", line 272, in test_matching_enforces_budget_launch_and_inventory_without_popular_fallback
     self.assertEqual([card['sku_id'] for card in result['recommendations']], [self.skus[1].pk])
 AssertionError: Lists differ: [2, 3] != [2]
 
@@ -624,7 +622,7 @@ First extra element 1:
 FAIL: test_currency_supplement_preserves_budget_category_count_and_evidence (support_ai.test_semantic_planning.SemanticPlanningTests)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "E:\django\dadashop\support_ai\test_semantic_planning.py", line 50, in test_currency_supplement_preserves_budget_category_count_and_evidence
+  File "<WORKSPACE>\support_ai\test_semantic_planning.py", line 50, in test_currency_supplement_preserves_budget_category_count_and_evidence
     self.assertEqual(source, 'model')
 AssertionError: 'rules' != 'model'
 - rules
@@ -636,5 +634,4 @@ Ran 127 tests in 2.451s
 
 FAILED (failures=4, errors=16)
 Destroying test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
-
 Destroying test database for alias 'ai_storage' ('file:memorydb_ai_storage?mode=memory&cache=shared')...

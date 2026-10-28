@@ -4,7 +4,7 @@
 
 ## 实现及边界
 
-support_ai 从当前工作区0.18.0增至0.19.0，版本清单和changelog同步更新。使用既有 `codex/orders-merchant-isolation` 分支；HEAD为 `25a08ee29e23ce1bd479951e5860b44c9dfb2a89`，大量此前未提交变更作为基线保留，没有切换分支、暂存、提交或推送。实现、规格与版本文件相对工作区起始副本的本次增量见 [task.patch](task.patch)，前后指纹及暂存区一致性见 [source-manifest.json](source-manifest.json)。不能用HEAD单独代表此次被测代码。
+support_ai 从当前工作区0.18.0增至0.19.0，版本清单和changelog同步更新。使用既有 `codex/orders-merchant-isolation` 分支；HEAD为 `25a08ee29e23ce1bd479951e5860b44c9dfb2a89`，大量此前未提交变更作为基线保留，没有切换分支、暂存、提交或推送。实现、规格与版本文件相对工作区起始副本的本次增量见 [task-patch.json](task-patch.json)，前后指纹及暂存区一致性见 [source-manifest.json](source-manifest.json)。不能用HEAD单独代表此次被测代码。
 
 知识回答和茶类说明均输出独立结论、逐字引文与服务端编号；先进行来源范围、原文子串、隐私、阿拉伯数值及受限业务表述检查，再用配置模型的另一次结构化调用复核每个子结论的支持关系、否定/对象/时间/单位、问题相关性与独立可读性。真实引句不再足以直接放行整段解释。每个给定结论恰好一项判定；缺项、重复或复核故障不会默认通过。
 
@@ -18,13 +18,13 @@ support_ai 从当前工作区0.18.0增至0.19.0，版本清单和changelog同步
 
 ## 实际验证
 
-解释器为项目 `E:/miniconda/envs/dadashop/python.exe`，Python3.9.25、Django3.2.12。全部Django测试显式使用 `support_ai.test_settings`：default及ai_storage均为隔离SQLite内存库，LocMem缓存；TEMP/TMP为工作区内的专用临时目录。模型使用合成测试替身，没有调用真实模型、业务MySQL、AI PostgreSQL或支付服务。
+解释器为项目 `python`，Python3.9.25、Django3.2.12。全部Django测试显式使用 `support_ai.test_settings`：default及ai_storage均为隔离SQLite内存库，LocMem缓存；TEMP/TMP为工作区内的专用临时目录。模型使用合成测试替身，没有调用真实模型、业务MySQL、AI PostgreSQL或支付服务。
 
 下表的python代表该项目解释器。实际命令、退出码、环境覆盖和耗时见 [commands.json](commands.json)。
 
 | 命令 | 结果 |
 | --- | --- |
-| 实施前：`python manage.py test support_ai --settings=support_ai.test_settings --noinput -v 2` | 117项，110通过、6失败、1错误；[原始基线日志](baseline-tests.log)保留原样 |
+| 实施前：`python manage.py test support_ai --settings=support_ai.test_settings --noinput -v 2` | 117项，110通过、6失败、1错误；[原始基线日志](baseline-tests.log)保留结果；发布副本仅规范化本机路径，原字节指纹见交付批次publication-manifest.json |
 | `python manage.py check --settings=support_ai.test_settings` | 通过，0个系统问题；[日志](django-check.log) |
 | `python manage.py test support_ai.test_grounding support_ai.tests.GraphTests support_ai.test_product_details --settings=support_ai.test_settings --noinput -v 2` | 44项全部通过，其中31项新增定向用例；[日志](focused-tests.log) |
 | `python manage.py test support_ai --settings=support_ai.test_settings --noinput -v 2` | 148项，143通过、4失败、1错误；没有新增失败，不能写成整套回归通过；[日志](module-regression.log) |
@@ -54,3 +54,5 @@ GraphTests中另有两项基线失败的旧预期要求向模型传旧订单上�
 正常知识路径增加一次语义复核；触发修正时知识生成/支持复核合计最多4次调用，另有既有安全检查。未执行真实模型耗时、Token或误拒率评测，不能给出线上延迟结论。业务事实保护保证忠实于注册Python工具的文字/DTO，不替代对业务查询、数据质量和计算正确性的验证；价格库存依旧不锁定。
 
 没有运行全项目、浏览器端到端、真实模型/向量检索质量、MySQL/PostgreSQL集成或部署验收。未操作业务数据、Git发布、远端分支或PR。
+
+发布展示补充：Windows日志换行统一为LF；补丁原字节无损存于task-patch.json的patch字段，UTF-8重新编码后的SHA256与original_sha256相同。没有改写补丁内容或测试判定。

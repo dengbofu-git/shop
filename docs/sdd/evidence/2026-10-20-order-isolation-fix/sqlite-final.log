@@ -1,0 +1,34 @@
+Creating test database for alias 'default'...
+
+
+System check identified no issues (0 silenced).
+
+............{"timestamp": "2026-10-20T08:59:38.423+00:00", "level": "ERROR", "service": "tea_saas", "logger": "orders.views", "event": "application.log", "http_request_id": "df685fa3c3df4ff0b8427c7b5dc5a080", "method": "POST", "route": "v1/orders/<str:username>", "error_type": "RuntimeError", "stack": [{"file": "views.py", "function": "post", "line": 141}, {"file": "checkout.py", "function": "create_orders", "line": 99}, {"file": "views.py", "function": "unknown", "line": 141}, {"file": "views.py", "function": "payment_for_order", "line": 42}, {"file": "mock.py", "function": "__call__", "line": 1092}, {"file": "mock.py", "function": "_mock_call", "line": 1096}, {"file": "mock.py", "function": "_execute_mock_call", "line": 1155}]}
+
+{"timestamp": "2026-10-20T08:59:38.502+00:00", "level": "ERROR", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "df685fa3c3df4ff0b8427c7b5dc5a080", "method": "POST", "route": "v1/orders/<str:username>", "http_status": 503, "business_code": 503, "duration_ms": 91.03, "outcome": "server_error"}
+
+.......................................{"timestamp": "2026-10-20T08:59:40.579+00:00", "level": "WARNING", "service": "tea_saas", "logger": "django.request", "event": "application.log", "http_request_id": "5a8aefe9d1514b919db84e0771c8cbbe", "method": "POST", "route": "v1/stores/<int:merchant_id>"}
+
+{"timestamp": "2026-10-20T08:59:40.580+00:00", "level": "WARNING", "service": "tea_saas", "logger": "django.request", "event": "application.log", "http_request_id": "28010bb8108d4b8d8917d643a8cd6c43", "method": "POST", "route": "v1/stores/<int:merchant_id>/products"}
+
+{"timestamp": "2026-10-20T08:59:40.581+00:00", "level": "WARNING", "service": "tea_saas", "logger": "django.request", "event": "application.log", "http_request_id": "7392bfb9fb4c45c28ba49d764ec06edf", "method": "DELETE", "route": "v1/supplier/store-page"}
+
+.......................................RBAC seeded: 6 roles, 9 permissions, 26 new role-permission mappings.
+
+..............RBAC seeded: 6 roles, 9 permissions, 26 new role-permission mappings.
+
+{"timestamp": "2026-10-20T08:59:54.972+00:00", "level": "ERROR", "service": "tea_saas", "logger": "tea_saas.request_logging", "event": "http.request.completed", "http_request_id": "4ecdc705760f4f6fb10ce6ec4eaff785", "method": "GET", "route": "v1/admin-panel/overview", "http_status": 503, "business_code": 503, "duration_ms": 4.78, "outcome": "server_error"}
+
+....{"timestamp": "2026-10-20T08:59:55.047+00:00", "level": "WARNING", "service": "tea_saas", "logger": "django.request", "event": "application.log", "http_request_id": "db2dc8247cce4cb8b53fc6a9683b55b2", "method": "POST", "route": "v1/admin-panel/overview"}
+
+....sss..
+
+----------------------------------------------------------------------
+
+Ran 117 tests in 17.109s
+
+
+
+OK (skipped=3)
+
+Destroying test database for alias 'default'...

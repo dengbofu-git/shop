@@ -1,0 +1,57 @@
+{
+  "executed_at": "2026-10-26T02:29:28.878373+00:00",
+  "base_main": "184e2f7113fd45a8d3db89a39dd553427290ef97",
+  "environment": "Explicit synthetic environment values; SQLite in-memory default/ai_storage; LocMem cache; no copied .env or credentials",
+  "results": [
+    {
+      "name": "django-check",
+      "command": [
+        "python",
+        "manage.py",
+        "check",
+        "--settings=support_ai.test_settings"
+      ],
+      "exit_code": 0,
+      "seconds": 10.269,
+      "log": "django-check.log"
+    },
+    {
+      "name": "support-regression",
+      "command": [
+        "python",
+        "manage.py",
+        "test",
+        "support_ai",
+        "--settings=support_ai.test_settings",
+        "--noinput",
+        "-v",
+        "2"
+      ],
+      "exit_code": 0,
+      "seconds": 12.783,
+      "log": "support-regression.log"
+    },
+    {
+      "name": "module-ownership",
+      "command": [
+        "python",
+        "tools/module_versions.py",
+        "check"
+      ],
+      "exit_code": 0,
+      "seconds": 0.296,
+      "log": "module-ownership.log"
+    },
+    {
+      "name": "diff-check",
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0,
+      "seconds": 0.061,
+      "log": "diff-check.log"
+    }
+  ]
+}

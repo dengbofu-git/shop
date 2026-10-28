@@ -12,7 +12,7 @@ class Element {
 }
 let language = 'zh';
 const document = {createElement: tag => new Element(tag), getElementById: () => null};
-const context = {window: {}, document, localStorage: {getItem: () => language}};
+const context = {TeaMoney: require('../static/js/currency.js'),window: {}, document, localStorage: {getItem: () => language}};
 vm.runInNewContext(fs.readFileSync('client/static/js/storefront.js', 'utf8'), context);
 const ui = context.window.Storefront;
 const merchant = {id: 23, name: '<img src=x onerror=alert(1)>', url: '/store.html?merchant_id=23', is_published: true};

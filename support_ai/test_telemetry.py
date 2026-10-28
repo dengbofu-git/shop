@@ -3,7 +3,7 @@ import uuid
 from dataclasses import replace
 from unittest.mock import patch
 
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from langchain_core.messages import AIMessage
 from langchain_core.outputs import ChatGeneration, LLMResult
 from langchain_core.runnables import RunnableLambda
@@ -104,13 +104,18 @@ class AgentTelemetryTests(TestCase):
 
         def parse(messages):
             captured.extend(messages)
-            return IntentScores(recommendation=.1, question_answering=.9, after_sales=.1)
+            return {'parsed': IntentScores(recommendation=.1, question_answering=.9, after_sales=.1),
+                    'raw': AIMessage(content='', usage_metadata={'input_tokens': 1, 'output_tokens': 1, 'total_tokens': 2}),
+                    'parsing_error': None}
 
-        with patch('support_ai.model_client.ChatOpenAI') as chat:
+        with patch('support_ai.model_client.SupportChatOpenAI') as chat, override_settings(SUPPORT_EXTRACTION_THINKING='enabled'):
+            chat.return_value.max_tokens = None
+            chat.return_value.extra_body = {}
+            chat.return_value.model_copy.return_value = chat.return_value
             chat.return_value.with_structured_output.return_value = RunnableLambda(parse)
             model = configured_model(default_config(thinking='enabled'))
             result = model.with_structured_output(IntentScores).invoke('Introduce green tea')
-        chat.return_value.with_structured_output.assert_called_once_with(IntentScores, method='json_mode')
+        chat.return_value.with_structured_output.assert_called_once_with(IntentScores, method='json_mode', include_raw=True)
         self.assertEqual(result.question_answering, .9)
         self.assertIn('"question_answering"', captured[0].content)
         self.assertEqual(captured[1].content, 'Introduce green tea')
@@ -153,7 +158,7 @@ class AgentOperationsTests(TestCase):
         self.assertEqual(self.put().status_code, 200)
         config = effective_configuration()
         self.assertEqual(config.model, 'deepseek-v4-pro')
-        with patch('support_ai.model_client.ChatOpenAI') as chat:
+        with patch('support_ai.model_client.SupportChatOpenAI') as chat:
             configured_model(config)
         self.assertEqual(chat.call_args.kwargs['model'], 'deepseek-v4-pro')
         self.assertEqual(AgentConfigurationChange.objects.count(), 1)
