@@ -14,7 +14,9 @@ from .product_details import get_product_details
 
 class PublicProductDetailsTests(TestCase):
     def setUp(self):
-        self.spu = SPU.objects.create(name='测试绿茶', catalog=Catalog.objects.create(name='绿茶'))
+        from users.models import UserProfile
+        self.merchant = UserProfile.objects.create(username='details-seller', user_type='merchant', is_active=True)
+        self.spu = SPU.objects.create(name='测试绿茶', catalog=Catalog.objects.create(name='绿茶'), merchant=self.merchant)
         self.sku = SKU.objects.create(name='50克装', caption='', spu=self.spu, price='12.30',
                                       cost_price='3.21', market_price='15', stock=10)
 
@@ -23,7 +25,10 @@ class PublicProductDetailsTests(TestCase):
             result = get_product_details(self.sku.pk)
         self.assertTrue(queries)
         self.assertTrue(all(q['sql'].lstrip().upper().startswith('SELECT') for q in queries))
-        self.assertFalse(any('cost_price' in q['sql'] or 'merchant_id' in q['sql'] for q in queries))
+        # Merchant identity may participate in the eligibility WHERE/JOIN, but
+        # must never be projected into the public result or read as private data.
+        projections = [q['sql'].upper().split(' FROM ', 1)[0] for q in queries]
+        self.assertFalse(any('COST_PRICE' in sql or 'MERCHANT_ID' in sql for sql in projections))
         self.assertEqual(result['status'], 'success')
         self.assertEqual(result['data']['price'], '12.30')
         self.assertEqual(result['data']['available_stock'], 10)
@@ -79,6 +84,14 @@ class PublicProductDetailsTests(TestCase):
         self.assertNotIn('13800138000', attrs[0]['value_text'])
         self.assertNotIn('张三', attrs[0]['value_text'])
         self.assertNotIn('内部合同机密', json.dumps(result, ensure_ascii=False))
+
+    def test_missing_or_inactive_merchant_is_not_publicly_sellable(self):
+        self.merchant.is_active = False
+        self.merchant.save(update_fields=['is_active'])
+        self.assertEqual(get_product_details(self.sku.pk)['status'], 'no_match')
+        self.spu.merchant = None
+        self.spu.save(update_fields=['merchant'])
+        self.assertEqual(get_product_details(self.sku.pk)['status'], 'no_match')
 
     def test_strict_ids_fail_before_database_access(self):
         with self.assertNumQueries(0):
