@@ -1,0 +1,234 @@
+{
+  "ai-results": [
+    {
+      "name": "ai-parser-fixtures",
+      "exit_code": 0,
+      "seconds": 3.37
+    }
+  ],
+  "django-results": [
+    {
+      "name": "system-check",
+      "exit_code": 0,
+      "seconds": 11.08
+    },
+    {
+      "name": "migration-drift",
+      "exit_code": 0,
+      "seconds": 7.49
+    },
+    {
+      "name": "business-tests",
+      "exit_code": 0,
+      "seconds": 73.52
+    }
+  ],
+  "governance-results": [
+    {
+      "name": "governance",
+      "exit_code": 1,
+      "seconds": 44.96
+    }
+  ],
+  "mysql-results": [
+    {
+      "name": "isolated-mysql",
+      "exit_code": 0,
+      "seconds": 89.02
+    }
+  ],
+  "node-results": [
+    {
+      "name": "admin-shell.test",
+      "exit_code": 0,
+      "seconds": 0.48
+    },
+    {
+      "name": "auth-storage.test",
+      "exit_code": 0,
+      "seconds": 0.4
+    },
+    {
+      "name": "buyer-carousel.test",
+      "exit_code": 0,
+      "seconds": 0.54
+    },
+    {
+      "name": "buyer-catalog-preview.test",
+      "exit_code": 0,
+      "seconds": 0.49
+    },
+    {
+      "name": "buyer-entry-split.test",
+      "exit_code": 0,
+      "seconds": 0.62
+    },
+    {
+      "name": "buyer-order-support-links.test",
+      "exit_code": 0,
+      "seconds": 0.47
+    },
+    {
+      "name": "buyer-products-pagination.test",
+      "exit_code": 0,
+      "seconds": 0.42
+    },
+    {
+      "name": "buyer-support-quantity.test",
+      "exit_code": 0,
+      "seconds": 0.35
+    },
+    {
+      "name": "cart-currency.test",
+      "exit_code": 0,
+      "seconds": 0.31
+    },
+    {
+      "name": "checkout.test",
+      "exit_code": 0,
+      "seconds": 0.4
+    },
+    {
+      "name": "engagement-messages.test",
+      "exit_code": 0,
+      "seconds": 0.46
+    },
+    {
+      "name": "engagement.test",
+      "exit_code": 0,
+      "seconds": 0.36
+    },
+    {
+      "name": "merchant-insights.test",
+      "exit_code": 0,
+      "seconds": 0.45
+    },
+    {
+      "name": "merchant-orders.test",
+      "exit_code": 0,
+      "seconds": 0.32
+    },
+    {
+      "name": "merchant-overview.test",
+      "exit_code": 0,
+      "seconds": 0.32
+    },
+    {
+      "name": "merchant-product-preview.test",
+      "exit_code": 0,
+      "seconds": 0.43
+    },
+    {
+      "name": "merchant-workbench-feed.test",
+      "exit_code": 0,
+      "seconds": 0.43
+    },
+    {
+      "name": "operations-dashboard.test",
+      "exit_code": 0,
+      "seconds": 0.43
+    },
+    {
+      "name": "product-detail-summary.test",
+      "exit_code": 0,
+      "seconds": 0.44
+    },
+    {
+      "name": "product-import.test",
+      "exit_code": 0,
+      "seconds": 0.47
+    },
+    {
+      "name": "profile-nickname.test",
+      "exit_code": 0,
+      "seconds": 0.28
+    },
+    {
+      "name": "reservation-checkout.test",
+      "exit_code": 0,
+      "seconds": 0.27
+    },
+    {
+      "name": "storefront.test",
+      "exit_code": 0,
+      "seconds": 0.23
+    },
+    {
+      "name": "tea-saas-brand.test",
+      "exit_code": 0,
+      "seconds": 0.31
+    },
+    {
+      "name": "unified-login.test",
+      "exit_code": 0,
+      "seconds": 0.28
+    }
+  ],
+  "postgres-results": [
+    {
+      "name": "isolated-postgres",
+      "exit_code": 0,
+      "seconds": 14.69
+    }
+  ],
+  "python": "3.13.18",
+  "packages": {
+    "Django": "5.2.18",
+    "mysqlclient": "2.3.0",
+    "django-cors-headers": "4.9.0",
+    "django-redis": "5.4.0",
+    "redis": "5.2.1",
+    "PyJWT": "2.15.1",
+    "requests": "2.34.2",
+    "Pillow": "11.3.0",
+    "greenlet": "3.5.6",
+    "langchain": "0.3.27",
+    "langchain-core": "0.3.86",
+    "langgraph": "0.2.76",
+    "langchain-openai": "0.2.14",
+    "openai": "1.109.1",
+    "pydantic": "2.13.5",
+    "langsmith": "0.4.37",
+    "opentelemetry-sdk": "1.41.1",
+    "pgvector": "0.4.1",
+    "psycopg2-binary": "2.9.10"
+  },
+  "linux": {
+    "python": "3.13.18",
+    "django": "5.2.18",
+    "tests": 509,
+    "skipped": 16,
+    "exit_code": 0
+  },
+  "mcp": {
+    "checks": 16,
+    "real_local_transport": true,
+    "provider_calls": 0,
+    "cleanup": "completed"
+  },
+  "node_tests": 93,
+  "node_files": 25,
+  "preview": {
+    "port": 8000,
+    "http": [
+      200,
+      200,
+      200,
+      200
+    ],
+    "restart_verified": true
+  },
+  "worker": {
+    "python": "3.13.18",
+    "django": "5.2.18",
+    "status": "running",
+    "restart_count": 0,
+    "image": "sha256:d850db9ea1fd08b04a997b8f258289a0f490877028d70c850de162b8eddeb994",
+    "mysql_read_only": true,
+    "postgres_read_only": true,
+    "pipeline_config": true,
+    "pip_check": true
+  },
+  "business_migrations_executed": false,
+  "git_published": false
+}

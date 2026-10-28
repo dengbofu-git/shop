@@ -8,7 +8,7 @@ from django.utils.dateparse import parse_datetime
 from django.utils.crypto import salted_hmac, constant_time_compare
 from django.core import signing
 from pydantic import ValidationError
-import pytz
+from zoneinfo import ZoneInfo
 
 from orders.models import OrderInfo, STATUS_CHOICES, TRIAL_STATUS_CHOICES, PRESALE_STATUS_CHOICES
 from orders.support_links import support_order_reference
@@ -21,7 +21,7 @@ from .order_contracts import REFERENCES, OrderQuery, OrderQueryResult, validate_
 
 PAGE_SIZE = 20
 CURSOR_SALT = 'support-order-results-v1'
-ORDER_TIMEZONE = pytz.timezone('Asia/Shanghai')
+ORDER_TIMEZONE = ZoneInfo('Asia/Shanghai')
 
 
 @dataclass
@@ -156,8 +156,8 @@ def query_orders(query, context, request):
         orders = orders.filter(pk=selected_id)
     period = query.filters.created_date
     if period:
-        start = ORDER_TIMEZONE.localize(datetime.combine(date.fromisoformat(period.start), time.min))
-        end = ORDER_TIMEZONE.localize(datetime.combine(date.fromisoformat(period.end) + timedelta(days=1), time.min))
+        start = datetime.combine(date.fromisoformat(period.start), time.min, tzinfo=ORDER_TIMEZONE)
+        end = datetime.combine(date.fromisoformat(period.end) + timedelta(days=1), time.min, tzinfo=ORDER_TIMEZONE)
         orders = orders.filter(created_time__gte=start, created_time__lt=end)
     offset, snapshot = 0, timezone.now()
     if query.page == 'next':

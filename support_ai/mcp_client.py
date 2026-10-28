@@ -1,4 +1,4 @@
-"""Python 3.9 MCP stdio client. All Agent data crosses the protocol; no DB fallback."""
+"""Application MCP stdio client. All Agent data crosses the protocol; no DB fallback."""
 import json
 import os
 import queue

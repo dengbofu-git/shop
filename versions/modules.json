@@ -3,7 +3,7 @@
   "modules": {
     "core": {
       "title": "项目核心",
-      "version": "0.9.1",
+      "version": "0.10.0",
       "paths": [
         "README.md",
         "CONTEXT.md",
@@ -24,7 +24,10 @@
         "versions/",
         "docs/",
         "reports/README.md",
-        "versions/changelogs/core.md"
+        "versions/changelogs/core.md",
+        "constraints-py313.txt",
+        ".python-version",
+        ".dockerignore"
       ],
       "dependencies": []
     },
@@ -41,7 +44,7 @@
     },
     "goods": {
       "title": "商品管理",
-      "version": "0.7.1",
+      "version": "0.7.2",
       "paths": [
         "goods/",
         "media/",
@@ -171,7 +174,7 @@
     },
     "support_ai": {
       "title": "智能客服",
-      "version": "0.24.0",
+      "version": "0.24.1",
       "paths": [
         "support_ai/",
         "docs/客服商品推荐设计.md",
@@ -214,7 +217,7 @@
     },
     "ai_storage": {
       "title": "AI 记忆与知识存储",
-      "version": "0.7.1",
+      "version": "0.7.2",
       "paths": [
         "ai_storage/",
         "deploy/postgres/",
@@ -265,7 +268,7 @@
     },
     "engagement": {
       "title": "站内咨询与商品评价",
-      "version": "0.2.2",
+      "version": "0.2.3",
       "paths": [
         "engagement/",
         "versions/changelogs/engagement.md"

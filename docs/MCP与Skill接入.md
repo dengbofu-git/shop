@@ -28,7 +28,7 @@
 官方 SDK 与 Django 使用两个 Python 环境：
 
 - `tools/tea_saas_mcp/.venv`：建议 Python 3.12，安装单独锁定的 MCP SDK 1.29.1（受支持的 v1 维护线）。
-- 现有 Django Python 3.9：使用仓库业务依赖，通过固定 `manage.py mcp_product_details` 命令读取商品。
+- Django Python 3.13：使用仓库业务依赖，通过固定 `manage.py mcp_product_details` 命令读取商品；SDK 继续使用独立 Python 3.12 环境。
 
 本地宿主通过 stdio 调用 MCP，适配器使用宿主配置的绝对 `TEA_SAAS_PYTHON` 路径启动 Django 子进程。工具参数只能提供 `sku_id`，不能指定解释器、命令、设置模块、SQL、用户或文件路径。每次查询启动一个短生命周期进程，避免跨环境安装依赖；这会增加启动开销，应先测量后再决定是否采用常驻只读服务。
 

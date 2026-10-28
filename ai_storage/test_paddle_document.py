@@ -236,6 +236,9 @@ class DocumentServerTests(unittest.TestCase):
 
     def test_request_thread_initializes_dynamic_mode_and_gpu(self):
         import io
+        # Import the native extension before patch.dict restores sys.modules.
+        # NumPy on Python 3.13 cannot be removed and imported a second time.
+        import numpy  # noqa: F401
         from types import SimpleNamespace
         from PIL import Image
         buffer = io.BytesIO()

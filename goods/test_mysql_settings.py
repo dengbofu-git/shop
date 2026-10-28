@@ -5,5 +5,6 @@ from uuid import uuid4
 from support_ai.test_settings import *  # noqa: F401,F403
 from tea_saas.settings import DATABASES as BUSINESS_DATABASES
 
+DATABASES = deepcopy(DATABASES)
 DATABASES['default'] = deepcopy(BUSINESS_DATABASES['default'])
 DATABASES['default']['TEST'] = {'NAME': 'test_buyer_activity_' + uuid4().hex[:12]}
