@@ -48,6 +48,8 @@
             "field": {
               "description": "Exact section.field path; arrays use the field itself, without [index]. Purchase filters and explicit bundle quantity/count need evidence. Never use limit, action, reasons or missing_fields here.",
               "enum": [
+                "required.composition",
+                "required.quantity_policy",
                 "required.categories",
                 "required.brands",
                 "required.keywords",
@@ -291,6 +293,40 @@
               "maxItems": 10,
               "title": "Keywords",
               "type": "array"
+            },
+            "composition": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "single",
+                    "multiple",
+                    "unspecified"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Composition"
+            },
+            "quantity_policy": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "user_specified",
+                    "automatic",
+                    "clarify"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Quantity Policy"
             },
             "price_min": {
               "anyOf": [
@@ -481,6 +517,8 @@
             "field": {
               "description": "Exact section.field path; arrays use the field itself, without [index]. Purchase filters and explicit bundle quantity/count need evidence. Never use limit, action, reasons or missing_fields here.",
               "enum": [
+                "required.composition",
+                "required.quantity_policy",
                 "required.categories",
                 "required.brands",
                 "required.keywords",
@@ -724,6 +762,40 @@
               "maxItems": 10,
               "title": "Keywords",
               "type": "array"
+            },
+            "composition": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "single",
+                    "multiple",
+                    "unspecified"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Composition"
+            },
+            "quantity_policy": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "user_specified",
+                    "automatic",
+                    "clarify"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Quantity Policy"
             },
             "price_min": {
               "anyOf": [
@@ -1086,6 +1158,8 @@
             "field": {
               "description": "Exact section.field path; arrays use the field itself, without [index]. Purchase filters and explicit bundle quantity/count need evidence. Never use limit, action, reasons or missing_fields here.",
               "enum": [
+                "required.composition",
+                "required.quantity_policy",
                 "required.categories",
                 "required.brands",
                 "required.keywords",
@@ -1431,6 +1505,40 @@
               "maxItems": 10,
               "title": "Keywords",
               "type": "array"
+            },
+            "composition": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "single",
+                    "multiple",
+                    "unspecified"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Composition"
+            },
+            "quantity_policy": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "user_specified",
+                    "automatic",
+                    "clarify"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Quantity Policy"
             },
             "price_min": {
               "anyOf": [

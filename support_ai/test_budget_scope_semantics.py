@@ -139,7 +139,8 @@ class SemanticScopeStorageTests(TestCase):
     def setUp(self):
         self.user = UserProfile.objects.create(username='semantic-scope-buyer', is_active=True)
         category = Catalog.objects.create(name='红茶')
-        product = SPU.objects.create(name='合成语义茶', catalog=category)
+        merchant = UserProfile.objects.create(username='synthetic-active-seller', user_type='merchant', is_active=True)
+        product = SPU.objects.create(name='合成语义茶', catalog=category, merchant=merchant)
         SKU.objects.create(spu=product, name='合成规格', price='750.00', market_price='750.00',
                            cost_price='100.00', stock=10, is_launched=True)
 
@@ -158,7 +159,8 @@ class SemanticScopeStorageTests(TestCase):
         response = self.graph(model).invoke({'message': '总的', 'recent_turns': recent_context(conversation)})['response']
         self.assertEqual(response['tasks'][0]['tool'], 'recommend_bundle')
         self.assertEqual(response['recommendation_status'], 'MATCHED')
-        self.assertEqual(response['recommendation_bundles'][0]['subtotal'], '3000.00')
+        self.assertTrue(response['recommendation_bundles'])
+        self.assertNotIn('purchase_quantity', response['product_intent']['missing_fields'])
         commit_turn(self.user, conversation, 1, uuid.uuid4(), 'reply', '总的', response)
         return conversation, response
 

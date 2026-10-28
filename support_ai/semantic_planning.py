@@ -19,7 +19,7 @@ from .bundle_references import mentioned_bundle, bundle_products
 from .budget_scope import resolve_budget_scope, scope_only_candidate
 from .recommendation_presentation import budget_scope_question
 from .condition_evidence import repair_purchase_evidence
-from .initial_purchase import reconcile_initial_purchase
+from .initial_purchase import reconcile_initial_purchase, normalize_planned_defaults
 
 
 TurnAction = Literal['new_request', 'supplement', 'modify', 'follow_up', 'cancel', 'clarify']
@@ -168,7 +168,7 @@ def merge_purchase(previous, current, clear_fields, message, history, memory):
     if requested_limit(message) is not None:
         supplied.add('recommendation_count')
     quantity_fields = {'required.quantity_per_product', 'required.distinct_count'}
-    if (current.required.quantity_per_product is not None or current.required.distinct_count is not None
+    if (current.required.quantity_policy == 'automatic' or current.required.quantity_per_product is not None or current.required.distinct_count is not None
             or quantity_fields.intersection(clear_fields)):
         supplied.update(('bundle_constraints', 'purchase_quantity'))
     old.missing_fields = list(dict.fromkeys(
@@ -254,15 +254,13 @@ def plan_turn(model, message, history, memory):
             purchase=merge_purchase(None, money, [], message, history, memory)), 'rules', state
     total = simple_total_intent(message, allow_supplement=bool(active_total and not re.search(
         r'推荐|搭配|帮我选|给我选', message)))
-    if total is not None:
+    if total is not None and not re.search(r'套餐|批量采购|数量由你|自动配量|按预算配量|多款|单款|其他不变|刚才|继续按', message):
         continuation = active_purchase and not re.search(r'推荐|搭配|帮我选|给我选', message)
         action = ('supplement' if state.status == 'pending' else 'modify') if continuation else 'new_request'
-        topic = purchase_topic(message, message, history) if not continuation else {'state': 'none'}
-        if topic['state'] not in ('multiple', 'complex'):
-            total = apply_purchase_topic(total, topic)
-            total = merge_purchase(state.purchase if continuation else None, total, [], message, history, memory)
-            return SemanticPlan(action=action, standalone_question=message,
-                requests=[IntentRequest(kind='recommendation', quote=message)], purchase=total), 'rules', state
+        # 总预算新请求不借用上一轮茶类；补充仅继承已确认的活动任务条件。
+        total = merge_purchase(state.purchase if continuation else None, total, [], message, history, memory)
+        return SemanticPlan(action=action, standalone_question=message,
+            requests=[IntentRequest(kind='recommendation', quote=message)], purchase=total), 'rules', state
     if re.fullmatch(r'(?:请)?(?:推荐我偏好的商品|按我的偏好推荐商品|根据我的偏好推荐茶叶)[。！!\s]*', message):
         if memory and any(memory['preferences'].get(field) for field in ('categories', 'brands', 'keywords')):
             # The tool applies the current authenticated soft preferences; no
@@ -372,7 +370,12 @@ def plan_turn(model, message, history, memory):
          '总价/总预算/整笔采购用price_basis=total和budget_min/budget_max，总价200用budget_max=200，'
          '100至200总价用budget_min=100,budget_max=200，恰好200用两者均200。'
          '总价已明确不能再问单价还是总价；未注明币种默认CNY，不追问币种，缺总预算上限填budget_amount；预算类型不明填budget_scope。'
-         '总价未指定数量时由程序在1至4款内自动搭配，各款件数按预算和可售数量求解，不设每款5件上限，不超预算；'
+         '新请求不得自动继承历史茶类；只有本轮明确承接历史时才引用CONTEXT及source_turn_ids。'
+         'composition仅明确单款时填single、明确多款时填multiple，否则unspecified；套餐一词不代表具体款数。'
+         '总价推荐默认由程序自动配量，quantity_policy=automatic，不需要追问用户授权，也不伪造授权证据；'
+         '明确每款件数时填user_specified；仅用户明确拒绝自动配量且未给件数才标purchase_quantity并澄清。'
+         '未给件数不是缺项，件数由程序优化；普通总价套餐直接执行，不让用户预知购买数量。'
+         '普通预算是上限，不以用满预算为目标；接近模式必须有明确原话依据。'
          '仅用户明确所有商品每款相同件数时填quantity_per_product，不生成建议购买件数。'
          '左右/接近用budget_mode=near，恰好/正好用exact，明确上限可用cap；mode须有原话evidence。'
          '仅总价组合的明确款数填distinct_count；数量按原文提取，不因范围不符改变任务类型，由工具分支检查范围；'
@@ -394,6 +397,35 @@ def plan_turn(model, message, history, memory):
         ]), ensure_ascii=False),
         'state': json.dumps(_model_context(state.model_dump()), ensure_ascii=False), 'memory': json.dumps(memory, ensure_ascii=False)})
     value = SemanticPlan.model_validate(value)
+    if value.purchase is not None:
+        value.purchase = normalize_planned_defaults(value.purchase, message)
+        hard = value.purchase.required
+        refusal = re.search(r'(?:不要|不允许|禁止|不用|不想).{0,4}(?:自动配量|按预算配量)', message)
+        if refusal and hard.quantity_per_product is None and (hard.price_basis == 'total' or active_total):
+            hard.quantity_policy = 'clarify'
+            value.purchase.evidence = [e for e in value.purchase.evidence if e.field != 'required.quantity_policy']
+            value.purchase.evidence.append(IntentEvidence(field='required.quantity_policy', value='clarify',
+                source='CURRENT', quote=refusal[0]))
+            value.purchase.missing_fields = list(dict.fromkeys(value.purchase.missing_fields + ['purchase_quantity']))
+        if (hard.price_basis == 'total' and hard.budget_max is not None
+                and not re.search(r'(?:不要|不允许|禁止|不用|不想).{0,4}(?:自动|配量)', message)):
+            value.purchase.missing_fields = [f for f in value.purchase.missing_fields if f not in ('purchase_quantity', 'category')]
+            if hard.quantity_per_product is None:
+                hard.quantity_policy = 'automatic'
+            quantity_only = (not value.purchase.missing_fields and re.search(r'几件|数量|件数|配量|哪类|茶类|品类', value.clarification_question))
+            if value.needs_clarification and quantity_only:
+                value.needs_clarification = False
+                value.clarification_question = ''
+                if value.action == 'clarify':
+                    value.action = 'supplement' if state.status == 'pending' else 'new_request'
+            if not value.purchase.missing_fields and value.purchase.action == 'CLARIFY':
+                value.purchase.action = 'SEARCH'
+
+    if value.purchase and value.action == 'new_request':
+        # 新任务不能仅因历史出现某茶类就继承硬条件。
+        if any(e.source == 'CONTEXT' and e.field.startswith('required.') for e in value.purchase.evidence):
+            if not re.search(r'刚才|之前|上次|继续|照旧|不变|同样|按前|上述', message):
+                raise ValueError('New request requires an explicit continuation for historical constraints')
     if value.purchase and any(e.context_turn_id is not None for e in value.purchase.evidence):
         raise ValueError('Contextual scope origin is assigned only by the application')
     if any(r.quote not in message for r in value.requests):
@@ -443,7 +475,8 @@ def plan_turn(model, message, history, memory):
                  'currency': r'预算|价格|金额|总价', 'price_basis': r'预算|价格|金额|总价',
                  'budget_min': r'预算|价格|金额|总价', 'budget_max': r'预算|价格|金额|总价',
                  'budget_mode': r'预算|价格|金额|总价',
-                 'quantity_per_product': r'数量|每款', 'distinct_count': r'款数|种数|数量'}[field]
+                 'quantity_per_product': r'数量|每款', 'distinct_count': r'款数|种数|数量',
+                 'composition': r'搭配|款数|种数', 'quantity_policy': r'数量|配量|采购'}[field]
         if not re.search(r'(?:不限|不限制|不限定|取消|去掉|不设|不要).{0,6}(?:' + scope + r')', message):
             raise ValueError('Cleared field lacks an explicit scope')
     if value.needs_clarification and not value.clarification_question.strip():
@@ -477,7 +510,7 @@ def plan_turn(model, message, history, memory):
             try:
                 value.purchase = merge_purchase(previous, repaired, value.clear_fields, message, history, memory)
             except IntentEvidenceError as repeated:
-                raise RuntimeError('Purchase evidence remains unsupported') from repeated
+                raise repeated
     elif value.purchase is not None or value.clear_fields:
         raise ValueError('Unexpected purchase slots')
     if any(r.kind in ('greeting', 'system_help') for r in value.requests):

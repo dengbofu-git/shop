@@ -29,6 +29,7 @@ class CartsView(View):
             try:
                 if not isinstance(json.loads(request.body),dict):raise ValueError()
             except (ValueError,UnicodeDecodeError):return JsonResponse({'code':400,'error':'请求格式无效'},status=400)
+        request.cart_user = user
         return super().dispatch(request,username,*args,**kwargs)
 
 
@@ -39,57 +40,31 @@ class CartsView(View):
         if isinstance(count,bool) or not 1<=len(str(count))<=9 or not str(count).isascii() or not str(count).isdigit() or int(count)<1:
             return JsonResponse({'code':400,'error':'数量必须为正整数'},status=400)
         count=int(count)
+        if isinstance(sku_id, bool) or not str(sku_id).isascii() or not str(sku_id).isdigit() or not 1 <= len(str(sku_id)) <= 9 or int(sku_id) < 1:
+            return JsonResponse({'code':400,'error':'商品标识无效'},status=400)
+        sku_id=int(sku_id)
+        from goods.availability import sellable_skus
+        from .atomic_add import add_items, CartError, request_hash, previous_receipt
+        import uuid
+        fingerprint = request_hash({'sku_id':str(sku_id),'count':count})
         try:
-            sku = SKU.objects.get(id=sku_id)
-        except Exception as e:
-            context = {
-                'code': 30101,
-                'error': '未找到商品'
-            }
-            return JsonResponse(context)
-        try:
-            user = UserProfile.objects.get(username=username)
-        except Exception as e:
-            context = {
-                'code': 30104,
-                'error': '未找到用户',
-            }
-            return JsonResponse(context)
-        available_stock = get_available_stock(sku)
-        cache_key = f'carts_{username}'
-        existing_count = 0
-        if self.conn.exists(cache_key):
-            value = self.conn.hget(name=cache_key, key=sku_id)
-            if value:
-                existing_count = int(json.loads(value).get('count', 0))
-        total_count = existing_count + int(count)
-        if total_count > available_stock:
-            context = {
-                'code': 30103,
-                'error': '购买数量超过库存'
-            }
-            return JsonResponse(context)
-        if not self.conn.exists(cache_key):
-            self.conn.hset(name=cache_key, key=sku_id, value=json.dumps({'count': count, 'status': True}))
-        else:
-            value = self.conn.hget(name=cache_key, key=sku_id)
-            if value:
-                # 先判断是否已经存在，如果存在叠加数量即可.
-                info = json.loads(value)
-                info['count'] = str(int(info['count']) + int(count))
-                self.conn.hset(name=cache_key, key=sku_id, value=json.dumps(info))
-            else:
-                self.conn.hset(name=cache_key, key=sku_id, value=json.dumps({'count': count, 'status': True}))
-        # 添加完成后返回最新购物车商品种类数
-        carts_count = self.conn.hlen(name=cache_key)
-        context = {
-            'code': 200,
-            'data': {
-                'carts_count': carts_count
-            },
-            'base_url': settings.TEA_SAAS_MEDIA
-        }
-        return JsonResponse(context)
+            operation = str(uuid.UUID(request.headers.get('Idempotency-Key'))) if request.headers.get('Idempotency-Key') else str(uuid.uuid4())
+            old = previous_receipt(self.conn, username, operation, fingerprint)
+            if old is not None:
+                return JsonResponse(old)
+            sku = sellable_skus().filter(pk=sku_id).first()
+            if sku is None:
+                return JsonResponse({'code':30101,'error':'商品已下架或暂不可售'})
+            return JsonResponse(add_items(self.conn, username, operation, fingerprint, [
+                {'sku_id':str(sku.pk),'count':count,'available_stock':sku.sellable_stock}]))
+        except CartError as error:
+            return JsonResponse({'code':30103,'error':str(error)})
+        except (ValueError, TypeError) as error:
+            return JsonResponse({'code':400,'error':str(error) if isinstance(error, CartError) else '商品或操作标识无效'},
+                                status=error.status if isinstance(error, CartError) else 400)
+        except Exception:
+            return JsonResponse({'code':503,'error':'采购车服务暂不可用'},status=503)
+
 
     def get(self, request, username):
         try:
@@ -189,7 +164,8 @@ class CartsView(View):
             }
             return JsonResponse(context)
         if state != 'selectall' and state != 'unselectall':
-            value = json.loads(self.conn.hget(name=f'carts_{username}', key=sku_id))
+            original = self.conn.hget(name=f'carts_{username}', key=sku_id)
+            value = json.loads(original)
             try:
                 sku = SKU.objects.get(id=sku_id)
             except Exception as e:
@@ -227,19 +203,25 @@ class CartsView(View):
                 "sku_sale_attr_name": [item.name for item in sku.spu.spusaleattr_set.all()],
                 "sku_sale_attr_val": [item.name for item in sku.sale_attr_value.all()],
             }]
-            self.conn.hset(name=f'carts_{username}', key=sku_id, value=json.dumps(value))
+            from .atomic_add import compare_set
+            if not compare_set(self.conn, f'carts_{username}', sku_id, original, json.dumps(value)):
+                return JsonResponse({'code':409,'error':'采购车已发生变化，请刷新后重试'})
         else:
             values = self.conn.hgetall(name=f'carts_{username}')
             if state == 'selectall':
                 for key,value in values.items():
+                    original = value
                     value = json.loads(value)
                     value['status'] = True
-                    self.conn.hset(name=f'carts_{username}', key=key, value=json.dumps(value))
+                    from .atomic_add import compare_set
+                    compare_set(self.conn, f'carts_{username}', key, original, json.dumps(value))
             elif state == 'unselectall':
                 for key,value in values.items():
+                    original = value
                     value = json.loads(value)
                     value['status'] = False
-                    self.conn.hset(name=f'carts_{username}', key=key, value=json.dumps(value))
+                    from .atomic_add import compare_set
+                    compare_set(self.conn, f'carts_{username}', key, original, json.dumps(value))
             skus_list = []
             for key,value in values.items():
                 sku = SKU.objects.get(id=int(key))

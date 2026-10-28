@@ -62,8 +62,10 @@ class InitialBudgetEvidenceTests(TestCase):
     def test_repair_cannot_silently_replace_a_filter_with_different_money(self):
         model = EvidenceModel(purchase(currency_proof=False), {'evidence': [
             dict(field='required.price_max', value='1', source='CURRENT', quote='1')]})
-        with self.assertRaises(RuntimeError):
+        from .contracts import IntentEvidenceError
+        with self.assertRaises(IntentEvidenceError) as raised:
             plan_turn(model, self.message, [], None)
+        self.assertEqual(raised.exception.code, 'repair_rejected')
         self.assertEqual(model.purchase.required.price_max, '3000.00')
 
     def test_unresolved_total_amount_is_preserved_for_later_scope_choice(self):

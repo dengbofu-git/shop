@@ -21,6 +21,7 @@ CLARIFICATIONS = {
     'bundle_constraints': '可以按总预算自动搭配1至4款商品及建议件数；也支持明确指定每款相同的1至100件。不同商品各自指定数量、保留或替换指定商品暂不支持，请调整搭配条件。',
     'recommendation_count': '请明确普通推荐需要返回几款商品，目前支持1至4款；这不是每款的购买件数。',
     'recommendation_scope': '请说明这次是挑选商品，还是按总预算搭配；组合采购条件不能直接作为普通推荐的返回数量。',
+    'bundle_quantity': '请说明每款购买几件，或明确允许按预算自动配量。',
     'purchase_quantity': '您提出了每款的购买件数。普通推荐目前只选择商品；如需按采购数量计算总价搭配，请补充商品总预算。',
     'product_reference': '请告诉我具体的商品名称或品类，方便继续筛选。',
     'unsupported_attribute': '暂未找到您所要求的相关信息，无法确认商品是否符合这一条件。您可以查看商品详情或向商家进一步核实。',
@@ -44,12 +45,8 @@ def _keyword(term):
 
 
 def available_products():
-    return SKU.objects.filter(is_launched=True).select_related('spu__catalog', 'spu__brand').annotate(
-        ledger_count=Count('inventory'),
-        ledger_available=Coalesce(Sum('inventory__available_quantity',filter=Q(inventory__warehouse__is_active=True)), Value(0)),
-    ).annotate(available_stock=Case(
-        When(ledger_count=0, then=F('stock')), default=F('ledger_available'), output_field=IntegerField(),
-    )).filter(available_stock__gt=0)
+    from goods.availability import sellable_skus
+    return sellable_skus().select_related('spu__catalog', 'spu__brand').annotate(available_stock=F('sellable_stock'))
 
 
 def product_cards(selected, intent=None):

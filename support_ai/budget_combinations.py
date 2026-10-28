@@ -1,4 +1,4 @@
-"""Bounded, deterministic bundle search. No ORM, model calls or floating money."""
+"""Legacy beam baseline for comparison; production uses bundle_optimizer CP-SAT."""
 from dataclasses import dataclass
 from math import gcd
 from time import monotonic
@@ -41,8 +41,10 @@ class Candidate:
 
 
 def search_bundles(candidates, *, budget_cents, minimum_cents=0, categories=(),
-                   quantity=None, distinct_count=None, preference_max=0, prefer_near=False):
+                   quantity=None, distinct_count=None, preference_max=0, prefer_near=False, minimum_distinct=1):
     """Bounded beam search over product AND quantity; all amounts are cents."""
+    if type(minimum_distinct) is not int or not 1 <= minimum_distinct <= 4:
+        raise ValueError('Invalid minimum distinct count')
     if (type(budget_cents) is not int or budget_cents <= 0
             or type(minimum_cents) is not int or not 0 <= minimum_cents <= budget_cents
             or (quantity is not None and (type(quantity) is not int or not 1 <= quantity <= 100))
@@ -55,7 +57,7 @@ def search_bundles(candidates, *, budget_cents, minimum_cents=0, categories=(),
             c.sku_id, c.product_id, c.price_cents, c.available_quantity, c.preference_score)):
         raise ValueError('Bundle candidate money and quantities must be integers')
     required = frozenset(categories)
-    low_count = distinct_count if distinct_count is not None else 1
+    low_count = distinct_count if distinct_count is not None else minimum_distinct
     high_count = distinct_count if distinct_count is not None else 4
     near_floor = max(minimum_cents, (budget_cents * 95 + 99) // 100)
     minimum_quantity = quantity if quantity is not None else 1
@@ -81,7 +83,10 @@ def search_bundles(candidates, *, budget_cents, minimum_cents=0, categories=(),
         diversity = len(covered) * 100 // count
         quality = (80 * preference + 20 * diversity) // 100
         signature = tuple(sorted((c.sku_id, q) for c, q in selected))
-        tail = (-quality, budget_cents - total, sum(q for _, q in selected), count, signature)
+        # 普通预算优先较少件数，不为消耗预算自动扩大量；明确接近时才优先差额。
+        quantity_total = sum(q for _, q in selected)
+        tail = ((-quality, budget_cents - total, quantity_total, count, signature) if prefer_near
+                else (-quality, quantity_total, count, total, signature))
         return ((0 if total >= near_floor else 1,) + tail if prefer_near else tail), quality, signature
 
     def retain(states):

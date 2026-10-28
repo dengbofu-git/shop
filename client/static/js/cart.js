@@ -146,10 +146,9 @@
     }
 
     $(function () {
-        try {
-            var savedCurrency = localStorage.getItem('buyer_cart_currency');
-            if (Object.prototype.hasOwnProperty.call(rates, savedCurrency)) currentCurrency = savedCurrency;
-        } catch (_) {}
+        // 每次进入采购车从人民币开始，旧浏览器缓存不覆盖默认币种。
+        currentCurrency = TeaMoney.base;
+        try { localStorage.setItem('buyer_cart_currency', currentCurrency); } catch (_) {}
         $('#currency-select').val(currentCurrency).on('change', function () {
             currentCurrency = TeaMoney.currency(this.value);
             $(this).val(currentCurrency);

@@ -1,0 +1,14 @@
+{
+  "goods/availability.py": "386c6f55a02e92bd9ec3e3c2e632166038e7210ff3c875a053e5cacd787f3ab8",
+  "carts/atomic_add.py": "4d53ea217c105288b8ed56a5bf00a6e97ec9a0f751f5391584f67a0f0949a93d",
+  "carts/recommendation_views.py": "b4879e7f94d521987f15e2a234d5c235c93c84b0dd3a0222d4b76f8aa04c6cf8",
+  "carts/views.py": "d615ce24841720763016721954017fc5abc32f64375c9ab580e941ae200d4d55",
+  "carts/urls.py": "46564cb68ce5849be7d2785facfdff909891b5c61a5aa6715f527e191e1a14bc",
+  "carts/test_recommendation_cart.py": "b5df10770f7732e816d85cd2761ad91a63e3ec1bff605b4d274277c321807890",
+  "support_ai/recommendations.py": "ee574c76e5363c26338009fde0f1e1b23a08d38cad69f18d598fc656daee7951",
+  "support_ai/product_details.py": "13425471f1791d9d9e465c818f4180acd4b2c82f934588f0f93ee2350cca8490",
+  "client/static/js/buyer-support.js": "b51025e417474c08cc7d48e4443b96bab95341550d83474fd42e500bc841668a",
+  "client/static/css/buyer-support.css": "fe68501ab06aef72f37abafb79ae868a1554b78b4be085cf4cfcd1ec59195cdb",
+  "client/templates/buyer_support.html": "667d705d19813e91a03bb126cf1cc3c5c96eb6cb27d0564bca91b4b8d64acee3",
+  "client/tests/buyer-support-cart.test.js": "272f7688fbea61b7a3496a57096e20275f6771ecfeaf6858a826da5d42800b10"
+}

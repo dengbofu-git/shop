@@ -62,6 +62,8 @@ class RecommendationOptions(Contract):
 
 
 class RequiredConditions(QueryConditions):
+    composition: Optional[Literal['single', 'multiple', 'unspecified']] = None
+    quantity_policy: Optional[Literal['user_specified', 'automatic', 'clarify']] = None
     price_min: Optional[str] = None
     price_max: Optional[str] = None
     budget_min: Optional[str] = None
@@ -94,6 +96,7 @@ class RequiredConditions(QueryConditions):
 
 
 EvidenceField = Literal[
+    'required.composition', 'required.quantity_policy',
     'required.categories', 'required.brands', 'required.keywords',
     'required.price_min', 'required.price_max', 'required.currency', 'required.price_basis',
     'required.budget_min', 'required.budget_max', 'required.budget_mode', 'required.quantity_per_product', 'required.distinct_count',
@@ -161,6 +164,18 @@ def budget_scope_reply(message):
 
 
 def _value_supported(field, value, quote):
+    if field.endswith('quantity_policy'):
+        if value == 'clarify':
+            return bool(re.search(r'(?:不要|不允许|禁止|不用|不想).{0,4}(?:自动|配量)', quote))
+        if re.search(r'不要|不允许|不能|禁止|不用|do not|not allowed', quote, re.I):
+            return False
+        return value == 'automatic' and bool(re.search(
+            r'批量采购|数量由你|自动配量|按预算配量|尽量用满|bulk purchase|choose the quantities', quote, re.I))
+    if field.endswith('composition'):
+        if re.search(r'不要|不是|不用|不想|别|do not', quote, re.I):
+            return False
+        pattern = {'single': r'单款|只要一款|仅一款', 'multiple': r'多款|不同款|多种|不同种|至少两款'}
+        return value in pattern and bool(re.search(pattern[value], quote, re.I))
     if field.endswith('budget_mode'):
         patterns = {'cap': r'不超过|以内|上限|最多|at most|within',
                     'near': r'左右|接近|尽量用满|around|near|approximately',
@@ -276,6 +291,12 @@ def validate_recommendation_intent(intent, message, recent_turns, memory, *, bra
             if item.value in values:
                 item.quote = item.value
             text = item.quote if item.quote in values and item.value in values else None
+        if item.field in ('required.quantity_policy', 'required.composition') and text is not None:
+            # 不能从“不允许自动配量”中截取肯定词，伪造授权证据。
+            occurrences = list(re.finditer(re.escape(item.quote), text))
+            if occurrences and all(re.search(r'(?:不要|不允许|不能|禁止|不用|不想|不需要|别|不)\s*(?:再|进行)?\s*$',
+                                              text[:m.start()]) for m in occurrences):
+                raise IntentEvidenceError(item.field, 'negated_evidence', '数量或构成条件与否定原话冲突', repairable=False)
         supported = (_contextual_scope_supported(item, text, recent_turns) if item.context_turn_id is not None
                      else _value_supported(item.field, item.value, item.quote))
         if text is None or item.quote not in text or not supported:
@@ -286,6 +307,11 @@ def validate_recommendation_intent(intent, message, recent_turns, memory, *, bra
     for name in ('required', 'preferred', 'excluded'):
         section = getattr(intent, name)
         for field, value in section.model_dump().items():
+            # 未确定值和明确件数派生的策略不要求模型伪造额外证据。
+            if name == 'required' and ((field == 'composition' and value == 'unspecified')
+                    or (field == 'quantity_policy' and (value == 'automatic' or value == 'clarify'
+                        or (value == 'user_specified' and section.quantity_per_product is not None)))):
+                continue
             if name == 'required' and field == 'price_basis' and value == 'unknown':
                 continue
             values = value if isinstance(value, list) else ([] if value is None else [value])
@@ -337,6 +363,18 @@ def validate_recommendation_branch(intent, *, tool, limit=4):
             intent.missing_fields.append('budget_amount')
         if hard.currency is not None and hard.currency not in RATES:
             intent.missing_fields.append('currency')
+        if hard.quantity_per_product is not None:
+            hard.quantity_policy = 'user_specified'
+        elif hard.quantity_policy == 'clarify' and any(
+                e.field == 'required.quantity_policy' and re.search(r'不要|不允许|禁止|不用|不想', e.quote)
+                for e in intent.evidence):
+            intent.missing_fields.append('purchase_quantity')
+        else:
+            # 总预算推荐本身允许系统给出建议件数；这不是额外的用户事实。
+            hard.quantity_policy = 'automatic'
+        if ((hard.composition == 'single' and hard.distinct_count not in (None, 1))
+                or (hard.composition == 'multiple' and hard.distinct_count == 1)):
+            intent.missing_fields.append('bundle_constraints')
     else:
         try:
             ProductRecommendationParameters(limit=limit)
