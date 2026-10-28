@@ -1,0 +1,8 @@
+..........{"event": "inference_failed", "request_id": "1df7b9427251457aae7e37e847da492b", "oom": true}
+....{"event": "inference", "request_id": "4aae182ac0b1403795ced3b4d2536201", "seconds": 0.0}
+...................................ssss{"timestamp": "2026-10-28T02:31:43.042+00:00", "level": "WARNING", "service": "tea_saas", "logger": "py.warnings", "event": "runtime.warning"}
+.....
+----------------------------------------------------------------------
+Ran 58 tests in 2.326s
+
+OK (skipped=4)
