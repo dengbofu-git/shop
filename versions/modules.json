@@ -3,7 +3,7 @@
   "modules": {
     "core": {
       "title": "项目核心",
-      "version": "0.9.0",
+      "version": "0.9.1",
       "paths": [
         "README.md",
         "CONTEXT.md",
@@ -41,7 +41,7 @@
     },
     "goods": {
       "title": "商品管理",
-      "version": "0.6.3",
+      "version": "0.7.1",
       "paths": [
         "goods/",
         "media/",
@@ -239,7 +239,7 @@
     },
     "web": {
       "title": "页面与前端资源",
-      "version": "0.31.9",
+      "version": "0.32.1",
       "paths": [
         "client/",
         "templates/",

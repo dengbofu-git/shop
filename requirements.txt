@@ -20,6 +20,8 @@ python-dotenv==1.0.1
 python-alipay-sdk==3.4.0
 requests==2.28.1
 Pillow==9.5.0
+openpyxl==3.1.5
+defusedxml==0.7.1
 
 # AI 客服（support_ai）
 langchain==0.3.27

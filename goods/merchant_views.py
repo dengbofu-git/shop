@@ -7,11 +7,9 @@ from django.views.decorators.http import require_http_methods
 from django.db import transaction
 from users.decorators import merchant_required
 from .models import SPU, SKU, Catalog, Brand, SPUSaleAttr, SaleAttrValue
+from .catalog_constants import TEA_CATEGORIES
 from django.conf import settings
 import json
-
-
-TEA_CATEGORIES = ('红茶', '绿茶', '乌龙茶', '普洱茶', '白茶', '黄茶', '花茶')
 
 
 @merchant_required

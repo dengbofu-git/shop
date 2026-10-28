@@ -8,6 +8,7 @@
     <link href="/static/css/theme.css" rel="stylesheet" />
     <link href="/static/css/merchant_workbench.css" rel="stylesheet" />
     <link href="/static/css/merchant_products.css?v=20261018-merchant-preview" rel="stylesheet" />
+    <link href="/static/css/product-import.css?v=20261028" rel="stylesheet" />
     <script src="/static/js/init.js"></script>
     <script src="/static/js/auth-storage.js?v=20261018-session-isolation"></script>
     <script src="/static/js/jquery-3.1.1.min.js"></script>
@@ -18,6 +19,7 @@
     </script>
     <script src="/static/js/merchant-product-preview.js?v=20261022-cny" defer></script>
     <script src="/static/js/merchant_products.js?v=20261022-cny" defer></script>
+    <script src="/static/js/product-import.js?v=20261028-catalog-fields" defer></script>
 {% include "shared/system_theme.html" %}
 </head>
 <body class="ds-page-merchant_products ds-theme merchant-body">
@@ -133,6 +135,7 @@
             <div class="mp-topbar">
                 <h1 class="mp-title">新增商品</h1>
                 <div class="mp-actions">
+                    <button type="button" class="btn btn-primary" id="btn-product-import">批量导入</button>
                     <a class="btn" href="merchant_products.html">返回列表</a>
                 </div>
             </div>
@@ -283,6 +286,48 @@
         })();
     </script>
 
+    <dialog id="product-import-dialog" class="product-import" aria-labelledby="import-title">
+        <div class="import-heading">
+            <div><p class="import-eyebrow">商品管理 / 批量导入</p><h2 id="import-title">从表格创建商品</h2></div>
+            <button type="button" class="btn" id="import-close" aria-label="关闭批量导入">关闭</button>
+        </div>
+        <p class="import-note">先下载模板填写，再上传预览。每批最多 500 行、5 MB；XLSX 仅支持一个工作表，CSV 支持 UTF-8 / GB18030。</p>
+        <p class="import-note">商品名称、分类、售价、库存必填。币种为人民币 CNY；仅新增，导入后统一未上架。同名商品的不同规格可填写多行；已有同名商品不会被覆盖。请替换模板示例行。</p>
+        <div class="import-tools">
+            <button type="button" class="btn" id="import-template-xlsx">下载 XLSX 模板</button>
+            <button type="button" class="btn" id="import-template-csv">下载 CSV 模板</button>
+        </div>
+        <div class="import-upload">
+            <label for="import-file">选择商品文件</label>
+            <input id="import-file" type="file" accept=".xlsx,.csv">
+            <button type="button" class="btn btn-primary" id="import-preview">上传并校验</button>
+        </div>
+        <p id="import-message" class="import-message" role="status" aria-live="polite">上传后可预览每一行，确认前不会创建商品。</p>
+        <section id="import-review" hidden aria-label="商品导入预览">
+            <div class="import-review-tools">
+                <strong id="import-summary"></strong>
+                <label><input id="import-errors-only" type="checkbox"> 只看错误行</label>
+            </div>
+            <div class="import-table-wrap" tabindex="0" role="region" aria-label="待导入商品明细">
+                <table class="table import-table">
+                    <thead><tr><th>原文件行</th><th>商品名称</th><th>规格名称</th><th>分类 / 品牌</th><th>售价 / 市场价 (CNY)</th><th>库存</th><th>商品介绍</th><th>校验结果</th></tr></thead>
+                    <tbody id="import-rows"></tbody>
+                </table>
+            </div>
+            <div class="import-pagination">
+                <span id="import-page"></span>
+                <button type="button" class="btn" id="import-prev">上一页</button>
+                <button type="button" class="btn" id="import-next">下一页</button>
+            </div>
+            <p class="import-note">有错误时须修改文件后重新上传，整批不会写入。预览有效期为 24 小时；确认时会再次检查同名冲突。</p>
+            <label class="import-confirm-label"><input id="import-confirmed" type="checkbox"> 我已核对商品、规格、价格和库存，确认新增为未上架商品。</label>
+            <div class="import-footer">
+                <button type="button" class="btn" id="import-reload">重新加载任务</button>
+                <button type="button" class="btn btn-primary" id="import-commit" disabled>确认导入</button>
+                <a class="btn" id="import-view-products" href="merchant_products.html" hidden>查看商品列表</a>
+            </div>
+        </section>
+    </dialog>
     <footer class="merchant-footer">tea_saas · 中国地标茶出海中东 © 2026</footer>
 </body>
 </html>

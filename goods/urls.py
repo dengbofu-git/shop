@@ -2,8 +2,13 @@ from django.urls import path
 from . import views
 from . import merchant_views
 from . import activity_views
+from . import product_import_views
 
 urlpatterns = [
+    path('merchant/imports/template', product_import_views.template, name='product_import_template'),
+    path('merchant/imports', product_import_views.upload, name='product_import_upload'),
+    path('merchant/imports/<uuid:job_id>', product_import_views.detail, name='product_import_detail'),
+    path('merchant/imports/<uuid:job_id>/commit', product_import_views.commit, name='product_import_commit'),
     path('favorites', activity_views.favorites),
     path('favorites/<int:sku_id>', activity_views.favorite),
     path('merchant-favorites', activity_views.merchant_favorites),
