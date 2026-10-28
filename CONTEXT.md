@@ -5,7 +5,7 @@
 | 术语 | 本项目含义与边界 | 依据 |
 | --- | --- | --- |
 | 买家 | 采购商品、使用本人订单与客服入口的产品角色；角色名不替代接口认证和对象归属校验 | [身份域](docs/sdd/catalog.yaml)、[系统边界](docs/sdd/architecture/context.md) |
-| 商家／茶企 | 维护商品并使用商家经营入口的产品角色；文档统一称“商家”，代码保留既有 `supplier`、`merchant_ai` 标识 | [平台定位](docs/sdd/modules/platform/tea-saas-platform.md) |
+| 商家／茶企 | 维护商品并使用商家经营入口的产品角色；文档统一称“商家”，代码保留既有 `supplier` 标识 | [平台定位](docs/sdd/modules/platform/tea-saas-platform.md) |
 | 平台运营 | 使用运营管理和 Agent 配置入口的产品角色；权限以当前认证与权限契约为准 | [系统边界](docs/sdd/architecture/context.md) |
 | SPU／商品系列 | 商品系列，关联品牌、分类及商家；任务涉及具体售价、规格或库存时，应明确到 SKU | [SPU 模型](goods/models.py) |
 | 站内咨询 | 买家与商家的人际会话；独立于AI客服，默认不进入模型上下文 | [站内咨询](docs/sdd/modules/merchant-operations/buyer-merchant-conversations.md) |

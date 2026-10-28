@@ -171,6 +171,92 @@ class SnapshotChecks(unittest.TestCase):
                 policy.main()
         self.assertEqual(self.run_git('config', '--local', '--get', 'core.hooksPath'), 'existing-hooks')
 
+    def retire_fixture(self, migration=False):
+        data = json.loads((self.root / 'versions/modules.json').read_text(encoding='utf-8'))
+        data['modules']['optional'] = {'version': '0.1.0', 'dependencies': ['core'],
+                                       'paths': ['optional/', 'versions/changelogs/optional.md']}
+        self.write('versions/modules.json', json.dumps(data))
+        self.write('optional/entry.py', 'value = 1\n')
+        self.write('versions/changelogs/optional.md', '# Optional\n')
+        if migration:
+            self.write('optional/migrations/0001_initial.py', 'initial = True\n')
+        self.run_git('add', 'versions/modules.json', 'versions/changelogs/optional.md', 'optional')
+        self.commit()
+        del data['modules']['optional']
+        self.write('versions/modules.json', json.dumps(data))
+        self.run_git('rm', '-r', 'optional', 'versions/changelogs/optional.md')
+        self.bump()
+        deleted = ['optional/entry.py', 'versions/changelogs/optional.md']
+        if migration:
+            deleted.insert(1, 'optional/migrations/0001_initial.py')
+        self.retirement = {'schema_version': 1, 'module': 'optional',
+                           'reason': 'Remove unused entry', 'authorization': 'Fixture approval',
+                           'data_policy': 'no-database-migrations', 'deleted_paths': deleted}
+        self.write_retirement()
+
+    def write_retirement(self):
+        self.write('versions/retirements/optional.json', json.dumps(self.retirement))
+        self.run_git('add', 'versions/retirements/optional.json')
+
+    def test_complete_recorded_retirement_passes_index_and_commit(self):
+        self.retire_fixture()
+        base = self.run_git('rev-parse', 'HEAD')
+        self.check(syntax=True)
+        self.commit()
+        self.check(base, 'HEAD', syntax=True)
+
+    def test_retirement_requires_new_record(self):
+        self.retire_fixture()
+        self.run_git('restore', '--staged', 'versions/retirements/optional.json')
+        with self.assertRaisesRegex(ValueError, '新增受控退役记录'):
+            self.check()
+
+    def test_retirement_requires_exact_deleted_file_list(self):
+        self.retire_fixture()
+        self.retirement['deleted_paths'] = ['optional/entry.py']
+        self.write_retirement()
+        with self.assertRaisesRegex(ValueError, '精确列出'):
+            self.check()
+
+    def test_retirement_cannot_hide_residual_files_by_reassigning_owner(self):
+        self.retire_fixture()
+        self.run_git('restore', '--source=HEAD', '--staged', '--worktree', 'optional/entry.py')
+        data = json.loads((self.root / 'versions/modules.json').read_text(encoding='utf-8'))
+        data['modules']['core']['paths'].append('optional/')
+        self.write('versions/modules.json', json.dumps(data))
+        self.run_git('add', 'versions/modules.json')
+        with self.assertRaisesRegex(ValueError, '完整删除'):
+            self.check()
+
+    def test_retirement_rejects_remaining_dependencies(self):
+        self.retire_fixture()
+        data = json.loads((self.root / 'versions/modules.json').read_text(encoding='utf-8'))
+        data['modules']['core']['dependencies'] = ['optional']
+        self.write('versions/modules.json', json.dumps(data))
+        self.run_git('add', 'versions/modules.json')
+        with self.assertRaisesRegex(ValueError, '依赖残留'):
+            self.check()
+
+    def test_retirement_cannot_delete_historical_migrations(self):
+        self.retire_fixture(migration=True)
+        with self.assertRaisesRegex(ValueError, '历史 Django Migration'):
+            self.check()
+
+    def test_retirement_record_reads_index_not_working_tree(self):
+        self.retire_fixture()
+        self.retirement['authorization'] = ''
+        self.write_retirement()
+        self.retirement['authorization'] = 'Unstaged repair'
+        self.write('versions/retirements/optional.json', json.dumps(self.retirement))
+        with self.assertRaisesRegex(ValueError, '字段无效'):
+            self.check()
+
+    def test_retirement_requires_record_owner_version_and_changelog(self):
+        self.retire_fixture()
+        self.run_git('restore', '--staged', 'versions/changelogs/core.md')
+        with self.assertRaisesRegex(ValueError, '升级记录所属模块'):
+            self.check()
+
 
 class IdentityChecks(unittest.TestCase):
     def test_chinese_conventional_title(self):

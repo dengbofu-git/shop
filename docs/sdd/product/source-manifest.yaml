@@ -31,8 +31,6 @@ sources:
   - support_ai/views.py
   - client/static/js/buyer-support.js
   - client/templates/admin_agents.html
-  - merchant_ai/services.py
-  - merchant_ai/views.py
   use: 当前受控任务、主题及理由追问、详情、历史、共享偏好入口和管理配置的源码观察；与新规则差异另行登记。
   limit: 本次源码静态观察；不表示历史GET和重放已经同等过滤，不表示交互、跨库或模型质量已验收。
 - id: SRC-LOCAL-013
@@ -88,7 +86,7 @@ sources:
   - tea_saas/settings.py
   - versions/modules.json
   - versions/README.md
-  use: 项目定位、路由、配置和实现模块清单；当前16模块以versions/modules.json为准。
+  use: 项目定位、路由、配置和实现模块清单；当前模块以versions/modules.json为准。
   limit: 现有说明及配置不代表部署事实。
 - id: SRC-LOCAL-002
   project: tea_saas

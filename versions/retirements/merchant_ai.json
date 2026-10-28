@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "module": "merchant_ai",
+  "reason": "按用户要求删除未开放的商家助手入口、代码、设计和独立版本登记；商品导入及店铺管理继续由各自业务模块提供。",
+  "authorization": "2026-10-28 用户明确要求撤销商家助手，并授权补充受控退役支持后继续交付。",
+  "data_policy": "no-database-migrations",
+  "deleted_paths": [
+    "docs/商家智能助手.md",
+    "merchant_ai/README.md",
+    "merchant_ai/__init__.py",
+    "merchant_ai/apps.py",
+    "merchant_ai/services.py",
+    "merchant_ai/tests.py",
+    "merchant_ai/urls.py",
+    "merchant_ai/views.py",
+    "versions/changelogs/merchant_ai.md"
+  ]
+}

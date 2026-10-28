@@ -25,7 +25,7 @@
 | 商品与收藏 | [商品详情](modules/catalog-content/product-detail-summary.md)、[商品／商家收藏](modules/catalog-content/capabilities/CAP-CAT-004/requirements.md) |
 | 客服历史 | [历史咨询](modules/ai-support/conversation-history.md)，移出列表与数据库删除分开 |
 | 人工站内咨询与评价 | [买卖双方咨询](modules/merchant-operations/buyer-merchant-conversations.md)、[购买评价](modules/catalog-content/purchase-reviews.md) |
-| 管理与商家能力 | [Agent管理](modules/platform/agent-administration.md)、[平台定位](modules/platform/tea-saas-platform.md)、[商家助手边界](modules/merchant-operations/assistant-entry.md) |
+| 管理与商家能力 | [Agent管理](modules/platform/agent-administration.md)、[平台定位](modules/platform/tea-saas-platform.md) |
 
 ## 历史与实施边界
 

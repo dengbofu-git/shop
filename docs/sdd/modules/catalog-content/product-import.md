@@ -36,7 +36,7 @@
 
 ## 服务与数据库边界
 
-`product_import_parser.py`不导入Django/ORM、不联网；`product_import_views.py`负责认证和文件边界；`product_import_service.py`为可信应用服务，拥有短事务及库存服务调用。Agent未接线，merchant_ai版本不变。未来调用方只通过业务接口，不能将ORM、SQL、管理命令或数据库凭据作为Agent工具。
+`product_import_parser.py`不导入Django/ORM、不联网；`product_import_views.py`负责认证和文件边界；`product_import_service.py`为可信应用服务，拥有短事务及库存服务调用。Agent未接线。未来调用方只通过业务接口，不能将ORM、SQL、管理命令或数据库凭据作为Agent工具。
 
 任务表为 `goods_product_import_job`，新增 `goods.0012_productimportjob`；不改历史迁移、现有商品或库存。锁顺序为当前商家→任务，序列化同商家的导入；与其他旧商品接口并发创建同名的全域唯一性不是本切片保证。成功时SPU、SKU、账本、库存日志、结果回执原子提交，不在跨库事务中操作知识库。
 

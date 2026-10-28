@@ -80,7 +80,6 @@ urlpatterns = [
                   path('supplier_profile.html', template_view('supplier_profile.html')),
                   path('supplier_password.html', template_view('supplier_password.html')),
                   path('merchant_dashboard.html', template_view('merchant_dashboard.html')),
-                  path('merchant_assistant.html', template_view('merchant_assistant.html')),
                   path('merchant_store.html', template_view('merchant_store.html'), name='merchant_store_page'),
                   path('store.html', template_view('store.html'), name='store_page'),
                   path('merchant_products.html', template_view('merchant_products.html')),
@@ -117,5 +116,4 @@ urlpatterns = [
                   path('v1/stores/<int:merchant_id>/products', store_views.products, name='storefront_products'),
                   path('v1/admin-panel/', include('admin_panel.urls')),
                   path('v1/support/', include('support_ai.urls')),
-                  path('v1/merchant-ai/', include('merchant_ai.urls')),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS[0] if settings.STATICFILES_DIRS else None)
