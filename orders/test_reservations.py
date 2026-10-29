@@ -165,16 +165,19 @@ class ReservationTests(Fixtures,TestCase):
         class Cart:
             def __init__(self,sku):self.rows={str(sku):json.dumps({'count':12,'status':True})}
             def hgetall(self,key):return dict(self.rows)
-            def eval(self,script,keys,key,sku,original):
-                if self.rows.get(sku)==original:self.rows.pop(sku)
+            def eval(self,script,keys,key,sku,*args):
+                self.rows.pop(sku,None)
+                return 'consumed'
         cart=Cart(self.skus[0].pk)
         payload={'settlement_type':'0','address_id':self.addresses[0].pk,'sku_list':[{'id':self.skus[0].pk,'price':0,'count':99999}],'request_id':uuid.uuid4().hex}
-        with patch('orders.views.get_redis_connection',return_value=cart):
+        snapshots={str(self.skus[0].pk):json.dumps({'count':12,'status':True,'generation':'test-generation','version':1,'added':12,'removed':0})}
+        with patch('orders.views.get_redis_connection',return_value=cart), patch('carts.state.checkout_snapshot',return_value=snapshots), self.captureOnCommitCallbacks(execute=True):
             url='/v1/orders/'+self.buyers[0].username
             first=self.client.post(url,payload,content_type='application/json',**self.headers(self.buyers[0]))
-            self.assertEqual(first.status_code,200);self.assertEqual(cart.rows,{})
+            self.assertEqual(first.status_code,200)
             retry=self.client.post(url,payload,content_type='application/json',**self.headers(self.buyers[0]))
         self.assertEqual(first.json(),retry.json());item=OrderGoods.objects.get()
+        self.assertEqual(cart.rows,{})
         self.assertEqual((item.count,item.price),(12,Decimal('10')))
 
     def test_legacy_cart_input_guards_survive_reservation_checkout(self):

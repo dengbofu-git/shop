@@ -1,0 +1,36 @@
+{
+  "synthetic": true,
+  "external_llm_calls": 0,
+  "transport": "resident HTTP MCP",
+  "service_startup": {
+    "status": "ready",
+    "workers": 2,
+    "available": 2,
+    "active_sessions": 0,
+    "startup_ms": 1750.0,
+    "worker_starts": 2
+  },
+  "fixture": "4 synthetic chunks, 2 visible, synthetic 1024d stored vectors; local model queries",
+  "profiles": [
+    {
+      "request": 1,
+      "root_ms": 702.131,
+      "connect_ms": 45.42,
+      "query_ms": 626.22,
+      "cached_query_ms": 68.911,
+      "embedding_ms": 157.277,
+      "rerank_ms": 262.739,
+      "warnings": []
+    },
+    {
+      "request": 2,
+      "root_ms": 627.031,
+      "connect_ms": 34.75,
+      "query_ms": 527.005,
+      "cached_query_ms": 94.669,
+      "embedding_ms": 153.103,
+      "rerank_ms": 198.179,
+      "warnings": []
+    }
+  ]
+}

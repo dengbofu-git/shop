@@ -63,17 +63,25 @@
         items.forEach(function (item) {
             var id = escapeHtml(item.id);
             var count = Math.max(1, Number(item.count) || 1);
+            var available = item.available_stock == null ? null : Math.max(0, Number(item.available_stock));
+            var shortage = available !== null && count > available;
             var attrs = item.sku_sale_attr_name || [];
             var vals = item.sku_sale_attr_val || [];
+            var productName = item.product_name || item.spu_name || item.name || '商品';
+            var specification = item.sku_name || item.name || '';
             var attrHtml = attrs.map(function (name, index) {
                 return '<p class="col"><span>' + escapeHtml(name) + '：</span><span>' + escapeHtml(vals[index] || '') + '</span></p>';
             }).join('');
+            if (!attrs.length && specification && specification !== productName && specification !== '默认规格') {
+                attrHtml = '<p class="col">规格：' + escapeHtml(specification) + '</p>';
+            }
             var row = ''
                 + '<div class="imfor" data-id="' + id + '">'
                 + '  <div class="check"><label class="Each"><input type="checkbox" value="' + id + '"' + (selected(item) ? ' checked' : '') + ' aria-label="选择商品"></label></div>'
                 + '  <div class="pudc"><div class="pudc_information">'
                 + '    <img src="' + escapeHtml(imageUrl(item)) + '" alt="商品图片">'
-                + '    <div class="product-copy"><span class="des">' + escapeHtml(item.name) + '</span>' + attrHtml + '</div>'
+                + '    <div class="product-copy"><span class="des">' + escapeHtml(productName) + '</span>' + attrHtml
+                + (shortage ? '<p role="status">当前仅 ' + available + ' 件可售，请调整数量；已保留您的选购数量。</p>' : '') + '</div>'
                 + '  </div></div>'
                 + '  <div class="pices"><p class="pices_information">' + money(unitPrice(item)) + '</p></div>'
                 + '  <div class="num"><button type="button" class="reduc" aria-label="减少数量">−</button><input class="num1207" type="text" value="' + count + '" readonly aria-label="数量"><button type="button" class="add" aria-label="增加数量">+</button></div>'
@@ -165,7 +173,6 @@
             var increase = $(this).hasClass('add');
             var limit = Number(item.available_stock);
             if (!increase && current <= 1) return;
-            if (increase && current >= 9) { alert('单件商品最多购买 9 件'); return; }
             if (increase && item.available_stock != null && isFinite(limit) && current >= limit) { alert('购买数量超过库存'); return; }
             if (username) {
                 mutate('PUT', { sku_id: item.id, state: increase ? 'add' : 'del' });

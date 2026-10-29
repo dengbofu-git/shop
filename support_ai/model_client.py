@@ -8,6 +8,7 @@ from langchain_core.messages import HumanMessage, SystemMessage
 from langchain_core.runnables import Runnable, RunnableLambda
 from .cost_control import (RequestBudget, current_budget, input_upper_bound,
                            SCHEMA_STAGES)
+from .streaming import progress, cancellation_callback
 
 
 class SupportChatOpenAI(ChatOpenAI):
@@ -46,6 +47,8 @@ class AgentModel(Runnable):
         reservation = budget.reserve(stage, input_upper_bound(prompt, schema), cap)
         usage = None
         try:
+            progress({'planning':'planning','verification':'verification','compliance':'compliance',
+                      'knowledge':'generation','rewrite':'retrieval'}.get(stage,'generation'))
             client = self.client.model_copy(update={
                 'max_tokens': reservation[1], 'max_retries': 0,
                 'extra_body': {**(self.client.extra_body or {}), 'thinking': {'type': thinking}},
@@ -81,11 +84,19 @@ def configured_model(config=None, *, timeout=None, max_retries=0, max_tokens=Non
         'temperature': 0, 'timeout': timeout if timeout is not None else (60 if thinking == 'enabled' else 20),
         # Each budget admission represents exactly one provider request.
         'max_retries': 0,
+        # Aggregate structured chunks before validation; raw drafts/tool-call
+        # fragments are never forwarded to the customer SSE stream.
+        'streaming': True, 'stream_usage': True,
     }
     if settings.SUPPORT_BASE_URL:
         options['base_url'] = settings.SUPPORT_BASE_URL
     if max_tokens is not None:
         options['max_tokens'] = max_tokens
+    from .mcp_tracing import remote_callback
+    callback = remote_callback()
+    callbacks = [item for item in (callback, cancellation_callback()) if item is not None]
+    if callbacks:
+        options['callbacks'] = callbacks
     if thinking:
         options['extra_body'] = {'thinking': {'type': thinking}}
     return AgentModel(SupportChatOpenAI(**options), thinking)

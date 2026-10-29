@@ -1,5 +1,7 @@
 # 模型 Agent 数据访问统一经 MCP
 
+2026-10-29增量：[常驻服务](../modules/ai-support/mcp-resident.md)与[ADR0010](../../adr/0010-resident-agent-mcp.md)分开进程和请求生命周期；以下权限、输出和预算规则保持不变。
+
 规格0.2.0，2026-10-28。状态：用户已确认的目标架构，应用调用入口已完成源码迁移及隔离验证，业务启用／部署未执行。确认依据为本轮指令“模型 Agent 的数据访问入口统一使用 MCP”及随后“运行”。决定及取舍见[ADR 0009](../../adr/0009-agent-data-access-via-mcp.md)，实施前盘点见[改造清单](../modules/ai-support/mcp-migration.md)，当前实现及边界见[运行设计](../modules/ai-support/mcp-runtime.md)。本规格不自动提升既有 CAP 的验收或部署状态。
 
 ## 适用范围

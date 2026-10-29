@@ -1,10 +1,12 @@
 # Agent MCP 数据访问实现
 
-实现记录：2026-10-28，support_ai 0.24.0、core 0.9.0。规则正文见[统一入口规范](../../architecture/agent-data-access.md)，实施前盘点见[迁移清单](mcp-migration.md)，实际验证及未覆盖项见[证据](../../evidence/2026-10-28-agent-mcp/verification.md)。本页不表示已重启业务服务或发布。
+实现记录：2026-10-29，support_ai 0.28.0、core 0.11.0。0.24.0迁移基线保留在历史证据中。规则正文见[统一入口规范](../../architecture/agent-data-access.md)，实施前盘点见[迁移清单](mcp-migration.md)，实际验证及未覆盖项见[证据](../../evidence/2026-10-28-agent-mcp/verification.md)。本页不表示已重启业务服务或发布。
 
 ## 当前调用链
 
-`HTTP／PreviewSession → AgentDataAccess → MCP stdio → 独立 SDK Server → 固定 mcp_agent_data 命令 → DataSession → 原 Python 领域服务 → 数据库`。
+2026-10-29增量：后端分段Trace、命中／用量回填与耗时分析见[分段追踪](mcp-timing.md)。原日期保留迁移基线，本轮未重新部署业务服务。
+
+默认调用链：`HTTP／PreviewSession → AgentDataAccess → 本机Streamable HTTP MCP常驻服务 → 预热mcp_agent_worker → 每轮独立DataSession → Python领域服务 → 数据库`。启动、密钥、租约和兼容方式见[常驻设计](mcp-resident.md)。
 
 宿主先认证、检查会话归属、revision与重放。固定欢迎语／功能说明直接回答；其余请求按需经 MCP 取得历史和偏好。模型只收到安全投影并提取有限意图／条件；工具处理器验证来源后调用 MCP。订单、价格、组合金额仍由程序产生，知识答案按原有证据与语义核验流程生成。
 
@@ -29,7 +31,7 @@
 
 ## 身份、状态及预算
 
-每轮使用独立 SDK 会话和一个持久 Django 子进程，多个工具复用同一个 DataSession。宿主签发最长120秒的上下文，绑定身份、咨询版本、当前安全原话、订单引用、配置、工具集合、nonce及私有通道；模型参数不能提供这些字段。每次数据调用重验有效买家和咨询范围，每轮最多40次调用；一次性 claim 防止重建后端重置预算。
+每轮使用独立授权和DataSession，独占租用预热Django进程；多个工具复用本轮DataSession，结束后清理会话并归还进程。宿主签发最长120秒的上下文，绑定身份、咨询版本、当前安全原话、订单引用、配置、工具集合、nonce及私有通道；模型参数不能提供这些字段。每次数据调用重验有效买家和咨询范围，每轮最多40次调用；一次性 claim 防止重建后端重置预算。
 
 真实订单绑定、不可查询标志和 HTTP 导航映射通过请求专用目录的签名文件交接；输入／输出带 nonce 和单调序号，模型可见结果没有这些字段。宿主仍短事务提交会话，revision冲突不重跑工具。正常结束清理请求目录和子进程；该目录位于被忽略的 `.scratch/agent-mcp/`，不作为持久存储或共享目录。
 
@@ -39,9 +41,9 @@
 
 ## 运行和兼容
 
-SDK 保留在 `tools/tea_saas_mcp/.venv` 的 Python 3.12 环境，Django仍使用现有 Python 3.9。配置 `SUPPORT_MCP_PYTHON` 为 SDK 解释器绝对路径；默认使用仓库内该环境。调用超时默认40秒、整轮默认120秒。固定后端命令由宿主解释器启动，工具参数不能更改命令、解释器或设置模块。
+SDK在 `tools/tea_saas_mcp/.venv` 保持依赖隔离，SDK与Django均统一Python3.13。配置 `SUPPORT_MCP_PYTHON` 为 SDK 解释器绝对路径；默认使用仓库内该环境。调用超时默认40秒、整轮默认120秒。固定后端命令由宿主解释器启动，工具参数不能更改命令、解释器或设置模块。
 
-当前采用每轮新建进程，实测纯订单 HTTP 冷启动约5—8秒；幂等重放无需启动 MCP。后续可在保持每轮身份、预算及私有状态隔离的前提下优化启动成本，不能直接跨买家复用一个有状态 DataSession。
+0.26.0默认常驻HTTP服务；每轮新建进程只保留为显式stdio兼容。提问不启动进程，幂等重放不重复调用MCP。进程可复用，DataSession不能跨买家复用。0.24.0的5—8秒冷启动属于历史测量，不代表当前性能。
 
 HTTP原有URL、卡片和本人订单链接保留；新增 completion_status及错误任务的安全error_code／retryable。普通偏好故障在推荐文字及未满足项中说明本次未使用偏好。未因此启用商家模型、交易写入或自动记忆。
 

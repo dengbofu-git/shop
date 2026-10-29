@@ -19,6 +19,8 @@ class Command(BaseCommand):
         except AccessDenied:
             self.stdout.write(json.dumps(failure('ACCESS_DENIED')))
             return
+        self.stdout.write('{"backend_ready":1}')
+        self.stdout.flush()
         while True:
             line = sys.stdin.buffer.readline(262145)
             if not line:
@@ -28,9 +30,9 @@ class Command(BaseCommand):
                 return
             try:
                 request = json.loads(line)
-                if not isinstance(request, dict) or set(request) != {'tool', 'arguments'}:
+                if not isinstance(request, dict) or set(request) != {'tool', 'arguments', 'bridge_spans'}:
                     raise ValueError()
-                result = session.invoke(request['tool'], request['arguments'])
+                result = session.invoke(request['tool'], request['arguments'], request['bridge_spans'])
             except Exception:
                 result = failure('INVALID_ARGUMENT')
             self.stdout.write(json.dumps(result, ensure_ascii=False, default=str, allow_nan=False))

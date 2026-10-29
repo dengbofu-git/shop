@@ -42,6 +42,9 @@ class RequestLoggingMiddleware:
                 logger.exception('http.request.completed')
                 raise
             response['X-Request-ID'] = request_id
+            if response.streaming:
+                self._defer_stream_log(request, response, started)
+                return response
             values = {'http_status': response.status_code, 'duration_ms': (time.perf_counter() - started) * 1000}
             # Inspect only a bounded, already-built JSON envelope, never streaming bodies.
             # Only an integer code survives; no response content is passed to logging.
@@ -65,3 +68,50 @@ class RequestLoggingMiddleware:
         finally:
             request._runtime_log_context = dict(request_context.get() or {})
             request_context.reset(token)
+
+    @staticmethod
+    def _defer_stream_log(request, response, started):
+        """WSGI streams complete after the middleware has returned headers."""
+        context = dict(request_context.get() or {})
+        original = response.streaming_content
+        finished = False
+
+        def complete(interrupted=False):
+            nonlocal finished
+            if finished:
+                return
+            finished = True
+            token = request_context.set(dict(context))
+            try:
+                stream = getattr(request, '_support_stream_context', {})
+                status = stream.get('http_status', response.status_code)
+                values = dict(http_status=response.status_code,
+                              duration_ms=(time.perf_counter() - started) * 1000)
+                if stream.get('trace_id'):
+                    values['trace_id'] = stream['trace_id']
+                if stream.get('span_id'):
+                    values['span_id'] = stream['span_id']
+                if status != response.status_code:
+                    values['business_code'] = status
+                values['outcome'] = ('server_error' if status >= 500 else
+                    'client_error' if status >= 400 or interrupted else 'success')
+                update_request_context(**values)
+                logger.log(logging.ERROR if status >= 500 else
+                           logging.WARNING if values['outcome'] != 'success' else logging.INFO,
+                           'http.request.completed')
+                request._runtime_log_completed = True
+                request._runtime_log_context = dict(request_context.get() or {})
+            finally:
+                request_context.reset(token)
+
+        def body():
+            exhausted = False
+            try:
+                yield from original
+                exhausted = True
+            finally:
+                complete(interrupted=not exhausted)
+
+        response.streaming_content = body()
+        # Also cover a response closed before its first iteration. Do not read it.
+        response._resource_closers.append(lambda: complete(interrupted=True))

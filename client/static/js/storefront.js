@@ -9,7 +9,7 @@
     }
     function lang() { return localStorage.getItem('buyer_lang') || 'zh'; }
     var labels = {
-        zh: {shop: '店铺', enter: '店铺详情 →', soon: '店铺筹备中', unknown: '暂未登记店铺', add: '加入采购车', price: '参考价格'},
+        zh: {shop: '店铺', enter: '进店看看 →', soon: '店铺筹备中', unknown: '暂未登记店铺', add: '加入采购车', price: '参考价格'},
         en: {shop: 'Store', enter: 'View store →', soon: 'Store coming soon', unknown: 'Store unavailable', add: 'Add to Cart', price: 'Reference price'},
         ar: {shop: 'المتجر', enter: 'عرض المتجر ←', soon: 'المتجر قيد التجهيز', unknown: 'المتجر غير متاح', add: 'أضف للسلة', price: 'سعر مرجعي'}
     };

@@ -1,4 +1,4 @@
-"""Application MCP stdio client. All Agent data crosses the protocol; no DB fallback."""
+"""Application MCP client. All Agent data crosses the protocol; no DB fallback."""
 import json
 import os
 import queue
@@ -16,11 +16,13 @@ from django.conf import settings
 
 from .cost_control import current_budget, RequestBudget
 from .mcp_contracts import ARGUMENTS
-from .mcp_security import GRANT_ENV, issue_grant, read_private, write_private
+from .mcp_security import GRANT_ENV, issue_grant, read_private, write_private, AccessDenied
 from .pii import redact
 from .query_rewrite import QueryPolicy
 from .telemetry import agent_span
+from .mcp_tracing import outgoing_context, import_report
 from .mcp_results import validate_data
+from .mcp_http import HttpMcpTransport
 
 MAX_FRAME = 2097152
 STATUSES = {'success', 'no_match', 'needs_clarification', 'error'}
@@ -39,23 +41,26 @@ class StdioMcpTransport:
         executable = Path(settings.SUPPORT_MCP_PYTHON)
         if not executable.is_absolute() or not executable.is_file():
             raise McpServiceError('BACKEND_NOT_CONFIGURED')
-        self.process = subprocess.Popen(
-            [str(executable), '-u', str(root / 'tools/tea_saas_mcp/server.py')],
-            cwd=str(root), env=environment, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
-            stderr=subprocess.DEVNULL, start_new_session=os.name != 'nt',
-            creationflags=getattr(subprocess, 'CREATE_NO_WINDOW', 0) if os.name == 'nt' else 0)
+        with agent_span('mcp.sdk.spawn'):
+            self.process = subprocess.Popen(
+                [str(executable), '-u', str(root / 'tools/tea_saas_mcp/server.py')],
+                cwd=str(root), env=environment, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
+                stderr=subprocess.DEVNULL, start_new_session=os.name != 'nt',
+                creationflags=getattr(subprocess, 'CREATE_NO_WINDOW', 0) if os.name == 'nt' else 0)
         self.messages = queue.Queue(maxsize=64)
         self.next_id = 0
         self.closed = False
         self.reader = threading.Thread(target=self._read, daemon=True)
         self.reader.start()
         try:
-            result = self.request('initialize', {'protocolVersion': '2025-06-18', 'capabilities': {},
-                                  'clientInfo': {'name':'tea-saas-support', 'version':'1.0'}})
+            with agent_span('mcp.initialize'):
+                result = self.request('initialize', {'protocolVersion': '2025-06-18', 'capabilities': {},
+                                       'clientInfo': {'name':'tea-saas-support', 'version':'1.0'}})
             if result.get('protocolVersion') not in ('2024-11-05', '2025-03-26', '2025-06-18'):
                 raise McpServiceError('UNSUPPORTED_PROTOCOL')
             self._write({'jsonrpc':'2.0', 'method':'notifications/initialized'})
-            self.tools = {tool['name'] for tool in self.request('tools/list', {}).get('tools', [])}
+            with agent_span('mcp.tools.list'):
+                self.tools = {tool['name'] for tool in self.request('tools/list', {}).get('tools', [])}
         except Exception:
             self.close()
             raise
@@ -242,19 +247,36 @@ class AgentDataAccess:
         if remaining <= 0 or self.sequence >= 40:
             raise McpServiceError('BACKEND_TIMEOUT')
         if self.transport is None:
-            self.transport = StdioMcpTransport(self.environment)
+            mode = settings.SUPPORT_MCP_TRANSPORT
+            if mode not in ('http','stdio'):
+                raise McpServiceError('BACKEND_NOT_CONFIGURED')
+            with agent_span('mcp.session.connect' if mode=='http' else 'mcp.sdk.startup'):
+                self.transport = (HttpMcpTransport if mode=='http' else StdioMcpTransport)(self.environment)
         if tool not in self.transport.tools:
             raise McpServiceError('UNKNOWN_TOOL')
         budget = current_budget() or RequestBudget()
         allocation = budget.delegate() if tool == 'search_knowledge' else None
         self.sequence += 1
-        write_private(self.folder.name, 'input', {'nonce':self.nonce, 'sequence':self.sequence, 'model_budget':allocation})
         usage = None
         handed_off = False
         try:
-            reply = self.transport.request('tools/call', {'name':tool, 'arguments':arguments},
-                                           timeout=min(settings.SUPPORT_MCP_CALL_TIMEOUT, remaining))
-            private = read_private(self.folder.name, 'output', self.nonce, self.sequence)
+            with agent_span('mcp.rpc', {'agent.mcp.sequence':self.sequence}) as rpc:
+                if rpc:
+                    rpc.set_attribute('agent.mcp.telemetry', 'unavailable')
+                trace_context = outgoing_context()
+                write_private(self.folder.name, 'input', {'nonce':self.nonce, 'sequence':self.sequence,
+                              'model_budget':allocation, 'trace_context':trace_context})
+                reply = self.transport.request('tools/call', {'name':tool, 'arguments':arguments},
+                                               timeout=min(settings.SUPPORT_MCP_CALL_TIMEOUT, remaining))
+                try:
+                    private = read_private(self.folder.name, 'output', self.nonce, self.sequence)
+                except AccessDenied:
+                    # A bridge failure has no trusted backend handoff.
+                    validate_payload(tool, reply.get('structuredContent'))
+                    raise McpServiceError('INVALID_BACKEND_RESPONSE') from None
+                status = import_report(private.get('telemetry'), trace_context)
+                if rpc:
+                    rpc.set_attribute('agent.mcp.telemetry', status)
             handed_off = True
             usage = private.get('model_usage')
             if self.order_context:

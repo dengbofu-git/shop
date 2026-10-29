@@ -157,7 +157,7 @@ class AgentBridgeTests(unittest.IsolatedAsyncioTestCase):
         process.returncode = None
         process.kill = unittest.mock.Mock()
         process.stdin.write = unittest.mock.Mock()
-        process.stdout.readline.side_effect = [json.dumps(value).encode('utf-8') + b'\n' for value in results]
+        process.stdout.readline.side_effect = [b'{"backend_ready":1}\r\n'] + [json.dumps(value).encode('utf-8') + b'\n' for value in results]
         return process
 
     async def test_one_persistent_backend_survives_a_business_failure(self):
@@ -171,7 +171,22 @@ class AgentBridgeTests(unittest.IsolatedAsyncioTestCase):
             self.assertEqual((await bridge.call('validate_categories',{'categories':[]}))['data'],{'valid':True})
             spawn.assert_awaited_once()
             self.assertIn('mcp_agent_data',spawn.call_args.args)
+            sent=[json.loads(item.args[0]) for item in process.stdin.write.call_args_list]
+            self.assertEqual([x['name'] for x in sent[0]['bridge_spans']],['mcp.backend.spawn','mcp.backend.ready'])
+            self.assertEqual(sent[1]['bridge_spans'],[])
             await bridge.close()
+        process.kill.assert_called_once()
+
+    async def test_invalid_readiness_frame_never_dispatches_a_tool(self):
+        process=self.process([])
+        process.stdout.readline.side_effect=[b'{"unexpected":"never forwarded"}\r\n']
+        bridge=adapter.AgentBridge()
+        with patch.dict(os.environ,{'TEA_SAAS_PYTHON':sys.executable}), \
+             patch.object(adapter.asyncio,'create_subprocess_exec',return_value=process):
+            result=await bridge.call('search_knowledge',{})
+        self.assertEqual(result['error_code'],'INVALID_BACKEND_RESPONSE')
+        process.stdin.write.assert_not_called()
+        self.assertNotIn('never forwarded',json.dumps(result))
         process.kill.assert_called_once()
 
     async def test_timeout_kills_backend_without_restarting_its_request_state(self):

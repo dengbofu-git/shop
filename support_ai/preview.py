@@ -26,7 +26,8 @@ from .cost_control import CostPolicy, STAGES, stage_options
 from .order_contracts import prepare_order_input
 from .order_queries import OrderQueryContext
 
-PREVIEW_RUNTIME_VERSION = '0.11.0'
+from tea_saas.versioning import module_version
+PREVIEW_RUNTIME_VERSION = module_version('support_ai')
 
 
 def safe_record(value):
@@ -125,13 +126,13 @@ class PreviewSession:
             config = self.configuration()
             result = fixed_result(safe_message, history)
             if result is None:
-                memory = None
-                retriever = AgentDataAccess(config=config, message=safe_message,
-                    owner_id=self.user.pk if self.user else None, references=references,
-                    order_context=order_query_context, preview_history=history)
-                if self.user:
-                    memory = load_agent_preferences(retriever, safe_message, history)
                 with observe_agent(config) as observation:
+                    memory = None
+                    retriever = AgentDataAccess(config=config, message=safe_message,
+                        owner_id=self.user.pk if self.user else None, references=references,
+                        order_context=order_query_context, preview_history=history)
+                    if self.user:
+                        memory = load_agent_preferences(retriever, safe_message, history)
                     model = lazy_configured_model(config)
 
                     def tool_factory(state):

@@ -21,10 +21,10 @@ from .atomic_add import add_items, request_hash, CartError
 class RecommendationCartTests(TestCase):
     def setUp(self):
         self.redis = Redis.from_url(os.environ['CART_TEST_REDIS_URL'])
-        self.prefix = 'cart-proof-' + uuid.uuid4().hex[:16]
+        self.prefix = 'ct' + uuid.uuid4().hex[:6]
         self.buyer = UserProfile.objects.create(username=self.prefix, user_type='customer', is_active=True)
-        self.other = UserProfile.objects.create(username=self.prefix+'-other', user_type='customer', is_active=True)
-        self.merchant = UserProfile.objects.create(username=self.prefix+'-shop', user_type='merchant', is_active=True)
+        self.other = UserProfile.objects.create(username=self.prefix+'o', user_type='customer', is_active=True)
+        self.merchant = UserProfile.objects.create(username=self.prefix+'s', user_type='merchant', is_active=True)
         self.category = Catalog.objects.create(name='红茶')
         self.skus = []
         for i in range(2):

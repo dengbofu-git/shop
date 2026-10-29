@@ -22,6 +22,8 @@ from .bundle_recommendations import recommend_bundle
 from .recommendation_explanations import explain_existing_products
 from .retrieval import KnowledgeRetriever
 from .query_rewrite import QueryPolicy
+from .mcp_tracing import remote_observation, remote_result
+from .telemetry import agent_span
 
 
 def order_request(message, quote):
@@ -99,16 +101,29 @@ class DataSession:
             self.memory_loaded = True
         return self.memory
 
-    def invoke(self, tool, arguments):
-        private = None
+    def invoke(self, tool, arguments, bridge_spans=()):
+        # Read and verify the private message before trusting trace association.
+        private = read_private(self.grant['private_dir'], 'input', self.grant['nonce'], self.sequence + 1)
+        with remote_observation(private.get('trace_context'), self.config, bridge_spans) as observation:
+            result, budget = self._invoke(tool, arguments, private)
+            remote_result(result['status'])
+        effects = {name: getattr(self.order_context, name) for name in
+                   ('binding_changed', 'selected_order_id', 'not_queryable', 'conversation_missing', 'navigation_tokens')}
+        write_private(self.grant['private_dir'], 'output', {
+            'nonce': self.grant['nonce'], 'sequence': private['sequence'], 'order_effects': effects,
+            'model_usage': budget.snapshot() if budget else None, 'telemetry': observation,
+        })
+        return result
+
+    def _invoke(self, tool, arguments, private):
         budget = None
         try:
-            private = read_private(self.grant['private_dir'], 'input', self.grant['nonce'], self.sequence + 1)
             self.sequence += 1
             if tool not in ARGUMENTS or tool not in self.grant['allowed_tools']:
                 raise AccessDenied('Tool outside grant')
             args = ARGUMENTS[tool].model_validate(arguments)
-            user, conversation = self.authorize()
+            with agent_span('mcp.backend.authorize'):
+                user, conversation = self.authorize()
             if tool == 'search_knowledge':
                 allocated = private.get('model_budget')
                 if not isinstance(allocated, dict):
@@ -128,14 +143,7 @@ class DataSession:
             result = failure('SERVICE_UNAVAILABLE')
         finally:
             close_old_connections()
-        if private is not None:
-            effects = {name: getattr(self.order_context, name) for name in
-                       ('binding_changed', 'selected_order_id', 'not_queryable', 'conversation_missing', 'navigation_tokens')}
-            write_private(self.grant['private_dir'], 'output', {
-                'nonce': self.grant['nonce'], 'sequence': private['sequence'], 'order_effects': effects,
-                'model_usage': budget.snapshot() if budget else None,
-            })
-        return result
+        return result, budget
 
     def dispatch(self, tool, args, user, conversation):
         if tool == 'get_conversation_context':

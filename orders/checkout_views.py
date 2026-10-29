@@ -1,4 +1,5 @@
 import json
+from redis.exceptions import RedisError
 from django.db import OperationalError,transaction
 from django.http import JsonResponse
 from django.views.decorators.cache import never_cache
@@ -41,38 +42,43 @@ def submit_order(request,username,cart):
         intent={k:payload.get(k) for k in ('address_id','settlement_type','sku_id','buy_count','sku_list')}
         digest=fingerprint(intent)
         old=replay(user,request_id,digest) if request_id else None
-        if old is not None:return JsonResponse(result(old))
+        if old is not None:
+            from .cart_cleanup import after_checkout
+            if old: after_checkout(old[0].checkout_request_id, cart)
+            return JsonResponse(result(old))
         kind=str(payload.get('settlement_type'))
         consumed={}
         if kind=='1':items={positive(payload.get('sku_id')):positive(payload.get('buy_count'))}
         elif kind=='0':
-            all_items=cart.hgetall('carts_'+username)
+            from carts.state import checkout_snapshot
+            from .cart_cleanup import drain_cleanup
+            drain_cleanup(user_id=user.pk, conn=cart, force=True)
             selected=payload.get('sku_list')
             if selected is not None and (not isinstance(selected,list) or any(not isinstance(i,dict) for i in selected)):
                 raise ReservationError('INVALID_CART','采购车商品格式不正确',400)
             requested=None if not selected else [positive(i.get('id') or i.get('sku_id')) for i in selected]
             if requested is not None and len(requested)!=len(set(requested)):
                 raise ReservationError('INVALID_CART','采购车商品重复，请重新加载',400)
+            all_items=checkout_snapshot(cart,username)
             ids=None if requested is None else set(requested)
             items={}
             for key,value in all_items.items():
                 sid=positive(key.decode() if isinstance(key,bytes) else key)
                 row=json.loads(value)
                 if not isinstance(row,dict):raise ReservationError('INVALID_CART','采购车已变化',400)
-                if row.get('status') is True and (ids is None or sid in ids):items[sid]=positive(row.get('count'));consumed[sid]=value
+                if row.get('status') is True and (ids is None or sid in ids):items[sid]=positive(row.get('count'));consumed[sid]=row
             if ids and set(items)!=ids:raise ReservationError('CART_CHANGED','采购车已变化，请返回重新选择',409)
         else:raise ReservationError('INVALID_SETTLEMENT','结算类型无效',400)
-        orders=create_orders(user,request_id,digest,positive(payload.get('address_id')),items,request.META.get('REMOTE_ADDR'))
-        # Redis is not the stock authority. Failure here must not undo/report failure for a committed order.
-        if kind=='0':
-            for sid,original in consumed.items():
-                try:
-                    cart.eval("if redis.call('HGET',KEYS[1],ARGV[1]) == ARGV[2] then return redis.call('HDEL',KEYS[1],ARGV[1]) else return 0 end",1,'carts_'+username,str(sid),original)
-                except Exception:pass
+        orders=create_orders(user,request_id,digest,positive(payload.get('address_id')),items,request.META.get('REMOTE_ADDR'),cart_snapshots=consumed)
+        if kind=='0' and orders:
+            from .cart_cleanup import after_checkout
+            transaction.on_commit(lambda: after_checkout(orders[0].checkout_request_id, cart))
         return JsonResponse(result(orders))
     except ReservationError as exc:return error_response(exc)
     except (ValueError,TypeError,AttributeError):return error_response(ReservationError('INVALID_REQUEST','参数或采购车数据无效',400))
     except OperationalError:return error_response(ReservationError('CHECKOUT_BUSY','库存正在更新，请使用原请求编号重试',409))
+    except RedisError:
+        return error_response(ReservationError('CART_UNAVAILABLE','采购车暂不可用，请稍后使用原请求编号重试',503))
 
 
 @never_cache

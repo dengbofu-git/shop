@@ -8,6 +8,7 @@ from .planning import TaskPlan, validate_plan
 from .diagnostics import error_diagnostic
 from .telemetry import agent_span
 from .cost_control import ModelBudgetExceeded
+from .streaming import progress, verified_result
 
 
 class ToolResult(BaseModel):
@@ -30,6 +31,9 @@ def execute_plan(plan, handlers, budget_seconds=90):
         if ready is None:
             break
         with agent_span('tool.' + ready.tool, {'agent.tool.step': ready.id}) as span:
+            progress({'introduce_tea':'retrieval','recommend_products':'products','recommend_bundle':'products',
+                      'get_order_status':'orders','get_product_details':'details',
+                      'explain_recommendations':'details'}.get(ready.tool,'generation'))
             if any(completed[d].status != 'success' for d in ready.depends_on):
                 result = ToolResult(step_id=ready.id, tool=ready.tool, status='skipped',
                                     data={'answer': '前置任务未取得有效结果，暂无法继续该项查询。'})
@@ -58,6 +62,7 @@ def execute_plan(plan, handlers, budget_seconds=90):
                     if isinstance(exc, McpServiceError):
                         result.data.update(error_code=exc.code, retryable=exc.retryable)
             completed[ready.id] = result
+            verified_result(result.model_dump(), plan.output_order)
             if span:
                 span.set_attribute('agent.tool.status', result.status)
     return [completed[step_id] for step_id in plan.output_order]

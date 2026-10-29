@@ -1,6 +1,7 @@
 name: tea_saas-knowledge-worker
 services:
   knowledge-worker:
+    image: tea-saas-knowledge-worker:local-current
     build:
       context: .
       dockerfile: deploy/knowledge-worker/Dockerfile

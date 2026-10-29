@@ -68,25 +68,17 @@ PlatformAccess.requirePermission('system_config').then(function (allowed) {
     function metric(label, value, caption) {
         var box = element('div', undefined, 'metric metric-help');
         var note = element('span', caption, 'metric-tooltip'); note.id = 'agent-metric-note-' + (++metricNoteId); note.setAttribute('role', 'tooltip');
-        var help = element('button', 'i', 'metric-info'); help.type = 'button';
-        help.setAttribute('aria-label', label + '说明'); help.setAttribute('aria-describedby', note.id);
-        box.append(element('small', label), element('strong', value), help, note);
-        help.addEventListener('click', function () {
-            var open = !box.classList.contains('is-tooltip-open');
-            box.classList.toggle('is-tooltip-open', open); box.classList.toggle('is-tooltip-dismissed', !open);
+        var title = element('small', label); title.id = note.id + '-label';
+        box.tabIndex = 0; box.setAttribute('role', 'group');
+        box.setAttribute('aria-labelledby', title.id); box.setAttribute('aria-describedby', note.id);
+        box.append(title, element('strong', value), note);
+        box.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape') { event.preventDefault(); box.classList.add('is-tooltip-dismissed'); }
         });
-        help.addEventListener('keydown', function (event) {
-            if (event.key === 'Escape') { event.preventDefault(); box.classList.remove('is-tooltip-open'); box.classList.add('is-tooltip-dismissed'); }
-        });
-        help.addEventListener('blur', function () { box.classList.remove('is-tooltip-open', 'is-tooltip-dismissed'); });
+        box.addEventListener('blur', function () { box.classList.remove('is-tooltip-dismissed'); });
         box.addEventListener('mouseleave', function () { box.classList.remove('is-tooltip-dismissed'); });
         return box;
     }
-    document.addEventListener('click', function (event) {
-        $('metrics').querySelectorAll('.metric-help').forEach(function (box) {
-            if (!box.contains(event.target)) box.classList.remove('is-tooltip-open', 'is-tooltip-dismissed');
-        });
-    });
     async function loadMonitoring() {
         if (loading) return;
         loading = true; $('refresh-monitor').disabled = true;

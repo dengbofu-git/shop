@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 from goods.models import SKU
 from users.models import UserProfile
 
@@ -182,6 +183,28 @@ class CheckoutRequest(models.Model):
 
     class Meta:
         constraints = [models.UniqueConstraint(fields=['user', 'request_id'], name='checkout_user_request_unique')]
+
+
+class CartCleanupTask(models.Model):
+    checkout = models.ForeignKey(CheckoutRequest, on_delete=models.PROTECT, related_name='cart_cleanups')
+    sku_id = models.PositiveIntegerField()
+    generation = models.CharField(max_length=64)
+    version = models.PositiveBigIntegerField()
+    consumed_from = models.PositiveBigIntegerField()
+    consumed_to = models.PositiveBigIntegerField()
+    status = models.CharField(max_length=12, default='pending', choices=[('pending','待处理'),('done','已完成')])
+    attempts = models.PositiveIntegerField(default=0)
+    next_attempt_at = models.DateTimeField(default=timezone.now)
+    last_error = models.CharField(max_length=100, blank=True, default='')
+    result = models.CharField(max_length=30, blank=True, default='')
+    created_at = models.DateTimeField(auto_now_add=True)
+    completed_at = models.DateTimeField(null=True)
+
+    class Meta:
+        constraints = [models.UniqueConstraint(fields=['checkout','sku_id'], name='cart_cleanup_checkout_sku'),
+                       models.CheckConstraint(condition=models.Q(consumed_to__gt=models.F('consumed_from')), name='cart_cleanup_positive_range')]
+        indexes = [models.Index(fields=['status','next_attempt_at'], name='cart_cleanup_due'),
+                   models.Index(fields=['generation','sku_id'], name='cart_cleanup_generation')]
 
 
 class StockHold(models.Model):
