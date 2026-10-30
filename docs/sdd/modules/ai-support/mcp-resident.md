@@ -38,10 +38,10 @@ SUPPORT_MCP_SERVICE_TOKEN=<本机一次生成的随机密钥>
 
 密钥为32—256位字母、数字、下划线或短横线，Web和MCP相同。可在本机运行 `python -c "import secrets; print(secrets.token_urlsafe(48))"` 后保存到 `.env`，不要提交或发到聊天／日志。缺失时安全失败，不自动生成临时密钥或降级。
 
-Web与MCP统一使用Python3.13，SDK保持依赖隔离；按实际目录配置，例如：
+Web与MCP统一使用Python3.13，SDK保持依赖隔离；按实际目录配置，将下列`<仓库根目录>`替换为本机路径，例如：
 
 ```dotenv
-SUPPORT_MCP_PYTHON=E:/django/dadashop/tools/tea_saas_mcp/.venv/Scripts/python.exe
+SUPPORT_MCP_PYTHON=<仓库根目录>/tools/tea_saas_mcp/.venv/Scripts/python.exe
 ```
 
 使用既有 `tools/tea_saas_mcp/requirements.txt`，不向业务环境安装SDK。本轮没有新增依赖或Migration。
