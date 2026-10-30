@@ -111,7 +111,7 @@ def expire_orders(user_id=None,sku_ids=None,limit=500):
     return len(ids)
 
 
-def create_orders(user,request_id,digest,address_id,items,source_ip):
+def create_orders(user,request_id,digest,address_id,items,source_ip,cart_snapshots=None):
     if not re.fullmatch(r'[A-Za-z0-9_-]{16,64}',str(request_id or '')):
         raise ReservationError('IDEMPOTENCY_KEY_REQUIRED','缺少有效的结算请求编号，请刷新重试',400)
     old=replay(user,request_id,digest)
@@ -185,6 +185,9 @@ def create_orders(user,request_id,digest,address_id,items,source_ip):
                     raise ReservationError('BULK_CONFIRMATION_REQUIRED','采购数量占库存比例较高，请先联系商家确认',409,sku_id=sku.pk,merchant_id=merchant_id)
                 if sku.price<=0:raise ReservationError('INVALID_PRICE','商品价格无效，请联系商家',409)
         checkout=CheckoutRequest.objects.create(user=buyer,request_id=request_id,fingerprint=digest)
+        if cart_snapshots:
+            from .cart_cleanup import record_cleanup
+            record_cleanup(checkout, cart_snapshots, normalized)
         result=[]
         for merchant_id,products in sorted(groups.items()):
             expiry=now+timedelta(seconds=policies[merchant_id].ttl_seconds)

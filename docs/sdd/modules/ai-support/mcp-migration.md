@@ -2,6 +2,8 @@
 
 2026-10-28实施前静态盘点，基线提交 `63fa850843771dde21c7bd49ed9bc98019e5d24a`。原盘点没有连接数据库、启动服务或执行真实模型。本页保留实施前差异与顺序，规则唯一正文为[Agent 数据访问规范](../../architecture/agent-data-access.md)。随后已按用户“运行”完成应用入口源码迁移，当前链路、保留职责及尚未部署的边界见[运行设计](mcp-runtime.md)，实际结果见[证据](../../evidence/2026-10-28-agent-mcp/verification.md)；下表不是当前未完成项的重新声明。
 
+2026-10-29本地同步已审核退役：商家助手及其代码、入口和独立版本登记已移除；下文实施前提及该模块仅表示历史盘点，不是当前功能。
+
 ## 实施前架构
 
 买家客服使用 `support_ai/views.py → workflow.py → tool_services.py`，经本地函数读数据。`views.py` 先直接读取历史和长期偏好，再把 `KnowledgeRetriever` 回调注入工具处理器。MCP Server 目前只提供 `get_product_details`，调用固定管理命令后复用详情业务函数；站内客服没有因此改为 MCP Client。

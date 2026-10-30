@@ -1,0 +1,41 @@
+{
+  "synthetic": true,
+  "external_llm_calls": 0,
+  "process_policy": "new SDK and Django backend per request; two queries per session",
+  "cache_backend": "isolated LocMemCache; not production Redis",
+  "database_fixture": "disposable MySQL 8.0.46 plus isolated PostgreSQL; four synthetic knowledge records, two visible",
+  "embedding_service": "local Ollama bge-m3; synthetic stored 1024-dimensional vectors",
+  "reranker_service": "local BAAI/bge-reranker-v2-m3 CPU",
+  "profiles": [
+    {
+      "request": 1,
+      "root_ms": 5605.674,
+      "new_session_query_ms": 5419.404,
+      "same_session_cached_query_ms": 64.167,
+      "sdk_startup_ms": 1706.654,
+      "backend_spawn_ms": 14.61,
+      "backend_ready_ms": 3078.885,
+      "embedding_ms": 136.692,
+      "keyword_search_ms": 12.251,
+      "vector_search_ms": 22.057,
+      "rerank_ms": 276.635,
+      "rerank_candidates": 2,
+      "warnings": []
+    },
+    {
+      "request": 2,
+      "root_ms": 4487.798,
+      "new_session_query_ms": 4286.613,
+      "same_session_cached_query_ms": 83.426,
+      "sdk_startup_ms": 1235.651,
+      "backend_spawn_ms": 11.646,
+      "backend_ready_ms": 2464.356,
+      "embedding_ms": 142.619,
+      "keyword_search_ms": 10.352,
+      "vector_search_ms": 21.309,
+      "rerank_ms": 261.368,
+      "rerank_candidates": 2,
+      "warnings": []
+    }
+  ]
+}

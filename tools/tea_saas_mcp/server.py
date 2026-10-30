@@ -2,6 +2,7 @@
 import asyncio
 import json
 import os
+import time
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -71,19 +72,31 @@ class AgentBridge:
             if not executable or not Path(executable).is_absolute() or not Path(executable).is_file():
                 return private_failure('BACKEND_NOT_CONFIGURED')
             try:
+                bridge_spans = []
+                deadline = asyncio.get_running_loop().time() + 35
                 if self.process is None:
+                    started = time.time_ns()
                     self.process = await asyncio.create_subprocess_exec(
                         executable, '-u', '-X', 'utf8', str(ROOT / 'manage.py'),
                         'mcp_agent_data', '--no-color', cwd=str(ROOT),
                         stdin=asyncio.subprocess.PIPE, stdout=asyncio.subprocess.PIPE,
                         stderr=asyncio.subprocess.DEVNULL, limit=2097152,
                         creationflags=0x08000000 if os.name == 'nt' else 0)
-                raw = json.dumps({'tool':name,'arguments':arguments}, ensure_ascii=False, allow_nan=False).encode('utf-8')
+                    ready_at = time.time_ns()
+                    bridge_spans.append(dict(name='mcp.backend.spawn', start_ns=started, end_ns=ready_at))
+                    ready = await asyncio.wait_for(self.process.stdout.readline(),
+                        timeout=max(.001, deadline-asyncio.get_running_loop().time()))
+                    if ready.strip() != b'{"backend_ready":1}':
+                        raise ValueError('Invalid backend readiness')
+                    bridge_spans.append(dict(name='mcp.backend.ready', start_ns=ready_at, end_ns=time.time_ns()))
+                raw = json.dumps({'tool':name,'arguments':arguments,'bridge_spans':bridge_spans},
+                                 ensure_ascii=False, allow_nan=False).encode('utf-8')
                 if len(raw) > 262144:
                     return private_failure('INVALID_ARGUMENT')
                 self.process.stdin.write(raw + b'\n')
                 await self.process.stdin.drain()
-                line = await asyncio.wait_for(self.process.stdout.readline(), timeout=35)
+                line = await asyncio.wait_for(self.process.stdout.readline(),
+                    timeout=max(.001, deadline-asyncio.get_running_loop().time()))
                 if not line or len(line) > 2097152:
                     raise ValueError('Invalid backend frame')
                 result = json.loads(line)

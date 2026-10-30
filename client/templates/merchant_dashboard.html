@@ -9,7 +9,7 @@
     <link href="../static/css/merchant_workbench.css" rel="stylesheet">
     <link href="../static/css/supplier-workbench.css?v=20261018-search-layout" rel="stylesheet">
     <link href="../static/css/merchant-workbench-feed.css?v=20261022" rel="stylesheet">
-    <link href="../static/css/merchant-insights.css?v=20261022-price-layout" rel="stylesheet">
+    <link href="../static/css/merchant-insights.css?v=20261029-unified" rel="stylesheet">
     <script src="../static/js/init.js"></script>
     <script src="../static/js/auth-storage.js?v=20261018-session-isolation"></script>
     <script src="../static/js/jquery-3.1.1.min.js"></script>
@@ -218,9 +218,7 @@
                         <div class="tabs insights-tabs" role="tablist" aria-label="销售洞察 / Sales insights">
                             <button type="button" class="tab active" id="insights-tab-store" role="tab" aria-controls="tab-insight" aria-selected="true" data-insight-text="insight">本店销售洞察</button>
                             <button type="button" class="tab" id="insights-tab-sales" role="tab" aria-controls="tab-sales" aria-selected="false" tabindex="-1" data-insight-text="sales">我的销售数据</button>
-                            <button type="button" class="tab" id="insights-tab-industry" role="tab" aria-controls="tab-trend" aria-selected="false" tabindex="-1" data-insight-text="industry">行业趋势</button>
                         </div>
-                        <button type="button" class="insights-refresh" id="insights-refresh" data-insight-text="refresh">刷新</button>
                     </div>
                     <div class="wb-section-body">
                         <p class="insights-note" data-insight-text="basis">近365天 · 本店已全额付款商品 · 按下单日期统计 · 人民币，不含运费</p>
@@ -264,14 +262,7 @@
                                     <!-- TODO: 无可信国家／地区字段，地区销售额保留注释占位；不得使用订单号哈希分配地区。 -->
                                 </div>
                             </div>
-                            <div class="tab-panel" id="tab-trend" role="tabpanel" aria-labelledby="insights-tab-industry" hidden>
-                                <!-- TODO: 出口整体趋势：待接入带统计周期和来源的行业出口数据。 -->
-                                <!-- TODO: 竞品分析：待接入可核验且有采集时间的竞品数据。 -->
-                                <!-- TODO: 政策法规：待接入有发布主体、日期和原文链接的可靠来源，不展示演示通知。 -->
-                                <p class="insights-empty-industry" data-insight-text="industryMissing">暂无已接入、可核验的行业数据。</p>
-                            </div>
                         </div>
-                        <p class="insights-note" data-insight-text="unavailable">口感偏好、地区销售、行业出口、竞品和政策数据尚未接入。</p>
                     </div>
                 </section>
 
@@ -313,7 +304,7 @@
 
     <script src="../static/js/merchant-overview.js?v=20261022-zones"></script>
     <script src="../static/js/supplier-workbench.js?v=20261028-navigation"></script>
-    <script src="../static/js/merchant-insights.js?v=20261022-price-layout" defer></script>
+    <script src="../static/js/merchant-insights.js?v=20261029-unified" defer></script>
     <script src="../static/js/merchant-workbench-feed.js?v=20261022-zones" defer></script>
 {% include 'shared/engagement_assets.html' %}
 </body>

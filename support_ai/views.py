@@ -25,6 +25,7 @@ from .order_queries import OrderQueryContext, attach_order_links
 from pydantic import ValidationError
 from .mcp_client import AgentDataAccess, McpServiceError
 from .planning import explicit_requests
+from .streaming import progress, StreamCancelled
 
 
 logger = logging.getLogger(__name__)
@@ -75,9 +76,7 @@ def _buyer(request):
     return user, None
 
 
-@require_POST
-@_storage_errors
-def chat(request):
+def _prepare_chat(request):
     user, error = _buyer(request)
     if error is not None:
         return error
@@ -109,6 +108,30 @@ def chat(request):
     except (ValueError, TypeError, AttributeError):
         return _response({'error': '会话 ID、请求 ID 或修订号无效。'}, 400)
     request_hash = hashlib.sha256(json.dumps(body, ensure_ascii=False, sort_keys=True).encode('utf-8')).hexdigest()
+    return dict(user=user, message=message, selection=selection, request_id=request_id,
+                conversation_id=conversation_id, expected=expected, request_hash=request_hash)
+
+
+@require_POST
+@_storage_errors
+def chat(request):
+    prepared = _prepare_chat(request)
+    if isinstance(prepared, JsonResponse):
+        return prepared
+    if 'text/event-stream' in request.headers.get('Accept', ''):
+        from .streaming import event_response
+        response = event_response(request, lambda: _chat_json(prepared))
+        if response is None:
+            return _response({'error':'当前咨询较多，请稍后重试。', 'error_code':'STREAM_BUSY', 'retryable':True},503)
+        return response
+    return _chat_json(prepared)
+
+
+@_storage_errors
+def _chat_json(prepared):
+    user, message, selection = (prepared[k] for k in ('user','message','selection'))
+    request_id, conversation_id, expected, request_hash = (prepared[k] for k in
+        ('request_id','conversation_id','expected','request_hash'))
     try:
         previous = replay(user, request_id, request_hash)
         if previous is not None:
@@ -127,9 +150,12 @@ def chat(request):
         fixed = fixed_result(message) if selection is None else None
         if fixed is not None:
             response = dict(fixed['response'], pii_redacted=fixed.get('pii_redacted', False))
+            progress('saving')
             response = commit_turn(user, conversation, revision, request_id, request_hash,
                                    fixed['safe_message'], response)
             return _response(response, 200)
+    except StreamCancelled:
+        return _response({'error':'本轮连接已关闭。','error_code':'CANCELLED','retryable':True},499)
     except ConversationConflict as exc:
         return _response({'error': str(exc)}, 409)
     safe_message, references = prepare_order_input(message)
@@ -144,11 +170,13 @@ def chat(request):
         from .telemetry import observe_agent
         from .tool_services import create_tool_handlers
         agent_config = effective_configuration()
-        data_access = AgentDataAccess(config=agent_config, message=safe_message, owner_id=user.pk,
-            conversation=conversation, references=references, selection=selection, order_context=order_query_context)
-        history = data_access.history() if conversation or selection else []
-        memory = load_agent_preferences(data_access, safe_message, history)
         with observe_agent(agent_config) as observation:
+            data_access = AgentDataAccess(config=agent_config, message=safe_message, owner_id=user.pk,
+                conversation=conversation, references=references, selection=selection, order_context=order_query_context)
+            if conversation or selection:
+                progress('history')
+            history = data_access.history() if conversation or selection else []
+            memory = load_agent_preferences(data_access, safe_message, history)
             model = lazy_configured_model(agent_config)
             graph = build_graph(model, tool_factory=lambda state: create_tool_handlers(
                 model, data_access.search,
@@ -174,10 +202,13 @@ def chat(request):
             response = attach_order_links(response, order_query_context)
             if observation.trace_id:
                 response['trace_id'] = observation.trace_id
+            progress('saving')
             response = commit_turn(
                 user, conversation, revision, request_id, request_hash, safe_message, response,
                 order_id=order_query_context.selected_order_id if order_query_context.binding_changed else None,
             )
+    except StreamCancelled:
+        return _response({'error':'本轮连接已关闭。','error_code':'CANCELLED','retryable':True},499)
     except ConversationConflict as exc:
         return _response({'error': str(exc)}, 409)
     except McpServiceError as exc:
@@ -209,6 +240,7 @@ def load_agent_preferences(data_access, message, history):
     if not (explicit or recommendation or pending):
         return None
     try:
+        progress('preferences')
         return data_access.preferences()
     except McpServiceError as exc:
         if explicit or exc.code in ('ACCESS_DENIED','CONVERSATION_CONFLICT'):

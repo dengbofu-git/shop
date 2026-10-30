@@ -94,19 +94,15 @@ class CartsView(View):
             value = json.loads(value)
             available_stock = get_available_stock(sku)
             count = int(value.get('count', 1))
-            if count > available_stock:
-                count = max(0, available_stock)
-                value['count'] = str(count)
-                self.conn.hset(name=cache_key, key=key, value=json.dumps(value))
-            if count <= 0:
-                self.conn.hdel(cache_key, key)
-                continue
             unit_price = float(sku.price)
             skus_list.append({
                 "id": str(sku_id),
                 "name": sku.name,
+                "product_name": sku.spu.name,
+                "sku_name": sku.name,
                 "count": count,
                 "available_stock": available_stock,
+                "stock_shortage": count > available_stock,
                 "selected": value.get('status'),
                 "default_image_url": sku_image_name(sku),
                 "unit_price": unit_price,
@@ -195,6 +191,8 @@ class CartsView(View):
             skus_list = [{
                 "id": sku_id,
                 "name": sku.name,
+                "product_name": sku.spu.name,
+                "sku_name": sku.name,
                 "count": count,
                 "selected": value.get('status'),
                 "default_image_url": sku_image_name(sku),
@@ -232,6 +230,8 @@ class CartsView(View):
                     {
                         "id": key,
                         "name": sku.name,
+                        "product_name": sku.spu.name,
+                        "sku_name": sku.name,
                         "count": count,
                         "selected": value.get('status'),
                         "default_image_url": sku_image_name(sku),

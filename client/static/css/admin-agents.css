@@ -229,15 +229,6 @@ p {
 
 /* Supplemental metric notes appear on demand without reserving a caption row. */
 #metrics .metric-help { position:relative; min-width:0; }
-#metrics .metric-help > small { padding-inline-end:20px; }
-#metrics .metric-info {
-    position:absolute; inset-block-start:14px; inset-inline-end:10px;
-    display:grid; place-items:center; width:20px; height:20px;
-    padding:0; border:1px solid #d9e3db; border-radius:50%;
-    color:#7b9082; background:transparent; font:12px/1 Georgia,serif;
-    cursor:help; transition:background-color 160ms,color 160ms;
-}
-#metrics .metric-info:hover, #metrics .metric-info:focus-visible { color:#185c3b; background:#e7f2e9; }
 #metrics .metric-tooltip {
     position:absolute; inset-inline:8px; top:calc(100% - 5px); z-index:10;
     display:block; padding:10px 12px; border:1px solid #dce7df; border-radius:9px;
@@ -246,10 +237,9 @@ p {
     opacity:0; visibility:hidden; transform:translateY(-4px); pointer-events:none;
     transition:opacity 150ms ease,transform 150ms ease,visibility 150ms;
 }
-#metrics .metric-help:not(.is-tooltip-dismissed):is(:hover,:focus-within) .metric-tooltip,
-#metrics .metric-help.is-tooltip-open .metric-tooltip { opacity:1; visibility:visible; transform:translateY(0); pointer-events:auto; }
-#metrics .metric-help:has(.metric-info:focus-visible) { outline:2px solid #9bc9a8; outline-offset:2px; }
-@media(prefers-reduced-motion:reduce) { #metrics .metric-tooltip,#metrics .metric-info { transition:none; transform:none; } }
+#metrics .metric-help:not(.is-tooltip-dismissed):is(:hover,:focus-visible) .metric-tooltip { opacity:1; visibility:visible; transform:translateY(0); pointer-events:auto; }
+#metrics .metric-help:focus-visible { outline:2px solid #9bc9a8; outline-offset:2px; }
+@media(prefers-reduced-motion:reduce) { #metrics .metric-tooltip { transition:none; transform:none; } }
 
 .health-row {
     display:flex;

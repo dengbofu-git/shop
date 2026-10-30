@@ -11,6 +11,7 @@ from django.db import connections
 
 from ai_storage.models import KnowledgeRevision
 from ai_storage.knowledge import hybrid_search_ready
+from .telemetry import agent_span
 
 
 def cache_key(kind, value):
@@ -60,10 +61,14 @@ def cached_embedding(query, embedder, timeout):
     enabled = getattr(settings, 'SUPPORT_RAG_CACHE_ENABLED', True)
     key = cache_key('embedding', [query, settings.AI_OLLAMA_BASE_URL, settings.AI_OLLAMA_MODEL,
                                   settings.AI_OLLAMA_REVISION, settings.AI_EMBEDDING_SPACE_KEY]) if enabled else None
-    vector = read(key)
+    with agent_span('knowledge.cache', {'agent.cache.kind':'embedding'}) as span:
+        vector = read(key)
+        if span:
+            span.set_attribute('agent.cache.status', 'hit' if vector is not None else 'miss' if key else 'disabled')
     if vector is not None:
         return vector
-    vector = embedder(query, timeout=timeout)
+    with agent_span('knowledge.embedding'):
+        vector = embedder(query, timeout=timeout)
     if (isinstance(vector, list) and vector and any(vector)
             and all(type(x) in (int, float) and math.isfinite(x) for x in vector)):
         write(key, vector)

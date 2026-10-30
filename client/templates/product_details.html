@@ -16,8 +16,8 @@
 {% include "shared/system_theme.html" %}
     <link rel="stylesheet" href="/static/css/product-detail-content.css?v=20261018-detail-theme">
     <link rel="stylesheet" href="/static/css/store-pages.css?v=1">
-    <link rel="stylesheet" href="/static/css/product-detail-summary.css?v=20261022-quantity">
-    <script src="/static/js/storefront.js?v=20261022-cny"></script>
+    <link rel="stylesheet" href="/static/css/product-detail-summary.css?v=20261029-store-entry">
+    <script src="/static/js/storefront.js?v=20261029-store-entry"></script>
 </head>
 
 <body class="ds-page-product_details ds-theme buyer-workbench product-detail-page storefront-page" id="buyer-body">
@@ -66,11 +66,6 @@
                 </div>
             </div>
             <div class="detail-store-info" id="detail-store-info"></div>
-            <!-- 参数部分 客服-->
-            <p class="parameter">
-                <b>客服：</b>
-                <span class="connect">联系客服</span>
-            </p>
             <!-- 规格-->
             <div id="sku">
 
@@ -94,7 +89,7 @@
                 <a href="#" class="shop lf" id="add_cart">加入购物车</a>
             </div>
             <div class="detail-favorite">
-                <a id="eng-contact" class="eng-card" href="buyer_messages.html" data-eng-text="contact">联系商家</a>
+                <a id="eng-contact" class="eng-card" href="buyer_messages.html" data-eng-text="inquireProduct">咨询商品</a>
                 <button type="button" id="favorite-toggle" aria-pressed="false" disabled>收藏商品</button>
                 <span id="favorite-message" role="status" aria-live="polite"></span>
             </div>
@@ -390,7 +385,8 @@
                         var sku_data = {
                             id: skuid,
                             count: $(".accountChose input.number, #buy-num").first().val(),
-                            name: $('.right_detail').children('h3').html(),
+                            name: $('.right_detail').children('h3').text(),
+                            product_name: $('.right_detail').children('h1').text(),
                             default_image_url:$('#mImg').attr('src').replace(imgUrl,''),
                             price:window.ProductDetailSummary.basePrice(),
                             unit_price:window.ProductDetailSummary.basePrice(),

@@ -72,6 +72,8 @@ test('the real template binds price/attributes and guest cart uses the raw decim
     assert(html.includes("$('#sku button.spu_value').click"));
     assert(html.includes("$(this).attr('data-value') || $(this).val()"));
     assert(html.includes('unit_price:window.ProductDetailSummary.basePrice()'));
+    assert(html.includes("product_name: $('.right_detail').children('h1').text()"));
+    assert(html.includes("name: $('.right_detail').children('h3').text()"));
     assert(!html.includes("parseInt($('#pro_price')"));
 });
 

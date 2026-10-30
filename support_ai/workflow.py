@@ -18,6 +18,7 @@ from .grounding import generate_grounded_answer
 from .business_grounding import make_answer_block, enforce_answer_consistency, needs_model_review
 from .cost_control import BudgetedGraph, ModelBudgetExceeded
 from .diagnostics import error_diagnostic
+from .streaming import progress
 
 logger = logging.getLogger(__name__)
 FALLBACK = '您希望了解茶叶知识、挑选商品，还是查询订单？请补充具体要求。'
@@ -102,6 +103,7 @@ def build_graph(model, knowledge_search=None, tool_factory=None):
         return {'safe_message': clean, 'recent_turns': history, 'pii_redacted': clean != state['message']}
 
     def resolve(state):
+        progress('context')
         history = state.get('recent_turns', [])
         diagnostics = []
         with agent_span('dialogue.resolve', {'agent.context.turns': len(history),
@@ -132,6 +134,7 @@ def build_graph(model, knowledge_search=None, tool_factory=None):
                     'previous_dialogue_state': previous.model_dump()}
 
     def plan_node(state):
+        progress('planning')
         with agent_span('agent.plan') as span:
             semantic = SemanticPlan.model_validate(state['semantic_plan'])
             requests = semantic.requests

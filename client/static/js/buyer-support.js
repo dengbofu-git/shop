@@ -18,6 +18,7 @@
     var pending = null;
     var selectedBundle = null;
     var busy = false;
+    var activeStream = null;
     var composing = false;
     var initialMessage = messages.innerHTML;
     var historyToggle = document.getElementById('bs-history-toggle');
@@ -56,6 +57,7 @@
     function checkIdentity() {
         if (sameIdentity()) return;
         if (!identityCleared) {
+            if (activeStream) activeStream.abort();
             identityCleared = true;
             drafts = Object.create(null);
             cartOperations = Object.create(null);
@@ -747,7 +749,28 @@
                     if (selectedBundle) pending.bundle_selection = Object.assign({}, selectedBundle);
                 }
             }
-            var result = await api('chat/', 'POST', pending);
+            activeStream = new AbortController();
+            var streamStatus = document.createElement('small');
+            streamStatus.setAttribute('role', 'status');
+            streamStatus.hidden = true;
+            waiting.parentNode.appendChild(streamStatus);
+            waiting.setAttribute('aria-busy', 'true');
+            var hasAnswer = false;
+            var result = await SupportStream.chat(pending, {
+                token: identityToken, signal: activeStream.signal, checkIdentity: checkIdentity,
+                onStatus: function (text) {
+                    streamStatus.textContent = hasAnswer ? text + '（本轮尚未保存）' : '';
+                    if (!hasAnswer) waiting.textContent = text;
+                    messages.scrollTop = messages.scrollHeight;
+                },
+                onAnswer: function (text) {
+                    hasAnswer = true;
+                    streamStatus.hidden = false;
+                    waiting.textContent = text;
+                    streamStatus.textContent = '正在完成本轮回复，尚未保存…';
+                    messages.scrollTop = messages.scrollHeight;
+                }
+            });
             if (!conversation) sessionTitle = question.replace(/\s+/g, ' ').slice(0, 60);
             conversation = { conversation_id: result.conversation_id, revision: result.revision };
             sessionStorage.setItem(storageKey, JSON.stringify(conversation));
@@ -774,6 +797,9 @@
                 catch (restoreError) { addMessage(restoreError.message, 'assistant'); }
             }
         } finally {
+            if (streamStatus) streamStatus.remove();
+            waiting.removeAttribute('aria-busy');
+            activeStream = null;
             setBusy(false);
             input.focus();
             messages.scrollTop = messages.scrollHeight;
@@ -817,6 +843,7 @@
     window.addEventListener('storage', function () {
         if (!sameIdentity()) { try { checkIdentity(); } catch (error) { /* Page awaits refresh. */ } }
     });
+    window.addEventListener('pagehide', function () { if (activeStream) activeStream.abort(); });
 
     function fillPreferences(values) {
         Object.keys(preferenceFields).forEach(function (field) {

@@ -129,7 +129,7 @@
     function mount(win) {
         var doc = win.document, root = doc.getElementById('merchant-insights'); if (!root) return;
         var state = {status:'loading'}, active = 0, abort, timeout;
-        var button = doc.getElementById('insights-refresh'), tabs = Array.from(root.querySelectorAll('[role=tab]'));
+        var tabs = Array.from(root.querySelectorAll('[role=tab]'));
         var token = function () { return win.AuthStorage && win.AuthStorage.getToken(); };
         function setTab(index, focus) {
             active = index;
@@ -153,7 +153,7 @@
             state = next; var language = doc.documentElement.lang.split('-')[0], t = words[language] || words.zh;
             root.querySelectorAll('[data-insight-text]').forEach(function (node) {node.textContent = t[node.dataset.insightText];});
             var ready = state.status === 'ready' && state.token === token(), data = ready ? state.data : null;
-            root.setAttribute('aria-busy',String(state.status === 'loading')); button.disabled = state.status === 'loading';
+            root.setAttribute('aria-busy',String(state.status === 'loading'));
             ['insights-top-products','insights-price-list','insights-sales-top'].forEach(function (id) {doc.getElementById(id).replaceChildren();});
             doc.getElementById('insights-months').replaceChildren();
             var status = doc.getElementById('insights-status');
@@ -177,7 +177,6 @@
                 var body = await response.json();if(body.code !== 200) throw new Error('envelope');return body.data;
             } finally {win.clearTimeout(currentTimeout);}
         }});
-        button.addEventListener('click',controller.refresh);
         doc.addEventListener('supplier:panel-changed',function (event) {if(event.detail.panel === 'dashboard') controller.refresh();});
         doc.addEventListener('visibilitychange',function () {if(!doc.hidden && root.offsetParent !== null) controller.refresh();});
         new win.MutationObserver(function () {render(state);}).observe(doc.documentElement,{attributes:true,attributeFilter:['lang']});

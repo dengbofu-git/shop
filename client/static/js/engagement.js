@@ -40,6 +40,7 @@
     }
     function t(key) {
         var chats = {
+            inquireProduct:{zh:'咨询商品', en:'Ask about this product', ar:'استفسر عن المنتج'},
             dragConversation:{zh:'按住拖动排序 · Alt+↑/↓ 调整位置', en:'Drag to reorder · Alt+↑/↓ to move', ar:'اسحب لإعادة الترتيب · Alt+↑/↓ للنقل'},
             conversationOrderSaved:{zh:'会话顺序已保存', en:'Conversation order saved', ar:'تم حفظ ترتيب المحادثات'},
             conversationOrderNotSaved:{zh:'顺序已调整，当前浏览器无法保存', en:'Order changed; browser storage is unavailable', ar:'تم تغيير الترتيب، لكن التخزين في المتصفح غير متاح'},

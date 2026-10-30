@@ -6,7 +6,7 @@
 
 ## 安装与启动
 
-使用现有 Python 3.9 环境安装 `requirements.txt`。OpenTelemetry API、SDK 和 OTLP HTTP 导出器固定为支持 Python 3.9 的 `1.41.1`。
+使用统一的Python3.13/Django5.2环境安装 `requirements.txt`，通过[正式启动入口](Python与Django升级.md)运行。OpenTelemetry API、SDK和OTLP HTTP导出器固定为 `1.41.1`。
 
 ```powershell
 python -m pip install -r requirements.txt
@@ -72,6 +72,8 @@ DeepSeek适配器会将LangChain改写后的字段恢复为文档定义的 `max_
 设置采用版本号检查，旧页面保存返回 HTTP 409，防止覆盖其他运营人员的修改。每次成功保存都记录操作者、时间和前后配置，不包含密钥。
 
 ## 监控含义
+
+0.25.0：MCP后端启动、缓存、Embedding、召回、重排及补检已通过签名私有通道接回同一Trace；根统计合并远端命中数和模型用量。本地投影改为整轮批量落库。节点语义、只读分析命令和计时限制见[分段追踪](sdd/modules/ai-support/mcp-timing.md)。历史及偏好预取从该版本开始计入根Trace；旧Trace无法事后补齐。
 
 使用手动 OpenTelemetry SDK 埋点，只采集 Agent 运行，不采集其他业务的请求正文或数据库参数。
 

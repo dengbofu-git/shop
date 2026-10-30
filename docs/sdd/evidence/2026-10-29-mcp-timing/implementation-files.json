@@ -1,0 +1,31 @@
+{
+  "base_sha": "c5b09f7d5ac3c5bd124028a8d4a870f438fce389",
+  "status": "uncommitted; not deployed",
+  "sha256": {
+    "docs/Agent监控与模型设置.md": "50be2b5a1d2a7f5bcaaa3e908dc430ad0a9c5ce4c923b177f62786f816dad170",
+    "docs/sdd/evidence/2026-10-29-mcp-timing/measurements.json": "35053255807e45be647046bc2fd4e0ce5f61bf15a1af4f26818fbcf66e739433",
+    "docs/sdd/evidence/2026-10-29-mcp-timing/verification.md": "cfaa106c04d01a97625560353495632dc1d1fb50bbd6b17318a16f82acaa353c",
+    "docs/sdd/modules/ai-support/mcp-runtime.md": "5fd39ad9e1f82471638f438d0cb9a1d5c6975c9f6a729e5f884683eaa574fa39",
+    "docs/sdd/modules/ai-support/mcp-timing.md": "62c33bd314e70d95afbced7f56e3c0a694040c3e0dfa2d001c0ef64de9ff2943",
+    "support_ai/management/commands/analyze_agent_trace.py": "ade48e248d19ef7b702c5c8d49c95b4d3d20a05b09258aca829ca3d271af8bbf",
+    "support_ai/management/commands/mcp_agent_data.py": "e00822f16785ee5ab92923fc25ba9c40727591d7c14b9509f67e0a7f357997da",
+    "support_ai/mcp_backend.py": "5768f18dfa36ba901211e526095a6941643c4159a9dd77d8b1ecd92651ae371d",
+    "support_ai/mcp_client.py": "70fd17e40f98600d9730fc3a937b19851ed8068064d2bd71a5d296b9a1693520",
+    "support_ai/mcp_tracing.py": "c731ddd028a22bbd1f1ed7d9107b1b3f06dcba5cb84f2f1674636221f2151c83",
+    "support_ai/model_client.py": "3d1577ee2b3bd21c5dac671e8b5573d04f00780bdfb4081da8580bc076cc0206",
+    "support_ai/preview.py": "d51e2fc2067f2f742b9595d596e2b17f5a0133fe0de20a34ece4a8f70088cda1",
+    "support_ai/retrieval.py": "aa64b7a8cb614df8befb2b19abc12f45cdef68d2d2cef5caefefd1b73c985ba1",
+    "support_ai/retrieval_cache.py": "f64a2e57c6c40d38429aafcb1a4809537198a7315e4a840e32f268c514ef38c4",
+    "support_ai/telemetry.py": "9eab7b2096f162772f0953d619d3e485cd7f12e5f1bff284395eb6c2f96ccc14",
+    "support_ai/test_mcp_tracing.py": "173c9d6bb160e0999c85c4651a20e4866167ccddef50669e908fea801483840f",
+    "support_ai/trace_analysis.py": "e7074f29c8ed0b463a4d18bc535e9a5f3f271508642a999f60583465362a2502",
+    "support_ai/views.py": "70869e3adb4a8a6dc6e4c829bab7e61943c8dd0df1be398cf9a3c0e22f5871ee",
+    "tools/tea_saas_mcp/agent_integration.py": "3b7e1e5ec4a2b400e52230279c470d5b5e942a47d0dc6c4959373a6ec0261606",
+    "tools/tea_saas_mcp/server.py": "3c5baf67651c7736d99021ad1b6493a58cab76dea1f0eebd7ed3b76f38212951",
+    "tools/tea_saas_mcp/test_server.py": "8bf27b494405bed40d245605cc3d4eddcf116401f30d9e5a673c809fc82e6d17",
+    "versions/README.md": "06e26bfb20c29cdf4a4e09db367530e01cfc30df996a02566a2a395e7713665b",
+    "versions/changelogs/core.md": "bb386451be57168ef25d20c93d6ba352d3645865c51bfa28409463671ae6f47e",
+    "versions/changelogs/support_ai.md": "75a2448268d9170979a7dc80038ff635e888f25a6422fe146ae8ab5f6d2792a0",
+    "versions/modules.json": "66e1160db1992bdd66c1fd4b858f0926497d0ef6fdb5ba6afa0fc6ecf499c37f"
+  }
+}

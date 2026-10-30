@@ -19,9 +19,11 @@ from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExport
 from opentelemetry.exporter.otlp.proto.http.metric_exporter import OTLPMetricExporter
 from opentelemetry.trace import SpanKind, Status, StatusCode
 from tea_saas.runtime_logging import bind_agent_trace
+from tea_saas.versioning import module_version
 
 logger = logging.getLogger(__name__)
 _session = ContextVar('support_agent_observation', default=None)
+_projection_batch = ContextVar('support_agent_span_batch', default=None)
 _lock = threading.RLock()
 _active = None
 
@@ -39,28 +41,41 @@ SAFE_ATTRIBUTES = frozenset({
     'agent.rewrite.variants', 'agent.rewrite.rejected', 'agent.retrieval.queries',
     'agent.retrieval.retries', 'agent.retrieval.retry_reasons',
     'agent.retrieval.remaining_issues', 'agent.retrieval.retry_adopted', 'agent.rewrite.status',
+    'agent.mcp.tool', 'agent.mcp.status', 'agent.mcp.duration_ms',
+    'agent.mcp.sequence', 'agent.mcp.telemetry', 'agent.mcp.truncated_spans',
+    'agent.cache.status', 'agent.cache.kind', 'agent.retrieval.round', 'agent.retrieval.query_index',
+    'agent.retrieval.candidates', 'agent.rerank.status',
 })
 
 
 class DatabaseSpanExporter(SpanExporter):
     def export(self, spans):
         from .models import AgentSpan
-        try:
-            AgentSpan.objects.bulk_create([
-                AgentSpan(
-                    trace_id=format(span.context.trace_id, '032x'), span_id=format(span.context.span_id, '016x'),
-                    parent_span_id=format(span.parent.span_id, '016x') if span.parent else '', name=span.name,
-                    started_at=datetime.fromtimestamp(span.start_time / 1e9, tz=timezone.utc),
-                    duration_ms=(span.end_time - span.start_time) / 1e6,
-                    status='ERROR' if span.status.status_code == StatusCode.ERROR else 'OK',
-                    attributes={k: v for k, v in span.attributes.items() if k in SAFE_ATTRIBUTES},
-                ) for span in spans
-            ], ignore_conflicts=True)
+        rows = [AgentSpan(
+            trace_id=format(span.context.trace_id, '032x'), span_id=format(span.context.span_id, '016x'),
+            parent_span_id=format(span.parent.span_id, '016x') if span.parent else '', name=span.name,
+            started_at=datetime.fromtimestamp(span.start_time / 1e9, tz=timezone.utc),
+            duration_ms=(span.end_time - span.start_time) / 1e6,
+            status='ERROR' if span.status.status_code == StatusCode.ERROR else 'OK',
+            attributes={k: v for k, v in span.attributes.items() if k in SAFE_ATTRIBUTES},
+        ) for span in spans]
+        pending = _projection_batch.get()
+        if pending is not None:
+            pending.extend(rows)
             return SpanExportResult.SUCCESS
+        return persist_spans(rows)
+
+
+def persist_spans(rows):
+    from .models import AgentSpan
+    if rows:
+        try:
+            AgentSpan.objects.bulk_create(rows, ignore_conflicts=True)
         except Exception as exc:
             # Monitoring must not take the customer workflow down.
             logger.warning('support.telemetry.persistence_failed', extra={'error_type': type(exc).__name__})
             return SpanExportResult.FAILURE
+    return SpanExportResult.SUCCESS
 
 
 class ReportingSpanExporter(OTLPSpanExporter):
@@ -111,12 +126,12 @@ class Runtime:
                        'trace_export_at': None, 'metric_export_at': None}
         if not config.telemetry_enabled:
             return
-        resource = Resource.create({'service.name': 'tea_saas-support-agent', 'service.version': '0.10.0'})
+        resource = Resource.create({'service.name': 'tea_saas-support-agent', 'service.version': module_version('support_ai')})
         self.provider = TracerProvider(resource=resource, shutdown_on_exit=False)
-        self.provider.add_span_processor(SimpleSpanProcessor(DatabaseSpanExporter()))
+        self.span_processors = [SimpleSpanProcessor(DatabaseSpanExporter())]
         readers = []
         if config.export_enabled:
-            self.provider.add_span_processor(BatchSpanProcessor(
+            self.span_processors.append(BatchSpanProcessor(
                 ReportingSpanExporter(self.health, endpoint=config.otlp_endpoint + '/v1/traces', timeout=3),
                 schedule_delay_millis=1000, max_queue_size=2048,
             ))
@@ -124,6 +139,8 @@ class Runtime:
                 ReportingMetricExporter(self.health, endpoint=config.otlp_endpoint + '/v1/metrics', timeout=3),
                 export_interval_millis=5000, export_timeout_millis=4000,
             ))
+        for processor in self.span_processors:
+            self.provider.add_span_processor(processor)
         self.meters = MeterProvider(resource=resource, metric_readers=readers, shutdown_on_exit=False)
         meter = self.meters.get_meter('tea_saas.support_ai')
         self.requests = meter.create_counter('agent.requests', unit='{request}')
@@ -134,6 +151,10 @@ class Runtime:
         self.rerank_duration = meter.create_histogram('agent.rerank.duration', unit='s')
         self.rerank_candidates = meter.create_histogram('agent.rerank.candidate_count', unit='{chunk}')
         self.tracer = self.provider.get_tracer('tea_saas.support_ai')
+
+    def publish_remote_span(self, span):
+        for processor in self.span_processors:
+            processor.on_end(span)
 
     def shutdown(self):
         with self.shutdown_lock:
@@ -228,6 +249,8 @@ class Session:
 @contextmanager
 def observe_agent(config):
     runtime = acquire_runtime(config)
+    pending = []
+    batch_token = _projection_batch.set(pending)
     try:
         if not runtime.provider:
             yield Session(runtime, config)
@@ -257,6 +280,8 @@ def observe_agent(config):
                 runtime.duration.record(time.perf_counter() - started, labels)
                 _session.reset(token)
     finally:
+        _projection_batch.reset(batch_token)
+        persist_spans(pending)
         release_runtime(runtime)
 
 
@@ -272,7 +297,8 @@ def agent_span(name, attributes=None):
     ) as span:
         try:
             yield span
-            span.set_status(Status(StatusCode.OK))
+            if span.status.status_code == StatusCode.UNSET:
+                span.set_status(Status(StatusCode.OK))
         except Exception as exc:
             span.set_attribute('error.type', type(exc).__name__)
             span.set_status(Status(StatusCode.ERROR))

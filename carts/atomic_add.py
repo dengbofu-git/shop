@@ -1,6 +1,8 @@
 """Redis原子追加：先校验全部行，再写入；幂等只绑定当前买家和请求内容。"""
 import hashlib
 import json
+import uuid
+from .state import LUA_STATE, edit_row
 
 
 class CartError(ValueError):
@@ -27,7 +29,7 @@ def previous_receipt(conn, username, operation, fingerprint):
     return dict(record['result'], replayed=True)
 
 
-ADD_SCRIPT = r'''
+ADD_SCRIPT = LUA_STATE + r'''
 local previous = redis.call('GET', KEYS[2])
 if previous then
     local old = cjson.decode(previous)
@@ -43,6 +45,7 @@ for _, item in ipairs(items) do
     local old = redis.call('HGET', KEYS[1], item.sku_id)
     local count = 0
     local selected = true
+    local row = {count=0,status=true}
     if old then
         local ok, decoded = pcall(cjson.decode, old)
         if not ok or type(decoded) ~= 'table' or not tonumber(decoded.count) then
@@ -51,10 +54,16 @@ for _, item in ipairs(items) do
         count = tonumber(decoded.count)
         if count < 0 or count ~= math.floor(count) then return cjson.encode({error='INVALID_CART'}) end
         if decoded.status ~= nil then selected = decoded.status end
+        row = decoded
     end
     local total = count + item.count
     if total > item.available_stock then return cjson.encode({error='STOCK_CHANGED'}) end
-    table.insert(updates, {sku_id=item.sku_id, value=cjson.encode({count=total,status=selected})})
+    row = normalize(row,ARGV[3] .. '-' .. item.sku_id)
+    row.added = row.added + item.count
+    row.count = total
+    row.status = selected
+    row.version = row.version + 1
+    table.insert(updates, {sku_id=item.sku_id, value=cjson.encode(row)})
 end
 for _, item in ipairs(updates) do redis.call('HSET', KEYS[1], item.sku_id, item.value) end
 local result = {code=200,data={carts_count=redis.call('HLEN',KEYS[1]),added_count=#updates},replayed=false}
@@ -66,7 +75,7 @@ return cjson.encode(result)
 def add_items(conn, username, operation, fingerprint, items):
     # 本项目使用独立Redis服务；所有键均由服务端身份构造，不接受外部键名。
     result = json.loads(conn.eval(ADD_SCRIPT, 2, 'carts_' + username,
-                                 receipt_key(username, operation), fingerprint, json.dumps(items)))
+                                 receipt_key(username, operation), fingerprint, json.dumps(items), uuid.uuid4().hex))
     if result.get('error'):
         raise CartError({'REQUEST_CONFLICT': '同一操作标识不能用于不同商品或数量',
                          'STOCK_CHANGED': '采购车累计数量超过当前可售库存，本次未添加',
@@ -82,4 +91,4 @@ return 1
 
 def compare_set(conn, key, field, before, after):
     """旧采购车编辑不得以过期快照覆盖并发加入后的数量。"""
-    return bool(conn.eval(CAS_SCRIPT, 1, key, str(field), before, after))
+    return bool(conn.eval(CAS_SCRIPT, 1, key, str(field), before, edit_row(before, after)))

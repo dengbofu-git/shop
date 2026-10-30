@@ -1,6 +1,6 @@
 # SDD 引用检索
 
-从仓库根目录使用现有 Python 3.9 或更新解释器运行，无需安装依赖、启动 Django 或连接数据库：
+从仓库根目录使用统一的Python3.13解释器运行，无需安装依赖、启动 Django 或连接数据库：
 
 ```powershell
 python tools/sdd_refs.py CAP-AI-003

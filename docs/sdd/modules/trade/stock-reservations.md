@@ -1,6 +1,6 @@
 # 库存预留、订单取消与批量采购
 
-规格0.2.1，2026-10-26，执行R04/R07；预留、防占用、取消／隐藏及历史子类型发货已在源码实现并完成隔离验证。业务库启用仍须单独核对、备份和授权，不等同真实支付联调完成。
+规格0.3.0，2026-10-29，执行R04/R07；补充采购车清理任务的事务和重试设计。新增orders.0006已获单独授权并在本地备份后启用，63张原业务表摘要不变；原预留、防占用、取消／隐藏及历史子类型发货的既有启用记录保留。见[统一复核及启用证据](../../evidence/2026-10-29-local-unification/verification.md)。
 
 本地启用记录：2026-10-26获用户单独授权，备份后应用inventory.0002、orders.0004/0005；原业务列数据核验不变，后端及30秒到期清理进程已启动。支付收款方ID当前缺失，支付链接仍按保护规则拒绝生成；未进行真实支付。详见[启用证据](../../evidence/2026-10-26-stock-reservations/activation.md)，本记录不代表生产部署或开机自启已配置。
 
@@ -53,7 +53,16 @@
 
 ## 接口与启用
 
-创建POST /v1/orders/<username>要求有效本人买家及16—64位ASCII安全字符幂等编号（Idempotency-Key或request_id）；同编号同意图回放，改变意图409；返回orders[]，创建不调用支付渠道；Redis删除比较原值，失败不能撤销已提交订单。GET advance返回reservation_checkout_version=1，旧后端无标记时页面禁止创建无保护订单。取消仅POST本人/cancel；type=5只为本人有效未过期受管订单生成固定截止支付链接。
+创建POST /v1/orders/<username>要求有效本人买家及16—64位ASCII安全字符幂等编号（Idempotency-Key或request_id）；同编号同意图回放，改变意图409；返回orders[]，创建不调用支付渠道。采购车清理失败不能撤销已提交订单，也不能只记录日志后永久丢失清理意图。GET advance返回reservation_checkout_version=1，旧后端无标记时页面禁止创建无保护订单。取消仅POST本人/cancel；type=5只为本人有效未过期受管订单生成固定截止支付链接。
+
+### 采购车清理任务
+
+- Redis条目包含generation、version、added、removed及count；count=added-removed。删除后重加形成新generation，旧任务不能作用于新条目；旧格式在结算快照中受控升级。
+- 创建订单在买家锁内，把CheckoutRequest、预留及CartCleanupTask放入同一MySQL事务；任务记录本次已购买数量区间。任务写入失败则订单和预留一起回滚。
+- 事务提交后尝试清理；Redis Lua只将已处理位置推进到任务截止游标，保留之后新加的数量。Redis已执行但MySQL确认失败时可重放，不重复减量；同代同数量区间不能被不同结算请求重复购买。
+- 断连时任务保留pending，记录尝试次数、异常类型和有界退避时间；日志不记录采购内容或连接凭据。watch_stock_reservations同时处理到期订单与待清理任务；retry_cart_cleanup支持显式重试，所有任务均使用服务端买家归属。
+- 读取采购车不改写数量或删除缺货行；返回available_stock及stock_shortage，页面保留意向数量并提示调整。移除前端固定9件上限，最终下单仍执行现有库存、预留占比、账号额度及防占用限制。
+- 本轮新增迁移仅创建清理任务表、约束及索引，不回填或修改历史订单。历史迁移不改写；业务库备份、授权启用和启用后只读核验独立记录。
 
 商家reservation-policy只允许本店完整四个配置字段及必填change_reason更新；依据须为1—200字符，身份、数量、金额和边界在服务端检查。ReservationPolicyChange同事务记录商家、actor、before、after、reason、effective_at；策略修改只影响后续创建，结算内使用单份店铺策略快照。到期进程watch_stock_reservations每30秒或定时expire_stock_reservations，访问时清理只作兜底。
 

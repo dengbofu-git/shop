@@ -1,2 +1,2 @@
-# Separate Python 3.12 SDK environment; keep independent of Django's environment.
+# Python 3.13 SDK environment; dependency isolation does not change the runtime baseline.
 mcp==1.29.1

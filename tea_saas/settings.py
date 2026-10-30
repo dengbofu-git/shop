@@ -17,8 +17,8 @@ from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-load_dotenv(BASE_DIR / '.env', override=False)
-load_dotenv(BASE_DIR / '.env.postgres', override=False)
+load_dotenv(os.getenv('DJANGO_ENV_FILE', BASE_DIR / '.env'), override=False)
+load_dotenv(os.getenv('DJANGO_POSTGRES_ENV_FILE', BASE_DIR / '.env.postgres'), override=False)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -202,6 +202,9 @@ SUPPORT_BASE_URL = os.environ['SUPPORT_BASE_URL']
 SUPPORT_THINKING = os.environ.get('SUPPORT_THINKING', '')
 
 # Application Agent data access is MCP-only. SDK stays in its Python 3.12 env.
+SUPPORT_MCP_TRANSPORT = os.getenv('SUPPORT_MCP_TRANSPORT', 'http')
+SUPPORT_MCP_URL = os.getenv('SUPPORT_MCP_URL', 'http://127.0.0.1:18082/mcp')
+SUPPORT_MCP_SERVICE_TOKEN = os.getenv('SUPPORT_MCP_SERVICE_TOKEN', '')
 SUPPORT_MCP_PYTHON = os.getenv('SUPPORT_MCP_PYTHON', str(BASE_DIR / 'tools' / 'tea_saas_mcp' / '.venv' /
                                ('Scripts/python.exe' if os.name == 'nt' else 'bin/python')))
 SUPPORT_MCP_CALL_TIMEOUT = float(os.getenv('SUPPORT_MCP_CALL_TIMEOUT', '40'))
@@ -260,7 +263,7 @@ CACHES = {
 
 #####################媒体文件配置#######################
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / "media"
+MEDIA_ROOT = Path(os.getenv('DJANGO_MEDIA_ROOT', str(BASE_DIR / 'media')))
 TEA_SAAS_MEDIA = "http://127.0.0.1:8000/media/"
 #####################媒体文件配置######################
 

@@ -178,13 +178,19 @@ def _recall_queries(queries, owner_id, budget, retriever, audit, round_number):
             item['status'] = 'request_budget'
             continue
         try:
-            with agent_span('knowledge.embedding'):
-                if query not in retriever.embeddings:
+            attrs = {'agent.retrieval.round':round_number, 'agent.retrieval.query_index':index}
+            with agent_span('knowledge.vector_route', attrs):
+                if query in retriever.embeddings:
+                    with agent_span('knowledge.cache', {'agent.cache.kind':'embedding', 'agent.cache.status':'request_hit'}):
+                        embedding = retriever.embeddings[query]
+                else:
                     remaining = max(1, retriever.policy.budget_seconds - (time.monotonic()-retriever.started))
                     retriever.embeddings[query] = cached_embedding(query, embed_text, timeout=(2, min(8, remaining)))
-                embedding = retriever.embeddings[query]
-            with agent_span('knowledge.vector_search'):
-                ranking = search_knowledge(embedding, settings.AI_EMBEDDING_SPACE_KEY, owner_id, limit=limit)
+                    embedding = retriever.embeddings[query]
+                with agent_span('knowledge.vector_search', attrs) as span:
+                    ranking = search_knowledge(embedding, settings.AI_EMBEDDING_SPACE_KEY, owner_id, limit=limit)
+                    if span:
+                        span.set_attribute('agent.retrieval.hits', len(ranking))
             item['hits'] = len(ranking)
             rankings.append(ranking)
         except Exception as exc:
@@ -197,7 +203,9 @@ def _hybrid_recall(queries, owner_id, budget, retriever, audit, round_number):
     """Independent keyword and vector routes with the same trusted ACL."""
     if budget < 2 or not getattr(settings, 'SUPPORT_RAG_HYBRID_ENABLED', True):
         return _recall_queries(queries, owner_id, budget, retriever, audit, round_number)
-    if not hybrid_search_ready():
+    with agent_span('knowledge.hybrid_ready'):
+        ready = hybrid_search_ready()
+    if not ready:
         audit['hybrid_status'] = 'schema_pending'
         return _recall_queries(queries, owner_id, budget, retriever, audit, round_number)
     audit['hybrid_status'] = 'enabled'
@@ -206,7 +214,10 @@ def _hybrid_recall(queries, owner_id, budget, retriever, audit, round_number):
     audit['queries'].append(item)
     rankings = []
     try:
-        rows = search_knowledge_keywords(' '.join(queries), owner_id, limit=keyword_budget)
+        with agent_span('knowledge.keyword_search', {'agent.retrieval.round':round_number}) as span:
+            rows = search_knowledge_keywords(' '.join(queries), owner_id, limit=keyword_budget)
+            if span:
+                span.set_attribute('agent.retrieval.hits', len(rows))
         item['hits'] = len(rows)
         rankings.append(rows)
     except Exception as exc:
@@ -218,36 +229,57 @@ def _hybrid_recall(queries, owner_id, budget, retriever, audit, round_number):
 
 def _rank_candidates(query, candidates, config, retriever, audit):
     cap = max(1, min(100, int(getattr(settings, 'SUPPORT_RAG_RERANK_CANDIDATES', 20))))
-    # Preserve explicit comparison subjects before limiting expensive scoring.
     candidates = coverage_order(query, candidates)[:cap]
-    if not config.rerank_enabled or not candidates:
-        return candidates
-    if not retriever.has_budget():
-        audit['rerank_status'].append('request_budget')
-        # Respect fail-closed deployments even when dispatch budget expires.
-        return candidates if config.rerank_fallback else []
-    started, status, reason = time.perf_counter(), 'success', ''
-    try:
-        remaining_ms = max(500, int((retriever.policy.budget_seconds - (time.monotonic()-retriever.started)) * 1000))
-        bounded = replace(config, rerank_timeout_ms=min(config.rerank_timeout_ms, remaining_ms))
-        with agent_span('knowledge.rerank', {'agent.rerank.model':config.rerank_model,
-                        'agent.rerank.revision':settings.AI_RERANK_REVISION,
-                        'agent.rerank.candidates':len(candidates),
-                        'agent.rerank.input_ids':tuple(str(c['chunk_id']) for c in candidates)}) as span:
+    attrs = {'agent.rerank.model':config.rerank_model, 'agent.rerank.revision':settings.AI_RERANK_REVISION,
+             'agent.rerank.candidates':len(candidates)}
+    has_budget = retriever.has_budget()
+    skipped = not config.rerank_enabled or not candidates or not has_budget
+    with agent_span('knowledge.rerank.skipped' if skipped else 'knowledge.rerank', attrs) as span:
+        if not config.rerank_enabled or not candidates:
+            if span:
+                span.set_attribute('agent.rerank.status', 'disabled' if not config.rerank_enabled else 'empty')
+            return candidates
+        if not has_budget:
+            audit['rerank_status'].append('request_budget')
+            if span:
+                span.set_attribute('agent.rerank.status', 'request_budget')
+            return candidates if config.rerank_fallback else []
+        started, status, reason = time.perf_counter(), 'success', ''
+        try:
+            remaining_ms = max(500, int((retriever.policy.budget_seconds - (time.monotonic()-retriever.started)) * 1000))
+            bounded = replace(config, rerank_timeout_ms=min(config.rerank_timeout_ms, remaining_ms))
+            if span:
+                span.set_attribute('agent.rerank.input_ids', tuple(str(c['chunk_id']) for c in candidates))
             ranked = rerank_candidates(query, candidates, bounded)
             if span:
                 span.set_attribute('agent.rerank.output_ids', tuple(str(c['chunk_id']) for c in ranked))
                 span.set_attribute('agent.rerank.scores', tuple(c['rerank_score'] for c in ranked))
-        return ranked
-    except RerankUnavailable as exc:
-        status, reason = ('fallback' if config.rerank_fallback else 'failed'), exc.reason
-        return candidates if config.rerank_fallback else []
-    finally:
-        audit['rerank_status'].append(status)
-        rerank_observation(time.perf_counter()-started, config.rerank_model, len(candidates), status, reason)
+            return ranked
+        except RerankUnavailable as exc:
+            status, reason = ('fallback' if config.rerank_fallback else 'failed'), exc.reason
+            if span:
+                from opentelemetry.trace import Status, StatusCode
+                span.set_status(Status(StatusCode.ERROR))
+            return candidates if config.rerank_fallback else []
+        finally:
+            if span:
+                span.set_attribute('agent.rerank.status', status)
+                if reason:
+                    span.set_attribute('agent.rerank.reason', reason)
+            audit['rerank_status'].append(status)
+            rerank_observation(time.perf_counter()-started, config.rerank_model, len(candidates), status, reason)
 
 
 def retrieve_knowledge(query, owner_id, config, retriever=None):
+    with agent_span('knowledge.retrieve') as span:
+        evidence = _retrieve_knowledge(query, owner_id, config, retriever)
+        retrieval_hits(len(evidence))
+        if span:
+            span.set_attribute('agent.retrieval.hits', len(evidence))
+        return evidence
+
+
+def _retrieve_knowledge(query, owner_id, config, retriever=None):
     retriever = retriever or KnowledgeRetriever(owner_id, config)
     if owner_id != retriever.owner_id:
         raise ValueError('Retrieval scope mismatch')
@@ -266,23 +298,31 @@ def retrieve_knowledge(query, owner_id, config, retriever=None):
              'queries':[], 'rerank_status':[], 'retry':False, 'retry_adopted':False,
              'retry_reasons':[], 'selected_ids':[]}
     retriever.audit.append(audit)
-    key = evidence_key(query, owner_id, config, retriever.policy)
-    cached = cache_read(key)
+    with agent_span('knowledge.cache', {'agent.cache.kind':'evidence'}) as span:
+        key = evidence_key(query, owner_id, config, retriever.policy)
+        cached = cache_read(key)
+        if span:
+            span.set_attribute('agent.cache.status', 'hit' if cached is not None else 'miss' if key else 'disabled')
     if cached is not None:
         evidence, saved_audit = cached
         audit.update(saved_audit, cache_status='hit')
         return evidence
     audit['cache_status'] = 'miss' if key else 'disabled'
-    with agent_span('knowledge.retrieve') as span:
+    with agent_span('knowledge.recall') as span:
         max_queries = min(retriever.policy.max_queries, config.retrieval_candidates)
         queries = retriever.initial_queries(query, audit, max_queries)
         rankings = _hybrid_recall(queries, owner_id, config.retrieval_candidates, retriever, audit, 0)
-        with agent_span('knowledge.rrf'):
+        with agent_span('knowledge.rrf') as rrf_span:
             fused = fuse_rankings(rankings, config.retrieval_candidates)
+            if rrf_span:
+                rrf_span.set_attribute('agent.retrieval.candidates', len(fused))
         # Rank against the original redacted, normalized knowledge question.
         # Translations and expansions broaden recall only, including on retry.
         ranked = _rank_candidates(query, fused, config, retriever, audit)
-        evidence = select_evidence(coverage_order(query, ranked), config)
+        with agent_span('knowledge.select_context') as select_span:
+            evidence = select_evidence(coverage_order(query, ranked), config)
+            if select_span:
+                select_span.set_attribute('agent.retrieval.hits', len(evidence))
         reasons = insufficiency(query, evidence, config, retriever.policy)
         audit['retry_reasons'] = reasons
         if reasons and retriever.policy.retry_enabled and retriever.has_budget():
@@ -297,13 +337,15 @@ def retrieve_knowledge(query, owner_id, config, retriever=None):
                     extra = _hybrid_recall(retry_queries, owner_id, max(1, config.retrieval_candidates//2), retriever, audit, 1)
                     if extra:
                         rankings.extend(extra)
-                        fused = fuse_rankings(rankings, config.retrieval_candidates)
+                        with agent_span('knowledge.rrf'):
+                            fused = fuse_rankings(rankings, config.retrieval_candidates)
                         old_ids = {(x['document_id'], x['chunk_id']) for rows in rankings[:-len(extra)] for x in rows}
                         new_ids = {(x['document_id'], x['chunk_id']) for x in fused}
                         retry_ranked = _rank_candidates(query, fused, config, retriever, audit) if new_ids - old_ids else ranked
                         # A failed supplemental service cannot erase first-round evidence.
                         if retry_ranked:
-                            supplemental = select_evidence(coverage_order(query, retry_ranked), config)
+                            with agent_span('knowledge.select_context'):
+                                supplemental = select_evidence(coverage_order(query, retry_ranked), config)
                             def quality(values):
                                 scores = [v['rerank_score'] for v in values if 'rerank_score' in v]
                                 return (len(coverage_missing(query, values)),
@@ -320,9 +362,6 @@ def retrieve_knowledge(query, owner_id, config, retriever=None):
             'missing_facets': [f for f in concepts(query, FACETS)
                                if not any(f in concepts(e['text'], FACETS) for e in evidence)]}
         audit['selected_ids'] = [str(e['chunk_id']) for e in evidence]
-        with agent_span('knowledge.select_context', {'agent.retrieval.hits':len(evidence),
-                        'agent.retrieval.selected_ids':tuple(audit['selected_ids'])}):
-            retrieval_hits(len(evidence))
         if span:
             span.set_attribute('agent.retrieval.hits', len(evidence))
             span.set_attribute('agent.retrieval.queries', len(audit['queries']))
@@ -341,13 +380,14 @@ def retrieve_knowledge(query, owner_id, config, retriever=None):
             s == 'success' for s in audit['rerank_status']):
         # A concurrent mutation must not install evidence under the new epoch.
         if key is not None and key == evidence_key(query, owner_id, config, retriever.policy):
-            cache_write(key, (evidence, audit))
+            with agent_span('knowledge.cache_write'):
+                cache_write(key, (evidence, audit))
     return evidence
 
 
 def _retrieve_single(query, owner_id, config):
     try:
-        with agent_span('knowledge.retrieve') as span:
+        with agent_span('knowledge.recall') as span:
             with agent_span('embedding.bge-m3'):
                 embedding = embed_text(query)
             with agent_span('knowledge.vector_search'):
@@ -383,7 +423,6 @@ def _retrieve_single(query, owner_id, config):
                 if context_span:
                     context_span.set_attribute('agent.retrieval.selected_ids', tuple(str(c['chunk_id']) for c in matches))
                     context_span.set_attribute('agent.retrieval.hits', len(matches))
-            retrieval_hits(len(matches))
             if span:
                 span.set_attribute('agent.retrieval.hits', len(matches))
             return matches
