@@ -3,7 +3,7 @@
   "modules": {
     "core": {
       "title": "项目核心",
-      "version": "0.14.0",
+      "version": "0.15.0",
       "paths": [
         "README.md",
         "CONTEXT.md",
@@ -33,7 +33,7 @@
     },
     "users": {
       "title": "用户与权限",
-      "version": "0.4.2",
+      "version": "0.4.3",
       "paths": [
         "users/",
         "versions/changelogs/users.md"
@@ -44,7 +44,7 @@
     },
     "goods": {
       "title": "商品管理",
-      "version": "0.7.4",
+      "version": "0.7.5",
       "paths": [
         "goods/",
         "media/",
@@ -78,7 +78,7 @@
     },
     "orders": {
       "title": "订单管理",
-      "version": "0.6.0",
+      "version": "0.6.1",
       "paths": [
         "orders/",
         "versions/changelogs/orders.md"
@@ -144,7 +144,7 @@
     },
     "supplier": {
       "title": "商家与结算",
-      "version": "0.4.4",
+      "version": "0.4.5",
       "paths": [
         "supplier/",
         "versions/changelogs/supplier.md"
@@ -175,7 +175,7 @@
     },
     "support_ai": {
       "title": "智能客服",
-      "version": "0.32.3",
+      "version": "0.32.4",
       "paths": [
         "support_ai/",
         "docs/客服商品推荐设计.md",
@@ -205,7 +205,7 @@
     },
     "ai_storage": {
       "title": "AI 记忆与知识存储",
-      "version": "0.7.3",
+      "version": "0.8.0",
       "paths": [
         "ai_storage/",
         "deploy/postgres/",
@@ -255,7 +255,7 @@
     },
     "engagement": {
       "title": "站内咨询与商品评价",
-      "version": "0.2.3",
+      "version": "0.2.4",
       "paths": [
         "engagement/",
         "versions/changelogs/engagement.md"

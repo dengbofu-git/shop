@@ -25,7 +25,11 @@ class SyntheticMcpTransport:
     def request(self, method, params, timeout=None):
         assert method == 'tools/call' and not self.closed
         self.calls.append(json.loads(json.dumps(params)))
-        payload = self.session.invoke(params['name'], params['arguments'])
+        # The production backend owns a separate process/connection. This
+        # in-process fixture shares TestCase's outer transaction; it must not
+        # run worker connection cleanup against the caller's connection.
+        with patch('support_ai.mcp_backend.close_old_connections'):
+            payload = self.session.invoke(params['name'], params['arguments'])
         return {'structuredContent':payload, 'isError':payload['status'] == 'error'}
 
     def close(self):

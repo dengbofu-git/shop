@@ -15,7 +15,7 @@ from .models import SupportConversation
 
 class GenericTeaBudgetTests(TestCase):
     def setUp(self):
-        merchant = UserProfile.objects.create(username='synthetic-budget-shop', user_type='merchant', is_active=True)
+        merchant = UserProfile.objects.create(username='synthe43e95', user_type='merchant', is_active=True)
         category = Catalog.objects.create(name='红茶')
         for index, price in enumerate(('750.00', '600.00')):
             product = SPU.objects.create(name='合成预算茶{}'.format(index), catalog=category, merchant=merchant)
@@ -48,7 +48,7 @@ class GenericTeaBudgetTests(TestCase):
                 self.assertEqual(Decimal(item['line_subtotal']), Decimal(item['price']) * item['quantity'])
 
     def pending(self):
-        user = UserProfile.objects.create(username='synthetic-budget-buyer', user_type='customer', is_active=True)
+        user = UserProfile.objects.create(username='synthe3e7b4', user_type='customer', is_active=True)
         message = '推荐3000块的茶'
         response = self.graph().invoke({'message': message})['response']
         self.assertTrue(response['clarification_required'])

@@ -1,4 +1,6 @@
 """MCP-only boundary, grant, failure and delegation regressions; synthetic data."""
+
+from ai_storage.database import alias as ai_db_alias
 import json
 from unittest.mock import patch
 
@@ -16,13 +18,13 @@ from .order_contracts import rule_order_query
 
 
 class McpDataTests(TestCase):
-    databases = {'default','ai_storage'}
+    databases = {'default',ai_db_alias()}
 
     def setUp(self):
         self.user = UserProfile.objects.create(username='mcp-buyer', user_type='customer', is_active=True)
         self.other = UserProfile.objects.create(username='mcp-other', user_type='customer', is_active=True)
         category = Catalog.objects.create(name='绿茶')
-        merchant = UserProfile.objects.create(username='synthetic-active-seller', user_type='merchant', is_active=True)
+        merchant = UserProfile.objects.create(username='synthe2ddd3', user_type='merchant', is_active=True)
         product = SPU.objects.create(name='合成协议茶', catalog=category, merchant=merchant)
         self.sku = SKU.objects.create(name='50克', spu=product, price='12.30', cost_price='1', market_price='15', stock=4)
         transport = patch('support_ai.mcp_client.StdioMcpTransport', SyntheticMcpTransport)

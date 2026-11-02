@@ -1,5 +1,7 @@
 """Application-only vector retrieval and local-model query adapter."""
 
+from ai_storage.database import alias as ai_db_alias
+
 import math
 import re
 from functools import reduce
@@ -17,7 +19,7 @@ from .models import EmbeddingSpace, KnowledgeChunk
 
 def hybrid_search_ready():
     """Safe rollout probe; never query a missing table and poison a transaction."""
-    connection = connections['ai_storage']
+    connection = connections[ai_db_alias()]
     if connection.vendor != 'postgresql':
         return False
     with connection.cursor() as cursor:

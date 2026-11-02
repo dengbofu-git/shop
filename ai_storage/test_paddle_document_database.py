@@ -1,4 +1,6 @@
 """State/cancellation tests run only on an explicitly disposable PostgreSQL database."""
+
+from ai_storage.database import alias as ai_db_alias
 import json
 import os
 from pathlib import Path
@@ -20,7 +22,7 @@ class PaddleDocumentDatabaseTests(unittest.TestCase):
         import django
         django.setup()
         from django.conf import settings
-        if settings.DATABASES['ai_storage']['NAME'] != os.environ['AI_PADDLEOCR_TEST_DATABASE']:
+        if settings.DATABASES[ai_db_alias()]['NAME'] != os.environ['AI_PADDLEOCR_TEST_DATABASE']:
             raise RuntimeError('Unsafe database target')
 
     def setUp(self):
@@ -54,7 +56,7 @@ class PaddleDocumentDatabaseTests(unittest.TestCase):
         from django.db import connections
         from ai_storage.pdf_pipeline.paddleocr import PaddleOCRDocumentAdapter
         def response(adapter, image):
-            self.assertFalse(connections['ai_storage'].in_atomic_block)
+            self.assertFalse(connections[ai_db_alias()].in_atomic_block)
             if cancel:
                 self.service.action(job.pk, 1, 'cancel')
             width, height = struct.unpack('>II', image[16:24])
@@ -64,7 +66,7 @@ class PaddleDocumentDatabaseTests(unittest.TestCase):
                         {'block_label': 'text', 'block_content': 'Extracted tea storage facts stay dry and sealed.',
                          'block_id': 0, 'block_order': 1, 'block_bbox': [0, 0, width, height]}]}}
         def embedding(texts, **kwargs):
-            self.assertFalse(connections['ai_storage'].in_atomic_block)
+            self.assertFalse(connections[ai_db_alias()].in_atomic_block)
             return [[1.0] + [0.0] * 1023 for text in texts]
         with patch.object(PaddleOCRDocumentAdapter, 'extract', response), \
                 patch.object(self.service, 'embed_texts', side_effect=embedding) as embed:

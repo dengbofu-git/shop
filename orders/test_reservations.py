@@ -213,7 +213,7 @@ class ReservationTests(Fixtures,TestCase):
         self.assertEqual(available_quantity(self.skus[0]),1)
 
 
-@skipUnless(connection.vendor=='mysql','Requires real MySQL row locks and independent connections')
+@skipUnless(connection.vendor in ('mysql','postgresql'),'Requires real PostgreSQL/MySQL row locks and independent connections')
 class ReservationConcurrencyTests(Fixtures,TransactionTestCase):
     def setUp(self):self.seed()
     def run_parallel(self,actions):

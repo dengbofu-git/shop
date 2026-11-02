@@ -1,5 +1,7 @@
 # tea_saas当前模块版本清单
 
+2026-11-02数据库统一：core0.15.0、ai_storage0.8.0及相关模块已本地使用单一PostgreSQL/default；73表迁移、7,183行内容及65个序列核对、原生备份实恢复、735项PG＋Redis回归见[迁移证据](../docs/sdd/evidence/2026-11-02-postgresql-unification/verification.md)。Git交付状态按本次PR记录。旧日期版本/双库说明保留过程含义，以本段及modules.json为准。
+
 2026-11-02高优先级收口：support_ai0.32.3、web0.36.2、core0.14.0已统一应用本机Web/MCP/知识Worker；orders.0007已备份并完成同版本恢复验证后应用。当前验收、真实支付/模型限制及交付状态以[收口证据](../docs/sdd/evidence/2026-11-02-priority-activation/verification.md)和对应PR收据为准。以下过程记录保留原时点，不表示当前仍未启用。
 
 2026-11-02依赖升级：core0.14.0／support_ai0.31.0采用LangChain1.3.18配套栈，本机后端与MCP已加载；独立及实际运行环境的Agent隔离回归各336项（328通过、8跳过）。未提交/推送，知识Worker镜像未重建，详见[升级证据](../docs/sdd/evidence/2026-11-02-langchain13/verification.md)。
@@ -16,21 +18,21 @@
 
 | 模块 | 当前版本 | 当前核对状态 | 完整变更记录 |
 | --- | --- | --- | --- |
-| core · 项目核心 | 0.14.0 | LangChain1.3配套依赖已锁定并应用本机运行环境；此前统一运行及MCP契约保留。 | [core](changelogs/core.md) |
-| users · 用户与权限 | 0.4.2 | 统一登录与权限分流、平台联合鉴权、会话权限、品牌与旧入口清理 | [users](changelogs/users.md) |
-| goods · 商品管理 | 0.7.4 | 公开缺货详情可读，推荐/采购车仍要求有效商家、正价和正库存，已本地启用。 | [goods](changelogs/goods.md) |
+| core · 项目核心 | 0.15.0 | PostgreSQL单库、受保护迁移工具及CI已实现；本地来源迁移、备份恢复和四类进程统一启用通过。 | [core](changelogs/core.md) |
+| users · 用户与权限 | 0.4.3 | PG登录身份大小写兼容，Upper唯一约束已在新库实施；原身份、角色及昵称保留。 | [users](changelogs/users.md) |
+| goods · 商品管理 | 0.7.5 | PG导入重名/并发保护与种子库身份检查通过，原公开/可售范围保持。 | [goods](changelogs/goods.md) |
 | carts · 购物车 | 0.4.0 | 原子追加及幂等保留；增加生成标识与数量游标，缺货读取不减量，展示商品名和独立规格。 | [carts](changelogs/carts.md) |
-| orders · 订单管理 | 0.6.0 | 新建CNY快照，历史NULL不推断、不进入CNY财务比较；0007已在本地备份及同版本恢复验证后应用，原0006启用记录保持。 | [orders](changelogs/orders.md) |
+| orders · 订单管理 | 0.6.1 | 预留、取消支付竞争及幂等用例在真实PG执行；原ID、金额、138笔历史未知币种保留。 | [orders](changelogs/orders.md) |
 | pays · 支付 | 0.2.2 | 未知或非CNY订单付款需人工核验；保留可信回调验签与幂等，真实渠道仍待专项验收。 | [pays](changelogs/pays.md) |
 | news · 内容资讯 | 0.1.2 | 移除空后台注册文件；资讯API保持原有规则 | [news](changelogs/news.md) |
 | inventory · 库存管理 | 0.2.2 | 通用库存/仓库限定有效平台角色和显式权限；商家保留本店库存接口，已本地启用。 | [inventory](changelogs/inventory.md) |
 | logistics · 物流 | 0.1.2 | 本人买家、本店完整订单或平台显式权限读取物流；拒绝跨账号及商家混合单，已本地启用。 | [logistics](changelogs/logistics.md) |
-| supplier · 商家与结算 | 0.4.4 | 旧看板无来源指标占位、销售按购买归属和CNY聚合，订单DTO携带币种；已本地启用。 | [supplier](changelogs/supplier.md) |
+| supplier · 商家与结算 | 0.4.5 | 真实PG重复发货并发回归通过；商家归属、CNY汇总和无来源占位语义保持。 | [supplier](changelogs/supplier.md) |
 | admin_panel · 平台运营 | 0.4.3 | CNY财务汇总排除历史未知和其他币种，保留订单数及角色/权限控制，已本地启用。 | [admin_panel](changelogs/admin_panel.md) |
-| support_ai · 智能客服 | 0.32.3 | 方案哈希及来源链接中的明确凭据/编码联系方式已补修，0.32.3统一本地启用并交付；真实模型质量和规则识别限制保留。 | [support_ai](changelogs/support_ai.md) |
-| ai_storage · AI 记忆与知识存储 | 0.7.3 | Worker使用统一当前镜像与Python3.13依赖；OCR／重排序／向量模型及知识文件保持。 | [ai_storage](changelogs/ai_storage.md) |
+| support_ai · 智能客服 | 0.32.4 | 偏好、检索epoch和常驻MCP使用统一default；PG＋Redis与原生MCP验收通过，授权/PII边界保持。 | [support_ai](changelogs/support_ai.md) |
+| ai_storage · AI 记忆与知识存储 | 0.8.0 | 单连接路由、同事务回滚和PG守卫验证；本地新Worker已无MySQL依赖，18文档/152片段完整保留。 | [ai_storage](changelogs/ai_storage.md) |
 | web · 页面与前端资源 | 0.36.2 | 咨询历史可见菜单及焦点恢复已本地启用；Edge键盘/390px视口及移出/恢复通过，实体手机未测。 | [web](changelogs/web.md) |
-| engagement · 站内咨询与商品评价 | 0.2.3 | 隔离MySQL测试设置兼容Django 5.2；咨询、评价及身份隔离保持原行为。 | [engagement](changelogs/engagement.md) |
+| engagement · 站内咨询与商品评价 | 0.2.4 | 咨询/评价、并发和角色隔离在统一PG验证；订单评价与商品咨询入口保持。 | [engagement](changelogs/engagement.md) |
 
 买家评价仅从“我的订单”的对应商品进入，查看／提交绑定该订单商品；不提供独立“我的评价”导航和跨订单评价列表。
 

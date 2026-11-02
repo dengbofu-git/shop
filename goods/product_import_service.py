@@ -26,9 +26,12 @@ def _active(merchant):
 
 
 def _existing_conflicts(merchant, rows):
+    from django.db.models.functions import Lower
     names = [row['data']['name'] for row in rows]
-    # Use the database's equality/collation rules as well as Python casefold.
-    existing = list(SPU.objects.filter(merchant=merchant, name__in=names).values_list('name', flat=True))
+    # Preserve case-insensitive import identity without relying on MySQL's
+    # default collation. Scope the query to this merchant and this batch.
+    existing = list(SPU.objects.filter(merchant=merchant).annotate(import_name=Lower('name'))
+                    .filter(import_name__in=[name.lower() for name in names]).values_list('name', flat=True))
     blocked = {name.casefold() for name in existing}
     for row in rows:
         name = row['data']['name']

@@ -5,6 +5,7 @@ from tea_saas.settings import *  # noqa: F401,F403
 
 DATABASES = {'default': {'ENGINE': 'django.db.backends.sqlite3', 'NAME': ':memory:'}}
 DATABASES['ai_storage'] = {'ENGINE': 'django.db.backends.sqlite3', 'NAME': ':memory:', 'TEST': {'DEPENDENCIES': []}}
+AI_STORAGE_DB_ALIAS = 'ai_storage'
 CACHES = {
     'default': {'BACKEND': 'django.core.cache.backends.locmem.LocMemCache'},
     'carts': {'BACKEND': 'django.core.cache.backends.locmem.LocMemCache'},

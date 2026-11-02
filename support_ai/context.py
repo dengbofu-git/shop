@@ -1,5 +1,7 @@
 """Application-owned persistence and ownership checks, outside the Agent graph."""
 
+from ai_storage.database import alias as ai_db_alias
+
 import json
 from datetime import timedelta
 
@@ -64,7 +66,7 @@ def saved_preferences(user):
             break
         except (DatabaseError, InterfaceError) as exc:
             stale, configuration = _preference_connection_failure(exc)
-            connection = connections['ai_storage']
+            connection = connections[ai_db_alias()]
             # Retry only this read, once, on a known broken transport. Never
             # replay the workflow/commit, change request IDs, or retry writes.
             if attempt == 0 and stale and not connection.in_atomic_block:

@@ -7,7 +7,7 @@ from pgvector.django import VectorField
 
 
 class BuyerMemory(models.Model):
-    # MySQL UserProfile is authoritative; Django does not support cross-DB foreign keys.
+    # UserProfile owns identity; preserve this existing logical reference during transfer.
     owner_id = models.PositiveBigIntegerField(unique=True)
     preferences = models.JSONField(default=dict)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -80,7 +80,7 @@ class KnowledgeRevision(models.Model):
 
 
 class KnowledgeImportJob(models.Model):
-    """Application-owned pipeline; PostgreSQL references MySQL identities by ID."""
+    """Application-owned pipeline; identity references retain their existing IDs."""
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     document = models.OneToOneField(KnowledgeDocument, on_delete=models.PROTECT, related_name='pdf_import')
     actor_id = models.PositiveBigIntegerField()

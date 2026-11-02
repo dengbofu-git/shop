@@ -40,7 +40,7 @@ def main():
     if args.check:
         call_command('check')
         from django.db import connections
-        for alias in ('default', 'ai_storage'):
+        for alias in connections:
             with connections[alias].cursor() as cursor:
                 cursor.execute('SELECT 1')
                 assert cursor.fetchone()[0] == 1

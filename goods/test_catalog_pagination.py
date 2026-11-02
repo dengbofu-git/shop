@@ -6,7 +6,7 @@ from goods.models import Catalog, SKU, SPU
 class CatalogPaginationTests(TestCase):
     @classmethod
     def setUpTestData(cls):
-        cls.catalog = Catalog.objects.create(name='Pagination fixture')
+        cls.catalog = Catalog.objects.create(name='分页夹具')
         spu = SPU.objects.create(name='Fixture tea', catalog=cls.catalog)
         cls.ids = []
         for index in range(23):
@@ -41,7 +41,7 @@ class CatalogPaginationTests(TestCase):
                 self.assertEqual(self.get_page(page_size=invalid)['paginator']['pagesize'], 12)
 
     def test_empty_category_stays_empty(self):
-        empty = Catalog.objects.create(name='Empty fixture')
+        empty = Catalog.objects.create(name='空夹具')
         response = self.client.get('/v1/goods/catalogs/' + str(empty.pk), {'page_size': 10})
         self.assertEqual(response.json()['data'], [])
         self.assertEqual(response.json()['paginator'], {'pagesize': 10, 'total': 0})

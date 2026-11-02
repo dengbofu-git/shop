@@ -173,7 +173,7 @@ from .mcp_testing import create_tool_handlers
 
 class BundleIntentMcpTests(DatabaseTestCase):
     def setUp(self):
-        merchant = UserProfile.objects.create(username='bundle-boundary-merchant', user_type='merchant', is_active=True)
+        merchant = UserProfile.objects.create(username='bundle0e6c0', user_type='merchant', is_active=True)
         for name, price in [('红茶', '7.04'), ('绿茶', '20.00')]:
             category = Catalog.objects.create(name=name)
             product = SPU.objects.create(name='合成'+name, catalog=category, merchant=merchant)
@@ -202,7 +202,7 @@ class BundleIntentMcpTests(DatabaseTestCase):
         import uuid
         from .context import commit_turn, recent_context
         from .models import SupportConversation
-        buyer = UserProfile.objects.create(username='bundle-boundary-buyer', user_type='customer', is_active=True)
+        buyer = UserProfile.objects.create(username='bundleae6d0', user_type='customer', is_active=True)
         saved = commit_turn(buyer, None, 0, uuid.uuid4(), 'synthetic-boundary', message, response)
         history = recent_context(SupportConversation.objects.get(pk=saved['conversation_id']))
         # 简单件数补充沿用已经确认的总预算，真实协议后端查询隔离SKU。

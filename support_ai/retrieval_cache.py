@@ -1,4 +1,6 @@
 """Bounded caches: embeddings by model; evidence by database epoch and ACL."""
+
+from ai_storage.database import alias as ai_db_alias
 import hashlib
 import json
 import math
@@ -40,14 +42,14 @@ def write(key, value):
 
 
 def evidence_key(query, owner_id, config, policy):
-    connection = connections['ai_storage']
+    connection = connections[ai_db_alias()]
     if (connection.vendor != 'postgresql' or connection.in_atomic_block
             or not getattr(settings, 'SUPPORT_RAG_CACHE_ENABLED', True)):
         return None
     if not hybrid_search_ready():
         return None
     # Do not catch DB errors and serve stale data. Epoch lookup is mandatory.
-    epoch = KnowledgeRevision.objects.using('ai_storage').get(pk=1).revision
+    epoch = KnowledgeRevision.objects.using(ai_db_alias()).get(pk=1).revision
     database = connection.settings_dict
     return cache_key('evidence', [query, owner_id, epoch,
         [database.get(k) for k in ('HOST', 'PORT', 'NAME')],

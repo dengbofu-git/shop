@@ -1,4 +1,6 @@
 """Streaming boundaries, saved-turn replay and real provider SSE parsing (synthetic data)."""
+
+from ai_storage.database import alias as ai_db_alias
 import json
 import threading
 import uuid
@@ -131,7 +133,7 @@ class StreamProtocolTests(SimpleTestCase):
 
 
 class StreamingChatTests(TransactionTestCase):
-    databases = {'default', 'ai_storage'}
+    databases = {'default', ai_db_alias()}
 
     def setUp(self):
         from users.models import UserProfile
@@ -262,7 +264,7 @@ class ProviderStreamTests(SimpleTestCase):
 
 
 class StreamingWireTests(LiveServerTestCase):
-    databases = {'default', 'ai_storage'}
+    databases = {'default', ai_db_alias()}
 
     def test_real_http_delivers_frames_before_commit_and_replay_does_not_duplicate(self):
         import requests

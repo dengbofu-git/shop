@@ -8,6 +8,16 @@ from goods.management.commands.seed_virtual_tea_products import Command
 
 
 class SeedIdentityTests(SimpleTestCase):
+    def test_postgresql_identity_mismatch_prevents_writes(self):
+        connection = MagicMock(vendor='postgresql')
+        cursor = connection.cursor.return_value.__enter__.return_value
+        cursor.fetchone.return_value = ('unexpected', '12345')
+        with patch('goods.management.commands.seed_virtual_tea_products.connections', {'default':connection}), patch(
+                'goods.management.commands.seed_virtual_tea_products.UserProfile') as users:
+            with self.assertRaisesMessage(CommandError, 'Unexpected database identity; no rows were written'):
+                Command().handle(database='default',batch='TEST',expected_database_name='expected',expected_server_uuid='12345')
+            users.objects.using.assert_not_called()
+
     def test_database_name_mismatch_prevents_writes(self):
         self.assert_identity_rejected(('unexpected', 'server-1'))
 

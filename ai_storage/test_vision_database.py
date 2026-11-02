@@ -1,4 +1,6 @@
 """显式指定专用临时 PostgreSQL 时才运行；视觉和 Embedding 均为夹具。"""
+
+from ai_storage.database import alias as ai_db_alias
 import copy
 import os
 from pathlib import Path
@@ -21,7 +23,7 @@ class VisionDatabaseTests(VisionHttpFixture, unittest.TestCase):
         import django
         django.setup()
         from django.conf import settings
-        if settings.DATABASES['ai_storage']['NAME'] != os.environ['AI_VISION_TEST_DATABASE']:
+        if settings.DATABASES[ai_db_alias()]['NAME'] != os.environ['AI_VISION_TEST_DATABASE']:
             raise RuntimeError('Unsafe database target')
         VisionHttpFixture.setUpClass.__func__(cls)
 
@@ -60,7 +62,7 @@ class VisionDatabaseTests(VisionHttpFixture, unittest.TestCase):
         self.addCleanup(self.env.stop)
         from django.db import connections
         def vectors(texts, **kwargs):
-            self.assertFalse(connections['ai_storage'].in_atomic_block)
+            self.assertFalse(connections[ai_db_alias()].in_atomic_block)
             return [[1.0] + [0.0] * 1023 for t in texts]
         embedding = patch.object(service, 'embed_texts', side_effect=vectors)
         embedding.start()
@@ -90,7 +92,7 @@ class VisionDatabaseTests(VisionHttpFixture, unittest.TestCase):
         from ai_storage.vision.openai_compatible import OpenAICompatibleVisionAdapter
         original = OpenAICompatibleVisionAdapter.extract
         def checked(adapter, **kwargs):
-            self.assertFalse(connections['ai_storage'].in_atomic_block)
+            self.assertFalse(connections[ai_db_alias()].in_atomic_block)
             adapter.session.trust_env = False
             if cancel:
                 self.service.action(job.pk, 1, 'cancel')

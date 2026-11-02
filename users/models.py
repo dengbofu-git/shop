@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models.functions import Upper
 
 
 class Role(models.Model):
@@ -127,6 +128,7 @@ class UserProfile(models.Model):
     class Meta:
         # 表名: 应用名_类名非驼峰
         db_table = "users_user_profile"
+        constraints = [models.UniqueConstraint(Upper('username'), name='users_username_case_unique')]
     
     def is_merchant(self):
         """判断是否为店家"""

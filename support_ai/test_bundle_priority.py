@@ -8,7 +8,7 @@ from .bundle_recommendations import recommend_bundle
 
 class BundlePriorityTests(TestCase):
     def setUp(self):
-        merchant=UserProfile.objects.create(username='priority-seller',user_type='merchant',is_active=True)
+        merchant=UserProfile.objects.create(username='priori4df69',user_type='merchant',is_active=True)
         self.ids=[]
         for category,price in [('绿茶',10),('白茶',99)]:
             spu=SPU.objects.create(name='合成'+category,catalog=Catalog.objects.create(name=category),merchant=merchant)

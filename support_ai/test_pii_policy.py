@@ -112,7 +112,7 @@ class PiiPersistenceTests(DatabaseTestCase):
         from support_ai.context import commit_turn
         from support_ai.models import SupportTurn
         from support_ai.conversation_history import history_value
-        user=UserProfile.objects.create(username='synthetic-pii',is_active=True)
+        user=UserProfile.objects.create(username='synthed7fa0',is_active=True)
         result=commit_turn(user,None,0,uuid.uuid4(),'test-hash','张三喜欢红茶',
             {'answer':'alice@example.com','intent':'knowledge','nested':{'value':'13800138000'}})
         turn=SupportTurn.objects.get(user=user)

@@ -201,7 +201,7 @@ class MerchantOrderActionsTests(Fixtures, TestCase):
         self.assertEqual(OrderInfo.objects.count(),1)
 
 
-@skipUnless(connection.vendor=='mysql','Requires isolated MySQL row locks')
+@skipUnless(connection.vendor in ('mysql','postgresql'),'Requires isolated PostgreSQL/MySQL row locks')
 class ConcurrentShipmentTests(Fixtures,TransactionTestCase):
     def test_concurrent_requests_deduct_only_once(self):
         order=self.order()

@@ -1,5 +1,7 @@
 # 当前差异与后续讨论顺序
 
+2026-11-02独立PostgreSQL统一迁移已在本地完成，包括冻结来源、内容核验、备份实恢复及四类进程统一启用，见[迁移证据](evidence/2026-11-02-postgresql-unification/verification.md)。不再把两库收敛列为待实施；三层记忆仍为后续独立任务，不由此次数据库迁移推导已实现。
+
 更新：2026-11-02。依据[当前源码观察](product/current-state.md)、[既有规则决定](rule-review.md)和[适用性审查](product/sdd-purification-review.md)。以下是建议核对顺序，不是新增功能承诺、排期或发布授权；已存在的实现不重复列为从零建设。
 
 2026-11-02进展及逐项待办见[后续处理记录](evidence/2026-11-02-rule-followup/verification.md)：R03与R08补修及合成验证完成，剩余业务选择、实机检查、迁移和启用分别列出。
