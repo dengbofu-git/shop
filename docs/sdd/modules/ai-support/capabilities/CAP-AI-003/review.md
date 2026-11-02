@@ -7,11 +7,13 @@
 - 保留本人三类型状态只读、recent三笔、明确对象一笔、24小时引用、all每页20笔及独立创建日期筛选。
 - R01替代2026-10-16偏好库故障整轮503：按任务真实依赖处理，明确偏好任务仍不能降级成无偏好。
 - R02替代混合请求一个不可查询编号整轮失败：纯查询404保留，独立任务可部分完成，依赖失败跳过；认证及会话越权整轮拒绝。
-- R09增加服务端当前展示页位置映射，选中后再查归属与实时状态；数据存储和清理须技术设计。
+- R09增加服务端当前展示页位置映射，选中后再查归属与实时状态；2026-10-30用户确认专用Redis、24小时自动到期方案，见ADR0011。
 - 脱敏、交易只读、幂等和最小模型数据范围保持，不扩大真实模型回放或服务商授权。
 
 ## 对照与验收
 
-现有只读工具／分页／日期代码可以作为资产，不能证明按任务装配、部分轮次持久化、位置映射及新页面状态已经实现。每条AC在acceptance.yaml中标记not-run；测试分组见test-plan.yaml。已被完整替换的旧需求与审查正文不另存副本；历史验证证据仍保留原日期和源码。
+2026-10-30静态对照：只读工具／分页／日期、按需偏好和部分完成已有资产及局部历史证据，不能证明位置映射、全部契约及新页面状态均已实现。每条AC在acceptance.yaml中标记not-run，指本版本完整AC未据本次提纯重新验证；测试分组见test-plan.yaml，当前差异见[摘要](../../../../product/current-state.md)。已被完整替换的旧需求与审查正文不另存副本；历史验证证据仍保留原日期和源码。
 
-当前specStatus=rules-accepted、implementationStatus=partial、verificationStatus=not-run、deploymentStatus=unverified，legacyStage继续SPEC_REVIEW。Q-011技术环境／评审和Q-013数据保留尚未关闭。
+2026-10-30后续实施已补明确偏好混合故障、部分回放及Redis私有页映射的隔离证据，见[验证记录](../../../../evidence/2026-10-30-rule-implementation/verification.md)；前段静态提纯观察不代表本次运行结论。完整AC未逐条完成实机验收，acceptance.yaml的not-run按该完整范围阅读。
+
+当前specStatus=rules-accepted、implementationStatus=partial、verificationStatus=partial-evidence、deploymentStatus=unverified。legacyStage=SPEC_REVIEW仅为历史兼容信息，不作为开发门禁。Q-011技术验收及Q-013除当前页映射外的数据保留尚未关闭，按实际影响处理，不要求来源项目的原型阶段或团队登记。

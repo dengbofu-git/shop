@@ -1,12 +1,12 @@
 schemaVersion: '0.1'
-updatedAt: '2026-10-23'
+updatedAt: '2026-10-30'
 questions:
 - id: Q-001
   status: resolved
   question: 谁负责确认首个切片的业务规则、技术设计与验收，实际优先级是否接受本规划建议？
   affectedCapabilities:
   - CAP-AI-003
-  blockingFrom: SPEC_REVIEW
+  affectsWork: 对应切片的业务规则确认；不阻断无关维护
   decisionOwner: dengbofu
   recommendation: 先指定当前切片的业务负责人和技术评审人，不虚构全公司团队登记。
   resolveWith: 负责人、优先级与当前切片评审记录；后续每个活动切片独立指定负责人。
@@ -21,7 +21,7 @@ questions:
   affectedCapabilities:
   - CAP-AI-003
   - CAP-TRD-002
-  blockingFrom: SPEC_REVIEW
+  affectsWork: 对应切片的业务规则确认；不阻断无关维护
   decisionOwner: dengbofu
   recommendation: 近期最多3笔；all每页最多20笔；独立创建日期筛选使用上海时区且包含首尾；有效订单含义不明时澄清。
   resolveWith: 本人多订单、明确订单、过期引用、试单与预售示例及认可结果。
@@ -37,7 +37,7 @@ questions:
   question: 外人或不存在订单采用什么统一提示；模型、MySQL、偏好 PostgreSQL 不可用时如何响应及保留会话？
   affectedCapabilities:
   - CAP-AI-003
-  blockingFrom: SPEC_REVIEW
+  affectsWork: 对应切片的业务规则确认；不阻断无关维护
   decisionOwner: dengbofu
   recommendation: 按任务必要依赖判断；请求级身份和会话越权整体拒绝；任务级错误不得泄露对象存在性。
   resolveWith: 错误语义、对用户可见文案和状态码、重试及会话写入策略。
@@ -46,14 +46,14 @@ questions:
     confirmedOn: '2026-10-23'
     decision: R01：订单／普通知识不依赖偏好，普通推荐缺少可选偏好须提示；明确按保存偏好推荐必须读取成功。R02：纯不可查询订单404；混合请求独立任务可部分完成，依赖任务跳过，无可提交结果的必要技术失败503。
     record: docs/sdd/rule-review.md
-    implementationStatus: pending-task-dependency-and-partial-result-implementation
+    implementationStatus: partial-source-present-complete-contract-and-acceptance-pending
 - id: Q-004
   status: open
   question: 真实支付渠道、金额币种、可信通知验签、商户匹配、重复与乱序通知应如何处理？
   affectedCapabilities:
   - CAP-TRD-003
   - CAP-TRD-002
-  blockingFrom: BUILD_READY
+  affectsWork: 依赖本结论的技术设计、验证或启用；不设来源阶段门禁
   decisionOwner: null
   recommendation: 将浏览器跳转与可信支付通知分开；订单变化必须有可验证支付事实。
   resolveWith: 支付渠道契约、状态机、幂等键和正反向沙箱验收。
@@ -64,7 +64,7 @@ questions:
   - CAP-FUL-002
   - CAP-MER-001
   - CAP-IAM-003
-  blockingFrom: SPEC_REVIEW
+  affectsWork: 对应切片的业务规则确认；不阻断无关维护
   decisionOwner: null
   recommendation: 每次以认证身份校验业务对象归属，权限矩阵按岗位和对象范围分别确认。
   resolveWith: 本人、他人、同单不同商家、停用账号、运营越权的允许／拒绝表。
@@ -77,7 +77,7 @@ questions:
   - CAP-TRD-001
   - CAP-TRD-002
   - CAP-MER-001
-  blockingFrom: SPEC_REVIEW
+  affectsWork: 对应切片的业务规则确认；不阻断无关维护
   decisionOwner: dengbofu
   recommendation: 按库存预留现行规格执行，区别原子预留、释放、可信付款扣减和历史订单兼容；在隔离MySQL验证。
   resolveWith: 库存事件表、状态转换和并发示例。
@@ -92,7 +92,7 @@ questions:
   question: 结算展示的数据由谁生成，费用、币种、账期、退款、对账和实际付款如何定义？
   affectedCapabilities:
   - CAP-MER-003
-  blockingFrom: SPEC_REVIEW
+  affectsWork: 对应切片的业务规则确认；不阻断无关维护
   decisionOwner: null
   recommendation: 先区分读取现有结算记录、自动计算与真实资金结算，分切片推进。
   resolveWith: 账单样例、金额计算规则、数据来源和复核方式。
@@ -103,7 +103,7 @@ questions:
   - CAP-IAM-003
   - CAP-PLAT-001
   - CAP-AI-004
-  blockingFrom: SPEC_REVIEW
+  affectsWork: 对应切片的业务规则确认；不阻断无关维护
   decisionOwner: null
   recommendation: 业务确认最小权限和对象范围；不按界面可见性推断 API 已授权。
   resolveWith: 岗位、功能权限、对象范围和停用账号策略矩阵。
@@ -119,7 +119,7 @@ questions:
   - CAP-AI-001
   - CAP-AI-002
   - CAP-PLAT-002
-  blockingFrom: SPEC_REVIEW
+  affectsWork: 对应切片的业务规则确认；不阻断无关维护
   decisionOwner: null
   recommendation: 基础金额统一CNY，外币仅按共用配置参考显示；语言覆盖、支付渠道和预售尾款须分别确认。
   resolveWith: 语言／设备范围、真实支付／退款渠道币种与沙箱样例；金额当前规则不等待这些范围关闭。
@@ -130,13 +130,13 @@ questions:
     record: docs/sdd/architecture/currency.md
 - id: Q-011
   status: open
-  question: 谁担任技术评审人，目标验收环境、合成数据、可用组件、现有实现版本及部署回滚由谁提供和确认？
+  question: 剩余技术设计如何确认，目标验收环境、合成数据、可用组件、现有实现版本及部署回滚依据是什么？
   affectedCapabilities:
   - CAP-AI-003
   - CAP-PLAT-003
-  blockingFrom: BUILD_READY
+  affectsWork: 依赖本结论的技术设计、验证或启用；不设来源阶段门禁
   decisionOwner: null
-  recommendation: 隔离回归与真实 MySQL/PostgreSQL 集成分开；保留运行配置版本，不记录凭据。
+  recommendation: 按实际风险确认技术方案和验证条件；不要求另设团队登记或独立维护者。隔离回归与真实组件集成分开，保留配置版本而不记录凭据。
   resolveWith: 环境清单、组件版本、合成账号、命令、成功阈值及回滚范围。
 - id: Q-012
   status: partially-resolved
@@ -146,7 +146,7 @@ questions:
   - CAP-AI-004
   - CAP-KNOW-001
   - CAP-KNOW-002
-  blockingFrom: SPEC_REVIEW
+  affectsWork: 对应切片的业务规则确认；不阻断无关维护
   decisionOwner: dengbofu
   recommendation: 延续应用层脱敏和最少字段；模型不见身份或真实订单号；不要默认历史真实模型调用授权持续有效。
   resolveWith: 允许发送的数据字段、模型边界、访问／保留／删除策略和定向泄漏验收。
@@ -165,18 +165,24 @@ questions:
   - CAP-AI-004
   - CAP-KNOW-001
   - CAP-KNOW-002
-  blockingFrom: BUILD_READY
+  affectsWork: 依赖本结论的技术设计、验证或启用；不设来源阶段门禁
   decisionOwner: dengbofu
   recommendation: 模型可见字段已确认，持久化策略单独设计；不能把24小时模型上下文窗口或历史列表游标有效期当作数据库删除期限。
   resolveWith: 区分会话正文、私有引用映射、日志和监控，确认访问主体、保留周期及清理；R09映射可用上限24小时不等于底层数据保留周期。
-  observedEvidence: 本人历史分页和本浏览器移出资产存在；R08要求撤销与恢复，R09要求私有当前页结果映射，两者不等于数据库删除期限已确认。
+  observedEvidence: R08本浏览器移出/撤销/恢复和R09私有映射已有源码及隔离证据，见2026-10-30-rule-implementation/verification.md；不等于数据库删除期限已确认。
+  resolutions:
+  - scope: R09当前展示页的临时订单位置映射
+    confirmedBy: dengbofu
+    confirmedOn: '2026-10-30'
+    decision: 用户回复采用Redis方案；绑定买家/会话及本页顺序，24小时自动到期，丢失或故障时序号追问澄清，普通查询仍可用；不改变聊天记录保留期。
+    record: docs/adr/0011-displayed-order-page-redis.md
 - id: Q-014
   status: open
   question: 区域、库存周转等经营指标应使用哪些真实来源，哪些演示/推算指标可以展示给哪些岗位？
   affectedCapabilities:
   - CAP-MER-002
   - CAP-PLAT-002
-  blockingFrom: SPEC_REVIEW
+  affectsWork: 对应切片的业务规则确认；不阻断无关维护
   decisionOwner: null
   recommendation: 区分真实商家订单聚合和hash分区/常量或公式推算指标；不能把商家权限接口作为独立平台统计服务。
   resolveWith: 指标口径、来源、刷新频率、岗位范围和真实／演示标签；当前代码观察见docs/sdd/product/current-state.md。

@@ -281,7 +281,7 @@ class AgentDataAccess:
             usage = private.get('model_usage')
             if self.order_context:
                 effects = private['order_effects']
-                if set(effects) != {'binding_changed','selected_order_id','not_queryable','conversation_missing','navigation_tokens'}:
+                if set(effects) != {'binding_changed','selected_order_id','not_queryable','conversation_missing','navigation_tokens','pending_order_page'}:
                     raise McpServiceError('INVALID_BACKEND_RESPONSE')
                 for key, value in effects.items():
                     setattr(self.order_context, key, value)

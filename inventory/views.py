@@ -1,13 +1,14 @@
 from django.http import JsonResponse
 from django.views import View
 from django.utils.decorators import method_decorator
-from users.decorators import login_required, permission_required
+from users.decorators import platform_permission_required
+from django.views.decorators.cache import never_cache
 from .models import Warehouse, Inventory
 import json
 
 
-@method_decorator(login_required, name='dispatch')
-@method_decorator(permission_required('inventory_manage'), name='dispatch')
+@method_decorator(platform_permission_required('inventory_manage'), name='dispatch')
+@method_decorator(never_cache, name='dispatch')
 class InventoryListView(View):
     """库存列表"""
     
@@ -42,8 +43,8 @@ class InventoryListView(View):
         })
 
 
-@method_decorator(login_required, name='dispatch')
-@method_decorator(permission_required('inventory_manage'), name='dispatch')
+@method_decorator(platform_permission_required('inventory_manage'), name='dispatch')
+@method_decorator(never_cache, name='dispatch')
 class WarehouseListView(View):
     """仓库列表"""
     

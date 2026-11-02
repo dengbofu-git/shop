@@ -11,7 +11,7 @@ from pydantic import BaseModel, Field
 from .execution import ToolResult, execute_plan
 from .contracts import validate_recommendation_intent, validate_recommendation_branch
 from .pii import contains_pii, redact
-from .planning import IntentRequest, build_plan, requested_limit, validate_plan, recommendation_tool
+from .planning import IntentRequest, build_plan, requested_limit, validate_plan, recommendation_tool, explicit_requests
 from .telemetry import agent_span
 from .semantic_planning import (SemanticPlan, DialogueState, plan_turn, response_state, fixed_reply)
 from .grounding import generate_grounded_answer
@@ -49,6 +49,7 @@ class SupportState(TypedDict, total=False):
     safe_message: str
     recent_turns: list
     memory: dict
+    preference_unavailable: bool
     owner_id: int
     resolved_question: str
     clarification_required: bool
@@ -109,7 +110,16 @@ def build_graph(model, knowledge_search=None, tool_factory=None):
         with agent_span('dialogue.resolve', {'agent.context.turns': len(history),
                         'agent.context.chars': len(json.dumps(history, ensure_ascii=False))}) as span:
             try:
-                semantic, source, previous = plan_turn(model, state['safe_message'], history, state.get('memory'))
+                if state.get('preference_unavailable') and re.search(
+                        r'偏好|长期记忆|保存的喜好|saved preferences|my preferences', state['safe_message'], re.I):
+                    # Extract current-turn independent tasks, but never invent missing preferences.
+                    from .semantic_planning import active_state
+                    requests = explicit_requests(state['safe_message']) or [
+                        IntentRequest(kind='recommendation', quote=state['safe_message'])]
+                    semantic = SemanticPlan(action='new_request', standalone_question=state['safe_message'], requests=requests)
+                    source, previous = 'rules', active_state(history)
+                else:
+                    semantic, source, previous = plan_turn(model, state['safe_message'], history, state.get('memory'))
             except ValueError as exc:
                 diagnostics.append(error_diagnostic(exc, 'semantic.plan'))
                 logger.warning('support.planning.unavailable', extra={'error_type': type(exc).__name__})

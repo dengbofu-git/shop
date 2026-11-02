@@ -1003,7 +1003,7 @@
     }
   },
   "get_product_details": {
-    "description": "Read current allowlisted public fields of a specific saleable SKU.",
+    "description": "Read allowlisted public fields of a launched SKU, including unavailable stock; buying requires separate saleable checks.",
     "input": {
       "additionalProperties": false,
       "properties": {
@@ -1105,7 +1105,8 @@
                 "recent",
                 "selected",
                 "explicit",
-                "all"
+                "all",
+                "position"
               ],
               "title": "Type",
               "type": "string"
@@ -1122,6 +1123,20 @@
               ],
               "default": null,
               "title": "Reference"
+            },
+            "position": {
+              "anyOf": [
+                {
+                  "maximum": 20,
+                  "minimum": 1,
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Position"
             }
           },
           "title": "OrderSelector",
@@ -1320,7 +1335,8 @@
                 "recent",
                 "selected",
                 "explicit",
-                "all"
+                "all",
+                "position"
               ],
               "title": "Type",
               "type": "string"
@@ -1337,6 +1353,20 @@
               ],
               "default": null,
               "title": "Reference"
+            },
+            "position": {
+              "anyOf": [
+                {
+                  "maximum": 20,
+                  "minimum": 1,
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Position"
             }
           },
           "title": "OrderSelector",

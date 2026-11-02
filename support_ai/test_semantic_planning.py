@@ -26,6 +26,19 @@ class PlanModel(Runnable):
 
 
 class SemanticPlanningTests(TestCase):
+    def test_order_positions_are_bounded_and_do_not_require_a_model(self):
+        from .order_contracts import order_position
+        self.assertIsNone(order_position('第二个商品的特点'))
+        for message, position in [('第二笔发货了吗', 2), ('匹配订单20什么状态', 20), ('第一个订单付款了吗', 1)]:
+            model = PlanModel({})
+            plan, source, _ = plan_turn(model, message, [], None)
+            self.assertEqual(plan.requests[0].order_query.selector.position, position)
+            self.assertEqual(source, 'rules')
+            self.assertEqual(model.calls, [])
+        for message in ('第零笔发货了吗', '第二十一笔付款了吗', '第二笔和第三笔什么状态'):
+            plan, _, _ = plan_turn(PlanModel({}), message, [], None)
+            self.assertTrue(plan.needs_clarification)
+
     def history(self):
         message = '推荐两款绿茶，每盒不超过50'
         purchase = RecommendationIntent(action='CLARIFY',

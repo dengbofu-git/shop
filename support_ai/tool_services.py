@@ -174,6 +174,9 @@ def create_tool_handlers(model, knowledge_search, message, resolved_question, hi
                           sources=sources or [], unmet_requirements=unmet or [])
 
     def recommend(step, completed):
+        if getattr(data_access, 'preference_error', None) and re.search(
+                r'偏好|长期记忆|保存的喜好|saved preferences|my preferences', step.request, re.I):
+            raise data_access.preference_error
         linked_scope = None
         if step.knowledge_from:
             linked_scope = completed[step.knowledge_from].data.get('explained_categories', [])

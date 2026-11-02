@@ -39,7 +39,7 @@
             '订单完成': '已完成'})[value] || value;
     }
     function rowsHtml(orders) {
-        var headings = ['订单号', '状态', '金额（CNY）', '数量', '收货人', '电话', '地址', '下单时间', '操作'];
+        var headings = ['订单号', '状态', '原记录金额／币种', '数量', '收货人', '电话', '地址', '下单时间', '操作'];
         return '<table class="merchant-orders-table"><caption class="order-sr-only">当前分类订单</caption><thead><tr>' +
             headings.map(function (title) { return '<th scope="col">' + title + '</th>'; }).join('') +
             '</tr></thead><tbody>' + orders.map(function (o) {
@@ -51,7 +51,8 @@
                 var tone = standard.indexOf(state);
                 var amount = Number(o.total_amount);
                 return '<tr><td>' + id + '</td><td><span class="order-status-badge order-status-' + tone + '">' + escape(state) + '</span></td>' +
-                    '<td>￥' + (Number.isFinite(amount) ? amount.toFixed(2) : '—') + '</td><td>' + escape(o.total_count || 0) + '</td>' +
+                    '<td>' + (o.currency === 'CNY' ? '￥' : '') + (Number.isFinite(amount) ? amount.toFixed(2) : '—') +
+                    ' ' + escape(o.currency || '币种未记录') + '</td><td>' + escape(o.total_count || 0) + '</td>' +
                     '<td class="order-receiver">' + escape(o.receiver || '-') + '</td><td>' + escape(o.receiver_mobile || '-') + '</td>' +
                     '<td class="order-address">' + escape(o.address || '-') + '</td><td>' + escape(o.created_time || '-') + '</td>' +
                     '<td><div class="order-actions">' + (actions || '—') + '</div></td></tr>';

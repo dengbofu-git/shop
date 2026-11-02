@@ -6,7 +6,6 @@ from django.utils import timezone
 
 from goods.models import ProductAttributeValue
 from .pii import redact
-from .recommendations import available_products
 from tea_saas.currency import BASE_CURRENCY
 
 
@@ -27,7 +26,9 @@ def get_product_details(sku_id):
     """No identity, model, preference, history, telemetry write or browsing write."""
     if type(sku_id) is not int or not 1 <= sku_id <= 2147483647:
         raise ValueError('sku_id must be a positive 32-bit integer')
-    sku = available_products().select_related(None).select_related('spu__catalog').only(
+    from goods.availability import public_skus
+    from django.db.models import F
+    sku = public_skus().annotate(available_stock=F('sellable_stock')).select_related(None).select_related('spu__catalog').only(
         'id', 'name', 'price', 'spu_id', 'spu__id', 'spu__name',
         'spu__catalog_id', 'spu__catalog__id', 'spu__catalog__name',
     ).filter(pk=sku_id).first()

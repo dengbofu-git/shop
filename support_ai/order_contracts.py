@@ -21,17 +21,39 @@ FOLLOW_UP = re.compile(r'(?:那)?(?:现在呢|现在怎么样|发货了吗|付�
 WRITE = re.compile(r'取消|退款|退货|改地址|修改地址|催发货|\b(?:cancel|refund|return|change address)\b', re.I)
 UNSUPPORTED = re.compile(r'红茶|绿茶|白茶|乌龙|黑茶|黄茶|商家|金额|有效订单|有效的订单|'
                          r'(?:已付款|未付款|待付款|已支付|未支付|已发货|未发货|待发货|已完成|已取消|已关闭)(?:的)?订单|'
-                         r'第[一二三四五六七八九十\d]+(?:笔|个|单)|近期订单[一二三1-3]', re.I)
+                         r'上一页|前一页', re.I)
+
+POSITION = re.compile(r'第([零一二两三四五六七八九十\d]+)(?:笔|单)|(?:近期订单|匹配订单)([零一二两三四五六七八九十\d]+)|第([零一二两三四五六七八九十\d]+)个订单')
+
+
+def order_position(message):
+    matches=POSITION.findall(message)
+    if not matches:return None
+    if len(matches)!=1:raise ValueError('请明确当前页的一笔订单序号。')
+    text=next(value for value in matches[0] if value)
+    digits={'零':0,'一':1,'二':2,'两':2,'三':3,'四':4,'五':5,'六':6,'七':7,'八':8,'九':9}
+    if text.isascii() and text.isdigit():number=int(text)
+    elif text in digits:number=digits[text]
+    elif text.count('十')==1:
+        left,right=text.split('十')
+        if (left and left not in digits) or (right and right not in digits):raise ValueError('订单序号不明确。')
+        number=digits.get(left,1)*10+digits.get(right,0)
+    else:raise ValueError('订单序号不明确。')
+    if not 1<=number<=20:raise ValueError('仅支持当前展示页1至20项订单。')
+    return number
 
 
 class OrderSelector(Contract):
-    type: Literal['recent', 'selected', 'explicit', 'all'] = 'recent'
+    type: Literal['recent', 'selected', 'explicit', 'all', 'position'] = 'recent'
     reference: Optional[str] = Field(default=None, pattern=r'^' + REFERENCE + r'$')
+    position: Optional[int] = Field(default=None, ge=1, le=20, strict=True)
 
     @model_validator(mode='after')
     def reference_scope(self):
         if (self.type == 'explicit') != (self.reference is not None):
             raise ValueError('Only explicit orders require a current-turn reference')
+        if (self.type == 'position') != (self.position is not None):
+            raise ValueError('Only displayed-page positions require a position')
         return self
 
 
@@ -119,6 +141,8 @@ def rule_order_query(message):
     references = list(dict.fromkeys(REFERENCES.findall(message)))
     if references:
         selector = OrderSelector(type='explicit', reference=references[0])
+    elif order_position(message) is not None:
+        selector = OrderSelector(type='position', position=order_position(message))
     elif ALL.search(message):
         selector = OrderSelector(type='all')
     elif period:

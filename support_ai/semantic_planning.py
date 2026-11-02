@@ -180,6 +180,17 @@ def merge_purchase(previous, current, clear_fields, message, history, memory):
 
 def plan_turn(model, message, history, memory):
     state = active_state(history)
+    from .order_contracts import order_position
+    try:
+        position = order_position(message)
+    except ValueError as exc:
+        return SemanticPlan(action='clarify', standalone_question=message,
+            requests=[IntentRequest(kind='clarification', quote=message)], needs_clarification=True,
+            clarification_question=str(exc)), 'rules', state
+    if position is not None and len(explicit_requests(message)) <= 1:
+        return SemanticPlan(action='follow_up', standalone_question=message,
+            requests=[IntentRequest(kind='after_sales', quote=message,
+                order_query=rule_order_query(message))]), 'rules', state
     try:
         bundle_position = mentioned_bundle(message)
     except ValueError as exc:
@@ -346,7 +357,8 @@ def plan_turn(model, message, history, memory):
          '推荐茶叶可宽泛搜索，不要求先提供预算；介绍知识不等于推荐。'
          '涉及recommendation必须提供purchase，仍用RecommendationIntent契约；'
          '涉及after_sales时在对应request.order_query中提取selector和topic；其他任务不能填写order_query。'
-         'selector.type限recent最近三笔、selected当前所选、explicit本轮明确引用、all全部匹配订单。'
+         'selector.type限recent最近三笔、selected当前所选、explicit本轮明确引用、all全部匹配订单、position当前已展示页序号。'
+         'position类型须填写position整数1至20，逐字依据本轮订单序号，不能把商品位置当订单；其他类型position=null。'
          '没有latest类型，最近订单统一最多三笔，即使说最近一笔也使用recent。'
          'explicit.reference只能逐字使用本轮已有ORDER_REF引用，不得生成真实订单号。'
          'topic限order_status、payment_status、shipping_status。时间条件独立放入filters.created_date，'

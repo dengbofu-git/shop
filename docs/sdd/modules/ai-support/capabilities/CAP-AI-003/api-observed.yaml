@@ -1,9 +1,10 @@
 openapi: 3.0.3
 info:
-  title: tea_saas 客服HTTP当前实现观察
+  title: tea_saas 客服HTTP历史实现观察（2026-10-23快照及局部补记）
   version: 0.18.0-observed.20261023
   description: 2026-10-23当前源码静态观察；历史探针按原日期阅读，不是本轮运行或验收。唯一目标为api-contract.yaml与规格0.3.0，本文件只登记已观察协议及目标差异。
-x-status: source-observed-not-order-runtime-verified
+x-status: historical-source-observation-not-current-runtime-contract
+x-current-observation: docs/sdd/product/current-state.md
 x-evidence: docs/sdd/evidence/2026-10-18-project-chat-sdd/manifest.json
 x-historical-evidence: docs/sdd/evidence/2026-10-16-sdd-reconciliation/manifest.json
 x-target-contract: api-contract.yaml

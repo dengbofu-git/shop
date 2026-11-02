@@ -1,9 +1,9 @@
 schemaVersion: '0.2'
 capabilityId: CAP-AI-003
 specVersion: 0.3.0
-status: rules-accepted-awaiting-implementation
+status: partial-evidence
 executable: false
-note: 本轮未执行新AC；历史测试不能冒充本版本结果。
+note: 2026-10-30已有定向隔离证据，见evidence/2026-10-30-rule-implementation/verification.md；以下result表示完整场景验收，未由单元或集成测试数量自动提升。
 scenarios:
 - id: AC-AI-003-01
   name: 本人状态

@@ -9,7 +9,7 @@ x-status: business-rules-accepted-technical-contract-pending
 x-observed-contract: api-observed.yaml
 x-reconciliation-evidence: docs/sdd/rule-review.md
 x-historical-evidence: docs/sdd/evidence/2026-10-16-sdd-reconciliation/manifest.json
-x-implementation-status: 既有订单工具／分页／部分错误码已存在；按任务依赖、部分完成、位置映射及本契约新增字段尚待实现验证。
+x-implementation-status: 2026-10-30静态核对已有订单工具／分页／按需偏好／独立任务继续及completion_status；位置映射、完整字段兼容和全部AC仍待落实验证，见当前状态摘要。
 x-cache-policy: 所有应用JSON响应均为Cache-Control=no-store；框架405不作此保证。
 x-compatibility:
   preserved:

@@ -71,6 +71,7 @@ class SupplierOrderListView(View):
                 'can_delete': owned_only and can_delete(order),
                 'requires_merchant_split': not owned_only,
                 'total_amount': float(total_amount),
+                'currency': order.currency,
                 'total_count': sum([og.count for og in order_goods]),
                 'receiver': order.receiver,
                 'receiver_mobile': order.receiver_mobile,

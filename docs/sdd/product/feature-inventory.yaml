@@ -3,7 +3,7 @@ status: source-map-with-current-rule-gaps
 complete: false
 sourceType: current-working-tree-static-inspection
 note: 当前工作区静态盘点；未穷尽全部API，代码存在、历史证据、当前验证和启用分别记录。
-updatedAt: '2026-10-23'
+updatedAt: '2026-10-30'
 reconciliationReport: docs/sdd/product/current-state.md
 reconciliationEvidence: docs/sdd/evidence/2026-10-18-project-chat-sdd/manifest.json
 features:
@@ -219,7 +219,7 @@ features:
   - carts/views.py
   - orders/views.py
   observation: atomic-reservation-and-idempotent-order-source-observed
-  implementationGap: R04取消与隐藏分离待落实；当前环境启用未核实
+  implementationGap: 取消／隐藏分离及持久清理任务已有源码和原日期证据；本轮未验证当前环境启用
 - id: FEAT-008
   name: 标准试单预售订单查询及操作
   primaryCapability: CAP-TRD-002
@@ -234,7 +234,7 @@ features:
   - orders/views.py
   - orders/urls.py
   observation: three-order-types-read-and-partial-lifecycle-source-observed
-  implementationGap: 普通与试单／预售状态独立；R04隐藏规则待实施
+  implementationGap: 普通与试单／预售状态独立；取消／隐藏分离已有实现，子类型完整生命周期未承诺
 - id: FEAT-009
   name: 支付发起与回调
   primaryCapability: CAP-TRD-003
@@ -273,7 +273,7 @@ features:
   - inventory/views.py
   - supplier/views.py
   observation: reservation-release-consume-source-observed
-  implementationGap: 隔离并发证据与当前启用分开；R07批量采购出口待落实
+  implementationGap: R07批量采购出口及策略审计已有实现；隔离并发历史证据与当前启用分开
 - id: FEAT-011
   name: 物流单及轨迹查询
   primaryCapability: CAP-FUL-002
@@ -309,7 +309,7 @@ features:
   - client/templates/merchant_orders.html
   - client/static/js/merchant-orders.js
   observation: merchant-snapshot-isolation-and-status-filter-source-observed
-  implementationGap: 不同Worktree履约整合状态按实际交付识别，不宣称试单／预售全生命周期
+  implementationGap: 当前基线已有本店操作保护和条件发货；不宣称试单／预售全生命周期或其他Worktree状态
 - id: FEAT-013
   name: 商家与运营经营看板
   primaryCapability: CAP-MER-002
@@ -360,7 +360,7 @@ features:
   - support_ai/recommendations.py
   - support_ai/product_details.py
   observation: controlled-recommendation-and-product-details-source-observed
-  implementationGap: R03默认预算排序与R06公开缺货详情待实施
+  implementationGap: R03已有CP-SAT及普通／接近模式，质量和权重仍待验证；R06公开缺货详情待落实
 - id: FEAT-017
   name: 检索证据支持的知识问答
   primaryCapability: CAP-AI-002
@@ -400,7 +400,7 @@ features:
   - support_ai/order_contracts.py
   - support_ai/order_dates.py
   observation: owned-order-tool-recent3-all20-inclusive-date-source-observed
-  implementationGap: R01依赖隔离、R02部分成功及R09结果位置追问待实施
+  implementationGap: R01/R02已有依赖隔离与部分完成源码及局部证据；完整AC及R09结果位置映射仍待落实
 - id: FEAT-019
   name: Agent 设置模型发现检索状态及监控
   primaryCapability: CAP-AI-004

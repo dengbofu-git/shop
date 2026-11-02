@@ -231,7 +231,7 @@ def replay(user, request_id, request_hash):
 
 
 @transaction.atomic
-def commit_turn(user, conversation, revision, request_id, request_hash, message, response, order_id=None):
+def commit_turn(user, conversation, revision, request_id, request_hash, message, response, order_id=None, order_page=None):
     # Serialize only the short commit, including retries of a first/new conversation.
     UserProfile.objects.select_for_update().get(pk=user.pk)
     existing = replay(user, request_id, request_hash)
@@ -257,4 +257,7 @@ def commit_turn(user, conversation, revision, request_id, request_hash, message,
     SupportTurn.objects.create(conversation=current, user=user, request_id=request_id, request_hash=request_hash,
                                sequence=current.revision, user_text=message, answer=result['answer'],
                                intent=result['intent'], response=result)
+    if order_page is not None:
+        from .order_page import publish
+        transaction.on_commit(lambda: publish(user.pk, current.pk, current.revision, order_page))
     return result

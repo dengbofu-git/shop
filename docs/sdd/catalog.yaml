@@ -1,6 +1,6 @@
 schemaVersion: '0.1'
 project: tea_saas
-updatedAt: '2026-10-23'
+updatedAt: '2026-10-30'
 documentStatus: current-rules-with-implementation-gaps
 mappingStatus: source-map-with-open-scope
 mappingComplete: false
@@ -32,7 +32,7 @@ modules:
   - CAP-CAT-003
   - CAP-CAT-004
   - CAP-CAT-005
-  boundary: 商品可售事实、商家商品维护、已发布资讯的登录态阅读；库存变动归 FUL，现有库存读口径尚不统一。
+  boundary: 商品公开与可售事实、商家商品维护、已发布资讯的登录态阅读；库存变动归 FUL，公开缺货详情与可售集合尚未完整分离。
 - id: MOD-TRD
   slug: trade
   name: 交易与支付
@@ -496,11 +496,12 @@ capabilities:
 currentAssessment:
   report: docs/sdd/product/current-state.md
   ruleDecisions: docs/sdd/rule-review.md
-  scope: 静态核查与已确认规则修订；没有运行、部署或数据库验证
+  scope: 2026-10-30现行文档及关键源码静态核对；未运行业务测试、检查进程或验证数据库和部署
+  applicabilityReview: docs/sdd/product/sdd-purification-review.md
   counts:
     businessModules: 8
-    capabilities: 28
-    features: 37
-    implementationModules: 16
+    capabilities: 27
+    features: 36
+    implementationModules: 15
 historicalEvidence:
 - docs/sdd/evidence/2026-10-18-project-chat-sdd/manifest.json

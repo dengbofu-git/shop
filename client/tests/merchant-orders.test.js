@@ -2,7 +2,7 @@
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const api = require('../static/js/merchant-orders.js');
-const fixture = [1, 2, 3, 4].map(status => ({order_id: String(status), status, total_amount: '35',
+const fixture = [1, 2, 3, 4].map(status => ({order_id: String(status), status, total_amount: '35', currency: 'CNY',
     order_type: 'standard', can_ship: status === 2, can_cancel: status === 1,
     status_text: ['', '待付款', '待发货', '待收货', '订单完成'][status]}));
 fixture.push({order_id: 'trial', status: 4, status_text: '试用中'},
@@ -23,6 +23,10 @@ async function main() {
     assert(!html.includes('<script>') && !html.includes('<img'));
     assert(html.includes('&lt;img onerror=x&gt;') && html.includes('&amp;&quot;&#39;'));
     assert(html.includes('￥35.00') && html.includes('scope="col"'));
+    const historical = api.rowsHtml([{order_id:'legacy',total_amount:'35',currency:null}]);
+    assert(historical.includes('35.00 币种未记录') && !historical.includes('￥'));
+    const foreign = api.rowsHtml([{order_id:'foreign',total_amount:'35',currency:'USD'}]);
+    assert(foreign.includes('35.00 USD') && !foreign.includes('￥'));
     assert(!api.rowsHtml([fixture[2]]).includes('data-action='));
     assert(!api.rowsHtml([{status:2}]).includes('data-action='));
     assert(!api.rowsHtml([fixture[3]]).includes('data-action='));

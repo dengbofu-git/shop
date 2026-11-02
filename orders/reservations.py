@@ -224,7 +224,9 @@ def confirm_payment(order_id,trade_no,amount):
             if order.payment_trade_no!=trade_no:raise ReservationError('PAYMENT_CONFLICT','订单支付流水不匹配',400)
             return order
         now=timezone.now()
-        if not order.reservation_managed:
+        if order.currency != 'CNY':
+            order.payment_exception='currency_review_required'
+        elif not order.reservation_managed:
             order.payment_exception='legacy_payment_review'
         elif order.status==0 or order.expires_at<=now:
             if order.status==1:_release_locked(order,'expired',now)

@@ -108,7 +108,7 @@ class DataSession:
             result, budget = self._invoke(tool, arguments, private)
             remote_result(result['status'])
         effects = {name: getattr(self.order_context, name) for name in
-                   ('binding_changed', 'selected_order_id', 'not_queryable', 'conversation_missing', 'navigation_tokens')}
+                   ('binding_changed', 'selected_order_id', 'not_queryable', 'conversation_missing', 'navigation_tokens', 'pending_order_page')}
         write_private(self.grant['private_dir'], 'output', {
             'nonce': self.grant['nonce'], 'sequence': private['sequence'], 'order_effects': effects,
             'model_usage': budget.snapshot() if budget else None, 'telemetry': observation,

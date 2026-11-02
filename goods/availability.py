@@ -3,6 +3,11 @@ from inventory.availability import with_availability
 from .models import SKU
 
 
-def sellable_skus():
+def public_skus():
+    """Launched products of active merchants, including temporarily empty stock."""
     return with_availability(SKU.objects.filter(
-        is_launched=True, price__gt=0, spu__merchant__is_active=True)).filter(sellable_stock__gt=0)
+        is_launched=True, price__gt=0, spu__merchant__is_active=True))
+
+
+def sellable_skus():
+    return public_skus().filter(sellable_stock__gt=0)

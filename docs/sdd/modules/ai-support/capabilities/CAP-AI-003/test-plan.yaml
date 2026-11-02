@@ -1,7 +1,10 @@
 schemaVersion: '0.2'
 capabilityId: CAP-AI-003
 specVersion: 0.3.0
-status: not-run
+status: partial-evidence
+currentEvidence:
+  record: docs/sdd/evidence/2026-10-30-rule-implementation/verification.md
+  scope: 新增明确偏好混合故障/回放及Redis当前页映射，保留权限与任务依赖回归；完整AC和真实浏览器未全部验收
 testScope:
 - id: TEST-AI-003-01
   type: synthetic-task-integration

@@ -30,6 +30,10 @@
     var historyOlder = document.getElementById('bs-history-older');
     var historyMenu = document.getElementById('bs-history-menu');
     var historyDelete = document.getElementById('bs-history-delete');
+    var historyRemoved = document.getElementById('bs-history-removed');
+    var historyUndo = document.getElementById('bs-history-undo');
+    var showingRemoved = false;
+    var lastRemoved = null;
     var menuConversation = null;
     var currentLabel = document.getElementById('bs-current-conversation');
     var conversationStatus = document.getElementById('bs-conversation-status');
@@ -528,12 +532,14 @@
         if (!target || busy || !ensureIdentity()) return;
         closeHistoryMenu(true);
         setBusy(true);
-        historyStatus.textContent = '正在删除咨询…';
+        historyStatus.textContent = '正在移出列表…';
         try {
             var nextHidden = new Set(hiddenHistory); nextHidden.add(target.id);
             localStorage.setItem(hiddenHistoryKey, JSON.stringify(Array.from(nextHidden)));
             hiddenHistory = nextHidden;
-            delete drafts[target.id];
+            lastRemoved = target.id;
+            historyUndo.hidden = false;
+            saveDraft();
             var deletingCurrent = conversation && conversation.conversation_id === target.id;
             if (!conversation) {
                 try {
@@ -548,7 +554,7 @@
                 sessionTitle = '';
                 input.value = '';
                 messages.innerHTML = initialMessage;
-                sessionStorage.removeItem(storageKey);
+                try { sessionStorage.removeItem(storageKey); } catch (_) { /* The persisted hidden ID prevents automatic restore. */ }
                 conversationStatus.textContent = '可开始新咨询。';
             }
             historyList.querySelectorAll('[data-conversation-id]').forEach(function (row) {
@@ -556,14 +562,33 @@
             });
             updateSession();
             historyStatus.textContent = historyList.children.length ? '对话已移出列表。' :
-                (historyCursor ? '本页咨询已删除，可加载更多咨询。' : '还没有已保存的咨询。');
+                (historyCursor ? '本页咨询已移出，可加载更多咨询。' : '列表为空，可从“已移出咨询”恢复。');
         } catch (error) {
-            if (sameIdentity()) historyStatus.textContent = error.message || '删除失败，请稍后重试。';
+            if (sameIdentity()) historyStatus.textContent = '浏览器未能保存移出操作，咨询仍保留在列表中。';
         } finally {
             setBusy(false);
             if (sameIdentity()) historyRefresh.focus();
         }
     });
+    async function restoreHiddenHistory(id) {
+        if (busy || !ensureIdentity()) return;
+        try {
+            var nextHidden = new Set(hiddenHistory); nextHidden.delete(id);
+            localStorage.setItem(hiddenHistoryKey, JSON.stringify(Array.from(nextHidden)));
+            hiddenHistory = nextHidden;
+            if (id === lastRemoved) { lastRemoved = null; historyUndo.hidden = true; }
+            var loaded = await loadHistory(true);
+            if (!sameIdentity()) return;
+            if (loaded) historyStatus.textContent = '咨询已恢复到历史列表。';
+        } catch (_) { if (sameIdentity()) historyStatus.textContent = '浏览器未能保存恢复操作，请稍后重试。'; }
+    }
+    historyRemoved.addEventListener('click', function () {
+        if (busy || !ensureIdentity()) return;
+        showingRemoved = !showingRemoved;
+        historyRemoved.textContent = showingRemoved ? '返回历史咨询' : '已移出咨询';
+        loadHistory(true);
+    });
+    historyUndo.addEventListener('click', function () { if (lastRemoved) return restoreHiddenHistory(lastRemoved); });
     historyMenu.addEventListener('keydown', function (event) {
         if (event.key === 'Escape' || event.key === 'Tab') {
             if (event.key === 'Escape') event.preventDefault();
@@ -642,7 +667,7 @@
             var result = await api(path);
             if (reset) historyList.textContent = '';
             result.conversations.forEach(function (item) {
-                if (hiddenHistory.has(item.conversation_id)) return;
+                if (hiddenHistory.has(item.conversation_id) !== showingRemoved) return;
                 if (Array.from(historyList.children).some(function (row) { return row.dataset.conversationId === item.conversation_id; })) return;
                 var button = document.createElement('button');
                 button.type = 'button';
@@ -657,10 +682,14 @@
                 detail.textContent = displayTime(item.updated_at) + ' · ' + item.turn_count + ' 轮';
                 button.appendChild(title);
                 button.appendChild(detail);
-                button.addEventListener('click', function () { switchConversation(item.conversation_id); });
-                button.addEventListener('contextmenu', function (event) { openHistoryMenu(event, item, button, false); });
+                button.addEventListener('click', function () {
+                    if (showingRemoved) restoreHiddenHistory(item.conversation_id);
+                    else switchConversation(item.conversation_id);
+                });
+                if (showingRemoved) button.setAttribute('aria-label', '恢复咨询：' + item.title);
+                button.addEventListener('contextmenu', function (event) { if (!showingRemoved) openHistoryMenu(event, item, button, false); });
                 button.addEventListener('keydown', function (event) {
-                    if (event.key === 'ContextMenu' || (event.shiftKey && event.key === 'F10')) {
+                    if (!showingRemoved && (event.key === 'ContextMenu' || (event.shiftKey && event.key === 'F10'))) {
                         openHistoryMenu(event, item, button, true);
                     }
                 });
@@ -669,10 +698,13 @@
             historyCursor = result.next_cursor || null;
             historyMore.hidden = !historyCursor;
             historyLoaded = true;
-            historyStatus.textContent = historyList.children.length ? '按最近更新时间排序，点击咨询可继续聊天。' : '还没有已保存的咨询，发送第一条消息后会自动保存。';
+            historyStatus.textContent = showingRemoved ? '仅本账号本浏览器移出的咨询，点击一项即可恢复；可加载更多。' :
+                (historyList.children.length ? '按最近更新时间排序，点击咨询可继续聊天。' : '本页没有可见咨询，可加载更多或查看“已移出咨询”。');
             updateSession();
+            return true;
         } catch (error) {
             historyStatus.textContent = error.message || '历史咨询加载失败，请刷新列表重试。';
+            return false;
         } finally {
             historyList.setAttribute('aria-busy', 'false');
             setBusy(false);

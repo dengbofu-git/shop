@@ -17,6 +17,8 @@ def client():
 
 
 def payment_data(order):
+    if order.currency != 'CNY':
+        raise ReservationError('CURRENCY_REVIEW_REQUIRED','原记录币种未核验，请联系平台处理付款',409)
     expire_orders(user_id=order.user_profile_id)
     order.refresh_from_db()
     if not order.reservation_managed:raise ReservationError('LEGACY_ORDER_REQUIRES_REVIEW','历史订单尚未核验库存，请联系商家处理',409)
@@ -26,6 +28,7 @@ def payment_data(order):
     url=client().api_alipay_trade_page_pay(subject='tea_saas采购订单',out_trade_no=order.pk,total_amount=str(order.total_amount),
         return_url=getattr(settings,'PAYMENT_RETURN_URL','http://127.0.0.1:8000/v1/pays/notify'),time_expire=timezone.localtime(order.expires_at).strftime('%Y-%m-%d %H:%M:%S'))
     return {'order_id':order.pk,'carts_count':order.total_count,'total_amount':str(order.total_amount),
+            'currency':order.currency,
             'saller':settings.ALIPAY_SALLER_NAME,'pay_url':settings.ALIPAY_PAY_URL+url,'expires_at':order.expires_at.isoformat()}
 
 

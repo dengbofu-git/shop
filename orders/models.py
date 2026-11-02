@@ -52,6 +52,7 @@ class OrderInfo(models.Model):
     order_type = models.CharField(max_length=20, choices=ORDER_TYPE_CHOICES, default='standard', verbose_name="订单类型")
     # 订单总金额、商品总数量
     total_amount = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="订单总金额")
+    currency = models.CharField(max_length=3, null=True, blank=True, default='CNY')
     total_count = models.IntegerField(verbose_name="商品总数")
     # 支付方式:1代表支付宝
     pay_method = models.SmallIntegerField(default=1, verbose_name="支付方式")
@@ -154,6 +155,7 @@ class OrderGoods(models.Model):
     # 数量、单价
     count = models.IntegerField(default=1, verbose_name="数量")
     price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="单价")
+    currency = models.CharField(max_length=3, null=True, blank=True, default='CNY')
 
     created_time = models.DateTimeField(auto_now_add=True)
     updated_time = models.DateTimeField(auto_now=True)
