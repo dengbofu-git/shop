@@ -1,3 +1,5 @@
+
+from ai_storage.database import alias as ai_db_alias
 import json
 from types import SimpleNamespace
 from unittest.mock import Mock, patch
@@ -62,12 +64,12 @@ class GroupedContractTests(SimpleTestCase):
 
 
 class GroupedRecommendationTests(TestCase):
-    databases = {'default', 'ai_storage'}
+    databases = {'default', ai_db_alias()}
 
     def setUp(self):
         from goods.models import Catalog, SPU, SKU
         from users.models import UserProfile
-        merchant = UserProfile.objects.create(username='synthetic-grouped-shop', user_type='merchant', is_active=True)
+        merchant = UserProfile.objects.create(username='synthe43f9f', user_type='merchant', is_active=True)
         self.skus = {}
         for i, category in enumerate(BASIC_TEA_TYPES):
             catalog = Catalog.objects.create(name=category)

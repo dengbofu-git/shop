@@ -1,3 +1,5 @@
+
+from ai_storage.database import alias as ai_db_alias
 from io import StringIO
 from unittest import skipUnless
 
@@ -14,15 +16,15 @@ class RoutingTests(SimpleTestCase):
         from users.models import UserProfile
         routes = AiStorageRouter()
         for model in (BuyerMemory, EmbeddingSpace, KnowledgeChunk, KnowledgeDocument):
-            self.assertEqual(router.db_for_read(model), 'ai_storage')
-            self.assertEqual(router.db_for_write(model), 'ai_storage')
-        self.assertFalse(routes.allow_migrate('default', 'ai_storage'))
+            self.assertEqual(router.db_for_read(model), ai_db_alias())
+            self.assertEqual(router.db_for_write(model), ai_db_alias())
+        self.assertEqual(routes.allow_migrate('default', 'ai_storage'), ai_db_alias() == 'default')
         self.assertFalse(routes.allow_migrate('ai_storage', 'users'))
-        self.assertFalse(routes.allow_relation(BuyerMemory(), UserProfile()))
+        self.assertEqual(routes.allow_relation(BuyerMemory(), UserProfile()), ai_db_alias() == 'default')
 
 
 class MemoryTransferTests(TestCase):
-    databases = {'default', 'ai_storage'}
+    databases = {'default', ai_db_alias()}
 
     def test_transfer_is_idempotent_and_preserves_newer_memory_and_mysql_source(self):
         from support_ai.models import SupportPreference
@@ -37,9 +39,9 @@ class MemoryTransferTests(TestCase):
         self.assertEqual(SupportPreference.objects.get(user=user).preferences['categories'], ['红茶'])
 
 
-@skipUnless(connections['ai_storage'].vendor == 'postgresql', 'requires real pgvector PostgreSQL')
+@skipUnless(connections[ai_db_alias()].vendor == 'postgresql', 'requires real pgvector PostgreSQL')
 class VectorStorageTests(TestCase):
-    databases = {'ai_storage'}
+    databases = {ai_db_alias()}
 
     def setUp(self):
         self.space = EmbeddingSpace.objects.create(key='technical-test-v1', provider='test', model='synthetic', revision='1', dimensions=3)
@@ -66,10 +68,10 @@ class VectorStorageTests(TestCase):
     def test_database_rejects_wrong_dimensions_zero_vectors_and_mutating_used_space(self):
         for vector in ([1, 2], [0, 0, 0]):
             with self.subTest(vector=vector):
-                with self.assertRaises(DatabaseError), transaction.atomic(using='ai_storage'):
+                with self.assertRaises(DatabaseError), transaction.atomic(using=ai_db_alias()):
                     self.chunk('invalid-' + str(len(vector)), vector, visibility='public')
         self.chunk('valid', [1, 0, 0], visibility='public')
-        with self.assertRaises(DatabaseError), transaction.atomic(using='ai_storage'):
+        with self.assertRaises(DatabaseError), transaction.atomic(using=ai_db_alias()):
             EmbeddingSpace.objects.filter(pk=self.space.pk).update(dimensions=4)
 
     def test_search_rejects_invalid_query_vectors_before_matching(self):

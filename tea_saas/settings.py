@@ -94,27 +94,8 @@ WSGI_APPLICATION = 'tea_saas.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'USER': os.environ['DB_USER'],
-        'PASSWORD': os.environ['DB_PASSWORD'],
-        'HOST': os.environ['DB_HOST'],
-        'PORT': int(os.environ['DB_PORT']),
-        'NAME': os.environ['DB_NAME'],
-        'OPTIONS': {'charset': 'utf8mb4'},
-    }
-}
-DATABASES['ai_storage'] = {
-    'ENGINE': 'django.db.backends.postgresql',
-    'NAME': os.getenv('AI_POSTGRES_NAME', 'tea_saas_ai'),
-    'USER': os.getenv('AI_POSTGRES_USER', 'tea_saas_ai'),
-    'PASSWORD': os.getenv('AI_POSTGRES_PASSWORD', ''),
-    'HOST': os.getenv('AI_POSTGRES_HOST', '127.0.0.1'),
-    'PORT': int(os.getenv('AI_POSTGRES_PORT', '5433')),
-    'CONN_MAX_AGE': 60,
-    'OPTIONS': {'connect_timeout': 5},
-}
+from tea_saas.database import database_config
+DATABASES, AI_STORAGE_DB_ALIAS = database_config(os.environ)
 DATABASE_ROUTERS = ['ai_storage.router.AiStorageRouter']
 AI_OLLAMA_BASE_URL = os.getenv('AI_OLLAMA_BASE_URL', 'http://127.0.0.1:11434').rstrip('/')
 AI_OLLAMA_MODEL = os.getenv('AI_OLLAMA_MODEL', 'bge-m3')

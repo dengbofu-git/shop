@@ -12,7 +12,7 @@ from .models import Conversation, Message, Review
 from .tests import EngagementTests
 
 
-@skipUnless(connection.vendor == 'mysql', 'Requires isolated MySQL row locks')
+@skipUnless(connection.vendor in ('mysql', 'postgresql'), 'Requires isolated PostgreSQL/MySQL row locks')
 class EngagementConcurrencyTests(TransactionTestCase):
     make_sku = staticmethod(EngagementTests.make_sku)
     order = EngagementTests.order

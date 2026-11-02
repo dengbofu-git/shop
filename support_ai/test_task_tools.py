@@ -1,3 +1,5 @@
+
+from ai_storage.database import alias as ai_db_alias
 import json
 import uuid
 from unittest.mock import patch
@@ -51,7 +53,7 @@ class ToolModel(Runnable):
 
 
 class TaskToolIntegrationTests(TestCase):
-    databases = {'default', 'ai_storage'}
+    databases = {'default', ai_db_alias()}
 
     def setUp(self):
         from .mcp_testing import enable_synthetic_mcp
@@ -183,7 +185,7 @@ class TaskToolIntegrationTests(TestCase):
         from .order_contracts import prepare_order_input, rule_order_query
         from .order_queries import OrderQueryContext, query_orders
         order=OrderInfo.objects.create(order_id='ORDER-LOCAL-PRIVATE',user_profile=self.user,total_amount=50,
-            total_count=1,freight=0,status=1,receiver='Secret receiver',address='Secret address',receiver_mobile='13800138000',tag='')
+            total_count=1,freight=0,status=1,receiver='隐私收件人',address='Secret address',receiver_mobile='13800138000',tag='')
         safe, references=prepare_order_input('查询订单号：'+order.pk)
         context=OrderQueryContext(owner_id=self.user.pk,references=references)
         result=query_orders(rule_order_query(safe),context,safe)
@@ -201,7 +203,7 @@ class TaskToolIntegrationTests(TestCase):
         from users.models import UserProfile
         from .order_contracts import prepare_order_input, rule_order_query
         from .order_queries import OrderQueryContext, query_orders
-        other=UserProfile.objects.create(username='order-tool-other',is_active=True)
+        other=UserProfile.objects.create(username='order-4d5a3',is_active=True)
         order=OrderInfo.objects.create(order_id='FOREIGN-PRIVATE',user_profile=other,total_amount=50,
             total_count=1,freight=0,status=2,receiver='Test',address='Test',receiver_mobile='000',tag='')
         safe, references=prepare_order_input('查询订单号：'+order.pk)
@@ -227,7 +229,7 @@ class TaskToolIntegrationTests(TestCase):
         self.assertEqual(response.status_code,200)
         self.assertEqual(response.json()['tasks'],[{'id':'s1','tool':'get_order_status','status':'success'}])
         self.assertEqual(response.json()['order_result']['orders'][0]['order_status'],'待发货')
-        other=UserProfile.objects.create(username='order-http-other',is_active=True)
+        other=UserProfile.objects.create(username='order-be795',is_active=True)
         OrderInfo.objects.create(order_id='HTTP-FOREIGN-ORDER',user_profile=other,total_amount=50,
             total_count=1,freight=0,status=2,receiver='Test',address='Test',receiver_mobile='000',tag='')
         response=self.chat('查询订单号：HTTP-FOREIGN-ORDER')

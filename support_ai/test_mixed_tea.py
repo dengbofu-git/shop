@@ -1,3 +1,5 @@
+
+from ai_storage.database import alias as ai_db_alias
 import json
 import re
 from unittest import TestCase as UnitTestCase
@@ -161,7 +163,7 @@ class MixedPlanningTests(UnitTestCase):
 
 
 class MixedTeaIntegrationTests(TestCase):
-    databases = {'default', 'ai_storage'}
+    databases = {'default', ai_db_alias()}
 
     def setUp(self):
         grouped_fixtures.GroupedRecommendationTests.setUp(self)

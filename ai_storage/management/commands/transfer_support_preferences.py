@@ -7,7 +7,7 @@ from support_ai.models import SupportPreference
 
 
 class Command(BaseCommand):
-    help = 'Copy legacy MySQL buyer preferences to PostgreSQL without deleting or overwriting data.'
+    help = 'Copy legacy preference rows without deleting sources or overwriting confirmed data.'
 
     def handle(self, *args, **options):
         source = connections['default']
@@ -23,4 +23,4 @@ class Command(BaseCommand):
             _, inserted = BuyerMemory.objects.get_or_create(owner_id=row.user_id, defaults={'preferences': data})
             created += int(inserted)
             skipped += int(not inserted)
-        self.stdout.write('Transferred {}; preserved {} existing PostgreSQL memories. MySQL source retained.'.format(created, skipped))
+        self.stdout.write('Transferred {}; preserved {} existing PostgreSQL memories. Legacy source retained.'.format(created, skipped))

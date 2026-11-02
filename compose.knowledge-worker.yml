@@ -12,6 +12,7 @@ services:
     # Do not let Compose reinterpret passwords or preserve dotenv quote syntax.
     environment:
       DB_HOST: host.docker.internal
+      POSTGRES_HOST: host.docker.internal
       AI_POSTGRES_HOST: host.docker.internal
       AI_OLLAMA_BASE_URL: http://host.docker.internal:11434
       AI_PDF_STORAGE_ROOT: /knowledge

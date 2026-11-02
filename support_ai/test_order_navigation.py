@@ -20,8 +20,8 @@ class OrderNavigationTests(TestCase):
         redis = patch('orders.views.get_redis_connection')
         redis.start()
         self.addCleanup(redis.stop)
-        self.buyer = UserProfile.objects.create(username='orderlink-buyer', user_type='customer', is_active=True)
-        self.other = UserProfile.objects.create(username='orderlink-other', user_type='customer', is_active=True)
+        self.buyer = UserProfile.objects.create(username='orderl5972d', user_type='customer', is_active=True)
+        self.other = UserProfile.objects.create(username='orderle07fd', user_type='customer', is_active=True)
         self.own = [self.order(self.buyer, 'NAV-PRIVATE-{}'.format(i)) for i in range(3)]
         self.hidden = self.order(self.buyer, 'NAV-HIDDEN', hidden=True)
         self.foreign = self.order(self.other, 'NAV-FOREIGN')

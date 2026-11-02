@@ -137,9 +137,9 @@ class SemanticScopeUnitTests(UnitTestCase):
 
 class SemanticScopeStorageTests(TestCase):
     def setUp(self):
-        self.user = UserProfile.objects.create(username='semantic-scope-buyer', is_active=True)
+        self.user = UserProfile.objects.create(username='semante406f', is_active=True)
         category = Catalog.objects.create(name='红茶')
-        merchant = UserProfile.objects.create(username='synthetic-active-seller', user_type='merchant', is_active=True)
+        merchant = UserProfile.objects.create(username='synthe2ddd3', user_type='merchant', is_active=True)
         product = SPU.objects.create(name='合成语义茶', catalog=category, merchant=merchant)
         SKU.objects.create(spu=product, name='合成规格', price='750.00', market_price='750.00',
                            cost_price='100.00', stock=10, is_launched=True)

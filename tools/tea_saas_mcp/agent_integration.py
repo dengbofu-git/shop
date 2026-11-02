@@ -121,10 +121,15 @@ def run():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--postgres', action='store_true')
     parser.add_argument('--mysql', action='store_true')
+    parser.add_argument('--unified-postgres', action='store_true', help='One disposable PostgreSQL for business and AI')
     parser.add_argument('--profile-output',type=Path,help='Write content-free cold/reused-session timing evidence')
     parser.add_argument('--local-models',action='store_true',help='Use loopback Ollama/reranker with synthetic knowledge only')
     parser.add_argument('--resident',action='store_true',help='Prewarm the independent MCP HTTP service')
     arguments = parser.parse_args()
+    if arguments.unified_postgres:
+        if arguments.mysql:
+            parser.error('--unified-postgres cannot be combined with --mysql')
+        arguments.postgres = True
     if arguments.local_models and (not arguments.postgres or not arguments.profile_output):
         parser.error('--local-models requires --postgres and --profile-output')
     if arguments.local_models:
@@ -152,6 +157,8 @@ def run():
         if arguments.postgres:
             os.environ.update(DJANGO_SETTINGS_MODULE='tools.tea_saas_mcp.agent_pg_test_settings',
                               TEA_SAAS_MCP_TEST_PG='test_mcp_' + uuid.uuid4().hex[:12])
+        if arguments.unified_postgres:
+            os.environ['DJANGO_SETTINGS_MODULE']='tools.tea_saas_mcp.unified_pg_test_settings'
         # No configured business DB is opened. Both aliases are asserted below
         # before Django's migration command is allowed to run.
         import django
@@ -159,12 +166,16 @@ def run():
         from django.conf import settings
         from django.db import connections
         from django.core.management import call_command
+        from ai_storage.database import alias as ai_db_alias
         if arguments.postgres:
-            resources.enter_context(postgres_database(settings.DATABASES['ai_storage']))
+            resources.enter_context(postgres_database(settings.DATABASES[ai_db_alias()]))
         resources.callback(connections.close_all)
-        for alias in ('default','ai_storage'):
+        for alias in settings.DATABASES:
             database = settings.DATABASES[alias]
-            if alias == 'default' and arguments.mysql:
+            if arguments.unified_postgres:
+                assert alias == 'default' and database['ENGINE'] == 'django.db.backends.postgresql'
+                assert database['NAME'] == os.environ['TEA_SAAS_MCP_TEST_PG']
+            elif alias == 'default' and arguments.mysql:
                 assert database['ENGINE'] == 'django.db.backends.mysql' and database['NAME'] == 'test_mcp'
                 assert database['PORT'] == mysql_port and database['USER'] == 'mcp_fixture'
             elif alias == 'ai_storage' and arguments.postgres:
@@ -190,7 +201,7 @@ def run():
         buyer = UserProfile.objects.create(username='mcpbuyer', user_type='customer', is_active=True)
         other = UserProfile.objects.create(username='mcpother', user_type='customer', is_active=True)
         category = Catalog.objects.create(name='绿茶')
-        merchant = UserProfile.objects.create(username='mcp-synthetic-merchant', user_type='merchant', is_active=True)
+        merchant = UserProfile.objects.create(username='mcp-seller', user_type='merchant', is_active=True)
         product = SPU.objects.create(name='合成协议商品', catalog=category, merchant=merchant)
         sku = SKU.objects.create(name='50克装', spu=product, price='12.30', cost_price='1', market_price='15', stock=10)
         for index in range(4):
@@ -349,7 +360,8 @@ def run():
             count+=3
         connections.close_all()
         summary = {'status':'passed','checks':count,
-                   'databases':('disposable MySQL' if arguments.mysql else 'disposable SQLite') + (' + PostgreSQL' if arguments.postgres else ' + SQLite knowledge'),
+                   'databases':('disposable unified PostgreSQL' if arguments.unified_postgres else
+                                ('disposable MySQL' if arguments.mysql else 'disposable SQLite') + (' + PostgreSQL' if arguments.postgres else ' + SQLite knowledge')),
                    'transport':('resident HTTP MCP SDK -> prewarmed Django pool' if arguments.resident else
                                 'real stdio MCP SDK -> persistent Django backend'),'provider_calls':0}
     print(json.dumps(dict(summary, cleanup='completed')))

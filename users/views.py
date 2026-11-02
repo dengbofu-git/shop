@@ -51,7 +51,7 @@ def register(request):
         return JsonResponse(context)
     # 校验用户名是否唯一
     try:
-        UserProfile.objects.get(username=uname)
+        UserProfile.objects.get(username__iexact=uname)
         context = {
             'code': 10002,
             'error': f'用户名{uname}已经被占用 '
@@ -69,7 +69,7 @@ def register(request):
 
     # 校验邮箱的唯一性
     try:
-        UserProfile.objects.get(email=email)
+        UserProfile.objects.get(email__iexact=email)
         context = {
             'code': 10004,
             'error': '邮箱已经被占用 '
@@ -158,7 +158,7 @@ def login(request):
         }
         return JsonResponse(context)
     try:
-        user = UserProfile.objects.get(username=username, password=md5(password))
+        user = UserProfile.objects.get(username__iexact=username, password=md5(password))
         
         # 检查用户是否激活
         if not user.is_active:
@@ -199,7 +199,7 @@ def login(request):
         
         context = {
             'code': 200,
-            'username': username,
+            'username': user.username,
             'token': token,
             'user_type': user.user_type,  # 添加用户类型
             'user_type_name': '店家' if user.is_merchant() else '客户',  # 用户类型中文名称

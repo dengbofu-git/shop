@@ -1,3 +1,5 @@
+
+from ai_storage.database import alias as ai_db_alias
 from unittest import TestCase
 from unittest.mock import patch
 
@@ -250,7 +252,7 @@ class RecommendationContractTests(SimpleTestCase):
 
 
 class RecommendationIntegrationTests(DatabaseTestCase):
-    databases = {'default', 'ai_storage'}
+    databases = {'default', ai_db_alias()}
     def setUp(self):
         from .mcp_testing import enable_synthetic_mcp
         enable_synthetic_mcp(self)
@@ -263,7 +265,7 @@ class RecommendationIntegrationTests(DatabaseTestCase):
         self.other = UserProfile.objects.create(username='other-buyer', password='test', email='other@test.com', phone='', is_active=True)
         self.auth = {'HTTP_AUTHORIZATION': 'Bearer ' + jwt_encode({'id': self.user.pk})}
         self.request_id = str(uuid.uuid4())
-        self.seller = UserProfile.objects.create(username='synthetic-active-shop', user_type='merchant', is_active=True)
+        self.seller = UserProfile.objects.create(username='synthe7a3e0', user_type='merchant', is_active=True)
         brand = Brand.objects.create(name='测试品牌', first_letter='T')
         red = Catalog.objects.create(name='红茶')
         green = Catalog.objects.create(name='绿茶')

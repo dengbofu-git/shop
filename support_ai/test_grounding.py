@@ -1,4 +1,6 @@
 """Adversarial synthetic outputs; no provider, business DB or network is used."""
+
+from ai_storage.database import alias as ai_db_alias
 import json
 import uuid
 from unittest import TestCase
@@ -348,14 +350,14 @@ class GraphFactConsistencyTests(TestCase):
 
 
 class GroundedHttpTests(DatabaseTestCase):
-    databases = {'default','ai_storage'}
+    databases = {'default',ai_db_alias()}
 
     def setUp(self):
         from .mcp_testing import enable_synthetic_mcp
         enable_synthetic_mcp(self)
         from users.models import UserProfile
         from tea_saas.utils import jwt_encode
-        self.user = UserProfile.objects.create(username='grounding-buyer',is_active=True)
+        self.user = UserProfile.objects.create(username='groundca954',is_active=True)
         self.auth = {'HTTP_AUTHORIZATION':'Bearer '+jwt_encode({'id':self.user.pk})}
         self.body = {'message':'介绍一下绿茶','request_id':str(uuid.uuid4())}
 

@@ -15,7 +15,7 @@ from .product_details import get_product_details
 class PublicProductDetailsTests(TestCase):
     def setUp(self):
         from users.models import UserProfile
-        self.merchant = UserProfile.objects.create(username='details-seller', user_type='merchant', is_active=True)
+        self.merchant = UserProfile.objects.create(username='detail0cad6', user_type='merchant', is_active=True)
         self.spu = SPU.objects.create(name='测试绿茶', catalog=Catalog.objects.create(name='绿茶'), merchant=self.merchant)
         self.sku = SKU.objects.create(name='50克装', caption='', spu=self.spu, price='12.30',
                                       cost_price='3.21', market_price='15', stock=10)

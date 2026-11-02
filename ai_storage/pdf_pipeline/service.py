@@ -1,4 +1,6 @@
 """Trusted CLI orchestration. Slow OCR/embedding never holds a database transaction."""
+
+from ai_storage.database import alias as ai_db_alias
 from contextlib import contextmanager
 from datetime import timedelta
 import hashlib
@@ -24,7 +26,7 @@ from .chunking import CHUNKER_VERSION, make_chunks
 from .parser import PARSER_VERSION
 from .storage import file_digest, job_path, store_pdf
 
-DB = 'ai_storage'
+DB = ai_db_alias()
 LEASE_SECONDS = 180
 
 

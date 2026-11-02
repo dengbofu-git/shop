@@ -15,7 +15,7 @@ class SalesRecommendationTests(TestCase):
         category = Catalog.objects.create(name='红茶')
         cls.spus = []
         for number in range(2):
-            merchant = UserProfile.objects.create(username='sales-shop-' + str(number), user_type='merchant', is_active=True)
+            merchant = UserProfile.objects.create(username='salesshop' + str(number), user_type='merchant', is_active=True)
             cls.spus.append(SPU.objects.create(name='Synthetic tea ' + str(number), catalog=category, merchant=merchant))
 
     def sku(self, merchant=0, **values):

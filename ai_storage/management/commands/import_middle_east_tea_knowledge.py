@@ -1,3 +1,5 @@
+
+from ai_storage.database import alias as ai_db_alias
 import json
 from pathlib import Path
 
@@ -27,8 +29,8 @@ class Command(BaseCommand):
         revision = settings.AI_OLLAMA_REVISION
         space_key = settings.AI_EMBEDDING_SPACE_KEY
 
-        with transaction.atomic(using='ai_storage'):
-            space, created = EmbeddingSpace.objects.using('ai_storage').get_or_create(
+        with transaction.atomic(using=ai_db_alias()):
+            space, created = EmbeddingSpace.objects.using(ai_db_alias()).get_or_create(
                 key=space_key,
                 defaults={'provider': 'ollama', 'model': model, 'revision': revision, 'dimensions': dimensions},
             )
@@ -42,7 +44,7 @@ class Command(BaseCommand):
                 grouped.setdefault(record['source_key'], []).append((record, vector))
             for source_key, items in grouped.items():
                 first = items[0][0]
-                document, created = KnowledgeDocument.objects.using('ai_storage').update_or_create(
+                document, created = KnowledgeDocument.objects.using(ai_db_alias()).update_or_create(
                     source_key=source_key,
                     version=1,
                     defaults={
@@ -55,8 +57,8 @@ class Command(BaseCommand):
                     },
                 )
                 counts['created' if created else 'updated'] += 1
-                KnowledgeChunk.objects.using('ai_storage').filter(document=document).delete()
-                KnowledgeChunk.objects.using('ai_storage').bulk_create([
+                KnowledgeChunk.objects.using(ai_db_alias()).filter(document=document).delete()
+                KnowledgeChunk.objects.using(ai_db_alias()).bulk_create([
                     KnowledgeChunk(
                         document=document,
                         ordinal=ordinal,

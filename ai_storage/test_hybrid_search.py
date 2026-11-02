@@ -1,3 +1,5 @@
+
+from ai_storage.database import alias as ai_db_alias
 from unittest import skipUnless
 from unittest.mock import patch
 
@@ -10,9 +12,9 @@ from .knowledge import search_knowledge_keywords
 from .models import KnowledgeChunk, KnowledgeDocument, KnowledgeRevision
 
 
-@skipUnless(connections['ai_storage'].vendor == 'postgresql', 'requires isolated PostgreSQL')
+@skipUnless(connections[ai_db_alias()].vendor == 'postgresql', 'requires isolated PostgreSQL')
 class KeywordSearchTests(TransactionTestCase):
-    databases = {'ai_storage'}
+    databases = {ai_db_alias()}
 
     def setUp(self):
         cache.clear()
@@ -59,7 +61,7 @@ class KeywordSearchTests(TransactionTestCase):
         self.assertEqual(len(search_knowledge_keywords('uniqueheading', None)), 1)
         previous = self.epoch()
         try:
-            with transaction.atomic(using='ai_storage'):
+            with transaction.atomic(using=ai_db_alias()):
                 KnowledgeDocument.objects.filter(pk=row.document_id).update(status='withdrawn')
                 self.assertGreater(self.epoch(), previous)
                 self.assertEqual(search_knowledge_keywords('Orthodox', None), [])
@@ -116,31 +118,31 @@ class KeywordSearchTests(TransactionTestCase):
         from support_ai.configuration import AgentConfig
         from support_ai.query_rewrite import QueryPolicy
         from support_ai.retrieval_cache import evidence_key
-        with transaction.atomic(using='ai_storage'):
+        with transaction.atomic(using=ai_db_alias()):
             self.assertIsNone(evidence_key('CTC', None,
                 AgentConfig('test', 'disabled', False, False, '', 1), QueryPolicy()))
 
 
-@skipUnless(connections['ai_storage'].vendor == 'postgresql', 'requires isolated PostgreSQL')
+@skipUnless(connections[ai_db_alias()].vendor == 'postgresql', 'requires isolated PostgreSQL')
 class HybridMigrationTests(TransactionTestCase):
-    databases = {'ai_storage'}
+    databases = {ai_db_alias()}
 
     def test_upgrade_backfill_reverse_and_upgrade_again(self):
-        connection = connections['ai_storage']
+        connection = connections[ai_db_alias()]
         # This connection is Django's disposable test DB, never the business DB.
         self.assertTrue(connection.settings_dict['NAME'].startswith('test_'))
         try:
             MigrationExecutor(connection).migrate([('ai_storage', '0003_pdf_import_pipeline')])
             old = MigrationExecutor(connection).loader.project_state([('ai_storage', '0003_pdf_import_pipeline')]).apps
-            document = old.get_model('ai_storage', 'KnowledgeDocument').objects.using('ai_storage').create(
+            document = old.get_model('ai_storage', 'KnowledgeDocument').objects.using(ai_db_alias()).create(
                 source_key='migration', title='红茶工艺', visibility='public', status='published')
-            old.get_model('ai_storage', 'KnowledgeChunk').objects.using('ai_storage').create(
+            old.get_model('ai_storage', 'KnowledgeChunk').objects.using(ai_db_alias()).create(
                 document_id=document.pk, ordinal=0, text='CTC manufacturing process.')
             from .knowledge import hybrid_search_ready, search_knowledge
             self.assertFalse(hybrid_search_ready())
-            space = old.get_model('ai_storage', 'EmbeddingSpace').objects.using('ai_storage').create(
+            space = old.get_model('ai_storage', 'EmbeddingSpace').objects.using(ai_db_alias()).create(
                 key='old-schema', provider='test', model='test', revision='1', dimensions=3)
-            old.get_model('ai_storage', 'KnowledgeChunk').objects.using('ai_storage').filter(
+            old.get_model('ai_storage', 'KnowledgeChunk').objects.using(ai_db_alias()).filter(
                 document_id=document.pk).update(embedding=[1., 0., 0.], embedding_space_id=space.pk)
             self.assertEqual(len(search_knowledge([1., 0., 0.], 'old-schema', None)), 1)
             MigrationExecutor(connection).migrate([('ai_storage', '0004_hybrid_search')])

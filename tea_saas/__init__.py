@@ -1,1 +1,1 @@
-"""Project package. Django's MySQL backend uses mysqlclient directly."""
+"""tea_saas application package; PostgreSQL is the unified runtime database."""

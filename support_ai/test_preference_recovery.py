@@ -4,6 +4,7 @@ from unittest import TestCase
 from unittest.mock import Mock, patch
 from django.db import DatabaseError
 from .context import PreferenceStorageUnavailable, saved_preferences
+from ai_storage.database import alias as ai_db_alias
 
 def failure(code):
     cause=RuntimeError('synthetic');cause.pgcode=code
@@ -13,7 +14,7 @@ def failure(code):
 class PreferenceReadRecoveryTests(TestCase):
     def read(self, errors, atomic=False):
         connection=SimpleNamespace(in_atomic_block=atomic,close=Mock())
-        with patch('support_ai.context.connections',{'ai_storage':connection}), patch('support_ai.context.BuyerMemory.objects.filter',side_effect=errors) as query:
+        with patch('support_ai.context.connections',{ai_db_alias():connection}), patch('support_ai.context.BuyerMemory.objects.filter',side_effect=errors) as query:
             try:result=saved_preferences(SimpleNamespace(pk=1))
             except PreferenceStorageUnavailable as exc:result=exc
         return result,query,connection
