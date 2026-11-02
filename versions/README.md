@@ -1,5 +1,7 @@
 # tea_saas当前模块版本清单
 
+2026-11-02高优先级收口：support_ai0.32.3、web0.36.2、core0.14.0已统一应用本机Web/MCP/知识Worker；orders.0007已备份并完成同版本恢复验证后应用。当前验收、真实支付/模型限制及交付状态以[收口证据](../docs/sdd/evidence/2026-11-02-priority-activation/verification.md)和对应PR收据为准。以下过程记录保留原时点，不表示当前仍未启用。
+
 2026-11-02依赖升级：core0.14.0／support_ai0.31.0采用LangChain1.3.18配套栈，本机后端与MCP已加载；独立及实际运行环境的Agent隔离回归各336项（328通过、8跳过）。未提交/推送，知识Worker镜像未重建，详见[升级证据](../docs/sdd/evidence/2026-11-02-langchain13/verification.md)。
 
 2026-11-02交付后：此前版本已推送MR31（未合入），后续可见历史菜单的本地增量将web升至0.36.2，未再次推送/启用；见[交付及后续证据](../docs/sdd/evidence/2026-11-02-post-pr/verification.md)。
@@ -10,7 +12,7 @@
 
 2026-10-21本地启用：经用户单独授权，MySQL完整备份及隔离恢复校验通过，咨询／评价两份迁移已应用，8000已重启，25项只读检查通过。见[启用记录](../docs/sdd/evidence/2026-10-21-engagement/local-activation.md)。此前未迁移表述记录的是交付时状态。
 
-当前版本号同步日期：2026-10-30。版本以 `modules.json` 为准；R01/R02、R05/R06/R08/R09已补源码及隔离证据，尚未提交或启用，orders.0007未应用业务库。历史启用记录保留原时点，实际部署、推送分别记录。
+当前版本号同步日期：2026-11-02。版本以 `modules.json` 为准；R01/R02、R05/R06/R08/R09源码已本地启用，orders.0007已应用本地业务库。提交/推送收据单列，未合入或部署生产。
 
 | 模块 | 当前版本 | 当前核对状态 | 完整变更记录 |
 | --- | --- | --- | --- |
@@ -25,7 +27,7 @@
 | logistics · 物流 | 0.1.2 | 本人买家、本店完整订单或平台显式权限读取物流；拒绝跨账号及商家混合单，待启用。 | [logistics](changelogs/logistics.md) |
 | supplier · 商家与结算 | 0.4.4 | 旧看板无来源指标占位、销售按购买归属和CNY聚合，订单DTO携带币种；待启用。 | [supplier](changelogs/supplier.md) |
 | admin_panel · 平台运营 | 0.4.3 | CNY财务汇总排除历史未知和其他币种，保留订单数及角色/权限控制，待启用。 | [admin_panel](changelogs/admin_panel.md) |
-| support_ai · 智能客服 | 0.32.1 | 统一PII续补历史/预览协议一致性、无效工具调用及显式联系方式字段；本地验证通过，未推送或统一重启验收。 | [support_ai](changelogs/support_ai.md) |
+| support_ai · 智能客服 | 0.32.3 | MR32含0.32.1；本地续修方案哈希及来源链接中的明确凭据/编码联系方式，未再次推送或统一启用。 | [support_ai](changelogs/support_ai.md) |
 | ai_storage · AI 记忆与知识存储 | 0.7.3 | Worker使用统一当前镜像与Python3.13依赖；OCR／重排序／向量模型及知识文件保持。 | [ai_storage](changelogs/ai_storage.md) |
 | web · 页面与前端资源 | 0.36.2 | MR31含0.36.1；本地续增咨询历史可见菜单按钮及焦点恢复，未再次推送/启用。 | [web](changelogs/web.md) |
 | engagement · 站内咨询与商品评价 | 0.2.3 | 隔离MySQL测试设置兼容Django 5.2；咨询、评价及身份隔离保持原行为。 | [engagement](changelogs/engagement.md) |

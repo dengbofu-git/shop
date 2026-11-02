@@ -1,0 +1,41 @@
+{
+  "observed_at": "2026-11-02T06:56:28.238473+00:00",
+  "source": "primary-workspace",
+  "code_sha256": "0ebcc39f4b26aac20575017647a4ec42734aa9b3ad94b45462cfaa6873254dc0",
+  "web": {
+    "loopback_port": 8000,
+    "listener_count": 1,
+    "login_http_status": 200,
+    "canonical_source_verified": true
+  },
+  "mcp": {
+    "loopback_port": 18082,
+    "listener_count": 1,
+    "status": "ready",
+    "workers": 2,
+    "available": 2
+  },
+  "expiry": {
+    "logical_process_trees": 1,
+    "interval_seconds": 30,
+    "same_runtime": true
+  },
+  "knowledge_worker": {
+    "running": true,
+    "canonical_readonly_mount": true,
+    "image": "sha256:ceb27c709d11a65edf1a1680293875b6661e86d28c6ae88abd63489f256381fd",
+    "Django": "5.2.18",
+    "langchain": "1.3.18",
+    "langchain-core": "1.7.3",
+    "langgraph": "1.2.19",
+    "pip_check": "passed"
+  },
+  "cleanup": {
+    "browser_port_8879_closed": true,
+    "browser_redis_removed": true,
+    "mysql_fixture_removed": true,
+    "restore_fixture_removed": true,
+    "new_worktrees": 0,
+    "other_registered_worktree": "retained-outside-task"
+  }
+}

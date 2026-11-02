@@ -1,0 +1,29 @@
+{
+  "baseline": "c058524749e1c33843ec889f7071ef91d4c70a34",
+  "scope": "local-priority-activation-no-production-or-real-model",
+  "sha256": {
+    "support_ai/pii.py": "0ebcc39f4b26aac20575017647a4ec42734aa9b3ad94b45462cfaa6873254dc0",
+    "support_ai/test_pii_urls.py": "6f97c21b503de68aaa1f2c09838ef65a2c8e27f32831c02ac86294c6a54ace5e",
+    "support_ai/test_pii_bundle_reference.py": "ce59d98aea9180d83cdbebf18db505e6539446d2c8f7783d05514e20aa43d752",
+    "requirements.txt": "179cffba7dd33da226944f2b8382c24b82cfac44cb50d6b7c8d95d1d5554b875",
+    "constraints-py313.txt": "ac5667a9b1978caf784104988df838826fbb6643a31fa9e7d970179a2202f431"
+  },
+  "private_evidence_sha256": {
+    "regression.log": "2c68e6e14ab63168e2aa28895bdf18a026f3693b4401ce964d8d45ae1f668adc",
+    "frontend.log": "fba3d7d0cf8ac27ebbac6cb7ee8b06c971b6dfdf1e9bf269716f11f6a9871083",
+    "mcp-final.log": "f95965746c60ccf226e13172399500e196b7f4da0c51239014fa2f47173e2d8d",
+    "mysql-run.log": "1ab148b1b96b8f674162737b1b50a2f2e963e2dea8280188452258fa8929b076",
+    "browser-commerce.log": "2b3f15e4f870aba584691880842c25cb19d325fa990753a0592abc77c047414d",
+    "browser-interaction-verified.log": "3f04003f24bfc6a890a1ebc3b56255d9b61663550ee2deca210b0eb653db0aee",
+    "browser-tools-verified.log": "59536b820759a875a5cb69791ef2091ece0b9c5edbb9b9c17f4512e7b4a8cc06",
+    "stream-browser.log": "2816b117d939b29158de14526809f9954bdb7a122706e676a430f68144741795",
+    "tool-fixtures.log": "d1376b5740ea5cbdfe2ff2e646b87883f8c96c951d44d3c7ffc53af2592ed4b1",
+    "browser_service.py": "5b2c06c00e295430d09085cf47e240d7742a9640f59878d5910f310e673056f1",
+    "browser-commerce.cjs": "3308c18f3df805263821b7e2fca9366354f198ad70632bccd730eac4929c81e2",
+    "browser-interactions.cjs": "4cdf9e93b7c64cdc29f11a2adc6cbb1301530a48d77442c094a5e945d51ed2bd",
+    "tool_fixtures.py": "fc83f447c61c2f13e2136eb27233632636121373e499fd5a0ad21e97846ab0da",
+    "browser-tools.cjs": "507cad3c46b909399aa13f1fd5f2efa2435db3171d3a3b92da8cb6c2b4f44472",
+    "activate.py": "be99edeeca829b051e90be5dd49c7f94b9a15377e977a9e33411fd03a782e392",
+    "mysql_checks.py": "72fa2bdac1d70f1e5ff552cba3ea23983c9558a47c59af3631d9d82293e7399f"
+  }
+}
