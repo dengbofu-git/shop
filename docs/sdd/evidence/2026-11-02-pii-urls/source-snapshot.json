@@ -1,0 +1,23 @@
+{
+  "base": "c058524749e1c33843ec889f7071ef91d4c70a34",
+  "state": "uncommitted-url-followup",
+  "static": "2 Python AST; diff check passed",
+  "source_sha256": {
+    "support_ai/pii.py": "0ebcc39f4b26aac20575017647a4ec42734aa9b3ad94b45462cfaa6873254dc0",
+    "support_ai/test_pii_urls.py": "6f97c21b503de68aaa1f2c09838ef65a2c8e27f32831c02ac86294c6a54ace5e",
+    "docs/sdd/modules/ai-support/pii-policy.md": "3fea7b525897eeba8873f9cac7febdb036590d7e2e50dbf94e47f50369c0d57b",
+    "docs/sdd/product/current-state.md": "9c6c5e11dd05162d292161818c036fa5ed9869c78d91a501d37071313265c4fa",
+    "docs/sdd/evidence/2026-11-02-pii-urls/verification.md": "813c6270e5fe3e226889245ca10c52d88706749820506a2b9e596e1b4d710143",
+    "versions/modules.json": "6ba8244c125d184ffb1eff6fa37e2600eac0095a228cd791dea42a7ef8374bfe",
+    "versions/changelogs/support_ai.md": "096023d7f35fb933cbe9dde2842271f01b5ceeea1deb384dc8dca2722b0aaa92",
+    "versions/README.md": "8b2768cbac1a1fc8036eb13b233584f75c5e098690cf53c18e4d54de2bcf42cc"
+  },
+  "logs_sha256": {
+    ".scratch/pii-url-red.log": "62fcdebe8c6fc6d3bbe7dd6d5405620db4dcb278b2cc94c95f02cdd09f962ef4",
+    ".scratch/pii-url-green.log": "6e79768b20ff568a81a74055fab8bd8898a903305e41a52f275516374b873195",
+    ".scratch/pii-url-full.log": "12f89f3bd5af1b203ea8e364bae9de83443d0c5e78df4fca2bf21bfc24e49b82",
+    ".scratch/pii-url-final-targeted.log": "eeae96b78ffcc21340171b7eaf3aadc59b417fcfcf1ee02887f562ba113aa339",
+    ".scratch/pii-url-tea-red.log": "7d887ddeafb79c215feda1b35d3a598cfc9ed295b2c366e628fd39f0214248ed",
+    ".scratch/pii-url-verified.log": "ca46b1b61c16fece9285f621012db67deaeea929b47bfadbcee900cd88ca89f3"
+  }
+}

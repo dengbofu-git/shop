@@ -1,5 +1,7 @@
 # LangChain 1.3运行依赖
 
+2026-11-02本地统一收口：知识Worker已按同一锁定依赖重建，Web/MCP/Worker均使用LangChain1.3.18配套栈，pip check和公开ToolNode导入通过；本次启用及覆盖边界见[证据](../../evidence/2026-11-02-priority-activation/verification.md)。
+
 2026-11-02用户明确要求升级LangChain至1.3并配套升级。当前规格采用1.3.18；保留已有StateGraph、有限意图提取、确定性模板和受控工具执行，不因依赖升级改用自主Agent循环。
 
 ## 依赖与边界

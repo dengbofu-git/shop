@@ -3,6 +3,7 @@
 import re
 import uuid
 from functools import lru_cache
+from urllib.parse import parse_qsl, unquote, urlsplit
 from langchain_core.messages import HumanMessage
 
 
@@ -37,8 +38,54 @@ def _rules():
         ('email','[邮箱]'),('credit_card','[敏感号码]'),('ip','[IP]'),('mac_address','[MAC]')))
 
 
+def _common_pii(text):
+    """Official detectors, with Chinese/ASCII boundary adaptation."""
+    result=text
+    for middleware,label in _rules():
+        def scrub(match):
+            chunk=match.group()
+            update=middleware.before_model({'messages':[HumanMessage(content=chunk)]},None)
+            return update['messages'][0].content.replace('[REDACTED_'+middleware.pii_type.upper()+']',label) if update else chunk
+        result=re.sub(r'[^\u4e00-\u9fff]+',scrub,result)
+    return result
+
+
+URL_PRIVATE_KEYS = frozenset(('token','access_token','refresh_token','id_token','api_key','apikey',
+    'password','passwd','secret','client_secret','authorization','auth','signature','sig',
+    'x-amz-signature','x-amz-credential','x-goog-signature','x-goog-credential',
+    'email','phone','mobile','receiver_mobile','address','receiver_address','id_card'))
+HTTP_URL = re.compile(r'https?://[^\s<>"\'，。；）)\]}]+',re.I)
+
+
+def _url_projection(match):
+    raw=match.group()
+    def private_text(value):
+        safe=_common_pii(value)
+        for pattern,replacement in PATTERNS:safe=pattern.sub(replacement,safe)
+        return safe!=value
+    try:
+        url=urlsplit(raw)
+        if '@' in url.netloc:return '[敏感链接]'
+        if private_text(unquote(unquote(url.path))):return '[敏感链接]'
+        for component in (url.query,url.fragment.rsplit('?',1)[-1]):
+            for key,value in parse_qsl(component,keep_blank_values=True,max_num_fields=100):
+                key=unquote(key).casefold()
+                value=unquote(value)
+                if value and (key in URL_PRIVATE_KEYS or private_text(value)):
+                    return '[敏感链接]'
+    except ValueError:
+        return '[敏感链接]'
+    return raw
+
+
 def _unknown_number(match):
     text=match.string
+    # The server's public bundle identity is exactly twelve lowercase hex
+    # characters. Only exempt this shape from the *unknown number* fallback;
+    # actual phone/card/email detection runs first and still wins.
+    for reference in re.finditer(r'(?<![A-Za-z0-9_-])bundle-[a-f0-9]{12}(?![A-Za-z0-9_-])',text):
+        if reference.start()<=match.start() and match.end()<=reference.end():
+            return match.group()
     before=text[max(0,match.start()-24):match.start()]
     after=text[match.end():match.end()+12]
     number=match.group()
@@ -54,16 +101,10 @@ def redact(text, order_ids=()):
     for order_id in order_ids:
         if order_id:
             result = result.replace(str(order_id), '[订单号]')
-    for middleware,label in _rules():
-        # The supported hook operates on an isolated message for any text path.
-        # It does not install an Agent stream transformer on our custom graph.
-        def scrub(match):
-            chunk=match.group()
-            update=middleware.before_model({'messages':[HumanMessage(content=chunk)]},None)
-            return update['messages'][0].content.replace('[REDACTED_'+middleware.pii_type.upper()+']',label) if update else chunk
-        # Official word-boundary detectors otherwise miss ASCII PII adjacent to
-        # Chinese labels. Segment locally without changing business punctuation.
-        result=re.sub(r'[^\u4e00-\u9fff]+',scrub,result)
+    # Inspect links before generic replacement can destroy their credentials or
+    # encoding context. Only local parsing; never fetch a source URL here.
+    result=HTTP_URL.sub(_url_projection,result)
+    result=_common_pii(result)
     for pattern, replacement in PATTERNS:
         result = pattern.sub(replacement, result)
     result=re.sub(r'(?<!\d)\d{8,24}(?!\d)',_unknown_number,result)

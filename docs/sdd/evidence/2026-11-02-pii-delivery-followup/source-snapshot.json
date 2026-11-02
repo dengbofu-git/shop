@@ -1,0 +1,26 @@
+{
+  "base": "c058524749e1c33843ec889f7071ef91d4c70a34",
+  "state": "uncommitted-post-MR32",
+  "static": "2 Python AST, diff whitespace passed",
+  "agent_tests": {
+    "total": 354,
+    "passed": 346,
+    "skipped": 8,
+    "failed": 0
+  },
+  "files_sha256": {
+    "support_ai/pii.py": "03f6bd90c6b5a4cd03cc73bfd9e298a1a0292c2335c88bebd6116565e54109ab",
+    "support_ai/test_pii_bundle_reference.py": "ce59d98aea9180d83cdbebf18db505e6539446d2c8f7783d05514e20aa43d752",
+    "versions/modules.json": "55fd00717e99a0dd18223fc7c8909d1481e51440d13981691eb2bb8c2ca52a31",
+    "versions/changelogs/support_ai.md": "6a45358c909ce19b6e30b2a28946e21a1f99b568f15b8c22c708528b65f284c5",
+    "versions/README.md": "7aa2f8f19862022daeb5b71a0c64d95b86f58c4d7cc956384cf6c0a57f0f6680",
+    "docs/sdd/modules/ai-support/pii-policy.md": "3918525c937fb1ca05d5750e71c625fac12874f60ccb398e7af10bcf12113614",
+    "docs/sdd/product/current-state.md": "60dddee03d0c1089eda55dfc33f3bc859a8b402b7562a4fddb5b4b823b6cdec9",
+    "docs/sdd/evidence/2026-11-02-pii-delivery-followup/verification.md": "2c51f5cfdc4ac12c471916f37de514e1a5d33a62047d8d5f9c1d1fd7e2992b02"
+  },
+  "logs_sha256": {
+    ".scratch/pii-bundle-red.log": "e0de30d2e5adbaf95cbd91ddfa2c6274b88ab0dd4d3e2bf91d3353d351f74694",
+    ".scratch/pii-bundle-green.log": "35eda719cf568953e2a7243f17a8321c3e36edb983302f32af9fe97452e969f1",
+    ".scratch/pii-bundle-full.log": "dc06fd3f3ecdaea1c50e49a2324b062ca1c1fe2cacbb91334f05d4661b6fb7de"
+  }
+}
