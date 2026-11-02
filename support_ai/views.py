@@ -32,6 +32,8 @@ logger = logging.getLogger(__name__)
 
 
 def _response(data, status):
+    from .pii import redact_value
+    data = redact_value(data)
     response = JsonResponse(data, status=status, json_dumps_params={'ensure_ascii': False})
     response['Cache-Control'] = 'no-store'
     return response

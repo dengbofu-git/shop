@@ -1,5 +1,11 @@
 # 当前实现、已确认规则与差异
 
+2026-11-02继续复核PII：历史/预览协议投影、invalid_tool_calls及结构化联系方式语境已补修，support_ai0.32.1，351项回归（343通过、8跳过），见[逐项证据](../evidence/2026-11-02-pii-surfaces/verification.md)；仍为本地未提交增量，未运行启用验收。下方记录按原时点阅读。
+
+2026-11-02 PII实施交接：统一策略复用LangChain公开钩子，补中文语境与业务负样本，显式覆盖模型、保存、HTTP及自定义SSE；support_ai0.32.0，实际解释器348项回归（340通过、8跳过）。同版本prebuilt缺失文件已修复，未统一重启/启用验收或再次推送，见[PII策略与限制](../modules/ai-support/pii-policy.md)。不新增问答题库条目。
+
+2026-11-02交付：此前增量已推送[MR31](https://github.com/dengbofu-git/shop/pull/31)，源591a0ea721414ff33c0c4376282006543b213906，Git policy/Django runtime均通过，未合入。随后补R08可见菜单入口为新的本地未提交增量，见[交付及后续记录](../evidence/2026-11-02-post-pr/verification.md)。下方“未提交”描述保留其原检查时点；全部变更仍未业务库迁移或运行启用。
+
 2026-11-02继续逐项处理：[后续记录](../evidence/2026-11-02-rule-followup/verification.md)登记R03匹配优先和R08恢复反馈修复、当日测试及全部规则待办；均未提交或启用，旧日期证据不改写。
 
 后续修复（2026-10-30）：[履约读取矩阵](../modules/trade/fulfillment-read-scope.md)及旧看板真实性整改见[首批证据](../evidence/2026-10-30-sdd-remediation/verification.md)。R01/R02、R05/R06/R08/R09已补源码和隔离验证，见[本轮证据](../evidence/2026-10-30-rule-implementation/verification.md)。均未提交或启用；orders.0007仅在隔离库验证。下表按本轮结果更新，原始静态观察仍保留在提纯证据中。

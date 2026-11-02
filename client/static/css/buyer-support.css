@@ -47,6 +47,11 @@
 .bs-history-head button, .bs-history-more, .bs-history-paging button { min-height: 40px; padding: 8px 12px; border: 1px solid #b8cbb2; border-radius: 7px; background: #fff; color: #224329; cursor: pointer; }
 .bs-history p { margin: 10px 0; color: #58685b; font-size: 12px; line-height: 1.6; }
 .bs-history-list { display: grid; gap: 8px; max-height: 320px; overflow-y: auto; overscroll-behavior: contain; }
+.bs-history-row { display: flex; align-items: stretch; gap: 6px; min-width: 0; }
+.bs-history-row .bs-history-item { flex: 1; min-width: 0; }
+.bs-history-actions { flex: 0 0 44px; min-height: 44px; border: 1px solid #dce5d9; border-radius: 8px; background: #fff; color: #224329; font-size: 24px; cursor: pointer; }
+.bs-history-actions:hover { background: #e9f2e7; }
+.bs-history-actions:focus-visible, .bs-history-item:focus-visible { outline: 2px solid #245c38; outline-offset: 2px; }
 .bs-history-item { width: 100%; min-height: 64px; padding: 11px 13px; border: 1px solid #dce5d9; border-radius: 8px; background: #fff; color: #224329; text-align: start; cursor: pointer; }
 .bs-history-item strong { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 13px; }
 .bs-history-item small { display: block; margin-top: 5px; color: #58685b; font-size: 12px; }

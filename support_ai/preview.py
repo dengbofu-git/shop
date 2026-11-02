@@ -15,7 +15,7 @@ from langchain_core.callbacks import BaseCallbackHandler
 from .configuration import effective_configuration
 from .context import HISTORY_HOURS, HISTORY_TURNS, context_from_turns
 from .model_client import lazy_configured_model
-from .pii import redact
+from .pii import redact, redact_value
 from .mcp_client import AgentDataAccess
 from .views import load_agent_preferences
 from .query_rewrite import QueryPolicy
@@ -32,13 +32,7 @@ PREVIEW_RUNTIME_VERSION = module_version('support_ai')
 
 def safe_record(value):
     """Redact every string before local persistence, including nested diagnostics."""
-    if isinstance(value, str):
-        return redact(value)
-    if isinstance(value, dict):
-        return {key: safe_record(item) for key, item in value.items()}
-    if isinstance(value, (tuple, list)):
-        return [safe_record(item) for item in value]
-    return value
+    return redact_value(value)
 
 
 class Usage(BaseCallbackHandler):

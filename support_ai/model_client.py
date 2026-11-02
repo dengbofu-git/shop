@@ -9,6 +9,7 @@ from langchain_core.runnables import Runnable, RunnableLambda
 from .cost_control import (RequestBudget, current_budget, input_upper_bound,
                            SCHEMA_STAGES)
 from .streaming import progress, cancellation_callback
+from .pii import redact_messages, redact_value
 
 
 class SupportChatOpenAI(ChatOpenAI):
@@ -38,6 +39,7 @@ class AgentModel(Runnable):
     def _invoke_stage(self, prompt, config, schema, **kwargs):
         if set(kwargs) & {'max_tokens', 'max_completion_tokens', 'extra_body', 'max_retries', 'model', 'stream'}:
             raise ValueError('Model cost options must use the server stage policy')
+        prompt = redact_messages(prompt)
         stage = SCHEMA_STAGES.get(getattr(schema, '__name__', ''), 'extraction')
         budget = current_budget() or RequestBudget()
         thinking, cap = budget.stage_policy[stage]
@@ -56,7 +58,10 @@ class AgentModel(Runnable):
             if schema is None:
                 reply = client.invoke(prompt, config=config, **kwargs)
                 usage = reply.usage_metadata
-                return reply
+                return reply.model_copy(update={'content':redact_value(reply.content),
+                    'additional_kwargs':redact_value(reply.additional_kwargs),
+                    'tool_calls':redact_value(reply.tool_calls),
+                    'invalid_tool_calls':redact_value(reply.invalid_tool_calls)})
             if thinking == 'enabled':
                 messages = prompt.to_messages() if hasattr(prompt, 'to_messages') else (
                     [HumanMessage(content=prompt)] if isinstance(prompt, str) else list(prompt))
@@ -67,10 +72,11 @@ class AgentModel(Runnable):
             reply = client.with_structured_output(schema, method=method, include_raw=True).invoke(prompt, config=config)
             usage = getattr(reply.get('raw'), 'usage_metadata', None)
             if reply.get('parsing_error') is not None:
-                raise reply['parsing_error']
+                raise ValueError('Model returned an invalid structured response') from None
             if reply.get('parsed') is None:
                 raise ValueError('Missing structured model output')
-            return reply['parsed']
+            parsed=reply['parsed']
+            return schema.model_validate(redact_value(parsed.model_dump())) if hasattr(parsed,'model_dump') else redact_value(parsed)
         finally:
             budget.settle(reservation, usage)
 

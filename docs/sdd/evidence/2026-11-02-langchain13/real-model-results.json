@@ -1,0 +1,233 @@
+{
+  "provider": "api.deepseek.com",
+  "model": "deepseek-flash",
+  "revision": 6,
+  "wire_calls": 6,
+  "max_wire_calls": 6,
+  "sdk_retries": 0,
+  "synthetic_only": true,
+  "input_tokens": 2879,
+  "output_tokens": 492,
+  "results": [
+    {
+      "id": "plain",
+      "prompt": "请用不超过100字说明绿茶和红茶在加工上的主要区别，不谈健康功效。",
+      "thinking": "disabled",
+      "elapsed_seconds": 2.539,
+      "first_token_seconds": 1.142,
+      "callback_chunks": 58,
+      "callback_ends": 1,
+      "wire": [
+        {
+          "path": "/chat/completions",
+          "model": "deepseek-flash",
+          "max_tokens": 512,
+          "has_max_completion_tokens": false,
+          "stream": true,
+          "stream_options": {
+            "include_usage": true
+          },
+          "thinking": {
+            "type": "disabled"
+          },
+          "response_format": null,
+          "has_tools": false
+        }
+      ],
+      "protocol_status": "pass",
+      "input_tokens": 23,
+      "output_tokens": 58,
+      "semantic_status": "pass",
+      "result": "绿茶经杀青（高温灭酶）保留绿色，再揉捻干燥，不发酵。红茶则经萎凋、揉捻后充分发酵（茶多酚氧化），再干燥，形成红汤红叶。核心区别在于绿茶杀青阻止发酵，红茶促进发酵。"
+    },
+    {
+      "id": "scope-total",
+      "prompt": "总的",
+      "thinking": "disabled",
+      "elapsed_seconds": 1.909,
+      "first_token_seconds": null,
+      "callback_chunks": 0,
+      "callback_ends": 1,
+      "wire": [
+        {
+          "path": "/chat/completions",
+          "model": "deepseek-flash",
+          "max_tokens": 192,
+          "has_max_completion_tokens": false,
+          "stream": true,
+          "stream_options": {
+            "include_usage": true
+          },
+          "thinking": {
+            "type": "disabled"
+          },
+          "response_format": null,
+          "has_tools": true
+        }
+      ],
+      "protocol_status": "pass",
+      "input_tokens": 502,
+      "output_tokens": 50,
+      "semantic_status": "pass",
+      "result": {
+        "scope": "total",
+        "scope_only": true
+      },
+      "callback_note": "工具参数分片不要求token为非空文本；非空正文计数为0不能判定流式失败。"
+    },
+    {
+      "id": "scope-unit",
+      "prompt": "不是总的，是每件",
+      "thinking": "disabled",
+      "elapsed_seconds": 1.033,
+      "first_token_seconds": null,
+      "callback_chunks": 0,
+      "callback_ends": 1,
+      "wire": [
+        {
+          "path": "/chat/completions",
+          "model": "deepseek-flash",
+          "max_tokens": 192,
+          "has_max_completion_tokens": false,
+          "stream": true,
+          "stream_options": {
+            "include_usage": true
+          },
+          "thinking": {
+            "type": "disabled"
+          },
+          "response_format": null,
+          "has_tools": true
+        }
+      ],
+      "protocol_status": "pass",
+      "input_tokens": 507,
+      "output_tokens": 50,
+      "semantic_status": "pass",
+      "result": {
+        "scope": "unit",
+        "scope_only": true
+      },
+      "callback_note": "工具参数分片不要求token为非空文本；非空正文计数为0不能判定流式失败。"
+    },
+    {
+      "id": "thinking-json",
+      "prompt": "不是每件，是全部加起来",
+      "thinking": "enabled",
+      "elapsed_seconds": 1.207,
+      "first_token_seconds": 1.162,
+      "callback_chunks": 10,
+      "callback_ends": 1,
+      "wire": [
+        {
+          "path": "/chat/completions",
+          "model": "deepseek-flash",
+          "max_tokens": 1536,
+          "has_max_completion_tokens": false,
+          "stream": true,
+          "stream_options": {
+            "include_usage": true
+          },
+          "thinking": {
+            "type": "enabled"
+          },
+          "response_format": {
+            "type": "json_object"
+          },
+          "has_tools": false
+        }
+      ],
+      "protocol_status": "pass",
+      "input_tokens": 362,
+      "output_tokens": 101,
+      "semantic_status": "pass",
+      "result": {
+        "scope": "total",
+        "scope_only": true
+      }
+    },
+    {
+      "id": "ordered-intents",
+      "prompt": "先介绍红茶和绿茶的区别，再推荐两款红茶。",
+      "thinking": "disabled",
+      "elapsed_seconds": 0.765,
+      "first_token_seconds": null,
+      "callback_chunks": 0,
+      "callback_ends": 1,
+      "wire": [
+        {
+          "path": "/chat/completions",
+          "model": "deepseek-flash",
+          "max_tokens": 1400,
+          "has_max_completion_tokens": false,
+          "stream": true,
+          "stream_options": {
+            "include_usage": true
+          },
+          "thinking": {
+            "type": "disabled"
+          },
+          "response_format": null,
+          "has_tools": true
+        }
+      ],
+      "protocol_status": "pass",
+      "input_tokens": 889,
+      "output_tokens": 77,
+      "semantic_status": "pass",
+      "result": {
+        "requests": [
+          {
+            "kind": "question_answering",
+            "quote": "先介绍红茶和绿茶的区别",
+            "limit": null,
+            "order_query": null
+          },
+          {
+            "kind": "recommendation",
+            "quote": "再推荐两款红茶",
+            "limit": 2,
+            "order_query": null
+          }
+        ]
+      },
+      "callback_note": "工具参数分片不要求token为非空文本；非空正文计数为0不能判定流式失败。"
+    },
+    {
+      "id": "multilingual-rewrite",
+      "prompt": "Compare black tea 与 dark tea 的加工区别 في السعودية",
+      "thinking": "disabled",
+      "elapsed_seconds": 1.385,
+      "first_token_seconds": null,
+      "callback_chunks": 0,
+      "callback_ends": 1,
+      "wire": [
+        {
+          "path": "/chat/completions",
+          "model": "deepseek-flash",
+          "max_tokens": 512,
+          "has_max_completion_tokens": false,
+          "stream": true,
+          "stream_options": {
+            "include_usage": true
+          },
+          "thinking": {
+            "type": "disabled"
+          },
+          "response_format": null,
+          "has_tools": true
+        }
+      ],
+      "protocol_status": "pass",
+      "input_tokens": 596,
+      "output_tokens": 156,
+      "semantic_status": "not_fully_recorded",
+      "result": null,
+      "note": "QueryTranslations解析和usage返回正常，但初版脚本未在断言前保存翻译正文，不能据现有记录验收翻译质量。",
+      "callback_note": "工具参数分片不要求token为非空文本；非空正文计数为0不能判定流式失败。"
+    }
+  ],
+  "protocol_pass": 6,
+  "semantic_pass": 5,
+  "semantic_not_fully_recorded": 1
+}

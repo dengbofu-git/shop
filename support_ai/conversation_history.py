@@ -8,7 +8,7 @@ from django.utils.dateparse import parse_datetime
 from django.utils.timezone import is_aware
 
 from .models import SupportConversation, SupportTurn
-from .pii import redact
+from .pii import redact, redact_value
 
 
 CURSOR_SALT = 'support-conversation-list-v1'
@@ -27,13 +27,7 @@ def page_number(value, default, maximum=MAX_PAGE_SIZE):
 
 
 def history_value(value):
-    if isinstance(value, str):
-        return redact(value)
-    if isinstance(value, list):
-        return [history_value(item) for item in value]
-    if isinstance(value, dict):
-        return {key: history_value(item) for key, item in value.items()}
-    return value
+    return redact_value(value)
 
 
 def title_for(text):
