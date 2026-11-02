@@ -1,6 +1,6 @@
 # PostgreSQL 独立迁移验收
 
-2026-11-02，Asia/Shanghai。用户要求先完成“统一 PostgreSQL”独立迁移。源码基线为 `eb39a3e9c41f6604e4f366a58796e36532d26030`，实施分支 `codex/core-postgresql-unification`，唯一运行代码目录为 `E:/django/dadashop`。实施验收与Git交付分别记录；用户随后授权“创建并推送MR”，最终源SHA、同步main及交付检查记录于PR正文，不自动合入。不包含三层记忆新功能，也不是生产发布。
+2026-11-02，Asia/Shanghai。用户要求先完成“统一 PostgreSQL”独立迁移。源码基线为 `eb39a3e9c41f6604e4f366a58796e36532d26030`，实施分支 `codex/core-postgresql-unification`，唯一运行代码目录为 `主工作目录`。实施验收与Git交付分别记录；用户随后授权“创建并推送MR”，最终源SHA、同步main及交付检查记录于PR正文，不自动合入。不包含三层记忆新功能，也不是生产发布。
 
 ## 已实现并本地启用
 
@@ -56,7 +56,7 @@ python -m unittest discover -s tools/tests
 
 未提交实现文件的SHA256集合指纹为 `5c11e54a48f172d5c9a5bde581d7a529853393c1ff77ab57ba697bc954c3a720`，包含源码、测试、配置模板、依赖与版本清单，不含本文和私人归档。逐文件摘要保存在本机source-fingerprint.json，弥补仅记录旧HEAD不能复现未提交增量的问题。
 
-10:07 UTC最终运行盘点：Web8000唯一监听PID29156，MCP18082唯一监听PID33716、预热Worker2个，到期清理launcher12224。四类服务均属于E:/django/dadashop，清理日志无错误。临时PG/Redis容器和8879合成页面服务已回收；原库、备份和其他任务Worktree保留。
+10:07 UTC最终运行盘点：Web8000唯一监听PID29156，MCP18082唯一监听PID33716、预热Worker2个，到期清理launcher12224。四类服务均属于同一本机持久主工作目录，清理日志无错误。临时PG/Redis容器和8879合成页面服务已回收；原库、备份和其他任务Worktree保留。
 
 ## 独立审查与修复
 
@@ -75,3 +75,5 @@ python -m unittest discover -s tools/tests
 - 未做生产发布、真实支付/退款、真实模型回答质量或实体手机全面验收。本地角色沿用现有PG运行账户；生产最小权限、备份异地化和恢复演练周期另行设计。
 
 规格见[统一数据库契约](../../architecture/postgresql-unification.md)，决策见[ADR0012](../../../adr/0012-unified-postgresql.md)。模块版本以versions/modules.json为准。
+
+Git交付补充：首次远端命名检查发现本文物理路径包含退役工程名；已统一改用主工作目录表述，未放宽命名门禁或修改实现。随后执行项目命名及模块归属6项回归通过。
