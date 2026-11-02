@@ -10,27 +10,18 @@ from goods.models import SKU
 from orders.models import OrderInfo, OrderGoods
 from orders.analytics import sales_eligible_orders
 from orders.lifecycle import status_filter
-from orders.lifecycle import status_filter
 from supplier.models import SupplierSettlement
 
 
-REGION_NAMES = ('阿联酋', '沙特', '卡塔尔', '科威特')
-
-
-def _region_for_order(order_id: str) -> str:
-    return REGION_NAMES[abs(hash(order_id)) % len(REGION_NAMES)]
-
-
 def _supplier_order_goods(user):
-    skus = SKU.objects.filter(spu__merchant=user)
-    return OrderGoods.objects.filter(sku__in=skus).select_related(
+    from .workbench import owned_items
+    return OrderGoods.objects.filter(owned_items(user)).select_related(
         'order_info', 'sku', 'sku__spu', 'sku__spu__catalog'
     )
 
 
 def _supplier_orders(user):
-    skus = SKU.objects.filter(spu__merchant=user)
-    return OrderInfo.objects.filter(ordergoods__sku__in=skus).distinct()
+    return OrderInfo.objects.filter(pk__in=_supplier_order_goods(user).values('order_info_id'))
 
 
 def build_supplier_analytics(user, period='year'):
@@ -81,11 +72,6 @@ def build_supplier_analytics(user, period='year'):
             'sales': float(m_sales),
         })
 
-    region_sales = defaultdict(lambda: Decimal('0'))
-    for og in sales_ogs:
-        region = _region_for_order(og.order_info.order_id)
-        region_sales[region] += Decimal(str(og.count)) * Decimal(str(og.price))
-
     cat_sales = defaultdict(lambda: Decimal('0'))
     for og in sales_ogs:
         cat = (og.sku.spu.catalog.name if og.sku.spu.catalog_id else '其他')
@@ -100,11 +86,6 @@ def build_supplier_analytics(user, period='year'):
             'sales': val,
             'pct': round(val / total_f * 100, 1),
         })
-
-    regions = []
-    for name in REGION_NAMES:
-        val = float(region_sales.get(name, 0))
-        regions.append({'name': name, 'sales_wan': round(val / 10000, 1), 'sales': val})
 
     completion_rate = round(completed / order_count * 100, 1) if order_count else 0
 
@@ -154,19 +135,17 @@ def build_supplier_analytics(user, period='year'):
             'completed': completed,
             'unpaid': unpaid,
             'avg_order_amount': float((line_total / paid_order_count).quantize(Decimal('0.01'))) if paid_order_count else 0,
-            'inventory_turnover_days': max(7, min(45, 12 + pending_ship)),
+            # TODO: requires inventory valuation and a confirmed turnover basis.
+            'inventory_turnover_days': None,
             'completion_rate': completion_rate,
         },
         'period': {'code': period, 'start': start.isoformat(), 'end': now.isoformat()},
         'sales_basis': '已全额付款的本店商品明细金额，不含运费；剔除已退货试单与已取消预售，按下单日期归集。',
         'monthly': monthly,
-        'regions': regions,
-        'categories': categories or [{'name': '暂无', 'sales': 0, 'pct': 0}],
-        'funnel': [
-            {'name': '经销商询盘', 'value': max(order_count, int(order_count * 1.6) or 1)},
-            {'name': '试销订单', 'value': max(completed + pending_ship, order_count // 2, 1)},
-            {'name': '长期合作', 'value': max(completed // 2, 1)},
-        ],
+        # TODO: trusted destination and acquisition/conversion event sources.
+        'regions': None,
+        'categories': categories,
+        'funnel': None,
         'top_products': top_list,
         'recent_orders': recent,
         'todos': {
@@ -176,9 +155,10 @@ def build_supplier_analytics(user, period='year'):
             'total': pending_ship + unpaid + settlements_pending,
         },
         'aux': {
-            'monthly_new_partners': max(1, order_count // 8),
-            'campaign_roi': round(2.0 + (completed / max(order_count, 1)), 1),
-            'warehouse_health_pct': min(98, 70 + completed % 25),
-            'satisfaction_score': round(4.2 + min(0.7, completed / max(order_count * 10, 1)), 1),
+            # TODO: independent partner, marketing, warehouse and survey sources.
+            'monthly_new_partners': None,
+            'campaign_roi': None,
+            'warehouse_health_pct': None,
+            'satisfaction_score': None,
         },
     }

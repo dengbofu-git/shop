@@ -58,9 +58,11 @@ class PublicProductDetailsTests(TestCase):
     def test_exhausted_ledger_does_not_revive_legacy_stock(self):
         Inventory.objects.create(sku=self.sku, warehouse=Warehouse.objects.create(name='A', code='A'),
                                  quantity=8, reserved_quantity=8)
-        self.assertEqual(get_product_details(self.sku.pk)['status'], 'no_match')
+        result = get_product_details(self.sku.pk)
+        self.assertEqual(result['status'], 'success')
+        self.assertEqual(result['data']['available_stock'], 0)
 
-    def test_hidden_missing_and_empty_stock_have_same_public_result(self):
+    def test_empty_stock_is_readable_but_hidden_and_missing_are_not(self):
         self.sku.is_launched = False
         self.sku.save()
         hidden = get_product_details(self.sku.pk)
@@ -68,10 +70,27 @@ class PublicProductDetailsTests(TestCase):
         self.sku.is_launched, self.sku.stock = True, 0
         self.sku.save()
         empty = get_product_details(self.sku.pk)
-        for result in (hidden, missing, empty):
+        self.assertEqual(empty['status'], 'success')
+        self.assertEqual(empty['data']['available_stock'], 0)
+        for result in (hidden, missing):
             self.assertEqual(result['status'], 'no_match')
             self.assertIsNone(result['data'])
             self.assertNotIn('sku_id', result)
+
+    def test_website_and_agent_read_empty_stock_while_buyable_scope_excludes_it(self):
+        from goods.availability import sellable_skus
+        self.sku.stock = 0
+        self.sku.save()
+        public = self.client.get('/v1/goods/detail/{}'.format(self.sku.pk)).json()
+        self.assertEqual(public['code'], 200)
+        self.assertEqual(get_product_details(self.sku.pk)['data']['available_stock'], 0)
+        self.assertFalse(sellable_skus().filter(pk=self.sku.pk).exists())
+        self.merchant.is_active = False
+        self.merchant.save()
+        missing = self.client.get('/v1/goods/detail/2147483647').json()
+        disabled = self.client.get('/v1/goods/detail/{}'.format(self.sku.pk)).json()
+        self.assertEqual(disabled['code'], missing['code'])
+        self.assertEqual(get_product_details(self.sku.pk)['status'], 'no_match')
 
     def test_attributes_are_public_bounded_and_redacted(self):
         public = ProductAttribute.objects.create(name='配料', code='ingredients', attribute_type='text')

@@ -1,0 +1,24 @@
+{
+  "date": "2026-11-02",
+  "baseline": "0d53d1423cbeb349730ff9462e5798fb5f58cb59",
+  "status": "uncommitted-increment",
+  "sha256": {
+    "support_ai/bundle_optimizer.py": "9cc43ff9ca7740230ae6402273f2b2317d1d52a510c10ef6f93e5c3a97bad717",
+    "support_ai/bundle_recommendations.py": "a67b9b6f1f011da71c09229ee0386925b79d14a39a36d3cd50cd756b8dbb3b9e",
+    "support_ai/test_bundle_optimizer.py": "f2ae65c4cec95c42c9907beff1173cace994cc8f74e08fdb364f833cde32bd61",
+    "support_ai/test_bundle_priority.py": "aba87b8c0e01f27dca3156790f1f35c31fee6ce777ac345af73ca6837774f04c",
+    "client/static/js/buyer-support.js": "7e7faacdd171756f8741e18da4b42011dfde3ed4ba54a36527f3402f5e19e777",
+    "client/tests/support-history-restore.test.js": "75f09e59ebe184fe21c811ec80475cb0a760339a96ab7865b65e25cec0ea6b9e",
+    "client/templates/buyer_support.html": "937b111b984878b980c9a04ee6b88a4ebe64dc264704e882f1e4afdbf6d2f62b",
+    "versions/modules.json": "21fee13b19d8c8bd7118b7a2f1ba33b98574e901f77f0c3cd6368160559c4a13",
+    "versions/README.md": "cfefd61d8f9623cf28a4a0d7b694a8f03d2dd0cb3f53e2b0769c57a97599824e",
+    "versions/changelogs/support_ai.md": "4d55b2a86b5771932f7e1d1493dd8f921bf7c0f2996faacebfc5ff608ceab537",
+    "versions/changelogs/web.md": "cba2223f24b9ca747379b766545d76450f521fe59a48fd0733b6fd2e2e719d9b",
+    "docs/sdd/modules/ai-support/total-budget-recommendation.md": "3a58a10e3458f4462b2a863bf511ce0bcecd5b1205d8b3fd26a7e9b4134aec4a",
+    "docs/sdd/modules/ai-support/conversation-history.md": "adba82c0d730df057b9a3d22c7e10f2e59574733018c2809aea68ad365afb37a",
+    "docs/sdd/product/current-state.md": "345fa85a956d05431e5ba9e8237936a2c7693cd11a1303265463310a34ae9403",
+    "docs/sdd/rule-review.md": "8dc91f9d13d425c7dd019fa0220193106f4d5ae1cd9eed458559921f2de61d5a",
+    "docs/sdd/roadmap.md": "f0e10b32accf2581cf4727f1c6ffc4185aaf39d315a766265292bcbc31fef38f",
+    "docs/sdd/evidence/2026-11-02-rule-followup/verification.md": "70d76602fb721c62ab1c20bb2df3250bb5c340333b6d465421013150d6eee937"
+  }
+}

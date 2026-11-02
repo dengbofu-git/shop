@@ -3,7 +3,7 @@ from time import monotonic
 from ortools.sat.python import cp_model
 from .budget_combinations import MAX_CANDIDATES, MAX_SECONDS
 
-POLICY_VERSION = 'balanced-cpsat-v1'
+POLICY_VERSION = 'match-first-cpsat-v2'
 
 
 def optimize_bundles(candidates, *, budget_cents, minimum_cents=0, categories=(), quantity=None,
@@ -28,7 +28,7 @@ def optimize_bundles(candidates, *, budget_cents, minimum_cents=0, categories=()
                     and c.price_cents * (quantity or 1) <= budget_cents), key=lambda c:c.sku_id)
     model = cp_model.CpModel()
     xs, ys, lines = [], [], []
-    utility = []
+    utility, matches = [], []
     for i,c in enumerate(items):
         upper = min(c.available_quantity,budget_cents//c.price_cents)
         y = model.new_bool_var('chosen_'+str(i))
@@ -37,6 +37,7 @@ def optimize_bundles(candidates, *, budget_cents, minimum_cents=0, categories=()
         if quantity is not None: model.add(x == quantity*y)
         xs.append(x); ys.append(y); lines.append(c.price_cents*x)
         match = min(1000, c.preference_score*1000//preference_max) if preference_max else 1000
+        matches.append(match*y)
         utility.append((1000+match)*y)
         # 后续重复件只获得递减且有界的效用，不按每件无限累加偏好分。
         for threshold,reward in [(2,100),(4,50),(8,25),(16,12),(32,6)]:
@@ -72,6 +73,10 @@ def optimize_bundles(candidates, *, budget_cents, minimum_cents=0, categories=()
     volume_penalty=model.new_int_var(0, (budget_cents//min((c.price_cents for c in items),default=1))*2000//reference_quantity, 'volume_penalty')
     model.add_division_equality(volume_penalty,volume*2000,reference_quantity)
     balanced=sum(utility)+utilization-concentration-volume_penalty
+    chosen_count=model.new_int_var(1,4,'chosen_count')
+    model.add(chosen_count==sum(ys))
+    match_score=model.new_int_var(0,1000,'match_score')
+    model.add_division_equality(match_score,sum(matches),chosen_count)
     deadline=monotonic()+MAX_SECONDS
     records=[]; nodes=0; near_floor=max(minimum_cents,(budget_cents*95+99)//100)
 
@@ -92,17 +97,35 @@ def optimize_bundles(candidates, *, budget_cents, minimum_cents=0, categories=()
     for _ in range(3):
         # 显式接近模式先最大化可行金额，再在保留该金额的候选中选平衡方案。
         stage_status=None
+        match_status=None
+        locks=[]
         if prefer_near:
-            solver,stage_status=solve(total, stages=2)
+            solver,stage_status=solve(total, stages=3 if preference_max else 2)
             if stage_status not in (cp_model.OPTIMAL,cp_model.FEASIBLE):
                 status=stage_status
                 break
             floor=model.new_bool_var('near_floor_'+str(len(records)))
             model.add(total>=solver.value(total)).only_enforce_if(floor)
             model.add_assumption(floor)
+            locks.append(floor)
+        # 匹配按所选SPU平均归一化分计，不因凑预算、多件或多款而稀释优先级。
+        if preference_max:
+            matched,match_status=solve(match_score, stages=2)
+            if match_status not in (cp_model.OPTIMAL,cp_model.FEASIBLE):
+                if not prefer_near:
+                    status=match_status
+                    break
+            else:
+                lock=model.new_bool_var('match_floor_'+str(len(records)))
+                model.add(match_score>=matched.value(match_score)).only_enforce_if(lock)
+                model.add_assumption(lock)
+                locks.append(lock)
+        objective_stage='balance'
         best,status=solve(balanced)
         if status not in (cp_model.OPTIMAL,cp_model.FEASIBLE):
-            if prefer_near: best,status=solver,stage_status
+            objective_stage='priority'
+            if match_status in (cp_model.OPTIMAL,cp_model.FEASIBLE):best,status=matched,match_status
+            elif prefer_near: best,status=solver,stage_status
             else: break
         selected=[(c,best.value(x)) for c,x in zip(items,xs) if best.value(x)>0]
         subtotal=sum(c.price_cents*q for c,q in selected)
@@ -113,9 +136,12 @@ def optimize_bundles(candidates, *, budget_cents, minimum_cents=0, categories=()
             'subtotal_cents':subtotal,'quality_score':quality,'near_budget':subtotal>=near_floor,
             'solver_status':best.status_name(status),'objective_value':best.objective_value,
             'best_objective_bound':best.best_objective_bound,
+            'match_score':best.value(match_score),
+            'match_stage_optimal':match_status==cp_model.OPTIMAL if preference_max else None,
+            'objective_stage':objective_stage,
             'budget_stage_optimal':stage_status==cp_model.OPTIMAL if prefer_near else None})
-        if prefer_near:
-            model.clear_assumptions(); model.add(floor==0)
+        model.clear_assumptions()
+        for lock in locks:model.add(lock==0)
         # 方案差异按SPU集合约束，不能仅换同款规格或微调一件冒充新方案。
         chosen_products={c.product_id for c,q in selected}
         # 对每个SPU使用是否选中表达式，兼容同SPU多个SKU。
@@ -129,6 +155,7 @@ def optimize_bundles(candidates, *, budget_cents, minimum_cents=0, categories=()
         'automatic_quantity_cap':None,'quantity_bound':'budget_and_available_stock',
         'duration_ms':round((monotonic()-(deadline-MAX_SECONDS))*1000,3),
         'objective_policy':{'utilization':10000,'max_line_penalty':3000,'distinct_product':1000,
+                            'priority':['amount','match','balance'] if prefer_near else ['match','balance'],
                             'category':1000,'preference_per_product':1000,
                             'volume_reference_price_cents':median_price,'volume_penalty':2000,
                             'repeat_tiers':[[2,100],[4,50],[8,25],[16,12],[32,6]]}}

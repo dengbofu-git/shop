@@ -16,6 +16,22 @@ from .analytics import build_supplier_analytics
 
 
 class MerchantSalesTests(TestCase):
+    def test_missing_sources_are_unknown_even_with_paid_sales(self):
+        self.order('no-source', '100.00')
+        result = build_supplier_analytics(self.merchant)
+        self.assertEqual(result['summary']['total_sales'], 100)
+        self.assertIsNone(result['summary']['inventory_turnover_days'])
+        self.assertIsNone(result['regions'])
+        self.assertIsNone(result['funnel'])
+        self.assertTrue(all(value is None for value in result['aux'].values()))
+
+    def test_sales_use_purchase_snapshot_after_product_changes_owner(self):
+        order=self.order('snapshot', '50.00')
+        order.ordergoods_set.update(merchant_snapshot=self.merchant)
+        self.skus[0].spu.merchant=self.other;self.skus[0].spu.save()
+        self.assertEqual(build_supplier_analytics(self.merchant)['summary']['total_sales'],50)
+        self.assertEqual(build_supplier_analytics(self.other)['summary']['total_sales'],0)
+
     @classmethod
     def setUpTestData(cls):
         cls.buyer = UserProfile.objects.create(username='testbuyer', password='unused', is_active=True)
@@ -50,7 +66,7 @@ class MerchantSalesTests(TestCase):
         self.assertEqual(summary['paid_order_count'], 1)
         self.assertEqual(summary['avg_order_amount'], 100)
         for key, amount_key in [('monthly', 'sales'), ('categories', 'sales'),
-                                ('regions', 'sales'), ('top_products', 'amount')]:
+                                ('top_products', 'amount')]:
             self.assertEqual(sum(row[amount_key] for row in result[key]), 100, key)
         self.assertEqual(build_platform_overview()['summary']['total_sales'], '100.00')
 

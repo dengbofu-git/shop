@@ -51,7 +51,7 @@
                         </div>
                     </div>
                     <section id="bs-history" class="bs-history" aria-label="历史咨询" hidden>
-                        <div class="bs-history-head"><h2>历史咨询</h2><button type="button" id="bs-history-refresh">刷新列表</button></div>
+                        <div class="bs-history-head"><h2>历史咨询</h2><button type="button" id="bs-history-refresh">刷新列表</button><button type="button" id="bs-history-removed">已移出咨询</button><button type="button" id="bs-history-undo" hidden>撤销移出</button></div>
                         <p id="bs-history-status" role="status">选择一段咨询即可查看记录并继续聊天。</p>
                         <div id="bs-history-list" class="bs-history-list" aria-busy="false"></div>
                         <button type="button" id="bs-history-more" class="bs-history-more" hidden>加载更多咨询</button>
@@ -83,9 +83,9 @@
     </div>
     <script src="/static/js/buyer-workbench.js?v=20261022-account-menu"></script>
     <div id="bs-history-menu" class="bs-history-menu" role="menu" aria-label="咨询操作" hidden>
-        <button type="button" id="bs-history-delete" role="menuitem"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 6h18M9 6V3h6v3M5 6l1 15h12l1-15M10 10v7M14 10v7"/></svg>删除咨询</button>
+        <button type="button" id="bs-history-delete" role="menuitem"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 6h18M9 6V3h6v3M5 6l1 15h12l1-15M10 10v7M14 10v7"/></svg>移出列表</button>
     </div>
     <script src="/static/js/buyer-support-stream.js?v=20261029-unified"></script>
-    <script src="/static/js/buyer-support.js?v=20261029-unified"></script>
+    <script src="/static/js/buyer-support.js?v=20261102-history-recovery"></script>
 </body>
 </html>

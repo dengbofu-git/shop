@@ -37,6 +37,7 @@ class OrderQueryContext:
     conversation_missing: bool = field(default=False, init=False)
     previous_page: dict = field(default_factory=dict, repr=False)
     navigation_tokens: dict = field(default_factory=dict, init=False, repr=False)
+    pending_order_page: object = field(default=None, init=False, repr=False)
 
 
 def attach_order_links(response, context):
@@ -149,8 +150,19 @@ def query_orders(query, context, request):
             return _result('needs_clarification', '订单引用已失效，请重新提供订单号。')
     elif selector.type == 'selected':
         if not bound_id or bound_at is None or bound_at < timezone.now() - timedelta(hours=HISTORY_HOURS):
-            return _result('needs_clarification', '当前没有有效的所选订单，请提供订单号，或说“查询最近订单”。')
-        selected_id = bound_id
+            from .order_page import load
+            page = load(user.pk, context.conversation_id)
+            if not page or len(page['ids']) != 1:
+                return _result('needs_clarification', '当前没有唯一有效的所选订单，请明确当前页序号或重新查询。')
+            selected_id = page['ids'][0]
+        else:
+            selected_id = bound_id
+    elif selector.type == 'position':
+        from .order_page import load
+        page = load(user.pk, context.conversation_id)
+        if not page or selector.position > len(page['ids']):
+            return _result('needs_clarification', '当前页订单序号已失效或不明确，请重新查询订单列表。')
+        selected_id = page['ids'][selector.position-1]
     orders = OrderInfo.objects.filter(user_profile_id=user.pk, buyer_hidden=False)
     if selected_id:
         orders = orders.filter(pk=selected_id)
@@ -177,6 +189,8 @@ def query_orders(query, context, request):
         'trialorder__status', 'presaleorder__status')[offset:offset + limit + (selector.type == 'all')])
     has_more = selector.type == 'all' and len(rows) > limit
     rows = rows[:limit]
+    context.pending_order_page = {'ids':[row['order_id'] for row in rows],
+                                  'query':query.model_dump(), 'snapshot_at':snapshot.isoformat()}
     if has_more:
         pagination.update(has_more=True, next_cursor=signing.dumps({
             'owner': _cursor_owner(context.owner_id),
@@ -185,10 +199,12 @@ def query_orders(query, context, request):
     queried_at = timezone.now().isoformat()
     if not rows:
         context.not_queryable = selector.type == 'explicit'
+        if selector.type == 'position':
+            return _result('needs_clarification', '该序号对应的订单当前不可查询，请重新查询订单列表。')
         result = _result('no_match', '未找到您可访问的匹配订单，请在“我的订单”中核对。', queried_at=queried_at, **pagination)
         context.binding_changed, context.selected_order_id = True, ''
         return result
-    data = [_project(row, '匹配订单{}'.format(offset + i + 1) if selector.type == 'all' else
+    data = [_project(row, '匹配订单{}'.format(i + 1) if selector.type == 'all' else
                      '近期订单{}'.format(i + 1) if selector.type == 'recent' else '当前所选订单')
             for i, row in enumerate(rows)]
     labels = {'paid': '已付款', 'unpaid': '待付款', 'deposit_paid': '已付定金', 'balance_due': '待付尾款',

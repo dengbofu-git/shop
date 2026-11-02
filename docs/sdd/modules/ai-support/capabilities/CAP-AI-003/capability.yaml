@@ -4,14 +4,12 @@ moduleId: MOD-AI
 name: 买家通过 AI 客服查询本人订单
 specVersion: 0.3.0
 documentStatus: business-rules-accepted-design-pending
-designVersion: 0.2.0
+designVersion: 0.3.0
 owner: dengbofu
 technicalReviewer: null
 sourceFeatureIds:
 - FEAT-018
 - FEAT-030
-journeyIds:
-- JOURNEY-AI-001
 files:
   requirements: requirements.md
   acceptance: acceptance.yaml
@@ -93,9 +91,9 @@ resolvedQuestionsForThisCapability:
 - Q-002
 - Q-003
 - Q-012
-gateAssessment:
-  target: BUILD_READY
-  result: blocked
+deliveryReadiness:
+  scope: 本版本剩余技术设计及完整AC验收；不作为来源阶段门禁或阻断无关维护
+  result: pending-design-and-verification
   blockingQuestions:
   - Q-011
   - Q-013
@@ -183,22 +181,24 @@ existingAssets:
 - client/templates/buyer_support.html
 - client/static/js/buyer-support.js
 implementationObservation:
-  date: '2026-10-23'
+  date: '2026-10-30'
   report: docs/sdd/product/current-state.md
   assets:
+  - support_ai/order_page.py
+  - support_ai/test_order_page.py
   - 受控本人订单工具与明确订单404
   - recent3／all20每页及上海时区包含首尾日期筛选
   - 只读状态解释及有限历史投影
+  - 按需偏好读取、独立任务继续及completion_status源码已存在
   gaps:
-  - 共享偏好前置读取待隔离
-  - 混合订单错误仍整轮失败
-  - 当前展示页私有位置映射待设计实施
-  - 新AC未运行
-  verificationStatus: not-run
+  - R01/R02完整契约、页面兼容及全部AC仍须整体验收
+  - Redis映射已有隔离验证，运行启用和真实浏览器交互未执行
+  - Q-013除本页映射外的持久数据保留策略仍开放
+  verificationStatus: partial-evidence
 legacyStage: SPEC_REVIEW
 assessment:
   specStatus: rules-accepted
   implementationStatus: partial
-  verificationStatus: not-run
+  verificationStatus: partial-evidence
   deploymentStatus: unverified
-  scope: R01/R02/R09新规则及本版本AC；已有源码与历史证据不提升新状态
+  scope: R01/R02/R09已补当前源码和定向隔离证据；完整AC、实机反馈与启用未验收，见2026-10-30-rule-implementation/verification.md

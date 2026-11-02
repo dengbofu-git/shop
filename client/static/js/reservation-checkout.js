@@ -70,7 +70,8 @@
                 var orders=data.orders;if(!Array.isArray(orders)||!orders.length)throw new Error('订单结果不完整，请使用原请求重试');
                 list.replaceChildren();orders.forEach(function(order){var row=doc.createElement('p');var link=doc.createElement('a');
                     link.href='gopay.html?order_id='+encodeURIComponent(order.order_id);link.textContent=order.status===1?'去付款':'查看订单';
-                    if(order.status!==1)link.href='buyer_orders.html';row.textContent='订单 '+order.order_id+' · CNY '+Number(order.total_amount).toFixed(2)+' ';row.append(link);list.append(row);
+                    if(order.status!==1||order.currency!=='CNY'){link.href='buyer_orders.html';link.textContent='查看订单';}
+                    row.textContent='订单 '+order.order_id+' · '+(order.currency||'币种未记录')+' '+Number(order.total_amount).toFixed(2)+' ';row.append(link);list.append(row);
                 });
                 status.textContent='订单已保存。请分别付款；刷新本页不会重复预留或延长时限。';finished=true;label('查看我的订单');
             }catch(error){showError(error);}finally{pending=false;disable(false);}

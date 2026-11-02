@@ -62,12 +62,13 @@
         set('m-unpaid', '待付款 ' + (s.unpaid || 0) + ' 笔');
         set('m-in-transit', String(s.in_transit));
         set('m-avg-order', String(s.avg_order_amount));
-        set('m-turnover', String(s.inventory_turnover_days));
-        set('m-turnover-display', String(s.inventory_turnover_days));
-        set('aux-partners', String(aux.monthly_new_partners || 0));
-        set('aux-roi', (aux.campaign_roi || 0) + 'x');
-        set('aux-warehouse', (aux.warehouse_health_pct || 0) + '%');
-        set('aux-score', String(aux.satisfaction_score || 0));
+        function observed(value, suffix) { return value == null ? '—' : String(value) + (suffix || ''); }
+        set('m-turnover', observed(s.inventory_turnover_days));
+        set('m-turnover-display', observed(s.inventory_turnover_days));
+        set('aux-partners', observed(aux.monthly_new_partners));
+        set('aux-roi', observed(aux.campaign_roi, 'x'));
+        set('aux-warehouse', observed(aux.warehouse_health_pct, '%'));
+        set('aux-score', observed(aux.satisfaction_score));
     }
 
     function initSalesTrendChart(data) {
@@ -138,10 +139,14 @@
     function initMapChart(data) {
         var dom = document.getElementById('chart-map');
         if (!dom) return;
+        if (!data || !Array.isArray(data.regions) || !data.regions.length) {
+            dom.textContent = '暂无可靠地区数据';
+            return;
+        }
         var chart = echarts.init(dom);
         var regions = (data && data.regions) ? data.regions : [];
-        var xData = regions.length ? regions.map(function(r) { return r.name; }) : ['阿联酋', '沙特', '卡塔尔', '科威特'];
-        var yData = regions.length ? regions.map(function(r) { return r.sales_wan; }) : [0, 0, 0, 0];
+        var xData = regions.map(function(r) { return r.name; });
+        var yData = regions.map(function(r) { return r.sales_wan; });
         chart.setOption({
             backgroundColor: 'transparent',
             tooltip: { trigger: 'axis', formatter: '{b}: ¥{c}万', backgroundColor: '#ffffff', borderColor: '#e1e9e3', textStyle: { color: '#17352b' } },
@@ -210,6 +215,10 @@
     function initFunnelChart(data) {
         var dom = document.getElementById('chart-funnel');
         if (!dom) return;
+        if (!data || !Array.isArray(data.funnel) || !data.funnel.length) {
+            dom.textContent = '暂无可靠渠道转化数据';
+            return;
+        }
         var chart = echarts.init(dom);
         var funnel = (data && data.funnel) ? data.funnel : [];
         chart.setOption({

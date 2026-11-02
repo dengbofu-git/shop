@@ -127,6 +127,27 @@ class McpDataTests(TestCase):
         self.assertFalse(SupportTurn.objects.filter(user=self.user).exists())
         model.assert_not_called()
 
+    def test_failed_required_preferences_preserve_independent_order_and_replay(self):
+        from tea_saas.utils import jwt_encode
+        from orders.models import OrderInfo
+        from .test_task_tools import ToolModel
+        from .models import SupportTurn
+        import uuid
+        OrderInfo.objects.create(order_id='OWN-SYNTHETIC', user_profile=self.user, total_amount=10,
+            total_count=1, freight=0,status=1,receiver='Test',address='Test',receiver_mobile='000',tag='Test')
+        headers={'HTTP_AUTHORIZATION':'Bearer '+jwt_encode({'id':self.user.pk})}
+        body={'message':'查询最近订单，并按我保存的偏好推荐绿茶','request_id':str(uuid.uuid4())}
+        with patch('support_ai.mcp_backend.saved_preferences',side_effect=RuntimeError('synthetic outage')), \
+                patch('support_ai.model_client.configured_model',return_value=ToolModel()):
+            first=self.client.post('/v1/support/chat/',body,content_type='application/json',**headers)
+            second=self.client.post('/v1/support/chat/',body,content_type='application/json',**headers)
+        self.assertEqual(first.status_code,200,first.content)
+        self.assertEqual(first.json()['completion_status'],'partial')
+        self.assertEqual(first.json(),second.json())
+        self.assertEqual(SupportTurn.objects.filter(user=self.user).count(),1)
+        self.assertTrue(any(t['tool']=='get_order_status' and t['status']=='success' for t in first.json()['tasks']))
+        self.assertNotIn('目前没有已保存的偏好',first.json()['answer'])
+
     def test_unqueryable_order_does_not_cancel_independent_recommendation(self):
         from tea_saas.utils import jwt_encode
         from orders.models import OrderInfo

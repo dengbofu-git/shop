@@ -6,7 +6,8 @@ const source = fs.readFileSync(require('node:path').join(__dirname, '../static/j
 const flush = async () => { for (let i = 0; i < 12; i++) await Promise.resolve(); };
 const fixture = value => ({summary: {total_sales_display: value, paid_order_count: 2, order_count: 3,
     completion_rate: 50, completed: 1, pending_ship: 1, unpaid: 1, in_transit: 0, avg_order_amount: 5, inventory_turnover_days: 7},
-    sales_basis: 'fixture only', monthly: [], categories: [], regions: [], funnel: [], aux: {}});
+    sales_basis: 'fixture only', monthly: [], categories: [],
+    regions: [{name:'Synthetic region',sales_wan:1}], funnel: [{name:'Synthetic funnel',value:1}], aux: {}});
 const response = data => ({ok: true, json: async () => ({code: 200, data})});
 function setup() {
     class Element {
@@ -53,6 +54,18 @@ function setup() {
         fail(id) { failChart = id; }};
 }
 async function main() {
+    const unknown = setup();
+    const missing = fixture('¥35.00');
+    missing.summary.inventory_turnover_days = null;
+    missing.regions = null; missing.funnel = null;
+    missing.aux = {monthly_new_partners:null,campaign_roi:null,warehouse_health_pct:null,satisfaction_score:null};
+    unknown.library(); unknown.requests[0].resolve(response(missing)); await flush(); await unknown.runIdle();
+    for (const id of ['m-turnover','m-turnover-display','aux-partners','aux-roi','aux-warehouse','aux-score']) {
+        assert.equal(unknown.el(id).textContent, '—', 'unknown values must not become zero or a derived score');
+    }
+    assert.equal(unknown.el('chart-map').textContent, '暂无可靠地区数据');
+    assert.equal(unknown.el('chart-funnel').textContent, '暂无可靠渠道转化数据');
+    assert.equal(unknown.charts.length, 3, 'unavailable sources never create fabricated charts');
     let app = setup();
     assert.equal(app.requests.length, 1, 'API starts while the local chart library is still unresolved');
     assert.equal(app.head.children[0].async, true);

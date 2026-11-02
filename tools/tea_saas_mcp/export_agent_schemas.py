@@ -11,7 +11,7 @@ DESCRIPTIONS = {
     'search_products': 'Match validated product intent using fixed public saleable filters, flat or bounded category groups.',
     'recommend_bundle': 'Compute bounded product bundles and exact CNY subtotals with fixed backend rules.',
     'resolve_product': 'Resolve an exact historical public SKU name pair only when unique.',
-    'get_product_details': 'Read current allowlisted public fields of a specific saleable SKU.',
+    'get_product_details': 'Read allowlisted public fields of a launched SKU, including unavailable stock; buying requires separate saleable checks.',
     'get_order_status': 'Read bound buyer orders with trusted current-turn constraints; no private IDs in result.',
     'explain_recommendations': 'Refresh public facts for a bound previous product list without searching for replacements.',
     'search_knowledge': 'Retrieve published, ACL-filtered evidence using bounded hybrid recall and reranking.',

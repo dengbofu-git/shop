@@ -3,7 +3,7 @@
   "modules": {
     "core": {
       "title": "项目核心",
-      "version": "0.12.0",
+      "version": "0.13.0",
       "paths": [
         "README.md",
         "CONTEXT.md",
@@ -44,7 +44,7 @@
     },
     "goods": {
       "title": "商品管理",
-      "version": "0.7.3",
+      "version": "0.7.4",
       "paths": [
         "goods/",
         "media/",
@@ -78,7 +78,7 @@
     },
     "orders": {
       "title": "订单管理",
-      "version": "0.5.0",
+      "version": "0.6.0",
       "paths": [
         "orders/",
         "versions/changelogs/orders.md"
@@ -93,7 +93,7 @@
     },
     "pays": {
       "title": "支付",
-      "version": "0.2.1",
+      "version": "0.2.2",
       "paths": [
         "pays/",
         "app_key/",
@@ -118,7 +118,7 @@
     },
     "inventory": {
       "title": "库存管理",
-      "version": "0.2.1",
+      "version": "0.2.2",
       "paths": [
         "inventory/",
         "versions/changelogs/inventory.md"
@@ -131,7 +131,7 @@
     },
     "logistics": {
       "title": "物流",
-      "version": "0.1.1",
+      "version": "0.1.2",
       "paths": [
         "logistics/",
         "versions/changelogs/logistics.md"
@@ -144,7 +144,7 @@
     },
     "supplier": {
       "title": "商家与结算",
-      "version": "0.4.2",
+      "version": "0.4.4",
       "paths": [
         "supplier/",
         "versions/changelogs/supplier.md"
@@ -161,7 +161,7 @@
     },
     "admin_panel": {
       "title": "平台运营",
-      "version": "0.4.2",
+      "version": "0.4.3",
       "paths": [
         "admin_panel/",
         "versions/changelogs/admin_panel.md"
@@ -175,7 +175,7 @@
     },
     "support_ai": {
       "title": "智能客服",
-      "version": "0.29.0",
+      "version": "0.30.1",
       "paths": [
         "support_ai/",
         "docs/客服商品推荐设计.md",
@@ -230,7 +230,7 @@
     },
     "web": {
       "title": "页面与前端资源",
-      "version": "0.35.0",
+      "version": "0.36.1",
       "paths": [
         "client/",
         "templates/",

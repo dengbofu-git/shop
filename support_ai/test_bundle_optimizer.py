@@ -5,6 +5,38 @@ from .budget_combinations import Candidate
 from .bundle_optimizer import optimize_bundles
 
 class CpSatBundleTests(TestCase):
+    def test_default_match_beats_weak_match_near_budget(self):
+        rows=[Candidate(1,1,'绿茶',1000,1,10), Candidate(2,2,'绿茶',9900,1,1)]
+        result=optimize_bundles(rows,budget_cents=10000,preference_max=10,distinct_count=1)
+        self.assertEqual(result['plans'][0]['sku_ids'],[1])
+
+    def test_explicit_near_preserves_amount_priority(self):
+        rows=[Candidate(1,1,'绿茶',1000,1,10), Candidate(2,2,'绿茶',9900,1,1)]
+        result=optimize_bundles(rows,budget_cents=10000,preference_max=10,distinct_count=1,prefer_near=True)
+        self.assertEqual(result['plans'][0]['sku_ids'],[2])
+
+    def test_matching_never_relaxes_a_hard_budget_floor(self):
+        rows=[Candidate(1,1,'绿茶',1000,1,10), Candidate(2,2,'白茶',9900,1,0)]
+        result=optimize_bundles(rows,budget_cents=10000,minimum_cents=9500,
+            preference_max=10,distinct_count=1)
+        self.assertEqual(result['plans'][0]['sku_ids'],[2])
+
+    def test_adding_weak_fillers_cannot_outrank_the_best_average_match(self):
+        rows=[Candidate(1,1,'绿茶',1000,1,10), Candidate(2,2,'白茶',8000,1,0),
+              Candidate(3,3,'红茶',1000,1,0)]
+        result=optimize_bundles(rows,budget_cents=10000,preference_max=10)
+        self.assertEqual(result['plans'][0]['sku_ids'],[1])
+        self.assertEqual(result['plans'][0]['match_score'],1000)
+
+    def test_balance_timeout_returns_the_verified_priority_solution(self):
+        from unittest.mock import patch
+        rows=[Candidate(1,1,'绿茶',1000,1,10), Candidate(2,2,'绿茶',9900,1,1)]
+        with patch('support_ai.bundle_optimizer.monotonic',side_effect=[0,0,3,3,3]):
+            result=optimize_bundles(rows,budget_cents=10000,preference_max=10,distinct_count=1)
+        self.assertEqual(result['plans'][0]['sku_ids'],[1])
+        self.assertEqual(result['plans'][0]['objective_stage'],'priority')
+        self.assertTrue(result['plans'][0]['match_stage_optimal'])
+
     def score(self, rows, qs, budget, prefmax):
         chosen=[(c,q) for c,q in zip(rows,qs) if q]
         cost=sum(c.price_cents*q for c,q in chosen)
@@ -23,11 +55,13 @@ class CpSatBundleTests(TestCase):
                 selected=[c for c,q in zip(rows,qs) if q]
                 total=sum(c.price_cents*q for c,q in zip(rows,qs))
                 if not selected or total>1000 or len({c.product_id for c in selected})!=len(selected):continue
-                feasible.append((total,self.score(rows,qs,1000,3)))
+                matching=sum(min(1000,c.preference_score*1000//3) for c in selected)//len(selected)
+                feasible.append((total,matching,self.score(rows,qs,1000,3)))
             result=optimize_bundles(rows,budget_cents=1000,preference_max=3,prefer_near=near)
             best=result['plans'][0]
-            target=max(feasible) if near else max(s for total,s in feasible)
-            self.assertEqual((best['subtotal_cents'],int(best['objective_value'])) if near else int(best['objective_value']),target)
+            target=max(feasible) if near else max((m,s) for total,m,s in feasible)
+            actual=(best['match_score'],int(best['objective_value']))
+            self.assertEqual((best['subtotal_cents'],)+actual if near else actual,target)
             self.assertEqual(best['solver_status'],'OPTIMAL')
 
     def test_budget_recipe_is_not_cheapest_single_unit(self):

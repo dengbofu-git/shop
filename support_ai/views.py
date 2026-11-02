@@ -188,7 +188,7 @@ def _chat_json(prepared):
             ))
             result = graph.invoke({
                 'message': safe_message, 'recent_turns': history, 'memory': memory,
-                'owner_id': user.pk,
+                'owner_id': user.pk, 'preference_unavailable': getattr(data_access, 'preference_unavailable', False),
             }, config={'callbacks': [observation.callback] if observation.callback else []})
             observation.finish(result)
             if order_query_context.conversation_missing:
@@ -206,6 +206,7 @@ def _chat_json(prepared):
             response = commit_turn(
                 user, conversation, revision, request_id, request_hash, safe_message, response,
                 order_id=order_query_context.selected_order_id if order_query_context.binding_changed else None,
+                order_page=order_query_context.pending_order_page,
             )
     except StreamCancelled:
         return _response({'error':'本轮连接已关闭。','error_code':'CANCELLED','retryable':True},499)
@@ -243,9 +244,10 @@ def load_agent_preferences(data_access, message, history):
         progress('preferences')
         return data_access.preferences()
     except McpServiceError as exc:
-        if explicit or exc.code in ('ACCESS_DENIED','CONVERSATION_CONFLICT'):
+        if exc.code in ('ACCESS_DENIED','CONVERSATION_CONFLICT'):
             raise
         data_access.preference_unavailable = True
+        data_access.preference_error = exc
         return None
 
 

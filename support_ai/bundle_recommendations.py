@@ -153,6 +153,10 @@ def recommend_bundle(intent, *, category_scope=None):
                         'display_currency': requested_currency,
                         'display_subtotal': format(display(Decimal(subtotal) / 100, requested_currency), '.2f'),
                         'quality_score': plan['quality_score'],
+                        'match_score': plan.get('match_score'),
+                        'match_stage_optimal': plan.get('match_stage_optimal'),
+                        'budget_stage_optimal': plan.get('budget_stage_optimal'),
+                        'objective_stage': plan.get('objective_stage'),
                         'solver_status': plan.get('solver_status'),
                         'objective_value': plan.get('objective_value'),
                         'best_objective_bound': plan.get('best_objective_bound')})

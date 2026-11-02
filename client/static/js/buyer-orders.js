@@ -28,8 +28,10 @@
         });
     }
 
-    function money(value) {
+    function money(value, currency) {
         var amount = Number(value);
+        if (currency !== 'CNY') return (isFinite(amount) ? amount.toFixed(2) : '—') +
+            (currency ? ' ' + escapeHtml(currency) : '（币种未记录）');
         return TeaMoney.format(isFinite(amount) && amount >= 0 ? amount : 0, currentCurrency);
     }
 
@@ -45,7 +47,8 @@
         var status = order.status == null ? -1 : Number(order.status);
         var id = escapeHtml(order.order_id);
         var actions = [];
-        if (status === 1 && !order.payment_exception) actions.push('<a class="bo-action bo-action-primary" href="gopay.html?order_id=' + encodeURIComponent(order.order_id) + '">去付款</a>');
+        if (status === 1 && !order.payment_exception && order.currency === 'CNY') actions.push('<a class="bo-action bo-action-primary" href="gopay.html?order_id=' + encodeURIComponent(order.order_id) + '">去付款</a>');
+        if (!order.currency) actions.push('<span class="bo-good-meta">原记录币种未记录，付款或退款需人工核验。</span>');
         if (order.can_cancel === true) actions.push('<button type="button" class="bo-action" data-action="cancel" data-order-id="' + id + '">' + (order.reservation_managed ? '取消并释放库存' : '取消订单') + '</button>');
         if (status === 3) actions.push('<button type="button" class="bo-action bo-action-primary" data-action="receive" data-order-id="' + id + '">确认收货</button>');
         if (status === 3) actions.push('<a class="bo-action" href="logistics_track.html?order=' + encodeURIComponent(order.order_id) + '">查看物流</a>');
@@ -68,12 +71,12 @@
                 + '<img src="' + escapeHtml(imageUrl(good.default_image_url)) + '" alt="' + escapeHtml(productName) + '">'
                 + '<div class="bo-good-info"><a class="bo-good-name" href="product_details.html?skuid=' + skuId + '">' + escapeHtml(productName) + '</a>'
                 + (specification && specification !== productName ? '<p class="bo-good-meta">规格：' + escapeHtml(specification) + '</p>' : '')
-                + '<p class="bo-good-meta">单价 ' + money(price) + ' × ' + count + '</p></div>'
+                + '<p class="bo-good-meta">单价 ' + money(price, good.currency) + ' × ' + count + '</p></div>'
                 + '<div class="bo-actions">'
                 + (good.can_review ? '<a class="bo-action" href="buyer_reviews.html?order_item_id=' + encodeURIComponent(good.id) + '" data-eng-text="review">评价商品</a>' : '')
                 + (good.review_id ? '<a class="bo-action" href="buyer_reviews.html?order_item_id=' + encodeURIComponent(good.id) + '" data-eng-text="viewReview">查看评价</a>' : '')
                 + '</div>'
-                + '<div class="bo-good-price">' + money(price * count) + '<small>' + currentCurrency + '</small></div>'
+                + '<div class="bo-good-price">' + money(price * count, good.currency) + '<small>' + (good.currency === 'CNY' ? currentCurrency : escapeHtml(good.currency || '币种未记录')) + '</small></div>'
                 + '</div>';
         }).join('');
     }
@@ -114,7 +117,7 @@
                 + '<span class="bo-status" data-status="' + status + '">' + escapeHtml(order.status_text || statusNames[status] || '处理中') + '</span></div>'
                 + '<div class="bo-goods">' + goodsMarkup(order) + '</div>'
                 + '<div class="bo-order-foot"><div class="bo-order-total">共 ' + escapeHtml(order.order_total_count || 0)
-                + ' 件商品　运费 ' + money(order.order_freight) + '　订单金额 <strong>' + money(order.order_total_amount) + '</strong></div>'
+                + ' 件商品　运费 ' + money(order.order_freight, order.currency) + '　订单金额 <strong>' + money(order.order_total_amount, order.currency) + '</strong></div>'
                 + '<div class="bo-actions">' + actionButtons(order) + '</div></div>'
                 + addressMarkup(order)
                 + '</article>';

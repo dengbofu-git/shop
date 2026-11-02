@@ -267,7 +267,8 @@ def _get_available_stock(sku):
 
 def detail(request, id):
     try:
-        sku = SKU.objects.select_related('spu__catalog', 'spu__merchant__store_page').get(id=id)
+        from .availability import public_skus
+        sku = public_skus().select_related('spu__catalog', 'spu__merchant__store_page').get(id=id)
     except SKU.DoesNotExist:
         context = {
             "code": 404,

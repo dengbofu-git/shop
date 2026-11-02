@@ -7,6 +7,15 @@ target:
   branch: codex/orders-merchant-isolation
   workingTree: dirty
   scope: 当前源码及R01—R11规则静态审查；没有业务／模型／数据库运行或部署验证；HEAD不能单独复现脏工作区。
+currentReview:
+  observedAt: '2026-10-30'
+  head: 0d53d1423cbeb349730ff9462e5798fb5f58cb59
+  branch: codex/core-unified-runtime
+  initialWorkingTree: clean
+  report: docs/sdd/product/sdd-purification-review.md
+  currentState: docs/sdd/product/current-state.md
+  scope: 现行文档全量静态扫描及关键源码核对；未运行业务测试或核验数据库、进程及部署
+  historicalTargetNote: 上方target为2026-10-23旧来源快照，不代表当前工作区状态
 reference:
   root: E:\实习\store-ai-tp
   mode: read-only-method-reference
@@ -58,8 +67,8 @@ sources:
   paths:
   - docs/sdd/README.md
   - new-project-sdd-handoff.md
-  use: 渐进式发现、候选与活动能力分离、两轨探索、能力阶段、未知管理。
-  limit: 方法参考；不移植新项目假设、业务、人员、技术栈或已批准状态。
+  use: 仅借鉴渐进发现、未知管理及规则与证据区分；两轨探索和能力阶段只是来源方法背景，不作为本项目现行制度。
+  limit: 方法参考；不移植新项目假设、业务、人员、技术栈、阶段门禁、原型审批链、模板套数或已批准状态。
 - id: SRC-REF-002
   project: store-ai-tp
   paths:

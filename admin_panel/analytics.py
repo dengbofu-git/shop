@@ -23,8 +23,8 @@ def build_platform_overview():
     orders = OrderInfo.objects.annotate(
         sales_value=Case(When(sales_paid, then=F('total_amount')), default=zero, output_field=money),
         flow_value=Case(
-            When(standard_paid | trial_paid, then=F('total_amount') + F('freight')),
-            When(order_type='presale', then=(
+            When(Q(currency='CNY') & (standard_paid | trial_paid), then=F('total_amount') + F('freight')),
+            When(order_type='presale', currency='CNY', then=(
                 Case(When(presaleorder__deposit_paid=True, then=F('presaleorder__deposit_amount')),
                      default=zero, output_field=money)
                 + Case(When(presaleorder__balance_paid=True, then=F('presaleorder__balance_amount')),

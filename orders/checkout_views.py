@@ -25,6 +25,7 @@ def buyer(request,username):
 
 def result(orders):
     data=[{'order_id':o.pk,'total_amount':str(o.total_amount),'carts_count':o.total_count,'status':o.status,
+           'currency':o.currency,
            'expires_at':o.expires_at.isoformat() if o.expires_at else None,
            'payment_exception':o.payment_exception,'pay_url':None} for o in orders]
     return {'code':200,'data':{'orders':data,**(data[0] if len(data)==1 else {}),'split_by_merchant':len(data)>1}}
