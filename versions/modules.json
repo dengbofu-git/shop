@@ -3,7 +3,7 @@
   "modules": {
     "core": {
       "title": "项目核心",
-      "version": "0.13.0",
+      "version": "0.14.0",
       "paths": [
         "README.md",
         "CONTEXT.md",
@@ -175,7 +175,7 @@
     },
     "support_ai": {
       "title": "智能客服",
-      "version": "0.30.1",
+      "version": "0.32.1",
       "paths": [
         "support_ai/",
         "docs/客服商品推荐设计.md",
@@ -230,7 +230,7 @@
     },
     "web": {
       "title": "页面与前端资源",
-      "version": "0.36.1",
+      "version": "0.36.2",
       "paths": [
         "client/",
         "templates/",

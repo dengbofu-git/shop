@@ -1,0 +1,23 @@
+{
+  "state": "uncommitted-pii-increment",
+  "python_ast": 7,
+  "diff_check": "passed",
+  "files_sha256": {
+    "support_ai/pii.py": "50c115e2ff4a19895675de56f61c9c4c23d01d39e7ea1bef3b56914362b4115a",
+    "support_ai/model_client.py": "e76b9c6da6dbcef8504f607472269a4714a54a7c7245833cb9a40508a7118bbb",
+    "support_ai/streaming.py": "c6bfb57695cf3e73306398c9b27630f29308918e6f8c655768c981ec9ce3cebb",
+    "support_ai/context.py": "ea645c3129d655e4e227a9c8843e9ea23bbb7ab29e1f2e653c27efb2edc0ac57",
+    "support_ai/workflow.py": "17ab60f26349d8587dd6a5e59d0446b43978e2036c32325b673f8cbaad299723",
+    "support_ai/views.py": "bb42ac6a370a28d18050dc9aaa931d35c51189b0f6b32a78039f330114756b4e",
+    "support_ai/test_pii_policy.py": "c48b2cc945bccac0439190ee0fddf3513983c613e7ef9f7c2c1c511d057ef339",
+    "docs/sdd/modules/ai-support/pii-policy.md": "c66815990ca9b4cfd576394f2af17afc9f8d9dd3faf8bbfb947b21c9fde4076d",
+    "docs/sdd/evidence/2026-11-02-pii-policy/sample-comparison.json": "69f0b1b997b6b36b8e48b6e305fb73453486746073eaad528904c654257784c9",
+    "docs/sdd/evidence/2026-11-02-pii-policy/verification.md": "de03152ec04d9b913f9ea06269509c422b1d64f0b48c4f104c0a0249019fbb96",
+    "versions/modules.json": "3715b86f346518bf1716eb35418c419e9cbf851b8e1cdfad07dff60a69bd638e",
+    "versions/changelogs/support_ai.md": "06f1eba848ca760187655bf74e98511553ec297ebe416624ab5ae2add4ed11ab"
+  },
+  "logs_sha256": {
+    ".scratch/pii-runtime-verified.log": "8ea87cb204e50e06dee3305b6dd1126d972317811eab8872c0fbb72c4b6af7f2",
+    ".scratch/pii-runtime-repair.log": "f090a0b1faab0b94d69ff9714f4bfd31c7e2868139ba9deece63f35e11f561ab"
+  }
+}

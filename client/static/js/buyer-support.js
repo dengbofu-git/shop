@@ -606,8 +606,9 @@
         historyOlder.hidden = !conversation || !olderCursor;
         historyOlder.parentNode.hidden = historyOlder.hidden;
         historyList.querySelectorAll('[data-conversation-id]').forEach(function (button) {
-            if (conversation && button.dataset.conversationId === conversation.conversation_id) button.setAttribute('aria-current', 'true');
-            else button.removeAttribute('aria-current');
+            var trigger = button.querySelector('.bs-history-item') || button;
+            if (conversation && button.dataset.conversationId === conversation.conversation_id) trigger.setAttribute('aria-current', 'true');
+            else trigger.removeAttribute('aria-current');
         });
     }
 
@@ -669,10 +670,12 @@
             result.conversations.forEach(function (item) {
                 if (hiddenHistory.has(item.conversation_id) !== showingRemoved) return;
                 if (Array.from(historyList.children).some(function (row) { return row.dataset.conversationId === item.conversation_id; })) return;
+                var row = document.createElement('div');
+                row.className = 'bs-history-row';
+                row.dataset.conversationId = item.conversation_id;
                 var button = document.createElement('button');
                 button.type = 'button';
                 button.className = 'bs-history-item';
-                button.dataset.conversationId = item.conversation_id;
                 button.setAttribute('aria-haspopup', 'menu');
                 button.setAttribute('aria-controls', 'bs-history-menu');
                 button.setAttribute('aria-expanded', 'false');
@@ -693,7 +696,22 @@
                         openHistoryMenu(event, item, button, true);
                     }
                 });
-                historyList.appendChild(button);
+                row.appendChild(button);
+                if (!showingRemoved) {
+                    var menuButton = document.createElement('button');
+                    menuButton.type = 'button';
+                    menuButton.className = 'bs-history-actions';
+                    menuButton.textContent = '⋯';
+                    menuButton.setAttribute('aria-label', '咨询操作：' + item.title);
+                    menuButton.setAttribute('aria-haspopup', 'menu');
+                    menuButton.setAttribute('aria-controls', 'bs-history-menu');
+                    menuButton.setAttribute('aria-expanded', 'false');
+                    menuButton.addEventListener('click', function (event) {
+                        openHistoryMenu(event, item, menuButton, true);
+                    });
+                    row.appendChild(menuButton);
+                }
+                historyList.appendChild(row);
             });
             historyCursor = result.next_cursor || null;
             historyMore.hidden = !historyCursor;

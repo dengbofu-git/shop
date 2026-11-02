@@ -1,0 +1,22 @@
+{
+  "state": "uncommitted-followup",
+  "base": "591a0ea721414ff33c0c4376282006543b213906",
+  "static_checks": "5 Python AST, diff whitespace passed",
+  "sha256": {
+    "support_ai/pii.py": "a65182d76182d5aadeb0b1ae4aa16664b9ee51b96166ac497a0bb6c140bb2e13",
+    "support_ai/model_client.py": "c64dacbb2fc1cf594c39147ca7fab8078c5b35c90f525590e787860484110b7e",
+    "support_ai/conversation_history.py": "be90f7111a44c8fc6998427d96d01ce1fbadb2a02561f38c8c79c6b75efb4294",
+    "support_ai/preview.py": "1d7eaac8d4f93ffb2a483a12fbe87ec0a485173386c486156edc4ece5c9658b4",
+    "support_ai/test_pii_surfaces.py": "cbe71c9170c189df5b559198d734c8235787a5325cfe483ad234e44f22512808",
+    "docs/sdd/modules/ai-support/pii-policy.md": "3550bd3909f10c2d76a0fe50b7d411a15bdd8f7ceb7f08dec336bf30302c152d",
+    "docs/sdd/product/current-state.md": "83d2f0da4db6f74cd8af327aafdcb610fa8a015adb725acdfd9807083a02e5ff",
+    "docs/sdd/evidence/2026-11-02-pii-surfaces/verification.md": "78e793708b00747f947d3afa86a8bd1977f23b4bcdcae0d8bc00e7315d3446d0",
+    "versions/modules.json": "5e211477b41a2d66cbdecc0151ff058ca886ca8f6e1c70bc1390c609cf725ea3",
+    "versions/changelogs/support_ai.md": "4dff606bcf19e43f3215052069d05fcc58b2a71c71ccfc3b488e85646f4248a4",
+    "versions/README.md": "fad971f11f05fddedaced11c5644c1e6c6595663a1a24d9f8f91d0ec72225000"
+  },
+  "logs_sha256": {
+    ".scratch/pii-surfaces-full.log": "d1189c0198f9880c8811bcab5df68e78fc8a14f1683a1b03a868aa98cc419d79",
+    ".scratch/pii-surfaces-mcp.log": "bc122d945400a95865df6c9daea8146489ee5b5829d33a1c8bb4e46019660dbd"
+  }
+}

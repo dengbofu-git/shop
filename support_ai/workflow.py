@@ -309,7 +309,8 @@ def build_graph(model, knowledge_search=None, tool_factory=None):
         response['turn_action'] = semantic.action
         response['dialogue_state'] = response_state(semantic, response,
             DialogueState.model_validate(state['previous_dialogue_state']))
-        return {'response': response}
+        from .pii import redact_value
+        return {'response': redact_value(response)}
 
     def measured(name, function):
         def run(state):

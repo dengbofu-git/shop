@@ -253,9 +253,10 @@ def commit_turn(user, conversation, revision, request_id, request_hash, message,
         current.active_order_at = timezone.now() if current.active_order_id else None
         fields += ['active_order_id', 'active_order_at']
     current.save(update_fields=fields)
-    result = dict(response, conversation_id=str(current.pk), revision=current.revision, request_id=str(request_id))
+    from .pii import redact_value
+    result = dict(redact_value(response), conversation_id=str(current.pk), revision=current.revision, request_id=str(request_id))
     SupportTurn.objects.create(conversation=current, user=user, request_id=request_id, request_hash=request_hash,
-                               sequence=current.revision, user_text=message, answer=result['answer'],
+                               sequence=current.revision, user_text=redact(message), answer=result['answer'],
                                intent=result['intent'], response=result)
     if order_page is not None:
         from .order_page import publish

@@ -106,7 +106,8 @@ class EventSink:
 
 
 def frame(event,data):
-    return ('event: '+event+'\ndata: '+json.dumps(data,ensure_ascii=False,allow_nan=False)+'\n\n').encode('utf-8')
+    from .pii import redact_value
+    return ('event: '+event+'\ndata: '+json.dumps(redact_value(data),ensure_ascii=False,allow_nan=False)+'\n\n').encode('utf-8')
 
 
 def event_response(request,run):

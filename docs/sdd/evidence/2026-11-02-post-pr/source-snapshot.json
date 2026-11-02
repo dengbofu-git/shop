@@ -1,0 +1,17 @@
+{
+  "base": "591a0ea721414ff33c0c4376282006543b213906",
+  "state": "post-pr-uncommitted",
+  "checks": "2 JavaScript syntax and buyer_support template passed",
+  "sha256": {
+    "client/static/css/buyer-support.css": "d26448e8806d2069e56cb9b5c74f64794de6562f683fb92d7a33a66bc1bb7efc",
+    "client/static/js/buyer-support.js": "8d1e1057e478790e9604021866f7a5f0a2dc37db269a6d12f3c7dfc08aae2685",
+    "client/tests/support-history-menu.test.js": "0af35af9c78bc035e3b46ee43dfaa36df6fcee949a7bbe89f050c32b5be15e72",
+    "client/templates/buyer_support.html": "382f5f3b29d2dbfd7c227bda043541a68c9a8f2751105a3d39a5c002595a61f4",
+    "versions/modules.json": "e476b574d0e98ceb901529c8dc2d2bb471047aecec8186fc477c9e872c19485d",
+    "versions/changelogs/web.md": "570aa0d15ab3552051b20a251f170c62f039ffcbba1b4c623fb9d7f6f76ba29b",
+    "versions/README.md": "ac4a7b8240ee7bffd48f90cb560f2814fbc51cc39fcea40db89d2e0a5ab2814e",
+    "docs/sdd/product/current-state.md": "a7f09edeae5d5ff23de0f8538792cddfe7fee2bdea477ef88ee6cfefabdf5b16",
+    "docs/sdd/modules/ai-support/conversation-history.md": "fbbd5c7d669eaf9c601758d19685ec2a5795c8780377ecfe31113115d8f2acde",
+    "docs/sdd/evidence/2026-11-02-post-pr/verification.md": "c91befb835a7a65035c015dee784836c14a864301bb1dd283663bbeb3eb5926f"
+  }
+}

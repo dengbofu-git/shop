@@ -1,0 +1,15 @@
+{
+  "synthetic_only": true,
+  "sensitive_samples": 11,
+  "public_samples": 12,
+  "results": {
+    "baseline": {
+      "missed_sensitive": 3,
+      "changed_public": 5
+    },
+    "current": {
+      "missed_sensitive": 0,
+      "changed_public": 0
+    }
+  }
+}
