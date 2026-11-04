@@ -107,22 +107,44 @@ class DisposablePostgreSQLFixtureTests(unittest.TestCase):
                     with self.assertRaises(RuntimeError):
                         test_class.setUpClass()
 
-    def test_both_optional_fixture_setups_work_with_mysql_imports_blocked(self):
+    def test_optional_fixture_setup_without_legacy_drivers_or_pdf_renderer(self):
         script = r'''
 import importlib.abc
 import importlib
 import os
 import sys
+from pathlib import Path
+from types import SimpleNamespace
 from unittest.mock import patch
 
-class NoMySQL(importlib.abc.MetaPathFinder):
+# This contract validates setup and PostgreSQL admission, not PDF rendering.
+# Real document integration tests still require the worker PDF dependencies.
+SAMPLE = b'fixture-only document sentinel; not a rendered PDF'
+
+class SamplePdf:
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *args):
+        pass
+
+    def new_page(self, **kwargs):
+        return SimpleNamespace(insert_text=lambda *a, **kw: None,
+                               draw_line=lambda *a, **kw: None)
+
+    def save(self, path):
+        Path(path).write_bytes(SAMPLE)
+
+class NoExternalFixtureDependencies(importlib.abc.MetaPathFinder):
     def find_spec(self, fullname, path=None, target=None):
         if fullname.split('.')[0] in ('MySQLdb', 'pymysql') or fullname.startswith('django.db.backends.mysql'):
             raise ImportError('MySQL dependencies are unavailable')
+        if fullname.split('.')[0] in ('fitz', 'pymupdf'):
+            raise ModuleNotFoundError('Optional PDF renderer is unavailable', name=fullname)
 
-sys.meta_path.insert(0, NoMySQL())
+sys.meta_path.insert(0, NoExternalFixtureDependencies())
 for name in tuple(sys.modules):
-    if name.split('.')[0] in ('MySQLdb', 'pymysql') or name.startswith('django.db.backends.mysql'):
+    if name.split('.')[0] in ('MySQLdb', 'pymysql', 'fitz', 'pymupdf') or name.startswith('django.db.backends.mysql'):
         del sys.modules[name]
 from django.db.backends.base.base import BaseDatabaseWrapper
 with patch.object(BaseDatabaseWrapper, 'connect', side_effect=AssertionError('Real database access forbidden')):
@@ -130,21 +152,26 @@ with patch.object(BaseDatabaseWrapper, 'connect', side_effect=AssertionError('Re
     django.setup()
     from ai_storage.test_pg_fixture_contract import FIXTURES, FixtureConnection, FixtureConnections
     from django.conf import settings
+    initialized = []
     for module_name, class_name, variable, prefix in FIXTURES:
         name = prefix + 'a' * 24
         config = {'ENGINE': 'django.db.backends.postgresql', 'NAME': name}
         test_class = getattr(importlib.import_module(module_name), class_name)
         with patch.dict(os.environ, {variable: name}), \
                 patch.object(settings, 'DATABASES', {'default': config}), \
-                patch('django.db.connections', FixtureConnections(default=FixtureConnection(config))):
+                patch('django.db.connections', FixtureConnections(default=FixtureConnection(config))), \
+                patch.dict(sys.modules, {'fitz': SimpleNamespace(open=SamplePdf)}):
             test_class.setUpClass()
             instance = test_class(methodName='runTest')
             try:
                 instance.setUp()
+                assert instance.source.read_bytes() == SAMPLE
+                initialized.append(class_name)
             finally:
                 instance.doCleanups()
                 if hasattr(test_class, 'server'):
                     test_class.tearDownClass()
+    assert initialized == [definition[1] for definition in FIXTURES]
 '''
         environment = dict(os.environ, DJANGO_SETTINGS_MODULE='tea_saas.settings',
             DJANGO_ENV_FILE=os.devnull, DJANGO_POSTGRES_ENV_FILE=os.devnull,
