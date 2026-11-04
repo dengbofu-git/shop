@@ -13,7 +13,8 @@ class IdentityCaseTests(TestCase):
         UserProfile.objects.create(username='PgCaseUser',password=md5('fixture1'),is_active=True)
 
     def test_case_insensitive_login_returns_the_canonical_cart_identity(self):
-        with patch('users.views.get_redis_connection'):
+        with patch('users.views.get_redis_connection') as redis:
+            redis.return_value.hlen.return_value = 0
             result=self.client.post('/v1/users/login',{'username':'PGCASEUSER','password':'fixture1'},content_type='application/json').json()
         self.assertEqual(result['code'],200)
         self.assertEqual(result['username'],'PgCaseUser')

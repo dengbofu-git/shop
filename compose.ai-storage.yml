@@ -18,11 +18,11 @@ services:
     image: pgvector/pgvector:0.8.7-pg16-bookworm
     restart: unless-stopped
     environment:
-      POSTGRES_DB: ${POSTGRES_NAME:-${AI_POSTGRES_NAME:-tea_saas}}
-      POSTGRES_USER: ${POSTGRES_USER:-${AI_POSTGRES_USER:-tea_saas}}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-${AI_POSTGRES_PASSWORD:?Set PostgreSQL password privately}}
+      POSTGRES_DB: ${POSTGRES_NAME:-tea_saas}
+      POSTGRES_USER: ${POSTGRES_USER:-tea_saas}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set PostgreSQL password privately}
     ports:
-      - "127.0.0.1:${POSTGRES_PORT:-${AI_POSTGRES_PORT:-5433}}:5432"
+      - "127.0.0.1:${POSTGRES_PORT:-5433}:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./deploy/postgres/001-vector.sql:/docker-entrypoint-initdb.d/001-vector.sql:ro

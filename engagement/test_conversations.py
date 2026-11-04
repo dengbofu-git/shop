@@ -89,7 +89,7 @@ class ConversationTests(TestCase):
         self.assertEqual(Conversation.objects.get(pk=b).merchant_read_id, 0)
 
 
-@skipUnless(connection.vendor in ('mysql', 'postgresql'), 'Requires an isolated persistent PostgreSQL/MySQL database')
+@skipUnless(connection.vendor == 'postgresql', 'Requires an isolated persistent PostgreSQL database')
 class ConversationPersistenceTests(TransactionTestCase):
     make_sku = staticmethod(fixtures.EngagementTests.make_sku)
 

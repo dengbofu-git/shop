@@ -1,6 +1,6 @@
 # PostgreSQL 统一存储与 pgvector 知识库
 
-2026-11-02起代码采用单一PostgreSQL/default连接，覆盖用户、商品、交易、库存、客服会话、偏好和知识。Redis与文件存储保持。实际切换状态、保留来源库和验收以[统一数据库规格](sdd/architecture/postgresql-unification.md)及其证据为准；旧日期材料中的双库说明不再是新运行配置。
+2026-11-02起代码采用单一PostgreSQL/default连接，覆盖用户、商品、交易、库存、客服会话、偏好和知识。Redis与文件存储保持。当前架构和验收以[统一数据库规格](sdd/architecture/postgresql-unification.md)及其证据为准。
 
 ## 新环境配置
 
@@ -16,11 +16,11 @@ python manage.py import_middle_east_tea_knowledge
 
 AI App使用ai_storage.database.alias()，统一模式返回default；不注册第二个ai_storage连接。BuyerMemory.owner_id暂保留逻辑引用，不因同库自动新增外键或账号删除级联；迁移必须保留用户ID。
 
-## 已有两库迁移
+## 已有数据迁移与恢复
 
-仅操作员显式legacy模式读取旧DB_*和AI_POSTGRES_*，源驱动在tools/database-transfer-requirements.txt。正式应用依赖不包含MySQL驱动。tools/database_transfer.py提供新目标准备、只读导出、token/基线保护的导入及逐表核验；操作顺序及回退限制见[迁移规格](sdd/architecture/postgresql-unification.md)。不直接把MySQL SQL dump导入PG，不合并旧迁移记录冒充建表完成。
+正式运行模式为`unified`，仅注册PostgreSQL／`default`连接。`tools/database_transfer.py`提供已有归档的新目标准备、token／基线保护导入及逐表核验。历史来源恢复属于隔离维护任务；操作顺序及限制见[迁移规格](sdd/architecture/postgresql-unification.md)。目标库须按当前迁移链建表，再校验原数据，不能直接合并旧迁移记录冒充建表完成。
 
-来源备份、归档、本地环境文件和令牌均含敏感内容，不入Git。保留原库供恢复；新库接收写入后不得仅切换配置回旧库。原生PG备份必须在另一空库实际恢复验证。
+备份、归档、本地环境文件和令牌均含敏感内容，不入Git。数据迁移与恢复的[实际验收](sdd/evidence/2026-11-03-postgresql-independence/verification.md)按批次保存。PostgreSQL接收新写入后，恢复必须核对后续业务增量；原生备份应在另一空库实际恢复验证。
 
 旧SupportPreference表仅作为历史偏好来源保留，transfer_support_preferences不会覆盖现有BuyerMemory或删除旧行；新读写通过确认过的现有偏好API，三层记忆新功能不在本次迁移范围。
 

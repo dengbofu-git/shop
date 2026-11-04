@@ -63,15 +63,16 @@ def evaluate_case(case, response):
 
 
 def main():
-    raise RuntimeError('This frozen 0.5/0.6 comparator predates MCP identity and context contracts. '
-                       'Reproduce it with its historical source snapshot; use run_scenario_suite or '
-                       'PreviewSession for current MCP Agent acceptance. No database or model was called.')
     parser = argparse.ArgumentParser()
     parser.add_argument('--root', default='reports/archive/2026-10-16/agent-evaluation/2026-10-16-planner')
     parser.add_argument('--output', default='paired-run-1.json')
     parser.add_argument('--case-id', action='append')
     parser.add_argument('--expected-database-name', required=True)
+    parser.add_argument('--expected-system-identifier', required=True)
     args = parser.parse_args()
+    raise RuntimeError('This frozen 0.5/0.6 comparator predates MCP identity and context contracts. '
+                       'Reproduce it with its historical source snapshot; use run_scenario_suite or '
+                       'PreviewSession for current MCP Agent acceptance. No database or model was called.')
     root = Path(args.root)
     manifest = json.loads((root / 'baseline-manifest.json').read_text(encoding='utf-8'))
     for path, digest in manifest.items():
@@ -87,10 +88,8 @@ def main():
     from support_ai.retrieval import retrieve_knowledge
     from support_ai.contracts import validate_recommendation_intent
     from support_ai.models import SupportTurn, SupportConversation
-    with connection.cursor() as cursor:
-        cursor.execute('SELECT DATABASE(), @@server_uuid')
-        if cursor.fetchone() != (args.expected_database_name, '6b35ae3b-0afa-11f1-808b-2632d3201c4a'):
-            raise RuntimeError('Wrong MySQL target')
+    from tools.postgresql_identity import require_database_identity
+    require_database_identity(connection, args.expected_database_name, args.expected_system_identifier)
     legacy = load_snapshot('workflow_050', root / 'baseline-source/workflow.py')
     legacy_products = load_snapshot('recommendations_050', root / 'baseline-source/recommendations.py')
     config = AgentConfig(**snapshot['configuration'])

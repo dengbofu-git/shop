@@ -2,6 +2,10 @@
 import json
 import uuid
 
+
+class CartSelectionLimit(ValueError):
+    """The atomic cart snapshot exceeded its explicit selection bound."""
+
 LUA_STATE = r'''
 local function normalize(row, generation)
     local count = tonumber(row.count)
@@ -25,8 +29,18 @@ SNAPSHOT_SCRIPT = LUA_STATE + r'''
 local values = redis.call('HGETALL', KEYS[1])
 local result = {}
 local updates = {}
+local limit = tonumber(ARGV[2] or '0')
+local requested = cjson.decode(ARGV[3] or '{}')
+local filtered = ARGV[4] == '1'
+local selected = 0
 for i=1,#values,2 do
     local row = normalize(cjson.decode(values[i+1]), ARGV[1] .. '-' .. values[i])
+    if row.status == true and (not filtered or requested[values[i]]) then
+        selected = selected + 1
+        if limit > 0 and selected > limit then
+            return cjson.encode({__checkout_limit_exceeded=true})
+        end
+    end
     local encoded = cjson.encode(row)
     table.insert(updates, {values[i],encoded})
     result[values[i]] = encoded
@@ -36,7 +50,7 @@ return cjson.encode(result)
 '''
 
 
-def checkout_snapshot(conn, username):
+def checkout_snapshot(conn, username, max_skus=None, requested=None):
     # Validate legacy values before entering Lua; malformed requests never mutate rows.
     for raw in conn.hgetall('carts_' + username).values():
         row = json.loads(raw)
@@ -45,7 +59,12 @@ def checkout_snapshot(conn, username):
         count = str(row.get('count', ''))
         if not count.isascii() or not count.isdigit() or not 1 <= int(count) <= 999999999:
             raise ValueError('Invalid cart')
-    return json.loads(conn.eval(SNAPSHOT_SCRIPT, 1, 'carts_' + username, uuid.uuid4().hex))
+    selected = {} if requested is None else {str(sid):True for sid in requested}
+    result = json.loads(conn.eval(SNAPSHOT_SCRIPT, 1, 'carts_' + username, uuid.uuid4().hex,
+                                 max_skus or 0, json.dumps(selected), '0' if requested is None else '1'))
+    if result.get('__checkout_limit_exceeded') is True:
+        raise CartSelectionLimit('Checkout selection changed beyond its SKU limit')
+    return result
 
 
 def edit_row(before, after):

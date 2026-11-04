@@ -63,47 +63,40 @@ def build_data(id_list, username, is_all=True):
     return data
 def advance(request, username):
     from .checkout_views import buyer, error_response
-    from .reservations import ReservationError
-    try:user_profile = buyer(request,username)
+    from .reservations import ReservationError, positive
+    from .checkout_limits import cart_selection, checkout_sku_limit, validate_checkout_size
+    from .reservation_policy import STANDARD_RESERVATION_TTL_SECONDS
+    from .checkout_groups import max_unpaid_checkouts
+    from redis.exceptions import RedisError
+    try:
+        user_profile = buyer(request,username)
+        settlement_type = request.GET.get('settlement_type')
+        if settlement_type == '1':
+            sku_id, buy_num = positive(request.GET.get('sku_id')), positive(request.GET.get('buy_num'))
+            items = {sku_id:buy_num}
+        elif settlement_type == '0':
+            conn = get_redis_connection(alias='carts')
+            items, _ = cart_selection(conn.hgetall('carts_'+user_profile.username))
+        else:
+            raise ReservationError('INVALID_SETTLEMENT','结算类型无效',400)
+        validate_checkout_size(items)
+        skus = list(SKU.objects.filter(pk__in=items).select_related('spu').order_by('pk'))
+        if len(skus) != len(items):
+            raise ReservationError('CART_CHANGED','采购车已变化，请返回重新选择',409)
+        addresses = list(Address.objects.filter(user_profile=user_profile,is_delete=False).values(
+            'id','address',name=F('receiver'),mobile=F('receiver_mobile'),title=F('tag')))
+        data = {'addresses':addresses,'reservation_checkout_version':1,
+                'checkout_sku_limit':checkout_sku_limit(),
+                'reservation_ttl_seconds':STANDARD_RESERVATION_TTL_SECONDS,
+                'max_unpaid_checkouts':max_unpaid_checkouts(),
+                'sku_list':[build_single_data(sku,items[sku.pk],True) for sku in skus]}
+        if settlement_type == '1':data.update(sku_id=sku_id,buy_count=buy_num)
+        return JsonResponse({'code':200,'base_url':settings.TEA_SAAS_MEDIA,'data':data})
     except ReservationError as exc:return error_response(exc)
-    settlement_type = request.GET.get('settlement_type')
-    addresses = list(
-        Address.objects.filter(user_profile=user_profile, is_delete=False).values('id', 'address', name=F('receiver'),
-                                                                                  mobile=F('receiver_mobile'),
-                                                                                  title=F('tag')))
-    # 商品详情中的立即购买
-    if settlement_type == '1':
-        sku_id = request.GET.get('sku_id')
-        buy_num = request.GET.get('buy_num')
-        sku_object = SKU.objects.get(id=sku_id)
-        sku_object_dict = build_single_data(sku_object, buy_num, True)
-        context = {
-            'code': 200,
-            'base_url': settings.TEA_SAAS_MEDIA,
-            'data': {
-                'addresses': addresses,
-                'reservation_checkout_version': 1,
-                'sku_list': [sku_object_dict],
-                'sku_id': sku_id,
-                'buy_count': buy_num
-            }
-        }
-    # 购物车中的去结算
-    if settlement_type == '0':
-        cache_key = f'carts_{username}'
-        id_list = get_redis_connection(alias='carts').hkeys(cache_key)
-        sku_list = build_data(id_list, username, False)
-        context = {
-            'code': 200,
-            'base_url': settings.TEA_SAAS_MEDIA,
-            'data': {
-                'addresses': addresses,
-                'reservation_checkout_version': 1,
-                'sku_list': sku_list
-            }
-        }
-
-    return JsonResponse(context)
+    except (ValueError,TypeError,AttributeError):
+        return error_response(ReservationError('INVALID_REQUEST','参数或采购车数据无效',400))
+    except RedisError:
+        return error_response(ReservationError('CART_UNAVAILABLE','采购车暂不可用，请稍后重试',503))
 
 
 class OrdersView(View):

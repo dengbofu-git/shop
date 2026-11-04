@@ -1,37 +1,37 @@
 /* Merchant-only sales facts. Unavailable market data stays in template TODOs. */
 (function (global, factory) {
-    var api = factory();
+    var api = factory(typeof module === 'object' && module.exports ? require('./merchant-sales-scope.js') : global.MerchantSalesScope);
     if (typeof module === 'object' && module.exports) module.exports = api;
     if (global.document) {
         if (global.document.readyState === 'loading') global.document.addEventListener('DOMContentLoaded', function () { api.mount(global); });
         else api.mount(global);
     }
-})(typeof window === 'undefined' ? {} : window, function () {
+})(typeof window === 'undefined' ? {} : window, function (salesScope) {
     'use strict';
     var words = {
         zh: {heading:'销售洞察与数据分析', insight:'本店销售洞察', sales:'我的销售数据', industry:'行业趋势', refresh:'刷新',
             basis:'近365天 · 本店已全额付款商品 · 按下单日期统计 · 人民币，不含运费',
-            top:'热销商品 TOP5（按件数）', price:'成交单价分布（按件数）', monthly:'近6个自然月已付订单', salesTop:'商品销售额 TOP5',
-            priceNote:'按购买件数统计，非茶叶重量。区间含起始价、不含结束价，最后一档无上限。', priceCurrency:'人民币 CNY', priceUnit:'元 / 件', below:'低于 {n}', above:'{n} 及以上', monthlyNote:'当前月截至本次查询时间；各月只统计本店已全额付款订单。',
+            top:'热销商品 TOP5（CNY · 按件数）', price:'成交单价分布（CNY · 按件数）', monthly:'近6个自然月人民币已付订单', salesTop:'商品销售额 TOP5（CNY）',
+            priceNote:'按购买件数统计，非茶叶重量。区间含起始价、不含结束价，最后一档无上限。', priceCurrency:'人民币 CNY', priceUnit:'元 / 件', below:'低于 {n}', above:'{n} 及以上', monthlyNote:'当前月截至本次查询时间；各月仅显示已计入的人民币（CNY）已付订单与金额，0不代表没有历史交易。年度排除数量不代表各月排除数量。',
             industryMissing:'暂无已接入、可核验的行业数据。', unavailable:'口感偏好、地区销售、行业出口、竞品和政策数据尚未接入。',
             loading:'正在加载销售数据…', failed:'销售数据加载失败，请刷新重试。', login:'登录已过期，请重新登录。', forbidden:'需要商家账号。', empty:'暂无已付商品记录',
-            quantity:'{n}件', month:'月份', orders:'已付订单数', amount:'销售额（CNY）', summary:'本期 {orders} 笔已付订单，共 {quantity} 件商品',
+            quantity:'{n}件', month:'月份', orders:'已计入订单数（CNY）', amount:'已计入金额（CNY）', summary:'本期已计入 {orders} 笔人民币（CNY）已付订单，共 {quantity} 件商品',
             updated:'更新于 {time}', excluded:'有 {n} 条非正数量或负单价明细未计入价格分布。'},
         en: {heading:'Sales insights and analysis', insight:'My store insights', sales:'My sales', industry:'Industry trends', refresh:'Refresh',
             basis:'Past 365 days · Fully paid store items · By order creation date · CNY, excluding freight',
-            top:'Top 5 products by units', price:'Paid unit price distribution', monthly:'Paid orders over 6 calendar months', salesTop:'Top 5 products by revenue',
-            priceNote:'Weighted by purchased units, not tea weight. Ranges include the lower bound and exclude the upper; the final range has no ceiling.', priceCurrency:'Chinese yuan · CNY', priceUnit:'CNY / unit', below:'Below {n}', above:'{n} and above', monthlyNote:'The current month ends at this query. Fully paid store orders only.',
+            top:'Top 5 CNY products by units', price:'Paid CNY unit price distribution', monthly:'Paid CNY orders over 6 calendar months', salesTop:'Top 5 products by CNY revenue',
+            priceNote:'Weighted by purchased units, not tea weight. Ranges include the lower bound and exclude the upper; the final range has no ceiling.', priceCurrency:'Chinese yuan · CNY', priceUnit:'CNY / unit', below:'Below {n}', above:'{n} and above', monthlyNote:'The current month ends at this query. Only included paid CNY orders and amounts are shown; 0 does not mean no transaction history. Annual exclusions do not describe individual months.',
             industryMissing:'No verified industry source is connected yet.', unavailable:'Taste preferences, regional sales, exports, competitors and policy data are not connected.',
             loading:'Loading sales data…', failed:'Could not load sales data. Please retry.', login:'Please sign in again.', forbidden:'Merchant account required.', empty:'No paid items in this period',
-            quantity:'{n} units', month:'Month', orders:'Paid orders', amount:'Sales (CNY)', summary:'{orders} paid orders and {quantity} purchased units in this period',
+            quantity:'{n} units', month:'Month', orders:'Included orders (CNY)', amount:'Included amount (CNY)', summary:'{orders} included paid CNY orders and {quantity} purchased units in this period',
             updated:'Updated {time}', excluded:'{n} lines with non-positive quantities or negative prices are excluded from price distribution.'},
         ar: {heading:'رؤى المبيعات وتحليل البيانات', insight:'رؤى متجري', sales:'مبيعاتي', industry:'اتجاهات القطاع', refresh:'تحديث',
             basis:'آخر 365 يوماً · منتجات متجرك المدفوعة بالكامل · حسب تاريخ إنشاء الطلب · باليوان دون الشحن',
-            top:'أفضل 5 منتجات حسب الكمية', price:'توزيع سعر الوحدة المدفوع', monthly:'الطلبات المدفوعة خلال 6 أشهر تقويمية', salesTop:'أفضل 5 منتجات حسب المبيعات',
-            priceNote:'حسب عدد الوحدات وليس وزن الشاي. يشمل النطاق الحد الأدنى ويستثني الأعلى؛ الفئة الأخيرة بلا حد أعلى.', priceCurrency:'اليوان الصيني · CNY', priceUnit:'CNY / وحدة', below:'أقل من {n}', above:'{n} فأكثر', monthlyNote:'الشهر الحالي حتى وقت الاستعلام. طلبات متجرك المدفوعة بالكامل فقط.',
+            top:'أفضل 5 منتجات CNY حسب الكمية', price:'توزيع سعر الوحدة المدفوع CNY', monthly:'طلبات CNY المدفوعة خلال 6 أشهر تقويمية', salesTop:'أفضل 5 منتجات حسب مبيعات CNY',
+            priceNote:'حسب عدد الوحدات وليس وزن الشاي. يشمل النطاق الحد الأدنى ويستثني الأعلى؛ الفئة الأخيرة بلا حد أعلى.', priceCurrency:'اليوان الصيني · CNY', priceUnit:'CNY / وحدة', below:'أقل من {n}', above:'{n} فأكثر', monthlyNote:'الشهر الحالي حتى وقت الاستعلام. تُعرض طلبات ومبالغ CNY المدفوعة المدرجة فقط؛ 0 لا يعني عدم وجود تاريخ معاملات. الاستبعادات السنوية لا تصف كل شهر.',
             industryMissing:'لم يتم ربط مصدر موثق لبيانات القطاع بعد.', unavailable:'لم يتم ربط تفضيلات المذاق أو المبيعات الإقليمية أو التصدير أو المنافسين أو السياسات.',
             loading:'جارٍ تحميل بيانات المبيعات…', failed:'تعذر تحميل بيانات المبيعات. يرجى المحاولة مجدداً.', login:'يرجى تسجيل الدخول مجدداً.', forbidden:'يلزم حساب تاجر.', empty:'لا توجد منتجات مدفوعة في هذه الفترة',
-            quantity:'{n} وحدة', month:'الشهر', orders:'الطلبات المدفوعة', amount:'المبيعات (CNY)', summary:'{orders} طلبات مدفوعة و{quantity} وحدة مشتراة خلال الفترة',
+            quantity:'{n} وحدة', month:'الشهر', orders:'الطلبات المدرجة (CNY)', amount:'المبلغ المدرج (CNY)', summary:'{orders} طلبات CNY مدفوعة مدرجة و{quantity} وحدة مشتراة خلال الفترة',
             updated:'تم التحديث {time}', excluded:'تم استبعاد {n} سجلات بكميات غير موجبة أو أسعار سالبة من توزيع الأسعار.'}
     };
     var ranges = {'under_80':[null,80], '80_to_120':[80,120], '120_to_280':[120,280], '280_plus':[280,null]};
@@ -91,18 +91,18 @@
         track.setAttribute('aria-hidden','true'); fill.style.width = Math.max(0,Math.min(100,percent || 0)) + '%';
         track.append(fill); row.append(label,track,element(doc,'span',value,'insight-value')); return row;
     }
-    function renderProducts(doc, target, products, language, byAmount) {
+    function renderProducts(doc, target, products, language, byAmount, emptyText) {
         target.replaceChildren(); var t = words[language] || words.zh;
-        if (!products.length) { target.append(element(doc,'li',t.empty,'insight-empty')); return; }
+        if (!products.length) { target.append(element(doc,'li',emptyText || t.empty,'insight-empty')); return; }
         var key = byAmount ? 'amount' : 'quantity';
         var maximum = Math.max.apply(null, products.map(function (row) {return Number(row[key]);}));
         products.forEach(function (row) {
             target.append(bar(doc,row.name,byAmount ? currency(row.amount,language) : t.quantity.replace('{n}',number(row.quantity,language)),width(Number(row[key]),maximum)));
         });
     }
-    function renderPrices(doc, target, distribution, language) {
+    function renderPrices(doc, target, distribution, language, emptyText) {
         target.replaceChildren(); var t = words[language] || words.zh;
-        if (!distribution.quantity) { target.append(element(doc,'li',t.empty,'insight-empty')); return; }
+        if (!distribution.quantity) { target.append(element(doc,'li',emptyText || t.empty,'insight-empty')); return; }
         distribution.buckets.forEach(function (row) {
             var bounds = ranges[row.code];
             var label = bounds[0] === null ? t.below.replace('{n}',number(bounds[1],language))
@@ -153,19 +153,22 @@
             state = next; var language = doc.documentElement.lang.split('-')[0], t = words[language] || words.zh;
             root.querySelectorAll('[data-insight-text]').forEach(function (node) {node.textContent = t[node.dataset.insightText];});
             var ready = state.status === 'ready' && state.token === token(), data = ready ? state.data : null;
+            var scope = data ? salesScope.describe(data.sales_scope,language,data.totals.paid_orders) : null;
             root.setAttribute('aria-busy',String(state.status === 'loading'));
             ['insights-top-products','insights-price-list','insights-sales-top'].forEach(function (id) {doc.getElementById(id).replaceChildren();});
             doc.getElementById('insights-months').replaceChildren();
             var status = doc.getElementById('insights-status');
             status.textContent = data ? t.updated.replace('{time}',new Date(data.generated_at).toLocaleString(locale(language))) : t[state.status === 'loading' ? 'loading' : state.reason || 'failed'];
             var summary = doc.getElementById('insights-summary'); summary.textContent = data ? t.summary.replace('{orders}',number(data.totals.paid_orders,language)).replace('{quantity}',number(data.totals.quantity,language)) : '';
+            var scopeStatus = doc.getElementById('insights-scope-status');
+            scopeStatus.textContent = scope ? scope.message : ''; scopeStatus.hidden = !scope || !scope.message;
             var excluded = doc.getElementById('insights-excluded'); excluded.hidden = !(data && data.price_distribution.excluded_lines);
             excluded.textContent = data ? t.excluded.replace('{n}',data.price_distribution.excluded_lines) : '';
             root.querySelectorAll('[data-insight-data]').forEach(function (node) {node.hidden = !data;});
             if (!data) return;
-            renderProducts(doc,doc.getElementById('insights-top-products'),data.top_products,language,false);
-            renderProducts(doc,doc.getElementById('insights-sales-top'),data.sales_top_products,language,true);
-            renderPrices(doc,doc.getElementById('insights-price-list'),data.price_distribution,language);
+            renderProducts(doc,doc.getElementById('insights-top-products'),data.top_products,language,false,scope.empty);
+            renderProducts(doc,doc.getElementById('insights-sales-top'),data.sales_top_products,language,true,scope.empty);
+            renderPrices(doc,doc.getElementById('insights-price-list'),data.price_distribution,language,scope.empty);
             renderMonths(doc,doc.getElementById('insights-months'),data.monthly,language);
         }
         var controller = createController({token:token,onState:render,request:async function (auth) {

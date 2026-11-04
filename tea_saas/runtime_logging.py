@@ -15,7 +15,7 @@ request_context = ContextVar('tea_saas_http_log_context', default=None)
 EVENTS = frozenset({
     'http.request.completed', 'application.log', 'runtime.log.failed', 'runtime.warning',
     'users.registration.succeeded', 'users.registration.failed', 'users.login.succeeded',
-    'users.login.failed',
+    'users.login.failed', 'users.login.cart_count_unavailable',
     'orders.receipt.requested', 'orders.receipt.invalid_json', 'orders.receipt.validated',
     'orders.receipt.not_found', 'orders.delete.failed',
     'support.storage.failed', 'support.workflow.failed', 'support.planning.unavailable',

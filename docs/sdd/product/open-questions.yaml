@@ -34,7 +34,7 @@ questions:
   remainingScope: 完整交易生命周期仍未确认；私有位置映射设计、访问与清理转入Q-011/Q-013，不以分页存在证明序号追问完成。
 - id: Q-003
   status: resolved
-  question: 外人或不存在订单采用什么统一提示；模型、MySQL、偏好 PostgreSQL 不可用时如何响应及保留会话？
+  question: 外人或不存在订单采用什么统一提示；模型、统一 PostgreSQL、Redis 不可用时如何响应及保留会话？
   affectedCapabilities:
   - CAP-AI-003
   affectsWork: 对应切片的业务规则确认；不阻断无关维护
@@ -79,7 +79,7 @@ questions:
   - CAP-MER-001
   affectsWork: 对应切片的业务规则确认；不阻断无关维护
   decisionOwner: dengbofu
-  recommendation: 按库存预留现行规格执行，区别原子预留、释放、可信付款扣减和历史订单兼容；在隔离MySQL验证。
+  recommendation: 按库存预留现行规格执行，区别原子预留、释放、可信付款扣减和历史订单兼容；在隔离PostgreSQL验证。
   resolveWith: 库存事件表、状态转换和并发示例。
   observedEvidence: 当前有预留、释放、扣减和幂等源码；本轮未运行并发／当前数据库启用验证。
   resolution:

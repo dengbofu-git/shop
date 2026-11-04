@@ -33,7 +33,7 @@ testScope:
   - AC-AI-003-09
   - AC-AI-003-12
   - AC-AI-003-15
-  work: 隔离MySQL/PostgreSQL/Redis，验证真实锁、必要及可选依赖故障、完整／部分提交及重放
+  work: 隔离PostgreSQL/default及Redis，使用tea_saas.pg_test_settings及显式临时PG端口／凭据，验证真实锁、必要及可选依赖故障、完整／部分提交及重放
   result: not-executed
   blockedBy:
   - Q-011

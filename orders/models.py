@@ -244,3 +244,26 @@ class ReservationPolicyChange(models.Model):
     after = models.JSONField(default=dict)
     reason = models.CharField(max_length=200)
     effective_at = models.DateTimeField(auto_now_add=True)
+
+
+class ReservationRiskEvent(models.Model):
+    """Append-only release evidence; split orders share a checkout group."""
+    user = models.ForeignKey(UserProfile, on_delete=models.PROTECT)
+    group_key = models.CharField(max_length=80)
+    kind = models.CharField(max_length=12, choices=[('timeout', '超时释放'), ('cancel', '买家取消')])
+    occurred_at = models.DateTimeField()
+    trigger_order = models.ForeignKey(OrderInfo, on_delete=models.PROTECT)
+    checkout = models.ForeignKey(CheckoutRequest, null=True, blank=True, on_delete=models.PROTECT)
+
+    class Meta:
+        constraints = [models.UniqueConstraint(fields=['user', 'group_key', 'kind'], name='reservation_risk_group_kind')]
+        indexes = [models.Index(fields=['user', 'kind', 'occurred_at'], name='reservation_risk_window')]
+
+
+class ReservationRiskState(models.Model):
+    user = models.OneToOneField(UserProfile, primary_key=True, on_delete=models.PROTECT)
+    cooldown_until = models.DateTimeField(null=True, blank=True)
+    cooldown_kind = models.CharField(max_length=12, blank=True, default='')
+    timeout_cursor = models.PositiveBigIntegerField(default=0)
+    cancel_cursor = models.PositiveBigIntegerField(default=0)
+    last_cancel_cooldown_at = models.DateTimeField(null=True, blank=True)

@@ -35,7 +35,7 @@ class UnifiedLoginTests(TestCase):
     def login(self, user, **extra):
         # The cart store is irrelevant to permission routing; never connect to Redis.
         with patch('users.views.get_redis_connection') as redis:
-            redis.return_value.get.return_value = None
+            redis.return_value.hlen.return_value = 0
             return self.client.post('/v1/users/login', {
                 'username': user.username, 'password': 'test-only-123', **extra,
             }, content_type='application/json').json()

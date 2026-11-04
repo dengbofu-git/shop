@@ -68,7 +68,7 @@ class CartCleanupTests(Fixtures, TestCase):
         process_task(task.pk,self.redis)
         self.assertEqual(self.row()['count'],2)
 
-    def test_crash_after_redis_before_mysql_ack_is_safe(self):
+    def test_crash_after_redis_before_database_ack_is_safe(self):
         order, task = self.place()
         self.add(2)
         with self.assertRaises(RuntimeError):

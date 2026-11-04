@@ -59,41 +59,6 @@ def resident_service(root, scratch):
 
 
 @contextmanager
-def mysql_database():
-    """A new labelled container, existing image only, no mounts or business credentials."""
-    import MySQLdb
-    nonce = uuid.uuid4().hex[:12]
-    name = 'tea-saas-mcp-test-' + nonce
-    password = uuid.uuid4().hex
-    environment = dict(os.environ, MYSQL_PASSWORD=password, MYSQL_ROOT_PASSWORD=uuid.uuid4().hex)
-    result = subprocess.run(['docker','run','--rm','--detach','--pull=never','--name',name,
-        '--label','tea-saas-mcp-fixture='+nonce,'--publish','127.0.0.1::3306',
-        '--env','MYSQL_ROOT_PASSWORD','--env','MYSQL_PASSWORD','--env','MYSQL_DATABASE=test_mcp',
-        '--env','MYSQL_USER=mcp_fixture','mysql:8.0.46'],env=environment,capture_output=True,check=True)
-    container_id = result.stdout.decode().strip()
-    try:
-        state = json.loads(subprocess.check_output(['docker','inspect',container_id]))[0]
-        assert state['Config']['Labels']['tea-saas-mcp-fixture'] == nonce
-        port = int(state['NetworkSettings']['Ports']['3306/tcp'][0]['HostPort'])
-        deadline = time.monotonic() + 60
-        while True:
-            try:
-                connection = MySQLdb.connect(host='127.0.0.1',port=port,user='mcp_fixture',passwd=password,
-                                             db='test_mcp',connect_timeout=2)
-                connection.close()
-                break
-            except MySQLdb.Error:
-                if time.monotonic() >= deadline:
-                    raise RuntimeError('Disposable MySQL did not become ready') from None
-                time.sleep(1)
-        yield port, password
-    finally:
-        state = json.loads(subprocess.check_output(['docker','inspect',container_id]))[0]
-        assert state['Config']['Labels']['tea-saas-mcp-fixture'] == nonce and state['Name'] == '/' + name
-        subprocess.run(['docker','rm','--force','--volumes',container_id],capture_output=True,check=True)
-
-
-@contextmanager
 def postgres_database(database):
     import re
     import psycopg2
@@ -120,15 +85,12 @@ def run():
     import argparse
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--postgres', action='store_true')
-    parser.add_argument('--mysql', action='store_true')
     parser.add_argument('--unified-postgres', action='store_true', help='One disposable PostgreSQL for business and AI')
     parser.add_argument('--profile-output',type=Path,help='Write content-free cold/reused-session timing evidence')
     parser.add_argument('--local-models',action='store_true',help='Use loopback Ollama/reranker with synthetic knowledge only')
     parser.add_argument('--resident',action='store_true',help='Prewarm the independent MCP HTTP service')
     arguments = parser.parse_args()
     if arguments.unified_postgres:
-        if arguments.mysql:
-            parser.error('--unified-postgres cannot be combined with --mysql')
         arguments.postgres = True
     if arguments.local_models and (not arguments.postgres or not arguments.profile_output):
         parser.error('--local-models requires --postgres and --profile-output')
@@ -149,11 +111,6 @@ def run():
             SUPPORT_API_KEY='', SUPPORT_RAG_RETRY_ENABLED='false', SUPPORT_RAG_REWRITE_CALLS='0')
         if not arguments.local_models:
             os.environ['AI_OLLAMA_BASE_URL']='http://127.0.0.1:1'
-        mysql_port = None
-        if arguments.mysql:
-            mysql_port, mysql_password = resources.enter_context(mysql_database())
-            os.environ.update(TEA_SAAS_MCP_TEST_MYSQL_PORT=str(mysql_port),
-                              TEA_SAAS_MCP_TEST_MYSQL_PASSWORD=mysql_password)
         if arguments.postgres:
             os.environ.update(DJANGO_SETTINGS_MODULE='tools.tea_saas_mcp.agent_pg_test_settings',
                               TEA_SAAS_MCP_TEST_PG='test_mcp_' + uuid.uuid4().hex[:12])
@@ -175,9 +132,6 @@ def run():
             if arguments.unified_postgres:
                 assert alias == 'default' and database['ENGINE'] == 'django.db.backends.postgresql'
                 assert database['NAME'] == os.environ['TEA_SAAS_MCP_TEST_PG']
-            elif alias == 'default' and arguments.mysql:
-                assert database['ENGINE'] == 'django.db.backends.mysql' and database['NAME'] == 'test_mcp'
-                assert database['PORT'] == mysql_port and database['USER'] == 'mcp_fixture'
             elif alias == 'ai_storage' and arguments.postgres:
                 assert database['NAME'] == os.environ['TEA_SAAS_MCP_TEST_PG']
             else:
@@ -361,7 +315,7 @@ def run():
         connections.close_all()
         summary = {'status':'passed','checks':count,
                    'databases':('disposable unified PostgreSQL' if arguments.unified_postgres else
-                                ('disposable MySQL' if arguments.mysql else 'disposable SQLite') + (' + PostgreSQL' if arguments.postgres else ' + SQLite knowledge')),
+                                'disposable SQLite' + (' + PostgreSQL' if arguments.postgres else ' + SQLite knowledge')),
                    'transport':('resident HTTP MCP SDK -> prewarmed Django pool' if arguments.resident else
                                 'real stdio MCP SDK -> persistent Django backend'),'provider_calls':0}
     print(json.dumps(dict(summary, cleanup='completed')))

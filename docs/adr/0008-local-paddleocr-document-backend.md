@@ -22,4 +22,4 @@ page-ir-v1 保存来源块、顺序、提取方式和去旋转 PDF points 坐标
 
 ## 验证与启用
 
-实际协议、隔离 PostgreSQL、真实本地 OCR/Embedding 结果见 ../sdd/evidence/2026-10-28-paddleocr-stage1/verification.md。业务 MySQL 连接检查被自动审批拒绝；未用其他路径绕过。对应业务身份验收和业务 Worker 启用与隔离验证分别报告。
+实际协议、隔离 PostgreSQL、真实本地 OCR/Embedding 结果见 ../sdd/evidence/2026-10-28-paddleocr-stage1/verification.md。当时业务数据库连接检查被自动审批拒绝；未用其他路径绕过。对应业务身份验收和业务 Worker 启用与隔离验证分别报告。

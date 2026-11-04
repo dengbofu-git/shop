@@ -43,8 +43,9 @@ class CurrencySnapshotTests(TestCase):
 class CurrencyMigrationTests(TransactionTestCase):
     def test_nullable_migration_does_not_infer_historical_currency(self):
         executor=MigrationExecutor(connection)
-        executor.migrate([('orders','0006_cartcleanuptask')])
+        restore_targets=executor.loader.graph.leaf_nodes()
         try:
+            executor.migrate([('orders','0006_cartcleanuptask')])
             apps=executor.loader.project_state([('orders','0006_cartcleanuptask')]).apps
             user=apps.get_model('users','UserProfile').objects.create(username='oldcurrency',is_active=True)
             apps.get_model('orders','OrderInfo').objects.create(order_id='HISTORICAL-CURRENCY',user_profile_id=user.pk,
@@ -64,4 +65,6 @@ class CurrencyMigrationTests(TransactionTestCase):
             self.assertIsNone(old_item.currency)
             self.assertEqual(old_item.price,Decimal('11.22'))
         finally:
-            MigrationExecutor(connection).migrate([('orders','0007_order_currency_snapshot')])
+            # Restore the schema that the suite started with, including any
+            # migrations added after the currency behavior under test.
+            MigrationExecutor(connection).migrate(restore_targets)

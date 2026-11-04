@@ -47,7 +47,7 @@ x-request-semantics:
   replayOrder: 已有成功重放先于会话revision、偏好库和新订单读取；仍重新认证当前买家，不承诺刷新订单状态。
   legacyPrivacy: 完整／部分成功重放和历史使用确定性安全投影，不刷新业务状态或重排历史页。
   unsuccessful: 没有可提交业务结果的404/503不写成功轮次；部分完成HTTP200按一轮原子提交真实任务状态，失败订单不建立成功事实或所选绑定。
-  concurrency: 最终commit在MySQL事务中锁用户和会话并再次核对；并发相同成功请求回放，其他过期提交409。
+  concurrency: 最终commit在PostgreSQL/default事务中锁用户和会话并再次核对；并发相同成功请求回放，其他过期提交409。
 x-application-results:
   empty:
     condition: 应用可本地确认仅为订单查询，没有明确编号且本人没有订单

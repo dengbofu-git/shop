@@ -10,6 +10,8 @@
 #merchant-overview .metric-label { margin-top: 8px; font-size: 13px; color: var(--color-text-secondary); }
 #merchant-overview .metric-meta { font-size: 12px; line-height: 1.65; margin-top: 2px; }
 #merchant-overview .overview-note { margin: 16px 0 0; color: var(--muted); font-size: 12px; line-height: 1.7; }
+#merchant-overview .overview-scope-status { margin: 14px 0 0; padding: 12px 16px; border-inline-start: 3px solid #9b741b; border-radius: 6px; background: #faf5e8; color: #70551d; font-size: 13px; line-height: 1.8; overflow-wrap: anywhere; unicode-bidi: plaintext; }
+#merchant-overview[data-financial-state="unavailable"] #overview-sales, #merchant-overview[data-financial-state="unavailable"] #overview-average { font-size: clamp(18px, 1.6vw, 24px); }
 #merchant-overview .overview-feedback { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
 #merchant-overview .overview-feedback p { margin: 12px 0 0; color: var(--muted); font-size: 13px; }
 #merchant-overview #overview-retry { border: 1px solid var(--border); background: #fff; color: var(--green); border-radius: 8px; padding: 7px 14px; margin-top: 12px; cursor: pointer; }

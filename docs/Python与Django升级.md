@@ -21,17 +21,17 @@ uv pip install --python .venv/Scripts/python.exe -r requirements.txt
 
 ## 兼容调整与边界
 
-- MySQL 使用原生 mysqlclient 2.3.0，移除 PyMySQL 的 MySQLdb 替换；连接地址、库名、字符集和业务金额不改动，不伪造驱动版本。
+- 正式运行统一使用PostgreSQL／`default`及其驱动，应用和Worker共用同一存储边界。数据库范围及验证见[PG-only证据](sdd/evidence/2026-11-03-postgresql-independence/verification.md)。
 - django-cors-headers、django-redis、PyJWT、requests、Pillow 与 greenlet 使用锁定的兼容版本。OTel 仍为 1.41.1；AI 主框架及 OpenAI、Pydantic、LangSmith 等既有配套基线固定在约束文件。
 - 删除已经移除的 `USE_L10N` 设置；订单日期范围改用 `ZoneInfo('Asia/Shanghai')`，仍按北京时间起日包含、终日次日零点排除计算。
 - 隔离数据库设置先复制字典再覆盖连接，避免测试发现阶段污染其他测试／请求的数据库配置。NumPy 原生扩展在模拟模块清理前导入，避免 Python 3.13 重复导入错误。
 - 保留全部历史 Migration。Django 5.2 仍兼容历史 `CheckConstraint(check=...)`；迁移到未来不支持该参数的版本前需另行评估，不能改写历史文件。
-- 不更新 MySQL、PostgreSQL、Redis 引擎；不更新嵌入、重排序、OCR、AI SDK 主版本或前端框架，不重建向量索引，不更改页面结构及接口业务规则。
-- MCP SDK 仍在独立 Python 3.12 环境，Django 桥接子进程使用应用的 Python 3.13 解释器。
+- 框架升级本身不更新PostgreSQL、Redis引擎；不更新嵌入、重排序、OCR、AI SDK主版本或前端框架，不重建向量索引，不更改页面结构及接口业务规则。
+- MCP SDK在独立Python3.13环境，Django桥接子进程也使用应用的Python3.13解释器；依赖清单分别安装。
 
 ## Worker 与验证
 
-知识库 Worker 使用 Python 3.13 Bookworm 基础镜像，增加 mysqlclient 编译所需的系统依赖，共用同一约束文件。Worker 配置变更不等于容器已重新构建并启用。原 OCR、重排序和 Ollama 容器保持独立版本。
+知识库Worker使用Python3.13 Bookworm基础镜像和PostgreSQL驱动，共用同一约束文件。Worker 配置变更不等于容器已重新构建并启用。原 OCR、重排序和 Ollama 容器保持独立版本。
 
 ```powershell
 docker compose -f compose.knowledge-worker.yml build knowledge-worker
@@ -41,7 +41,7 @@ docker compose -f compose.knowledge-worker.yml build knowledge-worker
 
 配置检查与迁移差异检查不能替代业务回归。最低验证包括登录和权限、商品与采购车、库存预留与幂等下单、可信支付回调、订单查询、客服多轮、总价搭配、真实本地 MCP 传输、知识检索，以及页面和静态资源。真实模型调用另行核对当次授权。
 
-本轮验证记录见 [升级证据](sdd/evidence/2026-10-28-python-django-upgrade/verification.md)。MySQL 与 PostgreSQL 使用隔离库跑迁移链及回归；业务库只读检查。商品导入等其他任务留下的待执行迁移不由此次框架升级自动启用。
+历史升级测试的具体环境、通过项和限制保存在[升级证据](sdd/evidence/2026-10-28-python-django-upgrade/verification.md)，不把旧环境结果改记为当前PostgreSQL通过。商品导入等其他任务留下的待执行迁移不由框架升级自动启用。
 
 ## 回退
 

@@ -38,7 +38,7 @@
 - 多个近期订单没有唯一指代时由售后节点要求明确对象。当前不支持仅按上轮近期订单列表的“第二个”自动绑定订单。
 - 旧会话在迁移后没有预设订单引用，需要用户再次明确选择。
 
-部署时在原 MySQL 执行增量迁移：`python manage.py migrate support_ai --database default`。迁移仅增加字段，不删除原会话和问答。
+部署时先核对统一PostgreSQL的迁移计划，经备份与独立授权后执行增量迁移：`python manage.py migrate support_ai --database default`。迁移仅增加字段，不删除原会话和问答。
 
 ## 监控
 

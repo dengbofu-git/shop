@@ -40,12 +40,25 @@ def main():
     if args.check:
         call_command('check')
         from django.db import connections
+        from django.db.migrations.executor import MigrationExecutor
         for alias in connections:
-            with connections[alias].cursor() as cursor:
-                cursor.execute('SELECT 1')
-                assert cursor.fetchone()[0] == 1
-            connections[alias].close()
-        print('Python 3.13 / Django 5.2 checks and database connectivity passed.', flush=True)
+            connection = connections[alias]
+            try:
+                with connection.cursor() as cursor:
+                    cursor.execute('SELECT 1')
+                    assert cursor.fetchone()[0] == 1
+                executor = MigrationExecutor(connection)
+                executor.loader.check_consistent_history(connection)
+                plan = executor.migration_plan(executor.loader.graph.leaf_nodes())
+                if plan:
+                    pending = ', '.join(f'{migration.app_label}.{migration.name}' for migration, _ in plan)
+                    raise RuntimeError(
+                        f'Database {alias} has unapplied migrations: {pending}. '
+                        'Runtime preflight is read-only; apply reviewed migrations separately before restart.'
+                    )
+            finally:
+                connection.close()
+        print('Python 3.13 / Django 5.2 checks, database connectivity and migration readiness passed.', flush=True)
     else:
         call_command('run_support_backend', addrport=args.addrport,
                      mcp_port=args.mcp_port, mcp_workers=args.mcp_workers)

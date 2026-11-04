@@ -36,7 +36,7 @@ content 字段：name、summary、welcome、story、logo_url、banner_url、feat
 
 supplier 拥有 StorePage、迁移、校验、管理／公开 API；goods 的公开商品投影增加 merchant 摘要并预加载关系；web 拥有两页、共享渲染及现有卡片／侧栏的精确增量；core 注册页面和公开 API 路由。goods 增加 supplier 读取依赖，supplier 仍依赖 goods 可售事实；无服务拆分、跨库事务或模块导入时互相执行服务。
 
-新增 `supplier/migrations/0002_storepage.py`，只创建 StorePage 表及商家一对一关联，不回填现有商家或改写商品／订单。必须先应用新增迁移再加载新服务代码，goods 商品查询也会预加载店铺表。先在隔离 MySQL 测试库验证；业务数据库迁移及服务部署须另行授权。回滚服务前应协调停止页面写入，保留该新增表以防草稿丢失，不自动逆迁移。
+新增 `supplier/migrations/0002_storepage.py`，只创建 StorePage 表及商家一对一关联，不回填现有商家或改写商品／订单。必须先应用新增迁移再加载新服务代码，goods 商品查询也会预加载店铺表。先在隔离PostgreSQL测试库的default连接验证；业务数据库迁移及服务部署须另行授权。回滚服务前应协调停止页面写入，保留该新增表以防草稿丢失，不自动逆迁移。
 
 ## 可观察验收
 

@@ -67,11 +67,6 @@ jobs:
     env:
       DJANGO_SECRET_KEY: ci-synthetic-runtime-tests-only
       JWT_SECRET_KEY: ci-synthetic-jwt-runtime-tests-only
-      DB_USER: unused_fixture
-      DB_PASSWORD: unused_fixture
-      DB_HOST: 127.0.0.1
-      DB_PORT: '3306'
-      DB_NAME: unused_fixture
       TEA_SAAS_PG_TEST_PORT: '5432'
       TEA_SAAS_PG_TEST_PASSWORD: ci-synthetic-postgresql-only
       CART_TEST_REDIS_URL: redis://127.0.0.1:6379/2
@@ -102,5 +97,7 @@ jobs:
         run: |
           python manage.py check --settings=tea_saas.pg_test_settings
           python manage.py makemigrations --check --dry-run --settings=tea_saas.pg_test_settings
+      - name: PostgreSQL-only configuration and operator contracts
+        run: python -m unittest tools.tests.test_database_config tools.tests.test_pg_only_entrypoints tools.tests.test_postgresql_identity -v
       - name: Synthetic business and Agent regressions
         run: python manage.py test orders inventory pays carts goods supplier engagement users support_ai ai_storage logistics --settings=tea_saas.pg_test_settings --noinput

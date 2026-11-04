@@ -228,7 +228,9 @@ class RequestLoggingTests(SimpleTestCase):
         self.assertEqual(row['outcome'], 'business_error')
 
     def test_unhandled_exception_stack_is_recorded_once_and_context_is_cleared(self):
-        with captured_root() as stream:
+        # Keep the generated request ID from randomly matching the synthetic OTP.
+        with captured_root() as stream, patch('tea_saas.request_logging.uuid.uuid4',
+                                              return_value=SimpleNamespace(hex='e' * 32)):
             response = Client(raise_request_exception=False).get('/failed')
         rows = list(map(json.loads, stream.getvalue().splitlines()))
         stacks = [row for row in rows if row.get('stack')]

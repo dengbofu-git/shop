@@ -9,12 +9,12 @@
     <link href="../static/css/merchant_workbench.css" rel="stylesheet">
     <link href="../static/css/supplier-workbench.css?v=20261018-search-layout" rel="stylesheet">
     <link href="../static/css/merchant-workbench-feed.css?v=20261022" rel="stylesheet">
-    <link href="../static/css/merchant-insights.css?v=20261029-unified" rel="stylesheet">
+    <link href="../static/css/merchant-insights.css?v=20261103-sales-scope" rel="stylesheet">
     <script src="../static/js/init.js"></script>
     <script src="../static/js/auth-storage.js?v=20261018-session-isolation"></script>
     <script src="../static/js/jquery-3.1.1.min.js"></script>
 {% include "shared/system_theme.html" %}
-    <link href="../static/css/merchant-overview.css?v=20261022-zones" rel="stylesheet">
+    <link href="../static/css/merchant-overview.css?v=20261103-sales-scope" rel="stylesheet">
 </head>
 <body class="ds-page-merchant_dashboard ds-theme merchant-body supplier-workbench" data-eng-role="merchant">
     <div class="supplier-layout">
@@ -130,25 +130,25 @@
                         <div class="metric-icon" aria-hidden="true">¥</div>
                         <div class="metric-body">
                             <div class="metric-value" id="overview-sales">—</div>
-                            <div class="metric-label" data-overview-text="sales">已付销售额</div>
+                            <div class="metric-label" data-overview-text="sales">已付销售额（CNY）</div>
                         </div>
-                        <div class="metric-meta" data-overview-text="sales_note">本店商品金额，不含运费</div>
+                        <div class="metric-meta" data-overview-text="sales_note">本店人民币商品金额，不含运费</div>
                     </article>
                     <article class="metric-card">
                         <div class="metric-icon" aria-hidden="true">✓</div>
                         <div class="metric-body">
                             <div class="metric-value" id="overview-paid">—</div>
-                            <div class="metric-label" data-overview-text="paid">已付订单数</div>
+                            <div class="metric-label" data-overview-text="paid">已付订单数（CNY）</div>
                         </div>
-                        <div class="metric-meta" data-overview-text="paid_note">当前周期内已全额付款订单</div>
+                        <div class="metric-meta" data-overview-text="paid_note">当前周期内已全额付款的人民币订单</div>
                     </article>
                     <article class="metric-card">
                         <div class="metric-icon" aria-hidden="true">≋</div>
                         <div class="metric-body">
                             <div class="metric-value" id="overview-average">—</div>
-                            <div class="metric-label" data-overview-text="average">平均订单金额</div>
+                            <div class="metric-label" data-overview-text="average">平均订单金额（CNY）</div>
                         </div>
-                        <div class="metric-meta" data-overview-text="average_note">已付销售额 ÷ 已付订单数</div>
+                        <div class="metric-meta" data-overview-text="average_note">人民币已付销售额 ÷ 人民币已付订单数</div>
                     </article>
                     <article class="metric-card">
                         <div class="metric-icon" aria-hidden="true">↗</div>
@@ -160,6 +160,7 @@
                     </article>
                     </section>
                     <p class="overview-note" data-overview-text="basis">经营指标统一使用近365天统计；当前待处理事项见下方，不受该周期限制。</p>
+                    <p class="overview-scope-status" id="overview-scope-status" role="status" aria-live="polite" hidden></p>
                     <div class="overview-feedback"><p id="overview-status" role="status">正在加载经营数据…</p><button type="button" id="overview-retry" data-overview-text="retry" hidden>重新加载</button></div>
                     </div>
                 </section>
@@ -223,18 +224,19 @@
                     <div class="wb-section-body">
                         <p class="insights-note" data-insight-text="basis">近365天 · 本店已全额付款商品 · 按下单日期统计 · 人民币，不含运费</p>
                         <p class="insights-note" id="insights-summary"></p>
+                        <p class="insights-scope-status" id="insights-scope-status" role="status" aria-live="polite" hidden></p>
                         <p class="insights-status" id="insights-status" role="status">正在加载销售数据…</p>
                         <div class="tab-panels">
                             <div class="tab-panel active" id="tab-insight" role="tabpanel" aria-labelledby="insights-tab-store">
                                 <div class="insight-grid" data-insight-data hidden>
                                     <div class="mini-card">
-                                        <h3 class="mini-title" data-insight-text="top">热销商品 TOP5（按件数）</h3>
+                                        <h3 class="mini-title" data-insight-text="top">热销商品 TOP5（CNY · 按件数）</h3>
                                         <ul class="insight-list" id="insights-top-products"></ul>
                                     </div>
                                     <!-- TODO: 口感偏好缺少结构化买家偏好数据，不显示固定标签或推测结论。 -->
                                     <div class="mini-card insight-price-card">
                                         <div class="insight-price-heading">
-                                            <h3 class="mini-title" data-insight-text="price">成交单价分布（按件数）</h3>
+                                            <h3 class="mini-title" data-insight-text="price">成交单价分布（CNY · 按件数）</h3>
                                             <span class="insight-currency" data-insight-text="priceCurrency">人民币 CNY</span>
                                         </div>
                                         <p class="insights-note" data-insight-text="priceNote">按购买件数统计，非茶叶重量。区间含起始价、不含结束价，最后一档无上限。</p>
@@ -246,17 +248,17 @@
                             <div class="tab-panel" id="tab-sales" role="tabpanel" aria-labelledby="insights-tab-sales" hidden>
                                 <div class="insight-grid" data-insight-data hidden>
                                     <div class="mini-card">
-                                        <h3 class="mini-title" data-insight-text="monthly">近6个自然月已付订单</h3>
-                                        <p class="insights-note" data-insight-text="monthlyNote">当前月截至本次查询时间；各月只统计本店已全额付款订单。</p>
+                                        <h3 class="mini-title" data-insight-text="monthly">近6个自然月人民币已付订单</h3>
+                                        <p class="insights-note" data-insight-text="monthlyNote">当前月截至本次查询时间；各月仅显示已计入的人民币（CNY）已付订单与金额，0不代表没有历史交易。年度排除数量不代表各月排除数量。</p>
                                         <div class="insights-table-wrap">
                                             <table>
-                                                <thead><tr><th scope="col" data-insight-text="month">月份</th><th scope="col" data-insight-text="orders">已付订单数</th><th scope="col" data-insight-text="amount">销售额（CNY）</th></tr></thead>
+                                                <thead><tr><th scope="col" data-insight-text="month">月份</th><th scope="col" data-insight-text="orders">已计入订单数（CNY）</th><th scope="col" data-insight-text="amount">已计入金额（CNY）</th></tr></thead>
                                                 <tbody id="insights-months"></tbody>
                                             </table>
                                         </div>
                                     </div>
                                     <div class="mini-card">
-                                        <h3 class="mini-title" data-insight-text="salesTop">商品销售额 TOP5</h3>
+                                        <h3 class="mini-title" data-insight-text="salesTop">商品销售额 TOP5（CNY）</h3>
                                         <ul class="insight-list" id="insights-sales-top"></ul>
                                     </div>
                                     <!-- TODO: 无可信国家／地区字段，地区销售额保留注释占位；不得使用订单号哈希分配地区。 -->
@@ -302,9 +304,10 @@
         </main>
     </div>
 
-    <script src="../static/js/merchant-overview.js?v=20261022-zones"></script>
+    <script src="../static/js/merchant-sales-scope.js?v=20261103-sales-scope"></script>
+    <script src="../static/js/merchant-overview.js?v=20261103-sales-scope"></script>
     <script src="../static/js/supplier-workbench.js?v=20261028-navigation"></script>
-    <script src="../static/js/merchant-insights.js?v=20261029-unified" defer></script>
+    <script src="../static/js/merchant-insights.js?v=20261103-sales-scope" defer></script>
     <script src="../static/js/merchant-workbench-feed.js?v=20261022-zones" defer></script>
 {% include 'shared/engagement_assets.html' %}
 </body>

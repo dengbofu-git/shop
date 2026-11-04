@@ -1,5 +1,7 @@
 # Agent 监控与模型设置
 
+现行运行说明：正式运行统一使用PostgreSQL／`default`连接，覆盖业务、会话、偏好和知识，使用Python3.13／Django5.2；Redis承担缓存和采购车。存储范围与独立运行验证见[数据库验收](sdd/evidence/2026-11-03-postgresql-independence/verification.md)。
+
 2026-10-19补充：普通运行日志已统一格式与隐私边界，HTTP 编号与当前 Agent Trace 可关联，见[运行日志指南](运行日志.md)。HTTP 编号不复用聊天幂等 request_id；本次没有启用 Collector 的普通日志采集管道。
 
 平台运营入口：`/admin_panel.html` → **Agent 运行与设置**（`/admin_agents.html`）。所有设置、模型目录和监控数据接口要求登录且拥有 `system_config` 权限；停用账号、普通买家和普通商家无权访问。现有超级管理员角色已包含该权限。
@@ -10,25 +12,26 @@
 
 ```powershell
 python -m pip install -r requirements.txt
-# 业务库连接应保持原 .env 中的配置，不要改成其他项目的 MySQL 实例。
-python manage.py migrate support_ai --database default
+# 业务、AI、配置审计和监控共用POSTGRES_*所指的default连接；已有库先核对迁移计划
+python manage.py migrate --plan --database default
+python manage.py migrate --database default
 docker compose --env-file .env.postgres -f compose.agent-observability.yml up -d
 python manage.py runserver 127.0.0.1:8000
 ```
 
-服务启动进程必须能访问配置的 DeepSeek 地址，以及本地 Ollama、PostgreSQL、MySQL 和 Collector。若启动进程继承了网络沙箱限制，模型会返回连接错误；修改 API Key 不能修复该权限问题。
+服务启动进程按所启用能力访问配置的模型地址、MCP、Ollama、PostgreSQL及Collector；配置、审计和监控投影均保存于同一PostgreSQL／`default`，业务与AI数据使用同一连接。若启动进程继承了网络沙箱限制，模型会返回连接错误；修改 API Key 不能修复该权限问题。
 
 在设置页启用监控和 OTLP 导出，Collector 基地址填写 `http://127.0.0.1:4318`。应用会分别追加 `/v1/traces` 和 `/v1/metrics`。HTTPS Collector 也可使用；认证 Header 通过服务器标准 `OTEL_EXPORTER_OTLP_HEADERS` 环境变量配置，或通过受控本地网关转发，不在后台页面输入或回显。
 
 | 服务 | 本机入口 | 存储 |
 |---|---|---|
-| 平台 Agent 页面 | http://127.0.0.1:8000/admin_agents.html | 原业务 MySQL 的监控投影和配置审计表 |
+| 平台 Agent 页面 | http://127.0.0.1:8000/admin_agents.html | PostgreSQL／`default`中的监控投影和配置审计表 |
 | OTel Collector | http://127.0.0.1:4318 | 接收并转发 OTLP HTTP/protobuf |
 | Collector 健康检查 | http://127.0.0.1:13134 | 当前采集进程状态 |
 | Jaeger | http://127.0.0.1:16686 | 本地开发使用内存存储，重启会清空 Jaeger 自身的历史链路 |
 | Prometheus | http://127.0.0.1:9091 | 独立 Docker 数据卷，指标保留 30 天 |
 
-Compose 使用独立项目 `tea_saas-agent-observability`，所有主机映射端口仅绑定 `127.0.0.1`。Jaeger 内存历史不影响 MySQL 中的平台监控记录。生产环境需自行配置鉴权、持久化 Jaeger 存储和资源限制。
+Compose 使用独立项目 `tea_saas-agent-observability`，所有主机映射端口仅绑定 `127.0.0.1`。Jaeger内存历史不影响PostgreSQL中的平台监控记录。生产环境需自行配置鉴权、持久化 Jaeger 存储和资源限制。
 
 ## 模型配置
 
@@ -106,6 +109,6 @@ python manage.py prune_agent_telemetry --days 30
 python manage.py test support_ai.tests support_ai.test_telemetry --settings=support_ai.test_settings --noinput
 ```
 
-测试使用隔离的 SQLite/LocMem 配置，覆盖运营权限、停用账号、版本冲突、模型校验、审计、监控停用、链路父子关系、Token 汇总、隐私过滤及采集故障隔离。
+上述快速测试使用隔离的SQLite／LocMem配置，覆盖运营权限、停用账号、版本冲突、模型校验、审计、监控停用、链路父子关系、Token汇总、隐私过滤及采集故障隔离；不等同真实PG验证。现行PG-only／`default`的独立组件验证及实际结果见顶部11月3日证据；原日期记录不改记为PG通过。
 
 参考：[OpenTelemetry Python 导出器](https://opentelemetry.io/docs/languages/python/exporters/)、[DeepSeek 模型目录](https://api-docs.deepseek.com/api/list-models/)、[DeepSeek 思考模式](https://api-docs.deepseek.com/guides/thinking_mode/)。

@@ -31,6 +31,26 @@ DEBUG = os.getenv('DJANGO_DEBUG', 'false').lower() == 'true'
 
 ALLOWED_HOSTS = [host.strip() for host in os.getenv('DJANGO_ALLOWED_HOSTS', '').split(',') if host.strip()]
 
+# Bound one atomic checkout by distinct SKU rows, never by total purchased units.
+RESERVATION_MAX_SKUS_PER_CHECKOUT = int(os.getenv('RESERVATION_MAX_SKUS_PER_CHECKOUT', '20'))
+if RESERVATION_MAX_SKUS_PER_CHECKOUT < 1:
+    raise ValueError('RESERVATION_MAX_SKUS_PER_CHECKOUT must be a positive integer')
+
+# Count checkout groups, never the number of merchant child orders or summed TTL.
+for _reservation_setting, _reservation_default in {
+    'RESERVATION_MAX_UNPAID_CHECKOUTS': 3,
+    'RESERVATION_TIMEOUT_GROUPS_PER_HOUR': 3,
+    'RESERVATION_TIMEOUT_COOLDOWN_SECONDS': 1800,
+    'RESERVATION_CANCEL_GROUPS_PER_HOUR': 5,
+    'RESERVATION_CANCEL_COOLDOWN_SECONDS': 600,
+    'RESERVATION_REPEAT_CANCEL_COOLDOWN_SECONDS': 1800,
+    'RESERVATION_CANCEL_ESCALATION_WINDOW_SECONDS': 86400,
+}.items():
+    _reservation_value = int(os.getenv(_reservation_setting, str(_reservation_default)))
+    if _reservation_value < 1:
+        raise ValueError(_reservation_setting + ' must be a positive integer')
+    globals()[_reservation_setting] = _reservation_value
+
 # 允许同源 iframe 嵌入（供应商工作台内嵌子页面）
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 

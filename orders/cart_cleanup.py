@@ -1,4 +1,4 @@
-"""Transactional outbox for Redis cart consumption; MySQL owns task delivery."""
+"""Transactional PostgreSQL outbox for Redis cart consumption."""
 import logging
 from datetime import timedelta
 

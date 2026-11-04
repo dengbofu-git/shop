@@ -3,5 +3,5 @@ from django.conf import settings
 
 
 def alias():
-    # Existing, already-running split workers can finish before the cutover.
-    return getattr(settings, 'AI_STORAGE_DB_ALIAS', 'ai_storage')
+    # Alternate aliases are supplied explicitly by isolated test fixtures.
+    return getattr(settings, 'AI_STORAGE_DB_ALIAS', 'default')

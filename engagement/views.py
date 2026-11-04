@@ -238,7 +238,7 @@ def create_review(request):
     text = content(data.get('text'), 5, 1000)
     item_id = integer(data.get('order_item_id'), 'order_item_id')
     with transaction.atomic():
-        # Lock the order first, also shared with hide/delete. Avoid MySQL nullable-join locks.
+        # Lock the order first, also shared with hide/delete. Avoid nullable-join locking.
         owned = find(OrderGoods.objects.filter(order_info__user_profile=user), pk=item_id)
         order = OrderInfo.objects.select_for_update().get(pk=owned.order_info_id)
         item = OrderGoods.objects.select_for_update().get(pk=item_id)

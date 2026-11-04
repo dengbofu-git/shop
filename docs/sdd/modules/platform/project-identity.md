@@ -16,9 +16,9 @@
 
 工程包改名不移动当前物理工作区，不重建 Conda 环境，不修改真实数据库名、数据库账号、现有用户邮箱、Docker 卷或 Git 历史。新安装示例使用新名称；已有安装通过本地私有配置继续引用实际资源。二进制图片内容、依赖和生成缓存不属于源码文本替换范围。
 
-`DB_NAME`、`AI_POSTGRES_NAME`、`AI_POSTGRES_USER` 继续以现有私有环境配置为准。四类持久卷可通过 `AI_POSTGRES_VOLUME_NAME`、`AI_OLLAMA_VOLUME_NAME`、`AI_RERANK_VOLUME_NAME`、`AGENT_PROMETHEUS_VOLUME_NAME` 指定；本机已绑定现有卷，未创建或删除数据卷。已有容器的 Compose 标签与项目归属不自动迁移，重新编排前需单独制定迁移步骤，不能只修改卷名后运行另一套服务。
+现行运行的`POSTGRES_NAME`、`POSTGRES_USER`及其他`POSTGRES_*`连接键以私有配置为准，仅使用PostgreSQL/default；不再读取`DB_*`或以`AI_POSTGRES_*`注册第二个运行连接。四类持久卷可通过 `AI_POSTGRES_VOLUME_NAME`、`AI_OLLAMA_VOLUME_NAME`、`AI_RERANK_VOLUME_NAME`、`AGENT_PROMETHEUS_VOLUME_NAME` 指定；本机已绑定现有卷，未创建或删除数据卷。已有容器的 Compose 标签与项目归属不自动迁移，重新编排前需单独制定迁移步骤，不能只修改卷名后运行另一套服务。
 
-虚拟商品写入命令和两份历史评测脚本要求传入 `--expected-database-name`，并保留服务器 UUID 校验。参数必须来自人工确认的目标，不能仅因项目改名假定业务库也已改名。本轮未执行写数据命令、迁移或模型评测。
+现行种子命令和可运行的评测入口按PostgreSQL数据库名与集群`system_identifier`双重校验。均须传入`--expected-database-name`；种子命令兼容保留`--expected-server-uuid`／`--expected-server-id`参数名，评测入口使用`--expected-system-identifier`，冻结历史比较器仍拒绝运行。参数必须来自人工确认的目标，不能仅因项目改名假定业务库也已改名。命名调整本身不执行写数据命令、迁移或模型评测。
 
 ## 历史资料
 

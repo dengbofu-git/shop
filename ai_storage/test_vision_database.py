@@ -1,6 +1,7 @@
 """显式指定专用临时 PostgreSQL 时才运行；视觉和 Embedding 均为夹具。"""
 
 from ai_storage.database import alias as ai_db_alias
+from ai_storage.pg_test_safety import require_disposable_postgresql
 import copy
 import os
 from pathlib import Path
@@ -17,14 +18,10 @@ from ai_storage.test_vision import TABLE, VisionHttpFixture, reply
 class VisionDatabaseTests(VisionHttpFixture, unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        if os.getenv('AI_POSTGRES_NAME') != os.getenv('AI_VISION_TEST_DATABASE'):
-            raise RuntimeError('Isolated database identity mismatch')
         os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'tea_saas.settings')
         import django
         django.setup()
-        from django.conf import settings
-        if settings.DATABASES[ai_db_alias()]['NAME'] != os.environ['AI_VISION_TEST_DATABASE']:
-            raise RuntimeError('Unsafe database target')
+        require_disposable_postgresql('AI_VISION_TEST_DATABASE', 'vision_adapter_test_')
         VisionHttpFixture.setUpClass.__func__(cls)
 
     @classmethod
@@ -47,10 +44,6 @@ class VisionDatabaseTests(VisionHttpFixture, unittest.TestCase):
         self.overrides = override_settings(AI_PDF_STORAGE_ROOT=self.root/'storage')
         self.overrides.enable()
         self.addCleanup(self.overrides.disable)
-        from django.db.backends.mysql.base import DatabaseWrapper
-        mysql = patch.object(DatabaseWrapper, 'get_new_connection', side_effect=AssertionError('Business DB forbidden'))
-        mysql.start()
-        self.addCleanup(mysql.stop)
         authority = patch.object(service, 'operator', return_value=object())
         authority.start()
         self.addCleanup(authority.stop)

@@ -78,12 +78,13 @@
             <h3>我的库存</h3>
             <form id="reservation-policy" style="padding:16px;border:1px solid #d7e5da;border-radius:12px;margin:16px 0;display:grid;gap:12px;max-width:650px">
                 <strong>本店待付款库存保护</strong>
-                <label>预留时长（秒，60～900） <input name="ttl_seconds" type="number" min="60" max="900" required></label>
+                <label>统一预留时长（15分钟／900秒） <input name="ttl_seconds" type="number" value="900" readonly aria-describedby="reservation-policy-ttl-note"></label>
+                <small id="reservation-policy-ttl-note">平台统一预留15分钟，商家不可修改；已有订单保持原截止时间。</small>
                 <label>每买家累计待付数量 <input name="max_unpaid_quantity" type="number" min="1" max="100000" required></label>
                 <label>每买家累计待付金额（CNY） <input name="max_unpaid_amount" type="number" min="1" max="10000000" step="0.01" required></label>
                 <label>单次采购占实物库存上限（%） <input name="max_stock_percent" type="number" min="1" max="100" required></label>
                 <label>变更依据 <input name="change_reason" type="text" maxlength="200" required placeholder="说明供货、包装单位或批量采购调整依据"></label>
-                <small>超限买家需先联系商家确认。规则只影响新订单；平台累计限额及冷却规则仍生效。库存修改不能低于已预留数量。</small>
+                <small>超限买家需先联系商家确认。规则只影响新订单；一次提交内各商家订单统一预留15分钟，同一截止时间，独立付款与发货。平台按含有效未付预留的提交次数限制买家，冷却规则仍生效。库存修改不能低于已预留数量。</small>
                 <button type="submit" disabled>保存库存保护规则</button><p id="reservation-policy-status" role="status"></p>
             </form>
             <div id="inventory-list"><div class="empty-tip">加载中...</div></div>
@@ -233,6 +234,6 @@
         });
         }
     </script>
-<script src="/static/js/reservation-policy.js?v=20261026-audit"></script>
+<script src="/static/js/reservation-policy.js?v=20261103-checkout-light-group-risk"></script>
 </body>
 </html>

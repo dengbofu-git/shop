@@ -1,2 +1,0 @@
-# Optional, source-only legacy MySQL reader. Not needed by the unified runtime.
-mysqlclient==2.3.0
