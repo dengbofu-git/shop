@@ -44,7 +44,7 @@
     },
     "goods": {
       "title": "商品管理",
-      "version": "0.7.6",
+      "version": "0.7.7",
       "paths": [
         "goods/",
         "media/",
@@ -144,7 +144,7 @@
     },
     "supplier": {
       "title": "商家与结算",
-      "version": "0.4.7",
+      "version": "0.4.8",
       "paths": [
         "supplier/",
         "versions/changelogs/supplier.md"
@@ -175,7 +175,7 @@
     },
     "support_ai": {
       "title": "智能客服",
-      "version": "0.32.5",
+      "version": "0.32.6",
       "paths": [
         "support_ai/",
         "docs/客服商品推荐设计.md",
@@ -255,7 +255,7 @@
     },
     "engagement": {
       "title": "站内咨询与商品评价",
-      "version": "0.2.5",
+      "version": "0.2.6",
       "paths": [
         "engagement/",
         "versions/changelogs/engagement.md"

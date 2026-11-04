@@ -1,5 +1,7 @@
 # tea_saas当前模块版本清单
 
+2026-11-04 CI连接生命周期后续：support_ai0.32.6及goods0.7.7／supplier0.4.8／engagement0.2.6显式释放结束线程的数据库连接。3项强引用PG回归先RED再GREEN，流式相关18项通过；完整回归及远端状态见[证据](../docs/sdd/evidence/2026-11-04-ci-stream-connections/verification.md)。无迁移、业务库写入或服务重启。
+
 2026-11-04 CI后续：ai_storage0.8.2仅修复数据库夹具契约与可选PDF依赖的测试边界，完整PG准入继续验证，不跳过该契约。无业务或运行配置改变，无需迁移或重启；见[验证](../docs/sdd/evidence/2026-11-04-ci-pdf-fixture/verification.md)。
 
 2026-11-04本地启用：orders0.9.0／pays0.3.0／web0.39.0已在授权备份实恢复后应用pays.0001，原75业务表内容保持，最终09:32:56恢复唯一Web／MCP／清理，知识Worker同源同库。实际接口及迁移就绪通过；支付宝收款方配置仍缺失，真实扣款、退款及商家分账未验收或实现。见[启用记录](../docs/sdd/evidence/2026-11-03-combined-payment/activation.md)。下方记录保留原时点，未提交推送或发布生产。
@@ -37,19 +39,19 @@
 | --- | --- | --- | --- |
 | core · 项目核心 | 0.18.0 | 结算组／冷却配置和迁移预检已在本机加载，唯一运行源及PG健康核验通过。 | [core](changelogs/core.md) |
 | users · 用户与权限 | 0.4.4 | 登录Hash计数修复随最新版加载，Redis故障降级保留；无真实账号登录写入验收。 | [users](changelogs/users.md) |
-| goods · 商品管理 | 0.7.6 | 种子命令使用PG库名及集群身份守卫；导入并发在PG通过。 | [goods](changelogs/goods.md) |
+| goods · 商品管理 | 0.7.7 | 种子命令使用PG库名及集群身份守卫；导入并发在PG通过。 | [goods](changelogs/goods.md) |
 | carts · 购物车 | 0.4.1 | 快照在写入前复核本次选择上限；已有消费游标、故障重试及新加购保留均回归通过。 | [carts](changelogs/carts.md) |
 | orders · 订单管理 | 0.9.0 | 合并付款生命周期协调已本机启用；0008既有规则与原业务数据保持。 | [orders](changelogs/orders.md) |
 | pays · 支付 | 0.3.0 | 固定付款单、分摊和收据已迁移启用；真实扣款因收款方配置缺失不可用，退款／分账另行实施。 | [pays](changelogs/pays.md) |
 | news · 内容资讯 | 0.1.2 | 移除空后台注册文件；资讯API保持原有规则 | [news](changelogs/news.md) |
 | inventory · 库存管理 | 0.2.2 | 通用库存/仓库限定有效平台角色和显式权限；商家保留本店库存接口，已本地启用。 | [inventory](changelogs/inventory.md) |
 | logistics · 物流 | 0.1.2 | 本人买家、本店完整订单或平台显式权限读取物流；拒绝跨账号及商家混合单，已本地启用。 | [logistics](changelogs/logistics.md) |
-| supplier · 商家与结算 | 0.4.7 | 同店销售币种覆盖计数已本机加载，实际94笔历史未知币种排除数通过，原数据不回填。 | [supplier](changelogs/supplier.md) |
+| supplier · 商家与结算 | 0.4.8 | 同店销售币种覆盖计数已本机加载，实际94笔历史未知币种排除数通过，原数据不回填。 | [supplier](changelogs/supplier.md) |
 | admin_panel · 平台运营 | 0.4.3 | CNY财务汇总排除历史未知和其他币种，保留订单数及角色/权限控制，已本地启用。 | [admin_panel](changelogs/admin_panel.md) |
-| support_ai · 智能客服 | 0.32.5 | 评测工具使用PG身份守卫；业务与常驻MCP统一default，真实模型评测未执行。 | [support_ai](changelogs/support_ai.md) |
+| support_ai · 智能客服 | 0.32.6 | 评测工具使用PG身份守卫；业务与常驻MCP统一default，真实模型评测未执行。 | [support_ai](changelogs/support_ai.md) |
 | ai_storage · AI 记忆与知识存储 | 0.8.2 | 单default事务、向量及7项专用OCR/视觉数据库测试在PG通过，Worker仅连接统一PostgreSQL。 | [ai_storage](changelogs/ai_storage.md) |
 | web · 页面与前端资源 | 0.39.0 | 合并付款入口和权威待付金额已本机加载；保留简洁提交文案，未发布生产。 | [web](changelogs/web.md) |
-| engagement · 站内咨询与商品评价 | 0.2.5 | 咨询／评价及并发在PG通过，旧源测试启动器移除。 | [engagement](changelogs/engagement.md) |
+| engagement · 站内咨询与商品评价 | 0.2.6 | 咨询／评价及并发在PG通过，旧源测试启动器移除。 | [engagement](changelogs/engagement.md) |
 
 买家评价仅从“我的订单”的对应商品进入，查看／提交绑定该订单商品；不提供独立“我的评价”导航和跨订单评价列表。
 

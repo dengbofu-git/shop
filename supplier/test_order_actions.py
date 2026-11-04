@@ -4,7 +4,7 @@ from concurrent.futures import ThreadPoolExecutor
 from threading import Barrier
 from unittest import skipUnless
 
-from django.db import close_old_connections, connection
+from django.db import close_old_connections, connection, connections
 from django.test import RequestFactory, TestCase, TransactionTestCase
 from django.urls import resolve
 
@@ -216,7 +216,7 @@ class ConcurrentShipmentTests(Fixtures,TransactionTestCase):
                 response=route.func(request,*route.args,**route.kwargs)
                 return response.status_code
             finally:
-                close_old_connections()
+                connections.close_all()
         with ThreadPoolExecutor(max_workers=2) as pool:results=list(pool.map(lambda _:ship_once(),range(2)))
         self.assertEqual(sorted(results),[200,200])
         self.skus[0].refresh_from_db()
