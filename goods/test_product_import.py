@@ -8,7 +8,7 @@ import uuid
 from unittest.mock import patch
 
 from django.core.files.uploadedfile import SimpleUploadedFile
-from django.db import close_old_connections, connection
+from django.db import close_old_connections, connection, connections
 from django.test import Client, SimpleTestCase, TestCase, TransactionTestCase
 from django.utils import timezone
 from openpyxl import Workbook
@@ -316,8 +316,8 @@ class ProductImportConcurrentTests(ImportHttpMixin, TransactionTestCase):
         self.merchant = UserProfile.objects.create(username='import-race', user_type='merchant', is_active=True)
 
     def test_parallel_confirm_creates_one_receipt_and_one_set_of_skus(self):
-        if connection.vendor not in ('mysql','postgresql'):
-            self.skipTest('Requires disposable PostgreSQL/MySQL row locks')
+        if connection.vendor != 'postgresql':
+            self.skipTest('Requires disposable PostgreSQL row locks')
         job = self.upload().json()['data']
         barrier = Barrier(2)
         def confirm():
@@ -327,7 +327,7 @@ class ProductImportConcurrentTests(ImportHttpMixin, TransactionTestCase):
                 response = self.confirm(job, client=Client())
                 return response.status_code, response.json()['data']['result']
             finally:
-                close_old_connections()
+                connections.close_all()
         with ThreadPoolExecutor(max_workers=2) as executor:
             results = list(executor.map(lambda _: confirm(), range(2)))
         self.assertEqual(results[0], results[1])
@@ -336,8 +336,8 @@ class ProductImportConcurrentTests(ImportHttpMixin, TransactionTestCase):
         self.assertEqual(SPU.objects.count(), 1)
 
     def test_two_ready_jobs_with_same_names_cannot_both_commit(self):
-        if connection.vendor not in ('mysql','postgresql'):
-            self.skipTest('Requires disposable PostgreSQL/MySQL row locks')
+        if connection.vendor != 'postgresql':
+            self.skipTest('Requires disposable PostgreSQL row locks')
         jobs = [self.upload().json()['data'], self.upload().json()['data']]
         barrier = Barrier(2)
         def confirm(job):
@@ -346,7 +346,7 @@ class ProductImportConcurrentTests(ImportHttpMixin, TransactionTestCase):
                 barrier.wait(timeout=15)
                 return self.confirm(job, client=Client()).status_code
             finally:
-                close_old_connections()
+                connections.close_all()
         with ThreadPoolExecutor(max_workers=2) as executor:
             statuses = list(executor.map(confirm, jobs))
         self.assertEqual(sorted(statuses), [200, 409])

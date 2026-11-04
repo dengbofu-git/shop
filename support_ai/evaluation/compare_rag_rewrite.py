@@ -27,11 +27,18 @@ def function_body(path, name):
 
 
 def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--output-dir', required=True)
+    parser.add_argument('--expected-database-name', required=True)
+    parser.add_argument('--expected-system-identifier', required=True)
+    args = parser.parse_args()
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'tea_saas.settings')
     import django
     django.setup()
-    from django.conf import settings
     from django.db import connection
+    from tools.postgresql_identity import require_database_identity
+    require_database_identity(connection, args.expected_database_name, args.expected_system_identifier)
+    from django.conf import settings
     from django.test.utils import override_settings
     from django.utils import timezone
     from langchain_core.callbacks import BaseCallbackHandler
@@ -41,10 +48,6 @@ def main():
     from support_ai.models import SupportConversation, SupportTurn, AgentSpan
     from support_ai.query_rewrite import QueryPolicy
 
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--output-dir', required=True)
-    parser.add_argument('--expected-database-name', required=True)
-    args = parser.parse_args()
     root = Path(args.output_dir).resolve()
     root.mkdir(parents=True, exist_ok=True)
     if (root/'manifest.json').exists():
@@ -58,11 +61,6 @@ def main():
     corpus_text = json.dumps(corpus,ensure_ascii=False,sort_keys=True,default=str)
     corpus_ids = {r['id'] for r in corpus}
     assert len(cases)==15 and all(set(c['relevant_ids']) <= corpus_ids for c in cases)
-    with connection.cursor() as cursor:
-        cursor.execute('SELECT DATABASE(), @@server_uuid')
-        database = cursor.fetchone()
-    if database != (args.expected_database_name,'6b35ae3b-0afa-11f1-808b-2632d3201c4a'):
-        raise RuntimeError('Unexpected business database target')
     sources = ['support_ai/'+p for p in ('retrieval.py','query_rewrite.py','tool_services.py','workflow.py',
         'planning.py','tea_explanation.py','model_client.py','preview.py','pii.py','context.py','configuration.py')]
     sources += ['ai_storage/knowledge.py','ai_storage/embeddings.py','ai_storage/reranking.py']

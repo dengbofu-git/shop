@@ -1,7 +1,7 @@
 """Offline, loss-checked transfer into a newly prepared PostgreSQL database.
 
 Archives contain private application data. Keep them outside version control.
-Sources are read-only; targets require a fresh database and a preparation token.
+Existing offline archives require a fresh target database and a preparation token.
 """
 import argparse
 import base64
@@ -31,7 +31,6 @@ def canonical_value(value, kind):
         return format(Decimal(value), 'f')
     if kind == 'datetime':
         value = datetime.fromisoformat(value) if isinstance(value, str) else value
-        # Django USE_TZ=True stores UTC in the legacy MySQL datetime columns.
         if value.tzinfo is None:
             value = value.replace(tzinfo=timezone.utc)
         return value.astimezone(timezone.utc).isoformat(timespec='microseconds')
@@ -160,57 +159,6 @@ def snapshot(connection, tables):
             for t in tables for rows in [read_rows(connection,t)]}
 
 
-def export_sources(folder):
-    from django.conf import settings
-    from django.db import connections, transaction
-    if settings.AI_STORAGE_DB_ALIAS != 'ai_storage' or set(settings.DATABASES) != {'default','ai_storage'}:
-        raise TransferError('Export requires explicit legacy source configuration')
-    folder = Path(folder).resolve()
-    if folder.exists():
-        raise TransferError('Archive destination must not exist')
-    models = model_tables()
-    tables, source_info = [], {}
-    for alias in ('default','ai_storage'):
-        connection = connections[alias]
-        with connection.cursor() as cursor:
-            actual = set(connection.introspection.table_names(cursor)) - {'django_migrations'}
-        expected = {name for name,m in models.items() if (m._meta.app_label=='ai_storage')==(alias=='ai_storage')}
-        if actual != expected:
-            raise TransferError('Source table coverage differs from current models: '+alias)
-        source_info[alias] = {'vendor':connection.vendor,'table_count':len(actual)}
-        for name in sorted(actual):
-            model = models[name]
-            dependencies = sorted({f.remote_field.model._meta.db_table for f in model._meta.local_fields
-                                   if f.is_relation and f.remote_field.model is not model})
-            tables.append({'table':name,'source':alias,'columns':describe(model),'dependencies':dependencies})
-    folder.mkdir(parents=True)
-    for alias in ('default','ai_storage'):
-        connection = connections[alias]
-        try:
-            with connection.cursor() as cursor:
-                if connection.vendor == 'mysql':
-                    cursor.execute('SET SESSION TRANSACTION ISOLATION LEVEL REPEATABLE READ')
-                    cursor.execute('SET SESSION TRANSACTION READ ONLY')
-                elif connection.vendor == 'postgresql':
-                    cursor.execute('SET SESSION CHARACTERISTICS AS TRANSACTION ISOLATION LEVEL REPEATABLE READ, READ ONLY')
-                else:
-                    raise TransferError('Unsupported source backend')
-            with transaction.atomic(using=alias):
-                for table in (t for t in tables if t['source']==alias):
-                    rows = read_rows(connection,table)
-                    data = b''.join(encoded(row)+b'\n' for row in rows)
-                    (folder/(table['table']+'.jsonl')).write_bytes(data)
-                    table.update(rows=len(rows),file_sha256=hashlib.sha256(data).hexdigest(),content_sha256=content_digest(rows))
-        finally:
-            connection.close()
-    manifest = {'format':1,'complete':True,'created_at':datetime.now(timezone.utc).isoformat(),
-                'sources':source_info,'tables':tables}
-    (folder/'manifest.json').write_bytes(encoded(manifest)+b'\n')
-    validate_archive(folder)
-    return {'tables':len(tables),'rows':sum(t['rows'] for t in tables),
-            'manifest_sha256':hashlib.sha256((folder/'manifest.json').read_bytes()).hexdigest()}
-
-
 def target_connection():
     from django.conf import settings
     from django.db import connections
@@ -337,7 +285,7 @@ def verify_target(folder):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('operation',choices=['export','prepare','import','verify'])
+    parser.add_argument('operation',choices=['prepare','import','verify'])
     parser.add_argument('--archive',type=Path)
     parser.add_argument('--token')
     args = parser.parse_args()
@@ -350,7 +298,7 @@ def main():
     os.environ.setdefault('DJANGO_SETTINGS_MODULE','tea_saas.settings')
     import django
     django.setup()
-    operations = {'export':lambda:export_sources(args.archive),'prepare':prepare_target,
+    operations = {'prepare':prepare_target,
                   'import':lambda:import_archive(args.archive,args.token),'verify':lambda:verify_target(args.archive)}
     try:
         print(json.dumps(operations[args.operation](),ensure_ascii=False))

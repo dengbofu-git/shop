@@ -12,6 +12,7 @@ from orders.models import OrderGoods, OrderInfo
 from users.access import account_access
 from users.decorators import get_user_from_request
 from .workbench import owned_items
+from .sales_scope import build_sales_scope
 
 
 PRICE_BUCKETS = (
@@ -30,8 +31,10 @@ def build_supplier_insights(user, now=None):
     now = now or timezone.localtime()
     start = now - timedelta(days=365)
     eligible = OrderInfo.objects.filter(sales_eligible_orders()).values('pk')
-    lines = OrderGoods.objects.filter(owned_items(user), order_info_id__in=eligible,
+    scoped_lines = OrderGoods.objects.filter(owned_items(user),
         order_info__created_time__gte=start, order_info__created_time__lt=now)
+    scoped_orders = OrderInfo.objects.filter(pk__in=scoped_lines.values('order_info_id'))
+    lines = scoped_lines.filter(order_info_id__in=eligible)
     amount = ExpressionWrapper(F('count') * F('price'),
                                output_field=DecimalField(max_digits=24, decimal_places=2))
     total = lines.aggregate(amount=Sum(amount), quantity=Sum('count'), orders=Count('order_info_id', distinct=True))
@@ -68,6 +71,7 @@ def build_supplier_insights(user, now=None):
         buckets.append({'code': code, 'quantity': count, 'percent': percent})
     return {
         'scope': 'merchant_only', 'currency': 'CNY',
+        'sales_scope': build_sales_scope(scoped_orders),
         'period': {'code': 'year', 'start': start.isoformat(), 'end': now.isoformat()},
         'totals': {'amount': money(total['amount']), 'quantity': total['quantity'] or 0, 'paid_orders': total['orders']},
         'top_products': top(('-quantity', '-amount', 'sku__spu_id')),

@@ -12,7 +12,7 @@
 | RULE-CAT-IMPORT-03 | 商品名称、分类、售价、库存必填；分类沿用七种茶类。可选规格名称（缺省商品名）、品牌、介绍、市场价（缺省售价）、币种（缺省CNY） | AC-IMPORT-04：字段长度、非法分类、非CNY、超精度金额、负数/小数库存不得静默转换 |
 | RULE-CAT-IMPORT-04 | 金额用Decimal，0～99999999.99，最多两位小数；库存0～2147483647整数。币种见[金额规格](../../architecture/currency.md) | AC-IMPORT-04：有效金额与库存按预览原值落库 |
 | RULE-CAT-IMPORT-05 | 每行一个SKU，同文件同名SPU必须分类/品牌一致，规格不能重复。同名按casefold分组；仅新增SPU，不匹配/覆盖已有SPU，数据库同名规则在预览及确认均检查 | AC-IMPORT-05：同文件冲突/已有商品/预览后新增同名阻止；其他商家的同名不阻止 |
-| RULE-CAT-IMPORT-06 | 所有行通过后才能确认；SKU统一未上架、不导入图片；库存写入复用InventoryService，账本与SKU投影一致，默认仓停用须阻止 | AC-IMPORT-06：商品、库存、日志和回执同一MySQL事务，任意中途失败整批回滚 |
+| RULE-CAT-IMPORT-06 | 所有行通过后才能确认；SKU统一未上架、不导入图片；库存写入复用InventoryService，账本与SKU投影一致，默认仓停用须阻止 | AC-IMPORT-06：商品、库存、日志和回执同一PostgreSQL/default事务，任意中途失败整批回滚 |
 | RULE-CAT-IMPORT-07 | 上传request_key在商家域唯一，绑定文件SHA256，重试返回原任务；候选不可由浏览器改写。确认只接受review_digest，服务端复核版本/摘要/权限/冲突；24小时后未完成任务不可提交 | AC-IMPORT-07：相同上传键不同文件409、修改摘要/额外字段拒绝、过期拒绝；重复与并发确认均只创建一次 |
 | RULE-CAT-IMPORT-08 | 任务ID放本页URL用于刷新恢复，但不授权；账号变化拒绝旧响应、表格纯文本显示、请求超时可重载原任务确认结果 | AC-IMPORT-08：控制器VM测试与浏览器刷新恢复；无模型调用、无浏览器SQL |
 | RULE-CAT-IMPORT-09 | 通用商品导入不采集内部成本：模板、规范化候选、预览DTO、页面均不含进价；带进价/cost_price列的文件明确拒绝。旧任务DTO也不返回成本，未确认的旧规则任务须重传 | AC-IMPORT-09：模板不含成本、旧列拒绝、旧任务投影脱离成本、旧任务不能提交；买家列表与详情不返回模型内部cost_price字段 |
@@ -38,13 +38,13 @@
 
 `product_import_parser.py`不导入Django/ORM、不联网；`product_import_views.py`负责认证和文件边界；`product_import_service.py`为可信应用服务，拥有短事务及库存服务调用。Agent未接线。未来调用方只通过业务接口，不能将ORM、SQL、管理命令或数据库凭据作为Agent工具。
 
-任务表为 `goods_product_import_job`，新增 `goods.0012_productimportjob`；不改历史迁移、现有商品或库存。锁顺序为当前商家→任务，序列化同商家的导入；与其他旧商品接口并发创建同名的全域唯一性不是本切片保证。成功时SPU、SKU、账本、库存日志、结果回执原子提交，不在跨库事务中操作知识库。
+任务表为 `goods_product_import_job`，新增 `goods.0012_productimportjob`；不改历史迁移、现有商品或库存。锁顺序为当前商家→任务，序列化同商家的导入；与其他旧商品接口并发创建同名的全域唯一性不是本切片保证。成功时SPU、SKU、账本、库存日志、结果回执在PostgreSQL/default原子提交；此导入流程不操作知识库。
 
 XLSX使用固定openpyxl3.1.5与defusedxml0.7.1，ZIP成员/解压总量与XML预检后只读读取，关闭工作簿；方案参考[只读模式](https://openpyxl.readthedocs.io/en/stable/optimized.html)和[XML安全说明](https://openpyxl.readthedocs.io/en/stable/#security)。
 
 ## 迁移、启用与回滚
 
-代码、独立测试服务验收与业务启用分开。迁移在无业务数据的临时MySQL8实例验证。按仓库规范，本轮不自动执行任何业务库迁移或重启8000；启用须单独授权，通过受控应用服务备份/迁移新增任务表并重载服务，不由Agent直连数据库。
+代码、独立测试服务验收与业务启用分开。现行迁移验证使用无业务数据的临时PostgreSQL/default；早期数据库执行结果保留在原日期证据，不据此替代PG验证。按仓库规范，本轮不自动执行任何业务库迁移或重启8000；启用须单独授权，通过受控应用服务备份/迁移新增任务表并重载服务，不由Agent直连数据库。
 
 回滚应用入口不删除已导入商品；已确认导入的商品按正常商品管理流程维护。迁移回退会丢失任务与幂等回执，生产回退不能自动执行，需保留备份及业务方案。
 

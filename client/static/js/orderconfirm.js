@@ -74,7 +74,10 @@
         if (response.status === 401 || response.status === 403 || data.code === 403) {
             AuthStorage.clear(); location.href = 'login.html'; throw new Error('登录已过期，请重新登录');
         }
-        if (!response.ok || data.code !== 200) throw new Error(data.error || data.errmsg || '请求失败，请稍后重试');
+        if (!response.ok || data.code !== 200) {
+            var error = new Error(data.error || data.errmsg || '请求失败，请稍后重试');
+            error.data = data; throw error;
+        }
         return data;
     }
     async function load(preferredAddress) {
@@ -87,6 +90,10 @@
             var result = await api('/v1/orders/' + encodeURIComponent(user) + '/advance?' + query.toString());
             var data = result.data;
             if (!data || !Array.isArray(data.sku_list) || !Array.isArray(data.addresses)) throw new Error('订单信息不完整，请返回采购车重新选择');
+            if (Number.isInteger(data.checkout_sku_limit) && data.checkout_sku_limit > 0 && data.sku_list.length > data.checkout_sku_limit) {
+                var limitError = new Error('单次最多结算' + data.checkout_sku_limit + '种商品，请减少勾选数量后分批结算');
+                limitError.data = { error_code: 'CHECKOUT_SKU_LIMIT' }; throw limitError;
+            }
             utils.summary(data.sku_list, state.currency);
             state.items = data.sku_list; state.addresses = data.addresses;
             state.media = result.base_url || apiBase + '/media/';
@@ -97,6 +104,10 @@
             byId('checkout-status').textContent = '';
         } catch (error) {
             byId('checkout-status').textContent = error.message;
+            if (error.data && error.data.error_code === 'CHECKOUT_SKU_LIMIT') {
+                var cartLink = node('a', '返回采购车减少勾选'); cartLink.href = 'cart.html';
+                byId('checkout-status').append(' ', cartLink);
+            }
             state.ready = false; updateDelivery();
         }
     }

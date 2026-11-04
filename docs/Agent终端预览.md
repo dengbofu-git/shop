@@ -1,30 +1,33 @@
 # Agent 终端预览
 
-版本：support_ai 0.7.0 / ai_storage 0.3.1，2026-10-16。
+现行运行说明：正式运行统一使用PostgreSQL／`default`连接，覆盖业务、会话、偏好和知识，使用Python3.13／Django5.2；Redis承担缓存和采购车。存储范围与独立运行验证见[数据库验收](sdd/evidence/2026-11-03-postgresql-independence/verification.md)。
+
+以下版本说明与文末试用记录保留2026-10-16起的历史含义；当前模块版本以`versions/modules.json`及`/config`为准，不将旧测试结果改记为PG通过。
+
+历史初版：support_ai 0.7.0 / ai_storage 0.3.1，2026-10-16。
 
 0.8.0 新增分类推荐及诊断，0.8.1 补充“说明区别再推荐对应商品”的混合任务；原始试用记录保留在文末。新行为见 [Agent 分类推荐](Agent分类推荐.md)。已运行的终端需 `/exit` 后重新启动；`/config` 可确认 `agent_version: 0.8.1`。
 
 0.9.0增加查询翻译、多查询融合和一次补检；该版本重启后 `/config` 显示 `agent_version: 0.9.0`，`/rag` 查看上轮实际查询及补检记录。配置和限制见 [Agent查询改写](Agent查询改写.md)。上段及文末试用结果属于对应旧版本。
 
-当前0.10.0修复问答主题继承、已有商品理由解释和购买条件字段契约。退出并重新启动后，`/config` 显示 `agent_version: 0.10.0`；行为和本轮检查范围见 [Agent推荐追问修复](Agent推荐追问修复.md)。
+历史0.10.0修复问答主题继承、已有商品理由解释和购买条件字段契约。该版本退出并重新启动后，`/config` 显示 `agent_version: 0.10.0`；行为和本轮检查范围见 [Agent推荐追问修复](Agent推荐追问修复.md)。
 
 ## 启动
 
-在 PowerShell 运行：
+在PowerShell中使用已按`requirements.txt`安装的Python3.13／Django5.2环境，在仓库根目录执行：
 
 ```powershell
-cd E:\django\tea_saas
-.\support_ai\preview.ps1
+.\support_ai\preview.ps1 -PythonPath .\.venv\Scripts\python.exe
 ```
 
 或者直接调用项目 Python：
 
 ```powershell
-& E:\miniconda\envs\tea_saas\python.exe -X utf8 -u manage.py agent_preview
+& .\.venv\Scripts\python.exe -X utf8 -u manage.py agent_preview
 ```
 
 出现 `你 >` 后输入问题并回车。无需打开页面，也无需 Django HTTP 服务或 Redis。
-仍需当前配置的 MySQL、DeepSeek；知识问答另外需要 PostgreSQL、Ollama 和按配置启用的重排序服务。
+仍需当前配置的PostgreSQL／`default`、模型服务及统一MCP数据入口；知识问答还需要Ollama和按配置启用的重排序服务。HTTP传输需已配置的MCP服务，stdio传输使用受控本地子进程；业务与AI工具共用该存储连接。
 输入会调用当前模型服务，现有个人信息脱敏规则在调用前生效；避免输入不必要的敏感内容。
 
 ## 会话操作
@@ -49,7 +52,7 @@ cd E:\django\tea_saas
 本地开发者明确选择活跃买家后，才会读取其偏好、私有已发布知识及订单状态：
 
 ```powershell
-& E:\miniconda\envs\tea_saas\python.exe -X utf8 -u manage.py agent_preview --user-id <买家ID>
+& .\.venv\Scripts\python.exe -X utf8 -u manage.py agent_preview --user-id <买家ID>
 ```
 
 这是本地开发工具，依赖本机已有的数据库和模型凭据；不能作为公开 HTTP 接口或远程无鉴权终端。
@@ -65,7 +68,7 @@ cd E:\django\tea_saas
 重复传入 `--message` 可以在同一个临时会话中连续输入；`--json` 输出完整 JSONL 结果：
 
 ```powershell
-& E:\miniconda\envs\tea_saas\python.exe -X utf8 -u manage.py agent_preview --message '推荐两款绿茶' --message '介绍第一款商品' --json
+& .\.venv\Scripts\python.exe -X utf8 -u manage.py agent_preview --message '推荐两款绿茶' --message '介绍第一款商品' --json
 ```
 
 本入口直接调用当前 Agent，便于定位意图、工具和多轮行为；它不经过网页身份验证、HTTP 限流或客户会话提交路径。

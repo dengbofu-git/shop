@@ -26,7 +26,7 @@ class RoutingTests(SimpleTestCase):
 class MemoryTransferTests(TestCase):
     databases = {'default', ai_db_alias()}
 
-    def test_transfer_is_idempotent_and_preserves_newer_memory_and_mysql_source(self):
+    def test_transfer_is_idempotent_and_preserves_newer_memory_and_legacy_source(self):
         from support_ai.models import SupportPreference
         from users.models import UserProfile
         user = UserProfile.objects.create(username='copy-buyer', password='test', email='copy@test.com', phone='')

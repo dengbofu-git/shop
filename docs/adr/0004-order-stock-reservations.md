@@ -6,9 +6,11 @@ Decision makers: dengbofu
 References: 本聊天在库存不足复现、防恶意占用方案后用户明确要求“改进并实现”；[规格](../sdd/modules/trade/stock-reservations.md)
 Supersedes: none
 
+2026-11-03补充：有界结算及普通新单固定900秒由[ADR0014](0014-light-checkout-reservations.md)细化；数据库事实源已按[ADR0013](0013-postgresql-only-runtime.md)收敛PostgreSQL。以下原组件验证与原决定保留当时语境，不是现行启动配置。
+
 ## 背景与决定
 
-购物车检查不能保证订单承诺，发货扣减无法避免收款后缺货。采用MySQL事务中的订单仓库预留，按账号及库存行锁串行校验；仓库账本为可售事实源，SKU库存为实物投影及无账本时的旧数据回退。加入购物车不占库存。
+购物车检查不能保证订单承诺，发货扣减无法避免收款后缺货。采用数据库事务中的订单仓库预留，按账号及库存行锁串行校验；仓库账本为可售事实源，SKU库存为实物投影及无账本时的旧数据回退。加入购物车不占库存。
 
 预留有固定时限、账号累计额度与累计占用预算、重复取消冷却及来源频控；付款确认保留预留，取消／超时释放，发货消耗本单预留。由数据库维护最终不变量，Redis仅保存采购车，不依赖其可用性判断库存。
 
@@ -22,4 +24,4 @@ Supersedes: none
 
 ## 验证与启用
 
-[验证记录](../sdd/evidence/2026-10-22-stock-reservations/verification.md)记录隔离MySQL并发及本机RSA2测试。确认实现方案不等于授权业务库迁移、生产支付或发布。
+[验证记录](../sdd/evidence/2026-10-22-stock-reservations/verification.md)记录当时隔离数据库并发及本机RSA2测试。确认实现方案不等于授权业务库迁移、生产支付或发布。

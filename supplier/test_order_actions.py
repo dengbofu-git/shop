@@ -4,7 +4,7 @@ from concurrent.futures import ThreadPoolExecutor
 from threading import Barrier
 from unittest import skipUnless
 
-from django.db import close_old_connections, connection
+from django.db import close_old_connections, connection, connections
 from django.test import RequestFactory, TestCase, TransactionTestCase
 from django.urls import resolve
 
@@ -201,7 +201,7 @@ class MerchantOrderActionsTests(Fixtures, TestCase):
         self.assertEqual(OrderInfo.objects.count(),1)
 
 
-@skipUnless(connection.vendor in ('mysql','postgresql'),'Requires isolated PostgreSQL/MySQL row locks')
+@skipUnless(connection.vendor == 'postgresql','Requires isolated PostgreSQL row locks')
 class ConcurrentShipmentTests(Fixtures,TransactionTestCase):
     def test_concurrent_requests_deduct_only_once(self):
         order=self.order()
@@ -216,7 +216,7 @@ class ConcurrentShipmentTests(Fixtures,TransactionTestCase):
                 response=route.func(request,*route.args,**route.kwargs)
                 return response.status_code
             finally:
-                close_old_connections()
+                connections.close_all()
         with ThreadPoolExecutor(max_workers=2) as pool:results=list(pool.map(lambda _:ship_once(),range(2)))
         self.assertEqual(sorted(results),[200,200])
         self.skus[0].refresh_from_db()

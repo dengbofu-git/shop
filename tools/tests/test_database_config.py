@@ -19,12 +19,10 @@ class UnifiedDatabaseConfigTests(unittest.TestCase):
         self.assertEqual(databases['default']['NAME'], 'tea_saas')
         self.assertEqual(databases['default']['PORT'], 5433)
 
-    def test_legacy_source_mode_is_explicit_and_keeps_both_sources(self):
-        databases, alias = database_config({'TEA_SAAS_DATABASE_MODE':'legacy','DB_NAME':'old',
-            'DB_USER':'source','DB_PASSWORD':'fixture','DB_HOST':'127.0.0.1','DB_PORT':'3306'})
-        self.assertEqual(alias, 'ai_storage')
-        self.assertEqual(set(databases), {'default','ai_storage'})
-        self.assertEqual(databases['default']['ENGINE'], 'django.db.backends.mysql')
+    def test_legacy_mode_is_rejected_even_with_valid_old_credentials(self):
+        with self.assertRaises(ValueError):
+            database_config({'TEA_SAAS_DATABASE_MODE':'legacy','DB_NAME':'old',
+                'DB_USER':'source','DB_PASSWORD':'fixture','DB_HOST':'127.0.0.1','DB_PORT':'3306'})
 
     def test_unknown_mode_fails_closed(self):
         with self.assertRaises(ValueError):

@@ -5,7 +5,7 @@ Date: 2026-10-21
 Decision makers: 项目用户
 References: 本轮用户在咨询与评价方案后明确要求“执行”；CAP-MER-006、CAP-CAT-005
 Supersedes: none
-Superseded by: none
+Superseded by: [0013](0013-postgresql-only-runtime.md)仅替换存储引擎选择，咨询与评价业务决定保留
 
 ## 背景与问题
 
@@ -13,7 +13,7 @@ Superseded by: none
 
 ## 决定
 
-新增engagement Django App，MySQL保存会话、消息、评价、回复、举报与处理审计。复用身份鉴权与前端样式；首期增量轮询，不引入WebSocket、模型调用、外部消息平台。新订单商品保存购买快照；旧订单不从当前归属伪造历史。买家删除改隐藏，商家禁止物理删除已完成订单，有购买记录商品使用PROTECT防止级联丢失。
+新增engagement Django App，关系数据库保存会话、消息、评价、回复、举报与处理审计。复用身份鉴权与前端样式；首期增量轮询，不引入WebSocket、模型调用、外部消息平台。新订单商品保存购买快照；旧订单不从当前归属伪造历史。买家删除改隐藏，商家禁止物理删除已完成订单，有购买记录商品使用PROTECT防止级联丢失。
 
 ## 影响与验证
 

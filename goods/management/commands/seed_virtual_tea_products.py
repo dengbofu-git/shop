@@ -15,6 +15,7 @@ from goods.models import (Brand, Catalog, ProductAttribute, ProductAttributeValu
                           SaleAttrValue, SKU, SKUSpecValue, SPU, SPUSaleAttr, SPUSpec)
 from inventory.models import Inventory, InventoryLog, Warehouse
 from users.models import UserProfile
+from tools.postgresql_identity import require_database_identity
 
 
 FAMILIES = [
@@ -100,7 +101,8 @@ class Command(BaseCommand):
     def add_arguments(self, parser):
         parser.add_argument('--merchant-id', type=int, required=True)
         parser.add_argument('--expected-database-name', required=True)
-        parser.add_argument('--expected-server-uuid', '--expected-server-id', dest='expected_server_uuid', required=True)
+        parser.add_argument('--expected-server-uuid', '--expected-server-id', dest='expected_server_uuid', required=True,
+                            help='Expected PostgreSQL cluster system identifier (legacy option names retained).')
         parser.add_argument('--batch', default='VTEA-20261016')
         parser.add_argument('--as-of', default='2026-10-16')
         parser.add_argument('--report-dir', default='reports/virtual-products/2026-10-16')
@@ -108,19 +110,16 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         alias = options['database']
-        if alias != 'default' or connections[alias].vendor not in ('mysql','postgresql'):
-            raise CommandError('This command requires the business default database')
+        if alias != 'default' or connections[alias].vendor != 'postgresql':
+            raise CommandError('This command requires the default PostgreSQL database')
         batch = options['batch']
         if not batch.replace('-', '').isalnum() or len(batch) > 24:
             raise CommandError('Use an alphanumeric/hyphen batch code of at most 24 characters')
-        with connections[alias].cursor() as cursor:
-            if connections[alias].vendor == 'postgresql':
-                cursor.execute('SELECT current_database(), system_identifier::text FROM pg_control_system()')
-            else:
-                cursor.execute('SELECT DATABASE(), @@server_uuid')
-            database, server_uuid = cursor.fetchone()
-        if database != options['expected_database_name'] or server_uuid != options['expected_server_uuid']:
-            raise CommandError('Unexpected database identity; no rows were written')
+        try:
+            database, server_uuid = require_database_identity(
+                connections[alias], options['expected_database_name'], options['expected_server_uuid'])
+        except RuntimeError as exc:
+            raise CommandError('Unexpected database identity; no rows were written') from exc
         merchant = UserProfile.objects.using(alias).filter(pk=options['merchant_id'], user_type='merchant', is_active=True).first()
         if merchant is None:
             raise CommandError('An existing active merchant is required')

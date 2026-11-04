@@ -14,23 +14,8 @@ def postgres_config(environ, prefix='POSTGRES'):
     }
 
 
-def legacy_databases(environ):
-    """Source-only bridge and explicit split-database test fixtures."""
-    return {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'USER': environ['DB_USER'], 'PASSWORD': environ['DB_PASSWORD'],
-            'HOST': environ['DB_HOST'], 'PORT': int(environ['DB_PORT']),
-            'NAME': environ['DB_NAME'], 'OPTIONS': {'charset': 'utf8mb4'},
-        },
-        'ai_storage': postgres_config(environ, 'AI_POSTGRES'),
-    }
-
-
 def database_config(environ):
     mode = environ.get('TEA_SAAS_DATABASE_MODE', 'unified')
-    if mode == 'unified':
-        return {'default': postgres_config(environ)}, 'default'
-    if mode == 'legacy':
-        return legacy_databases(environ), 'ai_storage'
-    raise ValueError('TEA_SAAS_DATABASE_MODE must be unified or legacy')
+    if mode != 'unified':
+        raise ValueError('Only unified PostgreSQL runtime is supported')
+    return {'default': postgres_config(environ)}, 'default'

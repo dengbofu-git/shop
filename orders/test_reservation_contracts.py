@@ -71,15 +71,17 @@ class ReservationContractTests(Fixtures,TestCase):
         self.assertTrue(OrderInfo.objects.filter(pk=completed.pk).exists())
     def test_policy_change_requires_basis_and_records_actor_before_after_atomically(self):
         original=self.place()[0];deadline=original.expires_at
-        data={'ttl_seconds':300,'max_unpaid_quantity':90,'max_unpaid_amount':'9000','max_stock_percent':40,'change_reason':'按包装与本周供货计划调整'}
+        data={'ttl_seconds':900,'max_unpaid_quantity':90,'max_unpaid_amount':'9000','max_stock_percent':40,'change_reason':'按包装与本周供货计划调整'}
         url='/v1/supplier/reservation-policy';headers=self.headers(self.shops[0])
         self.assertEqual(self.client.put(url,{k:v for k,v in data.items() if k!='change_reason'},content_type='application/json',**headers).status_code,400)
         self.assertFalse(ReservationPolicyChange.objects.exists())
         self.assertEqual(self.client.put(url,data,content_type='application/json',**headers).status_code,200)
         audit=ReservationPolicyChange.objects.get()
         self.assertEqual(audit.actor_id,self.shops[0].pk);self.assertEqual(audit.merchant_id,self.shops[0].pk)
-        self.assertEqual(audit.before['ttl_seconds'],600);self.assertEqual(audit.after['ttl_seconds'],300);self.assertEqual(audit.reason,data['change_reason'])
+        self.assertEqual(audit.before['ttl_seconds'],900);self.assertEqual(audit.after['ttl_seconds'],900);self.assertEqual(audit.reason,data['change_reason'])
+        self.assertEqual(audit.before['configured_ttl_seconds'],600);self.assertEqual(audit.after['configured_ttl_seconds'],600)
+        self.assertEqual(audit.after['ttl_source'],'platform_fixed_900_v1')
         self.assertTrue(audit.effective_at)
         original.refresh_from_db();self.assertEqual(original.expires_at,deadline)
         new=self.place(buyer=1)[0]
-        self.assertEqual(round((new.expires_at-new.created_time).total_seconds()),300)
+        self.assertEqual(round((new.expires_at-new.created_time).total_seconds()),900)

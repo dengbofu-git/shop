@@ -25,9 +25,9 @@
 
 验证：`<PYTHON_ENV>/python.exe -X utf8 manage.py test users.test_nickname engagement.test_nickname --settings=support_ai.test_settings --noinput`在隔离内存SQLite中12项通过，覆盖merchant及supplier角色不能编辑昵称、店铺名读取和咨询显示、买家昵称及联系方式兼容。`node --test client/tests/profile-nickname.test.js`的5项测试通过；商家资料脚本语法、买卖双方模板渲染、只读店铺字段与静态资源查找通过，模块归属和`git diff --check`通过。
 
-浏览器使用实际商家模板及资料脚本配合独立示例API，旧缓存店名被响应“云间茶铺”覆盖，昵称控件不存在，店铺字段只读。截图`.scratch/store-name-20261022/profile.png`为示例资料，未读取／修改真实资料；预览页及临时服务已关闭。未新增Migration，未执行MySQL回归、业务库迁移、后端重启、提交、推送或部署。
+浏览器使用实际商家模板及资料脚本配合独立示例API，旧缓存店名被响应“云间茶铺”覆盖，昵称控件不存在，店铺字段只读。截图`.scratch/store-name-20261022/profile.png`为示例资料，未读取／修改真实资料；预览页及临时服务已关闭。未新增Migration，未另跑原存储后端专项回归、业务库迁移、后端重启、提交、推送或部署。
 
-- 新增 `users.0008_userprofile_nickname`，不改历史迁移、不回填现有昵称。MySQL 对新字段指定 utf8mb4，连接同样使用 utf8mb4，支持表情字符；不转换其他已有列。迁移含 MySQL DDL，设置 `atomic=False`。
-- SQLite 用于快速隔离回归；真实 MySQL 隔离库用于验证建库、迁移及保存，测试结束销毁。2026-10-22用户单独授权后，本地业务库已备份并执行0008，8000后端已重启；13个账号原有列摘要一致，昵称默认空。
+- 新增 `users.0008_userprofile_nickname`，不改历史迁移、不回填现有昵称。当前字段位于统一PostgreSQL/default，使用数据库原生Unicode文本支持表情字符；历史迁移保留原脚本，不作为当前连接或部署配置。
+- 现行真实组件验证使用隔离PostgreSQL；早期SQLite及原数据库验证保留在当时记录，不替代当前验证。2026-10-22用户单独授权后，本地业务库已备份并执行0008，8000后端已重启；13个账号原有列摘要一致，昵称默认空。
 - 经单独授权后，先备份并验证备份，再执行限定的 `python manage.py migrate users 0008_userprofile_nickname --database default`，核对原用户字段与数量未变化、新列及迁移记录，最后重启本地后端并只读验收。
 - 不自动执行其他 App 待应用迁移，不自动回退或删除昵称列；迁移失败先停止并检查，恢复数据库须另行授权。用户自行编辑真实昵称，不由本次实现代填。

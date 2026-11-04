@@ -24,4 +24,4 @@
 
 ## 验证
 
-`goods.test_sales_recommendations` 覆盖多商家混排、未标记商品参与、销量优先、下架／无库存排除、超过 80 个无库存候选、同销量稳定排序、双库存源、多仓不重复、最多 20 款和空结果。使用隔离 SQLite，实际 MySQL 只读检查与本地接口结果见[本轮证据](../../evidence/2026-10-19-sales-recommendations/verification.md)。不变更现有能力阶段，不代表已发布。
+`goods.test_sales_recommendations` 覆盖多商家混排、未标记商品参与、销量优先、下架／无库存排除、超过 80 个无库存候选、同销量稳定排序、双库存源、多仓不重复、最多 20 款和空结果。使用隔离 SQLite，当时真实数据库只读检查与本地接口结果见[本轮证据](../../evidence/2026-10-19-sales-recommendations/verification.md)。不变更现有能力阶段，不代表已发布。

@@ -72,15 +72,25 @@ class ReservationTests(Fixtures,TestCase):
             with self.assertRaises(ReservationError):self.place(items={self.skus[1].pk:10})
         with override_settings(RESERVATION_MAX_UNPAID_AMOUNT=150):
             with self.assertRaises(ReservationError):self.place(items={self.skus[1].pk:10})
-    def test_cancel_and_expire_release_exactly_once_and_do_not_reset_abuse_history(self):
+    def test_one_cancel_and_two_timeouts_do_not_mix_but_third_timeout_triggers_cooldown(self):
         order=self.place()[0]
         close_order(order.pk,self.buyers[0].pk);close_order(order.pk,self.buyers[0].pk)
         self.assertEqual(available_quantity(self.skus[0]),100)
         for _ in range(2):
             order=self.place()[0];OrderInfo.objects.filter(pk=order.pk).update(expires_at=timezone.now()-timedelta(seconds=1));expire_orders()
-        with self.assertRaises(ReservationError) as err:self.place()
-        self.assertEqual(err.exception.code,'RESERVATION_COOLDOWN')
+            self.assertEqual(expire_orders(),0)
+        # One cancellation plus two timeouts is below both separate thresholds.
+        order=self.place()[0]
         self.assertEqual(OrderInfo.objects.filter(status=0).count(),3)
+        self.assertEqual(available_quantity(self.skus[0]),90)
+        OrderInfo.objects.filter(pk=order.pk).update(expires_at=timezone.now()-timedelta(seconds=1))
+        expire_orders()
+        with self.assertRaises(ReservationError) as err:self.place()
+        self.assertEqual((err.exception.code,err.exception.status),('RESERVATION_COOLDOWN',429))
+        self.assertEqual(err.exception.details['cooldown_reason'],'timeout')
+        self.assertEqual(err.exception.details['retry_after'],1800)
+        self.assertEqual(OrderInfo.objects.filter(status=0).count(),4)
+        self.assertEqual(available_quantity(self.skus[0]),100)
     def test_paid_holds_do_not_expire_and_late_payment_records_exception_without_stock(self):
         order=self.place()[0];confirm_payment(order.pk,'paid-1',order.total_amount)
         OrderInfo.objects.filter(pk=order.pk).update(expires_at=timezone.now()-timedelta(days=1))
@@ -94,7 +104,10 @@ class ReservationTests(Fixtures,TestCase):
         order=self.place()[0]
         with self.assertRaises(ReservationError):confirm_payment(order.pk,'bad-1',Decimal('1'))
         confirm_payment(order.pk,'good-1',order.total_amount);confirm_payment(order.pk,'good-1',order.total_amount)
-        with self.assertRaises(ReservationError):confirm_payment(order.pk,'other-1',order.total_amount)
+        confirm_payment(order.pk,'other-1',order.total_amount)
+        from pays.models import PaymentReceipt
+        self.assertEqual(PaymentReceipt.objects.get(trade_no='other-1').outcome,'review')
+        order.refresh_from_db();self.assertEqual((order.status,order.payment_trade_no),(2,'good-1'))
         self.assertEqual(StockHold.objects.get().state,'paid')
     def test_bulk_threshold_and_policy_are_per_merchant(self):
         ReservationPolicy.objects.filter(merchant=self.shops[0]).update(max_stock_percent=50)
@@ -120,14 +133,28 @@ class ReservationTests(Fixtures,TestCase):
             with self.assertRaises(ReservationError):self.place(items={self.skus[0].pk:101})
             with self.assertRaises(ReservationError) as err:self.place(buyer=1)
             self.assertEqual(err.exception.code,'CHECKOUT_RATE_LIMITED')
-    def test_cancelled_and_hidden_orders_keep_their_occupied_time_budget(self):
-        order=self.place()[0]
-        OrderInfo.objects.filter(pk=order.pk).update(created_time=timezone.now()-timedelta(minutes=5))
-        close_order(order.pk,self.buyers[0].pk)
-        OrderInfo.objects.filter(pk=order.pk).update(buyer_hidden=True)
-        with override_settings(RESERVATION_MAX_HOLD_SECONDS_PER_HOUR=800):
+    def test_five_hidden_cancelled_groups_trigger_fixed_cancel_cooldown_without_double_release(self):
+        started=timezone.now()
+        # Space checkouts beyond the minute rate limit while staying in one hour.
+        for index in range(5):
+            with patch('orders.reservations.timezone.now',return_value=started+timedelta(seconds=61*index)):
+                order=self.place()[0]
+                close_order(order.pk,self.buyers[0].pk)
+                close_order(order.pk,self.buyers[0].pk)
+                OrderInfo.objects.filter(pk=order.pk).update(buyer_hidden=True)
+                self.assertEqual(available_quantity(self.skus[0]),100)
+        admission=started+timedelta(seconds=305)
+        with patch('orders.reservations.timezone.now',return_value=admission):
             with self.assertRaises(ReservationError) as err:self.place()
-        self.assertEqual(err.exception.code,'RESERVATION_TIME_BUDGET')
+        first=err.exception
+        self.assertEqual((first.code,first.status),('RESERVATION_COOLDOWN',429))
+        self.assertEqual((first.details['cooldown_reason'],first.details['retry_after']),('cancel',600))
+        with patch('orders.reservations.timezone.now',return_value=admission+timedelta(seconds=10)):
+            with self.assertRaises(ReservationError) as err:self.place()
+        self.assertEqual(err.exception.details['retry_after'],590)
+        self.assertEqual(err.exception.details['cooldown_until'],first.details['cooldown_until'])
+        self.assertEqual(OrderInfo.objects.count(),5)
+        self.assertEqual(StockHold.objects.filter(state='released').count(),5)
     def test_auth_ownership_request_id_and_legacy_return_do_not_mutate_payment(self):
         with patch('orders.views.get_redis_connection'):
             payload={'settlement_type':'1','address_id':self.addresses[0].pk,'sku_id':self.skus[0].pk,'buy_count':10,'request_id':uuid.uuid4().hex}
@@ -155,7 +182,7 @@ class ReservationTests(Fixtures,TestCase):
             self.assertEqual(self.client.post('/v1/pays/notify',payload).content,b'success')
         order.refresh_from_db();self.assertEqual(order.status,2)
     def test_policy_endpoint_cannot_edit_other_merchant_and_rejects_invalid_limits(self):
-        url='/v1/supplier/reservation-policy';data={'ttl_seconds':600,'max_unpaid_quantity':200,'max_unpaid_amount':'20000','max_stock_percent':75,'change_reason':'按供货计划调整'}
+        url='/v1/supplier/reservation-policy';data={'ttl_seconds':900,'max_unpaid_quantity':200,'max_unpaid_amount':'20000','max_stock_percent':75,'change_reason':'按供货计划调整'}
         self.assertEqual(self.client.put(url,data,content_type='application/json',**self.headers(self.buyers[0])).status_code,403)
         self.assertEqual(self.client.put(url,data,content_type='application/json',**self.headers(self.shops[0])).status_code,200)
         self.assertEqual(ReservationPolicy.objects.get(merchant=self.shops[1]).max_stock_percent,100)
@@ -213,7 +240,7 @@ class ReservationTests(Fixtures,TestCase):
         self.assertEqual(available_quantity(self.skus[0]),1)
 
 
-@skipUnless(connection.vendor in ('mysql','postgresql'),'Requires real PostgreSQL/MySQL row locks and independent connections')
+@skipUnless(connection.vendor == 'postgresql','Requires real PostgreSQL row locks and independent connections')
 class ReservationConcurrencyTests(Fixtures,TransactionTestCase):
     def setUp(self):self.seed()
     def run_parallel(self,actions):
@@ -246,11 +273,15 @@ class ReservationConcurrencyTests(Fixtures,TransactionTestCase):
         rows=self.run_parallel([lambda:self.place(key=key),lambda:self.place(key=key)])
         self.assertEqual(rows[0][0].pk,rows[1][0].pk)
         self.assertEqual(OrderInfo.objects.count(),1);self.assertEqual(StockHold.objects.count(),1)
-    @override_settings(RESERVATION_MAX_UNPAID_ORDERS=1)
-    def test_parallel_different_skus_cannot_bypass_account_budget(self):
-        rows=self.run_parallel([lambda:self.place(items={self.skus[0].pk:10}),lambda:self.place(items={self.skus[1].pk:10})])
-        self.assertEqual(sum(isinstance(r,list) for r in rows),1)
-        self.assertEqual(OrderInfo.objects.count(),1)
+    def test_parallel_different_skus_cannot_bypass_last_checkout_group_slot(self):
+        for sku in self.skus:self.place(items={sku.pk:10})
+        extra=[SKU.objects.create(spu=self.skus[0].spu,name='Concurrent group %s'%i,
+               price=10,market_price=12,cost_price=5,stock=100,is_launched=True) for i in range(2)]
+        rows=self.run_parallel([lambda:self.place(items={extra[0].pk:10}),lambda:self.place(items={extra[1].pk:10})])
+        self.assertEqual(sum(isinstance(r,list) for r in rows),1,rows)
+        self.assertIn('UNPAID_CHECKOUT_LIMIT',rows)
+        self.assertEqual(CheckoutRequest.objects.count(),3)
+        self.assertEqual(OrderInfo.objects.count(),3)
     def test_legacy_multi_sku_shipping_and_single_sku_shipping_share_lock_order(self):
         spu=self.skus[1].spu;spu.merchant=self.shops[0];spu.save()
         wh=Warehouse.objects.create(name='默认',code='DEFAULT',address='Synthetic')

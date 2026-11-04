@@ -4,7 +4,7 @@ from django.db import models
 
 
 class SupportPreference(models.Model):
-    """Legacy MySQL preferences, retained only for non-destructive transfer to PostgreSQL."""
+    """Legacy preference rows retained for non-destructive BuyerMemory transfer."""
 
     user = models.OneToOneField('users.UserProfile', on_delete=models.CASCADE)
     preferences = models.JSONField(default=dict)

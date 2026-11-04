@@ -11,6 +11,7 @@
 - RULE-LOGIN-004：平台交易总览接口要求有效平台角色与 `data_view`；平台用户管理四种操作均要求有效平台角色与 `user_manage`；所有 Agent 设置、模型、检索状态、监控及链路接口要求有效平台角色与 `system_config`。账号停用或权限撤销即时影响后续请求，已有 JWT 不绕过检查；仅 `goods_manage` 或错误授予供应商 `user_manage/system_config` 均不足以访问平台。
 - RULE-LOGIN-005：运营页面加载后，先查询当前会话权限再初始化功能；无权限者转到自己的工作台，未登录者转登录页。页面保护不替代服务端接口鉴权。
 - RULE-LOGIN-006：旧 `/terminal_login.html` 重定向统一入口，不保留另一套登录逻辑。旧调用者的 `expected_user_type` 检查继续兼容，但新表单不发送此字段。
+- RULE-LOGIN-007（2026-11-03补齐既有采购车口径）：客户登录的`carts_count`只读规范账号`user.username`对应采购车Hash的SKU字段数，使用HLEN，不合计各字段count，不读取整键JSON。空键为0；Redis连接、超时或类型异常时仍返回正常登录结果及0，不清空、迁移或修复采购车。固定降级事件不包含账号、Redis键、凭据或异常原文。商家登录保持不读采购车；订单响应中的同名总件数字段不受此规则影响。验收见[登录Hash计数](../../evidence/2026-11-03-login-cart-hash/verification.md)。
 
 ## 接口与实现
 

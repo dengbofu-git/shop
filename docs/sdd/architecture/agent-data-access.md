@@ -72,7 +72,7 @@ sequenceDiagram
     participant A as 模型Agent
     participant M as MCP工具服务
     participant S as Python领域服务
-    participant D as MySQL / PostgreSQL
+    participant D as PostgreSQL / default
     U->>H: 当前原话、会话和请求标识
     H->>H: 认证、归属、幂等、revision及脱敏
     opt 任务需要已保存上下文或偏好

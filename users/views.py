@@ -10,6 +10,7 @@ from tea_saas.utils import jwt_encode, jwt_decode
 from django.views.decorators.cache import never_cache
 from django.utils.decorators import method_decorator
 from django_redis import get_redis_connection
+from redis.exceptions import RedisError
 import re
 import logging
 import unicodedata
@@ -184,18 +185,15 @@ def login(request):
             return JsonResponse({'code': 10006, 'error': '账号尚未配置可访问的工作台权限，请联系管理员'})
         token = jwt_encode({'id': user.pk, 'username': user.username})
 
-        # 获取购物车数量（仅客户）
+        # 与加购/删除接口一致：Hash字段数表示SKU条目数，不累计各行件数。
         carts_count = 0
         if user.is_customer():
             try:
                 conn = get_redis_connection('carts')
                 cart_key = f'carts_{user.username}'
-                cart_data = conn.get(cart_key)
-                if cart_data:
-                    cart_items = json.loads(cart_data)
-                    carts_count = len(cart_items) if isinstance(cart_items, list) else 0
-            except:
-                pass
+                carts_count = conn.hlen(cart_key)
+            except RedisError:
+                logger.warning('users.login.cart_count_unavailable')
         
         context = {
             'code': 200,

@@ -11,6 +11,7 @@ from orders.models import OrderInfo, OrderGoods
 from orders.analytics import sales_eligible_orders
 from orders.lifecycle import status_filter
 from supplier.models import SupplierSettlement
+from .sales_scope import build_sales_scope
 
 
 def _supplier_order_goods(user):
@@ -125,6 +126,7 @@ def build_supplier_analytics(user, period='year'):
 
     return {
         'summary': {
+            'sales_scope': build_sales_scope(orders),
             'total_sales': float(line_total),
             'total_sales_wan': round(float(line_total) / 10000, 2),
             'total_sales_display': '¥{:,.2f}'.format(line_total),

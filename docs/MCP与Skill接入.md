@@ -8,9 +8,9 @@
 
 客服由 Django 宿主创建请求级 MCP Client，签名绑定本人身份、咨询、当前引用及预算，通过独立 SDK 环境访问固定后端命令。商品、组合推荐、解释、订单、本人偏好／历史和知识工具列表见[运行设计](sdd/modules/ai-support/mcp-runtime.md)。不在用户级 Codex MCP 配置里复制买家凭据，也不把私有授权写入工具参数。
 
-服务端配置 `SUPPORT_MCP_PYTHON` 为 SDK Python 3.12绝对路径，默认使用仓库 `tools/tea_saas_mcp/.venv`；Django继续运行在现有3.9环境。调用／整轮超时默认40／120秒。缺配置或 MCP 故障返回明确错误，没有本地查询降级。部署后需要正常重载应用，本轮未操作已有业务服务。
+服务端配置`SUPPORT_MCP_PYTHON`为SDK Python3.13绝对路径，默认使用仓库`tools/tea_saas_mcp/.venv`；Django也使用Python3.13／Django5.2，两者依赖环境独立。调用／整轮超时默认40／120秒。缺配置或 MCP 故障返回明确错误，没有本地查询降级。部署后需要正常重载应用，本轮未操作已有业务服务。
 
-真实协议验收使用业务解释器运行 `python -X utf8 -m tools.tea_saas_mcp.agent_integration`，默认创建临时 SQLite；增加 `--postgres` 验证随机 PostgreSQL 测试库，增加 `--mysql` 使用本机已有 `mysql:8.0.46` 创建唯一标签、随机端口、无挂载的临时容器。真实后端验收命令会创建并清理专用测试资源，不使用业务 MySQL，外部模型调用被关闭。结果及边界见[证据](sdd/evidence/2026-10-28-agent-mcp/verification.md)。
+现行真实协议验收使用业务Python3.13解释器运行`python -X utf8 -m tools.tea_saas_mcp.agent_integration --unified-postgres`，验证业务与AI共用PostgreSQL／`default`；`--postgres`用于随机AI PostgreSQL专用夹具，无参数仍是临时SQLite快速验证。验收命令只创建并清理专用测试资源，外部模型调用被关闭；配置不能指向业务数据库。11月3日独立运行结果见[PG-only证据](sdd/evidence/2026-11-03-postgresql-independence/verification.md)，[2026-10-28证据](sdd/evidence/2026-10-28-agent-mcp/verification.md)保留当时的后端及运行环境含义。
 
 ## Skill 使用
 
@@ -39,7 +39,7 @@
 在仓库根目录运行；按机器实际位置替换解释器。不要把 MCP 依赖安装到 Django 环境。
 
 ```powershell
-# 使用 Python 3.12 创建 MCP 环境
+# 使用 Python 3.13 创建 MCP 环境
 python -m venv tools/tea_saas_mcp/.venv
 & tools/tea_saas_mcp/.venv/Scripts/python.exe -m pip install -r tools/tea_saas_mcp/requirements.txt
 ```
@@ -47,7 +47,7 @@ python -m venv tools/tea_saas_mcp/.venv
 若本机 venv 的 ensurepip 不可用，可用已安装的 uv 安装到同一个隔离环境：
 
 ```powershell
-uv venv --python 3.12 tools/tea_saas_mcp/.venv
+uv venv --python 3.13 tools/tea_saas_mcp/.venv
 uv pip install --python tools/tea_saas_mcp/.venv/Scripts/python.exe -r tools/tea_saas_mcp/requirements.txt
 ```
 
@@ -115,7 +115,7 @@ python tools/module_versions.py check
 git diff --check
 ```
 
-Django 定向测试使用隔离 SQLite，不验证真实 MySQL 聚合语义。MCP 测试覆盖 SDK 协议、固定命令派发、错误及超时回收；合成协议测试不代表已接入用户当前客户端或真实商品库。[本次验证记录](sdd/evidence/2026-10-18-mcp-skill/verification.md)分别列出通过项与已有失败。
+上述Django快速测试使用隔离SQLite，不能证明真实PostgreSQL聚合及锁语义。MCP测试覆盖SDK协议、固定命令派发、错误及超时回收；合成协议测试不代表已接入用户当前客户端或真实商品库。[2026-10-18历史验证记录](sdd/evidence/2026-10-18-mcp-skill/verification.md)分别列出当时环境的通过项、失败及未覆盖范围，不改记为当前PostgreSQL通过。
 
 需要验证 SDK → 子进程 → Django → 合成数据库完整链路时，在 MCP 测试前设置 `TEA_SAAS_TEST_PYTHON` 为现有业务解释器的绝对路径；测试自行创建临时 SQLite 并在结束时清理，不使用业务库。
 

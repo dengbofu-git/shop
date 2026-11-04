@@ -1,6 +1,7 @@
 """State/cancellation tests run only on an explicitly disposable PostgreSQL database."""
 
 from ai_storage.database import alias as ai_db_alias
+from ai_storage.pg_test_safety import require_disposable_postgresql
 import json
 import os
 from pathlib import Path
@@ -21,13 +22,10 @@ class PaddleDocumentDatabaseTests(unittest.TestCase):
         os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'tea_saas.settings')
         import django
         django.setup()
-        from django.conf import settings
-        if settings.DATABASES[ai_db_alias()]['NAME'] != os.environ['AI_PADDLEOCR_TEST_DATABASE']:
-            raise RuntimeError('Unsafe database target')
+        require_disposable_postgresql('AI_PADDLEOCR_TEST_DATABASE', 'paddle_document_test_')
 
     def setUp(self):
         from django.test import override_settings
-        from django.db.backends.mysql.base import DatabaseWrapper
         from ai_storage.pdf_pipeline import service
         self.service = service
         self.temp = tempfile.TemporaryDirectory()
@@ -36,8 +34,7 @@ class PaddleDocumentDatabaseTests(unittest.TestCase):
         settings = override_settings(AI_PDF_STORAGE_ROOT=self.root / 'storage')
         settings.enable()
         self.addCleanup(settings.disable)
-        for value in [patch.object(DatabaseWrapper, 'get_new_connection', side_effect=AssertionError('MySQL forbidden')),
-                      patch.object(service, 'operator', return_value=object()),
+        for value in [patch.object(service, 'operator', return_value=object()),
                       patch.dict(os.environ, {'AI_PADDLEOCR_BASE_URL': 'http://127.0.0.1:18080',
                           'AI_PADDLEOCR_REVISION': REVISION, 'AI_PADDLEOCR_API_KEY': KEY})]:
             value.start()

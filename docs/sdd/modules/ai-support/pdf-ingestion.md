@@ -14,7 +14,7 @@ Worker 使用独立认证 HTTP 服务，不把 GPU 模型放入受限 PDF 子进
 
 ## 数据与边界
 
-- KnowledgeDocument／KnowledgeChunk／EmbeddingSpace继续存储知识、片段和向量。新增KnowledgeImportJob（任务、租约、配置、指纹、错误、审核记录）及KnowledgePage（逐页文本块、坐标、识别方式、置信度和警告），均由ai_storage路由写PostgreSQL；MySQL身份仅保存数字引用，不建跨库外键。
+- KnowledgeDocument／KnowledgeChunk／EmbeddingSpace继续存储知识、片段和向量。新增KnowledgeImportJob（任务、租约、配置、指纹、错误、审核记录）及KnowledgePage（逐页文本块、坐标、识别方式、置信度和警告），均由ai_storage路由使用PostgreSQL/default；身份仍保存数字逻辑引用，同库不自动新增外键或级联关系。
 - 文件保存于AI_PDF_STORAGE_ROOT，默认`.scratch/knowledge-files`；Docker映射到`/knowledge`。原PDF和预览图不进入public media/static，不接受Agent构造的路径。文件名使用任务UUID，逐流校验PDF头及50MiB上限，最多200页，拒绝加密文档。
 - 所有管理命令的actor-id必须是活跃平台角色且拥有system_config；这是可信服务器命令，不是客户端可任意指定身份的HTTP接口。公开资料需明确visibility=public，默认private；私有owner由活跃身份校验。
 - 幂等键包括提交人、来源键、所有者、可见性、文件SHA256、标题和管道配置。同一配置重复提交复用任务；retry显式恢复失败或取消的草稿。来源键按提交人/ACL分域，不跨所有者复用文件或泄露存在性。
@@ -38,11 +38,11 @@ Worker 使用独立认证 HTTP 服务，不把 GPU 模型放入受限 PDF 子进
 新增Migration仅随源码提供；不要在未授权的业务库自动执行。依赖在独立Docker镜像中，主Web环境不需要安装PyMuPDF/Tesseract。使用空的Compose插值配置，实际凭据由Django从只读挂载的既有.env/.env.postgres读取，避免密码中美元符号及引号被Compose重解释。所有命令在项目根目录执行：
 
 ```powershell
-# 构建；可用--build-arg PYTHON_IMAGE=...指定可访问的相同Python3.10基础镜像
+# 构建；可用--build-arg PYTHON_IMAGE=...指定可访问的相同Python3.13基础镜像
 docker compose --env-file deploy/knowledge-worker/compose.env -f compose.knowledge-worker.yml build
 
 # 在获得业务库迁移授权之后才执行
-python manage.py migrate ai_storage --database ai_storage
+python manage.py migrate ai_storage --database default
 
 # 将文件放入.scratch/knowledge-input；下列示例的1必须替换为真实平台操作者ID
 docker compose --env-file deploy/knowledge-worker/compose.env -f compose.knowledge-worker.yml run --rm knowledge-worker python manage.py knowledge_pdf submit /input/tea.pdf --actor-id 1 --title "茶叶资料" --source-key tea-manual --languages chi_sim+eng
@@ -65,7 +65,7 @@ python manage.py knowledge_pdf publish JOB_UUID --actor-id 1 --accept-warnings
 python manage.py knowledge_pdf withdraw JOB_UUID --actor-id 1
 ```
 
-inspect是受控的人工原文预览，终端可能显示文档敏感内容；Worker日志只输出状态与固定错误码。Web进程如需读取原文件，必须将AI_PDF_STORAGE_ROOT设为同一个宿主目录。Linux挂载目录需预先给予容器UID10001读写权；任务目录0700、原件0600，Web需相同UID或显式只读ACL。输入目录只读。容器内通过host.docker.internal访问已有MySQL/PostgreSQL/Ollama，端口沿用环境配置；远程服务地址需修改Compose环境映射。
+inspect是受控的人工原文预览，终端可能显示文档敏感内容；Worker日志只输出状态与固定错误码。Web进程如需读取原文件，必须将AI_PDF_STORAGE_ROOT设为同一个宿主目录。Linux挂载目录需预先给予容器UID10001读写权；任务目录0700、原件0600，Web需相同UID或显式只读ACL。输入目录只读。容器内通过host.docker.internal访问PostgreSQL/default及Ollama，端口沿用POSTGRES_*及模型环境配置；远程服务地址需修改Compose环境映射。
 
 tokenizer固定下载BAAI/bge-m3修订5617a9f61b028005a4858fdac845db406aefb181的tokenizer.json，仅在镜像构建时联网；任务保存其SHA256，执行时校验。页面解析实际PyMuPDF和Tesseract版本保存于文档metadata，重试不允许静默更换运行版本。
 

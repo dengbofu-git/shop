@@ -12,13 +12,13 @@
 
 收藏商品和收藏商家卡片不展示记录时间，也不保留时间行的空白；商品价格或商家简介后直接放置查看／取消收藏操作。最近浏览仍展示查看时间。持久化时间字段、按收藏时间倒序的规则和接口响应保持不变。
 
-迁移按仓库要求在独立 MySQL 临时库验证，业务库迁移与重新加载后端在获得授权后进行。没有自动逆迁移；需要回滚时先停用新入口和写入，保留新表以免丢失收藏记录。原有商品收藏及浏览足迹的历史验证记录不作为本次商家收藏的功能验收成绩。
+迁移按仓库要求在独立PostgreSQL临时库的default连接验证，业务库迁移与重新加载后端在获得授权后进行。没有自动逆迁移；需要回滚时先停用新入口和写入，保留新表以免丢失收藏记录。原有商品收藏及浏览足迹的历史验证记录不作为本次商家收藏的功能验收成绩。
 
-新增 `goods.Favorite` 和 `goods.BrowsingHistory`，分别包含账号、SKU、收藏／最近查看时间，数据库唯一键 `(user_id, sku_id)`，外键级联删除，时间倒序加 ID 作为稳定次序。使用业务 default 数据库。
+新增 `goods.Favorite` 和 `goods.BrowsingHistory`，分别包含账号、SKU、收藏／最近查看时间，数据库唯一键 `(user_id, sku_id)`，外键级联删除，时间倒序加 ID 作为稳定次序。使用PostgreSQL/default数据库。
 
 `activity_views.buyer_only` 复用 JWT 用户读取，在视图外检查账号启用和 customer 类型。业务异常不被认证装饰器捕获成 401；各 API 自行限制 HTTP 方法。列表使用 select_related、12 条数据库分页，足迹页的收藏状态仅批量查询当前页 SKU。
 
-收藏采用显式 PUT／DELETE 而非 toggle，重复请求不会反转状态；唯一约束兜底重复插入。足迹记录、删除和清空使用同一账号行 `select_for_update` 与原子事务，在 MySQL 上串行化；更新同一 SKU 并在事务内裁剪到 100 件。SQLite 不证明 MySQL 行锁行为，相关真实组件结果见 evidence；收藏与取消并发的最终状态取实际提交结果。
+收藏采用显式 PUT／DELETE 而非 toggle，重复请求不会反转状态；唯一约束兜底重复插入。足迹记录、删除和清空使用同一账号行 `select_for_update` 与原子事务，在PostgreSQL/default上串行化；更新同一 SKU 并在事务内裁剪到 100 件。SQLite不证明PostgreSQL行锁行为，真实组件结果按对应日期的evidence阅读，不把早期其他组件成绩改记为PG验证；收藏与取消并发的最终状态取实际提交结果。
 
 详情页只有在现有详情接口成功、`is_launched=true` 时初始化收藏状态及足迹请求。匿名时不写入，点击收藏引导登录。足迹写失败显示提示，不阻断详情。列表以 `textContent` 构建商品文本；操作中锁定按钮，失败显示提示，GET加载失败可重试。
 
@@ -36,6 +36,6 @@ Migration：`goods/0009_browsinghistory_favorite.py`，依赖 goods 0008 与 use
 
 ## 证据范围
 
-自动场景见 `acceptance.yaml`、`goods/test_activity.py`，SQLite 使用 support_ai.test_settings，MySQL 使用 goods.test_mysql_settings 创建唯一临时测试库，结束自动删除，不在业务库中造测试用户。
+自动场景见`acceptance.yaml`、`goods/test_activity.py`。SQLite快速检查使用`support_ai.test_settings`；真实数据库验证使用`python manage.py test goods.test_activity --settings=tea_saas.pg_test_settings --noinput`，显式设置`TEA_SAAS_PG_TEST_PORT`与`TEA_SAAS_PG_TEST_PASSWORD`指向隔离资源。测试使用单一PostgreSQL/default，运行结束删除测试库，不在业务库中造测试用户。
 
 浏览器预览脚本 `docs/sdd/evidence/2026-10-16-buyer-activity/preview.py` 使用临时SQLite和合成账户／商品，127.0.0.1:8001；bootstrap仅属于验证脚本，不挂载业务路由。截图、命令、输入哈希和限制见 evidence 的 manifest.json、verification.md。legacyStage兼容记录为IMPLEMENTING；当前四维状态见capability.yaml。

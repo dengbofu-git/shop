@@ -11,9 +11,7 @@ services:
     # Django reads existing .env/.env.postgres from the read-only /app mount.
     # Do not let Compose reinterpret passwords or preserve dotenv quote syntax.
     environment:
-      DB_HOST: host.docker.internal
       POSTGRES_HOST: host.docker.internal
-      AI_POSTGRES_HOST: host.docker.internal
       AI_OLLAMA_BASE_URL: http://host.docker.internal:11434
       AI_PDF_STORAGE_ROOT: /knowledge
       AI_PDF_TOKENIZER_PATH: /models/bge-m3/tokenizer.json

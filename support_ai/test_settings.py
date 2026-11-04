@@ -1,4 +1,4 @@
-"""Isolated test database; never connect to the configured business MySQL/Redis."""
+"""Isolated SQLite fixtures; never connect to configured business storage."""
 import os
 
 from tea_saas.settings import *  # noqa: F401,F403

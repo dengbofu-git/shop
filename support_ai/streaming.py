@@ -7,7 +7,7 @@ import logging
 from contextlib import contextmanager
 from contextvars import ContextVar, copy_context
 
-from django.db import close_old_connections
+from django.db import close_old_connections, connections
 from django.http import StreamingHttpResponse
 
 _sink = ContextVar('support_stream_sink',default=None)
@@ -140,7 +140,9 @@ def event_response(request,run):
             request._support_stream_context['http_status']=503
         finally:
             try:
-                close_old_connections()
+                # This thread is ending: fresh persistent connections also
+                # belong to it and cannot be reused by the request thread.
+                connections.close_all()
             finally:
                 sink.finished.set()
                 try:

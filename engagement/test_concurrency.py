@@ -4,7 +4,7 @@ from concurrent.futures import ThreadPoolExecutor
 from threading import Barrier
 from unittest import skipUnless
 
-from django.db import close_old_connections, connection
+from django.db import close_old_connections, connection, connections
 from django.test import Client, TransactionTestCase
 
 from tea_saas.utils import jwt_encode
@@ -12,7 +12,7 @@ from .models import Conversation, Message, Review
 from .tests import EngagementTests
 
 
-@skipUnless(connection.vendor in ('mysql', 'postgresql'), 'Requires isolated PostgreSQL/MySQL row locks')
+@skipUnless(connection.vendor == 'postgresql', 'Requires isolated PostgreSQL row locks')
 class EngagementConcurrencyTests(TransactionTestCase):
     make_sku = staticmethod(EngagementTests.make_sku)
     order = EngagementTests.order
@@ -31,7 +31,7 @@ class EngagementConcurrencyTests(TransactionTestCase):
                                          HTTP_AUTHORIZATION=jwt_encode({'id':user_id}))
                 return response.status_code
             finally:
-                close_old_connections()
+                connections.close_all()
         with ThreadPoolExecutor(max_workers=len(payloads)) as pool:
             return list(pool.map(worker, payloads))
 
@@ -54,7 +54,7 @@ class EngagementConcurrencyTests(TransactionTestCase):
                     'merchant_id': self.shop.pk, 'text': '继续咨询', 'request_id': 'visibility-lock-send'}),
                     content_type='application/json', HTTP_AUTHORIZATION=jwt_encode({'id': self.buyer.pk})).status_code
             finally:
-                close_old_connections()
+                connections.close_all()
         with ThreadPoolExecutor(max_workers=1) as pool:
             # Hide and send serialize on the same pair, including POST conversations.
             with transaction.atomic():

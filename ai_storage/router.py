@@ -2,7 +2,7 @@ from .database import alias
 
 
 class AiStorageRouter:
-    """One runtime transaction connection; explicit split mode for source tools."""
+    """One runtime transaction connection; separate aliases only in test fixtures."""
 
     def db_for_read(self, model, **hints):
         return alias() if model._meta.app_label == 'ai_storage' else None

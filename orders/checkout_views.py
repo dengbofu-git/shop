@@ -5,6 +5,7 @@ from django.http import JsonResponse
 from django.views.decorators.cache import never_cache
 from users.decorators import get_user_from_request
 from .models import ReservationPolicy,ReservationPolicyChange
+from .reservation_policy import STANDARD_RESERVATION_TTL_SECONDS, effective_policy
 from .reservations import (ReservationError, positive, fingerprint, replay, create_orders, close_order)
 
 
@@ -24,11 +25,31 @@ def buyer(request,username):
 
 
 def result(orders):
+    from decimal import Decimal
+    from .models import OrderGoods
+    snapshots = {}
+    for item in OrderGoods.objects.filter(order_info__in=orders).order_by('pk'):
+        snapshot = item.purchase_snapshot or {}
+        snapshots.setdefault(item.order_info_id, {})[item.merchant_snapshot_id] = snapshot.get('merchant_name', '')
+    merchant = {pk: next(iter(owners.items())) if len(owners) == 1 else (None, '')
+                for pk, owners in snapshots.items()}
     data=[{'order_id':o.pk,'total_amount':str(o.total_amount),'carts_count':o.total_count,'status':o.status,
            'currency':o.currency,
+           'merchant_id':merchant.get(o.pk, (None, ''))[0],
+           'merchant_name':merchant.get(o.pk, (None, ''))[1],
            'expires_at':o.expires_at.isoformat() if o.expires_at else None,
            'payment_exception':o.payment_exception,'pay_url':None} for o in orders]
-    return {'code':200,'data':{'orders':data,**(data[0] if len(data)==1 else {}),'split_by_merchant':len(data)>1}}
+    checkout_ids = {o.checkout_request_id for o in orders}
+    deadlines = {o.expires_at for o in orders}
+    deadline = next(iter(deadlines)) if len(deadlines) == 1 else None
+    combined = (len(checkout_ids) == 1 and next(iter(checkout_ids)) is not None and
+        all(o.reservation_managed and o.order_type == 'standard' and o.currency == 'CNY' for o in orders))
+    return {'code':200,'data':{'orders':data,**(data[0] if len(data)==1 else {}),
+        'checkout_id':next(iter(checkout_ids)) if len(checkout_ids) == 1 else None,
+        'checkout_expires_at':deadline.isoformat() if deadline else None,
+        'payment_mode':'combined' if combined else 'individual',
+        'checkout_total_amount':str(sum((o.total_amount for o in orders), Decimal('0'))) if combined else None,
+        'split_by_merchant':len(data)>1}}
 
 
 @never_cache
@@ -51,24 +72,23 @@ def submit_order(request,username,cart):
         consumed={}
         if kind=='1':items={positive(payload.get('sku_id')):positive(payload.get('buy_count'))}
         elif kind=='0':
-            from carts.state import checkout_snapshot
-            from .cart_cleanup import drain_cleanup
-            drain_cleanup(user_id=user.pk, conn=cart, force=True)
+            from carts.state import checkout_snapshot, CartSelectionLimit
+            from .checkout_limits import cart_selection, checkout_sku_limit, validate_checkout_size
             selected=payload.get('sku_list')
             if selected is not None and (not isinstance(selected,list) or any(not isinstance(i,dict) for i in selected)):
                 raise ReservationError('INVALID_CART','采购车商品格式不正确',400)
             requested=None if not selected else [positive(i.get('id') or i.get('sku_id')) for i in selected]
             if requested is not None and len(requested)!=len(set(requested)):
                 raise ReservationError('INVALID_CART','采购车商品重复，请重新加载',400)
-            all_items=checkout_snapshot(cart,username)
-            ids=None if requested is None else set(requested)
-            items={}
-            for key,value in all_items.items():
-                sid=positive(key.decode() if isinstance(key,bytes) else key)
-                row=json.loads(value)
-                if not isinstance(row,dict):raise ReservationError('INVALID_CART','采购车已变化',400)
-                if row.get('status') is True and (ids is None or sid in ids):items[sid]=positive(row.get('count'));consumed[sid]=row
-            if ids and set(items)!=ids:raise ReservationError('CART_CHANGED','采购车已变化，请返回重新选择',409)
+            # An over-limit request is entirely read-only, including pending
+            # cleanup tasks and legacy cart normalization. The worker/replay
+            # path still retries previously committed cleanup independently.
+            cart_selection(cart.hgetall('carts_'+user.username),requested)
+            try:
+                all_items=checkout_snapshot(cart,user.username,max_skus=checkout_sku_limit(),requested=requested)
+            except CartSelectionLimit:
+                validate_checkout_size(range(checkout_sku_limit()+1))
+            items,consumed=cart_selection(all_items,requested)
         else:raise ReservationError('INVALID_SETTLEMENT','结算类型无效',400)
         orders=create_orders(user,request_id,digest,positive(payload.get('address_id')),items,request.META.get('REMOTE_ADDR'),cart_snapshots=consumed)
         if kind=='0' and orders:
@@ -103,27 +123,28 @@ def reservation_policy(request):
     fields=['ttl_seconds','max_unpaid_quantity','max_unpaid_amount','max_stock_percent']
     try:
         if request.method=='PUT':
-            from decimal import Decimal,InvalidOperation
+            from decimal import Decimal
             data=json.loads(request.body)
             if not isinstance(data,dict) or set(data)!=set(fields+['change_reason']):raise ValueError()
             if not isinstance(data['change_reason'],str) or not 1<=len(data['change_reason'].strip())<=200:raise ValueError()
             values={k:positive(data[k]) for k in fields if k!='max_unpaid_amount'}
             amount=Decimal(str(data['max_unpaid_amount']))
             if not amount.is_finite() or not Decimal('1')<=amount<=Decimal('10000000') or amount!=amount.quantize(Decimal('.01')):raise ValueError()
-            if not 60<=values['ttl_seconds']<=900 or not 1<=values['max_stock_percent']<=100 or values['max_unpaid_quantity']>100000:raise ValueError()
+            if values.pop('ttl_seconds')!=STANDARD_RESERVATION_TTL_SECONDS or not 1<=values['max_stock_percent']<=100 or values['max_unpaid_quantity']>100000:raise ValueError()
             values['max_unpaid_amount']=amount
             with transaction.atomic():
                 from users.models import UserProfile
                 UserProfile.objects.select_for_update().get(pk=user.pk)
-                policy,_=ReservationPolicy.objects.get_or_create(merchant=user)
+                policy,_=ReservationPolicy.objects.get_or_create(merchant=user,defaults={'ttl_seconds':STANDARD_RESERVATION_TTL_SECONDS})
                 policy=ReservationPolicy.objects.select_for_update().get(pk=policy.pk)
-                before={k:format(getattr(policy,k),'.2f') if k=='max_unpaid_amount' else getattr(policy,k) for k in fields}
+                before=effective_policy(user.pk,configured=policy).as_payload()
                 for key,value in values.items():setattr(policy,key,value)
-                policy.save(update_fields=fields)
-                after={k:format(getattr(policy,k),'.2f') if k=='max_unpaid_amount' else getattr(policy,k) for k in fields}
+                policy.save(update_fields=list(values))
+                snapshot=effective_policy(user.pk,configured=policy)
+                after=snapshot.as_payload()
                 ReservationPolicyChange.objects.create(merchant=user,actor=user,before=before,after=after,reason=data['change_reason'].strip())
-        elif request.method=='GET':policy=ReservationPolicy.objects.filter(merchant=user).first() or ReservationPolicy(merchant=user)
+        elif request.method=='GET':snapshot=effective_policy(user.pk)
         else:return JsonResponse({'code':405,'error':'方法不允许'},status=405)
-        return JsonResponse({'code':200,'data':{k:format(getattr(policy,k),'.2f') if k=='max_unpaid_amount' else getattr(policy,k) for k in fields}})
+        return JsonResponse({'code':200,'data':snapshot.as_payload()})
     except (ValueError,TypeError,AttributeError,ArithmeticError,ReservationError):
-        return JsonResponse({'code':400,'error':'规则无效：时限60～900秒，占比1～100%，数量和金额须为正数，且须填写变更依据'},status=400)
+        return JsonResponse({'code':400,'error':'规则无效：新普通订单统一预留900秒，占比1～100%，数量和金额须为正数，且须填写变更依据'},status=400)

@@ -10,7 +10,7 @@ from decimal import Decimal
 
 from django.conf import settings
 from django.db import transaction
-from django.db.models import Sum, Q
+from django.db.models import Sum
 from django.utils import timezone
 from goods.models import SKU
 from inventory.models import Inventory, InventoryLog
@@ -32,7 +32,8 @@ def positive(value):
 
 
 def policy_for(merchant_id):
-    return ReservationPolicy.objects.filter(merchant_id=merchant_id).first() or ReservationPolicy(merchant_id=merchant_id)
+    from .reservation_policy import effective_policy
+    return effective_policy(merchant_id)
 
 
 def fingerprint(payload):
@@ -73,15 +74,24 @@ def _lock_stock(order):
 
 def _release_locked(order,reason,now):
     _,ledgers=_lock_stock(order)
+    released_quantity = 0
     for hold in StockHold.objects.select_for_update().filter(item__order_info=order,state='reserved').order_by('pk'):
         inv=ledgers[hold.inventory_id]
         if inv.reserved_quantity<hold.quantity:raise ReservationError('INVENTORY_INCONSISTENT','库存预留记录不一致，请联系管理员')
         before=inv.available_quantity;inv.reserved_quantity-=hold.quantity
         inv.save(update_fields=['reserved_quantity','available_quantity','updated_time'])
         hold.state='released';hold.released_at=now;hold.save(update_fields=['state','released_at'])
+        released_quantity += hold.quantity
         _log(inv,hold.quantity,'release',before,inv.available_quantity,order)
     order.status=0;order.closed_at=now;order.close_reason=reason
     order.save(update_fields=['status','closed_at','close_reason','updated_time'])
+    # Old inconsistent statuses may retain only previously released holds.
+    # Closing such a row must not attribute a new stock occupation to the buyer.
+    if released_quantity:
+        from .checkout_risk import record_release
+        record_release(order, reason, now)
+    from pays.combined import invalidate_order_payments
+    invalidate_order_payments(order, reason)
 
 
 def close_order(order_id, user_id=None, reason='user_cancel', expired_only=False, merchant_id=None):
@@ -90,6 +100,8 @@ def close_order(order_id, user_id=None, reason='user_cancel', expired_only=False
     if user_id is not None and owner!=user_id:raise ReservationError('ORDER_NOT_FOUND','订单不存在',404)
     with transaction.atomic():
         UserProfile.objects.select_for_update().get(pk=owner)
+        from pays.combined import lock_order_payments
+        lock_order_payments(order_id)
         order=OrderInfo.objects.select_for_update().get(pk=order_id)
         if merchant_id is not None:
             from .lifecycle import require_single_merchant
@@ -112,13 +124,28 @@ def expire_orders(user_id=None,sku_ids=None,limit=500):
 
 
 def create_orders(user,request_id,digest,address_id,items,source_ip,cart_snapshots=None):
+    # Admission can persist a fixed cooldown. Raise only after the internal
+    # transaction commits; otherwise the refusal would roll its own state back.
+    result = _create_orders(user,request_id,digest,address_id,items,source_ip,cart_snapshots)
+    if isinstance(result, ReservationError):
+        raise result
+    return result
+
+
+def _create_orders(user,request_id,digest,address_id,items,source_ip,cart_snapshots=None):
     if not re.fullmatch(r'[A-Za-z0-9_-]{16,64}',str(request_id or '')):
         raise ReservationError('IDEMPOTENCY_KEY_REQUIRED','缺少有效的结算请求编号，请刷新重试',400)
     old=replay(user,request_id,digest)
     if old is not None:return old
-    record_attempt(source_ip)
     if not items:raise ReservationError('EMPTY_CART','请选择需要结算的商品',400)
-    normalized={positive(k):positive(v) for k,v in items.items()}
+    normalized={}
+    for key,value in items.items():
+        sid=positive(key)
+        if sid in normalized:raise ReservationError('INVALID_CART','采购车商品重复，请重新加载',400)
+        normalized[sid]=positive(value)
+    from .checkout_limits import validate_checkout_size
+    validate_checkout_size(normalized)
+    record_attempt(source_ip)
     expire_orders(user_id=user.pk)
     expire_orders(sku_ids=list(normalized))
     with transaction.atomic():
@@ -129,12 +156,23 @@ def create_orders(user,request_id,digest,address_id,items,source_ip,cart_snapsho
         address=Address.objects.filter(pk=address_id,user_profile=buyer,is_delete=False).first()
         if not address:raise ReservationError('ADDRESS_NOT_FOUND','收货地址不存在',404)
         now=timezone.now()
-        recent=OrderInfo.objects.filter(user_profile=buyer,reservation_managed=True,paid_at__isnull=True,close_reason__in=['user_cancel','expired'],closed_at__gte=now-timedelta(hours=1)).order_by('-closed_at')
-        if recent.count()>=3:
-            retry=recent.first().closed_at+timedelta(minutes=30)
-            if retry>now:raise ReservationError('RESERVATION_COOLDOWN','取消或超时次数过多，暂时停止预留',429,retry_after=int((retry-now).total_seconds()))
+        from .checkout_risk import check_admission
+        refusal = check_admission(buyer, now)
+        if refusal is not None:
+            return refusal
+        from .checkout_groups import max_unpaid_checkouts, pending_checkout_groups
+        pending_groups = pending_checkout_groups(buyer, now)
+        group_limit = max_unpaid_checkouts()
+        if pending_groups >= group_limit:
+            raise ReservationError('UNPAID_CHECKOUT_LIMIT',
+                '待付结算组已达限额，请先付款或取消已有订单', 429,
+                pending_checkout_groups=pending_groups, max_unpaid_checkouts=group_limit)
         if CheckoutRequest.objects.filter(user=buyer,created_at__gte=now-timedelta(minutes=1)).count()>=5:
             raise ReservationError('CHECKOUT_RATE_LIMITED','下单过于频繁，请稍后重试',429,retry_after=60)
+        pending=OrderInfo.objects.filter(user_profile=buyer,status=1)
+        global_quantity=sum(normalized.values())+(pending.aggregate(total=Sum('total_count'))['total'] or 0)
+        if global_quantity>getattr(settings,'RESERVATION_MAX_UNPAID_QUANTITY',300):
+            raise ReservationError('UNPAID_QUANTITY_LIMIT','累计待付预留数量超过限额，请先处理已有订单',429)
         skus=list(SKU.objects.select_for_update().filter(pk__in=normalized).order_by('pk'))
         if len(skus)!=len(normalized):raise ReservationError('SKU_NOT_FOUND','部分商品已不存在',404)
         groups=defaultdict(list);rows_by_sku={}
@@ -142,28 +180,9 @@ def create_orders(user,request_id,digest,address_id,items,source_ip,cart_snapsho
             spu=sku.spu;merchant=spu.merchant
             if not sku.is_launched or merchant is None or not merchant.is_active:
                 raise ReservationError('PRODUCT_UNAVAILABLE','部分商品已下架或商家不可用',409,sku_id=sku.pk)
-            rows_by_sku[sku.pk]=InventoryService.locked_ledgers(sku)
+            if sku.price<=0:raise ReservationError('INVALID_PRICE','商品价格无效，请联系商家',409)
             groups[merchant.pk].append(sku)
-        pending=OrderInfo.objects.filter(user_profile=buyer,status=1)
         policies={mid:policy_for(mid) for mid in groups}
-        window=now-timedelta(hours=1)
-        budget=0
-        history=OrderInfo.objects.filter(user_profile=buyer,reservation_managed=True).filter(
-            Q(status=1)|Q(close_reason__in=['user_cancel','expired'],closed_at__gte=window,paid_at__isnull=True))
-        for prior_order in history:
-            start=max(prior_order.created_time,window)
-            # Active holds include their remaining committed time. Closed holds
-            # retain the time actually occupied, even after hiding or cancellation.
-            end=prior_order.expires_at if prior_order.status==1 else min(prior_order.closed_at,prior_order.expires_at,now)
-            budget+=max(0,(end-start).total_seconds())
-        projected=budget+sum(policies[mid].ttl_seconds for mid in groups)
-        if projected>getattr(settings,'RESERVATION_MAX_HOLD_SECONDS_PER_HOUR',1800):
-            raise ReservationError('RESERVATION_TIME_BUDGET','本小时累计预留时长已达限额，请先处理已有订单或稍后重试',429,retry_after=60)
-        if pending.count()+len(groups)>getattr(settings,'RESERVATION_MAX_UNPAID_ORDERS',3):
-            raise ReservationError('UNPAID_ORDER_LIMIT','请先付款或取消已有待付款订单',429)
-        global_quantity=sum(normalized.values())+(pending.aggregate(total=Sum('total_count'))['total'] or 0)
-        if global_quantity>getattr(settings,'RESERVATION_MAX_UNPAID_QUANTITY',300):
-            raise ReservationError('UNPAID_QUANTITY_LIMIT','累计待付预留数量超过限额，请先处理已有订单',429)
         global_amount=sum((s.price*normalized[s.pk] for s in skus),Decimal('0'))+(pending.aggregate(total=Sum('total_amount'))['total'] or 0)
         if global_amount>Decimal(str(getattr(settings,'RESERVATION_MAX_UNPAID_AMOUNT',60000))):
             raise ReservationError('UNPAID_AMOUNT_LIMIT','累计待付预留金额超过限额，请先处理已有订单',429)
@@ -176,21 +195,26 @@ def create_orders(user,request_id,digest,address_id,items,source_ip,cart_snapsho
                 raise ReservationError('BULK_CONFIRMATION_REQUIRED','超过本店待付预留额度，请先联系商家确认采购',409,merchant_id=merchant_id,sku_id=products[0].pk)
             for sku in products:
                 if prior.filter(sku=sku).exists():raise ReservationError('SKU_ALREADY_RESERVED','已有该商品的待付款订单，请前往付款或取消',409,sku_id=sku.pk)
-                rows=rows_by_sku[sku.pk]
-                available=sum(r.available_quantity for r in rows if r.warehouse.is_active)
-                count=normalized[sku.pk]
-                if available<count:raise ReservationError('INSUFFICIENT_STOCK','商品可售库存不足',409,sku_id=sku.pk,available=available)
-                physical=sum(r.quantity for r in rows if r.warehouse.is_active)
-                if count*100>physical*policy.max_stock_percent:
-                    raise ReservationError('BULK_CONFIRMATION_REQUIRED','采购数量占库存比例较高，请先联系商家确认',409,sku_id=sku.pk,merchant_id=merchant_id)
-                if sku.price<=0:raise ReservationError('INVALID_PRICE','商品价格无效，请联系商家',409)
+        # Metadata/account budgets can reject without acquiring any ledger or
+        # warehouse lock. Stock decisions below still use authoritative locks.
+        for sku in skus:
+            rows=InventoryService.locked_ledgers(sku)
+            rows_by_sku[sku.pk]=rows
+            available=sum(r.available_quantity for r in rows if r.warehouse.is_active)
+            count=normalized[sku.pk]
+            if available<count:raise ReservationError('INSUFFICIENT_STOCK','商品可售库存不足',409,sku_id=sku.pk,available=available)
+            physical=sum(r.quantity for r in rows if r.warehouse.is_active)
+            merchant_id=sku.spu.merchant_id
+            if count*100>physical*policies[merchant_id].max_stock_percent:
+                raise ReservationError('BULK_CONFIRMATION_REQUIRED','采购数量占库存比例较高，请先联系商家确认',409,sku_id=sku.pk,merchant_id=merchant_id)
+        reservation_started_at=timezone.now()
         checkout=CheckoutRequest.objects.create(user=buyer,request_id=request_id,fingerprint=digest)
         if cart_snapshots:
             from .cart_cleanup import record_cleanup
             record_cleanup(checkout, cart_snapshots, normalized)
         result=[]
         for merchant_id,products in sorted(groups.items()):
-            expiry=now+timedelta(seconds=policies[merchant_id].ttl_seconds)
+            expiry=reservation_started_at+timedelta(seconds=policies[merchant_id].ttl_seconds)
             order=OrderInfo.objects.create(user_profile=buyer,order_id=uuid.uuid4().hex,total_amount=sum((s.price*normalized[s.pk] for s in products),Decimal('0')),
                 total_count=sum(normalized[s.pk] for s in products),freight=0,pay_method=1,status=1,reservation_managed=True,expires_at=expiry,checkout_request=checkout,
                 receiver=address.receiver,address=address.address,receiver_mobile=address.receiver_mobile,tag=address.tag)
@@ -218,10 +242,28 @@ def confirm_payment(order_id,trade_no,amount):
     if owner is None:raise ReservationError('ORDER_NOT_FOUND','订单不存在',404)
     with transaction.atomic():
         UserProfile.objects.select_for_update().get(pk=owner)
+        from pays.combined import lock_order_payments, invalidate_order_payments
+        from pays.receipts import record_legacy_receipt, finalize_legacy_receipt
+        lock_order_payments(order_id)
         order=OrderInfo.objects.select_for_update().get(pk=order_id)
         if amount!=order.total_amount:raise ReservationError('PAYMENT_AMOUNT_MISMATCH','支付金额不匹配',400)
+        receipt=record_legacy_receipt(order,trade_no,amount)
         if order.payment_trade_no:
-            if order.payment_trade_no!=trade_no:raise ReservationError('PAYMENT_CONFLICT','订单支付流水不匹配',400)
+            if order.payment_trade_no!=trade_no:
+                # A second verified transfer is a separate funds fact. Keep
+                # the original order/payment intact and retain it for review.
+                receipt.outcome='review'
+                receipt.review_reason='duplicate_legacy_payment_review_required'
+                receipt.save(update_fields=['outcome','review_reason'])
+                return order
+            finalize_legacy_receipt(receipt,order)
+            return order
+        # A separately issued old child link can arrive after a combined
+        # payment. Preserve the lawful paid order and the additional funds fact.
+        if order.paid_at and order.status in (2,3,4):
+            receipt.outcome='review'
+            receipt.review_reason='duplicate_legacy_payment_review_required'
+            receipt.save(update_fields=['outcome','review_reason'])
             return order
         now=timezone.now()
         if order.currency != 'CNY':
@@ -240,6 +282,8 @@ def confirm_payment(order_id,trade_no,amount):
             holds.update(state='paid');order.status=2
         order.payment_trade_no=trade_no;order.paid_at=now
         order.save(update_fields=['status','paid_at','payment_trade_no','payment_exception','updated_time'])
+        invalidate_order_payments(order,'legacy_payment_received')
+        finalize_legacy_receipt(receipt,order)
         return order
 
 
