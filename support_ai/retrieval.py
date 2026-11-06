@@ -15,7 +15,7 @@ from .telemetry import agent_span, retrieval_hits, rerank_observation
 from .query_rewrite import (QueryPolicy, normalize_text, rule_queries, unique_queries, translate_queries,
                             insufficiency, focused_retry_queries, coverage_order, coverage_missing, SUBJECTS, FACETS, concepts)
 from .pii import redact
-from .grounding import COVERAGE_PENDING
+from .grounding import COVERAGE_PENDING, COVERAGE_UNCONFIRMED
 from .retry_decision import build_focused_query, decide_retry, needs_semantic_review
 
 RETRY_TIME_RESERVE = 2.0
@@ -119,6 +119,9 @@ class KnowledgeRetriever:
             notes.append('本次检索未找到同时覆盖{}与所问主题的直接证据；回答应明确资料缺口，不据此推断。'.format('、'.join(missing)))
         elif not target and audit.get('remaining_issues'):
             notes.append('本次检索存在资料数量或关联性不足的信号；请仅回答证据直接支持的内容，并说明限制。')
+        if not target and audit.get('selected_ids') and audit.get('semantic_status') in (
+                'pending', 'rejected', 'unavailable'):
+            notes.append(COVERAGE_UNCONFIRMED)
         if target and 'year_gap' in audit.get('remaining_issues', []):
             notes.append('本次检索缺少所问年份的直接资料。')
         return notes

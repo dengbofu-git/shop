@@ -115,6 +115,7 @@ class BoundedRagRetryTests(SimpleTestCase):
         self.decide.assert_called_once()
         self.translate.assert_not_called()
         self.recall.assert_called_once()
+        self.assertIn('本次无法确认资料是否覆盖所问的全部内容，以下仅说明可核实的部分。', self.retriever.notes())
 
     def test_out_of_scope_decision_cannot_query_a_new_tea_type(self):
         self.decide.return_value = self.decision.model_copy(update={
@@ -159,7 +160,7 @@ class BoundedRagRetryTests(SimpleTestCase):
 
         self.decide.assert_not_called()
         self.recall.assert_called_once()
-
+        self.assertIn('本次无法确认资料是否覆盖所问的全部内容，以下仅说明可核实的部分。', self.retriever.notes())
 
     def test_full_context_does_not_evict_the_other_subjects_evidence(self):
         detailed = chunk(3, '红茶加工工艺另有拣剔和复火步骤。')

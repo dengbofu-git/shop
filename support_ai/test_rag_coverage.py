@@ -8,7 +8,7 @@ from django.test import SimpleTestCase
 from langchain_core.runnables import RunnableLambda
 
 from .business_grounding import make_answer_block, needs_model_review
-from .grounding import COVERAGE_PENDING, INSUFFICIENT, GroundingCoverageReview, KnowledgeDraft
+from .grounding import COVERAGE_PENDING, INSUFFICIENT, GroundingCoverageReview, GroundingReview, KnowledgeDraft
 from .planning import TaskStep
 from .tool_services import create_tool_handlers
 
@@ -36,7 +36,7 @@ class ScriptedModel:
             self.calls.append((schema, payload))
             if schema is KnowledgeDraft:
                 return {'claims': self.drafts}
-            if schema is GroundingCoverageReview:
+            if schema in (GroundingReview, GroundingCoverageReview):
                 return {'verdicts': [dict(claim_id=row['claim_id'], standalone=True, relevant=True,
                                           **self.annotate(row)) for row in payload['claims']]}
             raise AssertionError('Unexpected model stage')
@@ -83,6 +83,17 @@ class SemanticCoverageTests(SimpleTestCase):
                 self.assertEqual(data['grounding']['status'], 'verified' if supported else 'partial')
                 self.assertEqual(OOLONG['text'] in data['answer'], supported)
                 self.assertEqual(len(model.calls), 2)
+
+    def test_unconfirmed_coverage_keeps_verified_claim_and_displays_limitation(self):
+        note = '本次无法确认资料是否覆盖所问的全部内容，以下仅说明可核实的部分。'
+        red_claim = claim(RED, 'e1', '红茶的工艺包含揉捻和干燥。')
+        model = ScriptedModel([red_claim], lambda row: {'supported': True})
+        response = self.run_question(model, [RED], [note])
+        self.assertIn(red_claim['text'], make_answer_block(response)['text'])
+        self.assertIn(note, make_answer_block(response)['text'])
+        self.assertEqual(response['data']['grounding']['status'], 'partial')
+        self.assertEqual(response['unmet_requirements'], [note])
+        self.assertEqual(len(model.calls), 2)
 
     def test_no_evidence_keeps_fixed_abstention_with_no_model_calls(self):
         model = ScriptedModel([], lambda row: {})

@@ -15,6 +15,7 @@ from ai_storage.provenance import source_details, source_label
 
 INSUFFICIENT = '本次资料不足以支持可靠结论，暂不作具体说明。'
 COVERAGE_PENDING = 'RAG_COVERAGE_PENDING'
+COVERAGE_UNCONFIRMED = '本次无法确认资料是否覆盖所问的全部内容，以下仅说明可核实的部分。'
 # Knowledge documents are not a live source for a buyer's transactional facts.
 # General market statistics (e.g. import amounts) are not blocked by currency alone.
 BUSINESS_ASSERTION = re.compile(

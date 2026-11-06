@@ -48,7 +48,7 @@
 | logistics · 物流 | 0.1.2 | 本人买家、本店完整订单或平台显式权限读取物流；拒绝跨账号及商家混合单，已本地启用。 | [logistics](changelogs/logistics.md) |
 | supplier · 商家与结算 | 0.4.8 | 同店销售币种覆盖计数已本机加载，实际94笔历史未知币种排除数通过，原数据不回填。 | [supplier](changelogs/supplier.md) |
 | admin_panel · 平台运营 | 0.4.3 | CNY财务汇总排除历史未知和其他币种，保留订单数及角色/权限控制，已本地启用。 | [admin_panel](changelogs/admin_panel.md) |
-| support_ai · 智能客服 | 0.34.0 | 普通知识问答支持按证据缺口补查一轮，采用显式启用策略。 | [support_ai](changelogs/support_ai.md) |
+| support_ai · 智能客服 | 0.34.1 | 语义覆盖未确认时保留已核验结论并提示覆盖限制；补查仍默认关闭。 | [support_ai](changelogs/support_ai.md) |
 | ai_storage · AI 记忆与知识存储 | 0.8.2 | 单default事务、向量及7项专用OCR/视觉数据库测试在PG通过，Worker仅连接统一PostgreSQL。 | [ai_storage](changelogs/ai_storage.md) |
 | web · 页面与前端资源 | 0.39.0 | 合并付款入口和权威待付金额已本机加载；保留简洁提交文案，未发布生产。 | [web](changelogs/web.md) |
 | engagement · 站内咨询与商品评价 | 0.2.6 | 咨询／评价及并发在PG通过，旧源测试启动器移除。 | [engagement](changelogs/engagement.md) |

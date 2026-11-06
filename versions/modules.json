@@ -175,7 +175,7 @@
     },
     "support_ai": {
       "title": "智能客服",
-      "version": "0.34.0",
+      "version": "0.34.1",
       "paths": [
         "support_ai/",
         "docs/客服商品推荐设计.md",
