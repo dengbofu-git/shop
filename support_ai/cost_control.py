@@ -54,8 +54,10 @@ SCHEMA_STAGES = {
     'PurchaseEvidenceRepair': 'extraction',
     'SemanticPlan': 'planning', 'FiniteIntents': 'planning', 'DialogueResolution': 'planning',
     'RecommendationIntent': 'extraction', 'QueryTranslations': 'rewrite',
+    'KnowledgeRetryDecision': 'rewrite',
     'KnowledgeDraft': 'knowledge', 'TeaExplanation': 'knowledge',
-    'GroundingReview': 'verification', 'ComplianceVerdict': 'compliance',
+    'GroundingReview': 'verification', 'GroundingCoverageReview': 'verification',
+    'ComplianceVerdict': 'compliance',
 }
 
 
@@ -92,11 +94,11 @@ class RequestBudget:
         self.stages = {}
         self.stage_policy = {stage: stage_options(stage) for stage in STAGES}
 
-    def reserve(self, stage, input_bound, output_limit):
+    def reserve(self, stage, input_bound, output_limit, *, keep_calls=0, keep_input=0, keep_output=0):
         with self.lock:
-            remaining = self.policy.max_output_tokens - self.output_tokens - self.reserved_output
-            if (self.provider_overrun_calls or self.calls >= self.policy.max_calls or remaining <= 0 or
-                    self.input_tokens + self.reserved_input + input_bound > self.policy.max_input_tokens):
+            remaining = self.policy.max_output_tokens - self.output_tokens - self.reserved_output - keep_output
+            if (self.provider_overrun_calls or self.calls + keep_calls >= self.policy.max_calls or remaining <= 0 or
+                    self.input_tokens + self.reserved_input + input_bound + keep_input > self.policy.max_input_tokens):
                 self.rejected_calls += 1
                 raise ModelBudgetExceeded('Request model budget exhausted')
             allowance = min(output_limit, remaining)

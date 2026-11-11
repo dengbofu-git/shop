@@ -1,6 +1,7 @@
 """Trusted Django data service, used only behind the MCP protocol adapter."""
 import time
 
+from django.conf import settings
 from django.db import close_old_connections
 from django.utils import timezone
 from django.utils.dateparse import parse_datetime
@@ -195,6 +196,8 @@ class DataSession:
             if self.retriever is None:
                 self.retriever = KnowledgeRetriever(self.grant['owner_id'], self.config)
                 self.retriever.policy = QueryPolicy(**self.grant['query_policy'])
+                self.retriever.request_deadline = time.monotonic() + (self.grant['expires_at'] - time.time())
+            self.retriever.tool_deadline = time.monotonic() + settings.SUPPORT_MCP_CALL_TIMEOUT
             evidence = (self.retriever.scoped_search(args.query, args.category, args.scope)
                         if args.scope else self.retriever.search(args.query))
             return envelope(data={'evidence': evidence, 'notes': self.retriever.notes(), 'audit': self.retriever.audit})

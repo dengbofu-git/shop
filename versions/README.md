@@ -50,7 +50,7 @@
 | logistics · 物流 | 0.1.2 | 本人买家、本店完整订单或平台显式权限读取物流；拒绝跨账号及商家混合单，已本地启用。 | [logistics](changelogs/logistics.md) |
 | supplier · 商家与结算 | 0.4.8 | 同店销售币种覆盖计数已本机加载，实际94笔历史未知币种排除数通过，原数据不回填。 | [supplier](changelogs/supplier.md) |
 | admin_panel · 平台运营 | 0.4.3 | CNY财务汇总排除历史未知和其他币种，保留订单数及角色/权限控制，已本地启用。 | [admin_panel](changelogs/admin_panel.md) |
-| support_ai · 智能客服 | 0.36.0 | 自动账户偏好独立交付，迁移／人工屏障／软排序及有界worker验证见本轮证据。 | [support_ai](changelogs/support_ai.md) |
+| support_ai · 智能客服 | 0.36.1 | 保留主干语义补查开关及覆盖提示；自动账户偏好独立交付，迁移／人工屏障／软排序及有界worker验证见本轮证据。 | [support_ai](changelogs/support_ai.md) |
 | ai_storage · AI 记忆与知识存储 | 0.9.0 | 自动账户偏好独立交付，迁移／人工屏障／软排序及有界worker验证见本轮证据。 | [ai_storage](changelogs/ai_storage.md) |
 | web · 页面与前端资源 | 0.42.0 | 自动账户偏好独立交付，迁移／人工屏障／软排序及有界worker验证见本轮证据。 | [web](changelogs/web.md) |
 | engagement · 站内咨询与商品评价 | 0.2.6 | 咨询／评价及并发在PG通过，旧源测试启动器移除。 | [engagement](changelogs/engagement.md) |

@@ -18,7 +18,7 @@ from .conversation_tasks import (purchase_topic, apply_purchase_topic, without_r
 from .recommendation_presentation import format_product_reasons
 from .total_budget_intent import CURRENCY
 from .order_contracts import rule_order_query
-from .grounding import generate_grounded_answer
+from .grounding import COVERAGE_UNCONFIRMED, generate_grounded_answer, split_coverage_notes
 from .bundle_references import bundle_products
 
 
@@ -348,7 +348,13 @@ def create_tool_handlers(model, knowledge_search, message, resolved_question, hi
                  and resolved_question != message else step.request)
         evidence = knowledge_search(query) if knowledge_search else []
         notes = knowledge_notes() if knowledge_notes else []
-        data, sources = generate_grounded_answer(model, query, evidence, knowledge_context_chars)
+        targets, notes = split_coverage_notes(query, notes)
+        data, sources = generate_grounded_answer(model, query, evidence, knowledge_context_chars,
+                                                coverage_targets=targets)
+        if COVERAGE_UNCONFIRMED in notes and data['grounding']['claims']:
+            data['answer'] += '\n\n' + COVERAGE_UNCONFIRMED
+            data['grounding']['status'] = 'partial'
+        notes = [*notes, *data.get('evidence_limitations', ())]
         data.update(question=query, evidence_limitations=notes)
         return result(step, 'success' if data['grounding']['claims'] else 'no_match', data, sources=sources, unmet=notes)
 
