@@ -1,7 +1,7 @@
 {
-  "base": "0127466829e1c39c65de30f7cbdc244efdf3637c",
-  "postgresql_tests": 233,
-  "duration_seconds": 20.977,
+  "base": "0684929",
+  "postgresql_tests": 251,
+  "duration_seconds": 22.61,
   "django_check_issues": 0,
   "runtime_tests": 10,
   "frontend_tests": 3,
@@ -17,14 +17,20 @@
     "support_ai.test_bundle_optimizer",
     "support_ai.tests",
     "support_ai.test_mcp_data",
-    "support_ai.test_streaming"
+    "support_ai.test_streaming",
+    "support_ai.test_bounded_rag_retry",
+    "support_ai.test_rag_coverage"
   ],
-  "source_before_sha256": "847499c6ed3d33eac13ace0ad05b559bd85ec11902122b453577d534bcac757b",
-  "source_after_sha256": "847499c6ed3d33eac13ace0ad05b559bd85ec11902122b453577d534bcac757b",
+  "source_before_sha256": "1c5b975021db7c530390c6f822d09be739cdddab6bdf8a7a743f2fd28081c4c7",
+  "source_after_sha256": "1c5b975021db7c530390c6f822d09be739cdddab6bdf8a7a743f2fd28081c4c7",
   "fixture": "dedicated tmpfs PostgreSQL16; stdio synthetic MCP; LocMem; synthetic credentials",
   "business_database_touched": false,
   "real_model_calls": 0,
   "temporary_database_and_container_removed": true,
   "historical_migrations_unchanged": true,
-  "auto_profile_migration_sha256": "07c4a7b77bce8bddb225038e61ae967ec70c903d0cfa5113947e3afef78fcbd1"
+  "auto_profile_migration_sha256": "07c4a7b77bce8bddb225038e61ae967ec70c903d0cfa5113947e3afef78fcbd1",
+  "initial_base": "0127466829e1c39c65de30f7cbdc244efdf3637c",
+  "initial_postgresql_tests": 233,
+  "source_files": 198,
+  "checked_code_commit": "8d422c7be9297962a1ddffeea4f8ee5565162bd6"
 }
