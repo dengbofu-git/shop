@@ -156,14 +156,16 @@ class DataSession:
         if tool in ('search_products', 'recommend_bundle'):
             history = self.context(user, conversation)
             memory = self.memory if self.memory_loaded else None
+            soft_dislikes = {field: memory['preferences'].get('disliked_' + field, [])
+                             for field in ('categories', 'brands', 'keywords')} if memory else None
             intent = validate_recommendation_intent(args.intent, self.grant['message'], history, memory, branch_rules=False)
             intent = validate_recommendation_branch(intent, tool='recommend_bundle' if tool == 'recommend_bundle' else 'recommend_products', limit=args.limit)
             if tool == 'recommend_bundle':
-                data = recommend_bundle(intent, category_scope=args.category_scope)
+                data = recommend_bundle(intent, category_scope=args.category_scope, soft_dislikes=soft_dislikes)
             elif args.options and args.options.mode == 'by_category':
-                data = match_product_groups(intent, args.options, category_scope=args.category_scope)
+                data = match_product_groups(intent, args.options, category_scope=args.category_scope, soft_dislikes=soft_dislikes)
             else:
-                data = match_products(intent, limit=args.limit)
+                data = match_products(intent, limit=args.limit, soft_dislikes=soft_dislikes)
             status = {'MATCHED':'success', 'PARTIAL':'success', 'NO_MATCH':'no_match', 'CLARIFY':'needs_clarification', 'ERROR':'error'}[data['recommendation_status']]
             return envelope(status, data)
         if tool == 'resolve_product':

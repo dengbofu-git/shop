@@ -1,10 +1,42 @@
 """Single Python 3.13 / Django 5.2 entry point for the local Web + warm MCP service."""
 import argparse
+import json
 import os
 from pathlib import Path
 import sys
 
 ROOT = Path(__file__).resolve().parents[2]
+
+
+def check_schema(*, profile=False):
+    """Read-only readiness; a worker cannot race ahead of reviewed migrations."""
+    from django.conf import settings
+    from django.core.management import call_command
+    from django.db import connections
+    from django.db.migrations.executor import MigrationExecutor
+    if profile:
+        from ai_storage.database import alias as ai_alias
+        if (set(connections) != {'default'} or ai_alias() != 'default'
+                or connections['default'].vendor != 'postgresql'):
+            raise RuntimeError('Profile worker requires one default PostgreSQL connection')
+    call_command('check')
+    for alias in connections:
+        connection = connections[alias]
+        try:
+            with connection.cursor() as cursor:
+                cursor.execute('SELECT 1')
+                assert cursor.fetchone()[0] == 1
+            executor = MigrationExecutor(connection)
+            executor.loader.check_consistent_history(connection)
+            plan = executor.migration_plan(executor.loader.graph.leaf_nodes())
+            if plan:
+                pending = ', '.join(f'{migration.app_label}.{migration.name}' for migration, _ in plan)
+                raise RuntimeError(
+                    f'Database {alias} has unapplied migrations: {pending}. '
+                    'Runtime preflight is read-only; apply reviewed migrations separately before restart.'
+                )
+        finally:
+            connection.close()
 
 
 def main():
@@ -16,7 +48,10 @@ def main():
     parser.add_argument('--addrport', default='127.0.0.1:8000')
     parser.add_argument('--mcp-port', type=int, default=18082)
     parser.add_argument('--mcp-workers', type=int, default=2)
-    parser.add_argument('--check', action='store_true')
+    mode = parser.add_mutually_exclusive_group()
+    mode.add_argument('--check', action='store_true')
+    mode.add_argument('--profile-status', action='store_true')
+    mode.add_argument('--profile-worker', action='store_true')
     args = parser.parse_args()
     if sys.version_info[:2] != (3, 13):
         parser.error('Python 3.13 is required; no legacy runtime fallback is supported.')
@@ -37,27 +72,18 @@ def main():
         parser.error('Django 5.2 is required.')
     django.setup()
     from django.core.management import call_command
-    if args.check:
-        call_command('check')
-        from django.db import connections
-        from django.db.migrations.executor import MigrationExecutor
-        for alias in connections:
-            connection = connections[alias]
-            try:
-                with connection.cursor() as cursor:
-                    cursor.execute('SELECT 1')
-                    assert cursor.fetchone()[0] == 1
-                executor = MigrationExecutor(connection)
-                executor.loader.check_consistent_history(connection)
-                plan = executor.migration_plan(executor.loader.graph.leaf_nodes())
-                if plan:
-                    pending = ', '.join(f'{migration.app_label}.{migration.name}' for migration, _ in plan)
-                    raise RuntimeError(
-                        f'Database {alias} has unapplied migrations: {pending}. '
-                        'Runtime preflight is read-only; apply reviewed migrations separately before restart.'
-                    )
-            finally:
-                connection.close()
+    if args.profile_status:
+        from django.conf import settings
+        print(json.dumps({'enabled': bool(getattr(settings, 'SUPPORT_AUTO_PROFILE_ENABLED', False))}), flush=True)
+    elif args.profile_worker:
+        from django.conf import settings
+        if not getattr(settings, 'SUPPORT_AUTO_PROFILE_ENABLED', False):
+            raise RuntimeError('Automatic profile worker is disabled')
+        check_schema(profile=True)
+        print('TEA_SAAS_PROFILE_WORKER_READY', flush=True)
+        call_command('profile_worker')
+    elif args.check:
+        check_schema()
         print('Python 3.13 / Django 5.2 checks, database connectivity and migration readiness passed.', flush=True)
     else:
         call_command('run_support_backend', addrport=args.addrport,

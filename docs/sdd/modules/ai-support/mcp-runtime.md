@@ -17,7 +17,7 @@
 | 工具 | 数据职责 |
 | --- | --- |
 | get_conversation_context | 本人已保存咨询的有界模型历史、商品及方案引用，验证浏览器选定方案 |
-| get_saved_preferences | 本人显式长期偏好；普通推荐可选，明确要求使用偏好时必要 |
+| get_saved_preferences | 本人正负六字段偏好投影；普通推荐可选，明确要求使用偏好时必要；不返回私有来源／审计 |
 | validate_categories | 固定分类存在性判断，不返回整张分类表 |
 | search_products | 经过来源校验的普通／分组推荐，复用后端筛选和排序 |
 | recommend_bundle | 总价组合、整数分计算、实时金额／数量复核 |

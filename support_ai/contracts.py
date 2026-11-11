@@ -26,8 +26,11 @@ class Preferences(Contract):
     categories: List[str] = Field(default_factory=list, max_length=5)
     brands: List[str] = Field(default_factory=list, max_length=5)
     keywords: List[str] = Field(default_factory=list, max_length=5)
+    disliked_categories: List[str] = Field(default_factory=list, max_length=5)
+    disliked_brands: List[str] = Field(default_factory=list, max_length=5)
+    disliked_keywords: List[str] = Field(default_factory=list, max_length=5)
 
-    @field_validator('categories', 'brands', 'keywords')
+    @field_validator('categories', 'brands', 'keywords', 'disliked_categories', 'disliked_brands', 'disliked_keywords')
     @classmethod
     def safe_terms(cls, values):
         result = []
@@ -38,6 +41,15 @@ class Preferences(Contract):
             if value not in result:
                 result.append(value)
         return result
+
+    @model_validator(mode='after')
+    def no_conflicting_preferences(self):
+        from .profile_contracts import normalized_key
+        for kind, field in (('category', 'categories'), ('brand', 'brands'), ('keyword', 'keywords')):
+            if ({normalized_key(kind, v) for v in getattr(self, field)}
+                    & {normalized_key(kind, v) for v in getattr(self, 'disliked_' + field)}):
+                raise ValueError('同一项不能同时设为喜欢和不喜欢')
+        return self
 
 
 class QueryConditions(Contract):

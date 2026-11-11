@@ -121,3 +121,7 @@ class KnowledgePage(models.Model):
     class Meta:
         constraints = [models.UniqueConstraint(fields=['document', 'number'], name='ai_page_number_unique')]
         ordering = ['number']
+
+
+# Registered separately to keep preference work independent of knowledge models.
+from .profile_models import BuyerPreferenceState, PreferenceAudit, PreferenceUpdateJob  # noqa: E402,F401

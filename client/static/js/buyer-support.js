@@ -10,7 +10,10 @@
     var preferenceFields = {
         categories: document.getElementById('bs-pref-categories'),
         brands: document.getElementById('bs-pref-brands'),
-        keywords: document.getElementById('bs-pref-keywords')
+        keywords: document.getElementById('bs-pref-keywords'),
+        disliked_categories: document.getElementById('bs-pref-disliked-categories'),
+        disliked_brands: document.getElementById('bs-pref-disliked-brands'),
+        disliked_keywords: document.getElementById('bs-pref-disliked-keywords')
     };
     var labels = { recommendation: '商品推荐', recommendation_explanation: '推荐理由', question_answering: '咨询问答', product_details: '商品详情', after_sales: '售后服务', clarification: '补充信息', multi_intent: '多任务', unavailable: '其他问题' };
     var storageKey = 'support-conversation:' + (AuthStorage.getUser() || '');

@@ -26,7 +26,7 @@
                 </div>
                 <details class="bs-preferences" open>
                     <summary>长期购买偏好设置（可收起）</summary>
-                    <p>只保存您主动填写的偏好，用于推荐排序。本轮明确要求优先于偏好；预算不会自动保存。留空表示没有偏好。</p>
+                    <p>偏好用于推荐排序，本轮明确要求优先。启用自动维护后，也会参考您明确表达的日常喜好和已完成购买；不会自动保存预算。您可以随时编辑或清除。</p>
                     <form id="bs-preferences-form">
                         <label for="bs-pref-categories">分类偏好（如红茶，最多 5 项）</label>
                         <input id="bs-pref-categories" maxlength="205" placeholder="多个分类用逗号分隔">
@@ -34,6 +34,12 @@
                         <input id="bs-pref-brands" maxlength="205" placeholder="多个品牌用逗号分隔">
                         <label for="bs-pref-keywords">商品名称偏好</label>
                         <input id="bs-pref-keywords" maxlength="205" placeholder="商品名称中的关键词，用逗号分隔">
+                        <label for="bs-pref-disliked-categories">不偏好的分类（最多 5 项）</label>
+                        <input id="bs-pref-disliked-categories" maxlength="205" placeholder="用于降低推荐顺序，不会强制排除">
+                        <label for="bs-pref-disliked-brands">不偏好的品牌</label>
+                        <input id="bs-pref-disliked-brands" maxlength="205" placeholder="多个品牌用逗号分隔">
+                        <label for="bs-pref-disliked-keywords">不偏好的商品关键词</label>
+                        <input id="bs-pref-disliked-keywords" maxlength="205" placeholder="多个词用逗号分隔">
                         <div class="bs-preference-actions">
                             <button type="submit">保存偏好</button>
                             <button type="button" id="bs-clear-preferences">清除偏好</button>
@@ -86,6 +92,6 @@
         <button type="button" id="bs-history-delete" role="menuitem"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 6h18M9 6V3h6v3M5 6l1 15h12l1-15M10 10v7M14 10v7"/></svg>移出列表</button>
     </div>
     <script src="/static/js/buyer-support-stream.js?v=20261029-unified"></script>
-    <script src="/static/js/buyer-support.js?v=20261102-history-menu"></script>
+    <script src="/static/js/buyer-support.js?v=20261111-account-preferences"></script>
 </body>
 </html>

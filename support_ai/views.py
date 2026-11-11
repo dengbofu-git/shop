@@ -8,6 +8,7 @@ from functools import wraps
 from django.conf import settings
 from django.db import DatabaseError, InterfaceError
 from django.http import JsonResponse
+from django.utils import timezone
 from django.views.decorators.http import require_POST
 from django.views.decorators.http import require_http_methods
 
@@ -79,6 +80,7 @@ def _buyer(request):
 
 
 def _prepare_chat(request):
+    profile_source_at = timezone.now()  # Server receipt, before model/tool latency.
     user, error = _buyer(request)
     if error is not None:
         return error
@@ -111,7 +113,8 @@ def _prepare_chat(request):
         return _response({'error': '会话 ID、请求 ID 或修订号无效。'}, 400)
     request_hash = hashlib.sha256(json.dumps(body, ensure_ascii=False, sort_keys=True).encode('utf-8')).hexdigest()
     return dict(user=user, message=message, selection=selection, request_id=request_id,
-                conversation_id=conversation_id, expected=expected, request_hash=request_hash)
+                conversation_id=conversation_id, expected=expected, request_hash=request_hash,
+                profile_source_at=profile_source_at)
 
 
 @require_POST
@@ -154,7 +157,8 @@ def _chat_json(prepared):
             response = dict(fixed['response'], pii_redacted=fixed.get('pii_redacted', False))
             progress('saving')
             response = commit_turn(user, conversation, revision, request_id, request_hash,
-                                   fixed['safe_message'], response)
+                                   fixed['safe_message'], response,
+                                   profile_source_at=prepared.get('profile_source_at'))
             return _response(response, 200)
     except StreamCancelled:
         return _response({'error':'本轮连接已关闭。','error_code':'CANCELLED','retryable':True},499)
@@ -209,6 +213,7 @@ def _chat_json(prepared):
                 user, conversation, revision, request_id, request_hash, safe_message, response,
                 order_id=order_query_context.selected_order_id if order_query_context.binding_changed else None,
                 order_page=order_query_context.pending_order_page,
+                profile_source_at=prepared.get('profile_source_at'),
             )
     except StreamCancelled:
         return _response({'error':'本轮连接已关闭。','error_code':'CANCELLED','retryable':True},499)
@@ -263,16 +268,23 @@ def preferences(request):
         record = saved_preferences(user)
         return _response({'preferences': record['preferences'] if record else Preferences().model_dump()}, 200)
     if request.method == 'DELETE':
-        BuyerMemory.objects.filter(owner_id=user.pk).delete()
-        return _response({'preferences': Preferences().model_dump()}, 200)
-    if len(request.body) > 3000:
+        from ai_storage.profile_service import manual_preferences
+        return _response({'preferences': manual_preferences(user, delete=True)}, 200)
+    if len(request.body) > 8192:
         return _response({'error': '偏好内容过长。'}, 413)
     try:
-        values = Preferences.model_validate(json.loads(request.body)).model_dump()
+        submitted = json.loads(request.body)
+        parsed = Preferences.model_validate(submitted)
+        values = parsed.model_dump(include=parsed.model_fields_set)
     except (ValueError, TypeError, ValidationError):
         return _response({'error': '请填写分类、品牌或商品名称偏好，每项最多 5 个、每个最多 40 字，不含个人信息。'}, 400)
-    BuyerMemory.objects.update_or_create(owner_id=user.pk, defaults={'preferences': values})
-    return _response({'preferences': values}, 200)
+    from ai_storage.profile_service import manual_preferences
+    try:
+        return _response({'preferences': manual_preferences(user, values)}, 200)
+    except ValueError as exc:
+        if str(exc) == 'profile_capacity':
+            return _response({'error': '偏好档案已达容量上限，请联系管理员处理。', 'error_code': 'PROFILE_CAPACITY'}, 409)
+        return _response({'error': '偏好内容无效或正负偏好重复，请检查后重试。'}, 400)
 
 
 @require_http_methods(['GET'])
