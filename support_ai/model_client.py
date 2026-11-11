@@ -24,9 +24,10 @@ class SupportChatOpenAI(ChatOpenAI):
 class AgentModel(Runnable):
     """DeepSeek thinking rejects forced tool_choice; use schema-guided JSON there."""
 
-    def __init__(self, client, thinking):
+    def __init__(self, client, thinking, grounding_context_chars=0):
         self.client = client
         self.thinking = thinking
+        self.grounding_context_chars = grounding_context_chars
 
     def invoke(self, input, config=None, **kwargs):
         return self._invoke_stage(input, config, None, **kwargs)
@@ -46,7 +47,15 @@ class AgentModel(Runnable):
         configured_cap = self.client.max_tokens
         if configured_cap is not None:
             cap = min(cap, configured_cap)
-        reservation = budget.reserve(stage, input_upper_bound(prompt, schema), cap)
+        # Leave capacity for a draft and an independent source review.
+        held = {}
+        if self.grounding_context_chars and stage == 'rewrite':
+            held = {
+                'keep_calls': 2,
+                'keep_input': 5 * self.grounding_context_chars + 8192,
+                'keep_output': budget.stage_policy['knowledge'][1] + budget.stage_policy['verification'][1],
+            }
+        reservation = budget.reserve(stage, input_upper_bound(prompt, schema), cap, **held)
         usage = None
         try:
             progress({'planning':'planning','verification':'verification','compliance':'compliance',
@@ -81,7 +90,7 @@ class AgentModel(Runnable):
             budget.settle(reservation, usage)
 
 
-def configured_model(config=None, *, timeout=None, max_retries=0, max_tokens=None):
+def configured_model(config=None, *, timeout=None, max_retries=0, max_tokens=None, grounding_context_chars=0):
     if not settings.SUPPORT_API_KEY:
         raise RuntimeError('SUPPORT_API_KEY 未配置')
     thinking = config.thinking if config else settings.SUPPORT_THINKING
@@ -105,7 +114,7 @@ def configured_model(config=None, *, timeout=None, max_retries=0, max_tokens=Non
         options['callbacks'] = callbacks
     if thinking:
         options['extra_body'] = {'thinking': {'type': thinking}}
-    return AgentModel(SupportChatOpenAI(**options), thinking)
+    return AgentModel(SupportChatOpenAI(**options), thinking, grounding_context_chars)
 
 
 def lazy_configured_model(config):

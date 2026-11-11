@@ -13,6 +13,7 @@ from django.db import connections
 
 from ai_storage.models import KnowledgeRevision
 from ai_storage.knowledge import hybrid_search_ready
+from .retry_decision import SEMANTIC_RETRY_REVISION
 from .telemetry import agent_span
 
 
@@ -41,7 +42,7 @@ def write(key, value):
         pass  # A cache outage cannot change tool availability.
 
 
-def evidence_key(query, owner_id, config, policy):
+def evidence_key(query, owner_id, config, policy, *, mode='ordinary'):
     connection = connections[ai_db_alias()]
     if (connection.vendor != 'postgresql' or connection.in_atomic_block
             or not getattr(settings, 'SUPPORT_RAG_CACHE_ENABLED', True)):
@@ -51,7 +52,8 @@ def evidence_key(query, owner_id, config, policy):
     # Do not catch DB errors and serve stale data. Epoch lookup is mandatory.
     epoch = KnowledgeRevision.objects.using(ai_db_alias()).get(pk=1).revision
     database = connection.settings_dict
-    return cache_key('evidence', [query, owner_id, epoch,
+    # Evidence decisions are versioned separately from reusable embeddings.
+    return cache_key('evidence', [query, owner_id, epoch, mode, SEMANTIC_RETRY_REVISION,
         [database.get(k) for k in ('HOST', 'PORT', 'NAME')],
         asdict(config) if is_dataclass(config) else vars(config), asdict(policy),
         settings.AI_EMBEDDING_SPACE_KEY, settings.AI_OLLAMA_MODEL, settings.AI_OLLAMA_REVISION,

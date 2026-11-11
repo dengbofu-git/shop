@@ -9,6 +9,7 @@ from django.conf import settings
 from langchain_core.prompts import ChatPromptTemplate
 from pydantic import BaseModel, ConfigDict, Field
 
+from .cost_control import option
 from .pii import redact
 
 
@@ -120,6 +121,7 @@ class QueryPolicy:
     budget_seconds: float = 25.0
     weak_score: float = 0.1
     languages: tuple = ('zh', 'en')
+    semantic_retry_enabled: bool = False
 
     @classmethod
     def current(cls):
@@ -129,6 +131,7 @@ class QueryPolicy:
             max_model_calls=max(0, min(1, getattr(settings, 'SUPPORT_RAG_REWRITE_CALLS', 1))),
             model_timeout=max(1, min(10, getattr(settings, 'SUPPORT_RAG_REWRITE_TIMEOUT', 5.0))),
             retry_enabled=getattr(settings, 'SUPPORT_RAG_RETRY_ENABLED', True),
+            semantic_retry_enabled=str(option('SUPPORT_RAG_SEMANTIC_RETRY_ENABLED', False)).lower() == 'true',
             budget_seconds=max(5, min(60, getattr(settings, 'SUPPORT_RAG_BUDGET_SECONDS', 25.0))),
             weak_score=max(0, min(1, getattr(settings, 'SUPPORT_RAG_WEAK_SCORE', 0.1))),
             languages=tuple(language for language in ('zh', 'en', 'ar')
