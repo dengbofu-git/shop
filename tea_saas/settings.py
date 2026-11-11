@@ -215,6 +215,9 @@ SUPPORT_MCP_PRIVATE_ROOT = BASE_DIR / '.scratch' / 'agent-mcp'
 # Request-local RAG expansion. Operational model/reranker settings still come
 # from AgentConfiguration; these bounded pipeline switches need no DB migration.
 SUPPORT_RAG_QUERY_ENABLED = os.getenv('SUPPORT_RAG_QUERY_ENABLED', 'true').lower() == 'true'
+# Automatic account preference updates require the new schema and a worker.
+# Never opt a running environment into model calls through a code update.
+SUPPORT_AUTO_PROFILE_ENABLED = os.getenv('SUPPORT_AUTO_PROFILE_ENABLED', 'false').lower() == 'true'
 SUPPORT_RAG_QUERY_LANGUAGES = tuple(v.strip() for v in os.getenv('SUPPORT_RAG_QUERY_LANGUAGES', 'zh,en').split(',') if v.strip())
 SUPPORT_RAG_MAX_QUERIES = int(os.getenv('SUPPORT_RAG_MAX_QUERIES', '4'))
 SUPPORT_RAG_REWRITE_CALLS = int(os.getenv('SUPPORT_RAG_REWRITE_CALLS', '1'))

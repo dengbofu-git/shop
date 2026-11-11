@@ -69,7 +69,7 @@ def product_cards(selected, intent=None):
                 reasons.append('商品名称包含指定关键词')
             if intent.required.price_basis == 'unit' and (intent.required.price_min is not None or intent.required.price_max is not None):
                 reasons.append('单价符合已确认预算（按人民币基础价核算）')
-            if getattr(item, 'preference_score', 0):
+            if getattr(item, 'preference_score', 0) > 0:
                 reasons.append('匹配部分偏好')
         reasons.append('当前上架且有可用库存')
         facts = {}
@@ -88,7 +88,7 @@ def product_cards(selected, intent=None):
     return cards
 
 
-def ranked_products(intent, *, unit_prices=True):
+def ranked_products(intent, *, unit_prices=True, soft_dislikes=None):
     """Shared hard filters and soft scores; total budgets never become SKU floors."""
     # An existing inventory ledger is authoritative. SKU.stock is a legacy fallback
     # only when there is no ledger; reserved/exhausted ledger stock cannot be revived.
@@ -116,12 +116,20 @@ def ranked_products(intent, *, unit_prices=True):
             score = score + Case(When(_match(field, terms), then=Value(3)), default=Value(0), output_field=IntegerField())
     for term in intent.preferred.keywords:
         score = score + Case(When(_keyword(term), then=Value(1)), default=Value(0), output_field=IntegerField())
+    # Account dislikes are ranking hints. Explicit request filters still decide
+    # eligibility; these scores never remove a product satisfying that request.
+    for name, field in (('categories', 'spu__catalog__name'), ('brands', 'spu__brand__name')):
+        terms = (soft_dislikes or {}).get(name, [])
+        if terms:
+            score = score - Case(When(_match(field, terms), then=Value(3)), default=Value(0), output_field=IntegerField())
+    for term in (soft_dislikes or {}).get('keywords', []):
+        score = score - Case(When(_keyword(term), then=Value(1)), default=Value(0), output_field=IntegerField())
     return products.annotate(preference_score=score).order_by(
         '-preference_score', '-is_recommended', '-sales', 'id'
     )
 
 
-def match_products(intent, limit=4):
+def match_products(intent, limit=4, *, soft_dislikes=None):
     if type(limit) is not int or not 1 <= limit <= 4:
         raise ValueError('Recommendation limit must be 1 to 4')
     if intent.action == 'CLARIFY':
@@ -131,7 +139,7 @@ def match_products(intent, limit=4):
                                   for field in intent.missing_fields)}
     if intent.required.price_basis == 'total':
         raise ValueError('Total budgets require recommend_bundle')
-    selected = list(ranked_products(intent)[:limit])
+    selected = list(ranked_products(intent, soft_dislikes=soft_dislikes)[:limit])
     cards = product_cards(selected, intent)
     if not cards:
         return {'recommendation_status': 'NO_MATCH', 'recommendations': [],
@@ -143,13 +151,13 @@ def match_products(intent, limit=4):
     return {'recommendation_status': 'MATCHED', 'recommendations': cards, 'answer': '\n'.join(lines)}
 
 
-def match_product_groups(intent, options, category_scope=None):
+def match_product_groups(intent, options, category_scope=None, *, soft_dislikes=None):
     options = RecommendationOptions.model_validate(options)
     if options.clarification:
         return {'recommendation_status': 'CLARIFY', 'recommendations': [], 'recommendation_groups': [],
                 'answer': options.clarification}
     if intent.action == 'CLARIFY':
-        return dict(match_products(intent), recommendation_groups=[])
+        return dict(match_products(intent, soft_dislikes=soft_dislikes), recommendation_groups=[])
     canonical = lambda value: CATEGORY_ALIASES.get(value.casefold(), value)
     required = list(dict.fromkeys(canonical(v) for v in intent.required.categories))
     if category_scope is not None:
@@ -173,7 +181,7 @@ def match_product_groups(intent, options, category_scope=None):
         # Server-owned grouping is applied only after provenance validation of
         # the original intent. All other hard/excluded filters remain intact.
         try:
-            data = match_products(scoped, limit=options.per_category_limit)
+            data = match_products(scoped, limit=options.per_category_limit, soft_dislikes=soft_dislikes)
             status = 'success' if data['recommendations'] else 'no_match'
             selected = data['recommendations']
         except Exception as exc:

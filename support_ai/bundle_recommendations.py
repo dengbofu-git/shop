@@ -19,9 +19,9 @@ def money(value):
     return format(Decimal(value) / 100, '.2f')
 
 
-def _candidate(item):
+def _candidate(item, score_offset=0):
     return Candidate(item.pk, item.spu_id, item.spu.catalog.name, cents(item.price),
-                     item.available_stock, item.preference_score)
+                     item.available_stock, item.preference_score + score_offset)
 
 
 def _candidates(query, budget_cents, quantity, required_categories):
@@ -54,7 +54,7 @@ def _candidates(query, budget_cents, quantity, required_categories):
     return selected, truncated
 
 
-def recommend_bundle(intent, *, category_scope=None):
+def recommend_bundle(intent, *, category_scope=None, soft_dislikes=None):
     """Called only after the application has validated intent provenance."""
     intent = validate_recommendation_branch(canonicalize_total_budget(intent), tool='recommend_bundle')
     empty = {'recommendations': [], 'recommendation_bundles': []}
@@ -94,14 +94,20 @@ def recommend_bundle(intent, *, category_scope=None):
     minimum_quantity = quantity if quantity is not None else 1
     scoped = intent.model_copy(deep=True)
     scoped.required.categories = categories
-    query = ranked_products(scoped, unit_prices=False).filter(
+    query = ranked_products(scoped, unit_prices=False, soft_dislikes=soft_dislikes).filter(
         price__gt=0, price__lte=Decimal(budget) / (100 * minimum_quantity), available_stock__gte=minimum_quantity)
     selected, truncated = _candidates(query, budget, minimum_quantity, categories)
     preference_max = (3 * bool(intent.preferred.categories) + 3 * bool(intent.preferred.brands)
                       + len(intent.preferred.keywords))
+    # The existing optimizer requires nonnegative preference scores. A common
+    # offset preserves relative soft ranking and does not filter disliked SKUs.
+    score_offset = (3 * bool((soft_dislikes or {}).get('categories'))
+                    + 3 * bool((soft_dislikes or {}).get('brands'))
+                    + len((soft_dislikes or {}).get('keywords', [])))
+    preference_max += score_offset
 
     def search(rows):
-        return search_bundles([_candidate(p) for p in rows], budget_cents=budget, minimum_cents=minimum,
+        return search_bundles([_candidate(p, score_offset) for p in rows], budget_cents=budget, minimum_cents=minimum,
                               categories=categories, quantity=quantity, distinct_count=count,
                               minimum_distinct=2 if hard.composition == 'multiple' else 1,
                               preference_max=preference_max, prefer_near=hard.budget_mode in ('near', 'exact'))

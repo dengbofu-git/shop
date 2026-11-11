@@ -1,5 +1,7 @@
 # tea_saas当前模块版本清单
 
+2026-11-11自动账户偏好独立交付：默认关闭，支持明确聊天增量、真实完成采购、人工正负六字段编辑及删除屏障。此PR不包含其他未提交的独立任务、精准导航、RAG或支付改动；[交付验证](../docs/sdd/evidence/2026-11-11-automatic-account-preferences/verification.md)与[先前本机启用](../docs/sdd/evidence/2026-11-11-automatic-account-preferences-activation/verification.md)分开记录。
+
 2026-11-04 CI连接生命周期后续：support_ai0.32.6及goods0.7.7／supplier0.4.8／engagement0.2.6显式释放结束线程的数据库连接。3项强引用PG回归先RED再GREEN，流式相关18项通过；完整回归及远端状态见[证据](../docs/sdd/evidence/2026-11-04-ci-stream-connections/verification.md)。无迁移、业务库写入或服务重启。
 
 2026-11-04 CI后续：ai_storage0.8.2仅修复数据库夹具契约与可选PDF依赖的测试边界，完整PG准入继续验证，不跳过该契约。无业务或运行配置改变，无需迁移或重启；见[验证](../docs/sdd/evidence/2026-11-04-ci-pdf-fixture/verification.md)。
@@ -37,7 +39,7 @@
 
 | 模块 | 当前版本 | 当前核对状态 | 完整变更记录 |
 | --- | --- | --- | --- |
-| core · 项目核心 | 0.18.0 | 结算组／冷却配置和迁移预检已在本机加载，唯一运行源及PG健康核验通过。 | [core](changelogs/core.md) |
+| core · 项目核心 | 0.20.3 | 自动账户偏好独立交付，迁移／人工屏障／软排序及有界worker验证见本轮证据。 | [core](changelogs/core.md) |
 | users · 用户与权限 | 0.4.4 | 登录Hash计数修复随最新版加载，Redis故障降级保留；无真实账号登录写入验收。 | [users](changelogs/users.md) |
 | goods · 商品管理 | 0.7.7 | 种子命令使用PG库名及集群身份守卫；导入并发在PG通过。 | [goods](changelogs/goods.md) |
 | carts · 购物车 | 0.4.1 | 快照在写入前复核本次选择上限；已有消费游标、故障重试及新加购保留均回归通过。 | [carts](changelogs/carts.md) |
@@ -48,9 +50,9 @@
 | logistics · 物流 | 0.1.2 | 本人买家、本店完整订单或平台显式权限读取物流；拒绝跨账号及商家混合单，已本地启用。 | [logistics](changelogs/logistics.md) |
 | supplier · 商家与结算 | 0.4.8 | 同店销售币种覆盖计数已本机加载，实际94笔历史未知币种排除数通过，原数据不回填。 | [supplier](changelogs/supplier.md) |
 | admin_panel · 平台运营 | 0.4.3 | CNY财务汇总排除历史未知和其他币种，保留订单数及角色/权限控制，已本地启用。 | [admin_panel](changelogs/admin_panel.md) |
-| support_ai · 智能客服 | 0.34.1 | 语义覆盖未确认时保留已核验结论并提示覆盖限制；补查仍默认关闭。 | [support_ai](changelogs/support_ai.md) |
-| ai_storage · AI 记忆与知识存储 | 0.8.2 | 单default事务、向量及7项专用OCR/视觉数据库测试在PG通过，Worker仅连接统一PostgreSQL。 | [ai_storage](changelogs/ai_storage.md) |
-| web · 页面与前端资源 | 0.39.0 | 合并付款入口和权威待付金额已本机加载；保留简洁提交文案，未发布生产。 | [web](changelogs/web.md) |
+| support_ai · 智能客服 | 0.36.2 | 保留主干语义补查开关及覆盖提示；自动账户偏好独立交付，迁移／人工屏障／软排序及有界worker验证见本轮证据。 | [support_ai](changelogs/support_ai.md) |
+| ai_storage · AI 记忆与知识存储 | 0.9.1 | 自动账户偏好独立交付，迁移／人工屏障／软排序及有界worker验证见本轮证据。 | [ai_storage](changelogs/ai_storage.md) |
+| web · 页面与前端资源 | 0.42.0 | 自动账户偏好独立交付，迁移／人工屏障／软排序及有界worker验证见本轮证据。 | [web](changelogs/web.md) |
 | engagement · 站内咨询与商品评价 | 0.2.6 | 咨询／评价及并发在PG通过，旧源测试启动器移除。 | [engagement](changelogs/engagement.md) |
 
 买家评价仅从“我的订单”的对应商品进入，查看／提交绑定该订单商品；不提供独立“我的评价”导航和跨订单评价列表。

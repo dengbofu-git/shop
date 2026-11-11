@@ -5,6 +5,7 @@ from ai_storage.database import alias as ai_db_alias
 import json
 from datetime import timedelta
 
+from django.conf import settings
 from django.db import DatabaseError, InterfaceError, connections, transaction
 from django.utils import timezone
 
@@ -62,7 +63,11 @@ def _preference_connection_failure(exc):
 def saved_preferences(user):
     for attempt in range(2):
         try:
-            record = BuyerMemory.objects.filter(owner_id=user.pk).first()
+            from ai_storage.profile_service import read_preferences
+            record = read_preferences(user)
+            if record is not None:
+                record['preferences'] = Preferences.model_validate(record['preferences']).model_dump()
+            return record
             break
         except (DatabaseError, InterfaceError) as exc:
             stale, configuration = _preference_connection_failure(exc)
@@ -73,10 +78,6 @@ def saved_preferences(user):
                 connection.close()
                 continue
             raise PreferenceStorageUnavailable(configuration) from exc
-    if record is None:
-        return None
-    data = Preferences.model_validate(record.preferences).model_dump()
-    return {'id': 'preference:{}:{}'.format(record.pk, record.updated_at.isoformat()), 'preferences': data}
 
 
 def recent_context(conversation):
@@ -233,7 +234,8 @@ def replay(user, request_id, request_hash):
 
 
 @transaction.atomic
-def commit_turn(user, conversation, revision, request_id, request_hash, message, response, order_id=None, order_page=None):
+def commit_turn(user, conversation, revision, request_id, request_hash, message, response, order_id=None,
+                order_page=None, profile_source_at=None):
     # Serialize only the short commit, including retries of a first/new conversation.
     UserProfile.objects.select_for_update().get(pk=user.pk)
     existing = replay(user, request_id, request_hash)
@@ -257,9 +259,13 @@ def commit_turn(user, conversation, revision, request_id, request_hash, message,
     current.save(update_fields=fields)
     from .pii import redact_value
     result = dict(redact_value(response), conversation_id=str(current.pk), revision=current.revision, request_id=str(request_id))
-    SupportTurn.objects.create(conversation=current, user=user, request_id=request_id, request_hash=request_hash,
+    turn = SupportTurn.objects.create(conversation=current, user=user, request_id=request_id, request_hash=request_hash,
                                sequence=current.revision, user_text=redact(message), answer=result['answer'],
                                intent=result['intent'], response=result)
+    # Durable same-database outbox; extraction happens only after this commits.
+    if getattr(settings, 'SUPPORT_AUTO_PROFILE_ENABLED', False):
+        from ai_storage.profile_service import enqueue_chat
+        enqueue_chat(turn, source_at=profile_source_at)
     if order_page is not None:
         from .order_page import publish
         transaction.on_commit(lambda: publish(user.pk, current.pk, current.revision, order_page))

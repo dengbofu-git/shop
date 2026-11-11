@@ -83,7 +83,7 @@ modules:
   capabilityIds:
   - CAP-KNOW-001
   - CAP-KNOW-002
-  boundary: 显式买家偏好、知识可见范围、向量空间、召回及重排序。
+  boundary: 买家显式及受控自动软偏好、知识可见范围、向量空间、召回及重排序。
 - id: MOD-PLAT
   slug: platform
   name: 平台与交互支撑
@@ -433,7 +433,7 @@ capabilities:
     deploymentStatus: unverified
 - id: CAP-KNOW-001
   moduleId: MOD-KNOW
-  name: 买家显式偏好管理
+  name: 买家账户偏好维护与受控自动更新
   priority: P2
   sourceFeatureIds:
   - FEAT-020

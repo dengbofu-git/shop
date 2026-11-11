@@ -144,10 +144,10 @@ class GroupedRecommendationTests(TestCase):
         self.assertIn('红茶：暂无符合条件', '\n'.join(data['unmet_requirements']))
 
     def test_partial_group_error_keeps_other_results(self):
-        def query(intent, limit):
+        def query(intent, limit, *, soft_dislikes=None):
             if intent.required.categories == ['红茶']:
                 raise RuntimeError('sensitive exception content')
-            return match_products(intent, limit)
+            return match_products(intent, limit, soft_dislikes=soft_dislikes)
         with patch('support_ai.recommendations.match_products', side_effect=query):
             result = self.run_tool()
         self.assertEqual(result.status, 'success')
