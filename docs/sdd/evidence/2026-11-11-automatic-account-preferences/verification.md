@@ -4,8 +4,8 @@
 
 ## 范围
 
-- ai_storage 0.9.0：账户状态、持久任务、审计及0005迁移，BuyerMemory按需兼容投影。
-- support_ai 0.36.1：同事务outbox、逐轮明确喜恶提取、真实完成采购快照、来源时间和人工屏障、正负偏好软排序。
+- ai_storage 0.9.1：账户状态、持久任务、审计及0005迁移，BuyerMemory按需兼容投影。
+- support_ai 0.36.2：同事务outbox、逐轮明确喜恶提取、真实完成采购快照、来源时间和人工屏障、正负偏好软排序。
 - web 0.42.0：六字段查看／编辑／清除。
 - core 0.20.3：默认关闭设置，统一预览入口管理唯一偏好后台。
 
@@ -42,3 +42,13 @@ python -X utf8 -B manage.py test ai_storage.test_auto_profiles support_ai.test_p
 主干同步：提交前基线0127466；推送前远端已前进到0684929（PR36有界知识补查）。正常merge保留双方实现，版本文档冲突保留两边记录；依Hook要求对集成后的support_ai升至0.36.1。最终合并树额外加入`support_ai.test_bounded_rag_retry support_ai.test_rag_coverage`，共251/251通过，22.610秒，Django检查0。198份源码前后摘要一致`1c5b975021db7c530390c6f822d09be739cdddab6bdf8a7a743f2fd28081c4c7`；原233项记录保留初始树含义，不与251项相加。启动器10项和前端3项对应文件在合并中未变化，复用其验证。完整44文件门禁及24项Python/JS语法检查通过。
 
 最终隔离回归首次在临时数据库准备阶段碰到PostgreSQL初始化Unix socket就绪竞态，尚未执行用例且资源已回收。只将私有runner探针改为容器内TCP后，在新的专属实例全部通过；未修改应用源码或掩盖业务失败。
+
+## 首轮远端集成与测试适配
+
+PR37首轮Git policy通过；完整Django CI运行1012项，4失败、2错误、11跳过。4失败是偏好读取测试仍Mock旧Manager过滤接缝，未命中新服务；分组查询替身不接收新增soft_dislikes关键字使各组都失败；旧迁移测试finally硬恢复0004，移除0005三表，导致后续迁移数据竞争测试缺表。
+
+仅适配三处测试：读取重试Mock新的read_preferences接缝；分组替身接受并转发soft_dislikes；隔离升级测试finally恢复进入前完整迁移叶子。原重试次数／atomic边界、部分故障隔离及历史升级断言均保留，不跳过测试。support_ai0.36.2、ai_storage0.9.1记录测试集成变化，产品实现及历史迁移保持。最终适配后验证另行追加，不将首轮失败报作通过。
+
+只读诊断还确认既有MCP全分类同时失败时ERROR响应缺完整错误字段的路径，初始主干已存在；本次测试替身的签名失配暴露了它。本PR恢复原“单类失败、其余类仍成功”测试意图，不在交付阶段扩展修复该业务错误响应，作为后续项保留。
+
+测试适配最终验证：原14模块加`support_ai.test_preference_recovery support_ai.test_grouped_recommendations ai_storage.test_hybrid_search ai_storage.test_transfer_safety`，18模块同一进程281/281通过，28.182秒、Django检查0。迁移finally及后续数据竞争测试联合通过，198份源码前后摘要一致`aa14ce98a9d50e92b4fb768702c1e1985bb1e1f1bba095d34059470af944faab`。专用测试库和容器已回收，无业务库或真实模型请求。旧251和233只保留对应时点，不累加；远端复跑结果以PR检查为准。

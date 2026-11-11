@@ -14,13 +14,13 @@ def failure(code):
 class PreferenceReadRecoveryTests(TestCase):
     def read(self, errors, atomic=False):
         connection=SimpleNamespace(in_atomic_block=atomic,close=Mock())
-        with patch('support_ai.context.connections',{ai_db_alias():connection}), patch('support_ai.context.BuyerMemory.objects.filter',side_effect=errors) as query:
+        with patch('support_ai.context.connections',{ai_db_alias():connection}), patch('ai_storage.profile_service.read_preferences',side_effect=errors) as query:
             try:result=saved_preferences(SimpleNamespace(pk=1))
             except PreferenceStorageUnavailable as exc:result=exc
         return result,query,connection
 
     def test_known_transport_break_reconnects_once_then_reads(self):
-        result,query,connection=self.read([failure('08006'),Mock(first=lambda:None)])
+        result,query,connection=self.read([failure('08006'),None])
         self.assertIsNone(result);self.assertEqual(query.call_count,2);connection.close.assert_called_once_with()
 
     def test_configuration_failure_does_not_retry_or_hide_missing_memory(self):

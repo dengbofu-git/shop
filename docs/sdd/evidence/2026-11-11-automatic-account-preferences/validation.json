@@ -1,7 +1,7 @@
 {
   "base": "0684929",
-  "postgresql_tests": 251,
-  "duration_seconds": 22.61,
+  "postgresql_tests": 281,
+  "duration_seconds": 28.182,
   "django_check_issues": 0,
   "runtime_tests": 10,
   "frontend_tests": 3,
@@ -19,10 +19,14 @@
     "support_ai.test_mcp_data",
     "support_ai.test_streaming",
     "support_ai.test_bounded_rag_retry",
-    "support_ai.test_rag_coverage"
+    "support_ai.test_rag_coverage",
+    "support_ai.test_preference_recovery",
+    "support_ai.test_grouped_recommendations",
+    "ai_storage.test_hybrid_search",
+    "ai_storage.test_transfer_safety"
   ],
-  "source_before_sha256": "1c5b975021db7c530390c6f822d09be739cdddab6bdf8a7a743f2fd28081c4c7",
-  "source_after_sha256": "1c5b975021db7c530390c6f822d09be739cdddab6bdf8a7a743f2fd28081c4c7",
+  "source_before_sha256": "aa14ce98a9d50e92b4fb768702c1e1985bb1e1f1bba095d34059470af944faab",
+  "source_after_sha256": "aa14ce98a9d50e92b4fb768702c1e1985bb1e1f1bba095d34059470af944faab",
   "fixture": "dedicated tmpfs PostgreSQL16; stdio synthetic MCP; LocMem; synthetic credentials",
   "business_database_touched": false,
   "real_model_calls": 0,
@@ -32,5 +36,5 @@
   "initial_base": "0127466829e1c39c65de30f7cbdc244efdf3637c",
   "initial_postgresql_tests": 233,
   "source_files": 198,
-  "checked_code_commit": "8d422c7be9297962a1ddffeea4f8ee5565162bd6"
+  "pre_fixture_adaptation_postgresql_tests": 251
 }

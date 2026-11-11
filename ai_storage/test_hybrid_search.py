@@ -131,6 +131,7 @@ class HybridMigrationTests(TransactionTestCase):
         connection = connections[ai_db_alias()]
         # This connection is Django's disposable test DB, never the business DB.
         self.assertTrue(connection.settings_dict['NAME'].startswith('test_'))
+        current_app_leaves = MigrationExecutor(connection).loader.graph.leaf_nodes('ai_storage')
         try:
             MigrationExecutor(connection).migrate([('ai_storage', '0003_pdf_import_pipeline')])
             old = MigrationExecutor(connection).loader.project_state([('ai_storage', '0003_pdf_import_pipeline')]).apps
@@ -152,4 +153,4 @@ class HybridMigrationTests(TransactionTestCase):
             MigrationExecutor(connection).migrate([('ai_storage', '0004_hybrid_search')])
             self.assertEqual(len(search_knowledge_keywords('CTC', None)), 1)
         finally:
-            MigrationExecutor(connection).migrate([('ai_storage', '0004_hybrid_search')])
+            MigrationExecutor(connection).migrate(current_app_leaves)
